@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { gotoApp } from './helpers';
 
 /**
  * Giriş sonrası ana sayfaların içerik testleri.
@@ -18,10 +19,9 @@ const PAGES = [
   { path: '/analytics', heading: 'Analytics' },
 ];
 
-/** Sayfaya git ve SPA'nın render olmasını bekle. */
+/** Sayfaya git (ortak gotoApp yardımcısı ile). */
 async function openPage(page, path) {
-  await page.goto(path, { waitUntil: 'commit' });
-  await page.waitForLoadState('domcontentloaded').catch(() => {});
+  await gotoApp(page, path);
 }
 
 test.describe('Vomenta - Sayfa içerikleri (girişli)', () => {

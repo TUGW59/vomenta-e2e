@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { gotoApp } from './helpers';
 
 /**
  * Settings sayfası testleri (girişli, salt-okunur).
@@ -9,8 +10,7 @@ import { test, expect } from '@playwright/test';
 const TABS = ['Organization', 'Users', 'Billing & Usage', 'Security', 'API Keys', 'Modules'];
 
 async function openSettings(page) {
-  await page.goto('/settings', { waitUntil: 'commit' });
-  await page.waitForLoadState('domcontentloaded').catch(() => {});
+  await gotoApp(page, '/settings');
   await expect(
     page.getByRole('heading', { name: 'Settings', exact: true })
   ).toBeVisible({ timeout: 30000 });

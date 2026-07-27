@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { login } from './helpers';
 
 /**
  * Çıkış (logout) akışı testi.
@@ -17,13 +18,7 @@ test.describe('Vomenta - Çıkış (logout)', () => {
     test.skip(!email || !password, 'VOMENTA_EMAIL / VOMENTA_PASSWORD .env içinde tanımlı değil');
 
     // Taze giriş
-    await page.goto('/');
-    await page.getByLabel('Email address').fill(String(email));
-    await page.getByLabel('Password').fill(String(password));
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await expect(
-      page.getByRole('heading', { name: 'Welcome back' })
-    ).toBeHidden({ timeout: 30000 });
+    await login(page, String(email), String(password));
 
     // Kullanıcı menüsünü aç ve çıkış yap
     const userMenu = page.getByRole('button', { name: 'User menu' });

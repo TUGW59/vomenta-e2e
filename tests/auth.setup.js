@@ -1,5 +1,6 @@
 // @ts-check
-import { test as setup, expect } from '@playwright/test';
+import { test as setup } from '@playwright/test';
+import { login } from './helpers';
 
 const authFile = 'playwright/.auth/user.json';
 
@@ -22,15 +23,6 @@ setup('kimlik doğrula', async ({ page }) => {
     );
   }
 
-  await page.goto('/');
-  await page.getByLabel('Email address').fill(email);
-  await page.getByLabel('Password').fill(password);
-  await page.getByRole('button', { name: 'Log in' }).click();
-
-  // Giriş başarılıysa "Welcome back" başlığı kaybolur (login sayfasından ayrılırız).
-  await expect(
-    page.getByRole('heading', { name: 'Welcome back' })
-  ).toBeHidden({ timeout: 20000 });
-
+  await login(page, email, password);
   await page.context().storageState({ path: authFile });
 });

@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { gotoApp } from './helpers';
 
 /**
  * Giriş sonrası (authenticated) Vomenta panel testleri.
@@ -76,8 +77,7 @@ test.describe('Vomenta - Giriş sonrası panel', () => {
 test.describe('Vomenta - Sayfalara doğrudan erişim (oturum korunuyor)', () => {
   for (const item of NAV_ITEMS.filter((i) => i.path !== '/')) {
     test(`${item.path} doğrudan açılıyor`, async ({ page }) => {
-      await page.goto(item.path, { waitUntil: 'commit' });
-      await page.waitForLoadState('domcontentloaded').catch(() => {});
+      await gotoApp(page, item.path);
       await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeHidden();
       expect(page.url()).toContain(item.path);
     });

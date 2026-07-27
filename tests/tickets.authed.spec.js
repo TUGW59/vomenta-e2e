@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { gotoApp } from './helpers';
 
 /**
  * Tickets sayfası veri/tablo etkileşim testleri (girişli, salt-okunur).
@@ -7,8 +8,7 @@ import { test, expect } from '@playwright/test';
  */
 
 async function openTickets(page) {
-  await page.goto('/tickets', { waitUntil: 'commit' });
-  await page.waitForLoadState('domcontentloaded').catch(() => {});
+  await gotoApp(page, '/tickets');
   await expect(page.getByRole('table')).toBeVisible({ timeout: 30000 });
   // İlk veri satırının numara hücresi dolana kadar bekle (skeleton/loading değil).
   await expect(
