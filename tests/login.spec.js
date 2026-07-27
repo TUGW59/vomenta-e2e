@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { severeA11yViolations } from './helpers';
 
 /**
  * Vomenta giriş (login) sayfası testleri.
@@ -65,5 +66,10 @@ test.describe('Vomenta - Giriş sayfası', () => {
   test("'Sign up' linki kayıt sayfasına gidiyor", async ({ page }) => {
     await page.getByRole('link', { name: 'Sign up' }).click();
     await expect(page).toHaveURL(/\/register$/);
+  });
+
+  test('erişilebilirlik: bilinen borç dışında ciddi/kritik a11y ihlali yok', async ({ page }) => {
+    const severe = await severeA11yViolations(page);
+    expect(severe.map((v) => `${v.id} (${v.impact})`)).toEqual([]);
   });
 });

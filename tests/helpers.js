@@ -1,9 +1,29 @@
 // @ts-check
 import { expect } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
 
 /**
  * Ortak test yardımcıları.
  */
+
+/**
+ * Uygulamada MEVCUT (bilinen) a11y borcu — bu kurallar regresyon kontrolünden hariç tutulur.
+ * color-contrast: birçok sayfada düşük renk kontrastı.
+ * button-name: bazı ikon-butonlarda erişilebilir isim eksik.
+ * Not: Bunlar gerçek iyileştirme fırsatlarıdır; hariç tutmak yeni ihlalleri yakalamayı sürdürür.
+ */
+export const A11Y_KNOWN_DEBT = ['color-contrast', 'button-name'];
+
+/**
+ * Sayfayı axe ile tarar; bilinen borç DIŞINDaki ciddi/kritik ihlalleri döndürür.
+ * @param {import('@playwright/test').Page} page
+ */
+export async function severeA11yViolations(page) {
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  return results.violations.filter(
+    (v) => ['critical', 'serious'].includes(v.impact) && !A11Y_KNOWN_DEBT.includes(v.id)
+  );
+}
 
 /**
  * SPA sayfasına sağlam şekilde git.
