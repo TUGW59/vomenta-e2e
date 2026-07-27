@@ -72,4 +72,14 @@ test.describe('Vomenta - Giriş sayfası', () => {
     const severe = await severeA11yViolations(page);
     expect(severe.map((v) => `${v.id} (${v.impact})`)).toEqual([]);
   });
+
+  test('görsel: giriş sayfası anlık görüntüsü değişmedi', async ({ page }) => {
+    // Görsel baseline'lar işletim sistemine bağlı; yerelde (macOS) üretilenler CI'daki
+    // Linux ile eşleşmez. CI için ayrı baseline üretilene kadar CI'da atlanır.
+    test.skip(!!process.env.CI, 'Görsel baseline yerelde üretildi; CI (Linux) için ayrı baseline gerekir');
+    await expect(page).toHaveScreenshot('login-page.png', {
+      fullPage: true,
+      maxDiffPixels: 150,
+    });
+  });
 });
