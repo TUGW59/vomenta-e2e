@@ -1,65 +1,42 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
-import { gotoApp } from './helpers';
+import { ContactsPage } from './pages/ContactsPage';
 
 /**
  * Contacts sayfası veri/tablo etkileşim testleri (girişli, salt-okunur).
  * Veri değiştiren işlemler (Add Contact / Import) TEST EDİLMEZ.
  */
-
-async function openContacts(page) {
-  await gotoApp(page, '/contacts');
-  await expect(page.getByRole('table')).toBeVisible({ timeout: 30000 });
-  // İlk veri satırının ad hücresi dolana kadar bekle (skeleton/loading değil).
-  await expect(
-    page.getByRole('row').nth(1).getByRole('cell').nth(1)
-  ).toHaveText(/\S/, { timeout: 30000 });
-}
-
-const COLUMNS = ['Name', 'Email', 'Phone', 'Company', 'Tags', 'Owner', 'Last Contact'];
-
 test.describe('Vomenta - Contacts (tablo & arama)', () => {
   test('tablo beklenen kolonları gösteriyor', async ({ page }) => {
-    await openContacts(page);
-    for (const col of COLUMNS) {
-      await expect(
-        page.getByRole('columnheader', { name: col, exact: true })
-      ).toBeVisible();
+    const contacts = new ContactsPage(page);
+    await contacts.open();
+    for (const col of ContactsPage.COLUMNS) {
+      await expect(contacts.column(col)).toBeVisible();
     }
   });
 
   test('en az bir kişi listeleniyor', async ({ page }) => {
-    await openContacts(page);
-    // Satır sayısı = başlık + en az 1 veri satırı
-    expect(await page.getByRole('row').count()).toBeGreaterThan(1);
+    const contacts = new ContactsPage(page);
+    await contacts.open();
+    expect(await contacts.rows.count()).toBeGreaterThan(1);
   });
 
-  test('arama: eşleşmeyen sorgu boş-durum ("No contacts found") gösteriyor', async ({ page }) => {
-    await openContacts(page);
-    const search = page.getByPlaceholder(/Search by name/);
-    await expect(search).toBeVisible();
-
-    await search.fill('zzz_no_match_xyz');
-    await expect(page.getByText('No contacts found')).toBeVisible({ timeout: 15000 });
-    // (Aramanın tersine çalışması "ada göre filtreliyor" testinde pozitif olarak doğrulanır.)
+  test('arama: eşleşmeyen sorgu "No contacts found" gösteriyor', async ({ page }) => {
+    const contacts = new ContactsPage(page);
+    await contacts.open();
+    await contacts.searchFor('zzz_no_match_xyz');
+    await expect(contacts.emptyState).toBeVisible({ timeout: 15000 });
   });
 
   test('arama: mevcut bir kişiyi ada göre filtreliyor', async ({ page }) => {
-    await openContacts(page);
-    const rows = page.getByRole('row');
-    await expect(rows.nth(1)).toBeVisible();
+    const contacts = new ContactsPage(page);
+    await contacts.open();
 
-    // İlk kişinin ad hücresinden en uzun kelimeyi arama terimi olarak al (veriden bağımsız).
-    const nameText = (await rows.nth(1).getByRole('cell').nth(1).innerText())
-      .replace(/\s+/g, ' ')
-      .trim();
-    const token = nameText.split(' ').sort((a, b) => b.length - a.length)[0];
+    const token = await contacts.firstNameToken();
     expect(token, 'ad hücresinden bir arama terimi çıkarılabilmeli').toBeTruthy();
 
-    const search = page.getByPlaceholder(/Search by name/);
-    await search.fill(token);
-
-    await expect(page.getByText('No contacts found')).toBeHidden();
-    await expect(page.getByRole('table').getByText(token, { exact: false }).first()).toBeVisible();
+    await contacts.searchFor(token);
+    await expect(contacts.emptyState).toBeHidden();
+    await expect(contacts.table.getByText(token, { exact: false }).first()).toBeVisible();
   });
 });

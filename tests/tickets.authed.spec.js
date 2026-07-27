@@ -1,76 +1,58 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
-import { gotoApp } from './helpers';
+import { TicketsPage } from './pages/TicketsPage';
 
 /**
  * Tickets sayfası veri/tablo etkileşim testleri (girişli, salt-okunur).
  * Veri değiştiren işlemler (Create Ticket / Export) TEST EDİLMEZ.
  */
-
-async function openTickets(page) {
-  await gotoApp(page, '/tickets');
-  await expect(page.getByRole('table')).toBeVisible({ timeout: 30000 });
-  // İlk veri satırının numara hücresi dolana kadar bekle (skeleton/loading değil).
-  await expect(
-    page.getByRole('row').nth(1).getByRole('cell').first()
-  ).toHaveText(/\S/, { timeout: 30000 });
-}
-
-const COLUMNS = ['Ticket #', 'Subject', 'Customer', 'Priority', 'Status', 'Assigned To', 'Created'];
-const TABS = ['All', 'My Tickets', 'Unassigned', 'Urgent'];
-
 test.describe('Vomenta - Tickets (tablo, sekme & arama)', () => {
   test('tablo beklenen kolonları gösteriyor', async ({ page }) => {
-    await openTickets(page);
-    for (const col of COLUMNS) {
-      await expect(
-        page.getByRole('columnheader', { name: col, exact: true })
-      ).toBeVisible();
+    const tickets = new TicketsPage(page);
+    await tickets.open();
+    for (const col of TicketsPage.COLUMNS) {
+      await expect(tickets.column(col)).toBeVisible();
     }
   });
 
   test('sekmeler (All / My Tickets / Unassigned / Urgent) görünüyor', async ({ page }) => {
-    await openTickets(page);
-    for (const tab of TABS) {
-      await expect(page.getByRole('tab', { name: tab, exact: true })).toBeVisible();
+    const tickets = new TicketsPage(page);
+    await tickets.open();
+    for (const name of TicketsPage.TABS) {
+      await expect(tickets.tab(name)).toBeVisible();
     }
   });
 
   test('en az bir ticket listeleniyor', async ({ page }) => {
-    await openTickets(page);
-    expect(await page.getByRole('row').count()).toBeGreaterThan(1);
+    const tickets = new TicketsPage(page);
+    await tickets.open();
+    expect(await tickets.rows.count()).toBeGreaterThan(1);
   });
 
   test('arama: ticket numarasına göre tek sonuca filtreliyor', async ({ page }) => {
-    await openTickets(page);
-    const rows = page.getByRole('row');
-    await expect(rows.nth(1)).toBeVisible();
+    const tickets = new TicketsPage(page);
+    await tickets.open();
 
-    // İlk ticket'ın numarasını al (ör. "T-0003") ve onunla ara.
-    const id = (await rows.nth(1).getByRole('cell').first().innerText()).trim();
+    const id = await tickets.firstTicketId();
     expect(id, 'ilk satırdan bir ticket numarası okunabilmeli').toBeTruthy();
 
-    const search = page.getByPlaceholder(/Search tickets/);
-    await search.fill(id);
-
-    // Benzersiz numara -> yalnızca o ticket görünmeli (başlık + 1 satır).
-    await expect(rows).toHaveCount(2);
+    await tickets.searchFor(id);
+    await expect(tickets.rows).toHaveCount(2); // başlık + 1 eşleşme
     await expect(page.getByRole('cell', { name: id, exact: true })).toBeVisible();
   });
 
   test('sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor', async ({ page }) => {
-    await openTickets(page);
-    await page.getByRole('tab', { name: 'Unassigned', exact: true }).click();
-    // Filtre sonrası tablo hâlâ görünür ve (mevcut veride) atanmamış ticketlar listelenir.
-    await expect(page.getByRole('table')).toBeVisible();
+    const tickets = new TicketsPage(page);
+    await tickets.open();
+    await tickets.tab('Unassigned').click();
+    await expect(tickets.table).toBeVisible();
     await expect(page.getByRole('cell', { name: 'Unassigned' }).first()).toBeVisible();
   });
 
   test('arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor', async ({ page }) => {
-    await openTickets(page);
-    const search = page.getByPlaceholder(/Search tickets/);
-    await expect(search).toBeVisible();
-    await search.fill('zzz_no_match_xyz');
-    await expect(page.getByText('No tickets found')).toBeVisible({ timeout: 15000 });
+    const tickets = new TicketsPage(page);
+    await tickets.open();
+    await tickets.searchFor('zzz_no_match_xyz');
+    await expect(tickets.emptyState).toBeVisible({ timeout: 15000 });
   });
 });
