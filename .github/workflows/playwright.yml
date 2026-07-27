@@ -31,9 +31,10 @@ jobs:
 
       - name: Testleri çalıştır
         env:
+          BASE_URL: https://app.vomenta.com
           VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
           VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
-        run: npx playwright test
+        run: npm run test:e2e
 
       - name: HTML raporunu yükle
         uses: actions/upload-artifact@v4

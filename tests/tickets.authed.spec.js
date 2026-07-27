@@ -65,4 +65,12 @@ test.describe('Vomenta - Tickets (tablo, sekme & arama)', () => {
     await expect(page.getByRole('table')).toBeVisible();
     await expect(page.getByRole('cell', { name: 'Unassigned' }).first()).toBeVisible();
   });
+
+  test('arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor', async ({ page }) => {
+    await openTickets(page);
+    const search = page.getByPlaceholder(/Search tickets/);
+    await expect(search).toBeVisible();
+    await search.fill('zzz_no_match_xyz');
+    await expect(page.getByText('No tickets found')).toBeVisible({ timeout: 15000 });
+  });
 });

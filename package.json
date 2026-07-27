@@ -1,13 +1,26 @@
 {
-  "name": "test-o",
+  "name": "vomenta-e2e",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
+  "private": true,
+  "description": "Vomenta için Playwright uçtan uca test paketi",
+  "scripts": {
+    "test": "npm run test:smoke",
+    "test:smoke": "playwright test tests/login.spec.js --project=chromium",
+    "test:auth": "playwright test --project=chromium-authed",
+    "test:e2e": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug --project=chromium",
+    "test:list": "playwright test --list",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
     "@playwright/test": "^1.62.0",
     "@types/node": "^26.1.1",
