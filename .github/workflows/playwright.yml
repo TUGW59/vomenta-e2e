@@ -1,0 +1,44 @@
+name: Playwright Tests
+
+# Vomenta E2E testleri. Testler CANLI uygulamaya (https://app.vomenta.com) karşı çalışır.
+# Giriş bilgileri GitHub Secrets'tan gelir (repo Settings > Secrets and variables > Actions):
+#   VOMENTA_EMAIL, VOMENTA_PASSWORD
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch: # Actions sekmesinden elle tetikleme
+
+jobs:
+  test:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Bağımlılıkları kur
+        run: npm ci
+
+      - name: Playwright tarayıcılarını kur
+        run: npx playwright install --with-deps
+
+      - name: Testleri çalıştır
+        env:
+          VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+          VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+        run: npx playwright test
+
+      - name: HTML raporunu yükle
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

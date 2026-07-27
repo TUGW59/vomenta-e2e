@@ -1,0 +1,15 @@
+
+# Playwright
+node_modules/
+.env
+
+# macOS
+.DS_Store
+
+# Claude Code yerel ayarları
+.claude/settings.local.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
