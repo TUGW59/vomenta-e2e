@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { gotoApp, severeA11yViolations } from './helpers';
+import { test, expect } from './fixtures/test.js';
+import { gotoApp, severeA11yViolations, waitForUiToSettle } from './helpers.js';
 
 /**
  * Erişilebilirlik (a11y) regresyon testleri — girişli ana sayfalar.
@@ -19,8 +19,7 @@ test.describe('Vomenta - Erişilebilirlik (a11y)', () => {
   for (const p of PAGES) {
     test(`${p.name}: bilinen borç dışında ciddi/kritik a11y ihlali yok`, async ({ page }) => {
       await gotoApp(page, p.path);
-      // İçeriğin render olması için kısa bekleme.
-      await page.waitForTimeout(2500);
+      await waitForUiToSettle(page);
 
       const severe = await severeA11yViolations(page);
       // Hata olursa hangi kuralların eklendiğini gösterir.

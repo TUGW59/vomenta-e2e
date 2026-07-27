@@ -1,62 +1,38 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { gotoApp } from './helpers';
+import { test, expect } from './fixtures/test.js';
+import { MAIN_NAVIGATION } from './contracts/navigation.js';
+import { gotoApp } from './helpers.js';
 
 /**
  * Giriş sonrası (authenticated) Vomenta panel testleri.
  * Kayıtlı oturumu (playwright/.auth/user.json) kullanır — bkz. auth.setup.js.
  */
 
-// Kenar menüsündeki ana gezinme öğeleri (isim -> yol)
-const NAV_ITEMS = [
-  { name: 'Dashboard', path: '/' },
-  { name: 'Inbox', path: '/inbox' },
-  { name: 'Voice', path: '/voice' },
-  { name: 'Channels', path: '/channels' },
-  { name: 'AI', path: '/ai' },
-  { name: 'Campaigns', path: '/campaigns' },
-  { name: 'Bot Builder', path: '/bot-builder' },
-  { name: 'Contacts', path: '/contacts' },
-  { name: 'Tickets', path: '/tickets' },
-  { name: 'Analytics', path: '/analytics' },
-  { name: 'Reports', path: '/reports' },
-  { name: 'Supervisor', path: '/supervisor' },
-  { name: 'Workforce', path: '/workforce' },
-  { name: 'Settings', path: '/settings' },
-];
-
 test.describe('Vomenta - Giriş sonrası panel', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ app, page }) => {
     await page.goto('/');
-    // SPA'nın render olmasını bekle (kenar menüsü görünene kadar).
-    await page.locator('nav').first().waitFor({ state: 'visible', timeout: 30000 });
+    await app.shell.expectReady();
   });
 
-  test('oturum geçerli — giriş formu görünmüyor', async ({ page }) => {
+  test('oturum geçerli — giriş formu görünmüyor @smoke', async ({ page }) => {
     await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeHidden();
     await expect(page.getByLabel('Password')).toBeHidden();
   });
 
-  test('panel (Dashboard) ve kullanıcı adı görünüyor', async ({ page }) => {
+  test('panel ve kullanıcı menüsü görünüyor @smoke @critical', async ({ app, page }) => {
     await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Tuğçe Topuz' })).toBeVisible();
+    await expect(app.shell.userMenu).toBeVisible();
   });
 
-  test('kenar menüsü tüm ana bölümleri içeriyor', async ({ page }) => {
-    const nav = page.locator('nav').first();
-    for (const item of NAV_ITEMS) {
-      await expect(
-        nav.getByRole('link', { name: item.name, exact: true })
-      ).toBeVisible();
+  test('kenar menüsü tüm ana bölümleri içeriyor @critical', async ({ app }) => {
+    for (const item of MAIN_NAVIGATION) {
+      await expect(app.shell.link(item.name)).toBeVisible();
     }
   });
 
-  test('menü linkleri doğru href değerlerine sahip', async ({ page }) => {
-    const nav = page.locator('nav').first();
-    for (const item of NAV_ITEMS) {
-      await expect(
-        nav.getByRole('link', { name: item.name, exact: true })
-      ).toHaveAttribute('href', item.path);
+  test('menü linkleri doğru href değerlerine sahip', async ({ app }) => {
+    for (const item of MAIN_NAVIGATION) {
+      await expect(app.shell.link(item.name)).toHaveAttribute('href', item.path);
     }
   });
 
@@ -75,7 +51,7 @@ test.describe('Vomenta - Giriş sonrası panel', () => {
  * (ör. /voice -> /voice/live), bu yüzden URL'nin istenen yolu İÇERMESİNİ bekleriz.
  */
 test.describe('Vomenta - Sayfalara doğrudan erişim (oturum korunuyor)', () => {
-  for (const item of NAV_ITEMS.filter((i) => i.path !== '/')) {
+  for (const item of MAIN_NAVIGATION.filter((i) => i.path !== '/')) {
     test(`${item.path} doğrudan açılıyor`, async ({ page }) => {
       await gotoApp(page, item.path);
       await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeHidden();

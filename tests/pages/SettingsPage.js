@@ -1,21 +1,21 @@
 // @ts-check
 import { expect } from '@playwright/test';
-import { gotoApp } from '../helpers';
+import { BasePage } from './BasePage.js';
 
 /**
  * Settings sayfası nesnesi (Page Object).
  */
-export class SettingsPage {
+export class SettingsPage extends BasePage {
   static TABS = ['Organization', 'Users', 'Billing & Usage', 'Security', 'API Keys', 'Modules'];
 
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
-    this.page = page;
+    super(page, '/settings');
     this.heading = page.getByRole('heading', { name: 'Settings', exact: true });
   }
 
   async open() {
-    await gotoApp(this.page, '/settings');
+    await super.open();
     await expect(this.heading).toBeVisible({ timeout: 30000 });
   }
 

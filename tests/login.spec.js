@@ -1,18 +1,18 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { severeA11yViolations } from './helpers';
+import { test, expect } from './fixtures/test.js';
+import { environment } from '../config/environment.js';
+import { severeA11yViolations } from './helpers.js';
 
 /**
  * Vomenta giriş (login) sayfası testleri.
- * baseURL playwright.config.js içinde https://app.vomenta.com olarak ayarlıdır,
- * bu yüzden page.goto('/') doğrudan giriş sayfasını açar.
+ * baseURL merkezi ortam yapılandırmasından gelir; page.goto('/') giriş sayfasını açar.
  */
 test.describe('Vomenta - Giriş sayfası', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+  test.beforeEach(async ({ app }) => {
+    await app.login.open();
   });
 
-  test('doğru sayfa başlığı ile yükleniyor', async ({ page }) => {
+  test('doğru sayfa başlığı ile yükleniyor @smoke @public', async ({ page }) => {
     await expect(page).toHaveTitle(/Vomenta/i);
   });
 
@@ -25,7 +25,7 @@ test.describe('Vomenta - Giriş sayfası', () => {
     ).toBeVisible();
   });
 
-  test('giriş formu tüm temel alanları içeriyor', async ({ page }) => {
+  test('giriş formu tüm temel alanları içeriyor @smoke @public', async ({ page }) => {
     await expect(page.getByLabel('Email address')).toBeVisible();
     await expect(page.getByLabel('Password')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Log in' })).toBeVisible();
@@ -76,7 +76,7 @@ test.describe('Vomenta - Giriş sayfası', () => {
   test('görsel: giriş sayfası anlık görüntüsü değişmedi', async ({ page }) => {
     // Görsel baseline'lar işletim sistemine bağlı; yerelde (macOS) üretilenler CI'daki
     // Linux ile eşleşmez. CI için ayrı baseline üretilene kadar CI'da atlanır.
-    test.skip(!!process.env.CI, 'Görsel baseline yerelde üretildi; CI (Linux) için ayrı baseline gerekir');
+    test.skip(environment.isCI, 'Görsel baseline yerelde üretildi; CI (Linux) için ayrı baseline gerekir');
     await expect(page).toHaveScreenshot('login-page.png', {
       fullPage: true,
       maxDiffPixels: 150,

@@ -4,6 +4,13 @@ Bu depo, Vomenta web uygulamasının kritik kullanıcı akışlarını gerçek b
 tarayıcıda otomatik olarak kontrol eder. Testler şu anda canlı ortamı hedefler;
 `BASE_URL` ile farklı bir test ortamına yönlendirilebilir.
 
+Detaylı tasarım, katman sorumlulukları ve yeni test standardı:
+[docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md).
+90 günlük uygulama planı ve ölçülebilir kalite hedefleri:
+[docs/QUALITY_ROADMAP.md](docs/QUALITY_ROADMAP.md).
+Depoda çalışan herkes için bağlayıcı kurallar:
+[AGENTS.md](AGENTS.md) ve [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## İlk kurulum
 
 Gereksinimler: Node.js 20 veya üzeri ve npm.
@@ -24,6 +31,12 @@ oturum dosyaları Git'e eklenmez.
 # Hızlı başlangıç: Chromium'da giriş ekranı kontrolleri
 npm test
 
+# Chromium'da girişli smoke testleri
+npm run test:smoke:auth
+
+# Müşteri/operasyon açısından kritik testler
+npm run test:critical
+
 # Chromium'da giriş gerektiren uygulama testleri
 npm run test:auth
 
@@ -38,6 +51,9 @@ npm run test:debug
 
 # Son HTML raporunu açma
 npm run test:report
+
+# Mimari kurallar + tüm testlerin yüklenmesi
+npm run quality:check
 ```
 
 Tek bir dosya veya test de çalıştırılabilir:
@@ -47,14 +63,16 @@ npx playwright test tests/tickets.authed.spec.js --project=chromium-authed
 npx playwright test -g "komut paleti" --project=chromium-authed
 ```
 
-## Yapı
+## Mimari
 
-- `playwright.config.js`: ortam adresi, tarayıcılar, raporlar ve tekrar denemeler.
-- `tests/login.spec.js`: giriş gerektirmeyen kontroller.
-- `tests/auth.setup.js`: bir kez giriş yapar ve geçici oturum kaydı üretir.
-- `tests/*.authed.spec.js`: kayıtlı test oturumuyla çalışan girişli senaryolar.
-- `tests/helpers.js`: ortak gezinme ve giriş yardımcıları.
-- `.github/workflows/playwright.yml`: her push ve pull request'te çalışan CI süreci.
+- `config/environment.js`: ortam, rol, timeout ve production güvenlik politikası.
+- `tests/fixtures/test.js`: uygulama, API ve güvenlik fixture'larının tek giriş noktası.
+- `tests/pages/`: ortak kabuk ve feature Page Object'ları.
+- `tests/contracts/`: ürünün görünür navigasyon gibi test sözleşmeleri.
+- `tests/data/`: paralel çalışmaya uygun benzersiz veri fabrikaları.
+- `tests/api/`: veri hazırlama/temizleme için korumalı API erişimi.
+- `tests/*.spec.js`: yalnızca kullanıcı davranışını anlatan senaryolar.
+- `.github/workflows/playwright.yml`: PR smoke, main critical ve gece regresyonu.
 
 ## Ekip standardı
 
@@ -68,6 +86,12 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 5. Kimlik bilgileri ve `playwright/.auth/` içeriği commit edilmemelidir.
 6. Bir özellik tamamlanmış sayılmadan önce en az `npm test`, kritik akışlarda
    ayrıca `npm run test:auth` çalıştırılmalıdır.
+7. Yeni testler `test` ve `expect` değerlerini `tests/fixtures/test.js` üzerinden
+   almalıdır.
+8. Veri değiştiren testler `@mutation` etiketi, mutation guard ve güvenilir
+   temizlik içermelidir; production ortamında çalıştırılmamalıdır.
+9. `quality:architecture` yeni spec'lerde ortak fixture, sabit bekleme, doğrudan
+   ortam değişkeni ve eksik ESM uzantısı gibi mimari ihlalleri CI'da engeller.
 
 Başarısız testlerde ekran görüntüsü ve video, `test-results/` altında; HTML raporu
 ise `playwright-report/` altında oluşturulur. CI raporu GitHub Actions artifact'i

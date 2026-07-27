@@ -1,0 +1,123 @@
+import { readdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+
+const root = process.cwd();
+const testsRoot = path.join(root, 'tests');
+
+async function filesUnder(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const nested = await Promise.all(
+    entries.map((entry) => {
+      const target = path.join(directory, entry.name);
+      return entry.isDirectory() ? filesUnder(target) : [target];
+    })
+  );
+  return nested.flat();
+}
+
+function lineNumber(source, index) {
+  return source.slice(0, index).split('\n').length;
+}
+
+const violations = [];
+const javascriptFiles = (await filesUnder(testsRoot)).filter((file) =>
+  file.endsWith('.js')
+);
+
+for (const file of javascriptFiles) {
+  const source = await readFile(file, 'utf8');
+  const relative = path.relative(root, file);
+
+  const forbidden = [
+    {
+      pattern: /\btest\.only\s*\(/g,
+      message: 'test.only commit edilemez',
+    },
+    {
+      pattern: /\bpage\.waitForTimeout\s*\(/g,
+      message: 'sabit bekleme yerine gözlemlenebilir koşul kullanılmalı',
+    },
+  ];
+
+  if (file.endsWith('.spec.js')) {
+    forbidden.push(
+      {
+        pattern: /from\s+['"]@playwright\/test['"]/g,
+        message: 'spec dosyası ortak fixtures/test.js üzerinden import etmeli',
+      },
+      {
+        pattern: /\bprocess\.env\b/g,
+        message: 'spec ortam değişkenini config/environment.js üzerinden okumalı',
+      },
+      {
+        pattern: /https:\/\/app\.vomenta\.com/g,
+        message: 'spec içinde ortam URL’si sabitlenemez',
+      },
+      {
+        pattern: /\brequest\.(post|put|patch|delete)\s*\(/g,
+        message: 'yazma isteği korumalı api fixture üzerinden yapılmalı',
+      }
+    );
+
+    if (!/from\s+['"][^'"]*fixtures\/test\.js['"]/.test(source)) {
+      violations.push({
+        file: relative,
+        line: 1,
+        message: 'spec ortak test fixture’ını kullanmıyor',
+      });
+    }
+
+    if (source.includes('@mutation')) {
+      if (!source.includes('mutationGuard')) {
+        violations.push({
+          file: relative,
+          line: 1,
+          message: '@mutation testi mutationGuard kullanmalı',
+        });
+      }
+      if (!source.includes('cleanup')) {
+        violations.push({
+          file: relative,
+          line: 1,
+          message: '@mutation testi cleanup kaydetmeli',
+        });
+      }
+    }
+  }
+
+  for (const rule of forbidden) {
+    for (const match of source.matchAll(rule.pattern)) {
+      violations.push({
+        file: relative,
+        line: lineNumber(source, match.index ?? 0),
+        message: rule.message,
+      });
+    }
+  }
+
+  const localImport = /from\s+['"](\.{1,2}\/[^'"]+)['"]/g;
+  for (const match of source.matchAll(localImport)) {
+    const importPath = match[1];
+    if (!path.extname(importPath)) {
+      violations.push({
+        file: relative,
+        line: lineNumber(source, match.index ?? 0),
+        message: `yerel ESM import uzantısı eksik: ${importPath}`,
+      });
+    }
+  }
+}
+
+if (violations.length > 0) {
+  for (const violation of violations) {
+    console.error(
+      `${violation.file}:${violation.line} — ${violation.message}`
+    );
+  }
+  console.error(`\n${violations.length} mimari ihlal bulundu.`);
+  process.exit(1);
+}
+
+console.log(
+  `${javascriptFiles.length} JavaScript dosyası: mimari kalite kapısı geçti.`
+);

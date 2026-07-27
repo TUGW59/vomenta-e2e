@@ -1,40 +1,76 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import {
+  authStatePath,
+  configuredRoles,
+  environment,
+} from './config/environment.js';
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-import dotenv from 'dotenv';
-import path from 'path';
-dotenv.config({ path: path.resolve('.env'), quiet: true });
+const optionalRoleProjects = configuredRoles()
+  .filter((role) => role !== 'default')
+  .flatMap((role) => [
+    {
+      name: `setup-${role}`,
+      metadata: { role, environment: environment.name },
+      testMatch: /auth\.setup\.js/,
+    },
+    {
+      name: `chromium-${role}`,
+      metadata: { role, environment: environment.name },
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authStatePath(role),
+      },
+      testMatch: new RegExp(`.*\\.${role}\\.spec\\.js`),
+      dependencies: [`setup-${role}`],
+    },
+  ]);
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
   testDir: './tests',
+  outputDir: `test-results/${environment.name}`,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
+  /* Retry'da geçen test CI için başarı değildir; flaky test görünür kalır. */
+  failOnFlakyTests: environment.isCI,
   /* Canlı sunucuya karşı çalıştığımız için geçici yavaşlıklarda tekrar dene. */
-  retries: process.env.CI ? 2 : 2,
+  retries: environment.retries,
   /* Gerçek (canlı) sunucuyu yormamak için paralel worker sayısını sınırla. */
-  workers: process.env.CI ? 2 : 4,
+  workers: environment.workers,
+  timeout: 60_000,
+  expect: {
+    timeout: environment.expectTimeout,
+  },
+  /* Production'da veri değiştiren testler savunma amaçlı iki kez engellenir. */
+  grepInvert:
+    environment.isProduction && !environment.allowMutations
+      ? /@mutation/
+      : undefined,
   /* Terminalde kısa sonuç, hatalarda kalıcı HTML raporu. */
-  reporter: process.env.CI
-    ? [['github'], ['html', { open: 'never' }]]
+  reporter: environment.isCI
+    ? [
+        ['github'],
+        ['junit', { outputFile: 'test-results/junit.xml' }],
+        ['html', { open: 'never' }],
+      ]
     : [['list'], ['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: process.env.BASE_URL || 'https://app.vomenta.com',
+    baseURL: environment.baseURL,
+    actionTimeout: environment.actionTimeout,
+    navigationTimeout: environment.navigationTimeout,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    testIdAttribute: 'data-testid',
   },
 
   /* Configure projects for major browsers */
@@ -42,6 +78,7 @@ export default defineConfig({
     /* Bir kez giriş yapıp oturumu playwright/.auth/user.json'a kaydeder */
     {
       name: 'setup',
+      metadata: { role: 'default', environment: environment.name },
       testMatch: /auth\.setup\.js/,
     },
 
@@ -67,7 +104,7 @@ export default defineConfig({
       name: 'chromium-authed',
       use: {
         ...devices['Desktop Chrome'],
-        storageState: 'playwright/.auth/user.json',
+        storageState: authStatePath('default'),
       },
       testMatch: /.*\.authed\.spec\.js/,
       dependencies: ['setup'],
@@ -76,7 +113,7 @@ export default defineConfig({
       name: 'firefox-authed',
       use: {
         ...devices['Desktop Firefox'],
-        storageState: 'playwright/.auth/user.json',
+        storageState: authStatePath('default'),
       },
       testMatch: /.*\.authed\.spec\.js/,
       dependencies: ['setup'],
@@ -85,11 +122,14 @@ export default defineConfig({
       name: 'webkit-authed',
       use: {
         ...devices['Desktop Safari'],
-        storageState: 'playwright/.auth/user.json',
+        storageState: authStatePath('default'),
       },
       testMatch: /.*\.authed\.spec\.js/,
       dependencies: ['setup'],
     },
+
+    /* Kimlik bilgisi tanımlanan admin/supervisor/agent rolleri otomatik eklenir. */
+    ...optionalRoleProjects,
 
     /* Test against mobile viewports. */
     // {

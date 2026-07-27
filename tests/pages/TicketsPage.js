@@ -1,17 +1,17 @@
 // @ts-check
 import { expect } from '@playwright/test';
-import { gotoApp } from '../helpers';
+import { BasePage } from './BasePage.js';
 
 /**
  * Tickets sayfası nesnesi (Page Object).
  */
-export class TicketsPage {
+export class TicketsPage extends BasePage {
   static COLUMNS = ['Ticket #', 'Subject', 'Customer', 'Priority', 'Status', 'Assigned To', 'Created'];
   static TABS = ['All', 'My Tickets', 'Unassigned', 'Urgent'];
 
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
-    this.page = page;
+    super(page, '/tickets');
     this.table = page.getByRole('table');
     this.rows = page.getByRole('row');
     this.search = page.getByPlaceholder(/Search tickets/);
@@ -20,7 +20,7 @@ export class TicketsPage {
   }
 
   async open() {
-    await gotoApp(this.page, '/tickets');
+    await super.open();
     await expect(this.table).toBeVisible({ timeout: 30000 });
     // İlk veri satırının numara hücresi dolana kadar bekle.
     await expect(this.rows.nth(1).getByRole('cell').first()).toHaveText(/\S/, { timeout: 30000 });

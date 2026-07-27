@@ -1,45 +1,126 @@
 name: Playwright Tests
 
-# Vomenta E2E testleri. Testler CANLI uygulamaya (https://app.vomenta.com) karşı çalışır.
-# Giriş bilgileri GitHub Secrets'tan gelir (repo Settings > Secrets and variables > Actions):
-#   VOMENTA_EMAIL, VOMENTA_PASSWORD
-
 on:
-  push:
-    branches: [main, master]
   pull_request:
     branches: [main, master]
-  workflow_dispatch: # Actions sekmesinden elle tetikleme
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: Çalıştırılacak test paketi
+        required: true
+        default: critical
+        type: choice
+        options:
+          - critical
+          - full
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playwright-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
 
 jobs:
-  test:
-    timeout-minutes: 30
+  architecture:
+    name: Architecture and test discovery
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+      - run: npm ci
+      - run: npm run quality:check
 
-      - name: Bağımlılıkları kur
-        run: npm ci
-
-      - name: Playwright tarayıcılarını kur
-        run: npx playwright install --with-deps
-
-      - name: Testleri çalıştır
-        env:
-          BASE_URL: https://app.vomenta.com
-          VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
-          VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
-        run: npm run test:e2e
-
-      - name: HTML raporunu yükle
-        uses: actions/upload-artifact@v4
+  public-smoke:
+    name: Public smoke / Chromium
+    needs: architecture
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: public-smoke-report
           path: playwright-report/
+          retention-days: 14
+
+  authenticated-critical:
+    name: Critical authenticated / Chromium
+    needs: architecture
+    if: >-
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'critical')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:critical
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: authenticated-critical-report
+          path: |
+            playwright-report/
+            test-results/junit.xml
+          retention-days: 30
+
+  full-regression:
+    name: Full cross-browser regression
+    needs: architecture
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      PLAYWRIGHT_WORKERS: 2
+      PLAYWRIGHT_RETRIES: 2
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: full-regression-report
+          path: |
+            playwright-report/
+            test-results/junit.xml
           retention-days: 30

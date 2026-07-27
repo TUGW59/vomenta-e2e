@@ -1,6 +1,7 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { login } from './helpers';
+import { test, expect } from './fixtures/test.js';
+import { credentialsFor } from '../config/environment.js';
+import { login } from './helpers.js';
 
 /**
  * Çıkış (logout) akışı testi.
@@ -13,12 +14,10 @@ test.use({ storageState: { cookies: [], origins: [] } });
 
 test.describe('Vomenta - Çıkış (logout)', () => {
   test('kullanıcı menüsünden çıkış yapılabiliyor', async ({ page }) => {
-    const email = process.env.VOMENTA_EMAIL;
-    const password = process.env.VOMENTA_PASSWORD;
-    test.skip(!email || !password, 'VOMENTA_EMAIL / VOMENTA_PASSWORD .env içinde tanımlı değil');
+    const { email, password } = credentialsFor('default');
 
     // Taze giriş
-    await login(page, String(email), String(password));
+    await login(page, email, password);
 
     // Kullanıcı menüsünü aç ve çıkış yap
     const userMenu = page.getByRole('button', { name: 'User menu' });

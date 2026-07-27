@@ -1,8 +1,10 @@
 // @ts-check
 import { test as setup } from '@playwright/test';
-import { login } from './helpers';
-
-const authFile = 'playwright/.auth/user.json';
+import {
+  authStatePath,
+  credentialsFor,
+} from '../config/environment.js';
+import { LoginPage } from './pages/LoginPage.js';
 
 /**
  * Vomenta'ya bir kez giriş yapar ve oturumu (cookies + localStorage) diske kaydeder.
@@ -12,17 +14,10 @@ const authFile = 'playwright/.auth/user.json';
  *   VOMENTA_EMAIL=...
  *   VOMENTA_PASSWORD=...
  */
-setup('kimlik doğrula', async ({ page }) => {
-  const email = process.env.VOMENTA_EMAIL;
-  const password = process.env.VOMENTA_PASSWORD;
+setup('kimlik doğrula', async ({ page }, testInfo) => {
+  const role = String(testInfo.project.metadata.role || 'default');
+  const { email, password } = credentialsFor(role);
 
-  if (!email || !password) {
-    throw new Error(
-      'VOMENTA_EMAIL ve VOMENTA_PASSWORD .env dosyasında tanımlı olmalı. ' +
-        '.env.example dosyasını .env olarak kopyalayıp doldurun.'
-    );
-  }
-
-  await login(page, email, password);
-  await page.context().storageState({ path: authFile });
+  await new LoginPage(page).login(email, password);
+  await page.context().storageState({ path: authStatePath(role) });
 });

@@ -1,17 +1,17 @@
 // @ts-check
 import { expect } from '@playwright/test';
-import { gotoApp } from '../helpers';
+import { BasePage } from './BasePage.js';
 
 /**
  * Contacts sayfası nesnesi (Page Object).
  * Selector'lar ve etkileşimler tek yerde toplanır.
  */
-export class ContactsPage {
+export class ContactsPage extends BasePage {
   static COLUMNS = ['Name', 'Email', 'Phone', 'Company', 'Tags', 'Owner', 'Last Contact'];
 
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
-    this.page = page;
+    super(page, '/contacts');
     this.table = page.getByRole('table');
     this.rows = page.getByRole('row');
     this.search = page.getByPlaceholder(/Search by name/);
@@ -19,7 +19,7 @@ export class ContactsPage {
   }
 
   async open() {
-    await gotoApp(this.page, '/contacts');
+    await super.open();
     await expect(this.table).toBeVisible({ timeout: 30000 });
     // İlk veri satırının ad hücresi dolana kadar bekle (skeleton değil).
     await expect(this.rows.nth(1).getByRole('cell').nth(1)).toHaveText(/\S/, { timeout: 30000 });

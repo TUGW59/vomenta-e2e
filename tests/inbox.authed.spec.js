@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { gotoApp } from './helpers';
+import { test, expect } from './fixtures/test.js';
+import { gotoApp } from './helpers.js';
 
 /**
  * Inbox sayfası testleri (girişli, salt-okunur).

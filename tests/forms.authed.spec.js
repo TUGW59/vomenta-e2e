@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { TicketsPage } from './pages/TicketsPage';
+import { test, expect } from './fixtures/test.js';
+import { TicketsPage } from './pages/TicketsPage.js';
 
 /**
  * Form doğrulama testleri (girişli).

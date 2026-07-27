@@ -1,6 +1,8 @@
 // @ts-check
 import { expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
+import { AppShell } from './pages/AppShell.js';
+import { LoginPage } from './pages/LoginPage.js';
 
 /**
  * Ortak test yardımcıları.
@@ -26,6 +28,19 @@ export async function severeA11yViolations(page) {
 }
 
 /**
+ * Sabit süre beklemeden browser render kuyruğunun ve fontların yerleşmesini bekler.
+ * @param {import('@playwright/test').Page} page
+ */
+export async function waitForUiToSettle(page) {
+  await page.evaluate(async () => {
+    await document.fonts?.ready;
+    await new Promise((resolve) =>
+      requestAnimationFrame(() => requestAnimationFrame(resolve))
+    );
+  });
+}
+
+/**
  * SPA sayfasına sağlam şekilde git.
  * 'commit' beklemesi: SPA yönlendirmelerinde navigasyonun iptal olmasını önler ve
  * ağır kaynakları beklemez; ardından DOM'un yerleşmesi beklenir.
@@ -35,6 +50,7 @@ export async function severeA11yViolations(page) {
 export async function gotoApp(page, path) {
   await page.goto(path, { waitUntil: 'commit' });
   await page.waitForLoadState('domcontentloaded').catch(() => {});
+  await new AppShell(page).expectReady();
 }
 
 /**
@@ -44,12 +60,5 @@ export async function gotoApp(page, path) {
  * @param {string} password
  */
 export async function login(page, email, password) {
-  await page.goto('/');
-  await page.getByLabel('Email address').fill(email);
-  await page.getByLabel('Password').fill(password);
-  await page.getByRole('button', { name: 'Log in' }).click();
-  // Giriş başarılıysa "Welcome back" başlığı kaybolur.
-  await expect(
-    page.getByRole('heading', { name: 'Welcome back' })
-  ).toBeHidden({ timeout: 30000 });
+  await new LoginPage(page).login(email, password);
 }
