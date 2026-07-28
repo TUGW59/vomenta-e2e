@@ -24,7 +24,9 @@
     "test:report": "playwright show-report",
     "test:install": "playwright install",
     "quality:architecture": "node tools/validate-architecture.mjs",
-    "quality:check": "npm run quality:architecture && playwright test --list"
+    "quality:check": "npm run quality:architecture && playwright test --list",
+    "report:coverage": "node tools/generate-coverage.mjs",
+    "report:coverage:check": "node tools/generate-coverage.mjs && git diff --exit-code -- docs/TEST_KAPSAMI.md"
   },
   "keywords": [],
   "author": "",

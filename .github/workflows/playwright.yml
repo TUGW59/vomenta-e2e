@@ -43,6 +43,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run quality:check
+      - name: Kapsama raporu güncel mi (drift kontrolü)
+        run: npm run report:coverage:check
 
   public-smoke:
     name: Public smoke / Chromium
