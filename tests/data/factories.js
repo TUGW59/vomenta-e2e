@@ -27,3 +27,16 @@ export function buildTicket(overrides = {}) {
     ...overrides,
   };
 }
+
+/**
+ * Bekleyen kullanıcı daveti (Bulgu 6 mutasyon reproduksiyonu için).
+ * Yalnızca staging'de kullanılır; her çağrıda benzersiz e-posta üretir.
+ */
+export function buildUserInvite(overrides = {}) {
+  const suffix = uniqueSuffix();
+  return {
+    email: `pw-invite-${suffix}@example.test`,
+    role: 'agent',
+    ...overrides,
+  };
+}
