@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 133
+- **Test edilen senaryo:** 136
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 10 · `@known-bug` 16 · `@public` 2 · `@regression` 31 · `@smoke` 10
+- **Etiketler:** `@critical` 11 · `@known-bug` 16 · `@public` 2 · `@regression` 34 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -180,6 +180,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: seçenek seçince gösterilen değer değişiyor  `@regression`
 - L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]  `@regression`
 - L1 tıklama OK: değer düzenlenebiliyor  `@regression`
+- L1 tıklama OK: ⋮ menüsü açılıyor ve 5 eylem görünüyor  `@regression` `@critical`
+- i18n: Türkçe'de menü eylemleri çevrili (Resume queue hariç)  `@regression`
+- BULGU 5: "Resume queue" Türkçe menüde çevrilmeli  `@regression`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
 
 ### `tickets.authed.spec.js`
