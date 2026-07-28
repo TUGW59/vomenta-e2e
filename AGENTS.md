@@ -163,15 +163,62 @@ tablosu ve çeviri bulguları).
   nedeniyle açık **N/A** gerekçesiyle belgelenip mutation testine (staging) bırakılır.
   "Form yalnızca açılıyor" tek başına yeterli bir L3 değildir.
 
-## Test sınıfları
+## Test sınıfları (kanonik etiket kaydı)
 
+Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
+
+**Risk / yapı:**
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.
 - `@critical`: Release'i durduracak müşteri/operasyon davranışı.
-- `@mutation`: Veri değiştirir; production'da yasaktır.
-- `@a11y`: Erişilebilirlik kontrolü.
-- `@visual`: Görsel regresyon.
+- `@regression`: Genel regresyon; interaktif kontrol 3-katman testleri burada.
+- `@mutation`: Veri değiştirir; production'da yasaktır (guard + cleanup zorunlu).
+- `@known-bug`: Açık bulgunun `test.fail` guard'ı.
+- `@public`: Giriş gerektirmeyen (login) testi.
+
+**Test stilleri** (bkz. "Zorunlu test stilleri"): `@i18n` `@a11y` `@layout` `@visual`
+`@errorpath` `@clean` `@perf` `@keyboard` `@deeplink` `@data` `@export`.
 
 Retry'da geçen test flaky'dir. CI'da başarı sayılmaz ve gizlenemez.
+
+## Zorunlu test stilleri
+
+Test edilen **her sayfa/bölüm**, aşağıdaki stilleri arketipine göre **ya kapsar ya da açık
+"N/A: gerekçe" ile beyan eder**. Sayfa `tests/contracts/tested-pages.js`'e tescil edilir;
+`tools/style-coverage.mjs` eksik stili **sert kapıyla** reddeder (deterministik; canlı koşum yok).
+Böylece gelecekteki her yeni sayfa aynı standardı otomatik dayatır. El kitabı: `docs/TEST_STYLES.md`.
+
+**Baseline (HER sayfa; N/A olamaz):**
+- `@smoke` yapı · `@i18n` 4-dil (en/tr/fr/ar) + RTL + çeviri/iç-terim sızıntısı · `@a11y` axe ciddi/kritik
+  ihlal yok (bilinen borç hariç) · `@layout` mobil/tablet/masaüstü + RTL yatay-taşma yok · `@clean`
+  console/ağ hatası yok (allowlist dışı) · `@deeplink` rota doğrudan açılır · `@regression` her
+  interaktif kontrol 3-katman (L1/L2/L3).
+
+**Koşullu (arketip varsa ZORUNLU, yoksa N/A-beyan):**
+- `@keyboard` — diyalog/menü/sekme varsa (odak tuzağı, Escape, klavye gezinme).
+- `@errorpath` — API'den veri çekiyorsa (`mockApi` ile 500/boş/abort → zarif hata/boş durum).
+- `@visual` — kararlı UI varsa (diyalog/boş-durum/düzen; canlı bölge `mask`; darwin, CI'da atla).
+- `@perf` — grafik/ağır içerik yüklüyorsa (yükleme süresi bütçe altında).
+- `@data` — sayısal KPI gösteriyorsa (yakalanan API yanıtı ↔ UI sadakati). Kaynak↔API doğruluğu (B)
+  test dışıdır ve şu an açık — Vomenta backend erişimi gerekir (`docs/data-audit/`).
+- `@export` — export/indirme varsa (dosya içeriği doğrula ya da coverage-exclusions ile N/A).
+- `@mutation` — create/edit/delete/save varsa (ayrılmış tenant; guard + cleanup).
+
+**Lane:** Deterministik stiller (`@i18n @a11y @layout @clean @deeplink @errorpath @keyboard` + 3-katman)
+**her PR**'da koşar. Oynak/canlı stiller (`@visual @perf @data`) **gece** full-regression'da koşar;
+sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipeline'ı kırılgan olmaz.
+
+**Kurallar:**
+- Uygulanmayan koşullu stil `tested-pages.js`'te `naStyles` ile **açık gerekçeyle** beyan edilir
+  (sessiz atlama yasak — 3-katman N/A kuralının aynısı).
+- Bir stil bozuksa `test.fail` (`@known-bug`); düzelince kalıcı guard.
+- Stil etiketi, ilgili primitifi kullanmalı (`validate-architecture.mjs`: `@a11y`→axe, `@visual`→
+  `toHaveScreenshot`, `@clean`→`diagnostics.assertClean`, `@data`→`captureJson/waitForResponse`,
+  `@errorpath`→`mockApi/route`, `@perf`→`expectContentWithin`).
+- Ortak yardımcılar `tests/helpers.js`'te (a11y/layout/clean/errorpath/perf/keyboard/data) — her stil ~1 satır.
+- **Cross-browser** yeni etiket değil: gece full-regression `firefox/webkit-authed` projelerinde koşar.
+
+Referans uygulama: `tests/reports-dashboards.authed.spec.js`, `tests/reports-sections.authed.spec.js`
+(+ matris: `docs/TEST_STYLE_MATRIX.md`). Karar: `docs/adr/0002-mandatory-test-styles.md`.
 
 ## Yeni feature ekleme sırası
 

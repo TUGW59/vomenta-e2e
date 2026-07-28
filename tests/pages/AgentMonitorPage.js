@@ -39,7 +39,17 @@ export class AgentMonitorPage extends BasePage {
     this.prevButton = page.getByRole('button', { name: 'Previous', exact: true });
     // "Live updates" + "Last refreshed at HH:MM" satırındaki zaman.
     this.lastRefreshed = page.getByText(/Last refreshed at|Son yenileme|Dernière actualisation|آخر تحديث/i).first();
+    // Görünüm toggle: liste / ızgara (ikon-only butonlar — aria-label YOK, a11y açığı).
+    this.viewListButton = page.locator('button:has(svg.lucide-list)').first();
+    this.viewGridButton = page.locator('button:has(svg.lucide-layout-grid)').first();
+    // Satır aksiyon ikonları (canlı arama denetimi) — çevrimdışı ajanda disabled.
+    this.listenButton = page.getByTitle('Listen').first();
+    this.whisperButton = page.getByTitle('Whisper').first();
+    this.bargeButton = page.getByTitle('Barge In').first();
   }
+
+  static ANALYZE_API = '/api/v1/ai/copilot/supervisor/detect-anomaly';
+  static FORCE_STATUS_API = '/force-status'; // PATCH /api/v1/supervisor/agents/{id}/force-status
 
   async open() {
     await super.open();
@@ -65,5 +75,12 @@ export class AgentMonitorPage extends BasePage {
       await this.forceButton.click();
       await expect(this.page.getByRole('menuitem').first()).toBeVisible({ timeout: 2000 });
     }).toPass({ timeout: 15000 });
+  }
+
+  /** Adıyla bir ajan satırına tıklayıp detay panelini (drawer) açar. */
+  async openDetailDrawer(agentName) {
+    await this.page.getByText(agentName, { exact: true }).first().click();
+    await expect(this.page.getByRole('dialog')).toBeVisible({ timeout: 10000 });
+    return this.page.getByRole('dialog');
   }
 }

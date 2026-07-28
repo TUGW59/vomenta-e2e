@@ -24,6 +24,10 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Kritik akışta "sessiz hata yok" (`diagnostics.assertClean`), kullanıcıya görünen
   saatler yerel TZ (`assertLocalClock`), oluşturma formunda submit-sonucu doğrulanmış
   veya açık N/A. Ayrıntı: `AGENTS.md` → "Sessiz hata / zaman / form-gönderim standartları".
+- Test edilen sayfa `tests/contracts/tested-pages.js`'e tescil edildi; **zorunlu test stilleri**
+  (baseline + arketip koşullu) kapsandı ya da `naStyles` ile gerekçeli **N/A** verildi.
+  `npm run quality:styles` (stil matrisi) yeşil. Ayrıntı: `AGENTS.md` → "Zorunlu test stilleri",
+  el kitabı `docs/TEST_STYLES.md`.
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
