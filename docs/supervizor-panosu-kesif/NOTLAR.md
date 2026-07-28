@@ -141,6 +141,8 @@ Test karşılığı: `tests/supervisor-wallboard.authed.spec.js` — her buton k
 
 **Sonuç:** Toggle görsel olarak açılıp kapanıyor ama otomatik kaydırma mantığı çalışmıyor — kullanıcının "basıyorum ama etki yok" gözlemiyle birebir uyuşuyor (dil İngilizce iken bile). Normal görünüm ve TV modu, iki durumda da kaydırma yok.
 
+**Kanıt görseli:** [`bug3-autoscroll.png`](screenshots/bug3-autoscroll.png) — buton **"Auto-scroll on"** (aktif/vurgulu) ama içerik taştığı halde sayfa tepede kalıyor.
+
 ---
 
 ## 🐞 BULGU 4 (kullanıcının bulduğu) — "Live/Canlı" son-güncelleme saati UTC gösteriliyor
