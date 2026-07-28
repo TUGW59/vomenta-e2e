@@ -23,6 +23,10 @@ test.describe('Vomenta - Reports eylem butonları (fonksiyonel)', () => {
     await assertDestinationLoaded(page, { path: '/reports/dashboards', heading: 'Dashboards' });
   });
 
+  // Form gönderim sonucu standardı (AGENTS.md): submit SONUCU (başarı/hata) burada
+  // N/A — kaydetmek prod'da bir zamanlama OLUŞTURUR (mutation) ve ajanlara bildirim
+  // gönderebilir. Submit yolu staging'de @mutation testine bırakılır; burada yalnızca
+  // formun açıldığı/iptal edilebildiği (salt-okunur) doğrulanır.
   test('"Schedule a Report" formu açılıyor ve iptal edilebiliyor', async ({ page }) => {
     await page.getByRole('button', { name: 'Schedule a Report', exact: true }).click();
 

@@ -21,6 +21,9 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Sekme testi `aria-selected` + panel içerik imzasını doğruluyor; KPI/metrik
   kartları etiket değil **değer** de doğruluyor (boş/veri ayrımı). Ayrıntı:
   `AGENTS.md` → "İçerik ve değer derinliği standardı".
+- Kritik akışta "sessiz hata yok" (`diagnostics.assertClean`), kullanıcıya görünen
+  saatler yerel TZ (`assertLocalClock`), oluşturma formunda submit-sonucu doğrulanmış
+  veya açık N/A. Ayrıntı: `AGENTS.md` → "Sessiz hata / zaman / form-gönderim standartları".
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.

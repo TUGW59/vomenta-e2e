@@ -147,6 +147,22 @@ tablosu ve çeviri bulguları).
   ihlal varsa, o sayfanın a11y testi düzelene kadar `test.fail` (bilinen hata) ile
   işaretlenir — sessizce kapsam dışı bırakılmaz. Referans: `tests/a11y.authed.spec.js`.
 
+## Sessiz hata / zaman / form-gönderim standartları
+
+- **Sessiz hata yok:** Kritik `@smoke` akışlarında sayfa **console-error / başarısız
+  istek / HTTP 5xx** üretmemeli. Altyapı hazır: `diagnostics` fixture'ı bunları toplar;
+  test `diagnostics.assertClean(allowlist)` ile doğrular. Bilinen zararsız gürültü
+  (ör. Next.js `_rsc` prefetch iptalleri) varsayılan allowlist'te; her yeni allowlist
+  girdisi gerekçeli olmalı. Gerçek bir sessiz hata **bulgu**dur (`test.fail`).
+- **Zaman/saat (timezone):** Kullanıcıya görünen tüm saat/tarih **yerel saat diliminde**
+  gösterilmeli (sunucu UTC'sini çevirmeden basmak = bulgu). Ortak yardımcı: `helpers.js`
+  → `assertLocalClock(page, clockText)`; test UTC olmayan bir timezone'da koşturulur
+  (`test.use({ timezoneId })`). Referans: wallboard BULGU 4, agents "Last refreshed".
+- **Form gönderim sonucu:** Bir oluşturma/düzenleme formu test edilirken ya submit
+  **sonucu** (başarı/validasyon/hata/toast) doğrulanır ya da prod-mutation güvenliği
+  nedeniyle açık **N/A** gerekçesiyle belgelenip mutation testine (staging) bırakılır.
+  "Form yalnızca açılıyor" tek başına yeterli bir L3 değildir.
+
 ## Test sınıfları
 
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.
