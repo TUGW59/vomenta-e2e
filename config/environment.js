@@ -47,6 +47,9 @@ export const environment = Object.freeze({
   expectTimeout: positiveInteger(process.env.PLAYWRIGHT_EXPECT_TIMEOUT, 15_000),
   defaultUserDisplayName:
     process.env.VOMENTA_USER_DISPLAY_NAME || 'Tuğçe Topuz',
+  // Yalnızca staging E2E (arama/SMS) için ayrılmış test numarası. Boşsa ilgili
+  // mutation testleri atlanır. Gerçek numara .env'de tutulur, repoya GİRMEZ.
+  testPhone: process.env.VOMENTA_TEST_PHONE || '',
 });
 
 export function authStatePath(role = 'default') {
