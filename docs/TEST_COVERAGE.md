@@ -197,5 +197,5 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 | Kontrol | Sayfa |
 |---|---|
-| Bildirimler paneli | Header |
-| Dil menüsü | Header |
+| Bildirimler paneli — standart dialog/menü açmıyor (incelendi) | Header |
+| Dil menüsü — görünür menü açmıyor (incelendi) | Header |
