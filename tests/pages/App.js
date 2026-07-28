@@ -1,6 +1,8 @@
 // @ts-check
 import { AnalyticsPage } from './AnalyticsPage.js';
 import { AppShell } from './AppShell.js';
+import { CampaignCreatePage } from './CampaignCreatePage.js';
+import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { LoginPage } from './LoginPage.js';
 import { SettingsPage } from './SettingsPage.js';
@@ -24,5 +26,7 @@ export class App {
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);
     this.agentMonitor = new AgentMonitorPage(page);
+    this.campaignsOutbound = new CampaignsOutboundPage(page);
+    this.campaignCreate = new CampaignCreatePage(page);
   }
 }
