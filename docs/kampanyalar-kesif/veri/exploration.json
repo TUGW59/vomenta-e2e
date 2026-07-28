@@ -1,0 +1,228 @@
+{
+  "capturedAt": "2026-07-28",
+  "structure": {
+    "dump": {
+      "url": "https://app.vomenta.com/campaigns/outbound",
+      "h1": [
+        "Outbound Campaigns"
+      ],
+      "tableHeaders": [
+        "Campaign Name",
+        "Status",
+        "Dialer Mode",
+        "Contacts",
+        "Connected%",
+        "Actions"
+      ],
+      "tabs": [
+        {
+          "name": "All",
+          "selected": "true"
+        },
+        {
+          "name": "Running0",
+          "selected": "false"
+        },
+        {
+          "name": "Paused0",
+          "selected": "false"
+        }
+      ],
+      "combobox": [
+        "All types"
+      ],
+      "searchPlaceholder": [
+        "Search campaigns..."
+      ],
+      "rowCount": 10
+    },
+    "networkUnique": [
+      "GET /api/v1/modules/active",
+      "GET /api/v1/modules/catalog",
+      "GET /api/v1/notifications/unread-count",
+      "GET /api/v1/notifications?page=1",
+      "GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D",
+      "GET /api/v1/voice/calls/live",
+      "GET /api/v1/auth/me",
+      "GET /api/v1/roles/me/permissions",
+      "GET /api/v1/settings/organization",
+      "GET /api/v1/campaigns?page=1&limit=10",
+      "GET /api/v1/campaigns/stats",
+      "GET /api/v1/onboarding/progress"
+    ]
+  },
+  "langs": {
+    "en": {
+      "dir": "ltr",
+      "lang": "en",
+      "h1": "Outbound Campaigns",
+      "subtitle": "Monitor and control active outbound dialing campaigns.",
+      "combobox": [
+        "All types"
+      ],
+      "tabs": [
+        "All",
+        "Running0",
+        "Paused0"
+      ],
+      "tableHeaders": [
+        "Campaign Name",
+        "Status",
+        "Dialer Mode",
+        "Contacts",
+        "Connected%",
+        "Actions"
+      ]
+    },
+    "tr": {
+      "dir": "ltr",
+      "lang": "tr",
+      "h1": "Giden Kampanyalar",
+      "subtitle": "Aktif giden arama kampanyalarını izleyin ve kontrol edin.",
+      "combobox": [
+        "Tüm türler"
+      ],
+      "tabs": [
+        "Tümü",
+        "Çalışan0",
+        "Duraklatılmış0"
+      ],
+      "tableHeaders": [
+        "Kampanya Adı",
+        "Durum",
+        "Arama Modu",
+        "Kişiler",
+        "Bağlanan%",
+        "İşlemler"
+      ]
+    },
+    "fr": {
+      "dir": "ltr",
+      "lang": "fr",
+      "h1": "Campagnes sortantes",
+      "subtitle": "Surveiller et contrôler les campagnes d'appels sortants actives.",
+      "combobox": [
+        "Tous les types"
+      ],
+      "tabs": [
+        "Toutes",
+        "En cours0",
+        "En pause0"
+      ],
+      "tableHeaders": [
+        "Nom de la campagne",
+        "Statut",
+        "Mode de numérotation",
+        "Contacts",
+        "Connecté%",
+        "Actions"
+      ]
+    },
+    "ar": {
+      "dir": "rtl",
+      "lang": "ar",
+      "h1": "الحملات الصادرة",
+      "subtitle": "مراقبة والتحكم في حملات الاتصال الصادرة النشطة.",
+      "combobox": [
+        "جميع الأنواع"
+      ],
+      "tabs": [
+        "الكل",
+        "قيد التشغيل0",
+        "متوقفة مؤقتاً0"
+      ],
+      "tableHeaders": [
+        "اسم الحملة",
+        "الحالة",
+        "وضع الاتصال",
+        "جهات الاتصال",
+        "متصل%",
+        "إجراءات"
+      ]
+    }
+  },
+  "filters": {
+    "types": {
+      "Voice": {
+        "empty": false,
+        "count": 5,
+        "types": [
+          "VOICE"
+        ],
+        "statuses": [
+          "Scheduled",
+          "Completed",
+          "Cancelled"
+        ]
+      },
+      "SMS": {
+        "empty": false,
+        "count": 7,
+        "types": [
+          "SMS"
+        ],
+        "statuses": [
+          "Completed",
+          "Draft",
+          "Cancelled"
+        ]
+      },
+      "Email": {
+        "empty": false,
+        "count": 1,
+        "types": [],
+        "statuses": [
+          "Draft"
+        ]
+      },
+      "WhatsApp": {
+        "empty": true,
+        "count": 0,
+        "types": [],
+        "statuses": []
+      },
+      "All types": {
+        "empty": false,
+        "count": 10,
+        "types": [
+          "VOICE",
+          "SMS"
+        ],
+        "statuses": [
+          "Scheduled",
+          "Draft",
+          "Completed",
+          "Cancelled"
+        ]
+      }
+    },
+    "statuses": {
+      "All": {
+        "empty": false,
+        "count": 10,
+        "types": [
+          "VOICE",
+          "SMS"
+        ],
+        "statuses": [
+          "Scheduled",
+          "Draft",
+          "Completed",
+          "Cancelled"
+        ]
+      },
+      "Running": {
+        "empty": true,
+        "count": 0,
+        "types": [],
+        "statuses": []
+      },
+      "Paused": {
+        "empty": true,
+        "count": 0,
+        "types": [],
+        "statuses": []
+      }
+    }
+  }
+}
