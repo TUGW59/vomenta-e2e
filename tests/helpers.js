@@ -54,6 +54,27 @@ export async function gotoApp(page, path) {
 }
 
 /**
+ * Bir gezinme kontrolü (link/kart/menü/sekme) tetiklendikten SONRA, hedef sayfanın
+ * GERÇEKTEN yüklendiğini doğrular: doğru rota + oturum korunmuş + hedefin beklenen
+ * başlığı görünür. Salt URL eşleşmesi yeterli DEĞİLDİR — URL doğru olsa bile sayfa
+ * boş/404/bozuk kabuk olabilir. Bkz. AGENTS.md "İnteraktif kontrol testi standardı
+ * (3 katman)" → navigasyon L3 kuralı.
+ * @param {import('@playwright/test').Page} page
+ * @param {{ path?: string, heading: string, exact?: boolean, timeout?: number }} expected
+ *   path: beklenen rota (pathname startsWith; grup rotaları alt-rotaya yönlenebilir).
+ *   heading: hedef sayfada görünmesi beklenen başlık (herhangi seviye h1..h6).
+ */
+export async function assertDestinationLoaded(page, { path, heading, exact = true, timeout = 15000 }) {
+  if (path) {
+    await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
+  }
+  // Oturum korunuyor — login sayfasına atılmadık.
+  await expect(new AppShell(page).loginHeading).toBeHidden();
+  // Hedef içeriği gerçekten render oldu.
+  await expect(page.getByRole('heading', { name: heading, exact }).first()).toBeVisible({ timeout });
+}
+
+/**
  * Giriş sayfası üzerinden UI ile giriş yapar ve panelin yüklendiğini doğrular.
  * @param {import('@playwright/test').Page} page
  * @param {string} email

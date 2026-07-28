@@ -83,6 +83,25 @@ for (const file of javascriptFiles) {
         });
       }
     }
+
+    // Navigasyon L3: URL/rota kontrolü yapan spec, hedef içeriğin (başlık) render
+    // olduğunu da doğrulamalı. Salt URL eşleşmesi "baştan savma" sayılır (AGENTS.md).
+    const usesUrlAssertion =
+      /\bwaitForURL\s*\(/.test(source) || /\bpage\.url\s*\(\)/.test(source);
+    if (usesUrlAssertion) {
+      const hasContentAssertion =
+        /getByRole\(\s*['"]heading['"]/.test(source) ||
+        source.includes('assertDestinationLoaded') ||
+        source.includes('loginHeading');
+      if (!hasContentAssertion) {
+        violations.push({
+          file: relative,
+          line: 1,
+          message:
+            'navigasyon testi URL yanında hedef içeriği (başlık) doğrulamalı — assertDestinationLoaded veya getByRole("heading") kullanın (navigasyon L3)',
+        });
+      }
+    }
   }
 
   for (const rule of forbidden) {

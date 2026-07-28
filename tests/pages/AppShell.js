@@ -27,4 +27,28 @@ export class AppShell {
   link(name) {
     return this.navigation.getByRole('link', { name, exact: true });
   }
+
+  /**
+   * Kenar çubuğu altındaki dil düğmesi (🇬🇧 English / 🇹🇷 Türkçe / …).
+   * Dil seçimi sunucuda kalıcı DEĞİL → her test taze bağlamda İngilizce başlar.
+   */
+  languageTrigger() {
+    return this.page
+      .locator('button', { hasText: /English|Türkçe|Français|العربية/ })
+      .last();
+  }
+
+  /**
+   * Dili endonim etiketiyle değiştirir ve değişikliğin oturduğunu doğrular.
+   * Tek switch güvenilirdir (ardışık switch güvenilmez) → her test İngilizce başlamalı.
+   * @param {string} endonym Menüdeki dil etiketi (ör. 'Türkçe').
+   */
+  async switchLanguage(endonym) {
+    const trigger = this.languageTrigger();
+    await expect(async () => {
+      await trigger.click();
+      await this.page.getByText(endonym, { exact: true }).first().click({ timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+    await expect(trigger).toContainText(endonym, { timeout: 10000 });
+  }
 }

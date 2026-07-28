@@ -78,6 +78,16 @@ Kurallar:
 - Durum sinyali **semantikse** (`aria-pressed`, `aria-expanded`, `role`, erişilebilir isim)
   o kullanılır. Semantik sinyal yoksa frontend'den `data-testid`/semantik durum istenir;
   CSS sınıfı yalnızca son çaredir ve bir `data-testid` talebiyle birlikte not edilir.
+- **Navigasyon/gezinme kontrolleri** (link, kart, menü öğesi, ayrı sayfaya götüren
+  sekme) için **L3 yalnızca URL/rota değişimini değil, hedef sayfanın gerçekten
+  yüklendiğini** de doğrular: hedefin beklenen başlığı/kimlik öğesi **görünür**
+  olmalı. URL doğru olsa bile sayfa boş, 404 veya hatalı olabilir → L3 gözlemlenebilir
+  son durumu (içerik render'ı) kanıtlar, salt URL eşleşmesi "baştan savma" sayılır.
+  Bu, **ileride eklenecek sayfalar dahil** tüm gezinme kontrolleri için geçerlidir.
+  Ortak yardımcı: `helpers.js` → `assertDestinationLoaded(page, { path, heading })`
+  (rota + oturum + başlık). `tools/validate-architecture.mjs` bu kuralı statik
+  zorlar: `waitForURL`/`page.url()` kullanan bir spec, başlık/`assertDestinationLoaded`
+  doğrulaması da içermelidir. Beklenen başlıklar canlıdan gözlemlenir (uydurulmaz).
 
 Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
 (+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).

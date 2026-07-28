@@ -56,3 +56,17 @@ export function buildUserInvite(overrides = {}) {
     ...overrides,
   };
 }
+
+/**
+ * Giden kampanya (staging/@mutation akışı için). Benzersiz ad → paralel güvenli.
+ * `scheduledStart` bilinçle UZAK GELECEK: kampanya hemen arama başlatmasın.
+ */
+export function buildCampaign(overrides = {}) {
+  const suffix = uniqueSuffix();
+  return {
+    name: `PW Campaign ${suffix}`,
+    channel: 'Voice',
+    scheduledStart: '2030-01-01',
+    ...overrides,
+  };
+}
