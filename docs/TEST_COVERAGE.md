@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 113
-- **Test dosyası:** 21
-- **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 9
+- **Test edilen senaryo:** 127
+- **Test dosyası:** 22
+- **Etiketler:** `@critical` 10 · `@known-bug` 18 · `@public` 2 · `@regression` 25 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -158,6 +158,23 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
 - her sekme tıklanınca seçili duruma geçiyor
+
+### `supervisor-wallboard.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- kontrol çubuğu düğmeleri mevcut (Refresh All / Auto-scroll / Save layout / TV mode / tema)
+- dört kuyruk kartı listeleniyor  `@critical`
+- alt metrik kartları mevcut (ASA / Queued / Volume / SLA)
+- [en] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
+- [tr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
+- [fr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
+- [ar] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
+- "Refresh All" veriyi yeniden çekiyor (dashboard API çağrısı)  `@regression` `@critical`
+- "Save layout" düzeni PUT ile kaydediyor  `@regression`
+- "TV mode" tam ekrana geçiriyor  `@regression`
+- BULGU 1: tema seçici "Dark" seçilince koyu tema uygulanmalı  `@regression` `@known-bug`
+- BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
+- BULGU 3: Auto-scroll içerik taşınca otomatik kaydırmalı  `@regression` `@known-bug`
 
 ### `tickets.authed.spec.js`
 
