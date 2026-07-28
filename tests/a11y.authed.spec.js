@@ -32,7 +32,7 @@ const PAGES = [
 
 test.describe('Vomenta - Erişilebilirlik (a11y)', () => {
   for (const p of PAGES) {
-    test(`${p.name}: bilinen borç dışında ciddi/kritik a11y ihlali yok`, async ({ page }) => {
+    test(`${p.name}: bilinen borç dışında ciddi/kritik a11y ihlali yok @a11y`, async ({ page }) => {
       await gotoApp(page, p.path);
       await waitForUiToSettle(page);
 

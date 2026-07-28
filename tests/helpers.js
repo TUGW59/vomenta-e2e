@@ -202,3 +202,105 @@ export async function expectMetricHasValue(page, label, { pattern = /\d|%|\$|—
     )
     .toMatch(pattern);
 }
+
+// ═══════════════ STİL TOOLKIT'İ (net-new) ═══════════════
+// docs/TEST_STYLES.md + AGENTS.md "Zorunlu test stilleri". Taşma (scanOverflow/
+// assertNoHorizontalOverflow) ve @clean (diagnostics.assertClean fixture) BURADA
+// TEKRARLANMAZ — zaten mevcut; bu blok yalnızca eksik stil primitiflerini ekler.
+
+/** Responsive/@layout için standart viewport matrisi. */
+export const VIEWPORTS = {
+  mobile: { width: 375, height: 812 },
+  tablet: { width: 768, height: 1024 },
+  desktop: { width: 1280, height: 800 },
+};
+
+/**
+ * @layout — Bir sayfayı mobil/tablet/masaüstünde açar ve hiçbirinde yatay taşma olmadığını doğrular.
+ * Viewport-agnostik gezinme: `gotoApp` masaüstü kenar çubuğunun GÖRÜNÜR olmasını bekler; mobilde
+ * kenar çubuğu hamburger'a katlandığı için (responsive) onun yerine oturumun geçerliliği doğrulanır.
+ * @param {import('@playwright/test').Page} page
+ * @param {string} path
+ * @param {Record<string, {width:number,height:number}>} viewports
+ */
+export async function expectNoOverflowAtViewports(page, path, viewports = VIEWPORTS) {
+  const shell = new AppShell(page);
+  for (const [name, size] of Object.entries(viewports)) {
+    await page.setViewportSize(size);
+    await page.goto(path, { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(shell.loginHeading, `[${name}] oturum geçerli`).toBeHidden();
+    await waitForUiToSettle(page);
+    await assertNoHorizontalOverflow(page); // origin/main helper (scanOverflow tabanlı, RTL-güvenli)
+  }
+}
+
+/**
+ * @a11y — Bilinen borç DIŞINDA ciddi/kritik axe ihlali OLMADIĞINI doğrular (okunur mesaj).
+ * @param {import('@playwright/test').Page} page
+ */
+export async function expectNoSevereA11y(page) {
+  const severe = await severeA11yViolations(page);
+  expect(severe.map((v) => `${v.id} (${v.impact})`), 'ciddi/kritik a11y ihlali').toEqual([]);
+}
+
+/**
+ * @errorpath — Bir API ucunu (glob) sahte yanıtla değiştirir: hata / boş / yavaş / abort.
+ * Prod'a YAZMAZ, tamamen deterministiktir.
+ * @param {import('@playwright/test').Page} page
+ * @param {string|RegExp} urlGlob
+ * @param {{ status?:number, body?:string, contentType?:string, abort?:boolean, delayMs?:number }} opts
+ */
+export async function mockApi(page, urlGlob, opts = {}) {
+  const { status = 500, body = '{}', contentType = 'application/json', abort = false, delayMs = 0 } = opts;
+  await page.route(urlGlob, async (route) => {
+    if (delayMs) await new Promise((resolve) => setTimeout(resolve, delayMs));
+    if (abort) return route.abort('failed');
+    return route.fulfill({ status, contentType, body });
+  });
+}
+
+/**
+ * @data — Tarayıcının bir API ucundan aldığı JSON'u yakalar. Tetikleyiciden ÖNCE çağrılıp saklanmalı:
+ *   const p = captureJson(page, '/api/v1/reports/agent'); await rp.open(); const json = await p;
+ * @param {import('@playwright/test').Page} page
+ * @param {string} urlIncludes
+ * @param {{ timeout?:number }} opts
+ * @returns {Promise<any>}
+ */
+export async function captureJson(page, urlIncludes, opts = {}) {
+  const { timeout = 15_000 } = opts;
+  const res = await page.waitForResponse((r) => r.url().includes(urlIncludes) && r.ok(), { timeout });
+  return res.json();
+}
+
+/**
+ * @perf — Sayfaya gidip içerik (readyLocator) görünene kadar geçen süreyi ölçer, bütçe altında mı doğrular.
+ * @param {import('@playwright/test').Page} page
+ * @param {string} path
+ * @param {import('@playwright/test').Locator} readyLocator
+ * @param {number} budgetMs
+ * @returns {Promise<number>}
+ */
+export async function expectContentWithin(page, path, readyLocator, budgetMs) {
+  await page.goto(path, { waitUntil: 'commit' });
+  const start = Date.now();
+  await readyLocator.first().waitFor({ state: 'visible', timeout: budgetMs + 10_000 });
+  const elapsed = Date.now() - start;
+  expect(elapsed, `içerik yükleme süresi (ms), bütçe=${budgetMs}`).toBeLessThanOrEqual(budgetMs);
+  return elapsed;
+}
+
+/**
+ * @keyboard — Açık diyalogda odak tuzağı (Tab sonrası odak içeride) ve Escape ile kapanma.
+ * @param {import('@playwright/test').Page} page
+ * @param {import('@playwright/test').Locator} dialog
+ */
+export async function expectDialogKeyboard(page, dialog) {
+  await expect(dialog).toBeVisible();
+  await page.keyboard.press('Tab');
+  const focusInside = await dialog.evaluate((d) => d.contains(document.activeElement));
+  expect(focusInside, 'Tab sonrası odak diyalog içinde kalmalı (focus trap)').toBe(true);
+  await page.keyboard.press('Escape');
+  await expect(dialog).toBeHidden();
+}
