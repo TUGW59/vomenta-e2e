@@ -96,7 +96,7 @@ Her butona tıklanıp **Network istekleri + Console + DOM/state (aria/class/scro
 
 | Kontrol | Sonuç | Kanıt (tıklamada olan) |
 |---|---|---|
-| **Refresh All** | ✅ Çalışıyor | `GET /api/v1/supervisor/dashboard` + `GET /api/v1/supervisor/wallboard/config` + `GET /api/v1/voice/calls/live`. Konsol hatası yok. |
+| **Refresh All** | ✅ Çalışıyor (ama bkz. BULGU 4) | `GET /api/v1/supervisor/dashboard` + `GET /api/v1/supervisor/wallboard/config` + `GET /api/v1/voice/calls/live` + "Dashboard refreshed" toast. Veriyi çekiyor; fakat yanındaki son-güncelleme saati yanlış timezone'da gösteriliyor (BULGU 4). |
 | **TV modu** | ✅ Çalışıyor | `document.fullscreenElement: false → true` (gerçek tam ekran). |
 | **Düzeni kaydet** | ✅ Çalışıyor | `PUT /api/v1/supervisor/wallboard/config` (ardından config GET ile yeniden okuma). |
 | **Refresh aralığı (30 s)** | ~ Kısmen | Sayı girişi düzenlenebiliyor (30→5); değişimde config PUT yok, yalnızca yerel poll zamanlayıcısını besliyor. Bariz kırık değil. |
@@ -122,6 +122,24 @@ Her butona tıklanıp **Network istekleri + Console + DOM/state (aria/class/scro
 - Konsol hatası / page error yok (sessizce hiçbir şey yapmıyor).
 
 **Sonuç:** Toggle görsel olarak açılıp kapanıyor ama otomatik kaydırma mantığı çalışmıyor — kullanıcının "basıyorum ama etki yok" gözlemiyle birebir uyuşuyor (dil İngilizce iken bile). Normal görünüm ve TV modu, iki durumda da kaydırma yok.
+
+---
+
+## 🐞 BULGU 4 (kullanıcının bulduğu) — "Live/Canlı" son-güncelleme saati UTC gösteriliyor
+
+**Nerede:** Üst çubukta "Live/Canlı" rozetinin yanındaki yenileme ikonlu saat (son-güncelleme zamanı).
+
+**Beklenen:** Kullanıcının yerel saatinde gösterilmeli (header duvar saatiyle tutarlı).
+
+**Gerçekleşen:** Sunucunun **UTC** zamanı yerele **çevrilmeden** gösteriliyor → Türkiye'de (UTC+3) **~3 saat geride** görünüyor. Header duvar saati ise doğru yerel saati gösteriyor; ikisi yan yana ve 3 saat çelişiyor.
+
+**Inspection / Network kanıtı** (tarayıcı timezone = Europe/Istanbul):
+- Tarayıcı: yerel **12:26 PM** = UTC **09:26 AM**.
+- Header duvar saati: **12:26 PM** ✅ (yerel, doğru).
+- "Live" badge saati: **09:26 AM** ❌ (UTC — yerel değil). Badge span'i: `<span class="… text-muted-foreground">` + `svg.lucide-refresh-cw` + saat.
+- API zaten UTC ISO dönüyor: `GET /api/v1/supervisor/dashboard` → `data.timestamp = 2026-07-28T09:26…Z`; `/wallboard/config` → `data.updatedAt = …Z`. Yani hata sunucuda değil, **frontend'in yerel saate çevirmemesinde**.
+
+**Kanıt görseli:** [`bug4-timezone.png`](screenshots/bug4-timezone.png) — aynı karede header **12:26 PM** vs badge **09:26 AM**.
 
 ---
 

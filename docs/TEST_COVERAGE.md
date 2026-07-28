@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 127
+- **Test edilen senaryo:** 128
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 10 · `@known-bug` 18 · `@public` 2 · `@regression` 25 · `@smoke` 10
+- **Etiketler:** `@critical` 10 · `@known-bug` 19 · `@public` 2 · `@regression` 26 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -175,6 +175,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU 1: tema seçici "Dark" seçilince koyu tema uygulanmalı  `@regression` `@known-bug`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
 - BULGU 3: Auto-scroll içerik taşınca otomatik kaydırmalı  `@regression` `@known-bug`
+- BULGU 4: "Live" badge son-güncelleme saati yerel saati göstermeli (UTC değil)  `@regression` `@known-bug`
 
 ### `tickets.authed.spec.js`
 
