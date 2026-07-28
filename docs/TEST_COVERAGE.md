@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 166
-- **Test dosyası:** 23
-- **Etiketler:** `@critical` 17 · `@known-bug` 17 · `@public` 2 · `@regression` 66 · `@smoke` 10
+- **Test edilen senaryo:** 199
+- **Test dosyası:** 24
+- **Etiketler:** `@critical` 20 · `@known-bug` 21 · `@public` 2 · `@regression` 94 · `@smoke` 13
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -23,6 +23,38 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Tickets: bilinen borç dışında ciddi/kritik a11y ihlali yok
 - Settings: bilinen borç dışında ciddi/kritik a11y ihlali yok
 - Reports: bilinen borç dışında ciddi/kritik a11y ihlali yok
+
+### `analytics.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- tarih aralığı butonları mevcut (Today / 7 Days / 30 Days / 90 Days / Custom)  `@smoke`
+- üst KPI döşemeleri görünüyor
+- "AI usage" ve "Deep analytics" bölümleri görünüyor  `@smoke`
+- 6 navigasyon kartı doğru hedeflerle görünüyor  `@critical`
+- [en] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [tr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [fr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [ar] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- varsayılan olarak "30 Days" aktif, diğerleri değil  `@regression`
+- L1 tıklama OK: "Today" tıklanınca aktif duruma geçiyor  `@regression`
+- L1 tıklama OK: "7 Days" tıklanınca aktif duruma geçiyor  `@regression`
+- L1 tıklama OK: "90 Days" tıklanınca aktif duruma geçiyor  `@regression`
+- L2 arka plan OK: "7 Days" tıklanınca analytics verisi API'den çekiliyor  `@regression` `@critical`
+- L3 görev OK: "Today" seçilince dönem etiketleri "· Today"e dönüyor  `@regression`
+- L3 görev OK: "7 Days" seçilince dönem etiketleri "· 7 Days"e dönüyor  `@regression`
+- L3 görev OK: "90 Days" seçilince dönem etiketleri "· 90 Days"e dönüyor  `@regression`
+- L1 tıklama OK: popover Start / End + "Apply range" ile açılıyor  `@regression`
+- L2 arka plan OK: "Apply range" özel aralıkla analytics verisi çekiyor  `@regression`
+- L1+L3: "Call analytics" kartı /reports/call sayfasına götürüyor  `@regression`
+- L1+L3: "Agent analytics" kartı /reports/agent sayfasına götürüyor  `@regression`
+- L1+L3: "Queue analytics" kartı /reports/queue sayfasına götürüyor  `@regression`
+- L1+L3: "Campaign analytics" kartı /reports/campaign sayfasına götürüyor  `@regression`
+- L1+L3: "AI analytics" kartı /reports/ai sayfasına götürüyor  `@regression`
+- L1+L3: "Dashboards" kartı /reports/dashboards sayfasına götürüyor  `@regression`
+- BULGU A [tr]: "Deep analytics" bölümü tr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
 
 ### `contacts.authed.spec.js`
 
@@ -250,6 +282,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: buton görünür ve etkin  `@regression`
 - L1 tıklama OK: form açılıyor (Start/End Date, Reason) ve tarih dolunca Submit etkinleşiyor  `@regression`
 - L2 arka plan OK: Submit doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: "Create badge" formu açılıyor ("Create badge")  `@regression`
+- L1 tıklama OK: "Award badge" formu açılıyor ("Award badge")  `@regression`
+- L1 tıklama OK: "Create survey" formu açılıyor ("Create survey")  `@regression`
+- L1 tıklama OK: "Create Evaluation" formu açılıyor ("Create Quality Evaluation")  `@regression`
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 
