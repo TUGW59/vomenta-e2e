@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 145
+- **Test edilen senaryo:** 176
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 14 · `@known-bug` 16 · `@public` 2 · `@regression` 49 · `@smoke` 9
+- **Etiketler:** `@critical` 18 · `@known-bug` 16 · `@public` 2 · `@regression` 81 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -26,10 +26,41 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `contacts.authed.spec.js`
 
-- tablo beklenen kolonları gösteriyor  `@critical`
+- başlık, alt başlık ve 7 kolon görünüyor  `@smoke`
+- araç çubuğu butonları ve arama mevcut  `@critical`
 - en az bir kişi listeleniyor  `@smoke`
-- arama: eşleşmeyen sorgu "No contacts found" gösteriyor
-- arama: mevcut bir kişiyi ada göre filtreliyor  `@critical`
+- [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- L1 tıklama OK: terim girince liste süzülür ve "Clear" çıkar  `@regression`
+- L2 arka plan OK: arama filters={"search":…} ile API sorgusu atıyor  `@regression` `@critical`
+- L3 görev OK: eşleşen kişi görünür, eşleşmeyen sorgu boş-durum gösterir  `@regression`
+- L1 tıklama OK: 5 tag chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: chip tıklanınca filters={"tags":[…]} sorgusu atılıyor  `@regression` `@critical`
+- L3 görev OK: filtre listeyi süzüyor (VIP kişisi yoksa boş-durum)  `@regression`
+- L1 tıklama OK: dropdown açılıyor (All Companies + en az bir şirket)  `@regression`
+- L2 arka plan OK: bir şirket seçilince liste yeniden çekiliyor  `@regression`
+- L3 görev OK: seçilen şirket dropdown tetikleyicisinde yansıyor  `@regression`
+- L1 tıklama OK: sort chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: sort chip yeni sort=[…] ile sorgu atıyor  `@regression` `@critical`
+- L3 görev OK: satır sırası değişiyor  `@regression`
+- L1 tıklama OK: ızgara butonu tıklanınca aktif duruma geçiyor  `@regression`
+- L3 görev OK: ızgara görünümü tabloyu değiştiriyor, listeye dönünce tablo geri geliyor  `@regression`
+- L1 tıklama OK: New Contact formunu açıyor (9 alan + Kaydet/İptal)  `@regression`
+- L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: /contacts/import sayfasını (dosya girişli) açıyor  `@regression`
+- L1 tıklama OK: Export tıklanınca indirme başlıyor  `@regression`
+- L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor  `@regression` `@critical`
+- L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok  `@regression`
+- L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)  `@regression`
+- L1 tıklama OK: /contacts/segments sayfasını açıyor  `@regression`
+- L1 tıklama OK: satıra tıklayınca /contacts/{id} detayına gidiyor  `@regression`
+- L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor  `@regression` `@critical`
+- L3 görev OK: detay sayfası kişi adını ve sekmeleri gösteriyor  `@regression`
+- L1 OK: tek sayfada prev/next pasif ve sayaç "of N" gösteriyor  `@regression`
+- BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı  `@regression`
+- BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli  `@regression`
 
 ### `dashboard-actions.authed.spec.js`
 
