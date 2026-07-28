@@ -27,7 +27,6 @@ export const COVERAGE_EXCLUSIONS = Object.freeze([
  * Bunlar tıklanınca sayfa/dialog açar; zamanla test kapsamına eklenebilir.
  */
 export const COVERAGE_TODO = Object.freeze([
-  { control: 'New Dashboard / Custom Report / Schedule a Report', pages: 'Reports' },
   { control: 'Bildirimler paneli', pages: 'Header' },
   { control: 'Dil menüsü', pages: 'Header' },
 ]);

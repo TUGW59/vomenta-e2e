@@ -8,11 +8,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 102
-- **Test dosyası:** 19
+- **Test edilen senaryo:** 105
+- **Test dosyası:** 20
 - **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 7
 - **Bilerek test edilmeyen (güvenlik):** 7
-- **Yapılacak (güvenli, henüz kapsanmadı):** 3
+- **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
 ## ✅ Test edilen senaryolar
 
@@ -129,6 +129,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Reports sayfası tüm rapor kategorilerini gösteriyor
 - Analytics sayfası alt bölümleri gösteriyor
 
+### `reports-actions.authed.spec.js`
+
+- "New Dashboard" pano sayfasına götürüyor
+- "Custom Report" pano/rapor sayfasına götürüyor
+- "Schedule a Report" formu açılıyor ve iptal edilebiliyor
+
 ### `reports.authed.spec.js`
 
 - sayfa başlığı ve tarih aralığı seçici görünüyor
@@ -191,6 +197,5 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 | Kontrol | Sayfa |
 |---|---|
-| New Dashboard / Custom Report / Schedule a Report | Reports |
 | Bildirimler paneli | Header |
 | Dil menüsü | Header |
