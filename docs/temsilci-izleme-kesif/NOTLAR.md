@@ -67,6 +67,8 @@ Backend ucu: `GET /api/v1/supervisor/agents?status=...&search=...&page=...&limit
 - "Last refreshed at **12:37 PM**" (UTC — yerel değil) ❌
 - Dört dilde de aynı: TR "Son yenileme: 12:38 PM", FR "Dernière actualisation à 12:39 PM", AR "آخر تحديث في 12:39 PM".
 
+**Kanıt görseli:** [`bug-timezone.png`](screenshots/bug-timezone.png) — aynı karede header saati **05:08 PM** vs "Last refreshed at **02:08 PM**" (3 saat fark).
+
 Yani timezone hatası tek sayfaya özgü değil; **süpervizör bölümünde yaygın** (Duvar Panosu'nda da vardı). Test: `test.fail` (düzelince uyarır).
 
 ---
