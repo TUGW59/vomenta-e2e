@@ -6,6 +6,16 @@ import { assertMutationsAllowed } from '../../config/environment.js';
 import { collectDiagnostics } from './diagnostics.js';
 
 /**
+ * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
+ * bilinen gürültü. Buraya eklenen her desen gerekçeli olmalı:
+ * - `net::ERR_ABORTED`: uçuştaki istek iptali (React yeniden-render eski fetch'i iptal
+ *   eder; Next.js `_rsc` prefetch'leri gezinince iptal olur). İptal = hata değil.
+ *   Gerçek ağ hataları (ERR_CONNECTION/ERR_TIMED_OUT), console-error ve HTTP 5xx
+ *   hâlâ yakalanır.
+ */
+const DEFAULT_DIAGNOSTICS_ALLOWLIST = [/net::ERR_ABORTED/, /[?&]_rsc=/];
+
+/**
  * Şirket testlerinin tek giriş noktası.
  *
  * Yeni fixture'lar (API istemcisi, feature flag, rol vb.) buraya eklenir;
@@ -55,7 +65,27 @@ export const test = base.extend({
   diagnostics: [
     async ({ page }, use, testInfo) => {
       const collector = collectDiagnostics(page);
-      await use();
+
+      /**
+       * "Sessiz hata yok" guard'ı. Sayfada console-error / başarısız istek / HTTP 5xx
+       * olmadığını doğrular. Beklenen gürültü (ör. Next.js RSC prefetch iptalleri)
+       * allowlist ile elenir. Kritik akışlarda çağrılır (opt-in).
+       * @param {(string|RegExp)[]} [allowlist] Ek izin verilen desenler (url/metin)
+       */
+      const assertClean = (allowlist = []) => {
+        const rules = [...DEFAULT_DIAGNOSTICS_ALLOWLIST, ...allowlist];
+        const allowed = (ev) => {
+          const hay = `${ev.text || ''} ${ev.url || ''} ${ev.failure || ''}`;
+          return rules.some((r) => (r instanceof RegExp ? r.test(hay) : hay.includes(r)));
+        };
+        const offenders = collector.events.filter((ev) => !allowed(ev));
+        expect(
+          offenders,
+          `Sayfada sessiz hata var (console-error / failed-request / 5xx):\n${JSON.stringify(offenders.slice(0, 8), null, 2)}`
+        ).toEqual([]);
+      };
+
+      await use({ get events() { return collector.events; }, assertClean });
       collector.stop();
 
       if (testInfo.status !== testInfo.expectedStatus && collector.events.length > 0) {

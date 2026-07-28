@@ -73,6 +73,12 @@ test.describe('Analitik — yapı', () => {
     }
     await expect(analytics.allReportsLink).toBeVisible();
   });
+
+  test('sayfada sessiz hata yok (console-error / failed-request / 5xx) @smoke', async ({ diagnostics }) => {
+    // Sayfa beforeEach'te açıldı + ilk analytics verisi geldi; gürültü (RSC prefetch)
+    // varsayılan allowlist ile elenir.
+    diagnostics.assertClean();
+  });
 });
 
 // ──────────────────────── 4 DİL ÇEVİRİ GUARD'LARI ────────────────────────

@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { gotoApp } from './helpers.js';
+import { gotoApp, waitForUiToSettle } from './helpers.js';
 
 /**
  * Reports sayfası testleri (girişli, salt-okunur).
@@ -63,6 +63,21 @@ test.describe('Vomenta - Reports', () => {
     for (const cat of ['Call Reports', 'Agent Performance', 'AI Reports', 'SLA Reports']) {
       await expect(page.getByRole('heading', { name: cat, exact: true })).toBeVisible();
     }
+  });
+
+  // BULGU (keşifte çıktı): AI Insights içeriği konsola intl FORMATTING_ERROR düşürüyor
+  // ("...variable 'type' was not provided to the string 'Generate AI insights...'").
+  // Bkz. AGENTS.md "Responsive/taşma ve erişilebilirlik standardı" komşusu: sessiz-hata guard.
+  test('sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli @known-bug', async ({ page, diagnostics }) => {
+    test.fail(); // hata açıkken beklenen başarısızlık; düzelince "beklenmedik geçiş"
+    await openReports(page);
+    const tab = page.getByRole('tab', { name: 'AI Insights', exact: true });
+    await expect(async () => {
+      await tab.click();
+      await expect(tab).toHaveAttribute('aria-selected', 'true', { timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+    await waitForUiToSettle(page);
+    diagnostics.assertClean();
   });
 
   // BULGU (keşifte çıktı): AI Insights panelinde ham i18n anahtarı sızıyor.

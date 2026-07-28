@@ -140,6 +140,42 @@ export async function login(page, email, password) {
   await new LoginPage(page).login(email, password);
 }
 
+/** "09:24", "9:24 AM", "12:24 PM" → gece yarısından beri dakika (NaN = eşleşmedi). */
+export function parseClockToMinutes(text) {
+  const m = String(text).match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+  if (!m) return NaN;
+  let h = parseInt(m[1], 10);
+  const min = parseInt(m[2], 10);
+  const ap = m[3]?.toUpperCase();
+  if (ap === 'PM' && h !== 12) h += 12;
+  if (ap === 'AM' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+/** İki "dakika" değeri arasındaki dairesel (24s sarma) en kısa fark. */
+export function circularMinuteDiff(a, b) {
+  const d = Math.abs(a - b) % 1440;
+  return Math.min(d, 1440 - d);
+}
+
+/**
+ * Kullanıcıya görünen bir saat metninin YEREL saat dilimine uygun olduğunu doğrular
+ * (sunucunun UTC'sini çevirmeden basma hatasını yakalar). Bkz. AGENTS.md timezone
+ * standardı. Test, UTC olmayan bir timezone'da çalıştırılmalı (`test.use({ timezoneId })`).
+ * @param {import('@playwright/test').Page} page
+ * @param {string} clockText - Ekrandan okunan saat (ör. "09:24", "12:24 PM")
+ * @param {{ maxDiffMin?: number }} [opts]
+ */
+export async function assertLocalClock(page, clockText, { maxDiffMin = 5 } = {}) {
+  const badgeMin = parseClockToMinutes(clockText);
+  const localMin = await page.evaluate(() => new Date().getHours() * 60 + new Date().getMinutes());
+  const diff = circularMinuteDiff(badgeMin, localMin);
+  expect(
+    diff,
+    `saat="${clockText}" (=${badgeMin}dk) yerel=${localMin}dk fark=${diff}dk (yerel saat bekleniyor, UTC değil)`
+  ).toBeLessThanOrEqual(maxDiffMin);
+}
+
 /**
  * Bir KPI/metrik kutucuğunun yalnızca ETİKETİ değil, bir DEĞER de gösterdiğini
  * doğrular. Backend bozulup tüm metrikleri boşaltırsa (etiket durur, değer kaybolur)
