@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 147
-- **Test dosyası:** 22
-- **Etiketler:** `@critical` 14 · `@known-bug` 16 · `@public` 2 · `@regression` 51 · `@smoke` 9
+- **Test edilen senaryo:** 166
+- **Test dosyası:** 23
+- **Etiketler:** `@critical` 17 · `@known-bug` 17 · `@public` 2 · `@regression` 66 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -158,6 +158,28 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
 - her sekme tıklanınca seçili duruma geçiyor
+
+### `supervisor-agents.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- istatistik döşemeleri görünüyor (Total/Available/Offline/Calls Today/Avg AHT)
+- temsilci tablosu beklenen kolonları gösteriyor  `@critical`
+- kontroller mevcut (durum filtresi / arama / Analyze)
+- [en] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [tr] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [fr] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [ar] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- L1 tıklama OK: menü açılıyor ve durum seçenekleri görünüyor  `@regression`
+- L2 arka plan OK: durum seçince agents API'sini status parametresiyle çağırıyor  `@regression` `@critical`
+- L3 görev OK: seçilen duruma göre tablo filreleniyor  `@regression`
+- L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
+- L2 arka plan OK: arama agents API'sini search parametresiyle çağırıyor  `@regression`
+- L3 görev OK: arama tabloyu eşleşen ajana daraltıyor  `@regression`
+- L1 tıklama OK: Force menüsü açılıyor ve zorla-durum seçenekleri görünüyor  `@regression`
+- L1 tıklama OK: transkript girilince Analyze butonu etkinleşiyor  `@regression`
+- L2/L3: "Analyze" transkripti analiz ucuna gönderir ve sonuç döndürür  `@regression`
+- L1: Previous/Next butonları mevcut, tek sayfada Next devre dışı  `@regression`
+- BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
 
 ### `supervisor-wallboard.authed.spec.js`
 
