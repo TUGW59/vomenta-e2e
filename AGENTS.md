@@ -84,6 +84,10 @@ Kurallar:
   olmalı. URL doğru olsa bile sayfa boş, 404 veya hatalı olabilir → L3 gözlemlenebilir
   son durumu (içerik render'ı) kanıtlar, salt URL eşleşmesi "baştan savma" sayılır.
   Bu, **ileride eklenecek sayfalar dahil** tüm gezinme kontrolleri için geçerlidir.
+  Ortak yardımcı: `helpers.js` → `assertDestinationLoaded(page, { path, heading })`
+  (rota + oturum + başlık). `tools/validate-architecture.mjs` bu kuralı statik
+  zorlar: `waitForURL`/`page.url()` kullanan bir spec, başlık/`assertDestinationLoaded`
+  doğrulaması da içermelidir. Beklenen başlıklar canlıdan gözlemlenir (uydurulmaz).
 
 Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
 (+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).

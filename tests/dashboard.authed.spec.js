@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { MAIN_NAVIGATION } from './contracts/navigation.js';
-import { gotoApp } from './helpers.js';
+import { assertDestinationLoaded, gotoApp } from './helpers.js';
 
 /**
  * Giriş sonrası (authenticated) Vomenta panel testleri.
@@ -49,13 +49,16 @@ test.describe('Vomenta - Giriş sonrası panel', () => {
  * 'commit' beklemesi: SPA yönlendirmelerinde navigasyonun iptal olmasını önler ve
  * ağır kaynakların yüklenmesini beklemez. Bazı sayfalar alt-rotaya yönlenir
  * (ör. /voice -> /voice/live), bu yüzden URL'nin istenen yolu İÇERMESİNİ bekleriz.
+ *
+ * L3: yalnızca oturum/URL değil, sayfanın beklenen başlığı da görünür olmalı
+ * (assertDestinationLoaded — sözleşmedeki `heading`). Böylece "URL doğru ama sayfa
+ * boş/bozuk" durumu yakalanır.
  */
 test.describe('Vomenta - Sayfalara doğrudan erişim (oturum korunuyor)', () => {
   for (const item of MAIN_NAVIGATION.filter((i) => i.path !== '/')) {
-    test(`${item.path} doğrudan açılıyor`, async ({ page }) => {
+    test(`${item.path} doğrudan açılıyor ("${item.heading}")`, async ({ page }) => {
       await gotoApp(page, item.path);
-      await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeHidden();
-      expect(page.url()).toContain(item.path);
+      await assertDestinationLoaded(page, { path: item.path, heading: item.heading });
     });
   }
 });
