@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from './fixtures/test.js';
-import { gotoApp } from './helpers.js';
+import { test } from './fixtures/test.js';
+import { assertDestinationLoaded, gotoApp } from './helpers.js';
 
 /**
  * Kenar menüsü TIKLAMA gezinmesinin fonksiyonel testi — linke tıklayınca gerçekten
@@ -10,22 +10,22 @@ import { gotoApp } from './helpers.js';
  * gezinmek yerine alt-menü açan gruplardır; onların hedef sayfaları href doğruluğu ve
  * doğrudan URL erişimi testlerinde (dashboard.authed) kapsanır. Bu test, tıklamayla
  * DOĞRUDAN gezinen "leaf" öğelere odaklanır.
+ *
+ * L3: yalnızca URL değil, hedef sayfanın başlığı da görünür olmalı (assertDestinationLoaded).
  */
 const LEAF_PAGES = [
-  { name: 'Inbox', path: '/inbox' },
-  { name: 'Tickets', path: '/tickets' },
-  { name: 'Analytics', path: '/analytics' },
-  { name: 'Settings', path: '/settings' },
+  { name: 'Inbox', path: '/inbox', heading: 'Inbox' },
+  { name: 'Tickets', path: '/tickets', heading: 'Tickets' },
+  { name: 'Analytics', path: '/analytics', heading: 'Analytics' },
+  { name: 'Settings', path: '/settings', heading: 'Settings' },
 ];
 
 test.describe('Vomenta - Kenar menüsü tıklama gezinmesi', () => {
   for (const item of LEAF_PAGES) {
-    test(`"${item.name}" linkine tıklayınca ${item.path} sayfasına gidiyor`, async ({ app, page }) => {
+    test(`"${item.name}" linkine tıklayınca ${item.path} ("${item.heading}") sayfasına gidiyor`, async ({ app, page }) => {
       await gotoApp(page, '/');
       await app.shell.link(item.name).click();
-      await page.waitForURL((url) => url.pathname.startsWith(item.path), { timeout: 15000 });
-      // Oturum korunuyor — login sayfasına atılmadık.
-      await expect(app.shell.loginHeading).toBeHidden();
+      await assertDestinationLoaded(page, { path: item.path, heading: item.heading });
     });
   }
 });

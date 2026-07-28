@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { gotoApp } from './helpers.js';
+import { assertDestinationLoaded, gotoApp } from './helpers.js';
 
 /**
  * Reports eylem butonlarının FONKSİYONEL testi — tıklayınca vadettiğini yapıyor mu.
@@ -13,16 +13,14 @@ test.describe('Vomenta - Reports eylem butonları (fonksiyonel)', () => {
     await gotoApp(page, '/reports');
   });
 
-  test('"New Dashboard" pano sayfasına götürüyor', async ({ app, page }) => {
+  test('"New Dashboard" pano sayfasına ("Dashboards") götürüyor', async ({ page }) => {
     await page.getByRole('button', { name: 'New Dashboard', exact: true }).click();
-    await page.waitForURL((u) => u.pathname.startsWith('/reports/dashboards'), { timeout: 15000 });
-    await expect(app.shell.loginHeading).toBeHidden();
+    await assertDestinationLoaded(page, { path: '/reports/dashboards', heading: 'Dashboards' });
   });
 
-  test('"Custom Report" pano/rapor sayfasına götürüyor', async ({ app, page }) => {
+  test('"Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor', async ({ page }) => {
     await page.getByRole('button', { name: 'Custom Report', exact: true }).click();
-    await page.waitForURL((u) => u.pathname.startsWith('/reports/dashboards'), { timeout: 15000 });
-    await expect(app.shell.loginHeading).toBeHidden();
+    await assertDestinationLoaded(page, { path: '/reports/dashboards', heading: 'Dashboards' });
   });
 
   test('"Schedule a Report" formu açılıyor ve iptal edilebiliyor', async ({ page }) => {
