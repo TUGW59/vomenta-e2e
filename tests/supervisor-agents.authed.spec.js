@@ -150,14 +150,42 @@ test.describe('Kontrol: Force (ajan durumu) @regression', () => {
     }
     await am.page.keyboard.press('Escape'); // durumu DEĞİŞTİRMEDEN kapat
   });
+
+  test('L1 tıklama OK: durum seçince onay diyaloğu zorunlu-sebep ile açılıyor (iptal edilir)', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await am.openForceMenu();
+    await am.page.getByRole('menuitem', { name: 'Available', exact: true }).click();
+    const dialog = am.page.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByText(/Reason \(required\)/i)).toBeVisible();
+    const confirm = dialog.getByRole('button', { name: /Force Status Change/i });
+    await expect(confirm).toBeDisabled(); // sebep boşken devre dışı
+    await dialog.locator('textarea').first().fill('x');
+    await expect(confirm).toBeEnabled(); // sebep girilince etkin
+    // Durumu DEĞİŞTİRMEDEN İPTAL et (mutation yok).
+    await dialog.getByRole('button', { name: /Cancel/i }).click();
+    await expect(dialog).toBeHidden();
+  });
 });
 
-// L2/L3: "Force → <durum>" ajanın durumunu gerçekten değiştirir (YIKICI/MUTATION) →
-// prod'da tetiklenmez; yalnızca staging'de ayrı *.mutation spec + @mutation +
-// mutationGuard + cleanup (durumu geri al) ile (bkz. AGENTS.md).
+/**
+ * BULGU (Force durum değişikliği başarısız) — kullanıcı canlıda gözlemledi:
+ * Force → Available → sebep → "Force Status Change" → "İşlem tamamlanamadı. Lütfen tekrar deneyin."
+ *
+ * KÖK NEDEN (kanıtlı, docs/temsilci-izleme-kesif/NOTLAR.md):
+ *  - Frontend DOĞRU istek atıyor: PATCH /api/v1/supervisor/agents/{id}/force-status
+ *    body {status:"AVAILABLE", reason} — OpenAPI ForceAgentStatusDto ile birebir uyumlu.
+ *  - Yani doğrulama/sözleşme sorunu DEĞİL; geçerli istek sunucuda reddediliyor
+ *    (muhtemelen çevrimdışı/oturumsuz ajan zorlanamıyor) ve UI jenerik "tekrar deneyin" gösteriyor.
+ *  - Tam HTTP kodu: gerçek mutasyon güvenlik-bloklu → staging'de teyit edilecek.
+ *
+ * L2/L3 (gerçek durum değişikliği) YIKICI/MUTATION → prod'da tetiklenmez; staging'de
+ * ayrı *.mutation spec + @mutation + mutationGuard + cleanup ile (bkz. AGENTS.md).
+ */
 test.describe('Force — L2/L3 (staging planı) @regression', () => {
   test.fixme('L2/L3: "Force → Break" ajanın durumunu backend\'de Break yapar (staging @mutation)', async () => {});
-  test.fixme('L2/L3: "Force → Available" ajanın durumunu backend\'de Available yapar (staging @mutation)', async () => {});
+  test.fixme('L2/L3: çevrimdışı ajanı zorlama hatasının tam HTTP kodu/mesajı doğrulanır (staging)', async () => {});
 });
 
 // ═══════════════ KONTROL: ANALYZE (anomali) — L1 ═══════════════
@@ -172,9 +200,40 @@ test.describe('Kontrol: Analyze (anomali tespiti) @regression', () => {
     await expect(am.analyzeButton).toBeEnabled(); // metin girilince etkin
   });
 
-  // L2/L3: Analyze'a basınca transkript analiz ucuna gönderilir ve sonuç gösterilir.
-  // AI analizi olduğundan ayrıca ele alınacak (deterministik değil).
-  test.fixme('L2/L3: "Analyze" transkripti analiz ucuna gönderir ve sonuç döndürür', async () => {});
+  test('L2 arka plan OK: Analyze transkripti detect-anomaly ucuna POST ediyor', async ({ app, page }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await am.analyzeTextarea.fill('Customer: third time calling! Agent: I will fix this right now.');
+    const request = page.waitForRequest(
+      (r) => r.url().includes(AgentMonitorPage.ANALYZE_API) && r.method() === 'POST',
+      { timeout: 10000 }
+    );
+    await am.analyzeButton.click();
+    const req = await request;
+    // İstek gövdesi transkripti içermeli (salt-okunur işlem, veri değiştirmez).
+    expect(req.postData() || '').toContain('transcript');
+  });
+
+  test('L3 görev OK: analiz sonucu (risk) arayüzde gösteriliyor', async ({ app, page }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    // Yanıtı SABİTLE (deterministik + AI maliyeti yok): overallRisk=high.
+    await page.route(`**${AgentMonitorPage.ANALYZE_API}`, (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          success: true,
+          data: { anomalies: [{ type: 'compliance_issues', severity: 'high', description: 'x', evidence: 'y', recommendation: 'z' }], overallRisk: 'high', requiresReview: true },
+          meta: {},
+        }),
+      })
+    );
+    await am.analyzeTextarea.fill('Customer escalation transcript for deterministic test.');
+    await am.analyzeButton.click();
+    // Sonuç render edilmeli (sabit yanıttaki risk seviyesi).
+    await expect(am.page.getByText(/Risk:\s*high/i)).toBeVisible({ timeout: 10000 });
+  });
 });
 
 // ═══════════════ KONTROL: SAYFALAMA — L1 ═══════════════
@@ -187,6 +246,82 @@ test.describe('Kontrol: Sayfalama @regression', () => {
     await expect(am.prevButton).toBeVisible();
     await expect(am.nextButton).toBeVisible();
     await expect(am.nextButton).toBeDisabled();
+  });
+});
+
+// ═══════════════ KONTROL: GÖRÜNÜM TOGGLE (liste / ızgara) — L1 ═══════════════
+// Saf istemci-tarafı görünüm değişimi → L2 N/A. NOT: ikon-only butonlar aria-label'sız (a11y).
+test.describe('Kontrol: Görünüm toggle (liste/ızgara) @regression', () => {
+  test('L1+L3: ızgara/liste arasında geçiş tablo düzenini değiştiriyor', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    // Başlangıç: liste (tablo) — kolon başlığı görünür.
+    await expect(am.page.getByRole('columnheader', { name: 'Agent', exact: true })).toBeVisible();
+    // Izgaraya geç → tablo kolon başlığı kaybolur (kart düzeni).
+    await am.viewGridButton.click();
+    await expect(am.page.getByRole('columnheader', { name: 'Agent', exact: true })).toBeHidden();
+    // Listeye dön → tablo geri gelir.
+    await am.viewListButton.click();
+    await expect(am.page.getByRole('columnheader', { name: 'Agent', exact: true })).toBeVisible();
+  });
+});
+
+// ═══════════════ KONTROL: SATIR → DETAY PANELİ — L1 + L2 + L3 (+ tutarlılık) ═══════════════
+test.describe('Kontrol: Ajan detay paneli @regression', () => {
+  test('L1+L2+L3: satıra tıklayınca panel açılıyor, status-history çekiliyor, veri tutarlı', async ({ app, page }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    // L2: panel açılışında status-history isteği.
+    const historyReq = page.waitForRequest(
+      (r) => r.url().includes('/status-history') && r.method() === 'GET',
+      { timeout: 10000 }
+    );
+    const dialog = await am.openDetailDrawer('Account Agent'); // L1: panel açılır
+    await historyReq;
+    // L3 + TUTARLILIK: panel, satırdaki ajanı ve durumunu göstermeli.
+    await expect(dialog.getByText('Account Agent', { exact: true })).toBeVisible();
+    await expect(dialog.getByText('testagent@sigmatelecom.com', { exact: true })).toBeVisible();
+    await expect(dialog.getByText(/Offline/i).first()).toBeVisible(); // satırdaki durumla tutarlı
+    await expect(dialog.getByText(/Software/i).first()).toBeVisible(); // satırdaki kuyrukla tutarlı
+    await page.keyboard.press('Escape');
+  });
+});
+
+// ═══════════════ KONTROL: SATIR AKSİYONLARI (Listen/Whisper/Barge In) — L1 ═══════════════
+// Canlı arama denetim aksiyonları. Çevrimdışı ajanda DOĞRU şekilde disabled.
+// L2/L3 (gerçek dinleme/fısıltı/araya girme) için canlı aramadaki ajan gerekir → N/A.
+test.describe('Kontrol: Satır aksiyonları (Listen/Whisper/Barge In) @regression', () => {
+  test('L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await expect(am.listenButton).toBeVisible();
+    await expect(am.whisperButton).toBeVisible();
+    await expect(am.bargeButton).toBeVisible();
+    // Çevrimdışı ajan → canlı denetim yapılamaz → disabled (doğru davranış).
+    await expect(am.listenButton).toBeDisabled();
+    await expect(am.whisperButton).toBeDisabled();
+    await expect(am.bargeButton).toBeDisabled();
+  });
+});
+
+// ═══════════════ KONTROL: DURUM FİLTRESİ — DOĞRULUK (sunucu yanıtı) ═══════════════
+test.describe('Kontrol: Durum filtresi doğruluğu @regression', () => {
+  test('L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor', async ({ app, page }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    // "Offline" seç → yanıttaki tüm ajanların agentStatus'u OFFLINE olmalı.
+    const respP = page.waitForResponse(
+      (r) => /supervisor\/agents\?.*status=OFFLINE/i.test(r.url()) && r.request().method() === 'GET',
+      { timeout: 10000 }
+    );
+    await am.selectStatus('Offline');
+    const resp = await respP;
+    const json = await resp.json().catch(() => null);
+    const agents = json?.data ?? [];
+    expect(Array.isArray(agents)).toBeTruthy();
+    for (const a of agents) {
+      expect(a.agentStatus, `ajan ${a.firstName} beklenen OFFLINE`).toBe('OFFLINE');
+    }
   });
 });
 

@@ -73,6 +73,31 @@ Yani timezone hatası tek sayfaya özgü değil; **süpervizör bölümünde yay
 
 ---
 
+## Derin fonksiyonel inceleme (2. tur — "çalışıyor ≠ doğru çalışıyor")
+
+| Kontrol | L1 | L2 | L3 | Not |
+|---|---|---|---|---|
+| **Görünüm toggle** (liste/ızgara) | ✅ | — N/A (istemci) | ✅ tablo↔kart | ikon butonlar **aria-label'sız** (a11y) |
+| **Satır → detay paneli** | ✅ açılır | ✅ `GET .../status-history` | ✅ + **satırla tutarlı** (ad/e-posta/durum/kuyruk) | — |
+| **Satır ikonları** Listen/Whisper/Barge In | ✅ mevcut | — canlı arama gerekir | — | çevrimdışı ajanda **doğru disabled**; `title` var, aria-label yok |
+| **Analyze** (anomali) | ✅ etkinleşir | ✅ `POST /ai/copilot/supervisor/detect-anomaly` | ✅ **gerçek AI sonucu** (Risk: …) | tracing ile paket doğrulandı; `analyze-trace.zip` |
+| **Durum filtresi** | ✅ | ✅ `?status=` | ✅ + **doğruluk**: sunucu yanıtındaki her ajan `agentStatus` = seçilen | — |
+| **Force** (durum değiştir) | ✅ menü + onay diyaloğu (zorunlu sebep) | ⚠ staging @mutation | ⚠ staging @mutation | aşağıdaki BULGU |
+
+### 🐞 BULGU — Force durum değişikliği başarısız ("İşlem tamamlanamadı")
+Kullanıcı canlıda gözlemledi. **Kök neden (kanıtlı):**
+- Frontend DOĞRU istek atıyor: `PATCH /api/v1/supervisor/agents/{id}/force-status`, gövde `{status:"AVAILABLE", reason}`.
+- Bu, Vomenta'nın **kendi OpenAPI spec'indeki** (`api.vomenta.com/api/docs-json`) `ForceAgentStatusDto` ile **birebir uyumlu** (status enum'da AVAILABLE var, reason ≤500, ikisi de zorunlu). Client'ta reason min-uzunluk yok.
+- Yani **doğrulama/sözleşme sorunu değil** → geçerli istek **sunucuda reddediliyor** (muhtemelen çevrimdışı/oturumsuz ajan zorlanamıyor) ve UI jenerik "tekrar deneyin" gösteriyor.
+- **Bug türü:** ya backend geçerli isteği reddediyor, ya da (kesin) UI yanıltıcı jenerik hata veriyor / çevrimdışı ajan için aksiyonu sunmamalı.
+- Tam HTTP kodu: gerçek mutasyon güvenlik-bloklu → staging'de teyit edilecek.
+- **Kanıt görselleri:** `force-menu.png`, `analyze-submitted.png` (Analyze'ın çalıştığı, Force'un aksine).
+
+### Ölçüm/araç notu
+- **Playwright Tracing** kullanıldı: `analyze-trace.zip` (giden/gelen paketler + DOM snapshot + adımlar; `npx playwright show-trace` ile açılır).
+- Force isteği **sunucuya ulaşmadan** yakalandı (route abort) → mutasyonsuz teşhis.
+- **Vomenta API OpenAPI spec'i public:** `api.vomenta.com/api/docs-json` — ileride sözleşme (contract) testleri için kullanılabilir.
+
 ## Test karşılığı
 
 `tests/supervisor-agents.authed.spec.js` (+ `tests/pages/AgentMonitorPage.js`, `app.agentMonitor`).

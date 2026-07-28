@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 339
+- **Test edilen senaryo:** 346
 - **Test dosyası:** 27
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 38 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 180 · `@smoke` 35 · `@visual` 3
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 38 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 187 · `@smoke` 35 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -357,9 +357,16 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L2 arka plan OK: arama agents API'sini search parametresiyle çağırıyor  `@regression`
 - L3 görev OK: arama tabloyu eşleşen ajana daraltıyor  `@regression`
 - L1 tıklama OK: Force menüsü açılıyor ve zorla-durum seçenekleri görünüyor  `@regression`
+- L1 tıklama OK: durum seçince onay diyaloğu zorunlu-sebep ile açılıyor (iptal edilir)  `@regression`
+- L2/L3: çevrimdışı ajanı zorlama hatasının tam HTTP kodu/mesajı doğrulanır (staging)  `@regression`
 - L1 tıklama OK: transkript girilince Analyze butonu etkinleşiyor  `@regression`
-- L2/L3: "Analyze" transkripti analiz ucuna gönderir ve sonuç döndürür  `@regression`
+- L2 arka plan OK: Analyze transkripti detect-anomaly ucuna POST ediyor  `@regression`
+- L3 görev OK: analiz sonucu (risk) arayüzde gösteriliyor  `@regression`
 - L1: Previous/Next butonları mevcut, tek sayfada Next devre dışı  `@regression`
+- L1+L3: ızgara/liste arasında geçiş tablo düzenini değiştiriyor  `@regression`
+- L1+L2+L3: satıra tıklayınca panel açılıyor, status-history çekiliyor, veri tutarlı  `@regression`
+- L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı  `@regression`
+- L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor  `@regression`
 - BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
 
 ### `supervisor-wallboard.authed.spec.js`
