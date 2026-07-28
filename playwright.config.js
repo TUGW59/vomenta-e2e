@@ -46,11 +46,10 @@ export default defineConfig({
   expect: {
     timeout: environment.expectTimeout,
   },
-  /* Production'da veri değiştiren testler savunma amaçlı iki kez engellenir. */
-  grepInvert:
-    environment.isProduction && !environment.allowMutations
-      ? /@mutation/
-      : undefined,
+  /* Kilit 1: @mutation testleri yalnızca ALLOW_MUTATING_TESTS=true iken (her
+     ortamda ve CI'da) çalışır; aksi hâlde tamamen dışlanır. Canlıya yazmak için
+     ayrıca ALLOW_PROD_MUTATIONS gerekir (config/environment.js assertMutationsAllowed). */
+  grepInvert: environment.allowMutations ? undefined : /@mutation/,
   /* Terminalde kısa sonuç, hatalarda kalıcı HTML raporu. */
   reporter: environment.isCI
     ? [

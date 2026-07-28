@@ -43,6 +43,11 @@ npm run test:auth
 # Chromium, Firefox ve WebKit'te tüm test paketi
 npm run test:e2e
 
+# Veri-değiştiren (@mutation) testler — ÇİFT KİLİT, yalnızca elle çalışır.
+# Normal koşular ve CI bunları ASLA çalıştırmaz (bkz. docs/adr/0002).
+npm run test:mutation        # kategoriyi açar (production'da fail-fast)
+npm run test:mutation:prod   # canlı tenant'a bilinçli yazar (yalnızca test hesabı)
+
 # Testleri görsel arayüzden seçerek çalıştırma
 npm run test:ui
 

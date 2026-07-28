@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 136
+- **Test edilen senaryo:** 145
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 11 · `@known-bug` 16 · `@public` 2 · `@regression` 34 · `@smoke` 10
+- **Etiketler:** `@critical` 14 · `@known-bug` 16 · `@public` 2 · `@regression` 49 · `@smoke` 9
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -209,14 +209,23 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `workforce.authed.spec.js`
 
-- sayfa başlığı ve 7 sekme görünüyor  `@smoke`
-- 7 sekme de yükleniyor ve imza kontrolü görünüyor  `@smoke`
-- tarih navigasyonu önceki/sonraki haftaya gidiyor
-- çizelge hücresine tıklayınca "Add Shift" formu açılıyor (Start/End/Break)
-- en · Workforce English diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- tr · Workforce Türkçe diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- fr · Workforce Français diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- ar · Workforce العربية diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- başlık ve 7 sekme görünüyor  `@smoke`
+- Schedules çizelgesi ve Publish butonu mevcut  `@critical`
+- [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- L1 tıklama OK: her sekme tıklanınca seçili duruma geçiyor  `@regression`
+- L2 arka plan OK: veri sekmeleri ilgili API ucundan veri çekiyor  `@regression` `@critical`
+- L3 görev OK: her sekme kendi içeriğini gösteriyor  `@regression`
+- L1 tıklama OK: Previous Week tarih aralığını değiştiriyor  `@regression`
+- L2 arka plan OK: Previous Week seçilen hafta için çizelge çekiyor  `@regression` `@critical`
+- L3 görev OK: gösterilen hafta tam olarak bir hafta geri kayıyor  `@regression`
+- L1 tıklama OK: 7d/14d/30d düğmeleri görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: 14d seçilince adherence verisi API'den çekiliyor  `@regression`
+- L1 tıklama OK: çizelge hücresi "Add Shift" formunu açıyor (Start/End/Break)  `@regression`
+- L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: buton görünür ve etkin  `@regression`
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 
