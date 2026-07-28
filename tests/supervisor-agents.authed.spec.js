@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import { assertLocalClock } from './helpers.js';
 import { AgentMonitorPage } from './pages/AgentMonitorPage.js';
 
 /**
@@ -16,22 +17,6 @@ import { AgentMonitorPage } from './pages/AgentMonitorPage.js';
  */
 
 const I18N = AgentMonitorPage.I18N;
-
-/** "12:37 PM" → gece yarısından beri dakika. */
-function parseClockToMinutes(text) {
-  const m = String(text).match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
-  if (!m) return NaN;
-  let h = parseInt(m[1], 10);
-  const min = parseInt(m[2], 10);
-  const ap = m[3]?.toUpperCase();
-  if (ap === 'PM' && h !== 12) h += 12;
-  if (ap === 'AM' && h === 12) h = 0;
-  return h * 60 + min;
-}
-function circularMinuteDiff(a, b) {
-  const d = Math.abs(a - b) % 1440;
-  return Math.min(d, 1440 - d);
-}
 
 // ───────────────────────────── YAPI ─────────────────────────────
 test.describe('Temsilci İzleme — yapı', () => {
@@ -351,9 +336,6 @@ test.describe('Temsilci İzleme — zaman damgası (timezone) @regression @known
     const am = app.agentMonitor;
     await am.open();
     await expect(am.lastRefreshed).toBeVisible({ timeout: 15000 });
-    const badgeMin = parseClockToMinutes(await am.lastRefreshed.innerText());
-    const localMin = await page.evaluate(() => new Date().getHours() * 60 + new Date().getMinutes());
-    const diff = circularMinuteDiff(badgeMin, localMin);
-    expect(diff, `"${await am.lastRefreshed.innerText()}" yerel=${localMin}dk fark=${diff}dk`).toBeLessThanOrEqual(5);
+    await assertLocalClock(page, (await am.lastRefreshed.innerText()).trim()); // ortak timezone guard'ı
   });
 });

@@ -52,6 +52,24 @@ işlem (ör. arama/çağrı) ikon-butonlarında gözlemlendi (bir durumda ~12 d�
 **Öneri:** İkon-butonlara `aria-label` ekleyin (ör. `aria-label="Kişiyi ara"`), ya da
 görünür bir metin/tooltip ile ilişkilendirin. Bu, en yüksek öncelikli düzeltmedir (kritik + A seviyesi).
 
+## 3) Sayfaya özgü tekil ciddi ihlaller (izlemede — henüz guard'a bağlanmadı)
+
+28 Tem 2026 axe taramasında aşağıdaki sayfalarda **bilinen borç dışında** birer ciddi
+ihlal gözlemlendi. Ancak ihlalli eleman geç render olduğundan tarama zamanlamasına
+duyarlılar (`waitForUiToSettle` ile bazen 0 görünüyor) → şu an kararlı bir `test.fail`
+guard'ı kurulamadı. Deterministik bir tekrar-üretim (ilgili elemanı bekleyen bir çapa)
+kurulunca `a11y.authed.spec.js`'e `test.fail` bilinen-hata testi olarak eklenecek.
+
+| Sayfa | Kural | Not |
+|---|---|---|
+| `/supervisor/wallboard` | `label` | Bir form alanı (muhtemelen tema/aralık girişi) erişilebilir etiketsiz |
+| `/inbox` | `aria-valid-attr-value` | Geçersiz bir ARIA attribute değeri |
+| `/campaigns/outbound` | `aria-valid-attr-value` | Geçersiz bir ARIA attribute değeri |
+
+> Temiz (bu tarih itibarıyla ciddi ihlal görülmeyen) ve guard'a eklenen sayfalar:
+> Analytics, Workforce, Supervisor Agents, Voice, Reports·Call, Reports·Dashboards
+> (+ mevcut Dashboard/Contacts/Tickets/Settings/Reports).
+
 ## Nasıl yeniden üretilir
 
 ```bash

@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { MAIN_NAVIGATION } from './contracts/navigation.js';
-import { assertDestinationLoaded, gotoApp } from './helpers.js';
+import { assertDestinationLoaded, gotoApp, waitForUiToSettle } from './helpers.js';
 
 /**
  * Giriş sonrası (authenticated) Vomenta panel testleri.
@@ -41,6 +41,13 @@ test.describe('Vomenta - Giriş sonrası panel', () => {
     await expect(page.getByRole('button', { name: 'Today', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: '7 Days', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: '30 Days', exact: true })).toBeVisible();
+  });
+
+  test('panelde sessiz hata yok (console-error / failed-request / 5xx) @smoke', async ({ page, diagnostics }) => {
+    // Panel içeriği yerleşene kadar bekle (Dashboard başlığı beforeEach'te doğrulandı).
+    await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await waitForUiToSettle(page);
+    diagnostics.assertClean();
   });
 });
 

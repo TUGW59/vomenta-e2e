@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 245
-- **Test dosyası:** 25
-- **Etiketler:** `@critical` 29 · `@known-bug` 23 · `@public` 2 · `@regression` 135 · `@smoke` 18
+- **Test edilen senaryo:** 346
+- **Test dosyası:** 27
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 38 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 187 · `@smoke` 35 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -18,19 +18,26 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `a11y.authed.spec.js`
 
-- Dashboard: bilinen borç dışında ciddi/kritik a11y ihlali yok
-- Contacts: bilinen borç dışında ciddi/kritik a11y ihlali yok
-- Tickets: bilinen borç dışında ciddi/kritik a11y ihlali yok
-- Settings: bilinen borç dışında ciddi/kritik a11y ihlali yok
-- Reports: bilinen borç dışında ciddi/kritik a11y ihlali yok
+- Dashboard: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Contacts: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Tickets: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Settings: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Reports: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Analytics: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Workforce: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Supervisor Agents: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Voice: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Reports · Call: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- Reports · Dashboards: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
 
 ### `analytics.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - tarih aralığı butonları mevcut (Today / 7 Days / 30 Days / 90 Days / Custom)  `@smoke`
-- üst KPI döşemeleri görünüyor
+- üst KPI döşemeleri görünüyor VE değer gösteriyor
 - "AI usage" ve "Deep analytics" bölümleri görünüyor  `@smoke`
 - 6 navigasyon kartı doğru hedeflerle görünüyor  `@critical`
+- sayfada sessiz hata yok (console-error / failed-request / 5xx)  `@smoke`
 - [en] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
 - [tr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
 - [fr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
@@ -51,6 +58,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1+L3: "Campaign analytics" kartı /reports/campaign ("Campaign Reports") sayfasına götürüyor  `@regression`
 - L1+L3: "AI analytics" kartı /reports/ai ("AI Reports") sayfasına götürüyor  `@regression`
 - L1+L3: "Dashboards" kartı /reports/dashboards ("Dashboards") sayfasına götürüyor  `@regression`
+- [desktop] yatay taşma yok  `@regression`
+- [mobile] yatay taşma yok  `@regression`
+- [ar/rtl desktop] yatay taşma yok  `@regression`
 - BULGU A [tr]: "Deep analytics" bölümü tr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
@@ -100,10 +110,41 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `contacts.authed.spec.js`
 
-- tablo beklenen kolonları gösteriyor  `@critical`
+- başlık, alt başlık ve 7 kolon görünüyor  `@smoke`
+- araç çubuğu butonları ve arama mevcut  `@critical`
 - en az bir kişi listeleniyor  `@smoke`
-- arama: eşleşmeyen sorgu "No contacts found" gösteriyor
-- arama: mevcut bir kişiyi ada göre filtreliyor  `@critical`
+- [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- L1 tıklama OK: terim girince liste süzülür ve "Clear" çıkar  `@regression`
+- L2 arka plan OK: arama filters={"search":…} ile API sorgusu atıyor  `@regression` `@critical`
+- L3 görev OK: eşleşen kişi görünür, eşleşmeyen sorgu boş-durum gösterir  `@regression`
+- L1 tıklama OK: 5 tag chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: chip tıklanınca filters={"tags":[…]} sorgusu atılıyor  `@regression` `@critical`
+- L3 görev OK: filtre listeyi süzüyor (VIP kişisi yoksa boş-durum)  `@regression`
+- L1 tıklama OK: dropdown açılıyor (All Companies + en az bir şirket)  `@regression`
+- L2 arka plan OK: bir şirket seçilince liste yeniden çekiliyor  `@regression`
+- L3 görev OK: seçilen şirket dropdown tetikleyicisinde yansıyor  `@regression`
+- L1 tıklama OK: sort chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: sort chip yeni sort=[…] ile sorgu atıyor  `@regression` `@critical`
+- L3 görev OK: satır sırası değişiyor  `@regression`
+- L1 tıklama OK: ızgara butonu tıklanınca aktif duruma geçiyor  `@regression`
+- L3 görev OK: ızgara görünümü tabloyu değiştiriyor, listeye dönünce tablo geri geliyor  `@regression`
+- L1 tıklama OK: New Contact formunu açıyor (9 alan + Kaydet/İptal)  `@regression`
+- L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: /contacts/import sayfasını (dosya girişli) açıyor  `@regression`
+- L1 tıklama OK: Export tıklanınca indirme başlıyor  `@regression`
+- L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor  `@regression` `@critical`
+- L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok  `@regression`
+- L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)  `@regression`
+- L1 tıklama OK: /contacts/segments sayfasını açıyor  `@regression`
+- L1 tıklama OK: satıra tıklayınca /contacts/{id} detayına gidiyor  `@regression`
+- L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor  `@regression` `@critical`
+- L3 görev OK: detay sayfası kişi adını ve sekmeleri gösteriyor  `@regression`
+- L1 OK: tek sayfada prev/next pasif ve sayaç "of N" gösteriyor  `@regression`
+- BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı  `@regression`
+- BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli  `@regression`
 
 ### `dashboard-actions.authed.spec.js`
 
@@ -118,6 +159,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - kenar menüsü tüm ana bölümleri içeriyor  `@critical`
 - menü linkleri doğru href değerlerine sahip
 - arama kutusu ve tarih filtreleri görünüyor
+- panelde sessiz hata yok (console-error / failed-request / 5xx)  `@smoke`
 - /inbox doğrudan açılıyor ("Inbox")
 - /voice doğrudan açılıyor ("Live Calls")
 - /channels doğrudan açılıyor ("Channels")
@@ -179,8 +221,8 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - e-posta alanı geçersiz adresi native doğrulama ile reddediyor
 - 'Forgot password?' linki şifre sıfırlama sayfasına gidiyor
 - 'Sign up' linki kayıt sayfasına gidiyor
-- erişilebilirlik: bilinen borç dışında ciddi/kritik a11y ihlali yok
-- görsel: giriş sayfası anlık görüntüsü değişmedi
+- erişilebilirlik: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+- görsel: giriş sayfası anlık görüntüsü değişmedi  `@visual`
 
 ### `logout.authed.spec.js`
 
@@ -209,17 +251,82 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor
 - "Schedule a Report" formu açılıyor ve iptal edilebiliyor
 
+### `reports-dashboards.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- üç sekme görünüyor (Tümü / Varsayılan / Özel)  `@smoke`
+- bölüm başlıkları görünüyor (Varsayılan / Özel Panolar)  `@smoke`
+- "Create Dashboard" eylem düğmesi görünüyor  `@smoke`
+- en az bir özel pano kartı listeleniyor  `@critical`
+- [en] başlık + yön + sekme/bölüm/eylem etiketleri çevrili  `@i18n`
+- [tr] başlık + yön + sekme/bölüm/eylem etiketleri çevrili  `@i18n`
+- [fr] başlık + yön + sekme/bölüm/eylem etiketleri çevrili  `@i18n`
+- [ar] başlık + yön + sekme/bölüm/eylem etiketleri çevrili  `@i18n`
+- L1 tıklama OK: sekmeye tıklayınca seçili duruma geçiyor  `@regression`
+- L3 görev OK: sekme kart listesini gerçekten filtreliyor  `@regression`
+- L1 tıklama OK: paylaş diyaloğu açılıyor ve bağlantıyı gösteriyor  `@regression` `@critical`
+- L3 görev OK: [en] paylaş diyaloğu yatayda taşmamalı [BULGU 1]  `@regression` `@layout` `@known-bug`
+- L3 görev OK: [tr] paylaş diyaloğu yatayda taşmamalı [BULGU 1]  `@regression` `@layout` `@known-bug`
+- L3 görev OK: [fr] paylaş diyaloğu yatayda taşmamalı [BULGU 1]  `@regression` `@layout` `@known-bug`
+- L3 görev OK: [ar] paylaş diyaloğu yatayda taşmamalı [BULGU 1]  `@regression` `@layout` `@known-bug`
+- L1 tıklama OK: kopyalayınca "Link copied" bildirimi çıkıyor  `@regression`
+- L3 görev OK: panoya (clipboard) paylaşım URL'si yazılıyor  `@regression`
+- L1 tıklama OK: oluştur diyaloğu açılıyor ve iptal edilebiliyor (kayıt YOK)  `@regression`
+- L1+L3: Düzenle builder diyaloğunu açıyor (Add Widget) ve iptal edilebiliyor (kayıt YOK)  `@regression`
+- sayfada ve paylaş diyaloğunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- liste ucu 500 dönerse sayfa zarifçe çöküyor (kabuk sağlam, kart yok)  `@errorpath`
+- liste ucu boş [] dönerse özel pano listesi boş (patlamıyor)  `@errorpath`
+- paylaş diyaloğu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- paylaşım bağlantısı doğrudan açılınca pano görünümü yükleniyor (login'e düşmüyor)  `@deeplink`
+- paylaş diyaloğu görünümü değişmedi (URL maskeli)  `@visual`
+
+### `reports-sections.authed.spec.js`
+
+- [call] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [agent] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [queue] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [campaign] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [channel] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [ai] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [quality] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [csat] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [billing] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [sla] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
+- [en] kabuk (sekme/preset/yön) + tüm bölüm başlıkları çevrili  `@i18n`
+- [tr] kabuk (sekme/preset/yön) + tüm bölüm başlıkları çevrili  `@i18n`
+- [fr] kabuk (sekme/preset/yön) + tüm bölüm başlıkları çevrili  `@i18n`
+- [ar] kabuk (sekme/preset/yön) + tüm bölüm başlıkları çevrili  `@i18n`
+- L1 tıklama OK: sekmeler seçili duruma geçiyor  `@regression`
+- L3 görev OK: Charts grafik gösteriyor, Table tabloya geçiyor  `@regression` `@critical`
+- L1 tıklama OK: seçilen preset vurgulanıyor (border-primary)  `@regression`
+- L2 arka plan OK: preset yeni tarih aralığıyla veri çekiyor  `@regression` `@critical`
+- L3 görev OK: Date Range etiketi güncelleniyor  `@regression`
+- boş bölüm (campaign) düzgün içerik/boş-durum çözüyor (patlamıyor)  `@regression`
+- sayfada ciddi/kritik a11y ihlali yok (Charts + Table)  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- rapor ucu 500 dönerse sayfa zarifçe çöküyor (kabuk sağlam, grafik yok)  `@errorpath`
+- sekmeler klavyeyle gezilebiliyor (Charts→Table, ok tuşu)  `@keyboard`
+- bölüm rotası doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- grafikler bütçe içinde render oluyor  `@perf`
+- UI "Total Calls" KPI, API data.summary.totalCalls ile eşleşiyor  `@data`
+- boş-durum (campaign) görünümü değişmedi  `@visual`
+
 ### `reports.authed.spec.js`
 
 - sayfa başlığı ve tarih aralığı seçici görünüyor
-- sekmeler görünüyor ve tıklanınca seçili duruma geçiyor
+- sekmeler tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
 - rapor eylem butonları görünüyor
 - Report Types sekmesi rapor kategorilerini gösteriyor
+- sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli  `@known-bug`
+- AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc)  `@known-bug`
 
 ### `responsive.authed.spec.js`
 
-- mobilde masaüstü kenar menüsü gizli
-- mobilde hamburger (Open menu) butonu görünür
+- mobilde masaüstü kenar menüsü gizli  `@layout`
+- mobilde hamburger (Open menu) butonu görünür  `@layout`
 
 ### `search.authed.spec.js`
 
@@ -231,7 +338,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
-- her sekme tıklanınca seçili duruma geçiyor
+- her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
 
 ### `supervisor-agents.authed.spec.js`
 

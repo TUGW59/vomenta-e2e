@@ -68,12 +68,12 @@ test.describe('Vomenta - Giriş sayfası', () => {
     await expect(page).toHaveURL(/\/register$/);
   });
 
-  test('erişilebilirlik: bilinen borç dışında ciddi/kritik a11y ihlali yok', async ({ page }) => {
+  test('erişilebilirlik: bilinen borç dışında ciddi/kritik a11y ihlali yok @a11y', async ({ page }) => {
     const severe = await severeA11yViolations(page);
     expect(severe.map((v) => `${v.id} (${v.impact})`)).toEqual([]);
   });
 
-  test('görsel: giriş sayfası anlık görüntüsü değişmedi', async ({ page }) => {
+  test('görsel: giriş sayfası anlık görüntüsü değişmedi @visual', async ({ page }) => {
     // Görsel baseline'lar işletim sistemine bağlı; yerelde (macOS) üretilenler CI'daki
     // Linux ile eşleşmez. CI için ayrı baseline üretilene kadar CI'da atlanır.
     test.skip(environment.isCI, 'Görsel baseline yerelde üretildi; CI (Linux) için ayrı baseline gerekir');

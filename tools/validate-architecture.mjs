@@ -102,6 +102,24 @@ for (const file of javascriptFiles) {
         });
       }
     }
+
+    // Stil etiketi → gerekli primitif kontrolü (etiketin "süs" olmadığını garanti eder).
+    // NOT: bu etiketler JSDoc'ta ASLA görünmez; ham-substring güvenli. Etiket ALLOWLIST'i ise
+    // JSDoc karışmasın diye JSON-liste tabanlı tools/style-coverage.mjs'de uygulanır.
+    // @layout kasıtlı hariç: responsive.authed.spec.js taşma yardımcısı DEĞİL, mobil-nav test eder.
+    const styleGates = [
+      { tag: '@a11y', anyOf: ['severeA11yViolations', 'expectNoSevereA11y', 'AxeBuilder'], message: '@a11y testi axe yardımcısı (severeA11yViolations/expectNoSevereA11y/AxeBuilder) kullanmalı' },
+      { tag: '@visual', anyOf: ['toHaveScreenshot', 'toMatchSnapshot'], message: '@visual testi toHaveScreenshot/toMatchSnapshot çağırmalı' },
+      { tag: '@clean', anyOf: ['assertClean'], message: '@clean testi diagnostics.assertClean() kullanmalı' },
+      { tag: '@data', anyOf: ['captureJson', 'waitForResponse'], message: '@data testi captureJson/waitForResponse ile API yanıtını yakalamalı' },
+      { tag: '@errorpath', anyOf: ['mockApi', '.route('], message: '@errorpath testi mockApi/page.route ile yanıtı sahtelemeli' },
+      { tag: '@perf', anyOf: ['expectContentWithin'], message: '@perf testi expectContentWithin ile süre bütçesini doğrulamalı' },
+    ];
+    for (const gate of styleGates) {
+      if (source.includes(gate.tag) && !gate.anyOf.some((token) => source.includes(token))) {
+        violations.push({ file: relative, line: 1, message: gate.message });
+      }
+    }
   }
 
   for (const rule of forbidden) {

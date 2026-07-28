@@ -18,6 +18,16 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Navigasyon kontrolleri (link/kart/menü) için L3, hedef sayfanın **gerçekten
   yüklendiğini** (beklenen başlık/içerik görünür) doğruluyor; salt URL eşleşmesiyle
   yetinilmedi. Ayrıntı: `AGENTS.md` → "İnteraktif kontrol testi standardı (3 katman)".
+- Sekme testi `aria-selected` + panel içerik imzasını doğruluyor; KPI/metrik
+  kartları etiket değil **değer** de doğruluyor (boş/veri ayrımı). Ayrıntı:
+  `AGENTS.md` → "İçerik ve değer derinliği standardı".
+- Kritik akışta "sessiz hata yok" (`diagnostics.assertClean`), kullanıcıya görünen
+  saatler yerel TZ (`assertLocalClock`), oluşturma formunda submit-sonucu doğrulanmış
+  veya açık N/A. Ayrıntı: `AGENTS.md` → "Sessiz hata / zaman / form-gönderim standartları".
+- Test edilen sayfa `tests/contracts/tested-pages.js`'e tescil edildi; **zorunlu test stilleri**
+  (baseline + arketip koşullu) kapsandı ya da `naStyles` ile gerekçeli **N/A** verildi.
+  `npm run quality:styles` (stil matrisi) yeşil. Ayrıntı: `AGENTS.md` → "Zorunlu test stilleri",
+  el kitabı `docs/TEST_STYLES.md`.
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
