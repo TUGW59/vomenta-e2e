@@ -22,7 +22,7 @@ import { environment } from '../config/environment.js';
  * Staging ilk koşusunda doğrulanıp gerekiyorsa düzeltilecek; sonra `test.fixme` kaldırılacak.
  * Bkz. AGENTS.md → mutation çift-kilit + "Form gönderim / dışa-dönük eylem" güvenliği.
  */
-test.describe('Voice/Mesaj — dışa-dönük E2E @regression @mutation @e2e', () => {
+test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @regression @mutation', () => {
   test('L3: softphone ile test numarası aranıyor ve çağrı kuruluyor', async ({
     app,
     page,
