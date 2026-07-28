@@ -7,7 +7,7 @@
  * tests/contracts/coverage-exclusions.js dosyasından okunur.
  *
  * Çalıştır:  node tools/generate-coverage.mjs   (veya: npm run report:coverage)
- * Çıktı:     docs/TEST_KAPSAMI.md
+ * Çıktı:     docs/TEST_COVERAGE.md
  */
 import { execSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
@@ -92,6 +92,6 @@ L.push('|---|---|');
 for (const e of COVERAGE_TODO) L.push(`| ${e.control} | ${e.pages} |`);
 L.push('');
 
-const outPath = resolve(root, 'docs/TEST_KAPSAMI.md');
+const outPath = resolve(root, 'docs/TEST_COVERAGE.md');
 writeFileSync(outPath, L.join('\n'));
 console.log(`Kapsama raporu yazıldı: ${outPath} (${all.length} senaryo, ${Object.keys(byFile).length} dosya)`);

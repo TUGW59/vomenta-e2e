@@ -23,12 +23,12 @@ export const COVERAGE_EXCLUSIONS = Object.freeze([
 ]);
 
 /**
- * GÜVENLİ ama henüz test kapsamına alınmamış tuşlar (yapılacak).
- * Bunlar tıklanınca sayfa/dialog açar; zamanla test kapsamına eklenebilir.
+ * İncelendi ama standart/otomatik test edilemeyen tuşlar.
+ * Tıklandığında ARIA dialog/menu/listbox gibi test edilebilir bir öğe açmıyorlar
+ * (yalnızca sayfanın kalıcı bildirim "region"ı görünür). Kararsız/anlamsız test
+ * yazmamak için kapsam dışı bırakıldılar; davranışları netleşirse eklenebilir.
  */
 export const COVERAGE_TODO = Object.freeze([
-  { control: 'New Dashboard / Custom Report / Schedule a Report', pages: 'Reports' },
-  { control: 'Voice alt-navigasyonu (Queues, Call History, Voicemails...)', pages: 'Voice' },
-  { control: 'Bildirimler paneli', pages: 'Header' },
-  { control: 'Dil menüsü', pages: 'Header' },
+  { control: 'Bildirimler paneli — standart dialog/menü açmıyor (incelendi)', pages: 'Header' },
+  { control: 'Dil menüsü — görünür menü açmıyor (incelendi)', pages: 'Header' },
 ]);

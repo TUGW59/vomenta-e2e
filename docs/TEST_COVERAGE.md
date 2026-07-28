@@ -8,11 +8,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 83
-- **Test dosyası:** 17
-- **Etiketler:** `@critical` 7 · `@public` 2 · `@smoke` 7
+- **Test edilen senaryo:** 105
+- **Test dosyası:** 20
+- **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 7
 - **Bilerek test edilmeyen (güvenlik):** 7
-- **Yapılacak (güvenli, henüz kapsanmadı):** 4
+- **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
 ## ✅ Test edilen senaryolar
 
@@ -77,6 +77,24 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - kanal / atama filtre çipleri görünüyor
 - sağ panel sekmeleri görünüyor ve tıklanınca seçili oluyor
 
+### `known-bugs.authed.spec.js`
+
+- B1 · /voice/regulatory · ham i18n anahtarları görünmemeli  `@regression` `@known-bug`
+- B2 · /campaigns · ilerleme yüzdesi 100ü aşmamalı  `@regression` `@known-bug`
+- B3 · /inbox · ham i18n anahtarı inbox.noMessagesYet görünmemeli  `@regression` `@known-bug`
+- B4 · /settings · "Manage Modules" kök sayfaya atmamalı  `@regression` `@known-bug`
+- B5 · /channels · Ses kartı yanlışlıkla "Yapılandırılmadı" göstermemeli  `@regression` `@known-bug`
+- B6 · /settings · davet satırları ayırt edilebilir olmalı (placeholder "Invited User" değil)  `@regression` `@known-bug`
+- B7 · /settings · Modüller açıklaması iki kez render edilmemeli  `@regression` `@known-bug`
+- B8 · Softphone · müsaitlik açılır menüsü GÖRSEL olarak açılmalı  `@regression` `@known-bug`
+- B9 · /channels/email · varsayılan imza ham i18n anahtarı göstermemeli  `@regression` `@known-bug`
+- B10 · /voice/regulatory · Voice sekme çubuğu görünmeli (bölüm düzeni)  `@regression` `@known-bug`
+- B11 · /voice/voicemail · İşlemler butonlarının erişilebilir ismi olmalı  `@regression` `@known-bug`
+- B12 · /analytics · TR arayüzde İngilizce/iç metin sızmamalı  `@regression` `@known-bug`
+- B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler")  `@regression` `@known-bug`
+- B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı  `@regression` `@known-bug`
+- B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli  `@regression` `@known-bug`
+
 ### `login.spec.js`
 
 - doğru sayfa başlığı ile yükleniyor  `@smoke` `@public`
@@ -111,6 +129,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Reports sayfası tüm rapor kategorilerini gösteriyor
 - Analytics sayfası alt bölümleri gösteriyor
 
+### `reports-actions.authed.spec.js`
+
+- "New Dashboard" pano sayfasına götürüyor
+- "Custom Report" pano/rapor sayfasına götürüyor
+- "Schedule a Report" formu açılıyor ve iptal edilebiliyor
+
 ### `reports.authed.spec.js`
 
 - sayfa başlığı ve tarih aralığı seçici görünüyor
@@ -144,6 +168,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-subnav.authed.spec.js`
+
+- "Queues" alt-navigasyonu tıklanınca çalışıyor
+- "Call History" alt-navigasyonu tıklanınca çalışıyor
+- "Voicemails" alt-navigasyonu tıklanınca çalışıyor
+- "Recordings" alt-navigasyonu tıklanınca çalışıyor
+
 ### `voice.authed.spec.js`
 
 - /voice, Live Calls sayfasına açılıyor
@@ -166,7 +197,5 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 | Kontrol | Sayfa |
 |---|---|
-| New Dashboard / Custom Report / Schedule a Report | Reports |
-| Voice alt-navigasyonu (Queues, Call History, Voicemails...) | Voice |
-| Bildirimler paneli | Header |
-| Dil menüsü | Header |
+| Bildirimler paneli — standart dialog/menü açmıyor (incelendi) | Header |
+| Dil menüsü — görünür menü açmıyor (incelendi) | Header |
