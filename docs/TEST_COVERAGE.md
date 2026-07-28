@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 147
+- **Test edilen senaryo:** 151
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 14 · `@known-bug` 16 · `@public` 2 · `@regression` 51 · `@smoke` 9
+- **Etiketler:** `@critical` 14 · `@known-bug` 16 · `@public` 2 · `@regression` 55 · `@smoke` 9
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -228,6 +228,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: buton görünür ve etkin  `@regression`
 - L1 tıklama OK: form açılıyor (Start/End Date, Reason) ve tarih dolunca Submit etkinleşiyor  `@regression`
 - L2 arka plan OK: Submit doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: "Create badge" formu açılıyor ("Create badge")  `@regression`
+- L1 tıklama OK: "Award badge" formu açılıyor ("Award badge")  `@regression`
+- L1 tıklama OK: "Create survey" formu açılıyor ("Create survey")  `@regression`
+- L1 tıklama OK: "Create Evaluation" formu açılıyor ("Create Quality Evaluation")  `@regression`
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 
