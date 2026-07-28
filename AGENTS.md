@@ -11,6 +11,9 @@ Amaç testlerin değişikliklere dayanıklı, güvenli ve teşhis edilebilir kal
    yolu kullanmaz. Bunlar `config/environment.js` tarafından yönetilir.
 3. Production ortamında veri oluşturan, değiştiren veya silen test yazılmaz.
    Mutasyon testleri `@mutation`, `mutationGuard` ve `cleanup` içermek zorundadır.
+   Mutasyon testleri yalnızca özel/ayrılmış bir test hesabına (tenant) karşı
+   çalıştırılır; otomasyon gerçek bir müşteri hesabına yöneltilmez. Otomasyon
+   hesabı gerçek bir hesapla değiştirilecekse, önce ayrı bir test hesabı açılır.
 4. Test hazırlığı mümkünse API ile, kullanıcı davranışı UI ile doğrulanır.
 5. Bir test başka bir testin oluşturduğu veriye veya çalışma sırasına bağımlı olamaz.
 6. Sabit bekleme (`page.waitForTimeout`) kullanılamaz.
