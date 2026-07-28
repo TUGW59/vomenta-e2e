@@ -18,6 +18,9 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Navigasyon kontrolleri (link/kart/menü) için L3, hedef sayfanın **gerçekten
   yüklendiğini** (beklenen başlık/içerik görünür) doğruluyor; salt URL eşleşmesiyle
   yetinilmedi. Ayrıntı: `AGENTS.md` → "İnteraktif kontrol testi standardı (3 katman)".
+- Sekme testi `aria-selected` + panel içerik imzasını doğruluyor; KPI/metrik
+  kartları etiket değil **değer** de doğruluyor (boş/veri ayrımı). Ayrıntı:
+  `AGENTS.md` → "İçerik ve değer derinliği standardı".
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.

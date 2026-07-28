@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { AnalyticsPage } from './pages/AnalyticsPage.js';
+import { expectMetricHasValue } from './helpers.js';
 
 /**
  * ANALİTİK (`/analytics`) — Raporlar ailesinin özet/hub ekranı.
@@ -53,9 +54,11 @@ test.describe('Analitik — yapı', () => {
     }
   });
 
-  test('üst KPI döşemeleri görünüyor', async () => {
+  test('üst KPI döşemeleri görünüyor VE değer gösteriyor', async () => {
     for (const label of AnalyticsPage.KPI_TILES) {
       await expect(analytics.page.getByText(label, { exact: true }).first()).toBeVisible();
+      // Etiket değil, gerçek değer de render olmalı (backend sıfırlanırsa kırılır).
+      await expectMetricHasValue(analytics.page, label);
     }
   });
 

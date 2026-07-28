@@ -92,6 +92,23 @@ Kurallar:
 Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
 (+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).
 
+## İçerik ve değer derinliği standardı
+
+Bir kontrolün "göründüğünü" doğrulamak yeterli değildir; **gerçek içeriği/değeri**
+render ettiği de doğrulanır. Aksi halde bozuk bir panel/metrik "etiketi durduğu
+için" yeşil kalır.
+
+- **Sekme (tab) testi:** `aria-selected='true'` + o sekmeye **özgü panel içerik
+  imzası** (bir başlık/etiket/buton) görünür olmalı. Yalnız "sekme görünüyor" veya
+  yalnız `aria-selected` yeterli değildir. Referans: `tests/workforce.authed.spec.js`
+  (sekme içerik imzaları), `tests/settings.authed.spec.js`, `tests/reports.authed.spec.js`.
+- **KPI / metrik / grafik:** etiketin yanında **bir değer** (sayı, %, tutar, saat
+  veya açık boş-durum işareti) doğrulanır. Ortak yardımcı: `helpers.js` →
+  `expectMetricHasValue(page, label)`. Mümkünse **boş-durum ile veri-durumu**
+  ayrımı yapılır (referans: `contacts`/`tickets` arama sayıları, liste boş-durumları).
+- Değer canlı/oynak olduğunda tam sayı assert edilmez; **bir değerin varlığı**
+  (desen eşleşmesi) doğrulanır. Gerçekten gözlemlenemeyen durum açık **N/A** ile belgelenir.
+
 ## Çok dilli (i18n) doğrulama standardı
 
 Bir sayfa veya bölüm test edilirken görünür metin **desteklenen dört dilde**
