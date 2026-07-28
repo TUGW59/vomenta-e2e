@@ -89,7 +89,8 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 7. Yeni testler `test` ve `expect` değerlerini `tests/fixtures/test.js` üzerinden
    almalıdır.
 8. Veri değiştiren testler `@mutation` etiketi, mutation guard ve güvenilir
-   temizlik içermelidir; production ortamında çalıştırılmamalıdır.
+   temizlik içermelidir; yalnızca özel/ayrılmış bir test hesabına (tenant) karşı
+   çalıştırılır, gerçek müşteri hesabına yöneltilmez.
 9. `quality:architecture` yeni spec'lerde ortak fixture, sabit bekleme, doğrudan
    ortam değişkeni ve eksik ESM uzantısı gibi mimari ihlalleri CI'da engeller.
 
