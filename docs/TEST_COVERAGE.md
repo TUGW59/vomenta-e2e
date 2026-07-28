@@ -8,11 +8,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 116
-- **Test dosyası:** 20
-- **Etiketler:** `@critical` 10 · `@known-bug` 18 · `@public` 2 · `@regression` 25 · `@smoke` 8
+- **Test edilen senaryo:** 127
+- **Test dosyası:** 22
+- **Etiketler:** `@critical` 10 · `@known-bug` 18 · `@public` 2 · `@regression` 25 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
-- **Yapılacak (güvenli, henüz kapsanmadı):** 3
+- **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
 ## ✅ Test edilen senaryolar
 
@@ -129,6 +129,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Reports sayfası tüm rapor kategorilerini gösteriyor
 - Analytics sayfası alt bölümleri gösteriyor
 
+### `reports-actions.authed.spec.js`
+
+- "New Dashboard" pano sayfasına götürüyor
+- "Custom Report" pano/rapor sayfasına götürüyor
+- "Schedule a Report" formu açılıyor ve iptal edilebiliyor
+
 ### `reports.authed.spec.js`
 
 - sayfa başlığı ve tarih aralığı seçici görünüyor
@@ -192,6 +198,17 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - aktif çağrı yokken boş durum gösteriliyor
 - Voice alt-navigasyon öğeleri görünüyor
 
+### `workforce.authed.spec.js`
+
+- sayfa başlığı ve 7 sekme görünüyor  `@smoke`
+- 7 sekme de yükleniyor ve imza kontrolü görünüyor  `@smoke`
+- tarih navigasyonu önceki/sonraki haftaya gidiyor
+- çizelge hücresine tıklayınca "Add Shift" formu açılıyor (Start/End/Break)
+- en · Workforce English diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- tr · Workforce Türkçe diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- fr · Workforce Français diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- ar · Workforce العربية diline doğru çevriliyor (başlık, sekmeler, yön, form)
+
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 
 | Kontrol | Sayfa | Neden | Tür |
@@ -208,6 +225,5 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 | Kontrol | Sayfa |
 |---|---|
-| New Dashboard / Custom Report / Schedule a Report | Reports |
-| Bildirimler paneli | Header |
-| Dil menüsü | Header |
+| Bildirimler paneli — standart dialog/menü açmıyor (incelendi) | Header |
+| Dil menüsü — görünür menü açmıyor (incelendi) | Header |
