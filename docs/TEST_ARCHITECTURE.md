@@ -62,10 +62,16 @@ teknik kontroller Page Object'ta; iş sonucunu doğrulayan assertion spec'te kal
 
 ## Test sınıfları
 
+Kanonik etiket kaydı ve **zorunlu test stilleri** artık `AGENTS.md`'dedir (risk/yapı etiketleri +
+`@i18n @a11y @layout @visual @errorpath @clean @perf @keyboard @deeplink @data @export`). El kitabı:
+`docs/TEST_STYLES.md`. Kısaca:
+
 - `@smoke`: Uygulamanın temel olarak kullanılabildiğini gösteren 2–5 dakikalık set.
 - `@critical`: Müşteri, gelir veya operasyon açısından kritik davranışlar.
-- Etiketsiz: Normal regresyon kapsamı.
+- `@regression`: Normal regresyon kapsamı; interaktif kontrol 3-katman testleri.
 - `@mutation`: Veri oluşturan, değiştiren veya silen test.
+- Stil etiketleri: her test edilen sayfada arketipe göre zorunlu; `tests/contracts/tested-pages.js`'e
+  tescil + `tools/style-coverage.mjs` sert kapısı (`docs/TEST_STYLE_MATRIX.md`). Karar: `docs/adr/0002`.
 
 Örnek:
 
