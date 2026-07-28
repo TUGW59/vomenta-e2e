@@ -191,15 +191,22 @@ test.describe('Custom tarih seçici @regression', () => {
 
 // ═══════════ NAVİGASYON KARTLARI (L1 + L3) ═══════════
 // L2 arka plan: YOK (N/A) — istemci-taraflı SPA gezinmesi; kartın kendine ait
-// bir uç isteği yok, hedef sayfanın yüklenmesi L3'te doğrulanır.
+// bir uç isteği yok. L3, hedef sayfanın GERÇEKTEN yüklendiğini doğrular: doğru
+// URL + hedefin beklenen başlığı görünür (salt URL eşleşmesi yeterli değil;
+// bkz. AGENTS.md "İnteraktif kontrol testi standardı" → navigasyon L3).
 test.describe('Navigasyon kartları @regression', () => {
   for (const card of AnalyticsPage.NAV_CARDS) {
-    test(`L1+L3: "${card.en}" kartı ${card.href} sayfasına götürüyor`, async ({ app, page }) => {
+    test(`L1+L3: "${card.en}" kartı ${card.href} ("${card.dest}") sayfasına götürüyor`, async ({ app, page }) => {
       const analytics = app.analytics;
       await analytics.open();
       await analytics.navCard(card.href).click();
+      // Doğru rotaya gitti mi?
       await page.waitForURL((u) => u.pathname === card.href, { timeout: 15000 });
       await expect(app.shell.loginHeading).toBeHidden();
+      // Hedef sayfa gerçekten yüklendi mi? (beklenen başlık render oldu)
+      await expect(
+        page.getByRole('heading', { name: card.dest, exact: true }).first()
+      ).toBeVisible({ timeout: 15000 });
     });
   }
 });

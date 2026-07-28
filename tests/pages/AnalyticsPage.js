@@ -42,15 +42,17 @@ export class AnalyticsPage extends BasePage {
 
   /**
    * "How this hub works" altındaki 6 navigasyon kartı. `href` dilden bağımsız
-   * stabil çapa; kart adları 4 dilde doğrulanmış çevirilerdir.
+   * stabil çapa; kart adları 4 dilde doğrulanmış çevirilerdir. `dest`: karta
+   * tıklayınca açılan hedef sayfanın (İngilizce) h1 başlığı — L3'te hedefin
+   * gerçekten yüklendiğini kanıtlamak için (salt URL değil; bkz. AGENTS.md).
    */
   static NAV_CARDS = [
-    { href: '/reports/call', en: 'Call analytics', tr: 'Arama analitiği', fr: 'Analytique des appels', ar: 'تحليلات المكالمات' },
-    { href: '/reports/agent', en: 'Agent analytics', tr: 'Temsilci analitiği', fr: 'Analytique des agents', ar: 'تحليلات الوكلاء' },
-    { href: '/reports/queue', en: 'Queue analytics', tr: 'Kuyruk analitiği', fr: "Analytique des files d'attente", ar: 'تحليلات قوائم الانتظار' },
-    { href: '/reports/campaign', en: 'Campaign analytics', tr: 'Kampanya analitiği', fr: 'Analytique des campagnes', ar: 'تحليلات الحملات' },
-    { href: '/reports/ai', en: 'AI analytics', tr: 'Yapay zekâ analitiği', fr: 'Analytique IA', ar: 'تحليلات الذكاء الاصطناعي' },
-    { href: '/reports/dashboards', en: 'Dashboards', tr: 'Panolar', fr: 'Tableaux de bord', ar: 'لوحات المعلومات' },
+    { href: '/reports/call', dest: 'Call Reports', en: 'Call analytics', tr: 'Arama analitiği', fr: 'Analytique des appels', ar: 'تحليلات المكالمات' },
+    { href: '/reports/agent', dest: 'Agent Performance', en: 'Agent analytics', tr: 'Temsilci analitiği', fr: 'Analytique des agents', ar: 'تحليلات الوكلاء' },
+    { href: '/reports/queue', dest: 'Queue Reports', en: 'Queue analytics', tr: 'Kuyruk analitiği', fr: "Analytique des files d'attente", ar: 'تحليلات قوائم الانتظار' },
+    { href: '/reports/campaign', dest: 'Campaign Reports', en: 'Campaign analytics', tr: 'Kampanya analitiği', fr: 'Analytique des campagnes', ar: 'تحليلات الحملات' },
+    { href: '/reports/ai', dest: 'AI Reports', en: 'AI analytics', tr: 'Yapay zekâ analitiği', fr: 'Analytique IA', ar: 'تحليلات الذكاء الاصطناعي' },
+    { href: '/reports/dashboards', dest: 'Dashboards', en: 'Dashboards', tr: 'Panolar', fr: 'Tableaux de bord', ar: 'لوحات المعلومات' },
   ];
 
   /** Açılışta beklenen KPI döşemeleri (İngilizce; çeviri i18n testinde ayrı ele alınmaz). */
