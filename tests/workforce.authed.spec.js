@@ -220,3 +220,51 @@ test.describe('Kontrol: Publish Schedule @regression', () => {
     await expect(wf.publishButton()).toBeEnabled();
   });
 });
+
+// ═══════════ KONTROL: REQUEST TIME OFF (İzinler / Time Off) (L1 + L2) ═══════════
+// L3 görev OK: N/A — izin talebi UI'dan SİLİNEMİYOR. Yalnızca PATCH ile durum
+//   değişir (Pending → Approved/Rejected); terminal durumda "Actions" kaybolur ve
+//   bir DELETE ucu yoktur (API DELETE → 401). Gerçek create KALICI kayıt bırakır →
+//   L3 opt-in mutation GÜVENLİ DEĞİL, yazılmadı. L2 doğru ucu prod'a yazmadan kanıtlar.
+//   Kanıt: docs/workforce-kesif/NOTLAR.md (28 Tem 2026 canlı gözlem).
+test.describe('Kontrol: Request Time Off @regression', () => {
+  test('L1 tıklama OK: form açılıyor (Start/End Date, Reason) ve tarih dolunca Submit etkinleşiyor', async ({
+    app,
+  }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Time Off');
+    await wf.requestTimeOffButton().click();
+    const d = wf.addShiftDialog(); // getByRole('dialog')
+    await expect(d.getByRole('heading', { name: 'Request Time Off', exact: true })).toBeVisible();
+
+    const submit = d.getByRole('button', { name: 'Submit', exact: true });
+    await expect(submit).toBeDisabled(); // tarih girilmeden pasif
+    const dates = d.locator('input[type="date"]');
+    await dates.nth(0).fill('2026-09-15');
+    await dates.nth(1).fill('2026-09-17');
+    await expect(submit).toBeEnabled(); // tarih dolunca etkinleşir (gözlemlenebilir tepki)
+    await wf.page.keyboard.press('Escape'); // GÖNDERME YOK
+  });
+
+  test("L2 arka plan OK: Submit doğru uca POST gönderiyor (prod'a YAZILMAZ)", async ({ app, page }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Time Off');
+    let posted = false;
+    await page.route(`**${API.timeOff}`, async (route) => {
+      if (route.request().method() === 'POST') {
+        posted = true;
+        await route.fulfill({ status: 201, contentType: 'application/json', body: '{}' }); // prod'a yazma
+      } else {
+        await route.continue();
+      }
+    });
+    await wf.requestTimeOffButton().click();
+    const d = wf.addShiftDialog();
+    await d.locator('input[type="date"]').nth(0).fill('2026-09-15');
+    await d.locator('input[type="date"]').nth(1).fill('2026-09-17');
+    await d.getByRole('button', { name: 'Submit', exact: true }).click();
+    await expect.poll(() => posted, { timeout: 10000 }).toBe(true);
+  });
+});

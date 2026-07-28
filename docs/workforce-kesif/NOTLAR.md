@@ -93,3 +93,31 @@ network incelemesiyle yeniden test edildi.
 - Publish "Draft"ı yayınlar + cleanup siler. Yalnızca `npm run test:mutation:prod` (bkz. docs/adr/0002).
 
 **Kapsam raporu:** `docs/TEST_COVERAGE.md` — `npm run report:coverage` ile tüm depodan **otomatik** üretilir.
+
+## İzinler (Time Off) — izin talebi (28 Tem 2026)
+
+Sekme: "Time Off" (TR "İzinler"). İçerik: **Request Time Off** butonu + tablo
+(Agent / Start Date / End Date / Reason / Status / Reviewed By / Actions) + boş
+durum "No time off requests".
+
+**Request Time Off formu:** Start Date, End Date (`<input type="date">`),
+Reason (opsiyonel, textarea). **Submit, iki tarih dolana kadar pasiftir.**
+
+**Backend (canlıda doğrulandı):**
+- Oluştur: `POST /api/v1/wfm/time-off → 201`. Satır "Pending" durumuyla gelir
+  (tarih "Sep 15, 2026" biçiminde).
+- Durum değiştir: `PATCH /api/v1/wfm/time-off/{id} → 200` (Onayla/Reddet).
+- **DELETE ucu YOK.** Durum terminal olunca (Approved/Rejected) satırdaki "Actions"
+  düğmeleri kaybolur; `page.request.delete` → **401**. Yani izin talebi **UI'dan
+  silinemez, geri alınamaz.**
+
+**3 katman kararı:**
+- L1 — form açılır, tarih dolunca Submit etkinleşir. ✓
+- L2 — Submit `POST /wfm/time-off` (page.route ile yakalanır, **prod'a yazılmaz**). ✓
+- **L3 — N/A:** talep silinemediği için gerçek create KALICI kayıt bırakır →
+  L3 opt-in mutation güvenli değil, yazılmadı. (Schedules'ta `DELETE→204` olduğu
+  için L3 mutation güvenliydi; Time Off'ta yok.)
+
+**Gözlemler:** Actions ikon-butonlarının erişilebilir ismi yok (a11y). Kalibrasyon
+sırasında silinemeyen 1 "PW otomasyon testi / Approved" talebi test hesabında kaldı
+(zararsız test verisi; UI'dan kaldırma yolu yok).

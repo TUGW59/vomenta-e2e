@@ -74,6 +74,10 @@ export class WorkforcePage extends BasePage {
     return this.page.getByRole('button', { name, exact: true });
   }
 
+  requestTimeOffButton() {
+    return this.page.getByRole('button', { name: 'Request Time Off', exact: true });
+  }
+
   /** Radix sekmesine güvenli tıklama; seçili duruma geçtiğini doğrular. */
   async selectTab(name) {
     const tab = this.tab(name);
