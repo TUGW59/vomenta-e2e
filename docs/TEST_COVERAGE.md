@@ -8,11 +8,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 98
-- **Test dosyası:** 18
+- **Test edilen senaryo:** 102
+- **Test dosyası:** 19
 - **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 7
 - **Bilerek test edilmeyen (güvenlik):** 7
-- **Yapılacak (güvenli, henüz kapsanmadı):** 4
+- **Yapılacak (güvenli, henüz kapsanmadı):** 3
 
 ## ✅ Test edilen senaryolar
 
@@ -162,6 +162,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-subnav.authed.spec.js`
+
+- "Queues" alt-navigasyonu tıklanınca çalışıyor
+- "Call History" alt-navigasyonu tıklanınca çalışıyor
+- "Voicemails" alt-navigasyonu tıklanınca çalışıyor
+- "Recordings" alt-navigasyonu tıklanınca çalışıyor
+
 ### `voice.authed.spec.js`
 
 - /voice, Live Calls sayfasına açılıyor
@@ -185,6 +192,5 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 | Kontrol | Sayfa |
 |---|---|
 | New Dashboard / Custom Report / Schedule a Report | Reports |
-| Voice alt-navigasyonu (Queues, Call History, Voicemails...) | Voice |
 | Bildirimler paneli | Header |
 | Dil menüsü | Header |

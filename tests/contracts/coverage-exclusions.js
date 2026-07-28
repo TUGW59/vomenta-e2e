@@ -28,7 +28,6 @@ export const COVERAGE_EXCLUSIONS = Object.freeze([
  */
 export const COVERAGE_TODO = Object.freeze([
   { control: 'New Dashboard / Custom Report / Schedule a Report', pages: 'Reports' },
-  { control: 'Voice alt-navigasyonu (Queues, Call History, Voicemails...)', pages: 'Voice' },
   { control: 'Bildirimler paneli', pages: 'Header' },
   { control: 'Dil menüsü', pages: 'Header' },
 ]);
