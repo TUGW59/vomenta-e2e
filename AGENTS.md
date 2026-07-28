@@ -47,6 +47,38 @@ CSS sınıfı, DOM sırası ve görsel implementasyon ayrıntısı son çare de�
 kullanılmamalıdır. Kritik kontroller için frontend ekibinden `data-testid`
 istenir.
 
+## İnteraktif kontrol testi standardı (3 katman)
+
+Her buton, toggle, seçici veya benzeri interaktif kontrol **en az 3 katmanda**
+doğrulanır. Her katman, başlığında katmanı belirten **ayrı** bir test'tir:
+
+- **L1 — Tıklama OK:** Kontrol görünür/etkin, etkileşim çalışıyor ve UI
+  **gözlemlenebilir tepki** veriyor (toggle durum değişir, menü açılır, değer
+  güncellenir, bilgilendirme/toast çıkar).
+- **L2 — Arka plan OK:** Etkileşim **doğru backend ucunu** tetikliyor
+  (method + endpoint + 2xx). Veri değiştiren istek `page.route` ile yakalanır
+  (prod'a yazılmaz); salt-okunur işlem `waitForRequest` ile beklenir.
+- **L3 — Görev OK:** Kontrol **amacını gerçekten** yerine getiriyor
+  (gözlemlenebilir son durum: tema uygulanır, tam ekran, veri/saat güncellenir,
+  kaydırma olur, kayıt kalıcı olur).
+
+Kurallar:
+
+- Bir katman kontrol için **gerçekten yoksa** (saf istemci-tarafı davranış → L2 yok)
+  veya **prod'a yazmadan güvenli doğrulanamıyorsa** (kalıcı kayıt → L3 mutation),
+  test uydurulmaz; spec içinde ve keşif raporunda **açık "N/A" gerekçesiyle** belgelenir.
+  Sessizce atlanmaz.
+- Kontrolün amacı **çalışmıyorsa** ilgili katman `test.fail` (bilinen hata) ile bırakılır;
+  düzelince "beklenmedik geçiş" verir → `test.fail` kaldırılıp kalıcı guard olur.
+- `test.fail()` **ilgili test'in içine** yazılır; `describe` gövdesinde çıplak çağrı o
+  gruptaki **tüm** testleri "başarısız olmalı" işaretler.
+- Durum sinyali **semantikse** (`aria-pressed`, `aria-expanded`, `role`, erişilebilir isim)
+  o kullanılır. Semantik sinyal yoksa frontend'den `data-testid`/semantik durum istenir;
+  CSS sınıfı yalnızca son çaredir ve bir `data-testid` talebiyle birlikte not edilir.
+
+Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
+(+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).
+
 ## Test sınıfları
 
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.
