@@ -1,4 +1,5 @@
 // @ts-check
+import { AnalyticsPage } from './AnalyticsPage.js';
 import { AppShell } from './AppShell.js';
 import { ContactsPage } from './ContactsPage.js';
 import { LoginPage } from './LoginPage.js';
@@ -14,6 +15,7 @@ export class App {
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
     this.shell = new AppShell(page);
+    this.analytics = new AnalyticsPage(page);
     this.login = new LoginPage(page);
     this.contacts = new ContactsPage(page);
     this.settings = new SettingsPage(page);
