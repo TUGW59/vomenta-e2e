@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 199
-- **Test dosyası:** 24
-- **Etiketler:** `@critical` 20 · `@known-bug` 21 · `@public` 2 · `@regression` 94 · `@smoke` 13
+- **Test edilen senaryo:** 269
+- **Test dosyası:** 25
+- **Etiketler:** `@critical` 33 · `@known-bug` 23 · `@public` 2 · `@regression` 160 · `@smoke` 19
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -45,29 +45,102 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L3 görev OK: "90 Days" seçilince dönem etiketleri "· 90 Days"e dönüyor  `@regression`
 - L1 tıklama OK: popover Start / End + "Apply range" ile açılıyor  `@regression`
 - L2 arka plan OK: "Apply range" özel aralıkla analytics verisi çekiyor  `@regression`
-- L1+L3: "Call analytics" kartı /reports/call sayfasına götürüyor  `@regression`
-- L1+L3: "Agent analytics" kartı /reports/agent sayfasına götürüyor  `@regression`
-- L1+L3: "Queue analytics" kartı /reports/queue sayfasına götürüyor  `@regression`
-- L1+L3: "Campaign analytics" kartı /reports/campaign sayfasına götürüyor  `@regression`
-- L1+L3: "AI analytics" kartı /reports/ai sayfasına götürüyor  `@regression`
-- L1+L3: "Dashboards" kartı /reports/dashboards sayfasına götürüyor  `@regression`
+- L1+L3: "Call analytics" kartı /reports/call ("Call Reports") sayfasına götürüyor  `@regression`
+- L1+L3: "Agent analytics" kartı /reports/agent ("Agent Performance") sayfasına götürüyor  `@regression`
+- L1+L3: "Queue analytics" kartı /reports/queue ("Queue Reports") sayfasına götürüyor  `@regression`
+- L1+L3: "Campaign analytics" kartı /reports/campaign ("Campaign Reports") sayfasına götürüyor  `@regression`
+- L1+L3: "AI analytics" kartı /reports/ai ("AI Reports") sayfasına götürüyor  `@regression`
+- L1+L3: "Dashboards" kartı /reports/dashboards ("Dashboards") sayfasına götürüyor  `@regression`
 - BULGU A [tr]: "Deep analytics" bölümü tr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
 
+### `campaigns-outbound.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- dört özet kartı listeleniyor  `@smoke`
+- arama, tür filtresi ve durum sekmeleri mevcut  `@smoke`
+- tablo başlıkları doğru sırada  `@smoke` `@critical`
+- New Campaign düğmesi görünür ve etkin  `@smoke`
+- [en] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
+- [tr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
+- [fr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
+- [ar] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
+- L1 tıklama OK: metin yazılabiliyor  `@regression`
+- L2 arka plan OK: arama filtresiyle liste ucunu çağırıyor  `@regression` `@critical`
+- L3 görev OK: eşleşmeyen arama boş-durumu gösteriyor (liste gerçekten filtreleniyor)  `@regression`
+- L1 tıklama OK: seçilen değer trigger'da güncelleniyor  `@regression`
+- L2 arka plan OK: campaignType filtresiyle liste ucunu çağırıyor  `@regression` `@critical`
+- L3 görev OK: "Voice" seçilince listede yalnız VOICE kampanyaları kalıyor  `@regression`
+- L3 görev OK: "SMS" seçilince listede yalnız SMS kampanyaları kalıyor  `@regression`
+- L3 görev OK: "Email" seçilince listede yalnız EMAIL kampanyaları kalıyor  `@regression`
+- L3 görev OK: "WhatsApp" seçilince listede yalnız WhatsApp kampanyaları kalıyor  `@regression`
+- L1 tıklama OK: Running sekmesi seçili duruma geçiyor  `@regression`
+- L2 arka plan OK: status filtresiyle liste ucunu çağırıyor  `@regression` `@critical`
+- L3 görev OK: "All" karışık durumları gösteriyor (en az bir Completed)  `@regression`
+- L3 görev OK: "Running" sekmesi diğer durumları listeden çıkarıyor  `@regression`
+- L3 görev OK: "Paused" sekmesi diğer durumları listeden çıkarıyor  `@regression`
+- L1 tıklama OK: tıklanınca create rotasına gidiyor  `@regression`
+- L2 arka plan OK: create sayfası kanal verisini çekiyor  `@regression` `@critical`
+- L3 görev OK: "Create Campaign" sihirbazı görünüyor  `@regression`
+- L1 tıklama OK: göz ikonuna basınca detay rotasına gidiyor  `@regression`
+- L2 arka plan OK: seçilen kampanyanın detayını API'den çekiyor  `@regression` `@critical`
+- L3 görev OK: doğru kampanyanın detay sayfası açılıyor (ad eşleşiyor)  `@regression`
+- L1 tıklama OK: çöp ikonu kalıcı-silme onay dialogu açıyor (mutation göndermeden)  `@regression`
+- L2 arka plan OK: onaylayınca DELETE /campaigns/{id} gidiyor (route ile yakalanır, prod'a yazılmaz)  `@regression` `@critical`
+- L3 görev OK — N/A: gerçek silme kalıcı mutation, prod'a yazmadan doğrulanamaz (bkz. mutasyon spec dosyasi)  `@regression`
+- L1 tıklama OK: play ikonu başlatma onay dialogu açıyor (mutation göndermeden)  `@regression`
+- L2 arka plan OK: onaylayınca POST /campaigns/{id}/start gidiyor (route ile yakalanır)  `@regression` `@critical`
+- L3 hata yolu OK: start 400 dönünce "Failed to start" hata toast'ı gösteriliyor  `@regression`
+- 6 adımlı stepper + Adım 1 alanları görünüyor; Cancel geri döndürüyor  `@regression`
+- göz ile açılan detayda sekmeler ve metrik kartları var  `@regression`
+- BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı  `@regression` `@known-bug`
+- BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı  `@regression` `@known-bug`
+
 ### `contacts.authed.spec.js`
 
-- tablo beklenen kolonları gösteriyor  `@critical`
+- başlık, alt başlık ve 7 kolon görünüyor  `@smoke`
+- araç çubuğu butonları ve arama mevcut  `@critical`
 - en az bir kişi listeleniyor  `@smoke`
-- arama: eşleşmeyen sorgu "No contacts found" gösteriyor
-- arama: mevcut bir kişiyi ada göre filtreliyor  `@critical`
+- [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- L1 tıklama OK: terim girince liste süzülür ve "Clear" çıkar  `@regression`
+- L2 arka plan OK: arama filters={"search":…} ile API sorgusu atıyor  `@regression` `@critical`
+- L3 görev OK: eşleşen kişi görünür, eşleşmeyen sorgu boş-durum gösterir  `@regression`
+- L1 tıklama OK: 5 tag chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: chip tıklanınca filters={"tags":[…]} sorgusu atılıyor  `@regression` `@critical`
+- L3 görev OK: filtre listeyi süzüyor (VIP kişisi yoksa boş-durum)  `@regression`
+- L1 tıklama OK: dropdown açılıyor (All Companies + en az bir şirket)  `@regression`
+- L2 arka plan OK: bir şirket seçilince liste yeniden çekiliyor  `@regression`
+- L3 görev OK: seçilen şirket dropdown tetikleyicisinde yansıyor  `@regression`
+- L1 tıklama OK: sort chip görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: sort chip yeni sort=[…] ile sorgu atıyor  `@regression` `@critical`
+- L3 görev OK: satır sırası değişiyor  `@regression`
+- L1 tıklama OK: ızgara butonu tıklanınca aktif duruma geçiyor  `@regression`
+- L3 görev OK: ızgara görünümü tabloyu değiştiriyor, listeye dönünce tablo geri geliyor  `@regression`
+- L1 tıklama OK: New Contact formunu açıyor (9 alan + Kaydet/İptal)  `@regression`
+- L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: /contacts/import sayfasını (dosya girişli) açıyor  `@regression`
+- L1 tıklama OK: Export tıklanınca indirme başlıyor  `@regression`
+- L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor  `@regression` `@critical`
+- L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok  `@regression`
+- L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)  `@regression`
+- L1 tıklama OK: /contacts/segments sayfasını açıyor  `@regression`
+- L1 tıklama OK: satıra tıklayınca /contacts/{id} detayına gidiyor  `@regression`
+- L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor  `@regression` `@critical`
+- L3 görev OK: detay sayfası kişi adını ve sekmeleri gösteriyor  `@regression`
+- L1 OK: tek sayfada prev/next pasif ve sayaç "of N" gösteriyor  `@regression`
+- BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı  `@regression`
+- BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli  `@regression`
 
 ### `dashboard-actions.authed.spec.js`
 
-- "Send SMS" /channels/sms sayfasına götürüyor
-- "Create Campaign" /campaigns/outbound sayfasına götürüyor
-- "View Reports" /reports sayfasına götürüyor
+- "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor
+- "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor
+- "View Reports" /reports ("Reports") sayfasına götürüyor
 
 ### `dashboard.authed.spec.js`
 
@@ -76,19 +149,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - kenar menüsü tüm ana bölümleri içeriyor  `@critical`
 - menü linkleri doğru href değerlerine sahip
 - arama kutusu ve tarih filtreleri görünüyor
-- /inbox doğrudan açılıyor
-- /voice doğrudan açılıyor
-- /channels doğrudan açılıyor
-- /ai doğrudan açılıyor
-- /campaigns doğrudan açılıyor
-- /bot-builder doğrudan açılıyor
-- /contacts doğrudan açılıyor
-- /tickets doğrudan açılıyor
-- /analytics doğrudan açılıyor
-- /reports doğrudan açılıyor
-- /supervisor doğrudan açılıyor
-- /workforce doğrudan açılıyor
-- /settings doğrudan açılıyor
+- /inbox doğrudan açılıyor ("Inbox")
+- /voice doğrudan açılıyor ("Live Calls")
+- /channels doğrudan açılıyor ("Channels")
+- /ai doğrudan açılıyor ("AI Management")
+- /campaigns doğrudan açılıyor ("Campaigns")
+- /bot-builder doğrudan açılıyor ("Bot Builder")
+- /contacts doğrudan açılıyor ("Contacts")
+- /tickets doğrudan açılıyor ("Tickets")
+- /analytics doğrudan açılıyor ("Analytics")
+- /reports doğrudan açılıyor ("Reports")
+- /supervisor doğrudan açılıyor ("Supervisor")
+- /workforce doğrudan açılıyor ("Workforce Management")
+- /settings doğrudan açılıyor ("Settings")
 
 ### `forms.authed.spec.js`
 
@@ -146,10 +219,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `navigation.authed.spec.js`
 
-- "Inbox" linkine tıklayınca /inbox sayfasına gidiyor
-- "Tickets" linkine tıklayınca /tickets sayfasına gidiyor
-- "Analytics" linkine tıklayınca /analytics sayfasına gidiyor
-- "Settings" linkine tıklayınca /settings sayfasına gidiyor
+- "Inbox" linkine tıklayınca /inbox ("Inbox") sayfasına gidiyor
+- "Tickets" linkine tıklayınca /tickets ("Tickets") sayfasına gidiyor
+- "Analytics" linkine tıklayınca /analytics ("Analytics") sayfasına gidiyor
+- "Settings" linkine tıklayınca /settings ("Settings") sayfasına gidiyor
 
 ### `pages.authed.spec.js`
 
@@ -163,8 +236,8 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `reports-actions.authed.spec.js`
 
-- "New Dashboard" pano sayfasına götürüyor
-- "Custom Report" pano/rapor sayfasına götürüyor
+- "New Dashboard" pano sayfasına ("Dashboards") götürüyor
+- "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor
 - "Schedule a Report" formu açılıyor ve iptal edilebiliyor
 
 ### `reports.authed.spec.js`
@@ -250,10 +323,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `voice-subnav.authed.spec.js`
 
-- "Queues" alt-navigasyonu tıklanınca çalışıyor
-- "Call History" alt-navigasyonu tıklanınca çalışıyor
-- "Voicemails" alt-navigasyonu tıklanınca çalışıyor
-- "Recordings" alt-navigasyonu tıklanınca çalışıyor
+- "Queues" alt-navigasyonu /voice/queues ("Queues") panelini açıyor
+- "Call History" alt-navigasyonu /voice/history ("Call History") panelini açıyor
+- "Voicemails" alt-navigasyonu /voice/voicemail ("Voicemails") panelini açıyor
+- "Recordings" alt-navigasyonu /voice/recordings ("Call Recordings") panelini açıyor
 
 ### `voice.authed.spec.js`
 

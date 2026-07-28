@@ -18,6 +18,22 @@ export function buildContact(overrides = {}) {
   };
 }
 
+/**
+ * Kişiler bölümü mutasyon testi için benzersiz kişi (yalnızca opt-in @mutation).
+ * Telefon E.164 formatında olmalı (form doğrulaması). Varsayılan numara, kullanıcının
+ * bu test için verdiği numaradır. lastName boşluksuz+benzersiz → arama ile güvenle bulunur.
+ */
+export function buildPeopleContact(overrides = {}) {
+  const suffix = uniqueSuffix().replace(/[^a-z0-9]/gi, '');
+  return {
+    firstName: 'PW',
+    lastName: `Auto${suffix}`,
+    phone: '+905072507710',
+    tag: 'VIP',
+    ...overrides,
+  };
+}
+
 export function buildTicket(overrides = {}) {
   const suffix = uniqueSuffix();
   return {
