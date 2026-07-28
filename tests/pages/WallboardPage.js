@@ -42,6 +42,10 @@ export class WallboardPage extends BasePage {
     // "Live/Canlı" badge'inin yanındaki son-güncelleme saati (yenileme ikonlu span).
     // Header'daki duvar saati farklı ikon (lucide-clock) kullanır — bu ondan ayrıdır.
     this.liveTimestamp = page.locator('span:has(svg.lucide-refresh-cw)').first();
+    // "Refresh [30] s" — otomatik yenileme aralığı (saniye) girişi.
+    this.refreshInterval = page.locator('input[type="number"]').first();
+    // Refresh All'dan sonra çıkan bilgilendirme toast'ı (UI geri bildirimi).
+    this.refreshedToast = page.getByText(/refreshed/i).first();
   }
 
   /** İngilizce açılır ve başlığın göründüğünü doğrular. */

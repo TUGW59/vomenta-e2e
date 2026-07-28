@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 128
+- **Test edilen senaryo:** 133
 - **Test dosyası:** 22
-- **Etiketler:** `@critical` 10 · `@known-bug` 19 · `@public` 2 · `@regression` 26 · `@smoke` 10
+- **Etiketler:** `@critical` 10 · `@known-bug` 16 · `@public` 2 · `@regression` 31 · `@smoke` 10
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -169,13 +169,18 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [tr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
 - [fr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
 - [ar] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
-- "Refresh All" veriyi yeniden çekiyor (dashboard API çağrısı)  `@regression` `@critical`
-- "Save layout" düzeni PUT ile kaydediyor  `@regression`
-- "TV mode" tam ekrana geçiriyor  `@regression`
-- BULGU 1: tema seçici "Dark" seçilince koyu tema uygulanmalı  `@regression` `@known-bug`
+- L1 tıklama OK: tıklayınca "refreshed" bildirimi çıkıyor  `@regression`
+- L2 arka plan OK: dashboard verisini API'den çekiyor  `@regression` `@critical`
+- L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]  `@regression`
+- L1 tıklama OK: tıklayınca toggle aktif duruma geçiyor  `@regression`
+- L3 görev OK: içerik taşınca otomatik kaydırmalı [BULGU 3]  `@regression`
+- L1 tıklama OK: buton görünür ve etkin  `@regression`
+- L3 görev OK: tıklayınca tam ekrana geçiyor  `@regression`
+- L2 arka plan OK: düzeni PUT ile config ucuna gönderiyor  `@regression`
+- L1 tıklama OK: seçenek seçince gösterilen değer değişiyor  `@regression`
+- L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]  `@regression`
+- L1 tıklama OK: değer düzenlenebiliyor  `@regression`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
-- BULGU 3: Auto-scroll içerik taşınca otomatik kaydırmalı  `@regression` `@known-bug`
-- BULGU 4: "Live" badge son-güncelleme saati yerel saati göstermeli (UTC değil)  `@regression` `@known-bug`
 
 ### `tickets.authed.spec.js`
 

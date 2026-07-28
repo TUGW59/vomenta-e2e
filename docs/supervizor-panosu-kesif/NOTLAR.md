@@ -105,6 +105,21 @@ Her butona tıklanıp **Network istekleri + Console + DOM/state (aria/class/scro
 
 > Yan gözlem (bug değil, izlenebilir): açılışta socket.io bazı bağlantıları `agentId=undefined&tenantId=undefined` ile açıyor (kimlik gelmeden önce) — sonra doğru ID'lerle tekrar bağlanıyor.
 
+### 3 katmanlı kontrol matrisi (testlerin dayandığı model)
+
+Her buton **3 katmanda** test edilir: **L1** butona basılıyor ve UI tepki veriyor mu · **L2** doğru uca network isteği gidiyor mu · **L3** amacını gerçekleştiriyor mu. Bir katman gerçekten yoksa (saf istemci) veya prod'a yazmadan güvenli doğrulanamıyorsa **N/A** olarak belirtilir.
+
+| Buton / Kontrol | L1 Tıklama | L2 Arka plan | L3 Görev |
+|---|---|---|---|
+| **Refresh All** | ✅ "refreshed" toast | ✅ `GET /supervisor/dashboard` | ❌ son-güncelleme saati UTC (**BULGU 4**) |
+| **Auto-scroll** | ✅ toggle `bg-primary` | — N/A (istemci) | ❌ içerik taşsa da kaydırmıyor (**BULGU 3**) |
+| **TV modu** | ✅ etkin | — N/A | ✅ `fullscreenElement=true` |
+| **Düzeni kaydet** | ✅ etkin | ✅ `PUT /wallboard/config` | ~ N/A (kalıcı kayıt = mutation, prod'a yazmadan doğrulanmaz) |
+| **Tema seçici** | ✅ gösterilen değer değişiyor | — N/A (istemci) | ❌ seçilen tema uygulanmıyor (**BULGU 1**) |
+| **Refresh aralığı** | ✅ değer düzenlenebiliyor | — N/A | — N/A (poll sıklığı deterministik gözlemlenemez) |
+
+Test karşılığı: `tests/supervisor-wallboard.authed.spec.js` — her buton kendi `describe`'ında `L1/L2/L3` başlıklı test'lerle. Bozuk L3'ler `test.fail` (bilinen hata); düzeltilince "beklenmedik geçiş" verir.
+
 ---
 
 ## 🐞 BULGU 3 (keşifte çıktı) — "Auto-scroll" hiç kaydırmıyor
