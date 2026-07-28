@@ -268,3 +268,35 @@ test.describe('Kontrol: Request Time Off @regression', () => {
     await expect.poll(() => posted, { timeout: 10000 }).toBe(true);
   });
 });
+
+// ═══════ KONTROL: Gamification/Değerlendirme oluşturma formları (L1) ═══════
+// Create badge (Name/Category/Points), Award badge (Badge/Agent/Reason),
+// Create survey (JSON sorular), Create Evaluation (JSON Form Data) — hepsi
+// `POST /api/v1/wfm/gamification/*` veya `/wfm/evaluations`'a gider.
+//
+// L1 — form açılır (bu testler). ✓
+// L2 — N/A (bu turda): formlar boş submit'te istek atmıyor; valid veri girişi
+//   karmaşık (var olan rozet/ajan seçimi, JSON alanlar) ve yanlış girişte gerçek
+//   kayıt oluşma riski var. Uydurma test yazılmaz → valid-veri L2 staging'de eklenir.
+// L3 — N/A: oluşturulan kayıtların güvenli silme yolu doğrulanamadı (Time Off gibi
+//   kalıcı kayıt riski). Bkz. docs/workforce-kesif/NOTLAR.md.
+const CREATE_FORMS = [
+  { tab: 'Badges', button: 'Create badge', title: 'Create badge' },
+  { tab: 'Badges', button: 'Award badge', title: 'Award badge' },
+  { tab: 'Surveys', button: 'Create survey', title: 'Create survey' },
+  { tab: 'Evaluations', button: 'Create Evaluation', title: 'Create Quality Evaluation' },
+];
+test.describe('Kontrol: İş Gücü oluşturma formları (L1) @regression', () => {
+  for (const c of CREATE_FORMS) {
+    test(`L1 tıklama OK: "${c.button}" formu açılıyor ("${c.title}")`, async ({ app }) => {
+      const wf = app.workforce;
+      await wf.open();
+      await wf.selectTab(c.tab);
+      await wf.page.getByRole('button', { name: c.button, exact: true }).click();
+      const d = wf.addShiftDialog();
+      await expect(d.getByRole('heading', { name: c.title, exact: true })).toBeVisible();
+      await expect(d.getByRole('button', { name: 'Cancel', exact: true })).toBeVisible();
+      await wf.page.keyboard.press('Escape');
+    });
+  }
+});
