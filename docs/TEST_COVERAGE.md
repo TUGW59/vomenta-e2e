@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 358
-- **Test dosyası:** 28
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 41 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 195 · `@smoke` 36 · `@visual` 3
+- **Test edilen senaryo:** 365
+- **Test dosyası:** 29
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 42 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 200 · `@smoke` 37 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -339,6 +339,16 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
 - her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
+
+### `supervisor-agent-live.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- canlı AI çağrısı yokken boş-durum gösteriliyor
+- [en] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
+- [tr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
+- [fr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
+- [ar] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
+- L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri)  `@regression`
 
 ### `supervisor-agents.authed.spec.js`
 
