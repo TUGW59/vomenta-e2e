@@ -83,3 +83,30 @@ export async function assertDestinationLoaded(page, { path, heading, exact = tru
 export async function login(page, email, password) {
   await new LoginPage(page).login(email, password);
 }
+
+/**
+ * Bir KPI/metrik kutucuğunun yalnızca ETİKETİ değil, bir DEĞER de gösterdiğini
+ * doğrular. Backend bozulup tüm metrikleri boşaltırsa (etiket durur, değer kaybolur)
+ * bu guard kırılır. Kutucuk yapısı: etiket yaprak düğüm, üst kap "etiket değer".
+ * Değer deseni sayı / % / $ / saat (0:00) / boş-durum işareti (— · N/A) kabul eder.
+ * @param {import('@playwright/test').Page} page
+ * @param {string} label - Kutucuğun etiketi (örn. 'Active calls')
+ * @param {{ pattern?: RegExp, timeout?: number }} [opts]
+ */
+export async function expectMetricHasValue(page, label, { pattern = /\d|%|\$|—|N\/A/, timeout = 10000 } = {}) {
+  await expect
+    .poll(
+      async () =>
+        page.evaluate((lbl) => {
+          const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
+          const main = document.querySelector('main') || document.body;
+          const leaf = [...main.querySelectorAll('*')].find(
+            (e) => e.children.length === 0 && norm(e.textContent) === lbl
+          );
+          if (!leaf || !leaf.parentElement) return '';
+          return norm(leaf.parentElement.textContent).replace(lbl, '').trim();
+        }, label),
+      { timeout, message: `"${label}" kutucuğunda değer (sayı/işaret) görünmeli` }
+    )
+    .toMatch(pattern);
+}

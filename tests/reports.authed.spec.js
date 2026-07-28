@@ -10,6 +10,14 @@ import { gotoApp } from './helpers.js';
 const TABS = ['Report Types', 'Recent', 'AI Insights'];
 const ACTIONS = ['Export All', 'Custom Report', 'New Dashboard', 'Schedule a Report'];
 
+// Sekme seçilince panelinin gerçekten o içeriği render ettiğini doğrulayan imzalar
+// (canlı gözlem). Bkz. AGENTS.md "İçerik ve değer derinliği standardı".
+const TAB_SIGNATURES = {
+  'Report Types': 'Call Reports',
+  Recent: 'No recently viewed reports',
+  'AI Insights': 'Analyze with AI',
+};
+
 async function openReports(page) {
   await gotoApp(page, '/reports');
   await expect(
@@ -26,7 +34,7 @@ test.describe('Vomenta - Reports', () => {
     ).toBeVisible();
   });
 
-  test('sekmeler görünüyor ve tıklanınca seçili duruma geçiyor', async ({ page }) => {
+  test('sekmeler tıklanınca seçili oluyor VE paneli o içeriği gösteriyor', async ({ page }) => {
     await openReports(page);
     for (const name of TABS) {
       await expect(page.getByRole('tab', { name, exact: true })).toBeVisible();
@@ -38,6 +46,8 @@ test.describe('Vomenta - Reports', () => {
         await tab.click();
         await expect(tab).toHaveAttribute('aria-selected', 'true', { timeout: 2000 });
       }).toPass({ timeout: 15000 });
+      // Panel gerçekten o sekmenin içeriğini render etti mi? (salt aria-selected değil)
+      await expect(page.getByText(TAB_SIGNATURES[name], { exact: false }).first()).toBeVisible({ timeout: 10000 });
     }
   });
 
@@ -53,5 +63,18 @@ test.describe('Vomenta - Reports', () => {
     for (const cat of ['Call Reports', 'Agent Performance', 'AI Reports', 'SLA Reports']) {
       await expect(page.getByRole('heading', { name: cat, exact: true })).toBeVisible();
     }
+  });
+
+  // BULGU (keşifte çıktı): AI Insights panelinde ham i18n anahtarı sızıyor.
+  // Bkz. AGENTS.md "Çok dilli (i18n) doğrulama standardı" → iç/ham anahtar = bulgu.
+  test('AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) @known-bug', async ({ page }) => {
+    test.fail(); // bulgu açıkken beklenen başarısızlık; çevrilince "beklenmedik geçiş"
+    await openReports(page);
+    const tab = page.getByRole('tab', { name: 'AI Insights', exact: true });
+    await expect(async () => {
+      await tab.click();
+      await expect(tab).toHaveAttribute('aria-selected', 'true', { timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+    await expect(page.getByText('reports.aiInsightsDesc', { exact: false })).toHaveCount(0);
   });
 });
