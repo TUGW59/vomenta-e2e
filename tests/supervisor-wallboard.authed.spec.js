@@ -251,6 +251,57 @@ test.describe('Kontrol: Refresh aralığı @regression', () => {
   });
 });
 
+// ═══════════════ KONTROL: KUYRUK EYLEMLERİ (⋮) ═══════════════
+// ⋮ menü butonu: L1 = menü açılır + öğeler görünür. L2/L3 = N/A (menü açıcı).
+// Menü ÖĞELERİ (Pause/Resume/Close/Redirect/Move) VERİ DEĞİŞTİRİR/YIKICIDIR →
+// prod'da TETİKLENMEZ; L2/L3'leri staging @mutation ile (aşağıda test.fixme).
+test.describe('Kontrol: Kuyruk eylemleri (⋮) @regression', () => {
+  test('L1 tıklama OK: ⋮ menüsü açılıyor ve 5 eylem görünüyor @critical', async ({ app }) => {
+    const wallboard = app.wallboard;
+    await wallboard.open();
+    await wallboard.openQueueMenu();
+    for (const name of WallboardPage.QUEUE_ACTIONS.en) {
+      await expect(wallboard.page.getByRole('menuitem', { name, exact: true })).toBeVisible();
+    }
+    await wallboard.page.keyboard.press('Escape'); // hiçbir eylem tetiklemeden kapat
+  });
+
+  test('i18n: Türkçe\'de menü eylemleri çevrili (Resume queue hariç)', async ({ app }) => {
+    const wallboard = app.wallboard;
+    await wallboard.open();
+    await wallboard.switchLanguage(I18N.tr.endonym);
+    await wallboard.openQueueMenu();
+    for (const name of WallboardPage.QUEUE_ACTIONS.tr.translated) {
+      await expect(wallboard.page.getByRole('menuitem', { name, exact: true })).toBeVisible();
+    }
+    await wallboard.page.keyboard.press('Escape');
+  });
+
+  // BULGU 5 — "Resume queue" hiçbir dilde çevrilmiyor (menü içi çeviri sızıntısı).
+  // Türkçe menüde diğer 4 öğe çevriliyken bu İngilizce kalıyor.
+  test('BULGU 5: "Resume queue" Türkçe menüde çevrilmeli', async ({ app }) => {
+    test.fail(); // BULGU 5 açıkken beklenen başarısızlık
+    const wallboard = app.wallboard;
+    await wallboard.open();
+    await wallboard.switchLanguage(I18N.tr.endonym);
+    await wallboard.openQueueMenu();
+    // Beklenen: İngilizce "Resume queue" artık olmamalı (çevrilmiş olmalı) → şu an var → patlar.
+    await expect(wallboard.page.getByRole('menuitem', { name: 'Resume queue', exact: true })).toHaveCount(0);
+  });
+});
+
+// Kuyruk eylemlerinin L2/L3'ü (backend + gerçek etki) YIKICIDIR → prod'da tetiklenmez.
+// Aşağıdakiler yalnızca BELGELEME amaçlı `test.fixme` stub'larıdır (çalışmaz).
+// Staging'de gerçekten uygulanınca: ayrı `*.mutation.authed.spec.js` dosyasına taşınır,
+// `@mutation` etiketi + `mutationGuard` + `cleanup` (geri-alma) eklenir (bkz. AGENTS.md).
+test.describe('Kuyruk eylemleri — L2/L3 yıkıcı (staging planı) @regression', () => {
+  test.fixme('L2/L3: "Pause queue" backend\'e pause isteği atar ve kuyruk duraklar (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Resume queue" backend\'e resume isteği atar ve kuyruk devam eder (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Close queue" backend\'e close isteği atar ve kuyruk kapanır (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Redirect all calls" onay sonrası yönlendirme isteği atar (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Move call" hedef seçme diyaloğu açar ve taşıma isteği atar (staging @mutation)', async () => {});
+});
+
 // ═══════════════ i18n: BULGU 2 (çeviri sızıntısı) ═══════════════
 test.describe('Duvar Panosu — bilinen hatalar (i18n) @regression @known-bug', () => {
   // BULGU 2 — "Refresh All"/"Auto-scroll" hiçbir dilde çevrilmiyor.

@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 133
-- **Test dosyası:** 22
-- **Etiketler:** `@critical` 10 · `@known-bug` 16 · `@public` 2 · `@regression` 31 · `@smoke` 10
+- **Test edilen senaryo:** 199
+- **Test dosyası:** 24
+- **Etiketler:** `@critical` 20 · `@known-bug` 21 · `@public` 2 · `@regression` 94 · `@smoke` 13
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -23,6 +23,38 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Tickets: bilinen borç dışında ciddi/kritik a11y ihlali yok
 - Settings: bilinen borç dışında ciddi/kritik a11y ihlali yok
 - Reports: bilinen borç dışında ciddi/kritik a11y ihlali yok
+
+### `analytics.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- tarih aralığı butonları mevcut (Today / 7 Days / 30 Days / 90 Days / Custom)  `@smoke`
+- üst KPI döşemeleri görünüyor
+- "AI usage" ve "Deep analytics" bölümleri görünüyor  `@smoke`
+- 6 navigasyon kartı doğru hedeflerle görünüyor  `@critical`
+- [en] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [tr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [fr] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- [ar] başlık + yön + tarih butonları + AI usage + kartlar çevrili  `@regression`
+- varsayılan olarak "30 Days" aktif, diğerleri değil  `@regression`
+- L1 tıklama OK: "Today" tıklanınca aktif duruma geçiyor  `@regression`
+- L1 tıklama OK: "7 Days" tıklanınca aktif duruma geçiyor  `@regression`
+- L1 tıklama OK: "90 Days" tıklanınca aktif duruma geçiyor  `@regression`
+- L2 arka plan OK: "7 Days" tıklanınca analytics verisi API'den çekiliyor  `@regression` `@critical`
+- L3 görev OK: "Today" seçilince dönem etiketleri "· Today"e dönüyor  `@regression`
+- L3 görev OK: "7 Days" seçilince dönem etiketleri "· 7 Days"e dönüyor  `@regression`
+- L3 görev OK: "90 Days" seçilince dönem etiketleri "· 90 Days"e dönüyor  `@regression`
+- L1 tıklama OK: popover Start / End + "Apply range" ile açılıyor  `@regression`
+- L2 arka plan OK: "Apply range" özel aralıkla analytics verisi çekiyor  `@regression`
+- L1+L3: "Call analytics" kartı /reports/call sayfasına götürüyor  `@regression`
+- L1+L3: "Agent analytics" kartı /reports/agent sayfasına götürüyor  `@regression`
+- L1+L3: "Queue analytics" kartı /reports/queue sayfasına götürüyor  `@regression`
+- L1+L3: "Campaign analytics" kartı /reports/campaign sayfasına götürüyor  `@regression`
+- L1+L3: "AI analytics" kartı /reports/ai sayfasına götürüyor  `@regression`
+- L1+L3: "Dashboards" kartı /reports/dashboards sayfasına götürüyor  `@regression`
+- BULGU A [tr]: "Deep analytics" bölümü tr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
 
 ### `contacts.authed.spec.js`
 
@@ -159,6 +191,28 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - tüm sekmeler görünüyor  `@critical`
 - her sekme tıklanınca seçili duruma geçiyor
 
+### `supervisor-agents.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- istatistik döşemeleri görünüyor (Total/Available/Offline/Calls Today/Avg AHT)
+- temsilci tablosu beklenen kolonları gösteriyor  `@critical`
+- kontroller mevcut (durum filtresi / arama / Analyze)
+- [en] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [tr] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [fr] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [ar] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- L1 tıklama OK: menü açılıyor ve durum seçenekleri görünüyor  `@regression`
+- L2 arka plan OK: durum seçince agents API'sini status parametresiyle çağırıyor  `@regression` `@critical`
+- L3 görev OK: seçilen duruma göre tablo filreleniyor  `@regression`
+- L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
+- L2 arka plan OK: arama agents API'sini search parametresiyle çağırıyor  `@regression`
+- L3 görev OK: arama tabloyu eşleşen ajana daraltıyor  `@regression`
+- L1 tıklama OK: Force menüsü açılıyor ve zorla-durum seçenekleri görünüyor  `@regression`
+- L1 tıklama OK: transkript girilince Analyze butonu etkinleşiyor  `@regression`
+- L2/L3: "Analyze" transkripti analiz ucuna gönderir ve sonuç döndürür  `@regression`
+- L1: Previous/Next butonları mevcut, tek sayfada Next devre dışı  `@regression`
+- BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
+
 ### `supervisor-wallboard.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
@@ -180,6 +234,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: seçenek seçince gösterilen değer değişiyor  `@regression`
 - L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]  `@regression`
 - L1 tıklama OK: değer düzenlenebiliyor  `@regression`
+- L1 tıklama OK: ⋮ menüsü açılıyor ve 5 eylem görünüyor  `@regression` `@critical`
+- i18n: Türkçe'de menü eylemleri çevrili (Resume queue hariç)  `@regression`
+- BULGU 5: "Resume queue" Türkçe menüde çevrilmeli  `@regression`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
 
 ### `tickets.authed.spec.js`
@@ -206,14 +263,29 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `workforce.authed.spec.js`
 
-- sayfa başlığı ve 7 sekme görünüyor  `@smoke`
-- 7 sekme de yükleniyor ve imza kontrolü görünüyor  `@smoke`
-- tarih navigasyonu önceki/sonraki haftaya gidiyor
-- çizelge hücresine tıklayınca "Add Shift" formu açılıyor (Start/End/Break)
-- en · Workforce English diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- tr · Workforce Türkçe diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- fr · Workforce Français diline doğru çevriliyor (başlık, sekmeler, yön, form)
-- ar · Workforce العربية diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- başlık ve 7 sekme görünüyor  `@smoke`
+- Schedules çizelgesi ve Publish butonu mevcut  `@critical`
+- [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- L1 tıklama OK: her sekme tıklanınca seçili duruma geçiyor  `@regression`
+- L2 arka plan OK: veri sekmeleri ilgili API ucundan veri çekiyor  `@regression` `@critical`
+- L3 görev OK: her sekme kendi içeriğini gösteriyor  `@regression`
+- L1 tıklama OK: Previous Week tarih aralığını değiştiriyor  `@regression`
+- L2 arka plan OK: Previous Week seçilen hafta için çizelge çekiyor  `@regression` `@critical`
+- L3 görev OK: gösterilen hafta tam olarak bir hafta geri kayıyor  `@regression`
+- L1 tıklama OK: 7d/14d/30d düğmeleri görünür ve tıklanabilir  `@regression`
+- L2 arka plan OK: 14d seçilince adherence verisi API'den çekiliyor  `@regression`
+- L1 tıklama OK: çizelge hücresi "Add Shift" formunu açıyor (Start/End/Break)  `@regression`
+- L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: buton görünür ve etkin  `@regression`
+- L1 tıklama OK: form açılıyor (Start/End Date, Reason) ve tarih dolunca Submit etkinleşiyor  `@regression`
+- L2 arka plan OK: Submit doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
+- L1 tıklama OK: "Create badge" formu açılıyor ("Create badge")  `@regression`
+- L1 tıklama OK: "Award badge" formu açılıyor ("Award badge")  `@regression`
+- L1 tıklama OK: "Create survey" formu açılıyor ("Create survey")  `@regression`
+- L1 tıklama OK: "Create Evaluation" formu açılıyor ("Create Quality Evaluation")  `@regression`
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 

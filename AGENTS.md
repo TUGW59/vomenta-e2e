@@ -78,9 +78,41 @@ Kurallar:
 - Durum sinyali **semantikse** (`aria-pressed`, `aria-expanded`, `role`, erişilebilir isim)
   o kullanılır. Semantik sinyal yoksa frontend'den `data-testid`/semantik durum istenir;
   CSS sınıfı yalnızca son çaredir ve bir `data-testid` talebiyle birlikte not edilir.
+- **Navigasyon/gezinme kontrolleri** (link, kart, menü öğesi, ayrı sayfaya götüren
+  sekme) için **L3 yalnızca URL/rota değişimini değil, hedef sayfanın gerçekten
+  yüklendiğini** de doğrular: hedefin beklenen başlığı/kimlik öğesi **görünür**
+  olmalı. URL doğru olsa bile sayfa boş, 404 veya hatalı olabilir → L3 gözlemlenebilir
+  son durumu (içerik render'ı) kanıtlar, salt URL eşleşmesi "baştan savma" sayılır.
+  Bu, **ileride eklenecek sayfalar dahil** tüm gezinme kontrolleri için geçerlidir.
 
 Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
 (+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).
+
+## Çok dilli (i18n) doğrulama standardı
+
+Bir sayfa veya bölüm test edilirken görünür metin **desteklenen dört dilde**
+doğrulanır: 🇬🇧 `en` · 🇹🇷 `tr` · 🇫🇷 `fr` · 🇸🇦 `ar`. Amaç, bir güncelleme çeviriyi
+bozduğunda testin kırmızıya dönmesi ve **hangi dilde** koptuğunun görünmesidir.
+
+- **Kapsam:** Başlık/alt başlık, buton ve sekme etiketleri, bölüm başlıkları,
+  boş-durum metinleri ve oluşturma formu/dialog başlıkları her dilde beklenen
+  çeviriyle eşleşmeli.
+- **Yön (RTL):** Arapça'da `html[dir]` (veya `body` direction) `rtl` olmalı ve
+  düzenin aynalandığı doğrulanır.
+- **Sızıntı = bulgu:** Bir arayüz metni bir dilde kaynak dilde (İngilizce) kalıyorsa
+  **veya** bir **iç/teknik terim** (altyapı, veritabanı, servis adı vb.) son
+  kullanıcıya görünüyorsa, bu bir **çeviri/sızıntı bulgusudur**; keşif raporunda
+  belgelenir ve düzelene kadar `test.fail` (bilinen hata) guard'ı ile işaretlenir.
+  Düzelince "beklenmedik geçiş" verir → `test.fail` kaldırılıp kalıcı guard olur.
+- **Veri ≠ çeviri:** Kart adları, kişi/kuyruk isimleri, metrik kısaltmaları (SLA,
+  ASA) gibi **veri/isim** alanları çeviri sızıntısı sayılmaz.
+- **Mekanik:** Dil taze bağlamda İngilizce açılır ve kenar çubuğu dil düğmesinden
+  **tek switch** ile değiştirilir (ardışık switch güvenilmez). Yalnızca gerçekten
+  gözlemlenen çeviriler assert edilir — doğrulanmamış çeviri uydurulmaz.
+
+Referans uygulama: `tests/workforce.authed.spec.js`,
+`tests/analytics.authed.spec.js` (+ `docs/analitik-kesif/NOTLAR.md` — 4 dil i18n
+tablosu ve çeviri bulguları).
 
 ## Test sınıfları
 

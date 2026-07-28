@@ -39,6 +39,7 @@ export const environment = Object.freeze({
   isCI: booleanValue(process.env.CI),
   isProduction: name === 'production',
   allowMutations: booleanValue(process.env.ALLOW_MUTATING_TESTS),
+  allowProdMutations: booleanValue(process.env.ALLOW_PROD_MUTATIONS),
   retries: positiveInteger(process.env.PLAYWRIGHT_RETRIES, process.env.CI ? 2 : 1),
   workers: positiveInteger(process.env.PLAYWRIGHT_WORKERS, process.env.CI ? 2 : 4),
   actionTimeout: positiveInteger(process.env.PLAYWRIGHT_ACTION_TIMEOUT, 15_000),
@@ -77,14 +78,22 @@ export function credentialsFor(role = 'default') {
 }
 
 /**
- * Veri değiştiren bir test başlamadan önce çağrılır.
- * Production ortamında yanlışlıkla kayıt oluşturulmasını/silinmesini engeller.
+ * Veri değiştiren bir test başlamadan önce çağrılır — ÇİFT KİLİT opt-in.
+ * Kilit 1: mutation testleri yalnızca açık bayrakla (her ortamda) çalışır.
+ * Kilit 2: CANLI (production) tenant'a yazmak ayrıca ikinci bir onay bayrağı ister.
  */
 export function assertMutationsAllowed(reason) {
-  if (environment.isProduction && !environment.allowMutations) {
+  if (!environment.allowMutations) {
     throw new Error(
-      `"${reason}" veri değiştiriyor. Production mutasyonları kapalıdır. ` +
-        'Bu testi staging ortamında çalıştırın.'
+      `"${reason}" veri değiştiriyor. Mutasyon testleri yalnızca ` +
+        'ALLOW_MUTATING_TESTS=true ile (npm run test:mutation) çalışır.'
+    );
+  }
+  if (environment.isProduction && !environment.allowProdMutations) {
+    throw new Error(
+      `"${reason}" CANLI tenant'a (${environment.baseURL}) yazıyor. ` +
+        'Bunun için ayrıca ALLOW_PROD_MUTATIONS=true gerekir (npm run test:mutation:prod). ' +
+        'Tercihen ayrılmış bir test hesabı/staging kullanın.'
     );
   }
 }

@@ -117,6 +117,9 @@ Her buton **3 katmanda** test edilir: **L1** butona basılıyor ve UI tepki veri
 | **Düzeni kaydet** | ✅ etkin | ✅ `PUT /wallboard/config` | ~ N/A (kalıcı kayıt = mutation, prod'a yazmadan doğrulanmaz) |
 | **Tema seçici** | ✅ gösterilen değer değişiyor | — N/A (istemci) | ❌ seçilen tema uygulanmıyor (**BULGU 1**) |
 | **Refresh aralığı** | ✅ değer düzenlenebiliyor | — N/A | — N/A (poll sıklığı deterministik gözlemlenemez) |
+| **Kuyruk eylemleri (⋮)** | ✅ menü açılır + 5 eylem | ⚠ YIKICI → yalnızca staging @mutation | ⚠ YIKICI → yalnızca staging @mutation |
+
+> ⚠ Kuyruk eylemleri (Pause/Resume/Close/Redirect/Move) canlı veriyi değiştirir/yıkıcıdır ve socket.io üzerinden gidebilir → **prod'da tetiklenmez**. L2/L3 yalnızca staging'de `@mutation` ile doğrulanır (`test.fixme` placeholder'ları mevcut).
 
 Test karşılığı: `tests/supervisor-wallboard.authed.spec.js` — her buton kendi `describe`'ında `L1/L2/L3` başlıklı test'lerle. Bozuk L3'ler `test.fail` (bilinen hata); düzeltilince "beklenmedik geçiş" verir.
 
@@ -155,6 +158,20 @@ Test karşılığı: `tests/supervisor-wallboard.authed.spec.js` — her buton k
 - API zaten UTC ISO dönüyor: `GET /api/v1/supervisor/dashboard` → `data.timestamp = 2026-07-28T09:26…Z`; `/wallboard/config` → `data.updatedAt = …Z`. Yani hata sunucuda değil, **frontend'in yerel saate çevirmemesinde**.
 
 **Kanıt görseli:** [`bug4-timezone.png`](screenshots/bug4-timezone.png) — aynı karede header **12:26 PM** vs badge **09:26 AM**.
+
+---
+
+## 🐞 BULGU 5 (kullanıcının bulduğu) — Kuyruk "⋮" menüsünde "Resume queue" çevrilmiyor
+
+**Nerede:** Kuyruk kartı → "⋮" (Queue actions) menüsü.
+
+**Gerçekleşen:** Türkçe arayüzde menünün 4 öğesi çevriliyken **"Resume queue" İngilizce kalıyor**:
+- Aramayı taşı ✅ · Kuyruğu duraklat ✅ · **Resume queue** ❌ (çevrilmemiş) · Kuyruğu kapat ✅ · Tüm aramaları yönlendir ✅
+
+İngilizce menü: `Move call / Pause queue / Resume queue / Close queue / Redirect all calls`.
+BULGU 2 ile aynı desen (menü içi çeviri sızıntısı).
+
+**Kanıt görseli:** [`bug5-resume-queue-leak.png`](screenshots/bug5-resume-queue-leak.png).
 
 ---
 

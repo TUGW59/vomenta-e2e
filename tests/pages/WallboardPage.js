@@ -25,6 +25,19 @@ export class WallboardPage extends BasePage {
   /** Çevrilmeyen kuyruk kartı adları (veri/isim). */
   static QUEUE_CARDS = ['AI Created Queue', 'General Support', 'Sales', 'Software'];
 
+  /**
+   * Kuyruk kartı "⋮ Queue actions" menü öğeleri.
+   * en: İngilizce etiketler. tr.translated: çevrilen 4 öğe; tr.leaked: çevrilmeyen (BULGU 5).
+   * NOT: Bu eylemler VERİ DEĞİŞTİRİR/YIKICIDIR → prod'da tetiklenmez (L2/L3 staging @mutation).
+   */
+  static QUEUE_ACTIONS = {
+    en: ['Move call', 'Pause queue', 'Resume queue', 'Close queue', 'Redirect all calls'],
+    tr: {
+      translated: ['Aramayı taşı', 'Kuyruğu duraklat', 'Kuyruğu kapat', 'Tüm aramaları yönlendir'],
+      leaked: ['Resume queue'], // çevrilmeden İngilizce kalıyor
+    },
+  };
+
   /** Kontrollerin tıklandığında vurduğu backend uçları (Network incelemesiyle doğrulandı). */
   static API = {
     dashboard: '/api/v1/supervisor/dashboard',
@@ -46,6 +59,21 @@ export class WallboardPage extends BasePage {
     this.refreshInterval = page.locator('input[type="number"]').first();
     // Refresh All'dan sonra çıkan bilgilendirme toast'ı (UI geri bildirimi).
     this.refreshedToast = page.getByText(/refreshed/i).first();
+    // Kuyruk kartındaki "⋮ Queue actions" menü butonu. Dil-bağımsız: İngilizce
+    // aria-label VEYA ellipsis ikonu (aria-label bazı dillerde yerelleşebilir).
+    // NOT: ikon seçici son çaredir; frontend'den stabil data-testid istenmeli.
+    this.queueMenuButton = page
+      .getByRole('button', { name: 'Queue actions' })
+      .or(page.locator('button:has(svg.lucide-ellipsis-vertical)'))
+      .first();
+  }
+
+  /** İlk kuyruk kartının ⋮ menüsünü açar (hiçbir eylem tetiklemez — yalnızca açar). */
+  async openQueueMenu() {
+    await expect(async () => {
+      await this.queueMenuButton.click();
+      await expect(this.page.getByRole('menuitem').first()).toBeVisible({ timeout: 2000 });
+    }).toPass({ timeout: 15000 });
   }
 
   /** İngilizce açılır ve başlığın göründüğünü doğrular. */

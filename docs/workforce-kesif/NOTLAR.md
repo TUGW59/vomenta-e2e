@@ -64,17 +64,69 @@
 - `ar-3-reopen-menu.png` — Arapça dil menüsü (açılıyor; etiketler Arapça)
 - `01-dil-menu.png` — İngilizce dil menüsü (endonim etiketler)
 
-## Bundan sonra yazılan testler
+## 3 KATMANLI TEST TURU (28 Tem 2026) — endpoint haritası + bulgular
 
-`tests/workforce.authed.spec.js` (salt-okunur, submit yok):
-1. Sayfa başlığı + 7 sekme görünür (@smoke).
-2. 7 sekme de yükleniyor ve imza kontrolü/boş-durumu görünüyor (@smoke).
-3. Tarih navigasyonu önceki/sonraki haftaya gidiyor.
-4. Çizelge hücresine tıklayınca "Add Shift" formu açılır (Start/End/Break) — submit yok.
-5. **4 dil için yerelleştirme testi:** başlık, sekmeler, yazı yönü (Arapça=rtl) ve oluşturma formu başlığı beklenen çeviriyle eşleşir.
+AGENTS.md 3-katman standardına (L1 tıklama / L2 arka plan / L3 görev) göre kontroller
+network incelemesiyle yeniden test edildi.
 
-`tests/workforce-mutations.authed.spec.js` (staging, `@mutation` + `test.fixme`):
-- Vardiya oluşturma (Add Shift → Save) + temizlik.
-- Publish Schedule + sonrası. Prod'da otomatik engelli.
+**Backend uçları (Network ile doğrulandı):**
+- `GET /api/v1/wfm/schedules?startDate&endDate` — haftalık çizelge (tarih nav yeni hafta çeker)
+- `GET /api/v1/wfm/schedules/adherence?date=…` (14d/30d çoklu), `.../forecast`
+- `GET /api/v1/wfm/time-off | gamification/badges | gamification/surveys | evaluations` (ilgili sekme tıklanınca)
+- `POST /api/v1/wfm/schedules → 201` (vardiya oluştur + yayınla), `DELETE /api/v1/wfm/schedules/{id} → 204` (sil)
 
-**Kapsam raporu:** `docs/workforce-kesif/KAPSAM.md` — `node tools/workforce-coverage.mjs` ile **otomatik** üretilir; neyin test edildiğini/edilmediğini gösterir (❌ işaretli mutation'lar henüz yazılmadı).
+**Kanıtlanan davranış:**
+- Vardiya oluştur: hücre "09:00 - 17:00 / 60m break / **Draft**". Publish → **"Draft" rozeti kalkar** (yayınlandı). Sil: "Edit Shift" → Delete → hücre boşalır. **Cleanup güvenilir** (koşu sonrası çizelge temiz).
+
+**Gözlemler (olası kusur):**
+- **Çift tab bar:** "Badges" sekmesine girince ikinci (aynı) bir görünür tab bar mount oluyor (yüklemede 1 tablist, sonra 2). Locator ana tablist'e sabitlendi; UX açısından incelenmeli.
+- "+" hücreleri hâlâ semantik buton değil (a11y) ve Adherence 7d/14d/30d'de seçili-durum için semantik sinyal (aria-pressed) yok → data-testid istenmeli.
+
+## Yazılan testler
+
+`tests/workforce.authed.spec.js` (salt-okunur, 3 katman + yapı + 4 dil):
+- Yapı (@smoke/@critical), 4 dil çeviri guard'ı (RTL dahil).
+- Her kontrol için L1/L2/L3: Sekme navigasyonu, Tarih navigasyonu, Adherence aralığı, Add Shift, Publish. L2 mutasyonları `page.route` ile yakalanır (prod'a yazılmaz). L3 kalıcı-kayıt N/A'ları açıkça belgeli.
+
+`tests/workforce-mutations.authed.spec.js` (`@mutation`, L3 görev — opt-in çift kilit):
+- Add Shift kalıcı vardiya oluşturur (POST) + cleanup siler.
+- Publish "Draft"ı yayınlar + cleanup siler. Yalnızca `npm run test:mutation:prod` (bkz. docs/adr/0002).
+
+**Kapsam raporu:** `docs/TEST_COVERAGE.md` — `npm run report:coverage` ile tüm depodan **otomatik** üretilir.
+
+## İzinler (Time Off) — izin talebi (28 Tem 2026)
+
+Sekme: "Time Off" (TR "İzinler"). İçerik: **Request Time Off** butonu + tablo
+(Agent / Start Date / End Date / Reason / Status / Reviewed By / Actions) + boş
+durum "No time off requests".
+
+**Request Time Off formu:** Start Date, End Date (`<input type="date">`),
+Reason (opsiyonel, textarea). **Submit, iki tarih dolana kadar pasiftir.**
+
+**Backend (canlıda doğrulandı):**
+- Oluştur: `POST /api/v1/wfm/time-off → 201`. Satır "Pending" durumuyla gelir
+  (tarih "Sep 15, 2026" biçiminde).
+- Durum değiştir: `PATCH /api/v1/wfm/time-off/{id} → 200` (Onayla/Reddet).
+- **DELETE ucu YOK.** Durum terminal olunca (Approved/Rejected) satırdaki "Actions"
+  düğmeleri kaybolur; `page.request.delete` → **401**. Yani izin talebi **UI'dan
+  silinemez, geri alınamaz.**
+
+**3 katman kararı:**
+- L1 — form açılır, tarih dolunca Submit etkinleşir. ✓
+- L2 — Submit `POST /wfm/time-off` (page.route ile yakalanır, **prod'a yazılmaz**). ✓
+- **L3 — N/A:** talep silinemediği için gerçek create KALICI kayıt bırakır →
+  L3 opt-in mutation güvenli değil, yazılmadı. (Schedules'ta `DELETE→204` olduğu
+  için L3 mutation güvenliydi; Time Off'ta yok.)
+
+**Gözlemler:** Actions ikon-butonlarının erişilebilir ismi yok (a11y). Kalibrasyon
+sırasında silinemeyen 1 "PW otomasyon testi / Approved" talebi test hesabında kaldı
+(zararsız test verisi; UI'dan kaldırma yolu yok).
+
+## Gamification / Değerlendirme oluşturma formları (28 Tem 2026)
+
+- **Create badge** (`POST /wfm/gamification/badges`): Name, Category, Points.
+- **Award badge**: Badge, Agent, Reason (var olan rozet + ajan seçimi).
+- **Create survey** (`/wfm/gamification/surveys`): Name, description, Channels, Trigger event, Questions (JSON).
+- **Create Evaluation** → "Create Quality Evaluation" (`/wfm/evaluations`): Interaction ID/Type, Agent, Score, Form Data (JSON), Feedback.
+
+**3 katman kararı:** L1 (form açılır) yazıldı ve yeşil. **L2 = N/A (bu tur):** formlar boş submit'te istek atmıyor; valid veri karmaşık (rozet/ajan seçimi, JSON) ve yanlış girişte gerçek kayıt riski var → uydurma test yazılmadı. **L3 = N/A:** güvenli silme yolu doğrulanamadı (Time Off gibi kalıcı kayıt riski). Test hesabında kalıntı bırakılmadı (kontrol edildi: Badges listesi boş).
