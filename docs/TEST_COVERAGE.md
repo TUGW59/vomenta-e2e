@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 346
-- **Test dosyası:** 27
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 38 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 187 · `@smoke` 35 · `@visual` 3
+- **Test edilen senaryo:** 358
+- **Test dosyası:** 28
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 41 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 195 · `@smoke` 36 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -368,6 +368,21 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı  `@regression`
 - L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor  `@regression`
 - BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
+
+### `supervisor-interactions.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- tablo beklenen kolonları gösteriyor  `@critical`
+- kontroller mevcut (kanal filtresi / arama)
+- aktif etkileşim yokken boş-durum gösteriliyor
+- [en] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
+- [tr] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
+- [fr] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
+- [ar] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
+- L1 tıklama OK: menü açılıyor ve kanal seçenekleri görünüyor  `@regression`
+- L2 arka plan OK: kanal seçince interactions API'sini channel parametresiyle çağırıyor  `@regression` `@critical`
+- L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
+- L1/L2/L3: aktif etkileşim satırındaki izleme/araya-girme aksiyonları (staging/canlı veri)  `@regression`
 
 ### `supervisor-wallboard.authed.spec.js`
 

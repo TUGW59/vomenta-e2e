@@ -12,6 +12,7 @@ import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
 import { WorkforcePage } from './WorkforcePage.js';
 import { AgentMonitorPage } from './AgentMonitorPage.js';
+import { InteractionsPage } from './InteractionsPage.js';
 
 /**
  * Testlerin uygulamadaki ekranlara tek fixture üzerinden erişmesini sağlar.
@@ -30,6 +31,7 @@ export class App {
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);
     this.agentMonitor = new AgentMonitorPage(page);
+    this.interactions = new InteractionsPage(page);
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
   }
