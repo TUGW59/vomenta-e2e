@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 105
-- **Test dosyası:** 20
-- **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 7
+- **Test edilen senaryo:** 113
+- **Test dosyası:** 21
+- **Etiketler:** `@critical` 7 · `@known-bug` 15 · `@public` 2 · `@regression` 15 · `@smoke` 9
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -180,6 +180,17 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /voice, Live Calls sayfasına açılıyor
 - aktif çağrı yokken boş durum gösteriliyor
 - Voice alt-navigasyon öğeleri görünüyor
+
+### `workforce.authed.spec.js`
+
+- sayfa başlığı ve 7 sekme görünüyor  `@smoke`
+- 7 sekme de yükleniyor ve imza kontrolü görünüyor  `@smoke`
+- tarih navigasyonu önceki/sonraki haftaya gidiyor
+- çizelge hücresine tıklayınca "Add Shift" formu açılıyor (Start/End/Break)
+- en · Workforce English diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- tr · Workforce Türkçe diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- fr · Workforce Français diline doğru çevriliyor (başlık, sekmeler, yön, form)
+- ar · Workforce العربية diline doğru çevriliyor (başlık, sekmeler, yön, form)
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 
