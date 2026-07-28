@@ -15,6 +15,9 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
   Arapça `rtl` yönü kontrol edildi; çeviri sızıntısı veya iç/teknik terim sızıntısı
   bulgu olarak raporlandı ve düzelene kadar `test.fail` guard'ıyla işaretlendi.
   Ayrıntı: `AGENTS.md` → "Çok dilli (i18n) doğrulama standardı".
+- Navigasyon kontrolleri (link/kart/menü) için L3, hedef sayfanın **gerçekten
+  yüklendiğini** (beklenen başlık/içerik görünür) doğruluyor; salt URL eşleşmesiyle
+  yetinilmedi. Ayrıntı: `AGENTS.md` → "İnteraktif kontrol testi standardı (3 katman)".
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
@@ -38,6 +41,7 @@ Reviewer şu soruları yanıtlar:
 - Test gerçek kullanıcı davranışını mı, implementasyon ayrıntısını mı doğruluyor?
 - İnteraktif kontrol L1/L2/L3 (tıklama / arka plan / görev) katmanlarında doğrulanıyor mu; eksik katman N/A olarak belgelenmiş mi?
 - Görünür metin 4 dilde (en/tr/fr/ar) doğrulanıyor mu; Arapça `rtl` kontrol edilmiş mi; çeviri/iç-terim sızıntısı bulgu olarak `test.fail` ile işaretlenmiş mi?
+- Navigasyon L3'ü hedef sayfanın gerçekten yüklendiğini (başlık/içerik) doğruluyor mu, yoksa yalnızca URL'e mi bakıyor?
 - Aynı hata daha hızlı bir unit/API/component testinde yakalanabilir mi?
 - Test verisi çakışmadan paralel çalışabilir mi?
 - Hata mesajı neyin bozulduğunu doğrudan anlatıyor mu?
