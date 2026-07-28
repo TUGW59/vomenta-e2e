@@ -18,6 +18,13 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Navigasyon kontrolleri (link/kart/menü) için L3, hedef sayfanın **gerçekten
   yüklendiğini** (beklenen başlık/içerik görünür) doğruluyor; salt URL eşleşmesiyle
   yetinilmedi. Ayrıntı: `AGENTS.md` → "İnteraktif kontrol testi standardı (3 katman)".
+- L3, "bir tepki oldu"la yetinmiyor; sonucun **doğruluğunu** kanıtlıyor (filtre →
+  dönen kayıtlar ölçüte uyuyor, arama → yalnızca eşleşen kalıyor, analiz → sonuç
+  anlamlı). Detay paneli/drawer verisi kaynak satır/kartla **tutarlı** (view-consistency).
+  Ayrıntı: `AGENTS.md` → "İnteraktif kontrol testi standardı (3 katman)".
+- İkon-only butonlar (görünüm toggle, satır ikonları, ⋮) erişilebilir isim (`aria-label`)
+  taşıyor; eksikse a11y **bulgu**su olarak raporlandı. Ayrıntı: `AGENTS.md` →
+  "Responsive / taşma ve erişilebilirlik standardı".
 - Sekme testi `aria-selected` + panel içerik imzasını doğruluyor; KPI/metrik
   kartları etiket değil **değer** de doğruluyor (boş/veri ayrımı). Ayrıntı:
   `AGENTS.md` → "İçerik ve değer derinliği standardı".
@@ -33,7 +40,10 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
 - Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
 - `npm run quality:check` ve ilgili test paketi geçti.
 - Retry ile geçen flaky test bulunmuyor.
-- Trace/diagnostics hata halinde yeterli kanıt üretiyor.
+- Trace/diagnostics hata halinde yeterli kanıt üretiyor. Trace başarısızlıkta
+  **otomatik** kaydediliyor (`trace: retain-on-failure`); bir bug bulunduğunda veya
+  davranış şüpheli olduğunda kök-neden **Trace Viewer** ile (paket + DOM snapshot)
+  netleştirildi. Ayrıntı: `AGENTS.md` → "Teşhis ve izleme (Tracing) standardı".
 
 ## Pull request akışı
 
@@ -52,6 +62,9 @@ Reviewer şu soruları yanıtlar:
 - İnteraktif kontrol L1/L2/L3 (tıklama / arka plan / görev) katmanlarında doğrulanıyor mu; eksik katman N/A olarak belgelenmiş mi?
 - Görünür metin 4 dilde (en/tr/fr/ar) doğrulanıyor mu; Arapça `rtl` kontrol edilmiş mi; çeviri/iç-terim sızıntısı bulgu olarak `test.fail` ile işaretlenmiş mi?
 - Navigasyon L3'ü hedef sayfanın gerçekten yüklendiğini (başlık/içerik) doğruluyor mu, yoksa yalnızca URL'e mi bakıyor?
+- L3 "çalışıyor"la mı yetiniyor yoksa sonucun **doğruluğunu** mu kanıtlıyor; detay/drawer verisi kaynak satırla tutarlı mı?
+- İkon-only butonların erişilebilir ismi var mı; eksikse bulgu olarak işaretlenmiş mi?
+- Bir bug/şüpheli durum için kök-neden **Tracing** ile netleştirildi mi (paket/DOM); mutasyon prod'da tetiklenmeden mi teşhis edildi?
 - Aynı hata daha hızlı bir unit/API/component testinde yakalanabilir mi?
 - Test verisi çakışmadan paralel çalışabilir mi?
 - Hata mesajı neyin bozulduğunu doğrudan anlatıyor mu?

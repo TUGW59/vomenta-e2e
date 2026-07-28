@@ -88,9 +88,18 @@ Kurallar:
   (rota + oturum + başlık). `tools/validate-architecture.mjs` bu kuralı statik
   zorlar: `waitForURL`/`page.url()` kullanan bir spec, başlık/`assertDestinationLoaded`
   doğrulaması da içermelidir. Beklenen başlıklar canlıdan gözlemlenir (uydurulmaz).
+- **L3 = "çalışıyor" DEĞİL "DOĞRU çalışıyor":** L3 yalnızca bir şeyin *olduğunu* değil,
+  sonucun **doğru** olduğunu da doğrular. Filtre → yalnızca "istek gitti" değil, dönen/gösterilen
+  kayıtların hepsi seçilen ölçüte **uyuyor** mu (mümkünse sunucu yanıtı okunarak). Arama →
+  yalnızca eşleşen görünüp eşleşmeyen gizleniyor mu. Analiz/hesaplama → sonuç **anlamlı/beklenen**
+  mi. "Bir tepki oldu" yeterli değildir; **doğruluğu** kanıtlanır.
+- **Görünüm tutarlılığı (view-consistency):** Bir detay panelinin / drawer'ın / genişletilmiş
+  görünümün / satır→detay geçişinin verisi, **kaynak satır/kartın** gösterdiğiyle **tutarlı**
+  olmalı (ad, durum, sayaç, kuyruk vb. eşleşir). Aynı veriyi iki yerde farklı göstermek bulgudur.
 
 Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
-(+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi).
+(+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi),
+`tests/supervisor-agents.authed.spec.js` (satır→detay tutarlılığı + filtre doğruluğu).
 
 ## İçerik ve değer derinliği standardı
 
@@ -146,6 +155,11 @@ tablosu ve çeviri bulguları).
   ciddi ihlal **hard failure**dır. Bir sayfada halihazırda bilinen (borç dışı) ciddi
   ihlal varsa, o sayfanın a11y testi düzelene kadar `test.fail` (bilinen hata) ile
   işaretlenir — sessizce kapsam dışı bırakılmaz. Referans: `tests/a11y.authed.spec.js`.
+- **İkon-only butonlar:** Yalnızca ikon içeren interaktif kontroller (görünüm toggle,
+  satır aksiyon ikonları, ⋮ menü vb.) **erişilebilir isim** taşımalı (`aria-label`;
+  yalnızca `title` yetersizdir — `button-name` ihlali). Test bunları tercihen role+isimle
+  hedefler; isim yoksa bu bir a11y **bulgu**sudur (mevcut `button-name` borcuyla ilişkili)
+  ve frontend'den `aria-label`/`data-testid` istenir. CSS/ikon seçici yalnızca son çaredir.
 
 ## Sessiz hata / zaman / form-gönderim standartları
 
@@ -162,6 +176,33 @@ tablosu ve çeviri bulguları).
   **sonucu** (başarı/validasyon/hata/toast) doğrulanır ya da prod-mutation güvenliği
   nedeniyle açık **N/A** gerekçesiyle belgelenip mutation testine (staging) bırakılır.
   "Form yalnızca açılıyor" tek başına yeterli bir L3 değildir.
+
+## Teşhis ve izleme (Tracing) standardı
+
+Bir **bug bulunduğunda veya davranış şüpheli** olduğunda, kök nedeni netleştirmek için
+**Playwright Tracing (Trace Viewer)** kullanılır — giden/gelen tüm ağ paketleri (istek+yanıt
+gövdeleri), DOM anlık görüntüleri, konsol ve adım adım zaman çizelgesi. Amaç yüzeysel
+"çalışmıyor" demek değil, **paket düzeyinde kök nedeni bulmaktır**.
+
+- **Otomatik (zorunlu):** Trace **başarısızlıkta otomatik** üretilir — `playwright.config.js`
+  → `trace: 'retain-on-failure'` (ayrıca `video`/`screenshot: retain/only-on-failure`). Yani
+  bir test kırmızıya döndüğünde (regresyon/bulgu) trace kendiliğinden `test-results/`'a düşer
+  ve HTML raporundan açılır. Bu ayar **kapatılmaz/zayıflatılmaz**. Açmak:
+  `npx playwright show-trace <trace.zip>` (ya da trace.playwright.dev).
+- **Şüpheli ama test henüz kırmızı değilse (aktif teşhis):** İncelemeyi tracing AÇIK yaparız —
+  `helpers.js` → `traceInvestigation(context, name, async () => { ... })` sarmalayıcısı trace'i
+  `test-results/investigations/<name>.zip`'e kaydeder. Ek olarak istek/yanıt gövdeleri
+  `page.on('request'|'response')` ile loglanır.
+- **Kök-nedeni katmanlara ayır:** (1) frontend'in gönderdiği istek doğru mu — gerekirse
+  `route` ile **sunucuya ulaşmadan** yakala (mutasyonsuz); (2) sözleşmeye uyuyor mu — Vomenta
+  **public OpenAPI spec'i** `api.vomenta.com/api/docs-json` ile karşılaştır; (3) sunucu yanıtı
+  ne diyor (salt-okunur uçlarda tam yanıt; mutasyonlarda staging). Böylece "frontend mi backend mi"
+  ayrımı kanıtlanır.
+- **Güvenlik:** Teşhis prod'da **mutasyon tetiklemez**; veri değiştiren istekler `route` ile
+  bloklanır/yakalanır, gerçek yürütme staging'e bırakılır.
+
+Referans: agents "Force" kök-neden incelemesi (frontend isteği = OpenAPI DTO ile birebir →
+sunucu reddi) ve `analyze-trace.zip` (detect-anomaly paket doğrulaması).
 
 ## Test sınıfları (kanonik etiket kaydı)
 

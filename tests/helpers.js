@@ -304,3 +304,27 @@ export async function expectDialogKeyboard(page, dialog) {
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();
 }
+
+/**
+ * Aktif teşhis: verilen işi Playwright Tracing AÇIK koşturur ve trace'i
+ * `test-results/investigations/<name>.zip`'e kaydeder — bug/şüpheli davranışın
+ * kök nedenini paket + DOM snapshot düzeyinde incelemek için (bkz. AGENTS.md →
+ * "Teşhis ve izleme (Tracing) standardı"). Başarısızlıkta config zaten otomatik
+ * trace üretir; bu yardımcı, test HENÜZ kırmızı değilken elle inceleme içindir.
+ * Açmak: `npx playwright show-trace <path>`.
+ * @param {import('@playwright/test').BrowserContext} context
+ * @param {string} name
+ * @param {() => Promise<void>} fn
+ * @returns {Promise<string>} kaydedilen trace yolu
+ */
+export async function traceInvestigation(context, name, fn) {
+  const safe = String(name).replace(/[^a-z0-9-_]+/gi, '-').slice(0, 80);
+  const path = `test-results/investigations/${safe || 'trace'}.zip`;
+  await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
+  try {
+    await fn();
+  } finally {
+    await context.tracing.stop({ path });
+  }
+  return path;
+}
