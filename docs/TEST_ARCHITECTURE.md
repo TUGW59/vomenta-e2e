@@ -80,9 +80,19 @@ test('ticket oluşturuluyor @critical @mutation', async ({
 });
 ```
 
-Production ortamında `@mutation` testleri yapılandırma tarafından filtrelenir.
-Ayrıca API yazma işlemleri ve `mutationGuard` ikinci bir güvenlik katmanı sağlar.
-Mutasyon testleri staging'de ve yalnızca ayrılmış test tenant'ında çalışmalıdır.
+`@mutation` testleri **kullanıcı-onaylı ayrı bir kategoridir** ve normal koşularda
+(`test:auth`/`test:regression`/`test:e2e`) ve CI'da **hiç çalışmaz** (Kilit 1:
+`grepInvert @mutation`, yalnızca `ALLOW_MUTATING_TESTS=true` ile açılır). Canlı
+(production) hedefte ayrıca `ALLOW_PROD_MUTATIONS=true` gerekir (Kilit 2:
+`assertMutationsAllowed`). Çalıştırma:
+
+```bash
+npm run test:mutation        # staging (ALLOW_MUTATING_TESTS=true, seri)
+npm run test:mutation:prod   # canlı tenant (ayrıca ALLOW_PROD_MUTATIONS=true) — dikkatli
+```
+
+Her `@mutation` testi `mutationGuard(...)` + `cleanup` içerir ve seri çalışır.
+İdeal ortam ayrılmış bir staging tenant'ıdır. Gerekçe: docs/adr/0002-opt-in-mutation-tests.md.
 
 ## Test verisi yaşam döngüsü
 

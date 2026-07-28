@@ -7,7 +7,7 @@ Kaynak spec'ler: `tests/workforce.authed.spec.js`, `tests/workforce-mutations.au
 ## Özet
 
 - ✅ Prod'da kapsanan (salt-okunur): **13**
-- 🟡 Yalnızca staging (mutation, fixme): **2**
+- 🔒 Opt-in (yalnızca `npm run test:mutation`): **2**
 - ❌ Henüz test yok: **5**
 
 ## Kapsam matrisi
@@ -22,8 +22,8 @@ Kaynak spec'ler: `tests/workforce.authed.spec.js`, `tests/workforce-mutations.au
 | Schedules | Çizelge tablosu + Publish butonu görünür | salt-okunur | ✅ Kapsanıyor | 7 sekme de yükleniyor ve imza kontrolü görünüyor @smoke |
 | Schedules | Tarih navigasyonu (önceki/sonraki hafta) | salt-okunur | ✅ Kapsanıyor | tarih navigasyonu önceki/sonraki haftaya gidiyor |
 | Schedules | Add Shift formu açılıyor (Start/End/Break) | salt-okunur | ❌ Test yok | — |
-| Schedules | Vardiya oluşturma (Add Shift → Save) | mutation | 🟡 Staging (fixme) | vardiya oluşturunca çizelgede görünüyor |
-| Schedules | Publish Schedule (yayınlama + sonrası) | mutation | 🟡 Staging (fixme) | çizelge yayınlanınca durum güncelleniyor |
+| Schedules | Vardiya oluşturma (Add Shift → Save) | mutation | 🔒 Opt-in (test:mutation) | vardiya oluşturulunca çizelgede  |
+| Schedules | Publish Schedule (yayınlama + sonrası) | mutation | 🔒 Opt-in (test:mutation) | çizelge yayınlanınca vardiyanın  |
 | Time Off | Sekme + "Request Time Off" + boş durum | salt-okunur | ✅ Kapsanıyor | 7 sekme de yükleniyor ve imza kontrolü görünüyor @smoke |
 | Time Off | İzin talebi oluşturma | mutation | ❌ Test yok | — |
 | Adherence | Sekme + 7d/14d/30d filtreleri | salt-okunur | ✅ Kapsanıyor | 7 sekme de yükleniyor ve imza kontrolü görünüyor @smoke |
@@ -37,6 +37,6 @@ Kaynak spec'ler: `tests/workforce.authed.spec.js`, `tests/workforce-mutations.au
 
 ## Notlar
 
-- **Mutation akışları prod'da çalıştırılmaz** (`@mutation` + `grepInvert`). "Publish Schedule" ajanlara bildirim gönderebildiğinden yalnızca izole test ortamında koşmalıdır.
-- ❌ işaretli mutation'lar (izin talebi, rozet, anket, değerlendirme oluşturma) henüz yazılmadı — staging ortamı netleşince eklenebilir.
+- 🔒 **Opt-in mutation'lar** normal koşularda/CI'da çalışmaz; yalnızca `npm run test:mutation` (canlı için `test:mutation:prod`) ile çalışır. Çift kilit + cleanup. Bkz. docs/adr/0002-opt-in-mutation-tests.md.
+- ❌ işaretli mutation'lar (izin talebi, rozet, anket, değerlendirme oluşturma) henüz yazılmadı — eklenebilir.
 - Keşif detayı ve ekran görüntüleri: `docs/workforce-kesif/NOTLAR.md`.

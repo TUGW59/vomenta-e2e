@@ -33,8 +33,9 @@
 ## Tarih navigasyonu & Yayınlama
 
 - **Tarih okları** "Previous Week" / "Next Week" (aria-label'lı ✓) çalışıyor; 3 hafta geri gidildi (2026-07-06'ya). **Geçmiş haftalarda vardiya verisi yok** — çizelge hiç doldurulmamış/yayınlanmamış (`screenshots/schedule-past-weeks.png`).
-- **Publish Schedule** butonu var ve aktif; **tıklanmadı** — canlı bir mutasyon ve ajanlara bildirim gönderebilir. Yalnızca staging'de test edilmeli.
-- **Oluşturma akışları** (Add Shift, Request Time Off, Create badge/survey/evaluation, Publish) canlıda **tetiklenmedi**; formlar açılıp incelendi.
+- **Vardiya yaşam döngüsü (28 Tem canlı test):** boş hücre → "Add Shift" → Save → hücre **"09:00 - 17:00 · 60m break · Draft"**. Dolu hücreye tıkla → **"Edit Shift"** → **Delete** ile silinir. **Publish Schedule** vardiyanın **"Draft" etiketini kaldırır** (yayınlar); UI'da unpublish yok, temizlik vardiyayı silerek yapılır.
+- **Create + Publish artık opt-in mutation testleriyle kapsanıyor** (`tests/workforce-mutations.authed.spec.js`). ⚠ Publish canlı tenant'ta gerçek etki yapar (ajanlara bildirim / geri alınamazlık); yalnızca `npm run test:mutation:prod` ile bilinçli çalışır. Bkz. docs/adr/0002-opt-in-mutation-tests.md.
+- Diğer oluşturma akışları (Request Time Off, Create badge/survey/evaluation) canlıda tetiklenmedi; formlar incelendi (KAPSAM.md'de ❌).
 
 ## 4 dilde durum
 
@@ -73,8 +74,9 @@
 4. Çizelge hücresine tıklayınca "Add Shift" formu açılır (Start/End/Break) — submit yok.
 5. **4 dil için yerelleştirme testi:** başlık, sekmeler, yazı yönü (Arapça=rtl) ve oluşturma formu başlığı beklenen çeviriyle eşleşir.
 
-`tests/workforce-mutations.authed.spec.js` (staging, `@mutation` + `test.fixme`):
-- Vardiya oluşturma (Add Shift → Save) + temizlik.
-- Publish Schedule + sonrası. Prod'da otomatik engelli.
+`tests/workforce-mutations.authed.spec.js` (opt-in, çift kilitli — `npm run test:mutation`/`:prod`, seri):
+- Vardiya oluşturma → "Draft" doğrula → cleanup siler.
+- Publish Schedule → "Draft" etiketi kalkıyor doğrula → cleanup siler.
+- 28 Tem canlı koşu: 2/2 yeşil, çizelge sonrasında temiz (0 kalıntı).
 
 **Kapsam raporu:** `docs/workforce-kesif/KAPSAM.md` — `node tools/workforce-coverage.mjs` ile **otomatik** üretilir; neyin test edildiğini/edilmediğini gösterir (❌ işaretli mutation'lar henüz yazılmadı).

@@ -37,6 +37,11 @@ npm run test:smoke:auth
 # Müşteri/operasyon açısından kritik testler
 npm run test:critical
 
+# Veri DEĞİŞTİREN testler (opt-in). Normal koşular/CI bunları çalıştırmaz.
+# Yalnızca açıkça bu komutla çalışır; canlı için ekstra bilinçli varyant gerekir.
+npm run test:mutation         # staging
+npm run test:mutation:prod    # canlı tenant (veri oluşturur/yayınlar) — dikkatli
+
 # Chromium'da giriş gerektiren uygulama testleri
 npm run test:auth
 

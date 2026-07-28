@@ -51,7 +51,9 @@ istenir.
 
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.
 - `@critical`: Release'i durduracak müşteri/operasyon davranışı.
-- `@mutation`: Veri değiştirir; production'da yasaktır.
+- `@mutation`: Veri değiştirir. Normal koşularda ve CI'da ÇALIŞMAZ; yalnızca
+  `npm run test:mutation` (canlı için `test:mutation:prod`) ile çalışır. Çift kilit
+  (`ALLOW_MUTATING_TESTS` + prod'da `ALLOW_PROD_MUTATIONS`); bkz. docs/adr/0002-opt-in-mutation-tests.md.
 - `@a11y`: Erişilebilirlik kontrolü.
 - `@visual`: Görsel regresyon.
 

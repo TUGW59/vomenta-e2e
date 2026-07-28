@@ -46,16 +46,19 @@ const INVENTORY = [
 function match(item) {
   const found = tests.filter((t) => item.any.some((k) => t.title.toLowerCase().includes(k.toLowerCase())));
   if (found.length === 0) return { status: '❌ Test yok', tests: [] };
+  const allMutation = found.every((t) => t.mutation);
   const fixme = found.every((t) => t.fixme);
-  const status = fixme ? '🟡 Staging (fixme)' : '✅ Kapsanıyor';
+  let status;
+  if (allMutation) status = fixme ? '🔒 Opt-in (fixme)' : '🔒 Opt-in (test:mutation)';
+  else status = fixme ? '🟡 Staging (fixme)' : '✅ Kapsanıyor';
   return { status, tests: found.map((t) => t.title) };
 }
 
 const rows = INVENTORY.map((it) => ({ ...it, ...match(it) }));
-const c = { ok: 0, staging: 0, none: 0 };
+const c = { ok: 0, optin: 0, none: 0 };
 for (const r of rows) {
   if (r.status.startsWith('✅')) c.ok++;
-  else if (r.status.startsWith('🟡')) c.staging++;
+  else if (r.status.startsWith('🔒')) c.optin++;
   else c.none++;
 }
 
@@ -64,7 +67,7 @@ md += `> Bu dosya OTOMATİK üretilir: \`node tools/workforce-coverage.mjs\`. El
 md += `Kaynak spec'ler: ${SPECS.map((s) => '`' + s + '`').join(', ')} · Toplam test: **${tests.length}**\n\n`;
 md += `## Özet\n\n`;
 md += `- ✅ Prod'da kapsanan (salt-okunur): **${c.ok}**\n`;
-md += `- 🟡 Yalnızca staging (mutation, fixme): **${c.staging}**\n`;
+md += `- 🔒 Opt-in (yalnızca \`npm run test:mutation\`): **${c.optin}**\n`;
 md += `- ❌ Henüz test yok: **${c.none}**\n\n`;
 md += `## Kapsam matrisi\n\n`;
 md += `| Alan | Öğe | Tip | Durum | Test(ler) |\n|---|---|---|---|---|\n`;
@@ -73,9 +76,9 @@ for (const r of rows) {
   md += `| ${r.area} | ${r.item} | ${r.type === 'mutation' ? 'mutation' : 'salt-okunur'} | ${r.status} | ${t} |\n`;
 }
 md += `\n## Notlar\n\n`;
-md += `- **Mutation akışları prod'da çalıştırılmaz** (\`@mutation\` + \`grepInvert\`). "Publish Schedule" ajanlara bildirim gönderebildiğinden yalnızca izole test ortamında koşmalıdır.\n`;
-md += `- ❌ işaretli mutation'lar (izin talebi, rozet, anket, değerlendirme oluşturma) henüz yazılmadı — staging ortamı netleşince eklenebilir.\n`;
+md += `- 🔒 **Opt-in mutation'lar** normal koşularda/CI'da çalışmaz; yalnızca \`npm run test:mutation\` (canlı için \`test:mutation:prod\`) ile çalışır. Çift kilit + cleanup. Bkz. docs/adr/0002-opt-in-mutation-tests.md.\n`;
+md += `- ❌ işaretli mutation'lar (izin talebi, rozet, anket, değerlendirme oluşturma) henüz yazılmadı — eklenebilir.\n`;
 md += `- Keşif detayı ve ekran görüntüleri: \`docs/workforce-kesif/NOTLAR.md\`.\n`;
 
 writeFileSync('docs/workforce-kesif/KAPSAM.md', md);
-console.log(`KAPSAM.md üretildi → ✅ ${c.ok} kapsanan · 🟡 ${c.staging} staging · ❌ ${c.none} test yok (toplam ${tests.length} test)`);
+console.log(`KAPSAM.md üretildi → ✅ ${c.ok} kapsanan · 🔒 ${c.optin} opt-in · ❌ ${c.none} test yok (toplam ${tests.length} test)`);

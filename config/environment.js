@@ -39,6 +39,7 @@ export const environment = Object.freeze({
   isCI: booleanValue(process.env.CI),
   isProduction: name === 'production',
   allowMutations: booleanValue(process.env.ALLOW_MUTATING_TESTS),
+  allowProdMutations: booleanValue(process.env.ALLOW_PROD_MUTATIONS),
   retries: positiveInteger(process.env.PLAYWRIGHT_RETRIES, process.env.CI ? 2 : 1),
   workers: positiveInteger(process.env.PLAYWRIGHT_WORKERS, process.env.CI ? 2 : 4),
   actionTimeout: positiveInteger(process.env.PLAYWRIGHT_ACTION_TIMEOUT, 15_000),
@@ -80,11 +81,26 @@ export function credentialsFor(role = 'default') {
  * Veri değiştiren bir test başlamadan önce çağrılır.
  * Production ortamında yanlışlıkla kayıt oluşturulmasını/silinmesini engeller.
  */
+/**
+ * Veri değiştiren bir test başlamadan önce çağrılır — ÇİFT KİLİT:
+ *   Kilit 1: ALLOW_MUTATING_TESTS=true değilse (her ortamda) engellenir.
+ *            Bu bayrağı yalnızca `npm run test:mutation` komutu set eder.
+ *   Kilit 2: Production (app.vomenta.com) hedefiyse ALLOW_PROD_MUTATIONS=true de gerekir.
+ *            Canlı müşteri tenant'ına yazmayı ekstra bilinçli bir adım yapar.
+ * Bkz. docs/adr/ADR-0001-opt-in-mutations.md
+ */
 export function assertMutationsAllowed(reason) {
-  if (environment.isProduction && !environment.allowMutations) {
+  if (!environment.allowMutations) {
     throw new Error(
-      `"${reason}" veri değiştiriyor. Production mutasyonları kapalıdır. ` +
-        'Bu testi staging ortamında çalıştırın.'
+      `"${reason}" veri değiştiriyor. Mutation testleri yalnızca "npm run test:mutation" ile ` +
+        '(ALLOW_MUTATING_TESTS=true) çalışır.'
+    );
+  }
+  if (environment.isProduction && !environment.allowProdMutations) {
+    throw new Error(
+      `"${reason}" CANLI tenant'a (${environment.baseURL}) yazıyor. ` +
+        'Bunun için ALLOW_PROD_MUTATIONS=true gerekir (örn. "npm run test:mutation:prod"). ' +
+        'İdeal olarak staging ortamında çalıştırın.'
     );
   }
 }
