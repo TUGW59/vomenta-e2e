@@ -16,6 +16,26 @@
 - **Schedules görünümü:** haftalık çizelge tablosu — satır = ajan/takım (Account Agent, Invited User, Product Team), sütun = haftanın günleri (Mon 07-27 … Sun 08-02). Her hücrede **"+"** ile o güne vardiya eklenir. Sağ üstte tarih aralığı ok'ları + **"Publish Schedule"**.
 - **Oluşturma akışı ("+"):** "Add Shift" diyaloğu açılır → alanlar: **Start Time** (vars. 09:00), **End Time** (vars. 17:00), **Break (minutes)** (vars. 60) → **Cancel / Save**.
 
+## 7 sekmenin envanteri (tamamı incelendi)
+
+| Sekme | Durum | Ana kontroller | Boş-durum metni |
+|---|---|---|---|
+| **Schedules** | 4 ajan satırı, çizelge dolu | Publish Schedule · tarih ok'ları · her hücrede "+" | — |
+| **Time Off** | boş | Request Time Off | "No time off requests" |
+| **Adherence** | veri yok | 7d / 14d / 30d filtreleri | "No historical adherence data available" |
+| **Forecast** | **veri var (25 satır)** | tahmin tablosu (buton yok) | — |
+| **Badges** | boş | Award badge · Create badge | "No badges yet. Create one to get started." |
+| **Surveys** | boş | Create survey | "No CSAT surveys" |
+| **Evaluations** | boş | Create Evaluation · Trigger AI Evaluation | "No evaluations yet." |
+
+- Hiçbir sekmede ham i18n anahtarı yok. Ekran görüntüleri: `screenshots/tab-01…07-*.png`.
+
+## Tarih navigasyonu & Yayınlama
+
+- **Tarih okları** "Previous Week" / "Next Week" (aria-label'lı ✓) çalışıyor; 3 hafta geri gidildi (2026-07-06'ya). **Geçmiş haftalarda vardiya verisi yok** — çizelge hiç doldurulmamış/yayınlanmamış (`screenshots/schedule-past-weeks.png`).
+- **Publish Schedule** butonu var ve aktif; **tıklanmadı** — canlı bir mutasyon ve ajanlara bildirim gönderebilir. Yalnızca staging'de test edilmeli.
+- **Oluşturma akışları** (Add Shift, Request Time Off, Create badge/survey/evaluation, Publish) canlıda **tetiklenmedi**; formlar açılıp incelendi.
+
 ## 4 dilde durum
 
 | Dil | Yön | Başlık | Sekmeler çevrildi? | Oluşturma formu | Sonuç |
@@ -48,7 +68,13 @@
 
 `tests/workforce.authed.spec.js` (salt-okunur, submit yok):
 1. Sayfa başlığı + 7 sekme görünür (@smoke).
-2. Çizelge hücresine tıklayınca "Add Shift" formu açılır (Start/End/Break) — submit yok.
-3. **4 dil için yerelleştirme testi:** dil değiştir → başlık, sekmeler, yazı yönü (Arapça=rtl) ve oluşturma formu başlığı beklenen çeviriyle eşleşir.
+2. 7 sekme de yükleniyor ve imza kontrolü/boş-durumu görünüyor (@smoke).
+3. Tarih navigasyonu önceki/sonraki haftaya gidiyor.
+4. Çizelge hücresine tıklayınca "Add Shift" formu açılır (Start/End/Break) — submit yok.
+5. **4 dil için yerelleştirme testi:** başlık, sekmeler, yazı yönü (Arapça=rtl) ve oluşturma formu başlığı beklenen çeviriyle eşleşir.
 
-İsteğe bağlı (staging): gerçek vardiya oluşturup silen `@mutation` testi — prod'da otomatik engelli.
+`tests/workforce-mutations.authed.spec.js` (staging, `@mutation` + `test.fixme`):
+- Vardiya oluşturma (Add Shift → Save) + temizlik.
+- Publish Schedule + sonrası. Prod'da otomatik engelli.
+
+**Kapsam raporu:** `docs/workforce-kesif/KAPSAM.md` — `node tools/workforce-coverage.mjs` ile **otomatik** üretilir; neyin test edildiğini/edilmediğini gösterir (❌ işaretli mutation'lar henüz yazılmadı).

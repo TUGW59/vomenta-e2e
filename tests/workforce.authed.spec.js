@@ -40,6 +40,20 @@ const LANGS = [
   },
 ];
 
+/**
+ * 7 sekmenin imza kontrolü — sekme yüklendiğinde görünmesi beklenen öğe.
+ * (Keşif: docs/workforce-kesif/NOTLAR.md · KAPSAM.md)
+ */
+const TAB_SIGNATURES = [
+  { tab: 'Schedules', button: 'Publish Schedule' },
+  { tab: 'Time Off', button: 'Request Time Off', empty: 'No time off requests' },
+  { tab: 'Adherence', button: '7d' },
+  { tab: 'Forecast', table: true },
+  { tab: 'Badges', button: 'Create badge', empty: 'No badges yet' },
+  { tab: 'Surveys', button: 'Create survey', empty: 'No CSAT surveys' },
+  { tab: 'Evaluations', button: 'Create Evaluation' },
+];
+
 async function openWorkforce(page) {
   await gotoApp(page, '/workforce');
   await expect(page.getByRole('heading', { name: 'Workforce Management', exact: true })).toBeVisible({
@@ -77,6 +91,39 @@ test.describe('Vomenta - Workforce (İş Gücü)', () => {
     for (const name of LANGS[0].tabs) {
       await expect(page.getByRole('tab', { name, exact: true })).toBeVisible();
     }
+  });
+
+  test('7 sekme de yükleniyor ve imza kontrolü görünüyor @smoke', async ({ page }) => {
+    await openWorkforce(page);
+    for (const s of TAB_SIGNATURES) {
+      // Tıklama yutulmasına karşı: sekmeye tıkla + imza öğesi görünene kadar tekrar dene.
+      await expect(async () => {
+        await page.getByRole('tab', { name: s.tab, exact: true }).click();
+        if (s.button) {
+          await expect(page.getByRole('button', { name: s.button, exact: true }).first()).toBeVisible({ timeout: 2500 });
+        } else if (s.table) {
+          await expect(page.locator('main table').first()).toBeVisible({ timeout: 2500 });
+        }
+      }).toPass({ timeout: 15000 });
+      if (s.empty) {
+        await expect(page.getByText(s.empty, { exact: false }).first()).toBeVisible();
+      }
+    }
+  });
+
+  test('tarih navigasyonu önceki/sonraki haftaya gidiyor', async ({ page }) => {
+    await openWorkforce(page);
+    const range = () =>
+      page.locator('main').innerText().then((t) => (t.match(/\d{4}-\d{2}-\d{2}\s*—\s*\d{4}-\d{2}-\d{2}/) || [''])[0]);
+    const initial = await range();
+    expect(initial, 'tarih aralığı görünmeli').not.toBe('');
+
+    await page.getByRole('button', { name: 'Previous Week' }).click();
+    await expect.poll(range, { timeout: 8000 }).not.toBe(initial);
+    const past = await range();
+
+    await page.getByRole('button', { name: 'Next Week' }).click();
+    await expect.poll(range, { timeout: 8000 }).not.toBe(past);
   });
 
   test('çizelge hücresine tıklayınca "Add Shift" formu açılıyor (Start/End/Break)', async ({ page }) => {
