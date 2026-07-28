@@ -135,6 +135,18 @@ Referans uygulama: `tests/workforce.authed.spec.js`,
 `tests/analytics.authed.spec.js` (+ `docs/analitik-kesif/NOTLAR.md` — 4 dil i18n
 tablosu ve çeviri bulguları).
 
+## Responsive / taşma ve erişilebilirlik standardı
+
+- **Yatay taşma:** Test edilen bir bölüm, en az masaüstü/tablet/mobil genişliklerde
+  (ve dizin RTL ise Arapça'da) **document düzeyinde yatay kaymamalı**. Ortak yardımcı:
+  `helpers.js` → `assertNoHorizontalOverflow(page)` (ve teşhis için `scanOverflow`).
+  Gerçek bir yatay taşma bir **bulgu**dur; düzelene kadar `test.fail` ile işaretlenir.
+- **Erişilebilirlik (axe):** Test edilen her bölüm `severeA11yViolations(page)` ile
+  taranır (WCAG2A/AA, ciddi/kritik; bilinen borç `A11Y_KNOWN_DEBT` hariç). Yeni bir
+  ciddi ihlal **hard failure**dır. Bir sayfada halihazırda bilinen (borç dışı) ciddi
+  ihlal varsa, o sayfanın a11y testi düzelene kadar `test.fail` (bilinen hata) ile
+  işaretlenir — sessizce kapsam dışı bırakılmaz. Referans: `tests/a11y.authed.spec.js`.
+
 ## Test sınıfları
 
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.

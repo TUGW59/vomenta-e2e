@@ -28,6 +28,62 @@ export async function severeA11yViolations(page) {
 }
 
 /**
+ * Sayfadaki taşmayı ölçer (yön-duyarsız, RTL-güvenli). Document düzeyinde yatay/
+ * dikey taşma + yatay taşan kapların listesi (teşhis için). Yatay taşma ölçümü
+ * genişlik karşılaştırmasına dayanır (scrollWidth > clientWidth); bu, RTL'de de
+ * doğru çalışır (scrollLeft işaretinden bağımsız).
+ * @param {import('@playwright/test').Page} page
+ * @param {{ axis?: 'x'|'y'|'both', tolerance?: number }} [opts]
+ */
+export async function scanOverflow(page, { axis = 'both', tolerance = 2 } = {}) {
+  return page.evaluate(
+    ({ axis, tolerance }) => {
+      const norm = (s) => (s || '').replace(/\s+/g, ' ').trim();
+      const de = document.scrollingElement || document.documentElement;
+      const wantX = axis === 'x' || axis === 'both';
+      const wantY = axis === 'y' || axis === 'both';
+      const offenders = [];
+      if (wantX) {
+        const walk = (el) => {
+          if (el.clientWidth > 0 && el.scrollWidth > el.clientWidth + tolerance) {
+            const cs = getComputedStyle(el);
+            offenders.push({
+              tag: el.tagName.toLowerCase(),
+              cls: (el.className || '').toString().slice(0, 60),
+              scrollW: el.scrollWidth,
+              clientW: el.clientWidth,
+              overflowX: cs.overflowX,
+              sample: norm(el.textContent).slice(0, 40),
+            });
+          }
+          for (const c of el.children) walk(c);
+        };
+        walk(document.body);
+      }
+      return {
+        horizontal: wantX ? de.scrollWidth > de.clientWidth + tolerance : undefined,
+        vertical: wantY ? de.scrollHeight > de.clientHeight + tolerance : undefined,
+        offenders: offenders.slice(0, 15),
+      };
+    },
+    { axis, tolerance }
+  );
+}
+
+/**
+ * Sayfanın yatay olarak KAYMADIĞINI doğrular (document düzeyi). Yatay kayma tipik
+ * bir responsive/RTL kusurudur. Hata mesajı taşan kapları listeler (teşhis).
+ * @param {import('@playwright/test').Page} page
+ */
+export async function assertNoHorizontalOverflow(page) {
+  const { horizontal, offenders } = await scanOverflow(page, { axis: 'x' });
+  expect(
+    horizontal,
+    `Sayfa yatay kayıyor (document). İlk taşan kaplar: ${JSON.stringify(offenders.slice(0, 3))}`
+  ).toBe(false);
+}
+
+/**
  * Sabit süre beklemeden browser render kuyruğunun ve fontların yerleşmesini bekler.
  * @param {import('@playwright/test').Page} page
  */

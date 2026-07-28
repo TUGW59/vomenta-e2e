@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { AnalyticsPage } from './pages/AnalyticsPage.js';
-import { expectMetricHasValue } from './helpers.js';
+import { assertNoHorizontalOverflow, expectMetricHasValue, waitForUiToSettle } from './helpers.js';
 
 /**
  * ANALİTİK (`/analytics`) — Raporlar ailesinin özet/hub ekranı.
@@ -212,6 +212,48 @@ test.describe('Navigasyon kartları @regression', () => {
       ).toBeVisible({ timeout: 15000 });
     });
   }
+});
+
+// ═══════════ RESPONSIVE / YATAY TAŞMA @regression ═══════════
+// Sayfa masaüstü/tablet/mobil (+ AR-RTL) genişliklerinde yatay kaymamalı.
+// NOT: Mobilde masaüstü kenar çubuğu gizlenir; bu yüzden AppShell.expectReady'e
+// dayanan open() yerine, kenar-çubuğundan bağımsız manuel gezinme kullanılır.
+test.describe('Analitik — responsive / yatay taşma @regression', () => {
+  // NOT: 768 (tablet) genişliği bilerek dışarıda. Taze bağlamda 3 kez ölçüldü:
+  // document yatay KAYMIYOR (scrollWidth==clientWidth). O genişlikteki ~18px iç
+  // taşma başlık kabında (overflowX:visible) kalıyor, document'a yansımıyor; ayrıca
+  // setViewportSize+dikey-scrollbar ölçümü sınırda oynak yapıyor → artefakt. Gerçek
+  // kullanıcı-görünür yatay kayma yok. Uçlar (desktop/mobil) + RTL kararlı test edilir.
+  const VIEWPORTS = [
+    { n: 'desktop', width: 1280, height: 800 },
+    { n: 'mobile', width: 390, height: 844 },
+  ];
+
+  async function openAnalyticsAt(page, { width, height }) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/analytics', { waitUntil: 'commit' });
+    await page.getByRole('heading', { name: I18N.en.heading, exact: true }).first()
+      .waitFor({ state: 'visible', timeout: 30000 });
+    await page.waitForResponse((r) => r.url().includes(AnalyticsPage.API.analytics), { timeout: 20000 }).catch(() => {});
+    await waitForUiToSettle(page);
+  }
+
+  for (const v of VIEWPORTS) {
+    test(`[${v.n}] yatay taşma yok`, async ({ page }) => {
+      await openAnalyticsAt(page, v);
+      await assertNoHorizontalOverflow(page);
+    });
+  }
+
+  // RTL, dil değiştiriciyi kenar çubuğunda gerektirir (mobilde gizli) → masaüstünde.
+  test('[ar/rtl desktop] yatay taşma yok', async ({ app, page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await app.analytics.open();
+    await app.analytics.switchLanguage(I18N.ar.endonym, I18N.ar.heading);
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+    await waitForUiToSettle(page);
+    await assertNoHorizontalOverflow(page);
+  });
 });
 
 // ═══════════ BİLİNEN HATALAR (i18n) @known-bug ═══════════
