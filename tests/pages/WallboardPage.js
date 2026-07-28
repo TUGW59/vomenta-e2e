@@ -39,6 +39,9 @@ export class WallboardPage extends BasePage {
     this.themeSelect = page.getByRole('combobox');
     this.refreshAll = page.getByRole('button', { name: 'Refresh All' });
     this.autoScroll = page.getByRole('button', { name: 'Auto-scroll' });
+    // "Live/Canlı" badge'inin yanındaki son-güncelleme saati (yenileme ikonlu span).
+    // Header'daki duvar saati farklı ikon (lucide-clock) kullanır — bu ondan ayrıdır.
+    this.liveTimestamp = page.locator('span:has(svg.lucide-refresh-cw)').first();
   }
 
   /** İngilizce açılır ve başlığın göründüğünü doğrular. */

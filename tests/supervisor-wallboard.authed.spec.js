@@ -11,9 +11,12 @@ import { WallboardPage } from './pages/WallboardPage.js';
  * Kapsam:
  *  1) Yapı (@smoke @critical) — başlık, kontrol çubuğu, kartlar, metrikler.
  *  2) 4 dil çeviri guard'ları (@regression) — güncelleme çeviriyi/RTL'yi bozarsa kırmızıya döner.
- *  3) Bilinen hatalar (@regression @known-bug, `test.fail`):
+ *  3) Buton fonksiyonları (@regression) — Refresh All/Save layout/TV mode gerçekten iş yapıyor mu.
+ *  4) Bilinen hatalar (@regression @known-bug, `test.fail`):
  *     - BULGU 1: Tema seçici (Light/Dark/Auto) HİÇBİR tema uygulamıyor.
  *     - BULGU 2: "Refresh All" / "Auto-scroll" hiçbir dilde çevrilmiyor.
+ *     - BULGU 3: Auto-scroll içerik taşsa da (TV modu dahil) hiç kaydırmıyor.
+ *     - BULGU 4: "Live/Canlı" son-güncelleme saati UTC gösteriliyor (yerel saat değil).
  *
  * `test.fail()` = bulgu HÂLÂ AÇIK: test doğru davranışı doğrular, bug açıkken
  * "beklenen başarısızlık" olur (CI yeşil kalır); düzelince "beklenmedik geçiş"
@@ -21,6 +24,24 @@ import { WallboardPage } from './pages/WallboardPage.js';
  */
 
 const I18N = WallboardPage.I18N;
+
+/** "09:24", "9:24 AM", "12:24 PM" → gece yarısından beri dakika. */
+function parseClockToMinutes(text) {
+  const m = String(text).match(/(\d{1,2}):(\d{2})\s*(AM|PM)?/i);
+  if (!m) return NaN;
+  let h = parseInt(m[1], 10);
+  const min = parseInt(m[2], 10);
+  const ap = m[3]?.toUpperCase();
+  if (ap === 'PM' && h !== 12) h += 12;
+  if (ap === 'AM' && h === 12) h = 0;
+  return h * 60 + min;
+}
+
+/** İki "dakika" değeri arasındaki dairesel (24s sarma) en kısa fark. */
+function circularMinuteDiff(a, b) {
+  const d = Math.abs(a - b) % 1440;
+  return Math.min(d, 1440 - d);
+}
 
 test.describe('Duvar Panosu — yapı', () => {
   /** @type {WallboardPage} */
@@ -199,5 +220,33 @@ test.describe('Duvar Panosu — bilinen hatalar @regression @known-bug', () => {
     await expect
       .poll(() => wallboard.maxScrollTop(), { timeout: 8000, intervals: [500, 800, 1000, 1500, 2000, 2000] })
       .toBeGreaterThan(0);
+  });
+});
+
+test.describe('Duvar Panosu — zaman damgası (timezone) @regression @known-bug', () => {
+  // Kullanıcıyla aynı: UTC+3. Bug ancak UTC olmayan bir saat diliminde görünür
+  // (UTC'de header ile badge tesadüfen aynı olurdu).
+  test.use({ timezoneId: 'Europe/Istanbul', locale: 'en-US' });
+
+  /**
+   * BULGU 4 — "Live/Canlı" badge saati UTC gösteriliyor.
+   * Header duvar saati yerel (doğru), ama hemen yanındaki son-güncelleme saati
+   * sunucunun UTC ISO zamanını yerele ÇEVİRMEDEN basıyor → UTC+3'te ~180 dk fark.
+   * API kanıtı: /supervisor/dashboard → data.timestamp = ...Z (UTC).
+   * Beklenen: badge saati yerel "şimdi"ye yakın (son yenileme birkaç dk içinde).
+   */
+  test.fail();
+  test('BULGU 4: "Live" badge son-güncelleme saati yerel saati göstermeli (UTC değil)', async ({ app, page }) => {
+    const wallboard = app.wallboard;
+    await wallboard.open();
+
+    await expect(wallboard.liveTimestamp).toBeVisible({ timeout: 15000 });
+    const badgeText = (await wallboard.liveTimestamp.innerText()).trim();
+    const badgeMin = parseClockToMinutes(badgeText);
+    const localMin = await page.evaluate(() => new Date().getHours() * 60 + new Date().getMinutes());
+
+    // Yerel saatle badge arasındaki fark küçük olmalı; UTC gösterildiği için ~180 dk fark var.
+    const diff = circularMinuteDiff(badgeMin, localMin);
+    expect(diff, `badge="${badgeText}" (=${badgeMin}dk) yerel=${localMin}dk fark=${diff}dk`).toBeLessThanOrEqual(5);
   });
 });
