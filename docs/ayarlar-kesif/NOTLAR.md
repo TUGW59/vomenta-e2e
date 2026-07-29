@@ -134,7 +134,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 5 | Compliance | `/settings/compliance` | ✅ **TAMAM** (settings-compliance) |
 | 6 | Teams | `/settings/teams` | ✅ **TAMAM** (settings-teams) |
 | 7 | Business Hours | `/settings/hours` | ✅ **TAMAM** (settings-hours) |
-| 8 | Automations | `/settings/automations` | ⬜ |
+| 8 | Automations | `/settings/automations` | ✅ **TAMAM** (settings-automations) |
 | 9 | SLA Policies | `/settings/sla` | ⬜ |
 | 10 | Templates | `/settings/templates` | ⬜ |
 | 11 | Disposition Codes | `/settings/disposition-codes` | ⬜ |
@@ -214,6 +214,17 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **4 dil:** başlık/alt başlık/Save/Add tam çevrili (Business Hours/Çalışma Saatleri/Heures de travail/ساعات العمل); ar RTL; taşma yok. (Bölüm başlıkları EN'de doğrulandı; i18n testi başlık+alt başlık+Save+Add üzerinden.)
 - **Mutasyon (geri-döndürülebilir, zero-orphan):** staging'de Cumartesi Open switch toggle → Save → kalıcılık doğrula → geri al. Yeni kayıt üretmez. `settings-hours-mutations.authed.spec.js`.
 - **Görsel:** haftalık program tablosu kararlı (sabit 09:00-17:00) → snapshot alındı.
+
+## Otomasyon detayı (`/settings/automations`)
+
+- **Başlık:** "Automation Rules" + alt başlık "Automate workflows based on triggers and conditions".
+- **2 sekme:** **Rules** (boş-durum "No automation rules configured" + **New Rule** butonu) · **SLA Policies** (veri dolu tablo: Policy Name/Priority/First Response/Resolution/Next Response/Channels/Active/actions — ör. "test sla, High, 15m, 240m, 5m, VOICE EMAIL").
+- **New Rule dialogu:** Rule Name · Description · Trigger (combobox: On New Conversation) · Conditions (AND + Add) · Actions (Add + Add Tag combobox) · Cancel · Save Rule (disabled) · Close.
+- **4 dil:** başlık/alt başlık/sekmeler/New Rule tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** New Rule dialogu **"Close"** 4 dilde İngilizce → `@i18n @known-bug`.
+- **Not:** SLA Policies sekmesi ayrı `/settings/sla` sayfasıyla aynı veriyi gösteriyor (görünüm-tutarlılığı ileride kontrol edilebilir).
+- **Mutasyon:** kural create + satır silme; tablo prod'da boş olduğundan silme yolu doğrulanamadı → `settings-automations-mutations` **test.fixme** (staging).
+- **Görsel:** Rules boş-durumu kararlı → snapshot alındı.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

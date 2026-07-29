@@ -1,6 +1,7 @@
 // @ts-check
 import { AnalyticsPage } from './AnalyticsPage.js';
 import { AppShell } from './AppShell.js';
+import { AutomationsPage } from './AutomationsPage.js';
 import { BusinessHoursPage } from './BusinessHoursPage.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
@@ -45,6 +46,7 @@ export class App {
     this.compliance = new CompliancePage(page);
     this.teams = new TeamsPage(page);
     this.businessHours = new BusinessHoursPage(page);
+    this.automations = new AutomationsPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

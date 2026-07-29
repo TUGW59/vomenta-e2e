@@ -252,4 +252,27 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-automations',
+    routes: ['/settings/automations'],
+    specFiles: [
+      'settings-automations.authed.spec.js',
+      'settings-automations-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (kural tablosu + SLA tablosu + dialog).',
+      '@data': 'Sayısal KPI tile yok (SLA süreleri tablo verisi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

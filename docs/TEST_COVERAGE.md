@@ -523,6 +523,20 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: Cumartesi Open switch toggle → Save → kalıcı → geri al (reversible, zero-orphan)  `@regression` `@mutation`
 
+### `settings-automations.authed.spec.js`  (Ayarlar › Otomasyon Kuralları)
+
+- sayfa başlığı + 2 sekme (Rules/SLA Policies) + New Rule  `@smoke`
+- Rules boş-durum, SLA Policies tablo kolonları  `@critical`
+- L1: sekmeler aria-selected=true  `@regression`
+- L1: New Rule dialogu açılıyor (Save Rule disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + sekmeler + New Rule çevrili  `@i18n`
+- 🐞 New Rule dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- a11y / layout / clean / errorpath / keyboard / deeplink / visual (Rules boş-durum)
+
+### `settings-automations-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: kural oluştur → görün → sil — tablo prod'da boş; staging teyidi bekliyor  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
