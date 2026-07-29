@@ -35,9 +35,22 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
   (baseline + arketip koşullu) kapsandı ya da `naStyles` ile gerekçeli **N/A** verildi.
   `npm run quality:styles` (stil matrisi) yeşil. Ayrıntı: `AGENTS.md` → "Zorunlu test stilleri",
   el kitabı `docs/TEST_STYLES.md`.
+- **Keşif tamlığı:** bölüm "bitti" denmeden önce tamlık kontrol listesi geçti —
+  varsayılan + **satır/öğe seçili (toplu-eylem çubuğu)** + tümü seçili + her menü/diyalog
+  + boş-durum + 4 dil/RTL + dar viewport. Etkileşimle beliren kontroller atlanmadı.
+  Ayrıntı: `AGENTS.md` → "Keşif tamlığı standardı".
+- **Negatif sonuç** (yokluk/`toHaveCount(0)`/`test.fail` guard) yalnızca çevre UI'nin
+  yüklendiği doğrulandıktan sonra kabul edildi (erken/eksik yükte yanlış-geçiş yok);
+  `test.fail` guard'ının gerçekten kırmızı verdiği görüldü. Ayrıntı: `AGENTS.md` →
+  "Doğrulama-anı standardı".
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
-- Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
+- Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut. **Orphan-sıfır:**
+  test verisi `testEntity` fixture'ıyla (oluşturma anında otomatik cleanup) ve
+  `TEST_ENTITY_PREFIX` (`PW_…`) ile üretildi; `@mutation` lane `--retries=0`; koşu
+  başında+sonunda `assertNoTestOrphans` / `npm run report:orphans` temiz; cleanup
+  başarısızlığı testi **kritik hata** olarak düşürüyor. Ayrıntı: `AGENTS.md` →
+  "Mutasyon güvenliği standardı (orphan-sıfır)".
 - `npm run quality:check` ve ilgili test paketi geçti.
 - Retry ile geçen flaky test bulunmuyor.
 - Trace/diagnostics hata halinde yeterli kanıt üretiyor. Trace başarısızlıkta
@@ -65,6 +78,9 @@ Reviewer şu soruları yanıtlar:
 - L3 "çalışıyor"la mı yetiniyor yoksa sonucun **doğruluğunu** mu kanıtlıyor; detay/drawer verisi kaynak satırla tutarlı mı?
 - İkon-only butonların erişilebilir ismi var mı; eksikse bulgu olarak işaretlenmiş mi?
 - Bir bug/şüpheli durum için kök-neden **Tracing** ile netleştirildi mi (paket/DOM); mutasyon prod'da tetiklenmeden mi teşhis edildi?
+- Keşif tamlığı kontrol listesi geçti mi — özellikle **satır seçimiyle beliren toplu-eylem çubuğu** ve menüler/diyaloglar denendi mi, yoksa yalnızca açılıştaki kontrollere mi bakıldı?
+- Negatif/`test.fail` doğrulamaları çevre UI yüklendikten sonra mı yapılıyor; guard gerçekten kırmızı veriyor mu?
+- Mutasyon verisi `testEntity` (otomatik cleanup) + `PW_` önek ile mi üretiliyor; `--retries=0` ve orphan/baseline kontrolü var mı; cleanup başarısızlığı testi düşürüyor mu?
 - Aynı hata daha hızlı bir unit/API/component testinde yakalanabilir mi?
 - Test verisi çakışmadan paralel çalışabilir mi?
 - Hata mesajı neyin bozulduğunu doğrudan anlatıyor mu?

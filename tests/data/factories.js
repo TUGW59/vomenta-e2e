@@ -5,6 +5,18 @@ function uniqueSuffix() {
 }
 
 /**
+ * Tüm test verisi bu önekle adlandırılır → canlı tenant'ta orphan her zaman
+ * greplenebilir/süpürülebilir. Bkz. AGENTS.md → "Mutasyon güvenliği standardı".
+ * Boşluksuz + alnum → sunucu-taraflı arama tam eşleşir (ör. "PW_ile arama").
+ */
+export const TEST_ENTITY_PREFIX = 'PW_';
+
+/** Benzersiz, aranabilir bir test-varlığı adı üretir (ör. testEntityName('Contact')). */
+export function testEntityName(base = 'Entity') {
+  return `${TEST_ENTITY_PREFIX}${base}_${uniqueSuffix().replace(/[^a-z0-9]/gi, '')}`;
+}
+
+/**
  * Paralel testlerde çakışmayacak veri üretir.
  * Mutasyon yapan staging testleri sabit isim/e-posta kullanmamalıdır.
  */

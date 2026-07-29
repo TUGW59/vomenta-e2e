@@ -145,6 +145,25 @@ for (const file of javascriptFiles) {
   }
 }
 
+// Orphan-sıfır güvencesi: @mutation lane'i retry ile kayıt çoğaltmamalı (retry → orphan).
+// package.json'daki mutation script'leri `--retries=0` taşımalı (kurcalamaya karşı statik kilit).
+// Bkz. AGENTS.md → "Mutasyon güvenliği standardı (orphan-sıfır)".
+try {
+  const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
+  for (const scriptName of ['test:mutation', 'test:mutation:prod']) {
+    const cmd = pkg.scripts?.[scriptName] ?? '';
+    if (cmd && !/--retries[=\s]0\b/.test(cmd)) {
+      violations.push({
+        file: 'package.json',
+        line: 1,
+        message: `mutation lane "${scriptName}" --retries=0 içermeli (retry orphan riski yaratır)`,
+      });
+    }
+  }
+} catch (error) {
+  violations.push({ file: 'package.json', line: 1, message: `okunamadı: ${error.message}` });
+}
+
 if (violations.length > 0) {
   for (const violation of violations) {
     console.error(

@@ -14,6 +14,8 @@ Amaç testlerin değişikliklere dayanıklı, güvenli ve teşhis edilebilir kal
    Mutasyon testleri yalnızca özel/ayrılmış bir test hesabına (tenant) karşı
    çalıştırılır; otomasyon gerçek bir müşteri hesabına yöneltilmez. Otomasyon
    hesabı gerçek bir hesapla değiştirilecekse, önce ayrı bir test hesabı açılır.
+   Orphan-sıfır güvencesi (önek, otomatik cleanup fixture, retry yok, baseline,
+   kritik-cleanup-hatası) için bkz. **Mutasyon güvenliği standardı (orphan-sıfır)**.
 4. Test hazırlığı mümkünse API ile, kullanıcı davranışı UI ile doğrulanır.
 5. Bir test başka bir testin oluşturduğu veriye veya çalışma sırasına bağımlı olamaz.
 6. Sabit bekleme (`page.waitForTimeout`) kullanılamaz.
@@ -118,6 +120,48 @@ için" yeşil kalır.
 - Değer canlı/oynak olduğunda tam sayı assert edilmez; **bir değerin varlığı**
   (desen eşleşmesi) doğrulanır. Gerçekten gözlemlenemeyen durum açık **N/A** ile belgelenir.
 
+## Keşif tamlığı standardı (etkileşimle beliren kontroller)
+
+Bir sayfa yalnızca **açılışta görünen** kontrollerle keşfedilmiş sayılmaz. Birçok kontrol
+**yalnızca bir etkileşimden sonra** belirir; bunlar da kapsamdadır ("her buton" bunları da içerir):
+
+- **Satır/öğe seçimi:** liste satırındaki checkbox işaretlenince çıkan **toplu-eylem çubuğu**
+  (ata/etiket/sil/dışa aktar vb.) ve "tümünü seç".
+- **Hover / odak:** yalnızca üzerine gelince/odakta beliren aksiyon ikonları.
+- **Menüler:** ⋮/kebab, sağ-tık, açılır (dropdown) içindeki her öğe.
+- **Durum varyantları:** boş-durum (eşleşmeyen arama), yükleniyor, hata (bkz. `@errorpath`).
+- **Ayrı rotalar:** her buton/linkin götürdüğü hedef sayfa (bkz. navigasyon-L3).
+
+Bir bölüm, kapatılmadan (**"bitti" denmeden**) önce şu tamlık kontrol listesini geçmeli veya
+eksik maddeyi keşif raporunda **açık gerekçeyle** beyan etmeli:
+
+1. Varsayılan görünüm — tüm görünür kontroller.
+2. **Bir satır/öğe seçili** — beliren toplu-eylem çubuğu ve her butonu.
+3. **Tümü seçili** — sayaç/davranış.
+4. Her satır-içi + toplu aksiyon **menüsü/diyaloğu açık** (uygulamadan; salt-okunurda İptal).
+5. Boş-durum (eşleşmeyen arama/filtre).
+6. 4 dil (en/tr/fr/ar) + RTL.
+7. Dar viewport (≤768) yatay-taşma.
+
+Kural: keşifte **her etkileşimli öğeyle en az bir kez etkileşilir** (tıkla/seç/hover/aç). "Gördüğüm
+kadarıyla" değil, "denediğim kadarıyla" esas alınır. Atlanan bir etkileşim sonradan bulunursa bu bir
+**kapsam boşluğu**dur, sessizce geçilmez; raporlanır ve tamamlanır.
+
+## Doğrulama-anı standardı (negatif sonuç ancak yük sonrası)
+
+Bir assertion/okuma yalnızca **hedef gerçekten hazırken** yapılır; doğru URL/rota **yeterli değildir**.
+Özellikle **negatif/yokluk** doğrulamaları (bir metnin/butonun *olmaması*, `toHaveCount(0)`, `test.fail`
+sızıntı guard'ları) yanıltıcıdır: sayfa henüz render olmadıysa "yok" **yanlış-geçiş** verir.
+
+- Negatif bir sonucu kabul etmeden önce **çevredeki UI'nin yüklendiği** kanıtlanır: hedefin bulunacağı
+  bölgede **kararlı bir kardeş öğe** (doğru etiketli komşu buton, bölüm başlığı, ilk satır hücresi)
+  görünür olana kadar beklenir; sonra negatif assert edilir.
+- Satır/kart metni **avatar baş harfleri, rozet, ikon** gibi ek metin içerebilir; ad/eşleşme
+  doğrulaması bunlara takılmaz (ters-içerme: "hücre metni beklenen adı içeriyor" gibi).
+- `test.fail` guard'ı yazıldığında, guard'ın gerçekten **beklenen-başarısızlık** verdiği bir koşuda
+  görülür. "expected to fail but passed" alınıyorsa sızıntı/bulgu hâlâ vardır — muhtemelen erken/eksik
+  yükte assert edilmektedir; önce kardeş öğe beklenir.
+
 ## Çok dilli (i18n) doğrulama standardı
 
 Bir sayfa veya bölüm test edilirken görünür metin **desteklenen dört dilde**
@@ -176,6 +220,30 @@ tablosu ve çeviri bulguları).
   **sonucu** (başarı/validasyon/hata/toast) doğrulanır ya da prod-mutation güvenliği
   nedeniyle açık **N/A** gerekçesiyle belgelenip mutation testine (staging) bırakılır.
   "Form yalnızca açılıyor" tek başına yeterli bir L3 değildir.
+
+## Mutasyon güvenliği standardı (orphan-sıfır)
+
+Değiştirilemez ilke #3'e ek. Canlı bir tenant'a **hiç orphan (temizlenmemiş test kaydı) bırakmamak**
+esastır (test, keşif probu veya elle — fark etmez):
+
+- **Önce yıkımı kanıtla:** ilk create'ten ÖNCE silme/geri-alma yolu tek bir at-and-delete throwaway ile
+  doğrulanır (endpoint/onay akışı + garantili fallback). Cleanup yolu kanıtlanmadan toplu veya tekrarlı
+  create çalıştırılmaz. (Bu oturumda orphan'lar, cleanup'ı kanıtlanmamış **probe script'lerinden** çıktı.)
+- **Otomatik cleanup (fixture):** test verisi **`testEntity` fixture'ı** ile oluşturulur; silme
+  **oluşturma anında** otomatik kaydedilir (create + cleanup aynı çağrı). Cleanup sırasını grep ile
+  denetlemek yerine bu **yapısal bağ** zorunludur — kaydı oluşturup temizliği kaydetmeyi *unutmak* imkânsızdır.
+- **Ayrılmış, aranabilir önek:** her test kaydı `TEST_ENTITY_PREFIX` (`PW_…`) ile adlandırılır (benzersiz)
+  → orphan her zaman greplenebilir/süpürülebilir. `testEntity` bunu runtime'da doğrular.
+- **Retry yok:** `@mutation` lane'i `--retries=0` ile koşar (`npm run test:mutation[:prod]`); retry veriyi
+  yeniden oluşturur → orphan/churn.
+- **Baseline başta+sonda:** koşu, tenant'ta önekli kayıt **olmadığını başta ve sonda** doğrular
+  (`assertNoTestOrphans`); koşu sonrası `npm run report:orphans` ile de taranır.
+- **Cleanup başarısızlığı = kritik:** teardown silemezse test **başarılı sayılmaz**; "KRİTİK ALTYAPI
+  HATASI" olarak raporlanır (orphan riski). `cleanup`/`testEntity` fixture'ı bunu dayatır.
+
+Referans: fixture `tests/fixtures/test.js` (`testEntity`), yardımcı `tests/helpers.js`
+(`assertNoTestOrphans`), sabit `tests/data/factories.js` (`TEST_ENTITY_PREFIX`), araç
+`tools/report-orphans.mjs`. Karar/gerekçe: `docs/adr/0004-orphan-safe-mutations.md`.
 
 ## Teşhis ve izleme (Tracing) standardı
 

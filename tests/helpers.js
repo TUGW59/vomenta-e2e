@@ -110,6 +110,31 @@ export async function gotoApp(page, path) {
 }
 
 /**
+ * Canlı tenant'ta orphan (temizlenmemiş test kaydı) OLMADIĞINI doğrular: verilen liste
+ * rotasına gider, `prefix`i arar ve eşleşen satır KALMADIĞINI bekler. Mutasyon koşusunun
+ * BAŞINDA (temiz başlangıç) ve SONUNDA (temiz bitiş) çağrılır — baseline güvencesi.
+ * Bkz. AGENTS.md → "Mutasyon güvenliği standardı (orphan-sıfır)".
+ * @param {import('@playwright/test').Page} page
+ * @param {{ path: string, prefix?: string, searchPlaceholder?: RegExp }} opts
+ */
+export async function assertNoTestOrphans(
+  page,
+  { path, prefix = 'PW_', searchPlaceholder = /search|ara|rechercher|بحث/i } = {}
+) {
+  await gotoApp(page, path);
+  const search = page.getByPlaceholder(searchPlaceholder).first();
+  await expect(search).toBeVisible({ timeout: 15000 });
+  await search.fill(prefix);
+  await expect(async () => {
+    const orphanRows = page.getByRole('row').filter({ hasText: prefix });
+    expect(
+      await orphanRows.count(),
+      `Canlı tenant'ta '${prefix}' önekli orphan test kaydı var (${path}) — önceki koşu temizlenmemiş`
+    ).toBe(0);
+  }).toPass({ timeout: 15000 });
+}
+
+/**
  * Bir gezinme kontrolü (link/kart/menü/sekme) tetiklendikten SONRA, hedef sayfanın
  * GERÇEKTEN yüklendiğini doğrular: doğru rota + oturum korunmuş + hedefin beklenen
  * başlığı görünür. Salt URL eşleşmesi yeterli DEĞİLDİR — URL doğru olsa bile sayfa

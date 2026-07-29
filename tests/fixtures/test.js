@@ -57,9 +57,48 @@ export const test = base.extend({
         contentType: 'application/json',
       });
       if (testInfo.status === testInfo.expectedStatus) {
-        throw new Error(`Test verisi temizlenemedi: ${errors.join('; ')}`);
+        // Cleanup başarısızlığı test başarısını GEÇERSİZ kılar: orphan kaldı demektir.
+        throw new Error(
+          `KRİTİK ALTYAPI HATASI — test verisi temizlenemedi (ORPHAN riski, canlı tenant): ` +
+            errors.join('; ')
+        );
       }
     }
+  },
+
+  /**
+   * Orphan-sıfır test verisi fabrikası: bir kayıt OLUŞTURULDUĞU AN silmesini otomatik
+   * kaydeder (create + cleanup aynı çağrı). Böylece "oluştur ama temizliği kaydetmeyi
+   * unut" yapısal olarak imkânsızdır. cleanup fixture'ının kritik-hata garantisini miras alır.
+   * Bkz. AGENTS.md → "Mutasyon güvenliği standardı (orphan-sıfır)".
+   *
+   * Kullanım:
+   *   const contact = await testEntity.create({
+   *     label: 'contact',
+   *     create: () => contacts.createViaUI(data),      // {id,...} döndürür
+   *     remove: (e) => contacts.deleteContactViaApi(e.id),
+   *   });
+   */
+  testEntity: async ({ cleanup }, use) => {
+    const created = [];
+    const helper = {
+      async create({ create, remove, label = 'test-entity' }) {
+        if (typeof create !== 'function' || typeof remove !== 'function') {
+          throw new Error('testEntity.create: `create` ve `remove` birer fonksiyon olmalı');
+        }
+        const entity = await create();
+        created.push({ label, entity });
+        // SİLME, oluşturma anında kaydedilir — LIFO cleanup teardown'da her hâlde çalışır.
+        cleanup(async () => {
+          await remove(entity);
+        });
+        return entity;
+      },
+      get created() {
+        return created;
+      },
+    };
+    await use(helper);
   },
 
   diagnostics: [
