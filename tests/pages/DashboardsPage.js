@@ -116,5 +116,61 @@ export class DashboardsPage extends BasePage {
     return this.page.getByRole('dialog').locator('button:has(svg[class*="lucide-link"])').first();
   }
 
+  // ─────────────────── Mutation akışları (create/delete) — canlı gözlemle doğrulandı ───────────────────
+  // Create: "Create Dashboard" → diyalog(ad+açıklama) → submit "Create Dashboard" → POST list -> 201.
+  // Delete: kart çöp ikonu → onay diyaloğu ["Cancel","Delete"] → "Delete" → DELETE list/{id} -> 204.
+
+  /** İsimle (tam) VE çöp ikonu içeren kart kabı. */
+  cardByName(name) {
+    return this.page
+      .locator('div')
+      .filter({ has: this.page.getByText(name, { exact: true }) })
+      .filter({ has: this.page.locator('svg.lucide-trash2') })
+      .last();
+  }
+
+  /**
+   * Yeni pano oluşturur (mutation). Oluşturma POST'unu bekler; diyalog kapanır ve kart görünür.
+   * @param {string} name
+   * @param {string} [description]
+   */
+  async createDashboard(name, description = 'e2e') {
+    await this.createButton().click();
+    const dialog = this.page.getByRole('dialog');
+    await dialog.waitFor({ timeout: 8000 });
+    await dialog.getByPlaceholder(/My Custom Dashboard/i).fill(name);
+    await dialog.getByPlaceholder(/What is this dashboard for/i).fill(description);
+    const created = this.page.waitForResponse(
+      (r) => r.url().includes(DashboardsPage.API.list) && r.request().method() === 'POST' && r.ok(),
+      { timeout: 15000 }
+    );
+    await dialog.getByRole('button', { name: 'Create Dashboard', exact: true }).click();
+    await created;
+    await expect(dialog).toBeHidden({ timeout: 8000 });
+    // Yeni kart listeye gerçekten render olsun (sonraki sayım güvenilir olsun).
+    await expect(this.page.getByText(name, { exact: true })).toBeVisible({ timeout: 10000 });
+  }
+
+  /** Özel pano listesinin render olmasını bekler (flaky sayımı önler; hesap ≥1 pano içerir). */
+  async waitForCardsLoaded() {
+    await expect(this.customShareButtons.first()).toBeVisible({ timeout: 15000 });
+  }
+
+  /**
+   * İsimle bir panoyu siler (mutation). Çöp → onay "Delete" → DELETE. Kart kaybolur.
+   * @param {string} name
+   */
+  async deleteDashboardByName(name) {
+    const card = this.cardByName(name);
+    await card.locator('button:has(svg.lucide-trash2)').first().click();
+    const confirm = this.page.getByRole('alertdialog').or(this.page.getByRole('dialog'));
+    const deleted = this.page.waitForResponse(
+      (r) => r.url().includes(DashboardsPage.API.list) && r.request().method() === 'DELETE' && r.ok(),
+      { timeout: 15000 }
+    );
+    await confirm.getByRole('button', { name: 'Delete', exact: true }).click();
+    await deleted;
+  }
+
   // languageTrigger()/switchLanguage() BasePage'den miras alınır.
 }
