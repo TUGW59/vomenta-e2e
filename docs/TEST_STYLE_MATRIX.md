@@ -28,6 +28,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-teams` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 
 ## Rota düzeyi baseline kanıtı
 
@@ -70,6 +71,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-teams**: `/settings/teams`
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
+- **settings-webhooks**: `/settings/webhooks`
 
 ## N/A beyanları (gerekçeli)
 
@@ -131,3 +133,6 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-users` **@perf**: Grafik/ağır içerik yok (üye tablosu + davet dialogu).
 - `settings-users` **@data**: Sayısal KPI göstermiyor (üye listesi; sayaç yok).
 - `settings-users` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
+- `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
+- `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.

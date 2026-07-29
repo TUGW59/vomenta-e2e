@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 680
-- **Test dosyası:** 50
-- **Etiketler:** `@a11y` 33 · `@clean` 21 · `@critical` 61 · `@data` 3 · `@deeplink` 20 · `@errorpath` 21 · `@i18n` 92 · `@keyboard` 18 · `@known-bug` 44 · `@layout` 26 · `@perf` 1 · `@public` 2 · `@regression` 268 · `@smoke` 57 · `@visual` 17
+- **Test edilen senaryo:** 694
+- **Test dosyası:** 51
+- **Etiketler:** `@a11y` 34 · `@clean` 22 · `@critical` 61 · `@data` 3 · `@deeplink` 21 · `@errorpath` 22 · `@i18n` 97 · `@keyboard` 19 · `@known-bug` 45 · `@layout` 27 · `@perf` 1 · `@public` 2 · `@regression` 269 · `@smoke` 58 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -694,6 +694,23 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - davet dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/users doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - davet dialogu görünümü değişmedi  `@visual`
+
+### `settings-webhooks.authed.spec.js`
+
+- sayfa başlığı + Add Webhook + boş-durum ile açılıyor  `@smoke`
+- L1 tıklama OK: dialog açılıyor (URL + Events + Create webhook disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- Add Webhook dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- webhooks ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Add Webhook dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/webhooks doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Add Webhook dialogu görünümü değişmedi  `@visual`
 
 ### `settings.authed.spec.js`
 

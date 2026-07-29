@@ -144,7 +144,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 15 | Data Retention | `/settings/data-retention` | ✅ **TAMAM** (settings-data-retention) |
 | 16 | Notifications | `/settings/notifications` | ✅ **TAMAM** (settings-notifications) |
 | 17 | API Keys | `/settings/api-keys` | ✅ **TAMAM** (settings-api-keys) |
-| 18 | Webhooks | `/settings/webhooks` | ⬜ |
+| 18 | Webhooks | `/settings/webhooks` | ✅ **TAMAM** (settings-webhooks) |
 | 19 | Audit Log | `/settings/audit` | ⬜ |
 
 Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil + taşma + çeviri) → kontrol envanteri → 3-katman + tüm stiller → güvenli/staging-kilitli mutation.
@@ -317,6 +317,16 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **4 dil:** başlık/alt başlık/Create Key/Generate API Key tam çevrili; ar RTL; taşma yok.
 - **🐞 BULGU (sistemik):** Create Key dialogu "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **Mutasyon:** create + sil/revoke; liste prod'da boş → `settings-api-keys-mutations` **test.fixme**.
+
+## Webhooks detayı (`/settings/webhooks`)
+
+- **Başlık:** "Webhooks" (4 dilde aynı — marka/teknik terim, sızıntı DEĞİL) + alt başlık (çevrili). **Add Webhook** + boş-durum ("No webhooks configured").
+- **Add webhook dialogu** (küçük w): URL (placeholder, **erişilebilir ad YOK**) · Secret (min 16 char) · Events (30+ olay checkbox, **isimsiz** — call.started…billing.*) · Cancel · Create webhook (disabled) · Close.
+- **Backend:** `GET /api/v1/webhooks`, `/api/v1/webhooks/events`.
+- **4 dil:** başlık (sabit "Webhooks") + alt başlık + Add Webhook tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`. (Ayrıca URL input + event checkbox'ları aria-label'sız — button-name/label borcu; NOTLAR gözlemi.)
+- **Not:** Integrations sayfasındaki "Add Webhook" ile aynı işlev; dialog başlığı burada "Add webhook" (küçük w), Integrations'ta "Add Webhook".
+- **Mutasyon:** create + sil; liste prod'da boş → `settings-webhooks-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

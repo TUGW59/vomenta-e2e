@@ -27,6 +27,7 @@ import { TeamsPage } from './TeamsPage.js';
 import { TemplatesPage } from './TemplatesPage.js';
 import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
+import { WebhooksPage } from './WebhooksPage.js';
 import { WorkforcePage } from './WorkforcePage.js';
 import { AgentMonitorPage } from './AgentMonitorPage.js';
 import { IntegrationsPage } from './IntegrationsPage.js';
@@ -65,6 +66,7 @@ export class App {
     this.dataRetention = new DataRetentionPage(page);
     this.notifications = new NotificationsPage(page);
     this.apiKeys = new ApiKeysPage(page);
+    this.webhooks = new WebhooksPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);
