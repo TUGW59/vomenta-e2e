@@ -1,5 +1,6 @@
 // @ts-check
 import { AnalyticsPage } from './AnalyticsPage.js';
+import { ApiKeysPage } from './ApiKeysPage.js';
 import { AppShell } from './AppShell.js';
 import { AutomationsPage } from './AutomationsPage.js';
 import { BusinessHoursPage } from './BusinessHoursPage.js';
@@ -63,6 +64,7 @@ export class App {
     this.security = new SecurityPage(page);
     this.dataRetention = new DataRetentionPage(page);
     this.notifications = new NotificationsPage(page);
+    this.apiKeys = new ApiKeysPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

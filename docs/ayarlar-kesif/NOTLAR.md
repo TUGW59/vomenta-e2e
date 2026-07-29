@@ -143,7 +143,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 14 | Security | `/settings/security` | ✅ **TAMAM** (settings-security) |
 | 15 | Data Retention | `/settings/data-retention` | ✅ **TAMAM** (settings-data-retention) |
 | 16 | Notifications | `/settings/notifications` | ✅ **TAMAM** (settings-notifications) |
-| 17 | API Keys | `/settings/api-keys` | ⬜ |
+| 17 | API Keys | `/settings/api-keys` | ✅ **TAMAM** (settings-api-keys) |
 | 18 | Webhooks | `/settings/webhooks` | ⬜ |
 | 19 | Audit Log | `/settings/audit` | ⬜ |
 
@@ -308,6 +308,15 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **Dialog yok → "Close" sızıntısı yok.** a11y temiz.
 - **@keyboard + @visual N/A:** dialog/sekme yok; uzun switch formu tek kararlı snapshot bölgesi vermiyor.
 - **Mutasyon:** Save preferences (reversible kategori switch toggle) → `settings-notifications-mutations` **test.fixme** (staging).
+
+## API Anahtarları detayı (`/settings/api-keys`)
+
+- **Başlık:** "API Keys" + alt başlık. **Create Key** butonu + boş-durum ("No API keys" + Generate API Key).
+- **Create API Key dialogu:** Key name · Expiration (combobox 1 year) · Permissions (Read checked/Write/Admin/Webhooks/Voice/Messaging checkbox) · Cancel · Create Key (disabled) · Close.
+- **Backend:** `GET /api/v1/settings/api-keys`.
+- **4 dil:** başlık/alt başlık/Create Key/Generate API Key tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** Create Key dialogu "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **Mutasyon:** create + sil/revoke; liste prod'da boş → `settings-api-keys-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

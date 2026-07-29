@@ -11,6 +11,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
+| `settings-api-keys` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-canned-responses` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -52,6 +53,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
+- **settings-api-keys**: `/settings/api-keys`
 - **settings-automations**: `/settings/automations`
 - **settings-canned-responses**: `/settings/canned-responses`
 - **settings-compliance**: `/settings/compliance`
@@ -75,6 +77,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `reports-sections` **@export**: Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).
+- `settings-api-keys` **@perf**: Grafik/ağır içerik yok (anahtar listesi + dialog).
+- `settings-api-keys` **@data**: Sayısal KPI yok (anahtar listesi).
+- `settings-api-keys` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-automations` **@perf**: Grafik/ağır içerik yok (kural tablosu + SLA tablosu + dialog).
 - `settings-automations` **@data**: Sayısal KPI tile yok (SLA süreleri tablo verisi).
 - `settings-automations` **@export**: Bu sayfada export/indirme kontrolü yok.

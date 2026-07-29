@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 666
-- **Test dosyası:** 49
-- **Etiketler:** `@a11y` 32 · `@clean` 20 · `@critical` 61 · `@data` 3 · `@deeplink` 19 · `@errorpath` 20 · `@i18n` 87 · `@keyboard` 17 · `@known-bug` 43 · `@layout` 25 · `@perf` 1 · `@public` 2 · `@regression` 267 · `@smoke` 56 · `@visual` 16
+- **Test edilen senaryo:** 680
+- **Test dosyası:** 50
+- **Etiketler:** `@a11y` 33 · `@clean` 21 · `@critical` 61 · `@data` 3 · `@deeplink` 20 · `@errorpath` 21 · `@i18n` 92 · `@keyboard` 18 · `@known-bug` 44 · `@layout` 26 · `@perf` 1 · `@public` 2 · `@regression` 268 · `@smoke` 57 · `@visual` 17
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -373,6 +373,23 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Search butonu komut paletini açıyor
 - komut paleti klavye kısayolu (⌘K / Ctrl+K) ile açılıyor
 - arama kutusuna yazılabiliyor ve Escape ile kapanıyor
+
+### `settings-api-keys.authed.spec.js`
+
+- sayfa başlığı + Create Key + boş-durum ile açılıyor  `@smoke`
+- L1 tıklama OK: dialog açılıyor (Key name/Permissions + Create Key disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- Create Key dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- api-keys ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Create Key dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Create Key dialogu görünümü değişmedi  `@visual`
 
 ### `settings-automations.authed.spec.js`
 

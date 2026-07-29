@@ -1,0 +1,33 @@
+dialog=1
+DIALOG: - dialog "Create API Key":
+  - heading "Create API Key" [level=2]
+  - paragraph: Generate a new API key for integrations.
+  - text: Key name
+  - textbox "e.g., Production Key"
+  - text: Expiration
+  - combobox: 1 year
+  - text: Permissions
+  - checkbox [checked]:
+    - img
+  - paragraph: Read
+  - paragraph: Read contacts, tickets, reports
+  - checkbox
+  - paragraph: Write
+  - paragraph: Create and update resources
+  - checkbox
+  - paragraph: Admin
+  - paragraph: Manage settings and users
+  - checkbox
+  - paragraph: Webhooks
+  - paragraph: Manage webhook configurations
+  - checkbox
+  - paragraph: Voice
+  - paragraph: Make and manage calls
+  - checkbox
+  - paragraph: Messaging
+  - paragraph: Send messages via channels
+  - button "Cancel"
+  - button "Create Key" [disabled]
+  - button "Close":
+    - img
+    - text: Close

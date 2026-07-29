@@ -461,4 +461,27 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Çok uzun tercih formu (onlarca switch, kategoriler) → tek kararlı snapshot bölgesi pratik değil.',
     },
   },
+  {
+    id: 'settings-api-keys',
+    routes: ['/settings/api-keys'],
+    specFiles: [
+      'settings-api-keys.authed.spec.js',
+      'settings-api-keys-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (anahtar listesi + dialog).',
+      '@data': 'Sayısal KPI yok (anahtar listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);
