@@ -138,7 +138,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 9 | SLA Policies | `/settings/sla` | ✅ **TAMAM** (settings-sla) |
 | 10 | Templates | `/settings/templates` | ✅ **TAMAM** (settings-templates) |
 | 11 | Disposition Codes | `/settings/disposition-codes` | ✅ **TAMAM** (settings-disposition-codes) |
-| 12 | Canned Responses | `/settings/canned-responses` | ⬜ |
+| 12 | Canned Responses | `/settings/canned-responses` | ✅ **TAMAM** (settings-canned-responses) |
 | 13 | Integrations | `/settings/integrations` | ⬜ |
 | 14 | Security | `/settings/security` | ⬜ |
 | 15 | Data Retention | `/settings/data-retention` | ⬜ |
@@ -259,6 +259,17 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **4 dil:** başlık/alt başlık/kolonlar/Add Code tam çevrili; ar RTL; taşma yok.
 - **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **Mutasyon:** create + sil; satır aksiyon ikonları aria-label'sız → silme yolu doğrulanamadı → `settings-disposition-codes-mutations` **test.fixme**.
+
+## Hazır Yanıtlar detayı (`/settings/canned-responses`)
+
+- **Başlık:** "Canned Responses" + alt başlık (inbox hızlı yanıt). Arama kutusu + **New canned response** butonu.
+- **Tablo:** Title/Shortcode/Preview/Category/actions. Boş-durum "No canned responses yet. Create one to get started."
+- **Create canned response dialogu:** Title · Shortcode · Content · Category (optional) · Cancel · Create (disabled) · Close.
+- **Backend:** `GET /api/v1/chat/canned-responses`.
+- **4 dil:** başlık/alt başlık/kolonlar/New tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **Not:** /settings/templates üst sekmesi de "Canned Responses" paneli gösteriyor (örtüşme).
+- **Mutasyon:** create + sil; tablo prod'da boş → `settings-canned-responses-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

@@ -1,0 +1,17 @@
+dialog=1
+DIALOG: - dialog "Create canned response":
+  - heading "Create canned response" [level=2]
+  - paragraph: Quick reply snippets for live chat and messaging.
+  - text: Title
+  - textbox "e.g. Greeting"
+  - text: Shortcode
+  - textbox "e.g. /greeting"
+  - text: Content
+  - textbox "Full message text…"
+  - text: Category (optional)
+  - textbox "e.g. Sales, Support"
+  - button "Cancel"
+  - button "Create" [disabled]
+  - button "Close":
+    - img
+    - text: Close

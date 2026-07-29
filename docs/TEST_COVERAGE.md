@@ -579,6 +579,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: kod oluştur → görün → sil — satır aksiyonları aria-label'sız; staging teyidi  `@regression` `@mutation`
 
+### `settings-canned-responses.authed.spec.js`  (Ayarlar › Hazır Yanıtlar)
+
+- sayfa başlığı + New canned response + tablo/boş-durum  `@smoke`
+- tablo kolonları  `@critical`
+- L1: Create dialogu (Title/Shortcode + Create disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + kolonlar + New çevrili  `@i18n`
+- 🐞 Create dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- a11y / layout / clean / errorpath / keyboard / deeplink / visual (Create dialog)
+
+### `settings-canned-responses-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: hazır yanıt oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

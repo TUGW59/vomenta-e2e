@@ -5,6 +5,7 @@ import { AutomationsPage } from './AutomationsPage.js';
 import { BusinessHoursPage } from './BusinessHoursPage.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
+import { CannedResponsesPage } from './CannedResponsesPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
@@ -53,6 +54,7 @@ export class App {
     this.sla = new SlaPage(page);
     this.templates = new TemplatesPage(page);
     this.dispositionCodes = new DispositionCodesPage(page);
+    this.cannedResponses = new CannedResponsesPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

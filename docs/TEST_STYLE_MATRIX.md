@@ -12,6 +12,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
 | `settings-automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-canned-responses` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
@@ -48,6 +49,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
 - **settings-automations**: `/settings/automations`
+- **settings-canned-responses**: `/settings/canned-responses`
 - **settings-compliance**: `/settings/compliance`
 - **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
@@ -68,6 +70,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-automations` **@perf**: Grafik/ağır içerik yok (kural tablosu + SLA tablosu + dialog).
 - `settings-automations` **@data**: Sayısal KPI tile yok (SLA süreleri tablo verisi).
 - `settings-automations` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-canned-responses` **@perf**: Grafik/ağır içerik yok (hazır yanıt tablosu + dialog).
+- `settings-canned-responses` **@data**: Sayısal KPI yok (hazır yanıt listesi).
+- `settings-canned-responses` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-compliance` **@perf**: Grafik/ağır içerik yok (özet kart + uyumluluk tabloları).
 - `settings-compliance` **@data**: Sayısal KPI tile göstermiyor (retention gün değerleri config metni; tablolar).
 - `settings-compliance` **@export**: Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).

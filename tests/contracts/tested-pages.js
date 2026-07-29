@@ -343,4 +343,27 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-canned-responses',
+    routes: ['/settings/canned-responses'],
+    specFiles: [
+      'settings-canned-responses.authed.spec.js',
+      'settings-canned-responses-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (hazır yanıt tablosu + dialog).',
+      '@data': 'Sayısal KPI yok (hazır yanıt listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);
