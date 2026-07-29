@@ -1,0 +1,35 @@
+CONSOLE-ERROR: Failed to load resource: net::ERR_NETWORK_CHANGED
+CONSOLE-ERROR: ChunkLoadError: Loading chunk 4824 failed.
+(error: https://app.vomenta.com/_next/static/chunks/4824-7c70f4eaaed7beb2.js)
+    at p.f.j (https://app.vomenta.com/_next/static/chunks/webpack-c7760c33b7861b67.js:1:5123)
+    at https://app.vomenta.com/_nex
+CONSOLE-ERROR: Failed to fetch RSC payload for https://app.vomenta.com/. Falling back to browser navigation. ChunkLoadError: Loading chunk 4824 failed.
+(error: https://app.vomenta.com/_next/static/chunks/4824-7c70f4eaaed7beb2.js)
+    at p.f.j (https://app.vomenta.c
+URL: https://app.vomenta.com/settings/users
+HEADINGS: []
+TABS: []
+=== MAIN SNAPSHOT ===
+SNAP-FAIL
+
+BUTTONS: ["Try Again"]
+LINKS(/settings):
+
+=== invite=1 DURUMU ===
+dialog yok; main snapshot:
+- main:
+  - heading "Users & Roles" [level=1]
+  - paragraph: Manage who has access to your workspace
+  - button "Invite User":
+    - img
+    - text: Invite User
+OVERFLOW 768px: ok
+OVERFLOW 1024px: ok
+OVERFLOW 1280px: ok
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/users?page=1&limit=20
+GET https://api.vomenta.com/api/v1/roles
+GET https://api.vomenta.com/api/v1/roles/me/permissions
+
+=== BLOCKED WRITES ===

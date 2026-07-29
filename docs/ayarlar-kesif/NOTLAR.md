@@ -1,0 +1,188 @@
+# Ayarlar (Settings) — Keşif Notları
+
+- **Ortam:** app.vomenta.com (canlı = **production**), route `/settings` ve alt sayfaları.
+- **Tarih:** 29 Tem 2026
+- **Yöntem:** Kayıtlı oturumla Playwright (salt-okunur). 4 dilde ekran görüntüsü + aria-snapshot + network incelemesi. Keşif sırasında **tüm yazma istekleri (POST/PUT/PATCH/DELETE) `route.abort` ile bloklandı** — canlıya hiçbir kayıt/değişiklik bırakılmadı. Hiçbir form submit edilmedi; Save/Şifre/2FA/Revoke kontrolleri **tıklanmadı**.
+- **Diller:** 🇬🇧 English · 🇹🇷 Türkçe · 🇫🇷 Français · 🇸🇦 العربية (RTL)
+- **API host:** `https://api.vomenta.com`.
+
+## Kapsam sırası (kullanıcı planı)
+
+Ayarlar bölümü sekme sekme test edilecek. **İlk paket: Profil** (`/settings/profile`). Sonra sırasıyla `/settings` sekmeleri (Organization, Users, Billing & Usage, Security, API Keys, Modules) ve bunların açtığı alt sayfalar (`/settings/organization`, `/settings/users`, `/settings/security`, `/settings/api-keys`, `/settings/billing`, `/settings/notifications`, `/settings/billing/marketplace`).
+
+Mutasyon kararı (kullanıcı onayı 29 Tem 2026): **salt-okunur + staging-kilitli düzenleme**. Prod'da hiçbir kaydet/değiştir tıklanmaz; geri-döndürülebilir "Telefon alanını değiştir → kaydet → doğrula → eski değere geri al" akışı yalnız staging tenant'ında (`mutationGuard`) koşan ayrı bir spec'e bırakılır. Şifre/2FA/Revoke gibi **geri-dönüşü zor / yan-etkili** kontroller test edilmez (yalnızca varlık + i18n guard'ı).
+
+---
+
+# 1) PROFİL sayfası (`/settings/profile`)
+
+- **Erişim:** Header sağ üst **User menu** (avatar "TT") → **Profile**. Ayrıca doğrudan `/settings/profile` (deeplink). User menüsü öğeleri: `Profile · Settings · Log out`.
+- **Başlık:** "Profile" (h1) + alt başlık "Manage your personal information".
+- **4 alt sekme (Radix tablist):** Profile · Security · Sessions · Notifications.
+
+## Sekme içerikleri (aria gözlemi)
+
+### Profile sekmesi — "Personal Information"
+Form alanları: **Avatar URL** (textbox) + **Upload image** butonu, **First name**, **Last name**, **Email** (disabled — "Email cannot be changed"), **Phone** (placeholder E.164), **Timezone** (combobox, 41 seçenek: UTC…Tokyo), **Language** (combobox, 34 seçenek), **Role** (salt-metin: "admin"). Buton: **Save changes**.
+Ayrıca **Phone Configuration** bölümü: radiogroup **Browser (WebRTC)** (checked) / **External SIP Phone** + **Save phone settings** butonu.
+
+> **NOT (veri ≠ çeviri):** Profildeki **Language** combobox'ı kullanıcının *kayıtlı tercihini* ("Turkish (Türkçe)") gösterir; bu, kenar çubuğundaki *çalışma-anı UI dili* seçicisinden bağımsızdır. UI İngilizceyken bu alanın "Turkish (Türkçe)" göstermesi **bug değil** — kayıtlı veri. Aynı şekilde First/Last name (Tuğçe/Topuz), Email, IP (10.1.99.81), Role (admin) = **veri**, çeviri guard'ına girmez.
+
+### Security sekmesi — "Change Password"
+Alanlar: **Current Password**, **New Password** (kural metni: "Must be at least 8 characters…"), **Confirm New Password**. Buton **Update Password** (boşken **disabled** — istemci-tarafı validasyon). Ayrıca "Password reset" → **Request reset email** butonu (⚠️ e-posta gönderir — TIKLANMAZ). "Two-Factor Authentication" → **Enable 2FA** butonu (⚠️ akış başlatır — TIKLANMAZ).
+
+### Sessions sekmesi — "Active Sessions"
+Uyarı: "Revoking a session will log you out immediately." Tablo kolonları: **Device · IP Address · Location · Last Active · Actions**. Her satırda **Revoke** butonu (⚠️ oturumu kapatır — TIKLANMAZ). Veri: çok sayıda "Desktop / Unknown / 10.1.99.81 / Unknown / Nm ago". "Last Active" göreli zaman ("9m ago", tr "9 dk önce").
+
+### Notifications sekmesi
+"Notification Preferences" + **Open notification settings** linki → `/settings/notifications` (ayrı sayfa, sonraki pakette).
+
+## Backend uçları (Network ile doğrulandı, 29 Tem 2026)
+```
+GET  /api/v1/auth/me                 # profil verisi (ad/e-posta/telefon/dil/rol)
+GET  /api/v1/auth/sessions           # Sessions sekmesi tablosu
+GET  /api/v1/roles/me/permissions
+# Mutasyon (INFERRED — yalnızca staging'de teyit edilecek, prod'da TIKLANMADI):
+PATCH /api/v1/auth/me                # Save changes / Save phone settings
+POST  /api/v1/auth/change-password   # Update Password
+POST  /api/v1/auth/2fa/...           # Enable 2FA
+POST  /api/v1/auth/password-reset    # Request reset email
+DELETE/POST /api/v1/auth/sessions/{id}  # Revoke
+```
+
+## Kontrol envanteri + 3 katman haritası (AGENTS.md standardı)
+
+| # | Kontrol | L1 (tıklama/tepki) | L2 (arka plan) | L3 (görev) |
+|---|---|---|---|---|
+| 1 | **Alt sekmeler** (Profile/Security/Sessions/Notifications) | tıkla → `aria-selected=true` | Sessions sekmesi `GET /auth/sessions` | panel o sekmenin içerik imzasını render eder (istemci-tarafı sekme → çoğu L2 N/A) |
+| 2 | **Timezone combobox** | aç → 41 `option` listelenir | **N/A** (seçenekler istemcide) | seçim + Save = **mutation** (staging) |
+| 3 | **Language combobox** | aç → 34 `option` listelenir | **N/A** | seçim + Save = **mutation** (staging) |
+| 4 | **Save changes** | — | `PATCH /auth/me` | kalıcı → **@mutation** (staging: Telefon değiştir→kaydet→geri al) |
+| 5 | **Phone Config radio** | tıkla → `checked` değişir | **N/A** (Save'e kadar istemci) | Save phone settings = **mutation** (staging) |
+| 6 | **Upload image** | dosya seçici | — | **N/A** (yükleme = veri değiştirir; belgeli) |
+| 7 | **Update Password** | boşken **disabled**; doldurunca aktif | `POST change-password` | ⚠️ **N/A prod** (şifre değiştirir; staging dışı test edilmez) |
+| 8 | **Request reset email** | — | `POST password-reset` | ⚠️ **N/A** (e-posta yan-etkisi) |
+| 9 | **Enable 2FA** | — | `POST 2fa` | ⚠️ **N/A** (hesap güvenlik akışı) |
+| 10 | **Revoke** (Sessions) | — | `DELETE sessions/{id}` | ⚠️ **N/A** (oturumu kapatır) |
+| 11 | **Notifications linki** | tıkla → `/settings/notifications` | (sayfa yüklemesi) | hedef sayfa yüklenir (`assertDestinationLoaded`) |
+| 12 | **User menu → Profile** | menü aç → tıkla | — | `/settings/profile` yüklenir (heading "Profile") |
+
+## 4 dilde durum (i18n) — Profil
+
+| Öğe | 🇬🇧 en | 🇹🇷 tr | 🇫🇷 fr | 🇸🇦 ar |
+|---|---|---|---|---|
+| Yön | ltr | ltr | ltr | **rtl** ✓ |
+| Başlık | Profile | Profil | Profil | الملف الشخصي |
+| Alt başlık | Manage your personal information | Kişisel bilgilerinizi yönetin¹ | — | — |
+| Sekmeler | Profile/Security/Sessions/Notifications | Profil/Güvenlik/Oturumlar/Bildirimler | Profil/Sécurité/Sessions/Notifications | الملف الشخصي/الأمان/الجلسات/الإشعارات |
+| Personal Information | Personal Information | Kişisel bilgiler | Informations personnelles | المعلومات الشخصية |
+| First/Last name | First name / Last name | Ad / Soyad | Prénom / Nom | الاسم الأول / اسم العائلة |
+| Save changes | Save changes | Değişiklikleri kaydet | Enregistrer les modifications | حفظ التغييرات |
+| Phone Config | Phone Configuration | Telefon Yapılandırması | Configuration téléphonique | إعدادات الهاتف |
+| Change Password | Change Password | Şifre değiştir | Changer le mot de passe | تغيير كلمة المرور |
+| Enable 2FA | Enable 2FA | 2FA'yı aç | Activer la 2FA | (المصادقة الثنائية) |
+| Active Sessions | Active Sessions | Aktif oturumlar | Sessions actives | (الجلسات) |
+| Sessions kolonları | Device/IP Address/Location/Last Active/Actions | Cihaz/IP adresi/Konum/Son etkinlik/İşlemler | Appareil/Adresse IP/Lieu/Dernière activité/Actions | (RTL) |
+| Revoke | Revoke | Sonlandır | Révoquer | إلغاء |
+| Notifications linki | Open notification settings | Bildirim ayarlarını aç | Ouvrir les paramètres de notification | فتح إعدادات الإشعارات |
+
+¹ tr alt başlık: "Kişisel bilgilerinizi yönetin" (gözlem — ilk keşifte tam metin yakalandı).
+
+**Çeviri sızıntısı: YOK.** Profil sayfası 4 dilde tam yerelleşiyor (ham i18n anahtarı / iç-terim sızıntısı gözlenmedi). RTL doğru aynalanıyor.
+
+## Keşif kapanış matrisi (Profil)
+
+- **Varsayılan/veri-dolu durum:** Kapsandı (form dolu, Sessions tablosu dolu).
+- **Seçim sonrası kontroller:** N/A: Profil'de satır-seçimi/toplu-eylem yok (form + tablo salt-görüntü + satır Revoke).
+- **Hover/focus kontrolleri:** N/A: gözlenmedi (statik form).
+- **`...`/kebab/context menü:** N/A: Profil'de yok. (User menu = header, ayrı kapsandı.)
+- **Dialog/drawer/expanded:** N/A: Profil sekmeleri inline panel; modal yok. Language/Timezone = combobox popover (kapsandı).
+- **Boş/loading/hata/yetkisiz:** Loading kapsandı; hata **@errorpath** ile mock'lanacak (`GET /auth/me` 500). Yetkisiz N/A: admin oturumu (rol düşürme güvenle üretilemez).
+- **Masaüstü/tablet/mobil + RTL:** Kapsandı — 768/1024/1280 **taşma yok**; Arapça RTL 1440 **taşma yok**.
+
+**Kontrol envanteri erişilebilir isimlerle** yukarıda not edildi (role + name).
+
+---
+
+# 2) `/settings` (ana sekmeler) — özet (sonraki paketlerde detay)
+
+Doğrudan `/settings` açıldığında başlık **"Settings"** + 6 Radix sekme. Her sekme paneli çoğunlukla **ilgili adanmış sayfaya götüren bir link** içerir (URL `/settings` kalır, `aria-selected` değişir):
+
+| Sekme | Panel imzası | Link → hedef |
+|---|---|---|
+| Organization | "Manage your organization settings…" | Go to Organization Settings → `/settings/organization` |
+| Users | "Team Members" | Invite user → `/settings/users?invite=1` (+ üye listesi) |
+| Billing & Usage | "Current Plan" (Starter · $29/month) | Change plan / Billing history → `/settings/billing` |
+| Security | "Security Settings" (2FA Disabled · Session 60 min · IP allowlist Disabled) | Go to Security Settings → `/settings/security` |
+| API Keys | "API Keys" | Create key → `/settings/api-keys` |
+| Modules | "Manage add-on modules…" | Manage Modules → `/settings/billing/marketplace` |
+
+Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
+
+---
+
+# 3) Ayarlar SOL ALT-MENÜSÜ (tam yol haritası)
+
+`/settings/*` sayfalarında **soldaki ayarlar alt-menüsü** `/settings` ana sayfasındaki 6 sekmeden çok daha fazlasını içeriyor. Tam liste (href'ler canlıdan doğrulandı, 29 Tem 2026):
+
+| # | Etiket | Rota | Durum |
+|---|---|---|---|
+| 1 | Profile | `/settings/profile` | ✅ **TAMAM** (settings-profile) |
+| 2 | Organization | `/settings/organization` | ✅ **TAMAM** (settings-organization) |
+| 3 | Users & Roles | `/settings/users` | ✅ **TAMAM** (settings-users) |
+| 4 | Roles | `/settings/roles` | ✅ **TAMAM** (settings-roles) |
+| 5 | Compliance | `/settings/compliance` | ⬜ |
+| 6 | Teams | `/settings/teams` | ⬜ |
+| 7 | Business Hours | `/settings/hours` | ⬜ |
+| 8 | Automations | `/settings/automations` | ⬜ |
+| 9 | SLA Policies | `/settings/sla` | ⬜ |
+| 10 | Templates | `/settings/templates` | ⬜ |
+| 11 | Disposition Codes | `/settings/disposition-codes` | ⬜ |
+| 12 | Canned Responses | `/settings/canned-responses` | ⬜ |
+| 13 | Integrations | `/settings/integrations` | ⬜ |
+| 14 | Security | `/settings/security` | ⬜ |
+| 15 | Data Retention | `/settings/data-retention` | ⬜ |
+| 16 | Notifications | `/settings/notifications` | ⬜ |
+| 17 | API Keys | `/settings/api-keys` | ⬜ |
+| 18 | Webhooks | `/settings/webhooks` | ⬜ |
+| 19 | Audit Log | `/settings/audit` | ⬜ |
+
+Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil + taşma + çeviri) → kontrol envanteri → 3-katman + tüm stiller → güvenli/staging-kilitli mutation.
+
+## Kuruluş sayfası detayı (`/settings/organization`)
+
+- **Başlık:** "Organization" + alt başlık "Manage your company details and preferences". **Sekme YOK** (tek form).
+- **Company Information formu:** Company name* (dolu: "Arda Company"), Domain, Website, Logo URL (+ logo önizleme), Timezone (UTC), Language (English), Currency (USD $), Default country (United States).
+- **Save changes** butonu: formda değişiklik olana kadar **disabled** (istemci-tarafı dirty kontrolü) → dirty olunca aktif.
+- **Backend:** `GET /api/v1/settings/organization` (yükleme) + Save = `PATCH/PUT /api/v1/settings/organization` (mutation).
+- **4 dil:** başlık Organization/Kuruluş/Organisation/المؤسسة; tüm etiketler + Save tam çevrili; **sızıntı YOK**; ar RTL doğru; 768/1024/1280 taşma yok.
+- **Veri ≠ çeviri:** "Arda Company", Language alanı "English" (kayıtlı tercih) = veri.
+- **Mutasyon:** yalnız staging'de Website değiştir→kaydet→geri al (şirket adı/dil dokunulmaz).
+
+## Kullanıcılar ve Roller detayı (`/settings/users`)
+
+- **Başlık:** "Users & Roles" + alt başlık "Manage who has access to your workspace". **Sekme YOK**.
+- **Araç çubuğu:** arama kutusu ("Search users…") + **Invite User** butonu.
+- **Tablo (7 sütun):** seçim checkbox · Name · Email · Role · Status · Last Login · Actions. Satır başı **kebab** menüsü: **Edit / Deactivate** (⚠️ UI'da hard-delete YOK). Roller veri: Agent / Administrator / Owner.
+- **Invite User dialogu:** Email address · Role (combobox: Agent) · Team (combobox: None) · **Cancel** · **Send Invitation** (boşken **disabled**) · **Close** (X).
+- **Backend:** `GET /api/v1/users?page&limit` (liste) + `GET /api/v1/roles` (dialog rolleri). Davet = `POST` (staging).
+- **4 dil:** başlık/alt başlık/kolonlar/Invite/dialog tam çevrili; ar RTL doğru; taşma yok.
+- **🐞 BULGU (i18n/a11y sızıntısı):** Invite dialogundaki **"Close" (X) butonu** en/tr/fr/ar **hepsinde** erişilebilir isim olarak İngilizce **"Close"** kalıyor (Kapat/إغلاق/Fermer değil). `settings-users.authed.spec.js` içinde `@i18n @known-bug` `test.fail` guard'ı ile izleniyor — çeviri eklenince guard kalıcılaşır.
+- **Mutasyon (davet):** UI'da satır silme yok; davet e-posta yan-etkili + kalıcı. L3 davet staging'e bırakıldı (`known-bugs-invite.mutation.authed.spec.js`, revoke ucu teyidi bekliyor). Read-only spec yalnızca dialogu AÇAR + boş-submit disabled doğrular; davet GÖNDERMEZ.
+
+## Rol Yönetimi detayı (`/settings/roles`)
+
+- **Başlık:** "Role Management" + alt başlık "Create and manage user roles with granular permissions". Sekme YOK.
+- **Araç çubuğu:** **Create Role** butonu.
+- **Tablo (6 sütun):** Name · Description · Permissions · System · Users · Actions. Roller: ADMIN (106 izin, 2 kullanıcı), AGENT (29, 4), MANAGER (74, 0), OWNER (109, 0), SUPERVISOR (60, 0), VIEWER (12, 0). "Modified" rozeti bazılarında. **System: Yes** (hepsi sistem rolü).
+- **Satır aksiyonları:** **Edit role** · **Reset to defaults** (yalnız Modified) · **Delete role** (⚠️ sistem rollerinde **DISABLED** — yanlış silmeye karşı guard).
+- **Create Role dialogu:** Role Name · Description · **14 izin kategorisi** (General/Voice/Channels/AI/CRM & Contacts/Tickets/Campaigns/Reports & Analytics/Supervisor/Workforce Management/Compliance/Settings/Billing/Reseller — her biri sayaçlı) · Cancel · Save · **Close**.
+- **Backend:** `GET /api/v1/roles` (liste) + `GET /api/v1/roles/permissions/catalog` + create = `POST /api/v1/roles`, sil = `DELETE /api/v1/roles/{id}`.
+- **@data:** UI rol satırı sayısı ↔ `GET /api/v1/roles` yanıtındaki rol sayısıyla eşleşiyor (doğrulandı). (Not: `/roles` eşleşmesi `/roles/permissions/catalog` ile karışmasın diye kesin regex `\/api\/v1\/roles(\?|$)` kullanıldı.)
+- **4 dil:** başlık/alt başlık/kolonlar/Create/dialog tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (Kullanıcılar ile AYNI sistemik sızıntı):** Create Role dialogundaki **"Close" (X) butonu** 4 dilde de İngilizce "Close" kalıyor → `@i18n @known-bug` `test.fail` guard.
+- **Mutasyon (create+delete, zero-orphan):** staging'de benzersiz adlı custom rol oluştur → listede gör → sil (custom roller silinebilir; sistem rolleri Delete disabled). `settings-roles-mutations.authed.spec.js`.
+- **Görsel:** N/A (tablo canlı sayaç + Create dialogu uzun/kaydırmalı → flaky; naStyles beyanı).
+
+## Ham çıktılar
+`raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

@@ -1,0 +1,50 @@
+URL: https://app.vomenta.com/settings/organization
+HEADINGS: ["Organization"]
+TABS: []
+=== MAIN SNAPSHOT ===
+- main:
+  - heading "Organization" [level=1]
+  - paragraph: Manage your company details and preferences
+  - text: Company Information Update your company details visible across the platform Company name *
+  - textbox "Company name *": Arda Company
+  - text: Domain
+  - textbox "Domain":
+    - /placeholder: acme.com
+  - text: Website
+  - textbox "Website":
+    - /placeholder: https://example.com
+  - text: Logo URL
+  - textbox "Logo URL":
+    - /placeholder: https://cdn.example.com/logo.png
+  - text: Company logo preview
+  - img
+  - paragraph: Enter a URL above or upload to your CDN
+  - text: Timezone
+  - combobox: UTC
+  - text: Language
+  - combobox: English
+  - text: Currency
+  - combobox: USD ($)
+  - text: Default country
+  - combobox: United States
+  - button "Save changes" [disabled]
+
+BUTTONS: ["🇬🇧 English","Tuğçe TopuzAvailable","Search...⌘K","4","TT","Save changes"]
+LINKS: ["Skip to main content","Dashboard","Inbox","Voice","Channels","AI","Campaigns","Bot Builder","Contacts","Tickets","Analytics","Reports","Supervisor","Workforce","Settings","Profile","Organization","Users & Roles","Roles","Compliance","Teams","Business Hours","Automations","SLA Policies","Templates","Disposition Codes","Canned Responses","Integrations","Security","Data Retention"]
+OVERFLOW 768px: scrollW=768 clientW=768 ok
+OVERFLOW 1024px: scrollW=1024 clientW=1024 ok
+OVERFLOW 1280px: scrollW=1280 clientW=1280 ok
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/modules/active
+GET https://api.vomenta.com/api/v1/modules/catalog
+GET https://api.vomenta.com/api/v1/notifications/unread-count
+GET https://api.vomenta.com/api/v1/notifications?page=1
+GET https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D
+GET https://api.vomenta.com/api/v1/voice/calls/live
+GET https://api.vomenta.com/api/v1/auth/me
+GET https://api.vomenta.com/api/v1/settings/organization
+GET https://api.vomenta.com/api/v1/roles/me/permissions
+GET https://api.vomenta.com/api/v1/onboarding/progress
+
+=== BLOCKED WRITES ===

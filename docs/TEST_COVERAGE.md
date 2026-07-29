@@ -380,6 +380,89 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - tüm sekmeler görünüyor  `@critical`
 - her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
 
+### `settings-profile.authed.spec.js`  (Ayarlar › Profil — keşif: `docs/ayarlar-kesif/NOTLAR.md`)
+
+- sayfa "Profile" başlığı + 4 alt sekme ile açılıyor  `@smoke`
+- User menu → Profile navigasyonu sayfayı yüklüyor  `@smoke`
+- Profile sekmesi kişisel-bilgi formunu render ediyor (Email disabled)  `@critical`
+- L1: her sekme tıklanınca `aria-selected=true`  `@regression`
+- L3: her sekme paneli kendi içerik imzasını gösteriyor  `@regression`
+- L2: Sessions sekmesi `GET /auth/sessions` çekiyor + tablo render  `@regression`
+- L1: Timezone / Language combobox popover seçenekleri listeliyor  `@regression`
+- L3: bildirim ayarları linki `/settings/notifications` yüklüyor  `@regression`
+- mutasyon kontrolleri MEVCUT ama tıklanmıyor (Save/Password/2FA/Revoke — L3 N/A prod)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + sekmeler + panel imzaları çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (her alt sekmede)  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok (allowlist dışı)  `@clean`
+- profil/oturum ucu 500 → kabuk sağlam / tablo yok  `@errorpath`
+- sekmeler ok tuşlarıyla gezilebiliyor; Language popover Escape ile kapanıyor  `@keyboard`
+- `/settings/profile` doğrudan açılıyor  `@deeplink`
+- Profile kişisel-bilgi kartı görünümü değişmedi (gece)  `@visual`
+
+### `settings-profile-mutations.authed.spec.js`  (yalnız staging tenant)
+
+- L3: Telefon değiştir → Save (`PATCH /auth/me`) → kalıcı → eski değere geri al  `@regression` `@mutation`
+
+### `settings-organization.authed.spec.js`  (Ayarlar › Kuruluş)
+
+- sayfa "Organization" başlığı + Company Information formu ile açılıyor  `@smoke`
+- form alanları render ediliyor (Company name/Website/Domain + Save)  `@critical`
+- L1: Save changes formda değişiklik olunca aktifleşiyor (dirty)  `@regression`
+- L2: sayfa açılınca `GET /settings/organization` çekiliyor + form dolu  `@regression`
+- L1: Currency combobox seçenekleri listeliyor  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + bölüm + Save çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok (allowlist dışı)  `@clean`
+- kuruluş ucu 500 → kabuk sağlam  `@errorpath`
+- Currency popover Escape ile kapanıyor  `@keyboard`
+- `/settings/organization` doğrudan açılıyor  `@deeplink`
+- Company Information formu görünümü değişmedi (gece)  `@visual`
+
+### `settings-organization-mutations.authed.spec.js`  (yalnız staging tenant)
+
+- L3: Website değiştir → Save (`PATCH/PUT /settings/organization`) → kalıcı → eski değere geri al  `@regression` `@mutation`
+
+### `settings-users.authed.spec.js`  (Ayarlar › Kullanıcılar ve Roller)
+
+- sayfa "Users & Roles" başlığı + üye tablosu ile açılıyor  `@smoke`
+- tablo beklenen kolonları + en az bir üye satırı gösteriyor  `@critical`
+- L1+L3: ada göre arama eşleşen üyeyi süzüyor  `@regression`
+- L1: Invite User dialogu açılıyor (Email/Role/Team + Send disabled)  `@regression`
+- L3 (kalıcı davet) N/A: prod salt-okunur — staging lane'ine bırakıldı  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + kolonlar + Invite + dialog çevrili  `@i18n`
+- 🐞 davet dialogu "Close" butonu çevrilmiyor (Kapat değil)  `@i18n` `@known-bug` (test.fail)
+- sayfada + davet dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok (allowlist dışı)  `@clean`
+- kullanıcı listesi 500 → kabuk sağlam  `@errorpath`
+- davet dialogu odak tuzağı + Escape ile kapanma  `@keyboard`
+- `/settings/users` doğrudan açılıyor  `@deeplink`
+- davet dialogu görünümü değişmedi (gece)  `@visual`
+- L3 davet mutasyonu → `known-bugs-invite.mutation.authed.spec.js` (staging)  `@mutation`
+
+### `settings-roles.authed.spec.js`  (Ayarlar › Rol Yönetimi)
+
+- sayfa "Role Management" başlığı + rol tablosu ile açılıyor  `@smoke`
+- tablo kolonları + sistem rolleri (ADMIN/AGENT/OWNER…) görünüyor  `@critical`
+- L1: sistem rolünde Edit/Reset var, Delete DISABLED (silinemez)  `@regression`
+- L1: Create Role dialogu açılıyor (Ad/Açıklama + izin kategorileri + Save)  `@regression`
+- UI rol satırı sayısı `/roles` yanıtındaki rol sayısıyla eşleşiyor  `@data`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + kolonlar + Create + dialog çevrili  `@i18n`
+- 🐞 Create Role dialogu "Close" butonu çevrilmiyor  `@i18n` `@known-bug` (test.fail)
+- sayfada + Create dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok  `@clean`
+- roller ucu 500 → kabuk sağlam  `@errorpath`
+- Create Role dialogu odak tuzağı + Escape ile kapanma  `@keyboard`
+- `/settings/roles` doğrudan açılıyor  `@deeplink`
+- (görsel N/A: canlı sayaç + uzun kaydırmalı dialog → flaky)
+
+### `settings-roles-mutations.authed.spec.js`  (yalnız staging tenant)
+
+- L3: custom rol oluştur (`POST /roles`) → listede görün → sil (`DELETE /roles/{id}`)  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

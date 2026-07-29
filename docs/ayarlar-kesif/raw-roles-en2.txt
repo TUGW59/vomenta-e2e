@@ -1,0 +1,4 @@
+EN h="Role Management" sub="Create and manage user roles with granular permissions" cols=[]
+ADMIN row: "ADMIN—106 permissionsYes2"
+DIALOG title="Create Role" buttons=["General0/2","Voice0/19","Channels0/9","AI0/9","CRM & Contacts0/14","Tickets0/6","Campaigns0/7","Reports & Analytics0/6","Supervisor0/7","Workforce Management0/5","Compliance0/4","Settings0/19","Billing0/3","Reseller0/3","Cancel","Save","Close"]
+CATS: ["General0/2","Voice0/19","Channels0/9","AI0/9","CRM & Contacts0/14","Tickets0/6","Campaigns0/7","Reports & Analytics0/6","Supervisor0/7","Workforce Management0/5","Compliance0/4","Settings0/19","Billing0/3","Reseller0/3"]

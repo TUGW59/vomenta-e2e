@@ -11,6 +11,10 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
+| `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 
 ## Rota düzeyi baseline kanıtı
 
@@ -36,6 +40,10 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
+- **settings-organization**: `/settings/organization`
+- **settings-profile**: `/settings/profile`
+- **settings-roles**: `/settings/roles`
+- **settings-users**: `/settings/users`
 
 ## N/A beyanları (gerekçeli)
 
@@ -43,3 +51,15 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `reports-sections` **@export**: Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).
+- `settings-organization` **@perf**: Grafik/ağır içerik yok (statik şirket-bilgisi formu).
+- `settings-organization` **@data**: Sayısal KPI göstermiyor (form alanları).
+- `settings-organization` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-profile` **@perf**: Grafik/ağır içerik yok (statik profil formu + oturum tablosu).
+- `settings-profile` **@data**: Sayısal KPI göstermiyor (form alanları + oturum listesi).
+- `settings-profile` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-roles` **@perf**: Grafik/ağır içerik yok (rol tablosu + create dialogu).
+- `settings-roles` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-roles` **@visual**: Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.
+- `settings-users` **@perf**: Grafik/ağır içerik yok (üye tablosu + davet dialogu).
+- `settings-users` **@data**: Sayısal KPI göstermiyor (üye listesi; sayaç yok).
+- `settings-users` **@export**: Bu sayfada export/indirme kontrolü yok.

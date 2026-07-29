@@ -89,4 +89,97 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).',
     },
   },
+  {
+    id: 'settings-profile',
+    routes: ['/settings/profile'],
+    specFiles: [
+      'settings-profile.authed.spec.js',
+      'settings-profile-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (statik profil formu + oturum tablosu).',
+      '@data': 'Sayısal KPI göstermiyor (form alanları + oturum listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
+  {
+    id: 'settings-organization',
+    routes: ['/settings/organization'],
+    specFiles: [
+      'settings-organization.authed.spec.js',
+      'settings-organization-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (statik şirket-bilgisi formu).',
+      '@data': 'Sayısal KPI göstermiyor (form alanları).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
+  {
+    id: 'settings-users',
+    routes: ['/settings/users'],
+    specFiles: [
+      'settings-users.authed.spec.js',
+      // Invite (davet) L3 mutasyonu = aynı davet akışı; staging revoke ucu teyidi bekliyor.
+      'known-bugs-invite.mutation.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (üye tablosu + davet dialogu).',
+      '@data': 'Sayısal KPI göstermiyor (üye listesi; sayaç yok).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
+  {
+    id: 'settings-roles',
+    routes: ['/settings/roles'],
+    specFiles: [
+      'settings-roles.authed.spec.js',
+      'settings-roles-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: true,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (rol tablosu + create dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.',
+    },
+  },
 ]);

@@ -1,0 +1,90 @@
+
+===== en dir=ltr heading="Organization" =====
+- main:
+  - heading "Organization" [level=1]
+  - paragraph: Manage your company details and preferences
+  - text: Company Information Update your company details visible across the platform
+
+===== tr dir=ltr heading="Kuruluş" =====
+- main:
+  - heading "Kuruluş" [level=1]
+  - paragraph: Şirket bilgilerinizi ve tercihlerinizi yönetin
+  - text: Şirket Bilgileri Platform genelinde görünen şirket bilgilerinizi güncelleyin Şirket adı *
+  - textbox "Şirket adı *": Arda Company
+  - text: Alan Adı
+  - textbox "Alan Adı":
+    - /placeholder: acme.com
+  - text: Web sitesi
+  - textbox "Web sitesi":
+    - /placeholder: https://example.com
+  - text: Logo URL'si
+  - textbox "Logo URL'si":
+    - /placeholder: https://cdn.example.com/logo.png
+  - text: Şirket logosu önizlemesi
+  - img
+  - paragraph: Yukarıya bir URL girin veya CDN'nize yükleyin
+  - text: Saat dilimi
+  - combobox: UTC
+  - text: Dil
+  - combobox: English
+  - text: Para birimi
+  - combobox: USD ($)
+  - text: Varsayılan ülke
+  - combobox: United States
+  - button "Değişiklikleri kaydet" [disabled]
+
+===== fr dir=ltr heading="Organisation" =====
+- main:
+  - heading "Organisation" [level=1]
+  - paragraph: Gérez les détails et préférences de votre entreprise
+  - text: Informations de l'entreprise Mettez à jour les détails de votre entreprise visibles sur la plateforme Nom de l'entreprise *
+  - textbox "Nom de l'entreprise *": Arda Company
+  - text: Domaine
+  - textbox "Domaine":
+    - /placeholder: acme.com
+  - text: Site web
+  - textbox "Site web":
+    - /placeholder: https://example.com
+  - text: URL du logo
+  - textbox "URL du logo":
+    - /placeholder: https://cdn.example.com/logo.png
+  - text: Aperçu du logo de l'entreprise
+  - img
+  - paragraph: Saisissez une URL ci-dessus ou téléchargez vers votre CDN
+  - text: Fuseau horaire
+  - combobox: UTC
+  - text: Langue
+  - combobox: English
+  - text: Devise
+  - combobox: USD ($)
+  - text: Pays par défaut
+  - combobox: United States
+  - button "Enregistrer les modifications" [disabled]
+
+===== ar dir=rtl heading="المؤسسة" =====
+- main:
+  - heading "المؤسسة" [level=1]
+  - paragraph: إدارة تفاصيل شركتك وتفضيلاتها
+  - text: معلومات الشركة تحديث تفاصيل شركتك الظاهرة عبر المنصة اسم الشركة *
+  - textbox "اسم الشركة *": Arda Company
+  - text: النطاق
+  - textbox "النطاق":
+    - /placeholder: acme.com
+  - text: الموقع الإلكتروني
+  - textbox "الموقع الإلكتروني":
+    - /placeholder: https://example.com
+  - text: رابط الشعار
+  - textbox "رابط الشعار":
+    - /placeholder: https://cdn.example.com/logo.png
+  - text: معاينة شعار الشركة
+  - img
+  - paragraph: أدخل رابطاً أعلاه أو ارفع إلى CDN
+  - text: المنطقة الزمنية
+  - combobox: UTC
+  - text: اللغة
+  - combobox: English
+  - text: العملة
+  - combobox: USD ($)
+  - text: البلد الافتراضي
+  - combobox: United States
+  - button "حفظ التغييرات" [disabled]

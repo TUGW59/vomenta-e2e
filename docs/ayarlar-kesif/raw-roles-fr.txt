@@ -1,0 +1,26 @@
+fr h="Gestion des rôles" sub="Créez et gérez les rôles utilisateurs avec des autorisations granulaires" cols=["Nom","Description","Autorisations","Système","Utilisateurs","Actions"]
+DIALOG: - dialog "Créer un rôle":
+  - heading "Créer un rôle" [level=2]
+  - paragraph: Configurez le nom, la description et les autorisations du rôle
+  - text: Nom du rôle
+  - textbox "Nom du rôle"
+  - text: Description
+  - textbox "Description"
+  - text: Autorisations 0 sélectionné(s)
+  - heading "Général 0/2" [level=3]:
+    - button "Général 0/2":
+      - text: Général 0/2
+      - img
+  - heading "Voix 0/19" [level=3]:
+    - button "Voix 0/19":
+      - text: Voix 0/19
+      - img
+  - heading "Canaux 0/9" [level=3]:
+    - button "Canaux 0/9":
+      - text: Canaux 0/9
+      - img
+  - heading "IA 0/9" [level=3]:
+    - button "IA 0/9":
+      - text: IA 0/9
+      - img
+  - heading "CRM et Contacts 0/14

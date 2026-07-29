@@ -1,0 +1,144 @@
+
+===== tr dir=ltr h="Rol Yönetimi" sub="Ayrıntılı izinlerle kullanıcı rollerini oluşturun ve yönetin" cols=["Ad","Açıklama","İzinler","Sistem","Kullanıcılar","İşlemler"] =====
+CREATE DIALOG:
+- dialog "Rol Oluştur":
+  - heading "Rol Oluştur" [level=2]
+  - paragraph: Rol adı, açıklaması ve izinlerini yapılandırın
+  - text: Rol Adı
+  - textbox "Rol Adı"
+  - text: Açıklama
+  - textbox "Açıklama"
+  - text: İzinler 0 seçildi
+  - heading "Genel 0/2" [level=3]:
+    - button "Genel 0/2":
+      - text: Genel 0/2
+      - img
+  - heading "Sesli 0/19" [level=3]:
+    - button "Sesli 0/19":
+      - text: Sesli 0/19
+      - img
+  - heading "Kanallar 0/9" [level=3]:
+    - button "Kanallar 0/9":
+      - text: Kanallar 0/9
+      - img
+  - heading "Yapay Zeka 0/9" [level=3]:
+    - button "Yapay Zeka 0/9":
+      - text: Yapay Zeka 0/9
+      - img
+  - heading "CRM ve Kişiler 0/14" [level=3]:
+    - button "CRM ve Kişiler 0/14":
+      - text: CRM ve Kişiler 0/14
+      - img
+  - heading "Talepler 0/6" [level=3]:
+    - button "Talepler 0/6":
+      - text: Talepler 0/6
+      - img
+  - heading "Kampanyalar 0/7" [level=3]:
+    - button "Kampanyalar 0/7":
+      - text: Kampanyalar 0/7
+      - img
+  - heading "Raporlar ve Analitik 0/6" [level=3]:
+    - button "Raporlar ve Analitik 0/6":
+      - text: Raporlar ve Analitik 0/6
+      - img
+  - heading "Süpervizör 0/7" [level=3]:
+    - button "Süpervizör 0/7":
+      - text: Süpervizör 0/7
+      - img
+  - heading "İş Gücü Yönetimi 0/5" [level=3]:
+    - button "İş Gücü Yönetimi 0/5":
+      - text: İş Gücü Yönetimi 0/5
+      - img
+  - heading "Uyumluluk 0/4" [level=3]:
+    - button "Uyumluluk 0/4":
+      - text: Uyumluluk 0/4
+      - img
+  - heading "Ayarlar 0/19" [level=3]:
+    - button "Ayarlar 0/19":
+      - text: Ayarlar 0/19
+      - img
+  - heading "Faturalandırma 0/3" [level=3]:
+    - button "Faturalandırma 0/3":
+      - text: Faturalandırma 0/3
+      - img
+  - heading "Bayi 0/3" [level=3]:
+    - button "Bayi 0/3":
+      - text: Bayi 0/3
+      - img
+  - button "İptal"
+  - button "Kaydet"
+  - button "Close":
+    - img
+    - text: Close
+
+===== ar dir=rtl h="إدارة الأدوار" sub="إنشاء أدوار المستخدمين وإدارتها مع صلاحيات دقيقة" cols=["الاسم","الوصف","الصلاحيات","النظام","المستخدمون","الإجراءات"] =====
+CREATE DIALOG:
+- dialog "إنشاء دور":
+  - heading "إنشاء دور" [level=2]
+  - paragraph: تكوين اسم الدور والوصف والصلاحيات
+  - text: اسم الدور
+  - textbox "اسم الدور"
+  - text: الوصف
+  - textbox "الوصف"
+  - text: الصلاحيات 0 محدد
+  - heading "عام 0/2" [level=3]:
+    - button "عام 0/2":
+      - text: عام 0/2
+      - img
+  - heading "صوت 0/19" [level=3]:
+    - button "صوت 0/19":
+      - text: صوت 0/19
+      - img
+  - heading "القنوات 0/9" [level=3]:
+    - button "القنوات 0/9":
+      - text: القنوات 0/9
+      - img
+  - heading "الذكاء الاصطناعي 0/9" [level=3]:
+    - button "الذكاء الاصطناعي 0/9":
+      - text: الذكاء الاصطناعي 0/9
+      - img
+  - heading "إدارة العملاء وجهات الاتصال 0/14" [level=3]:
+    - button "إدارة العملاء وجهات الاتصال 0/14":
+      - text: إدارة العملاء وجهات الاتصال 0/14
+      - img
+  - heading "التذاكر 0/6" [level=3]:
+    - button "التذاكر 0/6":
+      - text: التذاكر 0/6
+      - img
+  - heading "الحملات 0/7" [level=3]:
+    - button "الحملات 0/7":
+      - text: الحملات 0/7
+      - img
+  - heading "التقارير والتحليلات 0/6" [level=3]:
+    - button "التقارير والتحليلات 0/6":
+      - text: التقارير والتحليلات 0/6
+      - img
+  - heading "المشرف 0/7" [level=3]:
+    - button "المشرف 0/7":
+      - text: المشرف 0/7
+      - img
+  - heading "إدارة القوى العاملة 0/5" [level=3]:
+    - button "إدارة القوى العاملة 0/5":
+      - text: إدارة القوى العاملة 0/5
+      - img
+  - heading "الامتثال 0/4" [level=3]:
+    - button "الامتثال 0/4":
+      - text: الامتثال 0/4
+      - img
+  - heading "الإعدادات 0/19" [level=3]:
+    - button "الإعدادات 0/19":
+      - text: الإعدادات 0/19
+      - img
+  - heading "الفوترة 0/3" [level=3]:
+    - button "الفوترة 0/3":
+      - text: الفوترة 0/3
+      - img
+  - heading "الموزع 0/3" [level=3]:
+    - button "الموزع 0/3":
+      - text: الموزع 0/3
+      - img
+  - button "إلغاء"
+  - button "حفظ"
+  - button "Close":
+    - img
+    - text: Close
