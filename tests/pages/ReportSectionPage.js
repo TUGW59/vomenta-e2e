@@ -48,6 +48,8 @@ export class ReportSectionPage extends BasePage {
     return `/api/v1/reports/${key}/insights`;
   }
 
+  static SCHEDULED_API = '/api/v1/reports/scheduled';
+
   /**
    * @param {import('@playwright/test').Page} page
    * @param {string} key - SECTIONS anahtarı (ör. 'call')
@@ -119,6 +121,49 @@ export class ReportSectionPage extends BasePage {
   /** Export menüsü öğesi (CSV/Excel/PDF). Önce exportButton tıklanır. */
   exportMenuItem(name) {
     return this.page.getByRole('menuitem', { name });
+  }
+
+  async openScheduleDialog() {
+    await this.scheduleButton.click();
+    const dialog = this.page.getByRole('dialog');
+    await expect(
+      dialog.getByRole('heading', { name: /Schedule This Report/i })
+    ).toBeVisible({ timeout: 8000 });
+    return dialog;
+  }
+
+  /**
+   * Rapor schedule'ını UI üzerinden gerçekten oluşturur.
+   * Güvenli mutation testi 23:55'i seçer; kayıt doğrulandıktan hemen sonra silinir.
+   * @param {{name: string, recipient: string}} input
+   */
+  async createScheduledReport({ name, recipient }) {
+    const dialog = await this.openScheduleDialog();
+    await dialog.getByPlaceholder(/Weekly Agent Performance Report/i).fill(name);
+    await dialog.getByRole('button', { name: 'Daily', exact: true }).click();
+
+    const timeCombos = dialog.getByRole('combobox');
+    await timeCombos.nth(0).click();
+    await this.page.getByRole('option', { name: '23', exact: true }).click();
+    await timeCombos.nth(1).click();
+    await this.page.getByRole('option', { name: '55', exact: true }).click();
+
+    await dialog
+      .getByPlaceholder(/team@company\.com, manager@company\.com/i)
+      .fill(recipient);
+
+    const created = this.page.waitForResponse(
+      (response) =>
+        new URL(response.url()).pathname === ReportSectionPage.SCHEDULED_API &&
+        response.request().method() === 'POST',
+      { timeout: 15000 }
+    );
+    await dialog
+      .getByRole('button', { name: 'Schedule This Report', exact: true })
+      .click();
+    const response = await created;
+    await expect(dialog).toBeHidden({ timeout: 10000 });
+    return response;
   }
 
   // languageTrigger()/switchLanguage() BasePage'den miras alınır.

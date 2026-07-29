@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-29T08:55:21.913Z",
+  "routes": {
+    "/": {
+      "ariaStructureHash": "7a5f15bcd37933091d7e5936664994e3cd2a3779b2c8b15e1d1a733ee5614a2f",
+      "endpoints": []
+    },
+    "/ai": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/analytics": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/bot-builder": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/campaigns": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/campaigns/outbound": {
+      "ariaStructureHash": "f3b83e54cda6d4c43e06fc8c9580934b1b342f9944cecee1290aac8c89501998",
+      "endpoints": []
+    },
+    "/channels": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/channels/sms": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/contacts": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/inbox": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/analytics/agents/utilization?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/calls?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/overview?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/queues/sla?<redacted>",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/reports/dashboard?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live"
+      ]
+    },
+    "/reports": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/reports/agent": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/ai": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/billing": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/call": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/campaign": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/channel": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/csat": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/dashboards": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/quality": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/queue": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/reports/sla": {
+      "ariaStructureHash": "699453123ced62571272a6a5308a295f22184612ebc141e71de392db27dd6dc7",
+      "endpoints": []
+    },
+    "/settings": {
+      "ariaStructureHash": "9dbb8eab1caab67bd6a4de0cceb80dd039b4312dac9dfa5dcdd0b52e45e9f21c",
+      "endpoints": []
+    },
+    "/settings/organization": {
+      "ariaStructureHash": "5ee68339ca62499a69601c86dbe10714fcf11381b17a9d958a133bc96e8802ef",
+      "endpoints": []
+    },
+    "/settings/profile": {
+      "ariaStructureHash": "1e352e66978716696bf7624f4a9d56b6cf9e0489f458b5843f27941628ca29c2",
+      "endpoints": []
+    },
+    "/supervisor": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/tickets": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/voice": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    },
+    "/workforce": {
+      "ariaStructureHash": "0218dcfeeda1826d061be7066f5236252f909b3b4d2b63de3c3bf197b4a76b5c",
+      "endpoints": []
+    }
+  }
+}

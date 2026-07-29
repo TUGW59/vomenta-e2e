@@ -76,7 +76,7 @@ test.describe('Vomenta - Giriş sayfası', () => {
   test('görsel: giriş sayfası anlık görüntüsü değişmedi @visual', async ({ page }) => {
     // Görsel baseline'lar işletim sistemine bağlı; yerelde (macOS) üretilenler CI'daki
     // Linux ile eşleşmez. CI için ayrı baseline üretilene kadar CI'da atlanır.
-    test.skip(environment.isCI, 'Görsel baseline yerelde üretildi; CI (Linux) için ayrı baseline gerekir');
+    test.skip(!environment.runVisualTests, 'Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı.');
     await expect(page).toHaveScreenshot('login-page.png', {
       fullPage: true,
       maxDiffPixels: 150,

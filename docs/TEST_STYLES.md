@@ -124,4 +124,16 @@ erişim gerekir; eldeki Sigma MCP (finans/telekom/CRM) farklı bir sistemdir. Pr
 | Koşan stiller | @smoke @i18n @a11y @layout @clean @deeplink @errorpath @keyboard + 3-katman | + @visual @perf @data (+ cross-browser) |
 | Sert kapı | `quality:styles` (varlık/beyan; deterministik) + `validate-architecture` (etiket→primitif) | full-regression |
 
-Sert kapı **varlığı** dayatır, canlı koşumu değil → oynak stiller PR'ı kırmaz.
+Statik sert kapı varlık/beyanı dayatır; buna ek olarak ana rota baseline'ı PR'da
+canlı ve salt-okunur çalışır. Oynak `@visual/@perf/@data` stilleri gece lane'indedir.
+
+## Rota düzeyi kaçış kapıları
+
+- `MAIN_NAVIGATION` içindeki her rota `tested-pages.js` içinde kayıtlı olmalıdır.
+- `quality-baseline.authed.spec.js`, her ana rota için `[route:<path>]` işaretiyle
+  baseline stil kanıtı üretir. Etiketler rota bazında hesaplanır; dosya toplamı
+  başka bir rotayı kapsanmış gösteremez.
+- Salt-okunur crawler'ın ulaştığı kayıtsız rota discovery lane'ini kırar. Bu kapı,
+  menü sözleşmesinde bulunmayan alt/dinamik rotaları yakalar.
+- PR'da rota baseline'ı Chromium ile `retries=0 --workers=1` çalışır.
+- `@visual`, macOS nightly lane'inde `RUN_VISUAL_TESTS=true` ile gerçekten çalışır.

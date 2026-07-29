@@ -59,6 +59,9 @@ npm run test:report
 
 # Mimari kurallar + tüm testlerin yüklenmesi
 npm run quality:check
+
+# Salt-okunur otomatik rota ön-taraması + kapsam radarı
+npm run test:discovery
 ```
 
 Tek bir dosya veya test de çalıştırılabilir:
@@ -76,6 +79,7 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 - `tests/contracts/`: ürünün görünür navigasyon gibi test sözleşmeleri.
 - `tests/data/`: paralel çalışmaya uygun benzersiz veri fabrikaları.
 - `tests/api/`: veri hazırlama/temizleme için korumalı API erişimi.
+- `tests/discovery/`: non-GET kilitli BFS ön-taraması, sensörler ve maskelenmiş raporlar.
 - `tests/*.spec.js`: yalnızca kullanıcı davranışını anlatan senaryolar.
 - `.github/workflows/playwright.yml`: PR smoke, main critical ve gece regresyonu.
 

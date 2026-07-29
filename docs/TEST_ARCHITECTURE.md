@@ -151,6 +151,23 @@ Test başarısız olduğunda değerleri maskelenmiş `runtime-diagnostics.json` 
 eklenir. Playwright trace, ekran görüntüsü ve video ile birlikte ilk inceleme için
 gerekli kanıt tek çalıştırmada üretilir.
 
+## Salt-okunur otomatik keşif
+
+`npm run test:discovery`, ana navigasyon ve sayfa içi aynı-origin linklerden
+başlayarak rotaları BFS ile ön-tarar. Ayrı `chromium-discovery` projesinde çalışır;
+normal smoke/critical/regression lane'lerine dahil değildir.
+
+Crawler hiçbir UI kontrolüne tıklamaz ve GET/HEAD/OPTIONS dışındaki istekleri
+sunucuya ulaşmadan keser. Her sayfada hata/ağ zamanı, axe, taşma, frame/shadow-root,
+maskelenmiş kontrol envanteri ve yapısal ARIA imzası toplar; rotaları
+`tested-pages.js` ile karşılaştırır. Raporlar `test-results/` altında JSON ve
+Markdown olarak test ekine yazılır.
+
+Bu otomasyon keşif kapanışı değildir. Seçim, hover/focus, menü, dialog/drawer,
+boş/loading/error/yetkisiz, dört dil ve responsive durumlar AGENTS.md'deki
+`Keşif kapanış matrisi` standardıyla sayfaya özgü tamamlanır. Güvenlik ve karar
+gerekçesi: `docs/adr/0003-read-only-discovery-crawler.md`.
+
 ## CI kalite kapıları
 
 - Pull request: public Chromium smoke.
