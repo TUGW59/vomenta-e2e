@@ -505,6 +505,24 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: ekip oluştur → görün → sil — Edit dialogunda Delete yok; staging silme ucu teyidi bekliyor  `@regression` `@mutation`
 
+### `settings-hours.authed.spec.js`  (Ayarlar › Çalışma Saatleri)
+
+- sayfa başlığı + haftalık program + Save changes ile açılıyor  `@smoke`
+- 7 günlük Open switch; Pzt-Cum açık, Cmt/Paz kapalı  `@critical`
+- Holiday Calendar + Add (boşken disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Save/Add çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok  `@clean`
+- business-hours ucu 500 → kabuk sağlam  `@errorpath`
+- Timezone combobox açılıp Escape ile kapanıyor  `@keyboard`
+- `/settings/hours` doğrudan açılıyor  `@deeplink`
+- haftalık program görünümü değişmedi (gece)  `@visual`
+
+### `settings-hours-mutations.authed.spec.js`  (yalnız staging tenant)
+
+- L3: Cumartesi Open switch toggle → Save → kalıcı → geri al (reversible, zero-orphan)  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

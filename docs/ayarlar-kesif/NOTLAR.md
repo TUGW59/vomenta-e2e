@@ -133,7 +133,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 4 | Roles | `/settings/roles` | ✅ **TAMAM** (settings-roles) |
 | 5 | Compliance | `/settings/compliance` | ✅ **TAMAM** (settings-compliance) |
 | 6 | Teams | `/settings/teams` | ✅ **TAMAM** (settings-teams) |
-| 7 | Business Hours | `/settings/hours` | ⬜ |
+| 7 | Business Hours | `/settings/hours` | ✅ **TAMAM** (settings-hours) |
 | 8 | Automations | `/settings/automations` | ⬜ |
 | 9 | SLA Policies | `/settings/sla` | ⬜ |
 | 10 | Templates | `/settings/templates` | ⬜ |
@@ -206,6 +206,14 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU (sistemik):** Create Team dialogu **"Close" (X)** 4 dilde İngilizce → `@i18n @known-bug`.
 - **🐞 İÇERİK BULGUSU:** Kart ikon butonunun açtığı dialog başlığı "**Edit Team name**" ama açıklaması yanlışlıkla **create metnini** ("Add a new team to organize your agents.") gösteriyor (edit modunda create açıklaması). Düşük önem; NOTLAR'da izlenir. Ayrıca kart ikon butonu **aria-label taşımıyor** (button-name borcu).
 - **Mutasyon:** Edit dialogunda **Delete YOK** → UI'da zero-orphan silme yolu bulunamadı → `settings-teams-mutations` **test.fixme** (staging silme ucu teyidi bekliyor). Read-only spec create dialogu yalnız AÇAR + disabled doğrular.
+
+## Çalışma Saatleri detayı (`/settings/hours`)
+
+- **Başlık:** "Business Hours" + alt başlık "Configure working hours and holidays". Sekme YOK; tek config form.
+- **Bölümler:** (1) **Schedule Timezone** combobox (UTC); (2) **Weekly Schedule** — 7 gün satırı (Day/Open switch/Start/End); Pzt-Cum **checked** (09:00-17:00), Cmt/Paz kapalı (input disabled); (3) **Holiday Calendar** — Date + Holiday name + **Add** (boşken disabled) + "No holidays configured"; (4) **After Hours Mode** switch; (5) **Save changes**.
+- **4 dil:** başlık/alt başlık/Save/Add tam çevrili (Business Hours/Çalışma Saatleri/Heures de travail/ساعات العمل); ar RTL; taşma yok. (Bölüm başlıkları EN'de doğrulandı; i18n testi başlık+alt başlık+Save+Add üzerinden.)
+- **Mutasyon (geri-döndürülebilir, zero-orphan):** staging'de Cumartesi Open switch toggle → Save → kalıcılık doğrula → geri al. Yeni kayıt üretmez. `settings-hours-mutations.authed.spec.js`.
+- **Görsel:** haftalık program tablosu kararlı (sabit 09:00-17:00) → snapshot alındı.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

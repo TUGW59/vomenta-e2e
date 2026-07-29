@@ -1,0 +1,48 @@
+BTNS: ["Add","Save changes"]
+
+SNAPSHOT:
+- main:
+  - heading "Business Hours" [level=1]
+  - paragraph: Configure working hours and holidays
+  - img
+  - text: Schedule Timezone All business hours are evaluated in this timezone
+  - combobox: UTC
+  - text: Weekly Schedule Set your operating hours for each day of the week Day Open Start End Monday
+  - switch [checked]
+  - textbox: 09:00
+  - textbox: 17:00
+  - text: Tuesday
+  - switch [checked]
+  - textbox: 09:00
+  - textbox: 17:00
+  - text: Wednesday
+  - switch [checked]
+  - textbox: 09:00
+  - textbox: 17:00
+  - text: Thursday
+  - switch [checked]
+  - textbox: 09:00
+  - textbox: 17:00
+  - text: Friday
+  - switch [checked]
+  - textbox: 09:00
+  - textbox: 17:00
+  - text: Saturday
+  - switch
+  - textbox [disabled]: 09:00
+  - textbox [disabled]: 17:00
+  - text: Sunday
+  - switch
+  - textbox [disabled]: 09:00
+  - textbox [disabled]: 17:00
+  - text: Holiday Calendar Add dates when your contact center will be closed Date
+  - textbox
+  - text: Holiday name
+  - textbox "e.g., Company Holiday"
+  - button "Add" [disabled]:
+    - img
+    - text: Add
+  - paragraph: No holidays configured
+  - text: After Hours Mode Configure what happens when customers reach you outside business hours
+  - switch
+  - button "Save changes"
