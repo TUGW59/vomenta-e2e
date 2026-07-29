@@ -62,6 +62,9 @@ npm run quality:check
 
 # Salt-okunur otomatik rota ön-taraması + kapsam radarı
 npm run test:discovery
+
+# Onaylı yapısal ARIA + endpoint fingerprint baseline'ını bilinçli yenileme
+npm run test:discovery:update-baseline
 ```
 
 Tek bir dosya veya test de çalıştırılabilir:

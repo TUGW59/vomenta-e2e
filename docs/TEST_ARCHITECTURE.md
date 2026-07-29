@@ -163,6 +163,13 @@ maskelenmiş kontrol envanteri ve yapısal ARIA imzası toplar; rotaları
 `tested-pages.js` ile karşılaştırır. Raporlar `test-results/` altında JSON ve
 Markdown olarak test ekine yazılır.
 
+Commit edilen `tests/contracts/discovery-baseline.json`, ham metin/gövde yerine
+normalize edilmiş ARIA yapı hash'i ve maskelenmiş fetch/XHR endpoint kümesi tutar.
+Her normal koşu rota ekleme/kaybı, ARIA yapı değişimi ve endpoint envanteri diff'i
+üretir. Bilinçli ürün değişikliğinde baseline
+`npm run test:discovery:update-baseline` ile yenilenir ve diff kod incelemesinde
+görülür.
+
 Bu otomasyon keşif kapanışı değildir. Seçim, hover/focus, menü, dialog/drawer,
 boş/loading/error/yetkisiz, dört dil ve responsive durumlar AGENTS.md'deki
 `Keşif kapanış matrisi` standardıyla sayfaya özgü tamamlanır. Güvenlik ve karar

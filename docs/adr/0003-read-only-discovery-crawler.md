@@ -28,6 +28,8 @@ tenant verisi içerebilir. Bu nedenle güvenli varsayılan olamaz.
 - yatay taşma, ciddi/kritik axe bulguları, iframe/shadow-root, görünür kontrol
   envanteri ve yapısal ARIA imzası raporlanır;
 - bulunan rotalar `tested-pages.js` ile karşılaştırılır;
+- normalize edilmiş ARIA yapı hash'i ve maskelenmiş fetch/XHR endpoint kümesi
+  commit edilen baseline ile karşılaştırılır;
 - JSON ve Markdown raporlar yalnız `test-results/` altında üretilir.
 
 Crawler **“keşif tamamlandı” iddiasında bulunmaz**. AGENTS.md'deki seçim, hover,
@@ -53,6 +55,11 @@ Ham header, cookie, request/response body, HAR ve ham ARIA snapshot kaydedilmez.
 Query değerleri, e-posta, telefon, bearer token ve kimlik benzeri path parçaları
 maskelenir. Kontrol adları yalnız küçük bir sabit UI eylem allowlist'inde açık
 tutulur; diğerleri `<redacted-name>` olur.
+
+Baseline yalnız fingerprint taşır. Canlı satır sayısı gürültü üretmesin diye ARIA
+yapısı benzersiz, normalize edilmiş rol/hiyerarşi satırlarına indirgenir. Ağ
+fingerprint'i yalnız isteğin başladığı rotaya ait fetch/XHR method + maskelenmiş
+URL kümesini içerir.
 
 ## Sonuçlar
 
