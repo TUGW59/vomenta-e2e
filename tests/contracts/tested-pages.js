@@ -89,4 +89,29 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).',
     },
   },
+  {
+    id: 'campaigns-sender-ids',
+    routes: ['/campaigns/sender-ids'],
+    specFiles: [
+      'campaigns-sender-ids.authed.spec.js',
+      'campaigns-sender-ids.mutation.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,        // GET /api/v1/sender-ids → @errorpath
+      hasCharts: false,
+      hasNumericKpis: false, // KPI kartı yok, salt tablo → @data N/A
+      hasDialogs: true,     // Request Sender ID dialogu → @keyboard
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,      // POST /sender-ids (talep) → @mutation
+      // Ana içerik canlı, tenant'a özgü tablo + canlı Type combobox → marka-nötr,
+      // kararlı bir snapshot hedefi değil; ayrıca tam-sayfa görsel PII taşır (sidebar).
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yüklemiyor (tek liste tablosu).',
+      '@data': 'Sayısal KPI göstermiyor (durum bazlı liste tablosu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

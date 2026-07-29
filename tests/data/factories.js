@@ -58,6 +58,21 @@ export function buildUserInvite(overrides = {}) {
 }
 
 /**
+ * Gönderici Kimliği talebi (staging/@mutation akışı için).
+ * Alphanumeric sender ID en fazla 11 karakter olmalı → benzersiz ama kısa üretilir.
+ * Yalnız harf/rakam (alfanümerik kuralı). "PW" öneki + kısa benzersiz sonek.
+ */
+export function buildSenderId(overrides = {}) {
+  const suffix = uniqueSuffix().replace(/[^a-z0-9]/gi, '').toUpperCase().slice(0, 9);
+  return {
+    senderId: `PW${suffix}`.slice(0, 11),
+    senderType: 'ALPHANUMERIC',
+    purpose: `Playwright automation ${suffix}`,
+    ...overrides,
+  };
+}
+
+/**
  * Giden kampanya (staging/@mutation akışı için). Benzersiz ad → paralel güvenli.
  * `scheduledStart` bilinçle UZAK GELECEK: kampanya hemen arama başlatmasın.
  */

@@ -1,0 +1,177 @@
+- link "Skip to main content":
+  - /url: "#main-content"
+- complementary "Main sidebar":
+  - img "Vomenta"
+  - navigation "Navigation":
+    - paragraph: Overview
+    - link "Dashboard":
+      - /url: /
+      - img
+      - text: Dashboard
+    - link "Inbox":
+      - /url: /inbox
+      - img
+      - text: Inbox
+    - paragraph: Channels
+    - link "Voice":
+      - /url: /voice
+      - img
+      - text: Voice
+    - img
+    - link "Channels":
+      - /url: /channels
+      - img
+      - text: Channels
+    - img
+    - link "AI":
+      - /url: /ai
+      - img
+      - text: AI
+    - img
+    - paragraph: Engagement
+    - link "Campaigns":
+      - /url: /campaigns
+      - img
+      - text: Campaigns
+    - img
+    - link "Outbound":
+      - /url: /campaigns/outbound
+      - img
+      - text: Outbound
+    - link "Templates":
+      - /url: /campaigns/templates
+      - img
+      - text: Templates
+    - link "Sender IDs":
+      - /url: /campaigns/sender-ids
+      - img
+      - text: Sender IDs
+    - link "DNC Lists":
+      - /url: /campaigns/dnc
+      - img
+      - text: DNC Lists
+    - link "Bot Builder":
+      - /url: /bot-builder
+      - img
+      - text: Bot Builder
+    - link "Contacts":
+      - /url: /contacts
+      - img
+      - text: Contacts
+    - img
+    - link "Tickets":
+      - /url: /tickets
+      - img
+      - text: Tickets
+    - paragraph: Operations
+    - link "Analytics":
+      - /url: /analytics
+      - img
+      - text: Analytics
+    - link "Reports":
+      - /url: /reports
+      - img
+      - text: Reports
+    - img
+    - link "Supervisor":
+      - /url: /supervisor
+      - img
+      - text: Supervisor
+    - img
+    - link "Workforce":
+      - /url: /workforce
+      - img
+      - text: Workforce
+    - img
+    - paragraph: Admin
+    - link "Settings":
+      - /url: /settings
+      - img
+      - text: Settings
+    - img
+  - button "Language":
+    - img
+    - text: 🇬🇧 English
+  - text: TT
+  - button "<redacted> Available":
+    - paragraph: <redacted>
+    - paragraph:
+      - text: Available
+      - img
+  - button "Collapse sidebar":
+    - img
+- banner:
+  - text: <redacted>
+  - img
+  - text: Dashboard
+  - img
+  - text: Campaigns
+  - img
+  - text: Sender IDs
+  - img
+  - text: 03:03 PM
+  - button "Search (⌘K)":
+    - img
+    - text: Search... ⌘ K
+  - button "Language":
+    - img
+  - button "Toggle theme":
+    - img
+    - img
+  - button "Notifications":
+    - img
+    - text: "4"
+  - button "User menu": TT
+- main:
+  - heading "Sender IDs" [level=1]
+  - paragraph: Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval.
+  - button "Request Sender ID":
+    - img
+    - text: Request Sender ID
+  - combobox: All Status
+  - table:
+    - rowgroup:
+      - row "Sender ID Type Status Purpose Requested By Review Note Created at Actions":
+        - columnheader "Sender ID"
+        - columnheader "Type"
+        - columnheader "Status"
+        - columnheader "Purpose"
+        - columnheader "Requested By"
+        - columnheader "Review Note"
+        - columnheader "Created at"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "<redacted> ALPHANUMERIC APPROVED fdsfds <redacted> — Jun 4, 2026":
+        - cell "<redacted>"
+        - cell "ALPHANUMERIC"
+        - cell "APPROVED"
+        - cell "fdsfds"
+        - cell "<redacted>"
+        - cell "—"
+        - cell "Jun 4, 2026"
+        - cell
+      - row "<redacted> ALPHANUMERIC APPROVED — <redacted> — Jun 4, 2026":
+        - cell "<redacted>"
+        - cell "ALPHANUMERIC"
+        - cell "APPROVED"
+        - cell "—"
+        - cell "<redacted>"
+        - cell "—"
+        - cell "Jun 4, 2026"
+        - cell
+      - row "<redacted> ALPHANUMERIC APPROVED — <redacted> — Jun 2, 2026":
+        - cell "<redacted>"
+        - cell "ALPHANUMERIC"
+        - cell "APPROVED"
+        - cell "—"
+        - cell "<redacted>"
+        - cell "—"
+        - cell "Jun 2, 2026"
+        - cell
+- button "Open softphone":
+  - img
+- button "Open AI assistant":
+  - img
+- region "Notifications (F8)":
+  - list
+- alert

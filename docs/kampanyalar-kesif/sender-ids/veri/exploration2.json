@@ -1,0 +1,200 @@
+{
+  "blockedWrites": [
+    {
+      "method": "POST",
+      "url": "https://api.vomenta.com/api/v1/sender-ids",
+      "body": "{\"senderId\":\"E2ETESTSID\",\"senderType\":\"ALPHANUMERIC\",\"purpose\":\"e2e discovery purpose\"}"
+    }
+  ],
+  "filter": {
+    "options": [
+      "All Status",
+      "Pending",
+      "Approved",
+      "Rejected",
+      "Docs Requested"
+    ],
+    "All Status": {
+      "rows": 3,
+      "newApiCalls": [],
+      "bodySample": "<redacted>\tALPHANUMERIC\tAPPROVED\tfdsfds\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 2, 2026\t"
+    },
+    "Pending": {
+      "rows": 1,
+      "newApiCalls": [
+        {
+          "method": "GET",
+          "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22PENDING%22%7D"
+        }
+      ],
+      "bodySample": "No sender IDs found"
+    },
+    "Approved": {
+      "rows": 3,
+      "newApiCalls": [
+        {
+          "method": "GET",
+          "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22APPROVED%22%7D"
+        }
+      ],
+      "bodySample": "<redacted>\tALPHANUMERIC\tAPPROVED\tfdsfds\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 2, 2026\t"
+    },
+    "Rejected": {
+      "rows": 1,
+      "newApiCalls": [
+        {
+          "method": "GET",
+          "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22REJECTED%22%7D"
+        }
+      ],
+      "bodySample": "No sender IDs found"
+    },
+    "Docs Requested": {
+      "rows": 1,
+      "newApiCalls": [
+        {
+          "method": "GET",
+          "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22DOCUMENTS_REQUESTED%22%7D"
+        }
+      ],
+      "bodySample": "No sender IDs found"
+    }
+  },
+  "dialog": {
+    "aria": "- dialog \"Request Sender ID\":\n  - heading \"Request Sender ID\" [level=2]\n  - paragraph: Submit a new Sender ID for approval. Approved IDs can be used in SMS campaigns.\n  - text: Sender ID *\n  - textbox \"e.g. MYCOMPANY\"\n  - paragraph: Alphanumeric (max 11 chars) or numeric\n  - text: Type\n  - combobox: Alphanumeric\n  - text: Purpose\n  - textbox \"Describe how this Sender ID will be used...\"\n  - text: Supporting Documents (optional)\n  - paragraph: Upload business registration, authorization letter, or other supporting documents. PDF, JPG, PNG, DOC (max 5MB each, up to 5 files).\n  - button \"Choose Files\":\n    - img\n    - text: Choose Files\n  - button \"Cancel\"\n  - button \"Submit Request\"\n  - button \"Close\":\n    - img\n    - text: Close",
+    "text": "Request Sender ID\n\nSubmit a new Sender ID for approval. Approved IDs can be used in SMS campaigns.\n\nSender ID *\n\nAlphanumeric (max 11 chars) or numeric\n\nType\nAlphanumeric\nPurpose\nSupporting Documents (optional)\n\nUpload business registration, authorization letter, or other supporting documents. PDF, JPG, PNG, DOC (max 5MB each, up to 5 files).\n\nChoose Files\nCancel\nSubmit Request\nClose",
+    "comboCount": 1,
+    "typeOptions": [
+      "Alphanumeric",
+      "Numeric",
+      "Shortcode"
+    ],
+    "submitName": "Submit Request",
+    "afterEmptySubmit": "Request Sender ID\n\nSubmit a new Sender ID for approval. Approved IDs can be used in SMS campaigns.\n\nSender ID *\n\nAlphanumeric (max 11 chars) or numeric\n\nType\nAlphanumeric\nPurpose\nSupporting Documents (optional)\n\nUpload business registration, authorization letter, or other supporting documents. PDF, JPG, PNG, DOC (max 5MB each, up to 5 files).\n\nChoose Files\nCancel\nSubmit Request\nClose",
+    "afterFilledSubmit": {
+      "blocked": [
+        {
+          "method": "POST",
+          "url": "https://api.vomenta.com/api/v1/sender-ids",
+          "body": "{\"senderId\":\"E2ETESTSID\",\"senderType\":\"ALPHANUMERIC\",\"purpose\":\"e2e discovery purpose\"}"
+        }
+      ],
+      "dialogStillOpen": false,
+      "toast": []
+    }
+  },
+  "langs": {
+    "tr": {
+      "dir": "ltr",
+      "lang": "tr",
+      "h1": "Gönderici Kimlikleri",
+      "mainText": "Gönderici Kimlikleri\n\nGiden kampanyalar için SMS Gönderici Kimliklerini yönetin. Yeni kimlikler platform yönetici onayı gerektirir.\n\nGönderici Kimliği Talep Et\nTüm Durumlar\nGönderici Kimliği\tTür\tDurum\tAmaç\tTalep Eden\tİnceleme Notu\tOluşturulma\tİşlemler\n<redacted>\tALPHANUMERIC\tAPPROVED\tfdsfds\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 2, 2026\t",
+      "combobox": "Tüm Durumlar",
+      "headers": [
+        "Gönderici Kimliği",
+        "Tür",
+        "Durum",
+        "Amaç",
+        "Talep Eden",
+        "İnceleme Notu",
+        "Oluşturulma",
+        "İşlemler"
+      ],
+      "dialogText": "Gönderici Kimliği Talep Et\n\nOnay için yeni bir Gönderici Kimliği gönderin. Onaylanan kimlikler SMS kampanyalarında kullanılabilir.\n\nGönderici Kimliği *\n\nAlfanümerik (maks. 11 karakter) veya sayısal\n\nTür\nAlfanümerik\nAmaç\nDestekleyici belgeler (isteğe bağlı)\n\nİş kaydı, yetki mektubu veya diğer destekleyici belgeleri yükleyin. PDF, JPG, PNG, DOC (her biri max 5MB, en fazla 5 dosya).\n\nDosya seç\nİptal\nTalebi Gönder\nClose"
+    },
+    "fr": {
+      "dir": "ltr",
+      "lang": "fr",
+      "h1": "Identifiants d'expéditeur",
+      "mainText": "Identifiants d'expéditeur\n\nGérer les identifiants d'expéditeur SMS pour les campagnes sortantes. Les nouveaux ID nécessitent l'approbation de l'administrateur.\n\nDemander un identifiant d'expéditeur\nTous les statuts\nIdentifiant d'expéditeur\tType\tStatut\tObjectif\tDemandé par\tNote de révision\tCréé le\tActions\n<redacted>\tALPHANUMERIC\tAPPROVED\tfdsfds\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 4, 2026\t\n\n<redacted>\tALPHANUMERIC\tAPPROVED\t—\t<redacted>\t—\tJun 2, 2026\t",
+      "combobox": "Tous les statuts",
+      "headers": [
+        "Identifiant d'expéditeur",
+        "Type",
+        "Statut",
+        "Objectif",
+        "Demandé par",
+        "Note de révision",
+        "Créé le",
+        "Actions"
+      ],
+      "dialogText": "Demander un identifiant d'expéditeur\n\nSoumettre un nouvel identifiant d'expéditeur pour approbation. Les ID approuvés peuvent être utilisés dans les campagnes SMS.\n\nIdentifiant d'expéditeur *\n\nAlphanumérique (max 11 caractères) ou numérique\n\nType\nAlphanumérique\nObjectif\nDocuments justificatifs (optionnel)\n\nTéléchargez l'enregistrement commercial, la lettre d'autorisation ou d'autres documents justificatifs. PDF, JPG, PNG, DOC (max 5 Mo chacun, jusqu'à 5 fichiers).\n\nChoisir des fichiers\nAnnuler\nSoumettre la demande\nClose"
+    },
+    "ar": {
+      "dir": "rtl",
+      "lang": "ar",
+      "h1": "معرفات المرسل",
+      "mainText": "معرفات المرسل\n\nإدارة معرفات مرسل SMS للحملات الصادرة. تتطلب المعرفات الجديدة موافقة مسؤول المنصة.\n\nطلب معرف مرسل\nجميع الحالات\nمعرف المرسل\tالنوع\tالحالة\tالغرض\tطُلب بواسطة\tملاحظة المراجعة\tتاريخ الإنشاء\tإجراءات\n",
+      "combobox": "جميع الحالات",
+      "headers": [
+        "معرف المرسل",
+        "النوع",
+        "الحالة",
+        "الغرض",
+        "طُلب بواسطة",
+        "ملاحظة المراجعة",
+        "تاريخ الإنشاء",
+        "إجراءات"
+      ],
+      "dialogText": "طلب معرف مرسل\n\nأرسل معرف مرسل جديد للموافقة. يمكن استخدام المعرفات الموافق عليها في حملات SMS.\n\nمعرف المرسل *\n\nأبجدي رقمي (حد أقصى 11 حرف) أو رقمي\n\nالنوع\nأبجدي رقمي\nالغرض\nمستندات داعمة (اختياري)\n\nارفع سجل الأعمال أو خطاب التفويض أو مستندات داعمة أخرى. PDF, JPG, PNG, DOC (حد أقصى 5 ميجابايت لكل ملف، حتى 5 ملفات).\n\nاختر الملفات\nإلغاء\nإرسال الطلب\nClose"
+    }
+  },
+  "apiCalls": [
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22PENDING%22%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22APPROVED%22%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22REJECTED%22%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10&filters=%7B%22status%22%3A%22DOCUMENTS_REQUESTED%22%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "POST",
+      "url": "https://api.vomenta.com/api/v1/sender-ids"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/sender-ids?page=1&limit=10"
+    }
+  ]
+}

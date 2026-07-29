@@ -1,0 +1,130 @@
+{
+  "controls": {
+    "buttons": [
+      {
+        "name": "Language",
+        "disabled": false
+      },
+      {
+        "name": "<user>",
+        "disabled": false
+      },
+      {
+        "name": "Collapse sidebar",
+        "disabled": false
+      },
+      {
+        "name": "Search (⌘K)",
+        "disabled": false
+      },
+      {
+        "name": "Language",
+        "disabled": false
+      },
+      {
+        "name": "Toggle theme",
+        "disabled": false
+      },
+      {
+        "name": "Notifications",
+        "disabled": false
+      },
+      {
+        "name": "User menu",
+        "disabled": false
+      },
+      {
+        "name": "Request Sender ID",
+        "disabled": false
+      },
+      {
+        "name": "Open softphone",
+        "disabled": false
+      },
+      {
+        "name": "Open AI assistant",
+        "disabled": false
+      }
+    ],
+    "tabs": [],
+    "comboboxes": [
+      "All Status"
+    ],
+    "columnHeaders": [
+      "Sender ID",
+      "Type",
+      "Status",
+      "Purpose",
+      "Requested By",
+      "Review Note",
+      "Created at",
+      "Actions"
+    ],
+    "links": [],
+    "rowCount": 3
+  },
+  "senderIdsResponseShape": {
+    "envelope": [
+      "success",
+      "data",
+      "meta"
+    ],
+    "dataEnvelope": [
+      "data",
+      "hasNextPage"
+    ],
+    "rowKeys": [
+      "adminNote",
+      "createdAt",
+      "documents",
+      "id",
+      "purpose",
+      "requestedBy",
+      "requestedById",
+      "reviewNote",
+      "reviewedAt",
+      "reviewedById",
+      "senderId",
+      "senderType",
+      "status",
+      "tenantId",
+      "updatedAt"
+    ],
+    "sampleStatus": "APPROVED",
+    "sampleType": "ALPHANUMERIC"
+  },
+  "firstRows": [
+    [
+      "<redacted>",
+      "ALPHANUMERIC",
+      "APPROVED",
+      "fdsfds",
+      "<redacted>",
+      "—",
+      "Jun 4, 2026",
+      ""
+    ],
+    [
+      "<redacted>",
+      "ALPHANUMERIC",
+      "APPROVED",
+      "—",
+      "<redacted>",
+      "—",
+      "Jun 4, 2026",
+      ""
+    ],
+    [
+      "<redacted>",
+      "ALPHANUMERIC",
+      "APPROVED",
+      "—",
+      "<redacted>",
+      "—",
+      "Jun 2, 2026",
+      ""
+    ]
+  ],
+  "rowButtons": [],
+  "note": "PII arındırıldı: cross-endpoint yanıtlar + kişi adları/e-posta/telefon çıkarıldı."
+}
