@@ -15,6 +15,7 @@ import { OrganizationPage } from './OrganizationPage.js';
 import { ProfilePage } from './ProfilePage.js';
 import { ReportSectionPage } from './ReportSectionPage.js';
 import { RolesPage } from './RolesPage.js';
+import { SecurityPage } from './SecurityPage.js';
 import { UsersPage } from './UsersPage.js';
 import { ReportsPage } from './ReportsPage.js';
 import { SettingsPage } from './SettingsPage.js';
@@ -57,6 +58,7 @@ export class App {
     this.dispositionCodes = new DispositionCodesPage(page);
     this.cannedResponses = new CannedResponsesPage(page);
     this.integrations = new IntegrationsPage(page);
+    this.security = new SecurityPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

@@ -140,7 +140,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 11 | Disposition Codes | `/settings/disposition-codes` | ✅ **TAMAM** (settings-disposition-codes) |
 | 12 | Canned Responses | `/settings/canned-responses` | ✅ **TAMAM** (settings-canned-responses) |
 | 13 | Integrations | `/settings/integrations` | ✅ **TAMAM** (settings-integrations) |
-| 14 | Security | `/settings/security` | ⬜ |
+| 14 | Security | `/settings/security` | ✅ **TAMAM** (settings-security) |
 | 15 | Data Retention | `/settings/data-retention` | ⬜ |
 | 16 | Notifications | `/settings/notifications` | ⬜ |
 | 17 | API Keys | `/settings/api-keys` | ⬜ |
@@ -280,6 +280,16 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **4 dil:** başlık/alt başlık/Request Access/Add Webhook tam çevrili; ar RTL; taşma yok.
 - **🐞 GEÇİCİ GÖZLEM:** Keşifte API Keys özetinde ham i18n anahtarı `settings.integrationsPage.activeKeysCount` görüldü; sayı yüklenince kayboluyor (yükleme-anı flaş) → kararlı guard yazılamadı, belge olarak burada.
 - **Mutasyon:** Add Webhook (create) + Request Access (Submit — talep gönderir); webhook tablosu prod'da boş → `settings-integrations-mutations` **test.fixme**.
+
+## Güvenlik detayı (`/settings/security`)
+
+- **Başlık:** "Security" + alt başlık. Bölümler: Data protection (GDPR) info (+**Open Contacts** link → /contacts) · **Password Policies** (Min Length spinbutton 12, Expiry 90, 3 switch: uppercase/number/special + **Save Password Policy** disabled) · **Two-Factor Authentication** (Enforce 2FA switch) · **Session Management** (Session Timeout spinbutton 480 + Save + Active Sessions tablosu + çok sayıda Revoke) · **Login History** tablosu · **IP Whitelist** (**Add IP** + Enable switch) · **API Keys** özet (+**Manage API Keys** link).
+- **Add IP to Whitelist dialogu:** IP Address/CIDR · Label · Cancel · Add to Whitelist (disabled) · Close.
+- **Backend:** GET /settings/security, /settings/api-keys, /auth/sessions, /auth/login-history, /settings/ip-whitelist.
+- **4 dil:** başlık/alt başlık/Save Password Policy/Add IP tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU 1 (a11y, critical):** Password Policy / Session Timeout **sayı (spinbutton) alanları etiketsiz** (axe `label`, 3 düğüm) → `@a11y @known-bug` test.fail.
+- **🐞 BULGU 2 (sistemik):** Add IP dialogu "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **Mutasyon:** hassas config (2FA zorlama, session revoke, IP allowlist, password policy) → `settings-security-mutations` **test.fixme** (staging'de reversible policy-switch toggle).
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

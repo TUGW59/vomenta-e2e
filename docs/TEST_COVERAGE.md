@@ -605,6 +605,20 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: webhook oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
 
+### `settings-security.authed.spec.js`  (Ayarlar › Güvenlik)
+
+- sayfa başlığı + Password Policies + Save (disabled)  `@smoke`
+- Session Management / Active Sessions / IP Whitelist görünüyor  `@critical`
+- L3: Manage API Keys → /settings/api-keys; L1: Add IP dialogu  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Save Policy + Add IP çevrili  `@i18n`
+- 🐞 spinbutton alanları etiketsiz (axe label/critical, 3 düğüm)  `@a11y` `@known-bug` (test.fail)
+- 🐞 Add IP dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- layout / clean / errorpath / keyboard / deeplink / visual (Add IP dialog)
+
+### `settings-security-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: password policy switch toggle → Save → kalıcı → geri al — hassas config; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

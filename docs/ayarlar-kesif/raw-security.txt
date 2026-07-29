@@ -1,0 +1,87 @@
+URL: https://app.vomenta.com/settings/security
+
+===== en dir=ltr =====
+h="Security"
+sub="Configure password policies, 2FA, sessions, and access controls"
+tabs=[]
+cols=[]
+btns=["Save Password Policy","Save","Add IP"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Security" [level=1]
+  - paragraph: Configure password policies, 2FA, sessions, and access controls
+  - img
+  - text: Data protection (GDPR) Subject rights for your customers (access, erasure, rectification) are handled per contact. Tenant Owners and Admins can export or erase data from a contact’s profile, or via the Compliance API.
+  - link "Open Contacts":
+    - /url: /contacts
+  - img
+  - text: Password Policies Set minimum requirements for user passwords Minimum Password Length
+  - spinbutton: "12"
+  - text: characters Password Expiry
+  - spinbutton: "90"
+  - text: days (0 = never)
+  - paragraph: Require uppercase letter
+  - paragraph: At least one uppercase character (A-Z)
+  - switch [checked]
+  - paragraph: Require number
+  - paragraph: At least one numeric character (0-9)
+  - switch [checked]
+  - paragraph: Require special character
+  - paragraph: At least one special character (!@#$%^&*)
+  - switch [checked]
+  - button "Save Password Policy" [disabled]
+  - img
+  - text: Two-Factor Authentication Add an extra layer of security to user accounts
+  - paragraph: Enforce 2FA for all users
+  - paragraph: Require all users to enable two-factor authentication
+  - switch
+  - img
+  - text: Session Management View active sessions and configure timeout settings
+  - img
+  - paragraph: Session Timeout
+  - paragraph: Automatically log out inactive users
+  - spinbutton: "480"
+  - text: minutes
+  - button "Save" [disabled]
+  - heading "Active Sessions" [level=4]
+  - img
+  - text: Login History Recent sign-in attempts for your account
+  - img
+  - text: IP Whitelist Restrict access to specific IP addresses or ranges
+  - button "Add IP":
+    - img
+    - text: Add IP
+  - paragraph: Enable IP Allowlisting
+  - paragraph: When enabled, only IPs in the whitelist can access the platform.
+  - switch
+  - img
+  - text: API Keys Manage API keys with fine-grained permissions
+  - paragraph: …
+  - paragraph: View and manage your API keys for integrations.
+  - link "Manage API Keys":
+    - /url: /settings/api-keys
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/settings/security","GET /api/v1/settings/api-keys","GET /api/v1/auth/sessions","GET /api/v1/auth/login-history?page=1&limit=50","GET /api/v1/settings/ip-whitelist","GET /api/v1/roles/me/permissions"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Güvenlik"
+sub="Şifre politikalarını, 2FA'yı, oturumları ve erişim kontrollerini yapılandırın"
+tabs=[]
+cols=["Cihaz","IP Adresi","Son Etkinlik","İşlemler","Tarih","IP Adresi","Kullanıcı Aracısı","Durum"]
+btns=["Şifre Politikasını Kaydet","Kaydet","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","Sonlandır","IP Ekle"]
+
+===== fr dir=ltr =====
+h="Sécurité"
+sub="Configurez les politiques de mot de passe, la 2FA, les sessions et les contrôles d'accès"
+tabs=[]
+cols=["Appareil","Adresse IP","Dernière activité","Actions","Date","Adresse IP","Agent utilisateur","Statut"]
+btns=["Enregistrer la politique de mot de passe","Enregistrer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Révoquer","Ajouter une IP"]
+
+===== ar dir=rtl =====
+h="الأمان"
+sub="إعداد سياسات كلمة المرور والمصادقة الثنائية والجلسات وضوابط الوصول"
+tabs=[]
+cols=["الجهاز","عنوان IP","آخر نشاط","إجراءات","التاريخ","عنوان IP","وكيل المستخدم","الحالة"]
+btns=["حفظ سياسة كلمة المرور","حفظ","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إلغاء","إضافة IP"]
