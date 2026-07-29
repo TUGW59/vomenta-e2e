@@ -21,6 +21,7 @@ import { buildUserInvite } from './data/factories.js';
  *   TODO doldurulup `test.fixme(...)` satırı kaldırılır.
  */
 test.describe('Vomenta - Bulgu 6 daveti üreterek doğrula @regression @known-bug @mutation', () => {
+  test.describe.configure({ retries: 0 });
   test.fixme(
     true,
     'Staging seçici/endpoint teyidi bekliyor: davet dialog alanları ve daveti geri alma (revoke) yolu.'
@@ -31,7 +32,7 @@ test.describe('Vomenta - Bulgu 6 daveti üreterek doğrula @regression @known-bu
     page,
     api,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     mutationGuard('Bulgu 6: kullanıcı daveti oluşturma');
     const invite = buildUserInvite();
@@ -40,25 +41,24 @@ test.describe('Vomenta - Bulgu 6 daveti üreterek doğrula @regression @known-bu
     await page.getByRole('tab', { name: /Users|Kullanıcılar/i }).click();
     await waitForUiToSettle(page);
 
+    // Davet gönderilmeden ÖNCE rollback kaydedilir.
+    testEntity.cleanup(async () => {
+      try {
+        await api.delete(`/api/settings/invites/${encodeURIComponent(invite.email)}`);
+      } catch (apiError) {
+        const row = page.getByRole('row').filter({ hasText: invite.email });
+        if (!(await row.count())) throw apiError;
+        await row
+          .getByRole('button', { name: /Revoke|Remove|Delete|Geri Al|Kaldır|Sil/i })
+          .first()
+          .click();
+      }
+    }, `invite:${invite.email}`);
+
     // Daveti oluştur (UI).
     await page.getByRole('button', { name: /Invite User|Kullanıcı Davet Et|Davet Et/i }).click();
     await page.getByLabel(/Email|E-posta/i).fill(invite.email);
     await page.getByRole('button', { name: /Send Invite|Daveti Gönder|Gönder/i }).click();
-
-    // TEMİZLİK: daveti geri al. TODO: staging'de doğru revoke yolunu teyit et.
-    cleanup(async () => {
-      // Öncelik API; yoksa UI'dan satırı kaldır.
-      await api.delete(`/api/settings/invites/${encodeURIComponent(invite.email)}`).catch(async () => {
-        const row = page.getByRole('row').filter({ hasText: invite.email });
-        if (await row.count()) {
-          await row
-            .getByRole('button', { name: /Revoke|Remove|Delete|Geri Al|Kaldır|Sil/i })
-            .first()
-            .click()
-            .catch(() => {});
-        }
-      });
-    });
 
     // Beklenen (doğru davranış): satır davet e-postasını ve "Beklemede" durumunu gösterir,
     // "Invited User" + boş e-posta placeholder'ı DEĞİL.

@@ -23,6 +23,49 @@ Amaç testlerin değişikliklere dayanıklı, güvenli ve teşhis edilebilir kal
    loglanmaz veya commit edilmez.
 10. Var olan kullanıcı değişiklikleri korunur; görev dışı dosyalar geri alınmaz.
 
+## Keşif tamlığı ve doğrulama-anı standardı
+
+Bir sayfa/bölüm için "keşif tamamlandı" demeden önce yalnızca ilk açılış görünümü
+değil, aşağıdaki durumların tamamı gözlemlenir ve keşif notunda
+`Keşif kapanış matrisi` başlığı altında **Kapsandı** veya açık **N/A: gerekçe**
+olarak kaydedilir:
+
+- varsayılan/veri-dolu durum;
+- seçim sonrası beliren kontroller (satır checkbox'ı, çoklu seçim, toplu-eylem çubuğu);
+- hover/focus ile beliren kontroller;
+- her `...`/kebab/context menüsü ve açılan alt eylemler;
+- dialog/drawer/expanded/detail durumları;
+- boş, loading, hata ve yetkisiz durumlar (güvenle üretilebildiği ölçüde);
+- masaüstü/tablet/mobil ve desteklenen dört dil; Arapça RTL.
+
+Bir durum gerçekten yoksa sessizce atlanmaz; `N/A: <gözlemlenmiş gerekçe>` yazılır.
+Kontrol envanteri, görünen erişilebilir `role + name` ile not edilir. Yeni bir
+kontrol sonradan bulunursa önce keşif matrisi ve kontrol matrisi güncellenir; paket
+"tamamlandı" diye kapatılmaz.
+
+Negatif sonuç ancak çevre UI'ın ve veri isteğinin tamamlandığı kanıtlandıktan sonra
+geçerlidir. Boş liste, görünmeyen öğe veya eski metin; hedef başlık/ana konteyner
+render olmadan ve ilgili response/kararlı UI sinyali beklenmeden assertion yapılamaz.
+Baş harf/avatar gibi kısmi eşleşme, tam iş kimliği yerine kullanılamaz.
+
+## Mutasyon ve orphan-sıfır standardı
+
+- Her `@mutation` spec'i `test.describe.configure({ retries: 0 })` içerir. Resmî
+  mutation lane'leri ayrıca `--retries=0 --workers=1` ile çalışır; validator ikisini
+  de zorlar.
+- Ham `cleanup` fixture'ı kullanılmaz. `testEntity.cleanup` rollback'i mutasyondan
+  **önce** kaydeder; create + rollback sırasını yapısal garantiye almak için
+  `testEntity.create({ label, cleanup, action })` tercih edilir.
+- Cleanup hatası test zaten kırmızı olsa bile yutulmaz; `KRİTİK ALTYAPI HATASI`
+  olarak koşuyu başarısız bırakır ve `cleanup-errors.json` üretir. Cleanup içinde
+  boş `.catch(() => {})` yasaktır.
+- Üretilen veri benzersiz ve ayrılmış otomasyon öneki taşır. Test başlangıcı ve
+  sonunda ilgili önek/sayaç baseline'ı doğrulanır; doğrulanamıyorsa mutasyon
+  etkinleştirilmez.
+- Production mutasyonu yalnız özel test tenant'ında, çift kilitle ve kanıtlanmış
+  teardown yoluyla çalışabilir. Teardown önce salt-okunur prova ile kanıtlanmadan
+  create/modify/delete akışı açılmaz.
+
 ## Katman sınırları
 
 - `*.spec.js`: Yalnızca iş davranışı, adımlar ve iş sonucu assertion'ları.

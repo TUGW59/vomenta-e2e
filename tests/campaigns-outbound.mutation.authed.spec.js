@@ -25,19 +25,20 @@ import { buildCampaign } from './data/factories.js';
  *   Oluşturma akışının kendisi keşifte prod'da 1 kez doğrulandı (POST → 201).
  */
 test.describe('Giden Kampanyalar — mutasyonları @regression @mutation', () => {
+  test.describe.configure({ retries: 0 });
   test.fixme(true, 'Güvenli teardown bekliyor: SCHEDULED kampanya UI\'dan silinemiyor; staging API DELETE/teardown teyidi gerekli.');
 
   test('L3 görev OK: sihirbaz uçtan uca kampanya OLUŞTURUYOR (create → detay → cleanup)', async ({
     app,
     page,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     mutationGuard('Kampanya oluşturma (POST /api/v1/campaigns)');
     const data = buildCampaign();
 
     // TEMİZLİK (LIFO): oluşturulan kampanyayı listeden çöp ikonuyla sil.
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       const oc = app.campaignsOutbound;
       await oc.open();
       await oc.searchInput.fill(data.name);
@@ -48,7 +49,7 @@ test.describe('Giden Kampanyalar — mutasyonları @regression @mutation', () =>
         await oc.confirmDialog.getByRole('button', { name: /^Delete$/i }).click();
         await expect(oc.confirmDialog).toBeHidden();
       }
-    });
+    }, `campaign:${data.name}`);
 
     // Sihirbazı doldur (Voice: kanal adımında caller ID + queue zorunlu; Schedule Once + uzak tarih).
     const wiz = app.campaignCreate;

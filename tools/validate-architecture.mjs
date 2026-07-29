@@ -1,8 +1,13 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
+import {
+  mutationLaneMessages,
+  mutationSafetyMessages,
+} from './architecture-rules.mjs';
 
 const root = process.cwd();
 const testsRoot = path.join(root, 'tests');
+const packageJson = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
 
 async function filesUnder(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -67,21 +72,8 @@ for (const file of javascriptFiles) {
       });
     }
 
-    if (source.includes('@mutation')) {
-      if (!source.includes('mutationGuard')) {
-        violations.push({
-          file: relative,
-          line: 1,
-          message: '@mutation testi mutationGuard kullanmalı',
-        });
-      }
-      if (!source.includes('cleanup')) {
-        violations.push({
-          file: relative,
-          line: 1,
-          message: '@mutation testi cleanup kaydetmeli',
-        });
-      }
+    for (const message of mutationSafetyMessages(source)) {
+      violations.push({ file: relative, line: 1, message });
     }
 
     // Navigasyon L3: URL/rota kontrolü yapan spec, hedef içeriğin (başlık) render
@@ -143,6 +135,10 @@ for (const file of javascriptFiles) {
       });
     }
   }
+}
+
+for (const message of mutationLaneMessages(packageJson.scripts)) {
+  violations.push({ file: 'package.json', line: 1, message });
 }
 
 if (violations.length > 0) {

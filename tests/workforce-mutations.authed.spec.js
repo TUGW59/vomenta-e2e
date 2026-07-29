@@ -17,10 +17,11 @@ import { test, expect } from './fixtures/test.js';
  *   (POST → 201, DELETE → 204). Yalnızca ayrılmış test hesabında koşmalı.
  */
 test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
+  test.describe.configure({ retries: 0 });
   test('L3 görev OK: Add Shift kalıcı vardiya oluşturuyor (POST /wfm/schedules)', async ({
     app,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     mutationGuard('İş Gücü: vardiya oluşturma');
     const wf = app.workforce;
@@ -28,9 +29,9 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
     await wf.deleteFirstShift(); // önceki koşudan artık kalmışsa temizle
 
     // Oluştur → cleanup'ı HEMEN kaydet (test sonrası her hâlde silinsin)
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       await wf.deleteFirstShift();
-    });
+    }, 'workforce-shift');
     await wf.createDefaultShift();
 
     // Kalıcı kayıt gözlemlenebilir: hücre vardiyayı gösteriyor ("09:00 - 17:00")
@@ -40,16 +41,16 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
   test('L3 görev OK: Publish Schedule taslağı yayınlıyor ("Draft" kalkıyor)', async ({
     app,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     mutationGuard('İş Gücü: çizelge yayınlama (Publish Schedule)');
     const wf = app.workforce;
     await wf.open();
     await wf.deleteFirstShift();
 
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       await wf.deleteFirstShift();
-    });
+    }, 'workforce-schedule-rollback');
     await wf.createDefaultShift();
 
     // Yayın öncesi: taslak

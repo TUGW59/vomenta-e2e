@@ -23,11 +23,12 @@ import { environment } from '../config/environment.js';
  * Bkz. AGENTS.md → mutation çift-kilit + "Form gönderim / dışa-dönük eylem" güvenliği.
  */
 test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @regression @mutation', () => {
+  test.describe.configure({ retries: 0 });
   test('L3: softphone ile test numarası aranıyor ve çağrı kuruluyor', async ({
     app,
     page,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     test.fixme(true, 'Yalnızca staging: gerçek çağrı prod\'da yasak; seçiciler staging\'de doğrulanacak.');
     mutationGuard('Voice: gerçek giden çağrı');
@@ -44,10 +45,10 @@ test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @re
     await dialer.fill(environment.testPhone);
 
     // 3) Çağrıyı başlatmadan ÖNCE kapatmayı cleanup'a kaydet (test ne olursa olsun kapatsın).
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       const hangup = page.getByRole('button', { name: /Hang up|End call|End|Kapat|Bitir/i }).first();
       if (await hangup.count()) await hangup.click().catch(() => {});
-    });
+    }, 'voice-call-hangup');
 
     // 4) Çağrıyı başlat.
     await page.getByRole('button', { name: 'Start Call', exact: true }).click();
@@ -62,7 +63,7 @@ test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @re
     app,
     page,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     test.fixme(true, 'Yalnızca staging: gerçek SMS prod\'da yasak; SMS compose seçicileri staging\'de doğrulanacak.');
     mutationGuard('Channels: gerçek SMS gönderimi');
@@ -73,9 +74,9 @@ test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @re
 
     // SMS compose akışı staging'de doğrulanacak: alıcı numara + mesaj + Gönder.
     // Gönderilen kaydın temizliği (varsa taslak/log) burada cleanup'a bağlanacak.
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       // TODO(staging): gerekiyorsa gönderim taslağını/kaydını temizle.
-    });
+    }, 'sms-conversation-cleanup');
 
     const recipient = page.locator('input[type="tel"], input[placeholder*="number" i], input[placeholder*="numara" i]').first();
     await recipient.fill(environment.testPhone);

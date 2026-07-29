@@ -4,6 +4,7 @@ import { ApiClient } from '../api/ApiClient.js';
 import { App } from '../pages/App.js';
 import { assertMutationsAllowed } from '../../config/environment.js';
 import { collectDiagnostics } from './diagnostics.js';
+import { createTestEntityRegistry } from './testEntity.js';
 
 /**
  * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
@@ -35,30 +36,33 @@ export const test = base.extend({
   },
 
   /**
-   * Testin oluşturduğu kayıtları LIFO sırasıyla, test başarısız olsa da temizler.
-   * Kullanım: cleanup(() => api.delete(`/api/tickets/${id}`))
+   * Mutasyon yaşam döngüsü: rollback/cleanup işlemlerini mutasyondan ÖNCE kaydeder,
+   * test başarısız olsa da LIFO sırasıyla çalıştırır.
+   *
+   * Kullanım:
+   *   testEntity.cleanup(() => api.delete(`/api/tickets/${id}`), 'ticket rollback')
+   *
+   * Oluşturma ile cleanup kaydının sırasını yapısal olarak garanti etmek için:
+   *   await testEntity.create({
+   *     label: 'ticket',
+   *     cleanup: () => api.delete(`/api/tickets/by-key/${key}`),
+   *     action: () => api.post('/api/tickets', payload),
+   *   })
    */
-  cleanup: async ({}, use, testInfo) => {
-    const actions = [];
-    await use((action) => actions.push(action));
-
-    const errors = [];
-    for (const action of actions.reverse()) {
-      try {
-        await action();
-      } catch (error) {
-        errors.push(error instanceof Error ? error.message : String(error));
-      }
-    }
+  testEntity: async ({}, use, testInfo) => {
+    const registry = createTestEntityRegistry();
+    await use({ cleanup: registry.cleanup, create: registry.create });
+    const errors = await registry.teardown();
 
     if (errors.length > 0) {
       await testInfo.attach('cleanup-errors.json', {
         body: Buffer.from(JSON.stringify(errors, null, 2)),
         contentType: 'application/json',
       });
-      if (testInfo.status === testInfo.expectedStatus) {
-        throw new Error(`Test verisi temizlenemedi: ${errors.join('; ')}`);
-      }
+      throw new Error(
+        'KRİTİK ALTYAPI HATASI: test verisi temizlenemedi; tenant baseline dışı kalmış olabilir. ' +
+        errors.map(({ label, detail }) => `${label}: ${detail}`).join('; ')
+      );
     }
   },
 
