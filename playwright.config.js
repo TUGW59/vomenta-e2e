@@ -110,6 +110,18 @@ export default defineConfig({
       testMatch: /.*\.authed\.spec\.js/,
       dependencies: ['setup'],
     },
+    /* Salt-okunur BFS keşfi normal smoke/regression lane'lerinden ayrıdır.
+       Bilinmeyen kontrollere tıklamaz; non-GET istekleri browser'da keser. */
+    {
+      name: 'chromium-discovery',
+      testDir: './tests/discovery',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authStatePath('default'),
+      },
+      testMatch: /.*\.spec\.js/,
+      dependencies: ['setup'],
+    },
     {
       name: 'firefox-authed',
       use: {

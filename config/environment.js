@@ -45,6 +45,11 @@ export const environment = Object.freeze({
   actionTimeout: positiveInteger(process.env.PLAYWRIGHT_ACTION_TIMEOUT, 15_000),
   navigationTimeout: positiveInteger(process.env.PLAYWRIGHT_NAVIGATION_TIMEOUT, 30_000),
   expectTimeout: positiveInteger(process.env.PLAYWRIGHT_EXPECT_TIMEOUT, 15_000),
+  discovery: Object.freeze({
+    maxPages: positiveInteger(process.env.DISCOVERY_MAX_PAGES, 40),
+    slowThresholdMs: positiveInteger(process.env.DISCOVERY_SLOW_THRESHOLD_MS, 2_000),
+    updateBaseline: booleanValue(process.env.DISCOVERY_UPDATE_BASELINE),
+  }),
   defaultUserDisplayName:
     process.env.VOMENTA_USER_DISPLAY_NAME || 'Tuğçe Topuz',
   // Yalnızca staging E2E (arama/SMS) için ayrılmış test numarası. Boşsa ilgili
