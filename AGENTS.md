@@ -300,6 +300,8 @@ sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipelin
   `@errorpath`→`mockApi/route`, `@perf`→`expectContentWithin`).
 - Ortak yardımcılar `tests/helpers.js`'te (a11y/layout/clean/errorpath/perf/keyboard/data) — her stil ~1 satır.
 - **Cross-browser** yeni etiket değil: gece full-regression `firefox/webkit-authed` projelerinde koşar.
+- Görsel testler macOS nightly lane'inde `RUN_VISUAL_TESTS=true` ile gerçekten
+  koşar; CI olduğu için sessizce skip edilemez.
 
 Referans uygulama: `tests/reports-dashboards.authed.spec.js`, `tests/reports-sections.authed.spec.js`
 (+ matris: `docs/TEST_STYLE_MATRIX.md`). Karar: `docs/adr/0002-mandatory-test-styles.md`.

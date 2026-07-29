@@ -124,4 +124,5 @@ erişim gerekir; eldeki Sigma MCP (finans/telekom/CRM) farklı bir sistemdir. Pr
 | Koşan stiller | @smoke @i18n @a11y @layout @clean @deeplink @errorpath @keyboard + 3-katman | + @visual @perf @data (+ cross-browser) |
 | Sert kapı | `quality:styles` (varlık/beyan; deterministik) + `validate-architecture` (etiket→primitif) | full-regression |
 
-Sert kapı **varlığı** dayatır, canlı koşumu değil → oynak stiller PR'ı kırmaz.
+Sert kapı **varlığı** dayatır; `@visual` macOS nightly lane'inde
+`RUN_VISUAL_TESTS=true` ile gerçekten çalışır.

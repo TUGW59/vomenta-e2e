@@ -246,7 +246,7 @@ test.describe('Rapor bölümleri — veri doğruluğu (call) @data', () => {
 // Kararlı UI: boş-durum bölümü (campaign) — canlı grafik yok, deterministik.
 test.describe('Rapor bölümleri — görsel @visual', () => {
   test('boş-durum (campaign) görünümü değişmedi', async ({ app }) => {
-    test.skip(environment.isCI, 'Görsel baseline OS\'e bağlı; CI/Linux\'ta atlanır (darwin-yerel).');
+    test.skip(!environment.runVisualTests, 'Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı.');
     const rp = app.reportSection('campaign');
     await rp.open();
     await rp.page.getByText(/No data available/i).first().waitFor({ timeout: 20000 });

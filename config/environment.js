@@ -37,6 +37,7 @@ export const environment = Object.freeze({
   name,
   baseURL: parsedBaseURL.origin,
   isCI: booleanValue(process.env.CI),
+  runVisualTests: booleanValue(process.env.RUN_VISUAL_TESTS, !process.env.CI),
   isProduction: name === 'production',
   allowMutations: booleanValue(process.env.ALLOW_MUTATING_TESTS),
   allowProdMutations: booleanValue(process.env.ALLOW_PROD_MUTATIONS),

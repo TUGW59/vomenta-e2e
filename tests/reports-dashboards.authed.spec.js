@@ -320,7 +320,7 @@ test.describe('Panolar — deep-link @deeplink', () => {
 // Yalnızca kararlı UI; canlı/değişken bölge (paylaşım URL'si) maskelenir.
 test.describe('Panolar — görsel @visual', () => {
   test('paylaş diyaloğu görünümü değişmedi (URL maskeli)', async ({ app }) => {
-    test.skip(environment.isCI, 'Görsel baseline OS\'e bağlı; CI/Linux\'ta atlanır (darwin-yerel).');
+    test.skip(!environment.runVisualTests, 'Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı.');
     const dashboards = app.dashboards;
     await dashboards.open();
     const dialog = await dashboards.openShareDialog();
