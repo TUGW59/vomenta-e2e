@@ -8,16 +8,21 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 | Sayfa | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression | @keyboard | @errorpath | @visual | @perf | @data | @export | @mutation |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `campaign-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — |
 
 ## Rotalar
 
+- **campaign-templates**: `/campaigns/templates`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
 
 ## N/A beyanları (gerekçeli)
 
+- `campaign-templates` **@perf**: Grafik veya ağır içerik yok; yalnız SMS şablonu tablosu var.
+- `campaign-templates` **@data**: Sayısal KPI göstermiyor.
+- `campaign-templates` **@export**: Export/indirme kontrolü yok.
 - `reports-dashboards` **@perf**: Grafik/ağır içerik yüklemiyor (özel pano kartlarını listeler).
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.

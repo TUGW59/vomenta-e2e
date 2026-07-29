@@ -70,3 +70,15 @@ export function buildCampaign(overrides = {}) {
     ...overrides,
   };
 }
+
+/** SMS şablonu mutasyonları için benzersiz, ayrılmış otomasyon verisi. */
+export function buildSmsTemplate(overrides = {}) {
+  const suffix = uniqueSuffix().replace(/[^a-z0-9-]/gi, '');
+  return {
+    prefix: 'e2e-sms-template-',
+    name: `e2e-sms-template-${suffix}`,
+    content: `Playwright test message ${suffix}`,
+    updatedContent: `Playwright updated message ${suffix}`,
+    ...overrides,
+  };
+}

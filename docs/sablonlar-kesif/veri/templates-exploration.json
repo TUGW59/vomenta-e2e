@@ -1,0 +1,1142 @@
+{
+  "capturedAt": "2026-07-29T08:55:04.046Z",
+  "structure": {
+    "url": "https://app.vomenta.com/campaigns/templates",
+    "lang": "en",
+    "dir": "ltr",
+    "headings": [
+      "SMS Templates"
+    ],
+    "buttons": [
+      {
+        "text": "New Template",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-plus h-4 w-4"
+        ]
+      },
+      {
+        "text": "",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-pencil h-3.5 w-3.5"
+        ]
+      },
+      {
+        "text": "",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-trash2 h-3.5 w-3.5"
+        ]
+      }
+    ],
+    "links": [],
+    "inputs": [],
+    "textareas": [],
+    "labels": [],
+    "comboboxes": [],
+    "tabs": [],
+    "dialogs": [],
+    "tableHeaders": [
+      "Template Name",
+      "Message Body",
+      "Created at",
+      ""
+    ],
+    "hasRows": true,
+    "documentOverflow": false,
+    "dialogDetails": []
+  },
+  "createFlow": {
+    "url": "https://app.vomenta.com/campaigns/templates",
+    "lang": "en",
+    "dir": "ltr",
+    "headings": [
+      "SMS Templates"
+    ],
+    "buttons": [
+      {
+        "text": "New Template",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-plus h-4 w-4"
+        ]
+      },
+      {
+        "text": "",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-pencil h-3.5 w-3.5"
+        ]
+      },
+      {
+        "text": "",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-trash2 h-3.5 w-3.5"
+        ]
+      }
+    ],
+    "links": [],
+    "inputs": [],
+    "textareas": [],
+    "labels": [],
+    "comboboxes": [],
+    "tabs": [],
+    "dialogs": [
+      "Create TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyGSM-70/160CancelCreateClose"
+    ],
+    "tableHeaders": [
+      "Template Name",
+      "Message Body",
+      "Created at",
+      ""
+    ],
+    "hasRows": true,
+    "documentOverflow": false,
+    "dialogDetails": [
+      {
+        "text": "Create TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyGSM-70/160CancelCreateClose",
+        "labels": [
+          "Template Name",
+          "Message Body"
+        ],
+        "inputs": [
+          {
+            "type": "text",
+            "placeholder": "e.g. Welcome Message",
+            "ariaLabel": null
+          }
+        ],
+        "textareas": [
+          {
+            "placeholder": "campaigns.templateContentPlaceholder",
+            "ariaLabel": null
+          }
+        ],
+        "buttons": [
+          {
+            "text": "Cancel",
+            "ariaLabel": null,
+            "disabled": false,
+            "iconClasses": []
+          },
+          {
+            "text": "Create",
+            "ariaLabel": null,
+            "disabled": true,
+            "iconClasses": []
+          },
+          {
+            "text": "Close",
+            "ariaLabel": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "actionStates": {
+    "editOpen": {
+      "url": "https://app.vomenta.com/campaigns/templates",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "SMS Templates"
+      ],
+      "buttons": [
+        {
+          "text": "New Template",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus h-4 w-4"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-pencil h-3.5 w-3.5"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-trash2 h-3.5 w-3.5"
+          ]
+        }
+      ],
+      "links": [],
+      "inputs": [],
+      "textareas": [],
+      "labels": [],
+      "comboboxes": [],
+      "tabs": [],
+      "dialogs": [
+        "Edit TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyTest templateGSM-713/160 · 147 leftCancelSaveClose"
+      ],
+      "tableHeaders": [
+        "Template Name",
+        "Message Body",
+        "Created at",
+        ""
+      ],
+      "hasRows": true,
+      "documentOverflow": false,
+      "dialogDetails": [
+        {
+          "text": "Edit TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyTest templateGSM-713/160 · 147 leftCancelSaveClose",
+          "labels": [
+            "Template Name",
+            "Message Body"
+          ],
+          "inputs": [
+            {
+              "type": "text",
+              "placeholder": "e.g. Welcome Message",
+              "ariaLabel": null
+            }
+          ],
+          "textareas": [
+            {
+              "placeholder": "campaigns.templateContentPlaceholder",
+              "ariaLabel": null
+            }
+          ],
+          "buttons": [
+            {
+              "text": "Cancel",
+              "ariaLabel": null,
+              "disabled": false,
+              "iconClasses": []
+            },
+            {
+              "text": "Save",
+              "ariaLabel": null,
+              "disabled": false,
+              "iconClasses": []
+            },
+            {
+              "text": "Close",
+              "ariaLabel": null,
+              "disabled": false,
+              "iconClasses": [
+                "h-4 w-4"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "deleteConfirm": {
+      "url": "https://app.vomenta.com/campaigns/templates",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "SMS Templates"
+      ],
+      "buttons": [
+        {
+          "text": "New Template",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus h-4 w-4"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-pencil h-3.5 w-3.5"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-trash2 h-3.5 w-3.5"
+          ]
+        }
+      ],
+      "links": [],
+      "inputs": [],
+      "textareas": [],
+      "labels": [],
+      "comboboxes": [],
+      "tabs": [],
+      "dialogs": [
+        "Delete TemplateAre you sure you want to delete this template? This cannot be undone.CancelDelete"
+      ],
+      "tableHeaders": [
+        "Template Name",
+        "Message Body",
+        "Created at",
+        ""
+      ],
+      "hasRows": true,
+      "documentOverflow": false,
+      "dialogDetails": [
+        {
+          "text": "Delete TemplateAre you sure you want to delete this template? This cannot be undone.CancelDelete",
+          "labels": [],
+          "inputs": [],
+          "textareas": [],
+          "buttons": [
+            {
+              "text": "Cancel",
+              "ariaLabel": null,
+              "disabled": false,
+              "iconClasses": []
+            },
+            {
+              "text": "Delete",
+              "ariaLabel": null,
+              "disabled": false,
+              "iconClasses": []
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "languages": {
+    "en": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/templates",
+        "lang": "en",
+        "dir": "ltr",
+        "headings": [
+          "SMS Templates"
+        ],
+        "buttons": [
+          {
+            "text": "New Template",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [],
+        "tableHeaders": [
+          "Template Name",
+          "Message Body",
+          "Created at",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": []
+      },
+      "create": {
+        "url": "https://app.vomenta.com/campaigns/templates",
+        "lang": "en",
+        "dir": "ltr",
+        "headings": [
+          "SMS Templates"
+        ],
+        "buttons": [
+          {
+            "text": "New Template",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [
+          "Create TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyGSM-70/160CancelCreateClose"
+        ],
+        "tableHeaders": [
+          "Template Name",
+          "Message Body",
+          "Created at",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": [
+          {
+            "text": "Create TemplateManage reusable SMS message templates for your campaigns.Template NameMessage BodyGSM-70/160CancelCreateClose",
+            "labels": [
+              "Template Name",
+              "Message Body"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "e.g. Welcome Message",
+                "ariaLabel": null
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "campaigns.templateContentPlaceholder",
+                "ariaLabel": null
+              }
+            ],
+            "buttons": [
+              {
+                "text": "Cancel",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Create",
+                "ariaLabel": null,
+                "disabled": true,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "tr": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=tr",
+        "lang": "tr",
+        "dir": "ltr",
+        "headings": [
+          "SMS Şablonları"
+        ],
+        "buttons": [
+          {
+            "text": "Yeni Şablon",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [],
+        "tableHeaders": [
+          "Şablon Adı",
+          "Mesaj İçeriği",
+          "Oluşturulma",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": []
+      },
+      "create": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=tr",
+        "lang": "tr",
+        "dir": "ltr",
+        "headings": [
+          "SMS Şablonları"
+        ],
+        "buttons": [
+          {
+            "text": "Yeni Şablon",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [
+          "Şablon OluşturKampanyalarınız için yeniden kullanılabilir SMS mesaj şablonlarını yönetin.Şablon AdıMesaj İçeriğiGSM-70/160İptalOluşturClose"
+        ],
+        "tableHeaders": [
+          "Şablon Adı",
+          "Mesaj İçeriği",
+          "Oluşturulma",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": [
+          {
+            "text": "Şablon OluşturKampanyalarınız için yeniden kullanılabilir SMS mesaj şablonlarını yönetin.Şablon AdıMesaj İçeriğiGSM-70/160İptalOluşturClose",
+            "labels": [
+              "Şablon Adı",
+              "Mesaj İçeriği"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "ör. Hoş Geldiniz Mesajı",
+                "ariaLabel": null
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "campaigns.templateContentPlaceholder",
+                "ariaLabel": null
+              }
+            ],
+            "buttons": [
+              {
+                "text": "İptal",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Oluştur",
+                "ariaLabel": null,
+                "disabled": true,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "fr": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=fr",
+        "lang": "fr",
+        "dir": "ltr",
+        "headings": [
+          "Modèles SMS"
+        ],
+        "buttons": [
+          {
+            "text": "Nouveau modèle",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [],
+        "tableHeaders": [
+          "Nom du modèle",
+          "Corps du message",
+          "Créé le",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": []
+      },
+      "create": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=fr",
+        "lang": "fr",
+        "dir": "ltr",
+        "headings": [
+          "Modèles SMS"
+        ],
+        "buttons": [
+          {
+            "text": "Nouveau modèle",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [
+          "Créer un modèleGérez les modèles de messages SMS réutilisables pour vos campagnes.Nom du modèleCorps du messageGSM-70/160AnnulerCréerClose"
+        ],
+        "tableHeaders": [
+          "Nom du modèle",
+          "Corps du message",
+          "Créé le",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": [
+          {
+            "text": "Créer un modèleGérez les modèles de messages SMS réutilisables pour vos campagnes.Nom du modèleCorps du messageGSM-70/160AnnulerCréerClose",
+            "labels": [
+              "Nom du modèle",
+              "Corps du message"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "ex. Message de bienvenue",
+                "ariaLabel": null
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "campaigns.templateContentPlaceholder",
+                "ariaLabel": null
+              }
+            ],
+            "buttons": [
+              {
+                "text": "Annuler",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Créer",
+                "ariaLabel": null,
+                "disabled": true,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "ar": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=ar",
+        "lang": "ar",
+        "dir": "rtl",
+        "headings": [
+          "قوالب الرسائل القصيرة"
+        ],
+        "buttons": [
+          {
+            "text": "قالب جديد",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [],
+        "tableHeaders": [
+          "اسم القالب",
+          "نص الرسالة",
+          "تاريخ الإنشاء",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": []
+      },
+      "create": {
+        "url": "https://app.vomenta.com/campaigns/templates?lang=ar",
+        "lang": "ar",
+        "dir": "rtl",
+        "headings": [
+          "قوالب الرسائل القصيرة"
+        ],
+        "buttons": [
+          {
+            "text": "قالب جديد",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus h-4 w-4"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-pencil h-3.5 w-3.5"
+            ]
+          },
+          {
+            "text": "",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-trash2 h-3.5 w-3.5"
+            ]
+          }
+        ],
+        "links": [],
+        "inputs": [],
+        "textareas": [],
+        "labels": [],
+        "comboboxes": [],
+        "tabs": [],
+        "dialogs": [
+          "إنشاء قالبإدارة قوالب رسائل SMS القابلة لإعادة الاستخدام لحملاتك.اسم القالبنص الرسالةGSM-70/160إلغاءإنشاءClose"
+        ],
+        "tableHeaders": [
+          "اسم القالب",
+          "نص الرسالة",
+          "تاريخ الإنشاء",
+          ""
+        ],
+        "hasRows": true,
+        "documentOverflow": false,
+        "dialogDetails": [
+          {
+            "text": "إنشاء قالبإدارة قوالب رسائل SMS القابلة لإعادة الاستخدام لحملاتك.اسم القالبنص الرسالةGSM-70/160إلغاءإنشاءClose",
+            "labels": [
+              "اسم القالب",
+              "نص الرسالة"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "مثال: رسالة ترحيب",
+                "ariaLabel": null
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "campaigns.templateContentPlaceholder",
+                "ariaLabel": null
+              }
+            ],
+            "buttons": [
+              {
+                "text": "إلغاء",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "إنشاء",
+                "ariaLabel": null,
+                "disabled": true,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "responsive": {
+    "desktop": {
+      "url": "https://app.vomenta.com/campaigns/templates",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "SMS Templates"
+      ],
+      "buttons": [
+        {
+          "text": "New Template",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus h-4 w-4"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-pencil h-3.5 w-3.5"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-trash2 h-3.5 w-3.5"
+          ]
+        }
+      ],
+      "links": [],
+      "inputs": [],
+      "textareas": [],
+      "labels": [],
+      "comboboxes": [],
+      "tabs": [],
+      "dialogs": [],
+      "tableHeaders": [
+        "Template Name",
+        "Message Body",
+        "Created at",
+        ""
+      ],
+      "hasRows": true,
+      "documentOverflow": false,
+      "dialogDetails": []
+    },
+    "tablet": {
+      "url": "https://app.vomenta.com/campaigns/templates",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "SMS Templates"
+      ],
+      "buttons": [
+        {
+          "text": "New Template",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus h-4 w-4"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-pencil h-3.5 w-3.5"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-trash2 h-3.5 w-3.5"
+          ]
+        }
+      ],
+      "links": [],
+      "inputs": [],
+      "textareas": [],
+      "labels": [],
+      "comboboxes": [],
+      "tabs": [],
+      "dialogs": [],
+      "tableHeaders": [
+        "Template Name",
+        "Message Body",
+        "Created at",
+        ""
+      ],
+      "hasRows": true,
+      "documentOverflow": false,
+      "dialogDetails": []
+    },
+    "mobile": {
+      "url": "https://app.vomenta.com/campaigns/templates",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "SMS Templates"
+      ],
+      "buttons": [
+        {
+          "text": "New Template",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus h-4 w-4"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-pencil h-3.5 w-3.5"
+          ]
+        },
+        {
+          "text": "",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-trash2 h-3.5 w-3.5"
+          ]
+        }
+      ],
+      "links": [],
+      "inputs": [],
+      "textareas": [],
+      "labels": [],
+      "comboboxes": [],
+      "tabs": [],
+      "dialogs": [],
+      "tableHeaders": [
+        "Template Name",
+        ""
+      ],
+      "hasRows": true,
+      "documentOverflow": false,
+      "dialogDetails": []
+    }
+  },
+  "network": [
+    {
+      "method": "GET",
+      "path": "/api/v1/modules/catalog",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications/unread-count",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/modules/active",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/voice/calls/live",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dids",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/roles/me/permissions",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/channels/templates/sms",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/settings/organization",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/onboarding/progress",
+      "status": 200
+    }
+  ]
+}

@@ -24,6 +24,29 @@
  */
 export const TESTED_PAGES = Object.freeze([
   {
+    id: 'campaign-templates',
+    routes: ['/campaigns/templates'],
+    specFiles: [
+      'campaign-templates.authed.spec.js',
+      'campaign-templates.mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik veya ağır içerik yok; yalnız SMS şablonu tablosu var.',
+      '@data': 'Sayısal KPI göstermiyor.',
+      '@export': 'Export/indirme kontrolü yok.',
+    },
+  },
+  {
     id: 'reports-dashboards',
     routes: ['/reports/dashboards'],
     specFiles: [
