@@ -1,0 +1,582 @@
+{
+  "apiCalls": [
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc/export?format=csv"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/dnc?page=1&limit=10"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "method": "GET",
+      "url": "https://api.vomenta.com/api/v1/auth/me"
+    }
+  ],
+  "blockedWrites": [],
+  "responses": {
+    "/api/v1/dnc?page=1&limit=10": {
+      "success": true,
+      "data": {
+        "data": [],
+        "hasNextPage": false,
+        "totalCount": 0
+      },
+      "meta": {
+        "requestId": "019fade<phone>fa-8f9c-1390c77a4c9d",
+        "timestamp": "<phone>T12:41:59.109Z"
+      }
+    },
+    "/api/v1/dnc/export?format=csv": {
+      "success": true,
+      "data": {
+        "records": [],
+        "format": "csv",
+        "total": 0,
+        "csv": "id,phoneNumber,source,reason,addedById,createdAt"
+      },
+      "meta": {
+        "requestId": "019fade4-bebd-7141-b025-5f114f27f6e3",
+        "timestamp": "<phone>T12:41:17.266Z"
+      }
+    }
+  },
+  "langs": {
+    "en": {
+      "dir": "ltr",
+      "lang": "en",
+      "h1": "Do Not Call List",
+      "mainText": "Do Not Call List\n\nManage numbers excluded from outbound campaigns for compliance.\n\nExport\nBulk Import\nAdd Number\n\nTotal DNC Numbers\n\n0\n\nShowing\n\n0\n\nPage\n\n1\n\nPhone Number\tReason\tAdded By\tDate Added\tActions\n\n\nNo DNC entries found",
+      "headers": [
+        "Phone Number",
+        "Reason",
+        "Added By",
+        "Date Added",
+        "Actions"
+      ]
+    },
+    "tr": {
+      "dir": "ltr",
+      "lang": "tr",
+      "h1": "Aranmayacak Listesi",
+      "mainText": "Aranmayacak Listesi\n\nUyumluluk için giden kampanyalardan hariç tutulan numaraları yönetin.\n\nDışa Aktar\nToplu İçe Aktarma\nNumara Ekle\n\nToplam DNC Numarası\n\n0\n\nGösterilen\n\n0\n\nSayfa\n\n1\n\nTelefon Numarası\tSebep\tEkleyen\tEklenme Tarihi\tİşlemler\n\n\nDNC kaydı bulunamadı",
+      "headers": [
+        "Telefon Numarası",
+        "Sebep",
+        "Ekleyen",
+        "Eklenme Tarihi",
+        "İşlemler"
+      ],
+      "dialogText": "DNC'ye Numara Ekle\n\nTüm giden kampanyalardan hariç tutmak için bir telefon numarasını Aranmayacak Listesine ekleyin.\n\nTelefon Numarası (E.164)\nSebep\nSebep seçin\nİptal\nAramayın Listesine Ekle\nClose"
+    },
+    "fr": {
+      "dir": "ltr",
+      "lang": "fr",
+      "h1": "Liste de numéros exclus",
+      "mainText": "Liste de numéros exclus\n\nGérer les numéros exclus des campagnes sortantes pour la conformité.\n\nExporter\nImport en masse\nAjouter un numéro\n\nTotal numéros DNC\n\n0\n\nAffichés\n\n0\n\nPage\n\n1\n\nNuméro de téléphone\tRaison\tAjouté par\tDate d'ajout\tActions\n\n\nAucune entrée DNC trouvée",
+      "headers": [
+        "Numéro de téléphone",
+        "Raison",
+        "Ajouté par",
+        "Date d'ajout",
+        "Actions"
+      ],
+      "dialogText": "Ajouter un numéro au DNC\n\nAjouter un numéro de téléphone à la liste de numéros exclus pour l'exclure de toutes les campagnes sortantes.\n\nNuméro de téléphone (E.164)\nRaison\nSélectionner la raison\nAnnuler\nAjouter à la liste NPA\nClose"
+    },
+    "ar": {
+      "dir": "rtl",
+      "lang": "ar",
+      "h1": "قائمة عدم الاتصال",
+      "mainText": "قائمة عدم الاتصال\n\nإدارة الأرقام المستبعدة من الحملات الصادرة للامتثال.\n\nتصدير\nاستيراد جماعي\nإضافة رقم\n\nإجمالي أرقام DNC\n\n0\n\nيُعرض\n\n0\n\nالصفحة\n\n1\n\nرقم الهاتف\tالسبب\tأضيف بواسطة\tتاريخ الإضافة\tإجراءات\n\n\nلم يتم العثور على سجلات DNC",
+      "headers": [
+        "رقم الهاتف",
+        "السبب",
+        "أضيف بواسطة",
+        "تاريخ الإضافة",
+        "إجراءات"
+      ],
+      "dialogText": "إضافة رقم إلى DNC\n\nأضف رقم هاتف إلى قائمة عدم الاتصال لاستبعاده من جميع الحملات الصادرة.\n\nرقم الهاتف (E.164)\nالسبب\nاختر السبب\nإلغاء\nإضافة لقائمة عدم الاتصال\nClose"
+    }
+  },
+  "dialog": {
+    "aria": "- dialog \"Add Number to DNC\":\n  - heading \"Add Number to DNC\" [level=2]\n  - paragraph: Add a phone number to the Do Not Call list to exclude it from all outbound campaigns.\n  - text: Phone Number (E.164)\n  - textbox \"<phone>\"\n  - text: Reason\n  - combobox: Select reason\n  - button \"Cancel\"\n  - button \"Add to DNC\"\n  - button \"Close\":\n    - img\n    - text: Close",
+    "text": "Add Number to DNC\n\nAdd a phone number to the Do Not Call list to exclude it from all outbound campaigns.\n\nPhone Number (E.164)\nReason\nSelect reason\nCancel\nAdd to DNC\nClose",
+    "buttons": [
+      "Cancel",
+      "Add to DNC",
+      "Close"
+    ],
+    "reasonOptions": [
+      "Customer Request",
+      "Legal Requirement",
+      "Internal Policy",
+      "Regulatory Compliance",
+      "Duplicate / Invalid"
+    ],
+    "submitName": "Add to DNC",
+    "afterEmptySubmit": {
+      "open": true,
+      "blocked": 0
+    },
+    "phoneMaxlength": null,
+    "afterFilled": {
+      "blocked": [],
+      "open": true
+    }
+  },
+  "controls": {
+    "buttons": [
+      "Export",
+      "Bulk Import",
+      "Add Number"
+    ],
+    "comboboxes": [],
+    "searchPlaceholder": "Search by phone number...",
+    "rowCount": 1
+  },
+  "export": {
+    "newCalls": [
+      {
+        "method": "GET",
+        "url": "https://api.vomenta.com/api/v1/dnc/export?format=csv"
+      }
+    ],
+    "download": "dnc-list.json"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "blocked": [
+    {
+      "m": "POST",
+      "u": "/api/v1/dnc",
+      "body": "{\"phoneNumber\":\"+15551234567\",\"reason\":\"Customer Request\",\"source\":\"manual\"}"
+    }
+  ],
+  "emptyValidation": {
+    "open": true,
+    "errors": [
+      "Phone number is required"
+    ]
+  },
+  "reasonAfter": "Customer Request",
+  "afterFilled": {
+    "blocked": [
+      {
+        "m": "POST",
+        "u": "/api/v1/dnc",
+        "body": "{\"phoneNumber\":\"+15551234567\",\"reason\":\"Customer Request\",\"source\":\"manual\"}"
+      }
+    ],
+    "dialogOpen": false
+  },
+  "bulkImport": {
+    "dialogOpen": true,
+    "text": "Bulk Import DNC Numbers\n\nUpload a CSV file with phone numbers to add to the DNC list. Expected column: phone (E.164 format).\n\nClick to upload CSV\n\nOne phone number per row in E.164 format\n\nThe CSV should contain one phone number per line. An optional header row with \"phone\" is accepted and will be skipped. Use E.164 format (e.g. +15551234567).\n\nDownload Template\nCancel\nImport\nClose"
+  }
+}

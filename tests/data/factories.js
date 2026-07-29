@@ -73,6 +73,20 @@ export function buildSenderId(overrides = {}) {
 }
 
 /**
+ * DNC (Aranmayacak) kaydı (staging/@mutation akışı için). Benzersiz E.164 numara üretir.
+ * 555-01xx aralığı kurgusaldır (gerçek aboneye atanmaz) → güvenli test verisi.
+ */
+export function buildDncEntry(overrides = {}) {
+  // 555-0100..555-8199 arası kurgusal; benzersizlik için sonek'ten türet.
+  const n = parseInt(uniqueSuffix().replace(/[^0-9]/g, '').slice(-4) || '0', 10) % 8000 + 100;
+  return {
+    phoneNumber: `+1555${String(n).padStart(7, '0')}`.slice(0, 12),
+    reason: 'Customer Request',
+    ...overrides,
+  };
+}
+
+/**
  * Giden kampanya (staging/@mutation akışı için). Benzersiz ad → paralel güvenli.
  * `scheduledStart` bilinçle UZAK GELECEK: kampanya hemen arama başlatmasın.
  */

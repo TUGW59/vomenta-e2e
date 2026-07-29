@@ -1,0 +1,36 @@
+- main:
+  - heading "Do Not Call List" [level=1]
+  - paragraph: Manage numbers excluded from outbound campaigns for compliance.
+  - button "Export":
+    - img
+    - text: Export
+  - button "Bulk Import":
+    - img
+    - text: Bulk Import
+  - button "Add Number":
+    - img
+    - text: Add Number
+  - img
+  - paragraph: Total DNC Numbers
+  - paragraph: "0"
+  - img
+  - paragraph: Showing
+  - paragraph: "0"
+  - img
+  - paragraph: Page
+  - paragraph: "1"
+  - img
+  - textbox "Search by phone number..."
+  - table:
+    - rowgroup:
+      - row "Phone Number Reason Added By Date Added Actions":
+        - columnheader "Phone Number"
+        - columnheader "Reason"
+        - columnheader "Added By"
+        - columnheader "Date Added"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "No DNC entries found":
+        - cell "No DNC entries found":
+          - img
+          - paragraph: No DNC entries found

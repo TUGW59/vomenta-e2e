@@ -4,6 +4,7 @@ import { AppShell } from './AppShell.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
 import { SenderIdsPage } from './SenderIdsPage.js';
+import { DncListPage } from './DncListPage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { LoginPage } from './LoginPage.js';
@@ -41,6 +42,7 @@ export class App {
     this.coaching = new CoachingPage(page);
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.senderIds = new SenderIdsPage(page);
+    this.dncList = new DncListPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
   }
 

@@ -114,4 +114,26 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'campaigns-dnc',
+    routes: ['/campaigns/dnc'],
+    specFiles: [
+      'campaigns-dnc.authed.spec.js',
+      'campaigns-dnc.mutation.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,        // GET /api/v1/dnc → @errorpath
+      hasCharts: false,
+      hasNumericKpis: true, // Total/Showing/Page KPI kartları → @data
+      hasDialogs: true,     // Add Number + Bulk Import dialogları → @keyboard
+      hasTabs: false,
+      hasExport: true,      // Export (GET /dnc/export) + Bulk Import → @export
+      hasWrites: true,      // POST /dnc (ekle) → @mutation
+      // Ana içerik canlı, tenant'a özgü liste; tam-sayfa görsel PII taşır (sidebar).
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yüklemiyor (tek liste tablosu).',
+    },
+  },
 ]);
