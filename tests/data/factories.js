@@ -73,6 +73,19 @@ export function buildSenderId(overrides = {}) {
 }
 
 /**
+ * SMS şablonu (staging/@mutation akışı için). Benzersiz ad → paralel güvenli.
+ * `content` GSM-7 uyumlu ve 160 karakter altında (tek segment).
+ */
+export function buildSmsTemplate(overrides = {}) {
+  const suffix = uniqueSuffix();
+  return {
+    name: `PW Template ${suffix}`,
+    content: `Playwright automation template ${suffix}`,
+    ...overrides,
+  };
+}
+
+/**
  * DNC (Aranmayacak) kaydı (staging/@mutation akışı için). Benzersiz E.164 numara üretir.
  * 555-01xx aralığı kurgusaldır (gerçek aboneye atanmaz) → güvenli test verisi.
  */

@@ -136,4 +136,27 @@ export const TESTED_PAGES = Object.freeze([
       '@perf': 'Grafik/ağır içerik yüklemiyor (tek liste tablosu).',
     },
   },
+  {
+    id: 'campaigns-templates',
+    routes: ['/campaigns/templates'],
+    specFiles: [
+      'campaigns-templates.authed.spec.js',
+      'campaigns-templates.mutation.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,        // GET /channels/templates/sms → @errorpath
+      hasCharts: false,
+      hasNumericKpis: false, // KPI kartı yok → @data N/A
+      hasDialogs: true,     // Create/Edit/Delete dialogları → @keyboard
+      hasTabs: false,
+      hasExport: false,     // export/indirme yok → @export N/A
+      hasWrites: true,      // POST/PUT/DELETE → @mutation
+      hasStableUI: false,   // canlı tablo; tam-sayfa görsel PII taşır (sidebar)
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yüklemiyor (tek liste tablosu).',
+      '@data': 'Sayısal KPI göstermiyor (şablon listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

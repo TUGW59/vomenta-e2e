@@ -1,0 +1,34 @@
+{
+  "blocked": [
+    {
+      "m": "POST",
+      "u": "/api/v1/channels/templates/sms",
+      "body": "{\"name\":\"PW Test Template\",\"content\":\"Hello from E2E test {{name}}\"}"
+    }
+  ],
+  "rowButtons": [],
+  "createEnabledAfterFill": true,
+  "counterText": [
+    "GSM-7",
+    "32/160 · 128 left"
+  ],
+  "afterCreate": {
+    "blocked": [
+      {
+        "m": "POST",
+        "u": "/api/v1/channels/templates/sms",
+        "body": "{\"name\":\"PW Test Template\",\"content\":\"Hello from E2E test {{name}}\"}"
+      }
+    ],
+    "dialogOpen": false
+  },
+  "firstBtnOpens": {
+    "dialog": true,
+    "title": "Edit Template"
+  },
+  "lastBtnOpens": {
+    "dialog": true,
+    "text": "Delete Template\n\nAre you sure you want to delete this template? This cannot be undone.\n\nCancel\nDelete"
+  },
+  "rowBtnCount": 2
+}

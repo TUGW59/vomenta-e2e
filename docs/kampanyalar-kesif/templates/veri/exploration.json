@@ -1,0 +1,521 @@
+{
+  "apiCalls": [
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/active"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/modules/catalog"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications/unread-count"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/notifications?page=1"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/voice/calls/live"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/auth/me"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/roles/me/permissions"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/settings/organization"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/channels/templates/sms"
+    },
+    {
+      "m": "GET",
+      "u": "https://api.vomenta.com/api/v1/onboarding/progress"
+    }
+  ],
+  "blockedWrites": [],
+  "responses": {
+    "/api/v1/channels/templates/sms": {
+      "success": true,
+      "data": {
+        "items": [
+          {
+            "id": "c2e8090f-e020-4ef8-a0cb-6a1b7f2e72a7",
+            "name": "Campaign Template",
+            "content": "Test template",
+            "category": "transactional",
+            "lastUsed": null,
+            "createdAt": "<phone>T13:24:20.707Z"
+          }
+        ],
+        "total": 1
+      },
+      "meta": {
+        "requestId": "019fae<phone>d-9d6f-663af5fc9aad",
+        "timestamp": "<phone>T13:21:31.506Z"
+      }
+    }
+  },
+  "langs": {
+    "en": {
+      "dir": "ltr",
+      "lang": "en",
+      "h1": "SMS Templates",
+      "mainText": "SMS Templates\n\nManage reusable SMS message templates for your campaigns.\n\nNew Template\nTemplate Name\tMessage Body\tCreated at\t\n\nCampaign Template\n\t\n\nTest template\n\n\tJun 2, 2026\t",
+      "headers": [
+        "Template Name",
+        "Message Body",
+        "Created at",
+        ""
+      ],
+      "tabs": []
+    },
+    "tr": {
+      "dir": "ltr",
+      "lang": "tr",
+      "h1": "SMS Şablonları",
+      "mainText": "SMS Şablonları\n\nKampanyalarınız için yeniden kullanılabilir SMS mesaj şablonlarını yönetin.\n\nYeni Şablon\nŞablon Adı\tMesaj İçeriği\tOluşturulma\t\n\nCampaign Template\n\t\n\nTest template\n\n\tJun 2, 2026\t",
+      "headers": [
+        "Şablon Adı",
+        "Mesaj İçeriği",
+        "Oluşturulma",
+        ""
+      ],
+      "tabs": []
+    },
+    "fr": {
+      "dir": "ltr",
+      "lang": "fr",
+      "h1": "Modèles SMS",
+      "mainText": "Modèles SMS\n\nGérez les modèles de messages SMS réutilisables pour vos campagnes.\n\nNouveau modèle\nNom du modèle\tCorps du message\tCréé le\t\n\nCampaign Template\n\t\n\nTest template\n\n\tJun 2, 2026\t",
+      "headers": [
+        "Nom du modèle",
+        "Corps du message",
+        "Créé le",
+        ""
+      ],
+      "tabs": []
+    },
+    "ar": {
+      "dir": "rtl",
+      "lang": "ar",
+      "h1": "قوالب الرسائل القصيرة",
+      "mainText": "قوالب الرسائل القصيرة\n\nإدارة قوالب رسائل SMS القابلة لإعادة الاستخدام لحملاتك.\n\nقالب جديد\nاسم القالب\tنص الرسالة\tتاريخ الإنشاء\t\n\n\t\n\t\n\t\n\n\n\t\n\t\n\t\n\n\n\t\n\t\n\t\n\n\n\t\n\t\n\t",
+      "headers": [
+        "اسم القالب",
+        "نص الرسالة",
+        "تاريخ الإنشاء",
+        ""
+      ],
+      "tabs": []
+    }
+  },
+  "controls": {
+    "buttons": [
+      "New Template",
+      "",
+      ""
+    ],
+    "comboboxes": [],
+    "searchPlaceholder": null,
+    "rowCount": 1,
+    "links": []
+  },
+  "dialog": {
+    "afterCreateClickUrl": "https://app.vomenta.com/campaigns/templates",
+    "navigated": false,
+    "aria": "- dialog \"Create Template\":\n  - heading \"Create Template\" [level=2]\n  - paragraph: Manage reusable SMS message templates for your campaigns.\n  - text: Template Name\n  - textbox \"e.g. Welcome Message\"\n  - text: Message Body\n  - textbox \"campaigns.templateContentPlaceholder\"\n  - text: GSM-7 0/160\n  - button \"Cancel\"\n  - button \"Create\" [disabled]\n  - button \"Close\":\n    - img\n    - text: Close",
+    "text": "Create Template\n\nManage reusable SMS message templates for your campaigns.\n\nTemplate Name\nMessage Body\nGSM-7\n0/160\nCancel\nCreate\nClose",
+    "buttons": [
+      "Cancel",
+      "Create",
+      "Close"
+    ],
+    "combos": []
+  },
+  "tabs": {}
+}

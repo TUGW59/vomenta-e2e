@@ -1,0 +1,26 @@
+- main:
+  - heading "SMS Templates" [level=1]
+  - paragraph: Manage reusable SMS message templates for your campaigns.
+  - button "New Template":
+    - img
+    - text: New Template
+  - table:
+    - rowgroup:
+      - row "Template Name Message Body Created at":
+        - columnheader "Template Name"
+        - columnheader "Message Body"
+        - columnheader "Created at"
+        - columnheader
+    - rowgroup:
+      - row "Campaign Template Test template Jun 2, 2026":
+        - cell "Campaign Template":
+          - img
+          - text: Campaign Template
+        - cell "Test template":
+          - paragraph: Test template
+        - cell "Jun 2, 2026"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img

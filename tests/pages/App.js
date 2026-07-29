@@ -5,6 +5,7 @@ import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
 import { SenderIdsPage } from './SenderIdsPage.js';
 import { DncListPage } from './DncListPage.js';
+import { TemplatesPage } from './TemplatesPage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { LoginPage } from './LoginPage.js';
@@ -43,6 +44,7 @@ export class App {
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.senderIds = new SenderIdsPage(page);
     this.dncList = new DncListPage(page);
+    this.templates = new TemplatesPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
   }
 
