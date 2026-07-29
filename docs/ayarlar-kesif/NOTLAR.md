@@ -142,7 +142,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 13 | Integrations | `/settings/integrations` | ✅ **TAMAM** (settings-integrations) |
 | 14 | Security | `/settings/security` | ✅ **TAMAM** (settings-security) |
 | 15 | Data Retention | `/settings/data-retention` | ✅ **TAMAM** (settings-data-retention) |
-| 16 | Notifications | `/settings/notifications` | ⬜ |
+| 16 | Notifications | `/settings/notifications` | ✅ **TAMAM** (settings-notifications) |
 | 17 | API Keys | `/settings/api-keys` | ⬜ |
 | 18 | Webhooks | `/settings/webhooks` | ⬜ |
 | 19 | Audit Log | `/settings/audit` | ⬜ |
@@ -299,6 +299,15 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **a11y TEMİZ:** Security'nin aksine spinbutton'lar erişilebilir etiket taşıyor (ciddi ihlal yok).
 - **@keyboard N/A:** diyalog/menü/sekme yok.
 - **Mutasyon:** Save changes (reversible spinbutton düzenleme) + Run cleanup (geri alınamaz silme, asla) → `settings-data-retention-mutations` **test.fixme** (staging).
+
+## Bildirimler detayı (`/settings/notifications`)
+
+- **Başlık:** "Notifications" + alt başlık. Sekme/dialog YOK. Bölümler: **Browser Push Notifications** (+"Enable push notifications" — headless'te bloklu/disabled) · **Email Category Preferences** (7 kategori switch: Account & Activity/Billing/Campaigns/AI/SLA/Reports/Security — hepsi checked) · **Delivery Channels** (In-App/Email/Push sütunları, kategori bazında onlarca switch). **Save preferences** (disabled).
+- **Backend:** GET /notifications/preferences, /notifications/email-preferences.
+- **4 dil:** başlık/alt başlık/Save preferences/Enable push tam çevrili; ar RTL; taşma yok.
+- **Dialog yok → "Close" sızıntısı yok.** a11y temiz.
+- **@keyboard + @visual N/A:** dialog/sekme yok; uzun switch formu tek kararlı snapshot bölgesi vermiyor.
+- **Mutasyon:** Save preferences (reversible kategori switch toggle) → `settings-notifications-mutations` **test.fixme** (staging).
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

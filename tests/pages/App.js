@@ -12,6 +12,7 @@ import { DashboardsPage } from './DashboardsPage.js';
 import { DataRetentionPage } from './DataRetentionPage.js';
 import { DispositionCodesPage } from './DispositionCodesPage.js';
 import { LoginPage } from './LoginPage.js';
+import { NotificationsPage } from './NotificationsPage.js';
 import { OrganizationPage } from './OrganizationPage.js';
 import { ProfilePage } from './ProfilePage.js';
 import { ReportSectionPage } from './ReportSectionPage.js';
@@ -61,6 +62,7 @@ export class App {
     this.integrations = new IntegrationsPage(page);
     this.security = new SecurityPage(page);
     this.dataRetention = new DataRetentionPage(page);
+    this.notifications = new NotificationsPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

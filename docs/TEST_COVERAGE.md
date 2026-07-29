@@ -795,3 +795,15 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 |---|---|
 | Bildirimler paneli — standart dialog/menü açmıyor (incelendi) | Header |
 | Dil menüsü — görünür menü açmıyor (incelendi) | Header |
+
+### `settings-notifications.authed.spec.js`  (Ayarlar › Bildirimler)
+
+- sayfa başlığı + Email Category Preferences + Save  `@smoke`
+- kategori switch'leri + Delivery Channels bölümü  `@critical`
+- L1: Save/Enable push/kategori switch'leri mevcut (tıklanmıyor)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Save + Enable push çevrili  `@i18n`
+- a11y / layout / clean / errorpath / deeplink; @keyboard + @visual N/A (dialog yok, uzun form)
+
+### `settings-notifications-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: kategori switch toggle → Save → kalıcı → geri al  `@regression` `@mutation`

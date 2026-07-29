@@ -436,4 +436,29 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-notifications',
+    routes: ['/settings/notifications'],
+    specFiles: [
+      'settings-notifications.authed.spec.js',
+      'settings-notifications-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (uzun switch tercih formu).',
+      '@perf': 'Grafik/ağır içerik yok (tercih formu).',
+      '@data': 'Sayısal KPI yok (switch tercihleri).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Çok uzun tercih formu (onlarca switch, kategoriler) → tek kararlı snapshot bölgesi pratik değil.',
+    },
+  },
 ]);

@@ -18,6 +18,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-integrations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-notifications` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | ✅ |
 | `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
@@ -58,6 +59,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
 - **settings-integrations**: `/settings/integrations`
+- **settings-notifications**: `/settings/notifications`
 - **settings-organization**: `/settings/organization`
 - **settings-profile**: `/settings/profile`
 - **settings-roles**: `/settings/roles`
@@ -96,6 +98,11 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-integrations` **@perf**: Grafik/ağır içerik yok (entegrasyon kartları + webhook tablosu + dialoglar).
 - `settings-integrations` **@data**: Sayısal KPI yok (kart/tablo listesi).
 - `settings-integrations` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-notifications` **@keyboard**: Diyalog/menü/sekme yok (uzun switch tercih formu).
+- `settings-notifications` **@perf**: Grafik/ağır içerik yok (tercih formu).
+- `settings-notifications` **@data**: Sayısal KPI yok (switch tercihleri).
+- `settings-notifications` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-notifications` **@visual**: Çok uzun tercih formu (onlarca switch, kategoriler) → tek kararlı snapshot bölgesi pratik değil.
 - `settings-organization` **@perf**: Grafik/ağır içerik yok (statik şirket-bilgisi formu).
 - `settings-organization` **@data**: Sayısal KPI göstermiyor (form alanları).
 - `settings-organization` **@export**: Bu sayfada export/indirme kontrolü yok.
