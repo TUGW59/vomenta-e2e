@@ -5,6 +5,8 @@ import { App } from '../pages/App.js';
 import { collectDiagnostics } from './diagnostics.js';
 import { createMutationGuard } from './mutationGuard.js';
 import { createTestEntityRegistry } from './testEntity.js';
+import { createArtifacts } from './artifacts.js';
+import { redactDeep } from './sanitize.js';
 
 /**
  * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
@@ -33,6 +35,16 @@ export const test = base.extend({
 
   api: async ({ request, mutationGuard }, use) => {
     await use(new ApiClient(request, mutationGuard));
+  },
+
+  /**
+   * Güvenli artifact ekleme (WP-01). Testler ham `testInfo.attach` yerine bunu
+   * kullanır; body maskelenmeden trace'e girmez.
+   *   await artifacts.safeAttach('export.csv', { body: csv, contentType: 'text/csv' })
+   *   await artifacts.safeScreenshot('profile.png', { mask: [app.header.userMenu()] })
+   */
+  artifacts: async ({ page }, use, testInfo) => {
+    await use(createArtifacts(page, testInfo));
   },
 
   /**
@@ -65,7 +77,7 @@ export const test = base.extend({
 
     if (errors.length > 0) {
       await testInfo.attach('cleanup-errors.json', {
-        body: Buffer.from(JSON.stringify(errors, null, 2)),
+        body: Buffer.from(JSON.stringify(redactDeep(errors), null, 2)),
         contentType: 'application/json',
       });
       throw new Error(
@@ -103,7 +115,7 @@ export const test = base.extend({
 
       if (testInfo.status !== testInfo.expectedStatus && collector.events.length > 0) {
         await testInfo.attach('runtime-diagnostics.json', {
-          body: Buffer.from(JSON.stringify(collector.events, null, 2)),
+          body: Buffer.from(JSON.stringify(redactDeep(collector.events), null, 2)),
           contentType: 'application/json',
         });
       }

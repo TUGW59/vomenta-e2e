@@ -256,6 +256,25 @@ gövdeleri), DOM anlık görüntüleri, konsol ve adım adım zaman çizelgesi. 
 Referans: agents "Force" kök-neden incelemesi (frontend isteği = OpenAPI DTO ile birebir →
 sunucu reddi) ve `analyze-trace.zip` (detect-anomaly paket doğrulaması).
 
+## Artifact secret/PII güvenliği standardı (WP-01)
+
+Testler production'a karşı koşar; hiçbir artifact'te (trace, video, screenshot,
+`attach` çıktısı, console) token, Authorization, cookie, e-posta, telefon, provider
+key veya müşteri verisi açık kalamaz.
+
+- **Ham `testInfo.attach(...)` yasak.** Bunun yerine `artifacts.safeAttach(name, { json | body, contentType })`
+  kullan — body maskelenmeden (`redactDeep`/`redactText`) eklenmez. Sert kapı:
+  `quality:artifact-safety` her `*.spec.js`'i statik tarar (istisna: kendi pipeline'ında
+  maskeleyen `tests/discovery/discovery.spec.js`).
+- **Ekran görüntüsü:** `artifacts.safeScreenshot(name, { mask: [...] })` ile al; kimlik içeren
+  yüzeylerde (Settings/Profile, header kullanıcı menüsü) PII locator'larını `mask`'e ver.
+- **Ortak maskeleyici:** `tests/fixtures/sanitize.js` (`redactText/redactUrl/redactHeaders/redactDeep`
+  + tarayıcı `findSecrets`). `diagnostics` de buna delege eder. Yeni maskeleme mantığı buraya eklenir.
+- **Sınır:** serbest-form kişi adı otomatik maskelenmez (aşırı-maskeleme riski); isim PII'si
+  ekran maskesi veya alan-bazlı redaksiyonla korunur. Detay: `docs/adr/0006-artifact-secret-sanitizer.md`.
+- **Kendi kodun token loglamaz.** Voice WS gibi kimlik taşıyan akışlarda `console.log`/ham attach
+  ile secret'a dokunma; diagnostics zaten yakalar ve maskeler.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
