@@ -37,7 +37,13 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
   el kitabı `docs/TEST_STYLES.md`.
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
-- Veri değişiyorsa `@mutation`, production guard ve cleanup mevcut.
+- Veri değişiyorsa `@mutation`, production guard ve `testEntity` yaşam döngüsü
+  mevcut; rollback mutasyondan önce kaydedildi, retry `0`, lane worker'ı `1`.
+- Keşif notunda varsayılan + seçim/bulk + hover/focus + menüler + dialog/drawer +
+  boş/loading/hata + responsive/i18n durumlarını içeren `Keşif kapanış matrisi`
+  tamamlandı; olmayan durumlar gerekçeli N/A.
+- Negatif assertion hedef UI ve ilgili veri isteği hazır olduktan sonra yapılıyor;
+  kısmi avatar/baş-harf eşleşmesi iş kimliği olarak kullanılmıyor.
 - `npm run quality:check` ve ilgili test paketi geçti.
 - Retry ile geçen flaky test bulunmuyor.
 - Trace/diagnostics hata halinde yeterli kanıt üretiyor. Trace başarısızlıkta
@@ -70,6 +76,10 @@ Reviewer şu soruları yanıtlar:
 - Hata mesajı neyin bozulduğunu doğrudan anlatıyor mu?
 - UI değişikliği tek Page Object güncellemesiyle karşılanabilir mi?
 - Production güvenliği korunuyor mu?
+- Checkbox/seçim, hover/focus ve `...` menüleri denenerek sonradan beliren bütün
+  kontroller envantere girdi mi?
+- Rollback create/write işleminden önce mi kayıtlı; cleanup hatası görünür mü;
+  mutation retry gerçekten `0` mı?
 
 ## İstisnalar
 

@@ -18,7 +18,7 @@ const I18N = ContactsPage.I18N;
  *   Kilit 2 — CANLI tenant'a yazmak için ayrıca ALLOW_PROD_MUTATIONS=true.
  *   Çalıştırma: npm run test:mutation:prod (canlı, yalnızca ayrılmış test hesabı).
  *
- * GÜVENLİK: mutationGuard ile başlar; cleanup create'ten ÖNCE kaydedilir ve oluşturulan
+ * GÜVENLİK: mutationGuard ile başlar; testEntity cleanup create'ten ÖNCE kaydedilir ve oluşturulan
  *   kişiyi ADINA göre bulup API ile siler (yakalanan Bearer) — test ortada patlasa da
  *   kayıt silinir. Uçlar canlıda doğrulandı: POST /contacts→201, PATCH /contacts/bulk,
  *   DELETE /contacts/{id}→204.
@@ -30,7 +30,7 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
   test('L3 görev OK: kişi oluştur → ara → toplu Etiket (VIP) → toplu Sil', async ({
     app,
     mutationGuard,
-    cleanup,
+    testEntity,
   }) => {
     mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
     const c = app.contacts;
@@ -38,9 +38,9 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
 
     await c.open();
     // Bulletproof cleanup: ne olursa olsun bu addaki kişi(ler)i sil (yalnızca oluşturulan)
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       await c.deleteContactsByName(data.lastName);
-    });
+    }, `contact:${data.lastName}`);
 
     // 1) OLUŞTUR (etiketsiz) — GERÇEK POST /contacts
     await c.openNewContactForm();

@@ -20,9 +20,9 @@ import { DashboardsPage } from './pages/DashboardsPage.js';
  * Tanı: `--trace on` ile koşulduğunda Trace Viewer'da tüm create/delete adımları + ağ + DOM görülür.
  */
 test.describe('Panolar — mutasyonları @regression @mutation', () => {
-  test.describe.configure({ mode: 'serial' }); // aynı canlı kaynağı (özel pano listesi) paylaşırlar
+  test.describe.configure({ mode: 'serial', retries: 0 }); // aynı canlı kaynağı (özel pano listesi) paylaşırlar
 
-  test('Create Dashboard: pano oluşunca özel listeye ekleniyor (L2 POST 201 + L3 kart)', async ({ app, mutationGuard, cleanup }) => {
+  test('Create Dashboard: pano oluşunca özel listeye ekleniyor (L2 POST 201 + L3 kart)', async ({ app, mutationGuard, testEntity }) => {
     mutationGuard('Panolar: pano oluşturma');
     const dashboards = app.dashboards;
     await dashboards.open();
@@ -30,11 +30,11 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     const before = await dashboards.customCardCount();
 
     const name = `e2e-create-${Date.now()}`;
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       if (await dashboards.page.getByText(name, { exact: true }).count()) {
-        await dashboards.deleteDashboardByName(name).catch(() => {});
+        await dashboards.deleteDashboardByName(name);
       }
-    });
+    }, `dashboard:${name}`);
 
     await dashboards.createDashboard(name); // L2: POST list -> 201 (metot içinde beklenir)
 
@@ -43,7 +43,7 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(before + 1);
   });
 
-  test('Duplicate: çoğaltma bir "(Copy)" ekliyor (L3)', async ({ app, mutationGuard, cleanup }) => {
+  test('Duplicate: çoğaltma bir "(Copy)" ekliyor (L3)', async ({ app, mutationGuard, testEntity }) => {
     mutationGuard('Panolar: pano çoğaltma');
     const dashboards = app.dashboards;
     await dashboards.open();
@@ -51,13 +51,13 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     // Kendi verimizi oluştur (mevcut kartlara dokunmadan onu çoğaltalım).
     const name = `e2e-dup-${Date.now()}`;
     const copyName = `${name} (Copy)`;
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       for (const n of [copyName, name]) {
         if (await dashboards.page.getByText(n, { exact: true }).count()) {
-          await dashboards.deleteDashboardByName(n).catch(() => {});
+          await dashboards.deleteDashboardByName(n);
         }
       }
-    });
+    }, `dashboard-copy:${copyName}`);
     await dashboards.createDashboard(name);
     const afterCreate = await dashboards.customCardCount();
 
@@ -69,18 +69,18 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(afterCreate + 1);
   });
 
-  test('Delete: silme kartı listeden kaldırıyor (L2 DELETE 204 + L3)', async ({ app, mutationGuard, cleanup }) => {
+  test('Delete: silme kartı listeden kaldırıyor (L2 DELETE 204 + L3)', async ({ app, mutationGuard, testEntity }) => {
     mutationGuard('Panolar: pano silme');
     const dashboards = app.dashboards;
     await dashboards.open();
 
     // Ön koşul: silinecek geçici pano OLUŞTUR (başka verinin silinmemesi için).
     const name = `e2e-del-${Date.now()}`;
-    cleanup(async () => {
+    testEntity.cleanup(async () => {
       if (await dashboards.page.getByText(name, { exact: true }).count()) {
-        await dashboards.deleteDashboardByName(name).catch(() => {});
+        await dashboards.deleteDashboardByName(name);
       }
-    });
+    }, `dashboard-delete-restore:${name}`);
     await dashboards.createDashboard(name);
     const before = await dashboards.customCardCount();
 
