@@ -98,6 +98,15 @@ export class DashboardsPage extends BasePage {
     return this.customShareButtons.count();
   }
 
+  /** Bilinen otomasyon önekleriyle başlayan özel pano adlarının toplamı. */
+  async automationDashboardCount(prefixes) {
+    await this.open();
+    const pattern = new RegExp(
+      `^(?:${prefixes.map(escapeRegExp).join('|')}).+`
+    );
+    return this.page.getByText(pattern).count();
+  }
+
   /** İlk kartta paylaş diyaloğunu açar ve dialog locator'ını döndürür. */
   async openShareDialog() {
     await this.firstShareButton.click();
@@ -173,4 +182,8 @@ export class DashboardsPage extends BasePage {
   }
 
   // languageTrigger()/switchLanguage() BasePage'den miras alınır.
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

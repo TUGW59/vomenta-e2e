@@ -48,6 +48,11 @@ npm run test:e2e
 # MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur.
 npm run test:mutation
 
+# Mutation koşularından önce/sonra ayrılmış staging tenant'ta salt-okunur
+# otomasyon kalıntısı denetimi (dashboard, schedule, contact, WFM vardiya).
+# Aynı staging/tenant değişkenleri zorunludur; production'da çalışmaz.
+npm run report:orphans
+
 # Testleri görsel arayüzden seçerek çalıştırma
 npm run test:ui
 
@@ -100,9 +105,10 @@ npx playwright test -g "komut paleti" --project=chromium-authed
    ayrıca `npm run test:auth` çalıştırılmalıdır.
 7. Yeni testler `test` ve `expect` değerlerini `tests/fixtures/test.js` üzerinden
    almalıdır.
-8. Veri değiştiren testler `@mutation` etiketi, `await mutationGuard(...)` ve
-   güvenilir temizlik içermelidir; yalnızca kimliği doğrulanan ayrılmış staging
-   tenant'ında çalışır. Production mutasyonu için kaçış bayrağı yoktur.
+8. Veri değiştiren testler `@mutation`, `await mutationGuard(...)` ve
+   `testEntity.create` yaşam döngüsü içermelidir. Benzersiz otomasyon anahtarıyla
+   başlangıç/create/bitiş baseline'ı `0→1→0` kanıtlanır; yalnızca kimliği
+   doğrulanan ayrılmış staging tenant'ında çalışır. Production kaçışı yoktur.
 9. `quality:architecture` yeni spec'lerde ortak fixture, sabit bekleme, doğrudan
    ortam değişkeni ve eksik ESM uzantısı gibi mimari ihlalleri CI'da engeller.
 

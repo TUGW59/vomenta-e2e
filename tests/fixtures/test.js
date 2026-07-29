@@ -39,19 +39,28 @@ export const test = base.extend({
    * Mutasyon yaşam döngüsü: rollback/cleanup işlemlerini mutasyondan ÖNCE kaydeder,
    * test başarısız olsa da LIFO sırasıyla çalıştırır.
    *
-   * Kullanım:
-   *   testEntity.cleanup(() => api.delete(`/api/tickets/${id}`), 'ticket rollback')
-   *
-   * Oluşturma ile cleanup kaydının sırasını yapısal olarak garanti etmek için:
+   * Kalıcı create için başlangıç/create/bitiş sayaçlarını ve rollback sırasını
+   * yapısal olarak garanti eden zorunlu kullanım:
    *   await testEntity.create({
    *     label: 'ticket',
+   *     key,
+   *     baseline: () => tickets.countAutomationRecords(),
    *     cleanup: () => api.delete(`/api/tickets/by-key/${key}`),
    *     action: () => api.post('/api/tickets', payload),
    *   })
+   *
+   * `testEntity.cleanup` yalnız kalıcı create olmayan, açık sözleşmeli N/A
+   * akışlarında kullanılabilir; validator bunu zorlar.
    */
   testEntity: async ({}, use, testInfo) => {
     const registry = createTestEntityRegistry();
-    await use({ cleanup: registry.cleanup, create: registry.create });
+    await use({
+      cleanup: registry.cleanup,
+      create: registry.create,
+      get created() {
+        return registry.created;
+      },
+    });
     const errors = await registry.teardown();
 
     if (errors.length > 0) {

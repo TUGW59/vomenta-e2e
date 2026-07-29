@@ -1,5 +1,9 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import {
+  AUTOMATION_ENTITY_PREFIXES,
+  testEntityName,
+} from './data/factories.js';
 
 /**
  * RAPORLAR — "Schedule This Report" GERÇEK YAŞAM DÖNGÜSÜ (opt-in)
@@ -10,10 +14,10 @@ import { test, expect } from './fixtures/test.js';
  * GÜVENLİK:
  * - Yalnızca `npm run test:mutation` ile, kimliği doğrulanan staging tenant'ında çalışır.
  * - Production mutasyonu için kaçış bayrağı/komutu yoktur.
- * - Benzersiz `e2e-sched-…` ada ve teslim edilemeyen rezerv example.com alıcısına yazar.
+ * - Benzersiz `VOMENTA_E2E_…` ada ve teslim edilemeyen rezerv example.com alıcısına yazar.
  * - Çalışma saati 23:55 seçilir; schedule saniyeler içinde doğrulanıp silinir.
- * - `testEntity` cleanup, test herhangi bir noktada kırılırsa benzersiz adı API'den
- *   bulup siler; gerçek kullanıcı schedule'larına dokunmaz.
+ * - `testEntity.create` rollback'i create öncesi kaydeder, benzersiz adı UI'dan
+ *   siler ve `0→1→0` baseline'ını kanıtlar.
  * - Retry kapalıdır: aynı mutation otomatik tekrarlanmaz.
  *
  * Resmi OpenAPI (29 Tem 2026):
@@ -30,20 +34,28 @@ test.describe('Rapor Schedule yaşam döngüsü @regression @mutation', () => {
   }) => {
     await mutationGuard('Rapor Schedule: oluştur + listele + sil');
 
-    const name = `e2e-sched-${Date.now()}`;
+    const name = testEntityName('REPORT_SCHEDULE');
     const recipient = 'e2e-schedule@example.com';
 
-    // Cleanup MUTASYONDAN ÖNCE kaydedilir. Yalnızca bu testin benzersiz adına dokunur.
-    testEntity.cleanup(async () => {
-      await app.reports.open();
-      if (!(await app.reports.scheduledReportName(name).count())) return;
-      const removed = await app.reports.deleteScheduledReportByName(name);
-      expect(removed.status(), 'cleanup DELETE 204').toBe(204);
-    }, `scheduled report rollback: ${name}`);
-
     const report = app.reportSection('agent');
-    await report.open();
-    const created = await report.createScheduledReport({ name, recipient });
+    const created = await testEntity.create({
+      label: `scheduled report rollback: ${name}`,
+      key: name,
+      baseline: () =>
+        app.reports.automationScheduledReportCount(
+          AUTOMATION_ENTITY_PREFIXES
+        ),
+      cleanup: async () => {
+        await app.reports.open();
+        if (!(await app.reports.scheduledReportName(name).count())) return;
+        const removed = await app.reports.deleteScheduledReportByName(name);
+        expect(removed.status(), 'cleanup DELETE 204').toBe(204);
+      },
+      action: async () => {
+        await report.open();
+        return report.createScheduledReport({ name, recipient });
+      },
+    });
 
     // L2 — doğru endpoint, method, durum ve DTO.
     expect(created.status(), 'schedule POST 201').toBe(201);
@@ -83,13 +95,16 @@ test.describe('Rapor Schedule yaşam döngüsü @regression @mutation', () => {
   test('güvenlik: tenantta geçici e2e schedule kalıntısı yok', async ({
     app,
     mutationGuard,
-    testEntity,
   }) => {
     await mutationGuard('Rapor Schedule: mutation koşumu sonrası orphan kontrolü');
-    void testEntity;
-    await app.reports.open();
-    await expect(
-      app.reports.page.getByText(/^e2e-sched-/)
-    ).toHaveCount(0, { timeout: 20000 });
+    await expect
+      .poll(
+        () =>
+          app.reports.automationScheduledReportCount(
+            AUTOMATION_ENTITY_PREFIXES
+          ),
+        { timeout: 20000 }
+      )
+      .toBe(0);
   });
 });

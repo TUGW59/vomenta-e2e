@@ -111,8 +111,20 @@ export class ContactsPage extends BasePage {
     await super.open();
     await expect(this.heading).toHaveText(ContactsPage.I18N.en.heading, { timeout: 30000 });
     await expect(this.table).toBeVisible({ timeout: 30000 });
-    // İlk veri satırının ad hücresi dolana kadar bekle (skeleton değil).
-    await expect(this.rows.nth(1).getByRole('cell').nth(1)).toHaveText(/\S/, { timeout: 30000 });
+    // Veri-dolu veya gerçek boş-durum sinyali gelmeden liste hazır sayılmaz.
+    await expect
+      .poll(
+        async () =>
+          (await this.rows.nth(1).getByRole('cell').nth(1).textContent().catch(() => ''))?.trim() ||
+          ((await this.page
+            .getByText(ContactsPage.I18N.en.emptyHeading, { exact: true })
+            .isVisible()
+            .catch(() => false))
+            ? 'empty'
+            : ''),
+        { timeout: 30000 }
+      )
+      .not.toBe('');
   }
 
   column(name) {
@@ -201,6 +213,29 @@ export class ContactsPage extends BasePage {
 
   async searchFor(term) {
     await this.search.fill(term);
+  }
+
+  /** Arama response'u tamamlandıktan sonra eşleşen veri satırı sayısını döndürür. */
+  async searchAndCount(term) {
+    const response = this.page.waitForResponse(
+      (candidate) =>
+        candidate.request().method() === 'GET' &&
+        candidate.url().includes(ContactsPage.API.contacts),
+      { timeout: 15000 }
+    );
+    await this.search.fill(term);
+    await response;
+    return this.rows.filter({ hasText: term }).count();
+  }
+
+  /** Yeni ve eski otomasyon öneklerine ait kişi orphan toplamı. */
+  async automationContactCount(prefixes) {
+    await this.open();
+    let total = 0;
+    for (const prefix of prefixes) {
+      total += await this.searchAndCount(prefix);
+    }
+    return total;
   }
 
   /** "Showing 1–6 of 6 contacts" bilgisi (dile göre değişir; sadece sayı çıkarımı için). */

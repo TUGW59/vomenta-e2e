@@ -184,7 +184,7 @@ test.describe('Kontrol: Force (ajan durumu) @regression', () => {
  * ayrı *.mutation spec + @mutation + mutationGuard + cleanup ile (bkz. AGENTS.md).
  */
 test.describe('Force — L2/L3 (staging planı) @regression', () => {
-  test.fixme('L2/L3: "Force → Break" ajanın durumunu backend\'de Break yapar (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Force → Break" ajanın durumunu backend\'de Break yapar (staging mutation)', async () => {});
   test.fixme('L2/L3: çevrimdışı ajanı zorlama hatasının tam HTTP kodu/mesajı doğrulanır (staging)', async () => {});
 });
 

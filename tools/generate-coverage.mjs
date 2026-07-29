@@ -30,6 +30,13 @@ const report = JSON.parse(raw);
 const specs = new Map();
 const walk = (suite) => {
   for (const sp of suite.specs || []) {
+    // `test.fixme` / koşulsuz skip, çalıştırılabilir kapsama değildir. Playwright
+    // bunları listede `expectedStatus: "skipped"` olarak döndürür; raporda yeşil
+    // senaryo gibi saymak gerçek kapsamı şişirir.
+    const hasRunnableTest = (sp.tests || []).some(
+      (candidate) => candidate.expectedStatus !== 'skipped'
+    );
+    if (!hasRunnableTest) continue;
     const key = `${sp.file}::${sp.title}`;
     if (!specs.has(key)) specs.set(key, { file: sp.file, title: sp.title, tags: sp.tags || [] });
   }
@@ -54,7 +61,7 @@ L.push('Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik
 L.push('');
 L.push('> ⚙️ Bu dosya **otomatik üretilir** — elle düzenlemeyin.');
 L.push('> Güncellemek için: `npm run report:coverage` (veya `node tools/generate-coverage.mjs`).');
-L.push('> "Test edilen" bölümü testlerden, diğer bölümler `tests/contracts/coverage-exclusions.js`\'ten gelir.');
+L.push('> "Test edilen" bölümü çalıştırılabilir testlerden (`fixme`/koşulsuz `skip` hariç), diğer bölümler `tests/contracts/coverage-exclusions.js`\'ten gelir.');
 L.push('');
 L.push('## Özet');
 L.push('');

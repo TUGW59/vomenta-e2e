@@ -4,13 +4,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 > ⚙️ Bu dosya **otomatik üretilir** — elle düzenlemeyin.
 > Güncellemek için: `npm run report:coverage` (veya `node tools/generate-coverage.mjs`).
-> "Test edilen" bölümü testlerden, diğer bölümler `tests/contracts/coverage-exclusions.js`'ten gelir.
+> "Test edilen" bölümü çalıştırılabilir testlerden (`fixme`/koşulsuz `skip` hariç), diğer bölümler `tests/contracts/coverage-exclusions.js`'ten gelir.
 
 ## Özet
 
-- **Test edilen senaryo:** 410
+- **Test edilen senaryo:** 406
 - **Test dosyası:** 33
-- **Etiketler:** `@a11y` 15 · `@clean` 4 · `@critical` 45 · `@data` 1 · `@deeplink` 3 · `@errorpath` 3 · `@i18n` 12 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 9 · `@perf` 1 · `@public` 2 · `@regression` 232 · `@smoke` 39 · `@visual` 3
+- **Etiketler:** `@a11y` 15 · `@clean` 4 · `@critical` 45 · `@data` 1 · `@deeplink` 3 · `@errorpath` 3 · `@i18n` 12 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 9 · `@perf` 1 · `@public` 2 · `@regression` 228 · `@smoke` 39 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -388,7 +388,6 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [tr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 - [fr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 - [ar] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
-- L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri)  `@regression`
 
 ### `supervisor-agents.authed.spec.js`
 
@@ -408,7 +407,6 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L3 görev OK: arama tabloyu eşleşen ajana daraltıyor  `@regression`
 - L1 tıklama OK: Force menüsü açılıyor ve zorla-durum seçenekleri görünüyor  `@regression`
 - L1 tıklama OK: durum seçince onay diyaloğu zorunlu-sebep ile açılıyor (iptal edilir)  `@regression`
-- L2/L3: çevrimdışı ajanı zorlama hatasının tam HTTP kodu/mesajı doğrulanır (staging)  `@regression`
 - L1 tıklama OK: transkript girilince Analyze butonu etkinleşiyor  `@regression`
 - L2 arka plan OK: Analyze transkripti detect-anomaly ucuna POST ediyor  `@regression`
 - L3 görev OK: analiz sonucu (risk) arayüzde gösteriliyor  `@regression`
@@ -434,7 +432,6 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: diyalog form alanlarıyla açılıyor  `@regression`
 - L3 görev OK: kriter puanları Overall Score'u yükseltiyor  `@regression`
 - L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor  `@regression`
-- L3: değerlendirme gönderimi kalıcı kayıt oluşturur (staging mutasyon)  `@regression`
 
 ### `supervisor-interactions.authed.spec.js`
 
@@ -449,7 +446,6 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: menü açılıyor ve kanal seçenekleri görünüyor  `@regression`
 - L2 arka plan OK: kanal seçince interactions API'sini channel parametresiyle çağırıyor  `@regression` `@critical`
 - L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
-- L1/L2/L3: aktif etkileşim satırındaki izleme/araya-girme aksiyonları (staging/canlı veri)  `@regression`
 
 ### `supervisor-wallboard.authed.spec.js`
 

@@ -1,7 +1,32 @@
 // @ts-check
+import { randomUUID } from 'node:crypto';
 
 function uniqueSuffix() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  return `${Date.now().toString(36)}_${randomUUID().replaceAll('-', '').slice(0, 10)}`;
+}
+
+/** Yeni test verisinin değiştirilemez, aranabilir otomasyon öneki. */
+export const TEST_ENTITY_PREFIX = 'VOMENTA_E2E_';
+
+/**
+ * Eski koşulardan kalmış orphan'ları da yeni baseline taramalarında görünür tutar.
+ * Yeni veri yalnız TEST_ENTITY_PREFIX kullanır.
+ */
+export const AUTOMATION_ENTITY_PREFIXES = Object.freeze([
+  TEST_ENTITY_PREFIX,
+  'e2e-',
+  'PW_',
+  'PW ',
+  'pw-',
+]);
+
+/** Benzersiz ve kaynak türünü taşıyan kalıcı test varlığı anahtarı üretir. */
+export function testEntityName(kind = 'ENTITY') {
+  const normalized = String(kind)
+    .toUpperCase()
+    .replace(/[^A-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '') || 'ENTITY';
+  return `${TEST_ENTITY_PREFIX}${normalized}_${uniqueSuffix()}`;
 }
 
 /**
@@ -9,10 +34,10 @@ function uniqueSuffix() {
  * Mutasyon yapan staging testleri sabit isim/e-posta kullanmamalıdır.
  */
 export function buildContact(overrides = {}) {
-  const suffix = uniqueSuffix();
+  const key = testEntityName('CONTACT');
   return {
-    name: `PW Contact ${suffix}`,
-    email: `pw-${suffix}@example.test`,
+    name: key,
+    email: `${key.toLowerCase()}@example.test`,
     phone: '+15550000000',
     ...overrides,
   };
@@ -24,21 +49,22 @@ export function buildContact(overrides = {}) {
  * bu test için verdiği numaradır. lastName boşluksuz+benzersiz → arama ile güvenle bulunur.
  */
 export function buildPeopleContact(overrides = {}) {
-  const suffix = uniqueSuffix().replace(/[^a-z0-9]/gi, '');
+  const key = testEntityName('CONTACT');
   return {
-    firstName: 'PW',
-    lastName: `Auto${suffix}`,
+    firstName: 'Test',
+    lastName: key,
     phone: '+905072507710',
     tag: 'VIP',
+    key,
     ...overrides,
   };
 }
 
 export function buildTicket(overrides = {}) {
-  const suffix = uniqueSuffix();
+  const key = testEntityName('TICKET');
   return {
-    subject: `PW Ticket ${suffix}`,
-    description: `Playwright automation ${suffix}`,
+    subject: key,
+    description: `Playwright automation ${key}`,
     priority: 'normal',
     ...overrides,
   };
@@ -49,10 +75,11 @@ export function buildTicket(overrides = {}) {
  * Yalnızca staging'de kullanılır; her çağrıda benzersiz e-posta üretir.
  */
 export function buildUserInvite(overrides = {}) {
-  const suffix = uniqueSuffix();
+  const key = testEntityName('INVITE');
   return {
-    email: `pw-invite-${suffix}@example.test`,
+    email: `${key.toLowerCase()}@example.test`,
     role: 'agent',
+    key,
     ...overrides,
   };
 }
@@ -62,11 +89,12 @@ export function buildUserInvite(overrides = {}) {
  * `scheduledStart` bilinçle UZAK GELECEK: kampanya hemen arama başlatmasın.
  */
 export function buildCampaign(overrides = {}) {
-  const suffix = uniqueSuffix();
+  const key = testEntityName('CAMPAIGN');
   return {
-    name: `PW Campaign ${suffix}`,
+    name: key,
     channel: 'Voice',
     scheduledStart: '2030-01-01',
+    key,
     ...overrides,
   };
 }

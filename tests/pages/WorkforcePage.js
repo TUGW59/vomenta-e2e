@@ -122,6 +122,17 @@ export class WorkforcePage extends BasePage {
     await expect(cell).not.toContainText(/\d{1,2}:\d{2}/, { timeout: 10000 });
   }
 
+  /** Ayrılmış staging tenant'ın görünür haftasındaki toplam vardiya sayısı. */
+  async automationShiftCount() {
+    await this.open();
+    return this.page.locator('main table tbody td').evaluateAll(
+      (cells) =>
+        cells.filter((cell) =>
+          /\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}/.test(cell.textContent || '')
+        ).length
+    );
+  }
+
   /** Görünen hafta aralığı metni ("2026-07-27 — 2026-08-02"). */
   async dateRangeText() {
     const t = await this.page.locator('main').innerText();

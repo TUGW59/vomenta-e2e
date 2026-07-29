@@ -275,11 +275,11 @@ test.describe('Kontrol: Kuyruk eylemleri (⋮) @regression', () => {
 // Staging'de gerçekten uygulanınca: ayrı `*.mutation.authed.spec.js` dosyasına taşınır,
 // `@mutation` etiketi + `mutationGuard` + `cleanup` (geri-alma) eklenir (bkz. AGENTS.md).
 test.describe('Kuyruk eylemleri — L2/L3 yıkıcı (staging planı) @regression', () => {
-  test.fixme('L2/L3: "Pause queue" backend\'e pause isteği atar ve kuyruk duraklar (staging @mutation)', async () => {});
-  test.fixme('L2/L3: "Resume queue" backend\'e resume isteği atar ve kuyruk devam eder (staging @mutation)', async () => {});
-  test.fixme('L2/L3: "Close queue" backend\'e close isteği atar ve kuyruk kapanır (staging @mutation)', async () => {});
-  test.fixme('L2/L3: "Redirect all calls" onay sonrası yönlendirme isteği atar (staging @mutation)', async () => {});
-  test.fixme('L2/L3: "Move call" hedef seçme diyaloğu açar ve taşıma isteği atar (staging @mutation)', async () => {});
+  test.fixme('L2/L3: "Pause queue" backend\'e pause isteği atar ve kuyruk duraklar (staging mutation)', async () => {});
+  test.fixme('L2/L3: "Resume queue" backend\'e resume isteği atar ve kuyruk devam eder (staging mutation)', async () => {});
+  test.fixme('L2/L3: "Close queue" backend\'e close isteği atar ve kuyruk kapanır (staging mutation)', async () => {});
+  test.fixme('L2/L3: "Redirect all calls" onay sonrası yönlendirme isteği atar (staging mutation)', async () => {});
+  test.fixme('L2/L3: "Move call" hedef seçme diyaloğu açar ve taşıma isteği atar (staging mutation)', async () => {});
 });
 
 // ═══════════════ i18n: BULGU 2 (çeviri sızıntısı) ═══════════════

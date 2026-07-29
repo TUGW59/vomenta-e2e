@@ -37,7 +37,8 @@ Bir değişiklik aşağıdakilerin tamamı sağlanmadan tamamlanmış sayılmaz:
   el kitabı `docs/TEST_STYLES.md`.
 - Seçiciler Page Object veya ortak component içinde.
 - Test başka testlerden ve mevcut tenant verisinden bağımsız.
-- Veri değişiyorsa `@mutation`, production guard ve `testEntity` yaşam döngüsü
+- Veri değişiyorsa `@mutation`, staging-only guard ve `testEntity.create`
+  (`0→1→0` baseline + create öncesi rollback kaydı) yaşam döngüsü
   mevcut; rollback mutasyondan önce kaydedildi, retry `0`, lane worker'ı `1`.
 - Keşif notunda varsayılan + seçim/bulk + hover/focus + menüler + dialog/drawer +
   boş/loading/hata + responsive/i18n durumlarını içeren `Keşif kapanış matrisi`
@@ -78,8 +79,9 @@ Reviewer şu soruları yanıtlar:
 - Production güvenliği korunuyor mu?
 - Checkbox/seçim, hover/focus ve `...` menüleri denenerek sonradan beliren bütün
   kontroller envantere girdi mi?
-- Rollback create/write işleminden önce mi kayıtlı; cleanup hatası görünür mü;
-  mutation retry gerçekten `0` mı?
+- Rollback create/write işleminden önce mi kayıtlı; başlangıç/create/bitiş
+  baseline'ı `0→1→0` mı; cleanup hatası görünür mü; mutation retry gerçekten
+  `0` mı?
 
 ## İstisnalar
 
