@@ -7,6 +7,7 @@ import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { LoginPage } from './LoginPage.js';
 import { ReportSectionPage } from './ReportSectionPage.js';
+import { ReportsPage } from './ReportsPage.js';
 import { SettingsPage } from './SettingsPage.js';
 import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
@@ -27,6 +28,7 @@ export class App {
     this.analytics = new AnalyticsPage(page);
     this.login = new LoginPage(page);
     this.contacts = new ContactsPage(page);
+    this.reports = new ReportsPage(page);
     this.dashboards = new DashboardsPage(page);
     this.settings = new SettingsPage(page);
     this.tickets = new TicketsPage(page);

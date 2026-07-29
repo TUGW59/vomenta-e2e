@@ -289,7 +289,8 @@ test.describe(`Kontrol: Export (${DATA_RICH}) @regression`, () => {
 });
 
 // ═══════════════ KONTROL: SCHEDULE (L1) ═══════════════
-// L2/L3 (zamanlama OLUŞTURMA) = mutation → gated/N/A. Burada L1: diyalog açılıp iptal edilebiliyor.
+// L2/L3 (gerçek create→list→delete) gated mutation spec'inde:
+// tests/reports-schedule-mutations.authed.spec.js. Burada salt-okunur L1 korunur.
 test.describe(`Kontrol: Schedule (${DATA_RICH}) @regression`, () => {
   test('L1 tıklama OK: "Schedule This Report" diyaloğu açılıyor ve iptal edilebiliyor', async ({ app }) => {
     const rp = app.reportSection(DATA_RICH);

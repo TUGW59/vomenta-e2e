@@ -53,7 +53,10 @@ export const TESTED_PAGES = Object.freeze([
       '/reports/channel', '/reports/ai', '/reports/quality', '/reports/csat',
       '/reports/billing', '/reports/sla',
     ],
-    specFiles: ['reports-sections.authed.spec.js'],
+    specFiles: [
+      'reports-sections.authed.spec.js',
+      'reports-schedule-mutations.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: true,
@@ -61,7 +64,7 @@ export const TESTED_PAGES = Object.freeze([
       hasDialogs: true,
       hasTabs: true,
       hasExport: true,
-      hasWrites: false,
+      hasWrites: true,
       hasStableUI: true,
     },
     naStyles: {
