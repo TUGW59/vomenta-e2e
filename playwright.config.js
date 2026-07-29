@@ -65,7 +65,9 @@ export default defineConfig({
     actionTimeout: environment.actionTimeout,
     navigationTimeout: environment.navigationTimeout,
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    /* Teşhis otomasyonu (AGENTS.md → "Teşhis ve izleme (Tracing) standardı"):
+       başarısızlıkta trace/video/screenshot OTOMATİK kaydedilir; kök-neden Trace
+       Viewer ile incelenir (`npx playwright show-trace <trace.zip>`). ZAYIFLATMA. */
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',

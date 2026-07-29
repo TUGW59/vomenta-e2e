@@ -18,11 +18,11 @@ test.describe('Vomenta - Mobil görünüm (responsive)', () => {
     await expect(page.getByRole('heading', { name: 'Welcome back' })).toBeHidden({ timeout: 30000 });
   });
 
-  test('mobilde masaüstü kenar menüsü gizli', async ({ page }) => {
+  test('mobilde masaüstü kenar menüsü gizli @layout', async ({ page }) => {
     await expect(page.locator('nav').first()).toBeHidden();
   });
 
-  test('mobilde hamburger (Open menu) butonu görünür', async ({ page }) => {
+  test('mobilde hamburger (Open menu) butonu görünür @layout', async ({ page }) => {
     await expect(page.getByRole('button', { name: 'Open menu' })).toBeVisible();
   });
 });

@@ -140,22 +140,5 @@ export class WallboardPage extends BasePage {
     }));
   }
 
-  /** Kenar çubuğu altındaki dil düğmesi. */
-  languageTrigger() {
-    return this.page.locator('button', { hasText: /English|Türkçe|Français|العربية/ }).last();
-  }
-
-  /**
-   * Dili endonim etiketiyle değiştirir ve değişikliğin oturduğunu doğrular.
-   * Tek switch güvenilirdir (ardışık switch güvenilmez) → her test İngilizce başlamalı.
-   */
-  async switchLanguage(endonym) {
-    const trigger = this.languageTrigger();
-    await expect(async () => {
-      await trigger.click();
-      await this.page.getByText(endonym, { exact: true }).first().click({ timeout: 2000 });
-    }).toPass({ timeout: 15000 });
-    // Kenar çubuğu düğmesi artık seçilen dili göstermeli.
-    await expect(trigger).toContainText(endonym, { timeout: 10000 });
-  }
+  // languageTrigger()/switchLanguage() BasePage'den miras alınır.
 }
