@@ -3,98 +3,91 @@ import { test, expect } from './fixtures/test.js';
 import { DashboardsPage } from './pages/DashboardsPage.js';
 
 /**
- * RAPORLAR › PANOLAR — VERİ-DEĞİŞTİREN AKIŞLAR (staging)
+ * RAPORLAR › PANOLAR — VERİ-DEĞİŞTİREN AKIŞLAR (opt-in)
  *
- * Bu akışlar canlı panelde birer mutation'dır ve PROD'da çalıştırılmaz:
- *   - @mutation etiketi + mutationGuard → production'da engelli
- *     (playwright.config.js grepInvert @mutation ile prod'dan tamamen dışlanır).
- *   - cleanup ile oluşturulan kayıt (pano) geri alınır (silinir).
+ * Create / Duplicate / Delete için 3-katmanın L2 (backend) + L3 (kalıcı sonuç) katmanlarını
+ * GERÇEKTEN doğrular. Canlı gözlemle doğrulanmış akış (29 Tem 2026):
+ *   - Create: "Create Dashboard" → diyalog → submit "Create Dashboard" → `POST /api/v1/reports/dashboards` 201
+ *   - Delete: kart çöp ikonu → onay diyaloğu ["Cancel","Delete"] → "Delete" → `DELETE …/dashboards/{id}` 204
  *
- * Bu spec, ana spec'teki Create/Duplicate/Delete için "N/A" bırakılan L2/L3 (mutation)
- * katmanlarını KAPATIR: pano gerçekten oluşuyor mu, çoğaltma bir kopya ekliyor mu,
- * silme kartı kaldırıyor mu — hepsi geri-alınabilir şekilde.
+ * GÜVENLİK (AGENTS.md temel ilke 3):
+ *   - `@mutation` + `mutationGuard`: yalnızca ALLOW_MUTATING_TESTS ile koşar; prod'da ayrıca
+ *     ALLOW_PROD_MUTATIONS gerekir → `npm run test:mutation:prod`. Normal koşu/CI'dan dışlanır.
+ *   - Her test YALNIZCA kendi oluşturduğu `e2e-…` panosuna dokunur (mevcut veriye asla).
+ *   - `cleanup` LIFO ile oluşturulan panoyu SİLER (test başarısız olsa bile).
+ *   - Otomasyon hesabı bir TEST hesabıdır (gerçek müşteri verisi değil).
  *
- * DURUM: test.fixme — mutation'lar yalnızca AYRILMIŞ bir test hesabına/tenant'a karşı
- *   çalıştırılır (AGENTS.md temel ilke 3). Otomasyon şu an ortak/test hesabında; ayrı
- *   tenant + silme (Delete onay diyaloğu) seçicileri teyit edilince açılacak.
- *   Komut: `npm run test:mutation` (staging).
+ * Tanı: `--trace on` ile koşulduğunda Trace Viewer'da tüm create/delete adımları + ağ + DOM görülür.
  */
 test.describe('Panolar — mutasyonları @regression @mutation', () => {
-  test.fixme(true, 'Ayrılmış test tenant + Create/Delete diyalog seçicileri teyidi bekliyor.');
+  test.describe.configure({ mode: 'serial' }); // aynı canlı kaynağı (özel pano listesi) paylaşırlar
 
-  test.describe.configure({ mode: 'serial' }); // aynı canlı kaynağı paylaşırlar
-
-  test('Create Dashboard: pano oluşunca özel listeye ekleniyor (L2+L3)', async ({ app, page, mutationGuard, cleanup }) => {
+  test('Create Dashboard: pano oluşunca özel listeye ekleniyor (L2 POST 201 + L3 kart)', async ({ app, mutationGuard, cleanup }) => {
     mutationGuard('Panolar: pano oluşturma');
     const dashboards = app.dashboards;
     await dashboards.open();
+    await dashboards.waitForCardsLoaded(); // kartlar render olmadan sayma (flaky önleme)
     const before = await dashboards.customCardCount();
 
-    const name = `e2e-temp-${Date.now()}`;
-    await dashboards.createButton().click();
-    const dialog = page.getByRole('dialog');
-    await dialog.getByPlaceholder(/My Custom Dashboard/i).fill(name);
-
-    // L2: oluşturma POST'unu doğrula (uç staging'de teyit edilecek).
-    const created = page.waitForResponse(
-      (r) => r.url().includes(DashboardsPage.API.list) && r.request().method() === 'POST' && r.ok(),
-      { timeout: 15000 }
-    );
-    await dialog.getByRole('button', { name: /Create|Save/i }).click();
-    await created;
-
-    // TEMİZLİK: oluşturulan panoyu sil. TODO(staging): Delete onay akışını teyit et.
+    const name = `e2e-create-${Date.now()}`;
     cleanup(async () => {
-      const card = page.locator('div', { hasText: name }).last();
-      await card.locator('button:has(svg.lucide-trash2)').click().catch(() => {});
-      await page.getByRole('button', { name: /Delete|Sil|Confirm|Onayla/i }).last().click().catch(() => {});
+      if (await dashboards.page.getByText(name, { exact: true }).count()) {
+        await dashboards.deleteDashboardByName(name).catch(() => {});
+      }
     });
 
-    // L3: yeni pano özel listede görünmeli (sayaç +1).
+    await dashboards.createDashboard(name); // L2: POST list -> 201 (metot içinde beklenir)
+
+    // L3: yeni pano özel listede görünüyor (sayaç +1).
+    await expect(dashboards.page.getByText(name, { exact: true })).toBeVisible({ timeout: 10000 });
     await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(before + 1);
-    await expect(page.getByText(name, { exact: true })).toBeVisible();
   });
 
-  test('Duplicate: çoğaltma bir "(Copy)" ekliyor (L2+L3)', async ({ app, page, mutationGuard, cleanup }) => {
+  test('Duplicate: çoğaltma bir "(Copy)" ekliyor (L3)', async ({ app, mutationGuard, cleanup }) => {
     mutationGuard('Panolar: pano çoğaltma');
     const dashboards = app.dashboards;
     await dashboards.open();
-    const before = await dashboards.customCardCount();
 
-    await dashboards.customDuplicateButtons.first().click();
-
+    // Kendi verimizi oluştur (mevcut kartlara dokunmadan onu çoğaltalım).
+    const name = `e2e-dup-${Date.now()}`;
+    const copyName = `${name} (Copy)`;
     cleanup(async () => {
-      const copy = page.locator('div', { hasText: '(Copy)' }).last();
-      await copy.locator('button:has(svg.lucide-trash2)').click().catch(() => {});
-      await page.getByRole('button', { name: /Delete|Sil|Confirm|Onayla/i }).last().click().catch(() => {});
+      for (const n of [copyName, name]) {
+        if (await dashboards.page.getByText(n, { exact: true }).count()) {
+          await dashboards.deleteDashboardByName(n).catch(() => {});
+        }
+      }
     });
+    await dashboards.createDashboard(name);
+    const afterCreate = await dashboards.customCardCount();
 
-    // L3: kart sayısı +1 ve bir "(Copy)" kartı beliriyor.
-    await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(before + 1);
-    await expect(page.getByText(/\(Copy\)/).last()).toBeVisible();
+    // Bu panonun kartındaki çoğalt (lucide-copy) ikonuna bas.
+    await dashboards.cardByName(name).locator('button:has(svg.lucide-copy)').first().click();
+
+    // L3: "(Copy)" kartı beliriyor ve sayaç +1.
+    await expect(dashboards.page.getByText(copyName, { exact: true })).toBeVisible({ timeout: 10000 });
+    await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(afterCreate + 1);
   });
 
-  test('Delete: silme kartı listeden kaldırıyor (L2+L3)', async ({ app, page, mutationGuard }) => {
+  test('Delete: silme kartı listeden kaldırıyor (L2 DELETE 204 + L3)', async ({ app, mutationGuard, cleanup }) => {
     mutationGuard('Panolar: pano silme');
     const dashboards = app.dashboards;
     await dashboards.open();
 
-    // Ön koşul: silinecek geçici bir pano OLUŞTUR (başka testin verisine dokunma).
+    // Ön koşul: silinecek geçici pano OLUŞTUR (başka verinin silinmemesi için).
     const name = `e2e-del-${Date.now()}`;
-    await dashboards.createButton().click();
-    const dialog = page.getByRole('dialog');
-    await dialog.getByPlaceholder(/My Custom Dashboard/i).fill(name);
-    await dialog.getByRole('button', { name: /Create|Save/i }).click();
-    await expect(page.getByText(name, { exact: true })).toBeVisible({ timeout: 10000 });
+    cleanup(async () => {
+      if (await dashboards.page.getByText(name, { exact: true }).count()) {
+        await dashboards.deleteDashboardByName(name).catch(() => {});
+      }
+    });
+    await dashboards.createDashboard(name);
     const before = await dashboards.customCardCount();
 
-    // Sil + onay (staging'de gerçek onay diyaloğu metniyle netleştirilecek).
-    const card = page.locator('div', { hasText: name }).last();
-    await card.locator('button:has(svg.lucide-trash2)').click();
-    await page.getByRole('button', { name: /Delete|Sil|Confirm|Onayla/i }).last().click().catch(() => {});
+    await dashboards.deleteDashboardByName(name); // L2: DELETE -> 204 (metot içinde beklenir)
 
-    // L3: kart kayboluyor (sayaç -1).
+    // L3: kart kayboldu (sayaç -1).
+    await expect(dashboards.page.getByText(name, { exact: true })).toHaveCount(0, { timeout: 10000 });
     await expect.poll(() => dashboards.customCardCount(), { timeout: 10000 }).toBe(before - 1);
-    await expect(page.getByText(name, { exact: true })).toHaveCount(0);
   });
 });
