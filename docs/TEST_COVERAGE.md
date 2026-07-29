@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 379
+- **Test edilen senaryo:** 391
 - **Test dosyası:** 30
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 44 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 210 · `@smoke` 38 · `@visual` 3
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 45 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 222 · `@smoke` 38 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -143,6 +143,18 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor  `@regression` `@critical`
 - L3 görev OK: detay sayfası kişi adını ve sekmeleri gösteriyor  `@regression`
 - L1 OK: tek sayfada prev/next pasif ve sayaç "of N" gösteriyor  `@regression`
+- L1 tıklama OK: bir satır seçilince "1 selected" + 5 toplu buton çıkıyor  `@regression`
+- L3 görev OK: "tümünü seç" tüm satırları seçiyor (sayaç = toplam)  `@regression`
+- [en] toplu çubuk buton etiketleri çevrili  `@regression`
+- [tr] toplu çubuk buton etiketleri çevrili  `@regression`
+- [fr] toplu çubuk buton etiketleri çevrili  `@regression`
+- [ar] toplu çubuk buton etiketleri çevrili  `@regression`
+- L1 tıklama OK: "Assign Owner" diyaloğu açılıyor (Confirm/Cancel)  `@regression`
+- L1 tıklama OK: "Add Tag" diyaloğu açılıyor (Confirm/Cancel)  `@regression`
+- L1 tıklama OK: "Add to Campaign" diyaloğu açılıyor (Confirm/Cancel)  `@regression`
+- L1 tıklama OK: seçili export indirme başlatıyor  `@regression`
+- L2 arka plan OK: toplu export POST /contacts/export tetikliyor  `@regression` `@critical`
+- L1 tıklama OK: Sil onay alertdialog'u açıyor; İptal listeyi değiştirmiyor  `@regression`
 - BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı  `@regression`
 - BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli  `@regression`
 

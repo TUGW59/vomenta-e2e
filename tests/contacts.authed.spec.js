@@ -400,6 +400,107 @@ test.describe('Kontrol: Sayfalama @regression', () => {
   });
 });
 
+// ═══════════════ KONTROL: SATIR SEÇİMİ + TOPLU-EYLEM ÇUBUĞU ═══════════════
+// Satır checkbox'ı seçilince çıkan çubuk: Ata · Etiket · Kampanyaya Ekle · Dışa Aktar · Sil.
+// L2: N/A (seçim saf istemci-tarafı). Toplu eylemlerin L2/L3 mutasyonları → contacts-mutations spec.
+test.describe('Kontrol: Satır seçimi + toplu çubuk @regression', () => {
+  test('L1 tıklama OK: bir satır seçilince "1 selected" + 5 toplu buton çıkıyor', async ({ app }) => {
+    const c = app.contacts;
+    await c.open();
+    await c.rowCheckbox(1).click();
+    await expect(c.selectedCount()).toBeVisible();
+    const b = ContactsPage.BULK_I18N.en;
+    for (const name of [b.assign, b.tag, b.addToCampaign, b.delete]) {
+      await expect(c.bulkButton(name)).toBeVisible();
+    }
+  });
+
+  test('L3 görev OK: "tümünü seç" tüm satırları seçiyor (sayaç = toplam)', async ({ app }) => {
+    const c = app.contacts;
+    await c.open();
+    const total = (await c.shownCount())?.total ?? 0;
+    await c.selectAllCheckbox().click();
+    await expect(c.selectedCount()).toContainText(String(total));
+  });
+});
+
+// 4 dilde toplu çubuk etiketleri
+test.describe('Kişiler — toplu çubuk 4 dil guard @regression', () => {
+  for (const [code, t] of Object.entries(ContactsPage.BULK_I18N)) {
+    test(`[${code}] toplu çubuk buton etiketleri çevrili`, async ({ app }) => {
+      const c = app.contacts;
+      await c.open();
+      if (I18N[code].endonym) await c.switchLanguage(I18N[code].endonym);
+      await c.rowCheckbox(1).click();
+      await expect(c.selectedCount()).toContainText(t.selected);
+      for (const name of [t.assign, t.tag, t.addToCampaign, t.delete]) {
+        await expect(c.bulkButton(name)).toBeVisible();
+      }
+    });
+  }
+});
+
+// ═══════ KONTROL: TOPLU DİYALOGLAR (Ata / Etiket / Kampanyaya Ekle) — L1 ═══════
+// L1: dialog açılır (picker + Confirm/Cancel); UYGULAMA YOK (Cancel). L2/L3 → mutation spec.
+test.describe('Kontrol: Toplu eylem diyalogları @regression', () => {
+  for (const cse of [
+    { btn: 'assign', heading: 'Assign Owner' },
+    { btn: 'tag', heading: 'Add Tag' },
+    { btn: 'addToCampaign', heading: 'Add to Campaign' },
+  ]) {
+    test(`L1 tıklama OK: "${cse.heading}" diyaloğu açılıyor (Confirm/Cancel)`, async ({ app }) => {
+      const c = app.contacts;
+      await c.open();
+      await c.rowCheckbox(1).click();
+      await c.bulkButton(ContactsPage.BULK_I18N.en[cse.btn]).click();
+      const dialog = c.page.getByRole('dialog').filter({ hasText: cse.heading }).first();
+      await expect(dialog.getByRole('heading', { name: cse.heading })).toBeVisible();
+      await expect(dialog.getByRole('button', { name: 'Confirm', exact: true })).toBeVisible();
+      await dialog.getByRole('button', { name: 'Cancel', exact: true }).click(); // UYGULAMA YOK
+    });
+  }
+});
+
+// ═══════════════ KONTROL: TOPLU DIŞA AKTAR (seçili) — L1 + L2 ═══════════════
+test.describe('Kontrol: Toplu Dışa Aktar @regression', () => {
+  test('L1 tıklama OK: seçili export indirme başlatıyor', async ({ app, page }) => {
+    const c = app.contacts;
+    await c.open();
+    await c.rowCheckbox(1).click();
+    const [download] = await Promise.all([
+      page.waitForEvent('download', { timeout: 15000 }),
+      c.bulkButton(ContactsPage.BULK_I18N.en.export).click(),
+    ]);
+    expect(download.suggestedFilename()).toMatch(/\.csv$/);
+  });
+
+  test('L2 arka plan OK: toplu export POST /contacts/export tetikliyor @critical', async ({ app, page }) => {
+    const c = app.contacts;
+    await c.open();
+    await c.rowCheckbox(1).click();
+    const req = page.waitForRequest((r) => r.method() === 'POST' && r.url().includes(API.contactsExport), { timeout: 15000 });
+    await c.bulkButton(ContactsPage.BULK_I18N.en.export).click();
+    await req;
+  });
+});
+
+// ═══════════════ KONTROL: TOPLU SİL — onay (L1) ═══════════════
+// L1: alertdialog "Delete Contacts" çıkar; İPTAL edilir (gerçek silme YOK). L3 → mutation spec.
+test.describe('Kontrol: Toplu Sil (onay) @regression', () => {
+  test("L1 tıklama OK: Sil onay alertdialog'u açıyor; İptal listeyi değiştirmiyor", async ({ app }) => {
+    const c = app.contacts;
+    await c.open();
+    const before = (await c.shownCount())?.total;
+    await c.rowCheckbox(1).click();
+    await c.bulkButton(ContactsPage.BULK_I18N.en.delete).click();
+    const alert = c.page.getByRole('alertdialog').first();
+    await expect(alert.getByRole('heading', { name: /Delete Contacts/i })).toBeVisible();
+    await alert.getByRole('button', { name: 'Cancel', exact: true }).click(); // gerçek silme YOK
+    await c.open();
+    expect((await c.shownCount())?.total).toBe(before);
+  });
+});
+
 // ═══════════════════════ BULGULAR (test.fail guard) ═══════════════════════
 test.describe('Kişiler — bilinen çeviri sızıntıları (BULGU) @regression', () => {
   test('BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı', async ({ app }) => {

@@ -3,56 +3,72 @@ import { test, expect } from './fixtures/test.js';
 import { ContactsPage } from './pages/ContactsPage.js';
 import { buildPeopleContact } from './data/factories.js';
 
+const I18N = ContactsPage.I18N;
+
 /**
  * KİŞİLER — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)
  *
- * 3 katmanlı standardın L3 katmanı: Add Contact kontrolünün amacı KALICI kayıtla gerçekleşiyor mu
- * (L1/L2 contacts.authed.spec.js'te). Senaryo: yeni kişi oluştur → aramada bulun → VIP etiket
- * filtresiyle bulun → SADECE oluşturulan kişiyi sil. Diğer kişilere DOKUNULMAZ.
+ * 3 katmanlı standardın L3 katmanı. Senaryo (kullanıcı akışı): yeni kişi oluştur →
+ * aramada bul → satırı seç → TOPLU ETİKET (Etiket→VIP→Confirm) → VIP filtresiyle bul →
+ * satırı seç → TOPLU SİL (Sil→Confirm). SADECE oluşturulan kişiye dokunulur; satır
+ * "ada göre" seçilir (sıralamadan bağımsız), böylece başka kişi asla seçilmez.
  *
  * ÇİFT KİLİT (config/environment.js · playwright.config.js):
  *   Kilit 1 — ALLOW_MUTATING_TESTS=true yoksa @mutation her yerde dışlanır.
  *   Kilit 2 — CANLI tenant'a yazmak için ayrıca ALLOW_PROD_MUTATIONS=true.
- *   Çalıştırma: npm run test:mutation (staging) / npm run test:mutation:prod (canlı, yalnızca test hesabı).
+ *   Çalıştırma: npm run test:mutation:prod (canlı, yalnızca ayrılmış test hesabı).
  *
- * GÜVENLİK: mutationGuard ile başlar; cleanup, oluşturulan kişiyi ADINA göre bulup API ile siler
- *   (yakalanan Bearer). Cleanup create'ten ÖNCE kaydedilir → test ortada patlasa da kayıt silinir.
- *   Silme ucu canlıda doğrulandı: DELETE /api/v1/contacts/{id} → 204.
+ * GÜVENLİK: mutationGuard ile başlar; cleanup create'ten ÖNCE kaydedilir ve oluşturulan
+ *   kişiyi ADINA göre bulup API ile siler (yakalanan Bearer) — test ortada patlasa da
+ *   kayıt silinir. Uçlar canlıda doğrulandı: POST /contacts→201, PATCH /contacts/bulk,
+ *   DELETE /contacts/{id}→204.
  */
 test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
-  // Retry yok: mutation testi retry'da yeniden kayıt oluşturup churn/orphan riski yaratır.
+  // Retry yok: mutation retry'da yeniden kayıt oluşturup churn/orphan riski yaratır.
   test.describe.configure({ retries: 0 });
 
-
-  test('L3 görev OK: Add Contact kalıcı kişi oluşturuyor; arama ve VIP etiket filtresi buluyor', async ({
+  test('L3 görev OK: kişi oluştur → ara → toplu Etiket (VIP) → toplu Sil', async ({
     app,
     mutationGuard,
     cleanup,
   }) => {
-    mutationGuard('Kişiler: yeni kişi oluşturma + etiketleme');
+    mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
     const c = app.contacts;
     const data = buildPeopleContact(); // firstName PW, lastName Auto…, phone +90… (E.164), tag VIP
 
     await c.open();
-    // Bulletproof cleanup: ne olursa olsun bu addaki kişileri sil (yalnızca oluşturulan)
+    // Bulletproof cleanup: ne olursa olsun bu addaki kişi(ler)i sil (yalnızca oluşturulan)
     cleanup(async () => {
       await c.deleteContactsByName(data.lastName);
     });
 
-    // OLUŞTUR (VIP etiketiyle) — GERÇEK POST
+    // 1) OLUŞTUR (etiketsiz) — GERÇEK POST /contacts
     await c.openNewContactForm();
-    await c.fillNewContact(data);
+    await c.fillNewContact({ firstName: data.firstName, lastName: data.lastName, phone: data.phone });
     const id = await c.saveNewContact();
     expect(id, 'oluşturma POST bir kişi id döndürmeli (data.contact.id)').toBeTruthy();
 
-    // L3-a: kalıcı kayıt gözlemlenebilir → ARAMA oluşturulan kişiyi buluyor
+    // 2) ARAMA oluşturulan kişiyi buluyor (kalıcı kayıt gözlemlenebilir)
     await c.open();
     await c.searchFor(data.lastName);
     await expect(c.rows.filter({ hasText: data.lastName }).first()).toBeVisible({ timeout: 10000 });
 
-    // L3-b: ETİKETLEME çalışıyor → VIP filtresi oluşturulan (VIP) kişiyi buluyor
+    // 3) TOPLU ETİKET: doğru satırı seç → Etiket → VIP → Confirm (PATCH /contacts/bulk)
+    await c.selectRowByText(data.lastName);
+    await c.bulkAddTag(data.tag);
+    // Etiketleme gözlemlenebilir: VIP filtresi oluşturulan kişiyi buluyor
     await c.open();
     await c.tagChip('VIP').click();
     await expect(c.rows.filter({ hasText: data.lastName }).first()).toBeVisible({ timeout: 10000 });
+
+    // 4) TOPLU SİL: doğru satırı seç → Sil → Confirm (DELETE /contacts/{id})
+    await c.open();
+    await c.searchFor(data.lastName);
+    await c.selectRowByText(data.lastName);
+    await c.bulkDeleteConfirm();
+    // Silme gözlemlenebilir: artık aramada yok (boş-durum)
+    await c.open();
+    await c.searchFor(data.lastName);
+    await expect(c.page.getByText(I18N.en.emptyHeading)).toBeVisible({ timeout: 10000 });
   });
 });

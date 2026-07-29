@@ -132,6 +132,23 @@ Arapça'da numaralar "905…+" biçiminde (artı sağda) render oluyor — yön 
 ### Görünüm değiştirici (liste/ızgara) — a11y (Gözlem O5)
 Kart sağ üstünde 2 ikon-only buton (liste/ızgara). **Erişilebilir isim yok** → semantik seçilemiyor; frontend'den `data-testid`/`aria-label` istenmeli. L1 için konumsal (son çare CSS) seçici kullanılır.
 
+## Toplu-eylem çubuğu (satır seçimi) — 29 Tem 2026 eklendi
+
+Satır checkbox'ı seçilince kartın üstünde **toplu-eylem çubuğu** çıkar ("N selected" + 5 buton). İlk keşifte satır seçmediğimiz için atlanmıştı; kullanıcı işaret etti, sonradan eklendi.
+
+| Buton | 🇬🇧 en | 🇹🇷 tr | 🇫🇷 fr | 🇸🇦 ar | Aksiyon | Uç |
+|---|---|---|---|---|---|---|
+| Sayaç | N selected | N seçildi | N sélectionné | N محدد | — | — |
+| **Ata** | Assign | Ata | Attribuer | تعيين | dialog "Assign Owner" (owner seç + Confirm/Cancel) | PATCH /contacts/bulk (Confirm'de) |
+| **Etiket** | Tag | Etiket | Étiquette | علامة | dialog "Add Tag" (etiket combobox: VIP/Enterprise/Customer/Lead/Prospect + Confirm/Cancel) | **PATCH /contacts/bulk** |
+| **Kampanyaya Ekle** | Add to Campaign | Kampanyaya Ekle | Ajouter à la campagne | إضافة إلى الحملة | dialog "Add to Campaign" (kampanya seç + Confirm/Cancel) | PATCH /contacts/bulk |
+| **Dışa Aktar** | Export | Dışa Aktar | Exporter | تصدير | seçili export + indirme | **POST /contacts/export** |
+| **Sil** | Delete | Sil | Supprimer | حذف | **alertdialog** "Delete Contacts" (Confirm/Cancel) | **DELETE /contacts/{id}** |
+
+- "Tümünü seç" başlık checkbox'ı → tüm satırlar ("6 selected"). 4 dilde buton/sayaç etiketleri çevrili, RTL doğru.
+- **Etiketleme asıl yolu bu** (kullanıcı: "yeni eklenen üzerinden etiketleme"): seç → Etiket → VIP → Confirm. Mutation testinde bu akış + toplu Sil kullanılıyor.
+- Canlıda uçtan uca doğrulandı (oluştur→toplu etiket→VIP filtre bulur→toplu sil→gider), self-cleaning.
+
 ## Planlanan testler (kapsam)
 
 1. **`tests/contacts.authed.spec.js`** (salt-okunur, genişletilecek): yapı + 4 dil i18n guard (RTL + New Contact formu) + kontroller için L1/L2/L3 (arama, tag filtre, company dropdown, sort, görünüm değiştirici, Add Contact→form, Import→sayfa, Export, Segments, satır→detay). F1/F2 sızıntıları `test.fail` guard.
