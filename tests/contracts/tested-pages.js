@@ -507,4 +507,24 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-audit',
+    routes: ['/settings/audit'],
+    specFiles: ['settings-audit.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: true,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (log tablosu + detay dialog).',
+      '@data': 'Sayısal KPI tile yok (log listesi).',
+      '@visual': 'Tablo canlı log verisi (timestamp/UUID/IP) içerir → kararlı snapshot bölgesi yok.',
+    },
+  },
 ]);

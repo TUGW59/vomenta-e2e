@@ -2,6 +2,7 @@
 import { AnalyticsPage } from './AnalyticsPage.js';
 import { ApiKeysPage } from './ApiKeysPage.js';
 import { AppShell } from './AppShell.js';
+import { AuditLogPage } from './AuditLogPage.js';
 import { AutomationsPage } from './AutomationsPage.js';
 import { BusinessHoursPage } from './BusinessHoursPage.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
@@ -67,6 +68,7 @@ export class App {
     this.notifications = new NotificationsPage(page);
     this.apiKeys = new ApiKeysPage(page);
     this.webhooks = new WebhooksPage(page);
+    this.auditLog = new AuditLogPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

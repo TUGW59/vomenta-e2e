@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 694
-- **Test dosyası:** 51
-- **Etiketler:** `@a11y` 34 · `@clean` 22 · `@critical` 61 · `@data` 3 · `@deeplink` 21 · `@errorpath` 22 · `@i18n` 97 · `@keyboard` 19 · `@known-bug` 45 · `@layout` 27 · `@perf` 1 · `@public` 2 · `@regression` 269 · `@smoke` 58 · `@visual` 18
+- **Test edilen senaryo:** 710
+- **Test dosyası:** 52
+- **Etiketler:** `@a11y` 35 · `@clean` 23 · `@critical` 62 · `@data` 3 · `@deeplink` 22 · `@errorpath` 23 · `@export` 1 · `@i18n` 103 · `@keyboard` 20 · `@known-bug` 47 · `@layout` 28 · `@perf` 1 · `@public` 2 · `@regression` 270 · `@smoke` 59 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -390,6 +390,25 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Create Key dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Create Key dialogu görünümü değişmedi  `@visual`
+
+### `settings-audit.authed.spec.js`
+
+- sayfa başlığı + Export + tablo ile açılıyor  `@smoke`
+- tablo kolonları + en az bir log satırı görünüyor  `@critical`
+- L1 tıklama OK: "View" → "Change details" dialogu açılıyor  `@regression`
+- Export tıklanınca audit-log CSV indiriliyor  `@export`
+- [en] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- "Full Export" butonu Türkçede çevrili olmalı (şu an İngilizce)  `@i18n` `@known-bug`
+- View dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- audit-logs ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- View dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/audit doğrudan açılınca log yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `settings-automations.authed.spec.js`
 

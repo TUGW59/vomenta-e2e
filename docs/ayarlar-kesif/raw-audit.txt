@@ -1,0 +1,168 @@
+URL: https://app.vomenta.com/settings/audit
+
+===== en dir=ltr =====
+h="Audit Log"
+sub="Track all actions and changes in your workspace"
+tabs=[]
+cols=["Timestamp","User","Action","Entity","Entity ID","Changes","IP Address"]
+btns=["Export","Full Export","View","View","View","View","View","View","View","View"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Audit Log" [level=1]
+  - paragraph: Track all actions and changes in your workspace
+  - button "Export":
+    - img
+    - text: Export
+  - button "Full Export":
+    - img
+    - text: Full Export
+  - img
+  - textbox "Search audit log..."
+  - combobox: All Actions
+  - combobox:
+    - img
+    - text: All Users
+    - img
+  - img
+  - textbox:
+    - /placeholder: Start
+  - text: —
+  - textbox:
+    - /placeholder: End
+  - table:
+    - rowgroup:
+      - row "Timestamp User Action Entity Entity ID Changes IP Address":
+        - columnheader "Timestamp"
+        - columnheader "User"
+        - columnheader "Action"
+        - columnheader "Entity"
+        - columnheader "Entity ID"
+        - columnheader "Changes"
+        - columnheader "IP Address"
+    - rowgroup:
+      - row "Jul 29, 2026, 04:39 PM TT Tuğçe Topuz Update SlaPolicy 9698ac96-c287-4268-bb56-b9d46ef91245 View":
+        - cell "Jul 29, 2026, 04:39 PM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Update"
+        - cell "SlaPolicy"
+        - cell "9698ac96-c287-4268-bb56-b9d46ef91245":
+          - code: 9698ac96-c287-4268-bb56-b9d46ef91245
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 04:38 PM TT Tuğçe Topuz Create SlaPolicy 9698ac96-c287-4268-bb56-b9d46ef91245 View":
+        - cell "Jul 29, 2026, 04:38 PM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Create"
+        - cell "SlaPolicy"
+        - cell "9698ac96-c287-4268-bb56-b9d46ef91245":
+          - code: 9698ac96-c287-4268-bb56-b9d46ef91245
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 04:33 PM TT Tuğçe Topuz Update User f8d42d7a-cb16-45f2-b764-419fc4523099 View":
+        - cell "Jul 29, 2026, 04:33 PM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Update"
+        - cell "User"
+        - cell "f8d42d7a-cb16-45f2-b764-419fc4523099":
+          - code: f8d42d7a-cb16-45f2-b764-419fc4523099
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 02:20 PM TT Tuğçe Topuz Delete SenderIdRequest 23206d89-cfdb-47b3-9371-df1af2a03a65 View":
+        - cell "Jul 29, 2026, 02:20 PM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Delete"
+        - cell "SenderIdRequest"
+        - cell "23206d89-cfdb-47b3-9371-df1af2a03a65":
+          - code: 23206d89-cfdb-47b3-9371-df1af2a03a65
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 02:20 PM TT Tuğçe Topuz Create SenderIdRequest 23206d89-cfdb-47b3-9371-df1af2a03a65 View":
+        - cell "Jul 29, 2026, 02:20 PM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Create"
+        - cell "SenderIdRequest"
+        - cell "23206d89-cfdb-47b3-9371-df1af2a03a65":
+          - code: 23206d89-cfdb-47b3-9371-df1af2a03a65
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 11:12 AM TT Tuğçe Topuz Delete ScheduledReport 747c71b2-4e94-4a4a-acd9-a8e11810e3ff View":
+        - cell "Jul 29, 2026, 11:12 AM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Delete"
+        - cell "ScheduledReport"
+        - cell "747c71b2-4e94-4a4a-acd9-a8e11810e3ff":
+          - code: 747c71b2-4e94-4a4a-acd9-a8e11810e3ff
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 11:12 AM TT Tuğçe Topuz Create ScheduledReport 747c71b2-4e94-4a4a-acd9-a8e11810e3ff View":
+        - cell "Jul 29, 2026, 11:12 AM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Create"
+        - cell "ScheduledReport"
+        - cell "747c71b2-4e94-4a4a-acd9-a8e11810e3ff":
+          - code: 747c71b2-4e94-4a4a-acd9-a8e11810e3ff
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+      - row "Jul 29, 2026, 11:11 AM TT Tuğçe Topuz Delete ScheduledReport aa3a01ff-0abf-416e-87b0-31b9fe06d45a View":
+        - cell "Jul 29, 2026, 11:11 AM"
+        - cell "TT Tuğçe Topuz"
+        - cell "Delete"
+        - cell "ScheduledReport"
+        - cell "aa3a01ff-0abf-416e-87b0-31b9fe06d45a":
+          - code: aa3a01ff-0abf-416e-87b0-31b9fe06d45a
+        - cell "View":
+          - button "View":
+            - img
+            - text: View
+        - cell
+  - paragraph: Showing 1–8 of 8+ entries
+  - button [disabled]:
+    - img
+  - button:
+    - img
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/users?limit=50","GET /api/v1/compliance/audit-logs?page=1&limit=8","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Denetim Günlüğü"
+sub="Çalışma alanınızdaki tüm eylemleri ve değişiklikleri izleyin"
+tabs=[]
+cols=["Zaman damgası","Kullanıcı","Eylem","Varlık","Varlık ID","Değişiklikler","IP adresi"]
+btns=["Dışa aktar","Full Export","Görüntüle","Görüntüle","Görüntüle","Görüntüle","Görüntüle","Görüntüle","Görüntüle","Görüntüle"]
+
+===== ar dir=rtl =====
+h="سجل التدقيق"
+sub="تتبع جميع الإجراءات والتغييرات في مساحة العمل"
+tabs=[]
+cols=["الطابع الزمني","المستخدم","الإجراء","الكيان","معرّف الكيان","التغييرات","عنوان IP"]
+btns=["تصدير","Full Export"]
+
+===== fr dir=ltr =====
+h="Journal d'audit"
+sub="Suivez toutes les actions et modifications de votre espace"
+tabs=[]
+cols=["Horodatage","Utilisateur","Action","Entité","ID entité","Modifications","Adresse IP"]
+btns=["Exporter","Full Export","Voir","Voir","Voir","Voir","Voir","Voir","Voir","Voir"]

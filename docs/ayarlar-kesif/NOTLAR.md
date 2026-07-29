@@ -145,7 +145,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 16 | Notifications | `/settings/notifications` | ✅ **TAMAM** (settings-notifications) |
 | 17 | API Keys | `/settings/api-keys` | ✅ **TAMAM** (settings-api-keys) |
 | 18 | Webhooks | `/settings/webhooks` | ✅ **TAMAM** (settings-webhooks) |
-| 19 | Audit Log | `/settings/audit` | ⬜ |
+| 19 | Audit Log | `/settings/audit` | ✅ **TAMAM** (settings-audit) |
 
 Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil + taşma + çeviri) → kontrol envanteri → 3-katman + tüm stiller → güvenli/staging-kilitli mutation.
 
@@ -327,6 +327,23 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`. (Ayrıca URL input + event checkbox'ları aria-label'sız — button-name/label borcu; NOTLAR gözlemi.)
 - **Not:** Integrations sayfasındaki "Add Webhook" ile aynı işlev; dialog başlığı burada "Add webhook" (küçük w), Integrations'ta "Add Webhook".
 - **Mutasyon:** create + sil; liste prod'da boş → `settings-webhooks-mutations` **test.fixme**.
+
+## Denetim Günlüğü detayı (`/settings/audit`)
+
+- **Başlık:** "Audit Log" + alt başlık. **SALT-OKUMA** (yazma yok → mutation yok). **Export** (CSV indirir: `audit-log-YYYY-MM-DD.csv`, istemci-tarafı) + **Full Export** + arama + filtreler (All Actions / All Users combobox) + tarih aralığı (Start/End) + tablo (Timestamp/User/Action/Entity/Entity ID/Changes/IP + satır "View") + sayfalama.
+- **View → "Change details" dialogu:** değişiklik JSON'u + Entity + Performed by + Timestamp + IP + Close.
+- **Backend:** `GET /api/v1/compliance/audit-logs?page&limit`.
+- **4 dil:** başlık/alt başlık/kolonlar/Export/View tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU 1 (çeviri sızıntısı):** **"Full Export" butonu** tr/fr/ar arayüzde İngilizce "Full Export" kalıyor → `@i18n @known-bug`.
+- **🐞 BULGU 2 (sistemik):** "Change details" dialogu "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **@export:** Export tıklanınca `audit-log-*.csv` indiriliyor (doğrulandı).
+- **Mutasyon YOK** (salt-okuma log); @visual N/A (canlı timestamp/UUID/IP).
+
+---
+
+# ✅ AYARLAR BÖLÜMÜ TAMAMLANDI — 19/19 sayfa
+
+Tüm sol alt-menü sayfaları test paketiyle kapsandı (her biri ayrı commit, read-only prod + staging-kilitli/fixme mutation). Sistemik bulgu: **dialog "Close" butonu 4 dilde çevrilmiyor** (Users/Roles/Compliance/Teams/Automations/SLA/Templates/Disposition/Canned/Integrations/Security/API Keys/Webhooks/Audit — ortak Radix dialog). Diğer bulgular: Templates ham i18n anahtarı (contentPlaceholder), Audit "Full Export" çevrilmiyor, Security spinbutton'ları etiketsiz (a11y label), SLA New Policy alanları etiketsiz (a11y label), Teams edit dialogu yanlış açıklama.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.
