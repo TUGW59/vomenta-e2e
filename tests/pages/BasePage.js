@@ -1,5 +1,4 @@
 // @ts-check
-import { expect } from '@playwright/test';
 import { AppShell } from './AppShell.js';
 
 /**
@@ -28,11 +27,6 @@ export class BasePage {
    * Dil sunucuda/localStorage'da kalıcı DEĞİLDİR; taze bağlam hep İngilizce açılır.
    */
   async switchLanguage(endonym) {
-    const trigger = this.page.locator('button', { hasText: /English|Türkçe|Français|العربية/ }).last();
-    await expect(async () => {
-      await trigger.click();
-      await this.page.getByText(endonym, { exact: true }).first().click({ timeout: 2000 });
-    }).toPass({ timeout: 15000 });
-    await expect(trigger).toContainText(endonym, { timeout: 10000 });
+    await this.shell.switchLanguage(endonym);
   }
 }

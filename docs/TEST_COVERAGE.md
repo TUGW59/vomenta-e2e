@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 400
-- **Test dosyası:** 31
-- **Etiketler:** `@a11y` 14 · `@clean` 3 · `@critical` 45 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 231 · `@smoke` 38 · `@visual` 3
+- **Test edilen senaryo:** 410
+- **Test dosyası:** 33
+- **Etiketler:** `@a11y` 15 · `@clean` 4 · `@critical` 45 · `@data` 1 · `@deeplink` 3 · `@errorpath` 3 · `@i18n` 12 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 9 · `@perf` 1 · `@public` 2 · `@regression` 232 · `@smoke` 39 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -186,6 +186,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /workforce doğrudan açılıyor ("Workforce Management")
 - /settings doğrudan açılıyor ("Settings")
 
+### `discovery/discovery.spec.js`
+
+- salt-okunur uygulama keşfi rapor ve kapsam radarı üretir
+
 ### `forms.authed.spec.js`
 
 - Create Ticket formu beklenen alanlarla açılıyor
@@ -256,6 +260,18 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /analytics sayfası "Analytics" başlığıyla açılıyor
 - Reports sayfası tüm rapor kategorilerini gösteriyor
 - Analytics sayfası alt bölümleri gösteriyor
+
+### `quality-baseline.authed.spec.js`
+
+- yapı ve doğrudan erişim çalışıyor  `@smoke` `@deeplink`
+- bilinen borç dışında ciddi/kritik ihlal yok  `@a11y`
+- LTR ve Arapça RTL görünüm mobil/tablet/masaüstünde taşmıyor  `@layout`
+- yüklemede console, ağ veya HTTP 5xx hatası yok  `@clean`
+- en dil/yön kabuğu çalışıyor  `@i18n`
+- tr dil/yön kabuğu çalışıyor  `@i18n`
+- fr dil/yön kabuğu çalışıyor  `@i18n`
+- ar dil/yön kabuğu çalışıyor  `@i18n`
+- interaktif kontrol envanteri erişilebilir isim taşıyor  `@regression`
 
 ### `reports-actions.authed.spec.js`
 

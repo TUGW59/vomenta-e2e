@@ -223,7 +223,12 @@ export const VIEWPORTS = {
  * @param {string} path
  * @param {Record<string, {width:number,height:number}>} viewports
  */
-export async function expectNoOverflowAtViewports(page, path, viewports = VIEWPORTS) {
+export async function expectNoOverflowAtViewports(
+  page,
+  path,
+  viewports = VIEWPORTS,
+  { includeArabicRtl = true } = {}
+) {
   const shell = new AppShell(page);
   for (const [name, size] of Object.entries(viewports)) {
     await page.setViewportSize(size);
@@ -232,6 +237,24 @@ export async function expectNoOverflowAtViewports(page, path, viewports = VIEWPO
     await expect(shell.loginHeading, `[${name}] oturum geçerli`).toBeHidden();
     await waitForUiToSettle(page);
     await assertNoHorizontalOverflow(page); // origin/main helper (scanOverflow tabanlı, RTL-güvenli)
+  }
+
+  if (includeArabicRtl) {
+    await page.setViewportSize(viewports.desktop || VIEWPORTS.desktop);
+    await page.goto(path, { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await shell.switchLanguage('العربية');
+
+    for (const [name, size] of Object.entries(viewports)) {
+      await page.setViewportSize(size);
+      await expect
+        .poll(() => page.evaluate(() => getComputedStyle(document.body).direction), {
+          message: `[${name}] Arapça görünüm RTL olmalı`,
+        })
+        .toBe('rtl');
+      await waitForUiToSettle(page);
+      await assertNoHorizontalOverflow(page);
+    }
   }
 }
 

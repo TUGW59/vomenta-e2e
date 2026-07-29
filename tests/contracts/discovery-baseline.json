@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-07-29T09:02:18.656Z",
+  "routes": {
+    "/": {
+      "ariaStructureHash": "70c2160d33075622c1af5c1009164f5affc4aca9acfcd927cb5e8722ef095a15",
+      "endpoints": []
+    },
+    "/ai": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/analytics": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/bot-builder": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/campaigns": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/campaigns/outbound": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/channels": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/channels/sms": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/contacts": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/inbox": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/agent": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/ai": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/billing": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/call": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/campaign": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/channel": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/csat": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/dashboards": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/quality": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/queue": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/reports/sla": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/settings": {
+      "ariaStructureHash": "f5f1b5cca54f706e6cf49566296c4fc49ef509cce476dc50ce38735b8238f365",
+      "endpoints": []
+    },
+    "/settings/organization": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/profile": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/supervisor": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/tickets": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/voice": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/workforce": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    }
+  }
+}
