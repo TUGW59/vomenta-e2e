@@ -182,4 +182,28 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.',
     },
   },
+  {
+    id: 'settings-compliance',
+    routes: ['/settings/compliance'],
+    specFiles: [
+      'settings-compliance.authed.spec.js',
+      'settings-compliance-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (özet kart + uyumluluk tabloları).',
+      '@data': 'Sayısal KPI tile göstermiyor (retention gün değerleri config metni; tablolar).',
+      '@export': 'Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).',
+      '@visual': '3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.',
+    },
+  },
 ]);

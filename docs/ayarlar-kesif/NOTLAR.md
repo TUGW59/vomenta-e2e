@@ -131,7 +131,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 2 | Organization | `/settings/organization` | ✅ **TAMAM** (settings-organization) |
 | 3 | Users & Roles | `/settings/users` | ✅ **TAMAM** (settings-users) |
 | 4 | Roles | `/settings/roles` | ✅ **TAMAM** (settings-roles) |
-| 5 | Compliance | `/settings/compliance` | ⬜ |
+| 5 | Compliance | `/settings/compliance` | ✅ **TAMAM** (settings-compliance) |
 | 6 | Teams | `/settings/teams` | ⬜ |
 | 7 | Business Hours | `/settings/hours` | ⬜ |
 | 8 | Automations | `/settings/automations` | ⬜ |
@@ -183,6 +183,18 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU (Kullanıcılar ile AYNI sistemik sızıntı):** Create Role dialogundaki **"Close" (X) butonu** 4 dilde de İngilizce "Close" kalıyor → `@i18n @known-bug` `test.fail` guard.
 - **Mutasyon (create+delete, zero-orphan):** staging'de benzersiz adlı custom rol oluştur → listede gör → sil (custom roller silinebilir; sistem rolleri Delete disabled). `settings-roles-mutations.authed.spec.js`.
 - **Görsel:** N/A (tablo canlı sayaç + Create dialogu uzun/kaydırmalı → flaky; naStyles beyanı).
+
+## Uyumluluk detayı (`/settings/compliance`)
+
+- **Başlık:** "Compliance & Data Privacy" + alt başlık "Manage data retention, GDPR requests, and consent records". Sekme YOK; çok bölümlü pano.
+- **Bölümler:** (1) **Data Retention** özet kartı (Recordings 90g · CDR 365g · Chat 365g · Auto-Cleanup No) + **Manage Retention** linki → `/settings/data-retention`; (2) **GDPR Compliance** bilgi kartı (eylem yok; contacts detay sayfasına yönlendirir); (3) **Audit Logs** tablo (Action/Entity/User/Time) + **View More** → `/settings/audit`; (4) **Consent Records** — **Log Consent** butonu + tablo (Channel/Type/Source/Date/[Revoke]); (5) **GDPR Requests** — **Create Request** butonu + tablo (Request Type/Status/Contact/Created/Actions).
+- **Log Consent dialogu:** Contact ID · Channel (Email) · Type (Opt-in) · Source · Cancel · Log Consent (disabled) · Close.
+- **Create GDPR Request dialogu:** Contact ID/email · Request Type (Access Article 15) · Execute Now radiogroup (Execute immediately / Submit for admin review) · Notes · Cancel · Export Data (disabled) · Close.
+- **Backend:** `GET /api/v1/compliance/{consent,gdpr/requests,data-retention,audit-logs}`.
+- **4 dil:** başlık/alt başlık/eylem butonları tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** Her iki dialogda **"Close" (X) butonu** 4 dilde de İngilizce "Close" kalıyor (Users/Roles ile aynı) → `@i18n @known-bug`.
+- **Mutasyon:** Log Consent / Create Request kalıcı uyumluluk/yasal kayıt üretir; UI'da **hard-delete YOK** (yalnız Revoke durum değiştirir) → zero-orphan temizliği yapılamadığından `settings-compliance-mutations` **test.fixme** (staging purge ucu teyidi bekliyor). Read-only spec dialogları yalnızca AÇAR + disabled doğrular.
+- **Görsel:** N/A (3 canlı tablo: göreli zaman/tarih/UUID → flaky).
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

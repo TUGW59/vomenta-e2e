@@ -3,6 +3,7 @@ import { AnalyticsPage } from './AnalyticsPage.js';
 import { AppShell } from './AppShell.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
+import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { LoginPage } from './LoginPage.js';
@@ -39,6 +40,7 @@ export class App {
     this.organization = new OrganizationPage(page);
     this.users = new UsersPage(page);
     this.roles = new RolesPage(page);
+    this.compliance = new CompliancePage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

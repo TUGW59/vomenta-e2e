@@ -463,6 +463,29 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: custom rol oluştur (`POST /roles`) → listede görün → sil (`DELETE /roles/{id}`)  `@regression` `@mutation`
 
+### `settings-compliance.authed.spec.js`  (Ayarlar › Uyumluluk ve Veri Gizliliği)
+
+- sayfa başlığı + tüm bölümler (Data Retention/GDPR/Audit/Consent/Requests) render  `@smoke`
+- bölüm eylem butonları görünüyor (Log Consent / Create Request)  `@critical`
+- L3: "Manage Retention" → `/settings/data-retention` yüklüyor  `@regression`
+- L3: "View More" → `/settings/audit` yüklüyor  `@regression`
+- L1: Log Consent dialogu açılıyor (alanlar + gönder disabled)  `@regression`
+- L1: Create Request dialogu açılıyor (alanlar + Export Data disabled)  `@regression`
+- L3 (kalıcı kayıt) N/A: prod salt-okunur — staging  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + eylem butonları çevrili  `@i18n`
+- 🐞 dialog "Close" butonu çevrilmiyor (Users/Roles ile sistemik)  `@i18n` `@known-bug` (test.fail)
+- sayfada + Log Consent dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok  `@clean`
+- onay listesi ucu 500 → kabuk sağlam  `@errorpath`
+- Log Consent dialogu odak tuzağı + Escape  `@keyboard`
+- `/settings/compliance` doğrudan açılıyor  `@deeplink`
+- (görsel N/A: 3 canlı tablo göreli zaman/tarih/UUID → flaky)
+
+### `settings-compliance-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: onay kaydı oluştur → görün → temizle — UI'da hard-delete yok; staging purge ucu teyidi bekliyor  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
