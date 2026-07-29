@@ -320,4 +320,27 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-disposition-codes',
+    routes: ['/settings/disposition-codes'],
+    specFiles: [
+      'settings-disposition-codes.authed.spec.js',
+      'settings-disposition-codes-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (kod tablosu + dialog).',
+      '@data': 'Sayısal KPI yok (kod listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

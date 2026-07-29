@@ -137,7 +137,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 8 | Automations | `/settings/automations` | ✅ **TAMAM** (settings-automations) |
 | 9 | SLA Policies | `/settings/sla` | ✅ **TAMAM** (settings-sla) |
 | 10 | Templates | `/settings/templates` | ✅ **TAMAM** (settings-templates) |
-| 11 | Disposition Codes | `/settings/disposition-codes` | ⬜ |
+| 11 | Disposition Codes | `/settings/disposition-codes` | ✅ **TAMAM** (settings-disposition-codes) |
 | 12 | Canned Responses | `/settings/canned-responses` | ⬜ |
 | 13 | Integrations | `/settings/integrations` | ⬜ |
 | 14 | Security | `/settings/security` | ⬜ |
@@ -249,6 +249,16 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU 1 (çeviri sızıntısı):** New Template içerik textarea **placeholder'ı ham i18n anahtarı** `settings.templatesPage.contentPlaceholder` gösteriyor → `@i18n @known-bug` test.fail.
 - **🐞 BULGU 2 (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **Mutasyon:** create + sil; tablo prod'da boş → silme yolu doğrulanamadı → `settings-templates-mutations` **test.fixme**.
+
+## Sonuç Kodları detayı (`/settings/disposition-codes`)
+
+- **Başlık:** "Disposition Codes" + alt başlık (agent sonuç kodları). **Add Code** butonu.
+- **Tablo:** Code/Label/Category/Description/Actions. 15 hazır kod (SALE, QUALIFIED_LEAD, NO_ANSWER, DO_NOT_CALL…). Satır başı 2 aksiyon ikonu (**aria-label yok** — edit/delete).
+- **Add Disposition Code dialogu:** Code · Label · Category (combobox) · Description · Sort Order (spinbutton) · Positive Outcome (switch) · Default (switch) · Cancel · Create · Close.
+- **Backend:** `GET /api/v1/disposition-codes?limit=50`.
+- **4 dil:** başlık/alt başlık/kolonlar/Add Code tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **Mutasyon:** create + sil; satır aksiyon ikonları aria-label'sız → silme yolu doğrulanamadı → `settings-disposition-codes-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

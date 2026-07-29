@@ -13,6 +13,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
 | `settings-automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
@@ -48,6 +49,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
 - **settings-automations**: `/settings/automations`
 - **settings-compliance**: `/settings/compliance`
+- **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
 - **settings-organization**: `/settings/organization`
 - **settings-profile**: `/settings/profile`
@@ -70,6 +72,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-compliance` **@data**: Sayısal KPI tile göstermiyor (retention gün değerleri config metni; tablolar).
 - `settings-compliance` **@export**: Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).
 - `settings-compliance` **@visual**: 3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.
+- `settings-disposition-codes` **@perf**: Grafik/ağır içerik yok (kod tablosu + dialog).
+- `settings-disposition-codes` **@data**: Sayısal KPI yok (kod listesi).
+- `settings-disposition-codes` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-hours` **@perf**: Grafik/ağır içerik yok (haftalık program formu).
 - `settings-hours` **@data**: Sayısal KPI yok (saat config değerleri).
 - `settings-hours` **@export**: Bu sayfada export/indirme kontrolü yok.

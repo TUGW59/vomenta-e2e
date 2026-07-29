@@ -8,6 +8,7 @@ import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
+import { DispositionCodesPage } from './DispositionCodesPage.js';
 import { LoginPage } from './LoginPage.js';
 import { OrganizationPage } from './OrganizationPage.js';
 import { ProfilePage } from './ProfilePage.js';
@@ -51,6 +52,7 @@ export class App {
     this.automations = new AutomationsPage(page);
     this.sla = new SlaPage(page);
     this.templates = new TemplatesPage(page);
+    this.dispositionCodes = new DispositionCodesPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

@@ -566,6 +566,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: şablon oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
 
+### `settings-disposition-codes.authed.spec.js`  (Ayarlar › Sonuç Kodları)
+
+- sayfa başlığı + Add Code + tablo  `@smoke`
+- tablo kolonları + bilinen kodlar (SALE/NO_ANSWER)  `@critical`
+- L1: Add Code dialogu (Code/Label + Create)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + kolonlar + Add çevrili  `@i18n`
+- 🐞 Add Code dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- a11y / layout / clean / errorpath / keyboard / deeplink / visual (Add Code dialog)
+
+### `settings-disposition-codes-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: kod oluştur → görün → sil — satır aksiyonları aria-label'sız; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
