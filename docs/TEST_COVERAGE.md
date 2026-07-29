@@ -552,6 +552,20 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: SLA politikası oluştur → görün → sil — satır aksiyonları aria-label'sız; staging teyidi  `@regression` `@mutation`
 
+### `settings-templates.authed.spec.js`  (Ayarlar › Şablonlar)
+
+- sayfa başlığı + üst sekmeler + New Template  `@smoke`
+- şablon tablosu kolonları + boş-durum  `@critical`
+- L1: üst sekmeler aria-selected=true + New Template dialogu (Create disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + üst sekmeler + New Template çevrili  `@i18n`
+- 🐞 New Template içerik placeholder'ı ham anahtar (settings.templatesPage.contentPlaceholder)  `@i18n` `@known-bug`
+- 🐞 New Template dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- a11y / layout / clean / errorpath / keyboard / deeplink / visual (New Template dialog)
+
+### `settings-templates-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: şablon oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

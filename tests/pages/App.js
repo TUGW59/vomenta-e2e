@@ -18,6 +18,7 @@ import { ReportsPage } from './ReportsPage.js';
 import { SettingsPage } from './SettingsPage.js';
 import { SlaPage } from './SlaPage.js';
 import { TeamsPage } from './TeamsPage.js';
+import { TemplatesPage } from './TemplatesPage.js';
 import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
 import { WorkforcePage } from './WorkforcePage.js';
@@ -49,6 +50,7 @@ export class App {
     this.businessHours = new BusinessHoursPage(page);
     this.automations = new AutomationsPage(page);
     this.sla = new SlaPage(page);
+    this.templates = new TemplatesPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

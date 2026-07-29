@@ -1,0 +1,94 @@
+URL: https://app.vomenta.com/settings/templates
+
+===== en dir=ltr =====
+h="Templates"
+sub="Manage message templates"
+tabs=["Message templates","Canned Responses","Canned Responses","Email","SMS","WhatsApp"]
+cols=["Name","Preview","Language","Variables",""]
+btns=["New Template"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Templates" [level=1]
+  - paragraph: Manage message templates
+  - tablist:
+    - tab "Message templates" [selected]:
+      - img
+      - text: Message templates
+    - tab "Canned Responses":
+      - img
+      - text: Canned Responses
+  - tabpanel "Message templates":
+    - paragraph: Multi-channel templates with variables for automations, campaigns, and scheduled responses.
+    - button "New Template":
+      - img
+      - text: New Template
+    - tablist:
+      - tab "Canned Responses" [selected]
+      - tab "Email"
+      - tab "SMS"
+      - tab "WhatsApp"
+    - tabpanel "Canned Responses":
+      - table:
+        - rowgroup:
+          - row "Name Preview Language Variables":
+            - columnheader "Name"
+            - columnheader "Preview"
+            - columnheader "Language"
+            - columnheader "Variables"
+            - columnheader
+        - rowgroup:
+          - row:
+            - cell
+            - cell
+            - cell
+            - cell
+            - cell
+          - row:
+            - cell
+            - cell
+            - cell
+            - cell
+            - cell
+          - row:
+            - cell
+            - cell
+            - cell
+            - cell
+            - cell
+          - row:
+            - cell
+            - cell
+            - cell
+            - cell
+            - cell
+          - row:
+            - cell
+            - cell
+            - cell
+            - cell
+            - cell
+API: []
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Şablonlar"
+sub="Mesaj şablonlarını yönetin"
+tabs=["Mesaj şablonları","Hazır yanıtlar","Hazır Yanıtlar","E-posta","SMS","WhatsApp"]
+cols=["Ad","Önizleme","Dil","Değişkenler",""]
+btns=["Yeni Şablon"]
+
+===== fr dir=ltr =====
+h="Modèles"
+sub="Gérez les modèles de messages"
+tabs=["Modèles de messages","Réponses prédéfinies","Réponses prédéfinies","E-mail","SMS","WhatsApp"]
+cols=["Nom","Aperçu","Langue","Variables",""]
+btns=["Nouveau modèle"]
+
+===== ar dir=rtl =====
+h="القوالب"
+sub="إدارة قوالب الرسائل"
+tabs=["قوالب الرسائل","ردود جاهزة","الردود الجاهزة","البريد الإلكتروني","SMS","WhatsApp"]
+cols=["الاسم","معاينة","اللغة","المتغيرات",""]
+btns=["قالب جديد"]

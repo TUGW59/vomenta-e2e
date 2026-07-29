@@ -19,6 +19,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `settings-sla` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ |
 | `settings-teams` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 
 ## Rota düzeyi baseline kanıtı
@@ -53,6 +54,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-roles**: `/settings/roles`
 - **settings-sla**: `/settings/sla`
 - **settings-teams**: `/settings/teams`
+- **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 
 ## N/A beyanları (gerekçeli)
@@ -85,6 +87,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-teams` **@perf**: Grafik/ağır içerik yok (ekip kartları + create dialogu).
 - `settings-teams` **@data**: Sayısal KPI tile yok (kart "N members" veri metni).
 - `settings-teams` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-templates` **@perf**: Grafik/ağır içerik yok (şablon tablosu + dialog).
+- `settings-templates` **@data**: Sayısal KPI yok (şablon listesi).
+- `settings-templates` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-users` **@perf**: Grafik/ağır içerik yok (üye tablosu + davet dialogu).
 - `settings-users` **@data**: Sayısal KPI göstermiyor (üye listesi; sayaç yok).
 - `settings-users` **@export**: Bu sayfada export/indirme kontrolü yok.

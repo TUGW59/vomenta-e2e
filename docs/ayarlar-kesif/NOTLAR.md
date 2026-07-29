@@ -136,7 +136,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 7 | Business Hours | `/settings/hours` | ✅ **TAMAM** (settings-hours) |
 | 8 | Automations | `/settings/automations` | ✅ **TAMAM** (settings-automations) |
 | 9 | SLA Policies | `/settings/sla` | ✅ **TAMAM** (settings-sla) |
-| 10 | Templates | `/settings/templates` | ⬜ |
+| 10 | Templates | `/settings/templates` | ✅ **TAMAM** (settings-templates) |
 | 11 | Disposition Codes | `/settings/disposition-codes` | ⬜ |
 | 12 | Canned Responses | `/settings/canned-responses` | ⬜ |
 | 13 | Integrations | `/settings/integrations` | ⬜ |
@@ -238,6 +238,17 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU 2 (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **@data:** GET /automations/sla-policies tetiklenir + politika satırı render (KPI/veri).
 - **Mutasyon:** create + sil; satır aksiyon ikonları aria-label'sız → silme yolu prod'da doğrulanamadı → `settings-sla-mutations` **test.fixme** (staging).
+
+## Şablonlar detayı (`/settings/templates`)
+
+- **Başlık:** "Templates" + alt başlık "Manage message templates".
+- **İç içe sekmeler:** ÜST tablist (Message templates / Canned Responses) · İÇ kanal tablist (Canned Responses/Email/SMS/WhatsApp) + **New Template** + tablo (Name/Preview/Language/Variables/actions; boş-durum "No templates in this category").
+- **New Template dialogu:** Name · Category (combobox: Canned Responses) · Language · Content + değişken ekleme butonları (customerName/ticketNumber/agentName/companyName) · Cancel · Create (disabled) · Close.
+- **ÜST "Canned Responses" sekmesi:** ayrı "Canned Responses" paneli (Title/Shortcode/Preview/Category + New canned response + boş-durum) — `/settings/canned-responses` ile örtüşür.
+- **4 dil:** başlık/alt başlık/sekmeler/New Template tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU 1 (çeviri sızıntısı):** New Template içerik textarea **placeholder'ı ham i18n anahtarı** `settings.templatesPage.contentPlaceholder` gösteriyor → `@i18n @known-bug` test.fail.
+- **🐞 BULGU 2 (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **Mutasyon:** create + sil; tablo prod'da boş → silme yolu doğrulanamadı → `settings-templates-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.
