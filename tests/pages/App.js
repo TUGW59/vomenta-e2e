@@ -16,6 +16,7 @@ import { RolesPage } from './RolesPage.js';
 import { UsersPage } from './UsersPage.js';
 import { ReportsPage } from './ReportsPage.js';
 import { SettingsPage } from './SettingsPage.js';
+import { SlaPage } from './SlaPage.js';
 import { TeamsPage } from './TeamsPage.js';
 import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
@@ -47,6 +48,7 @@ export class App {
     this.teams = new TeamsPage(page);
     this.businessHours = new BusinessHoursPage(page);
     this.automations = new AutomationsPage(page);
+    this.sla = new SlaPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

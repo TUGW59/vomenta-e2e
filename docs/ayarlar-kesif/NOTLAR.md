@@ -135,7 +135,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 6 | Teams | `/settings/teams` | ✅ **TAMAM** (settings-teams) |
 | 7 | Business Hours | `/settings/hours` | ✅ **TAMAM** (settings-hours) |
 | 8 | Automations | `/settings/automations` | ✅ **TAMAM** (settings-automations) |
-| 9 | SLA Policies | `/settings/sla` | ⬜ |
+| 9 | SLA Policies | `/settings/sla` | ✅ **TAMAM** (settings-sla) |
 | 10 | Templates | `/settings/templates` | ⬜ |
 | 11 | Disposition Codes | `/settings/disposition-codes` | ⬜ |
 | 12 | Canned Responses | `/settings/canned-responses` | ⬜ |
@@ -225,6 +225,19 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **Not:** SLA Policies sekmesi ayrı `/settings/sla` sayfasıyla aynı veriyi gösteriyor (görünüm-tutarlılığı ileride kontrol edilebilir).
 - **Mutasyon:** kural create + satır silme; tablo prod'da boş olduğundan silme yolu doğrulanamadı → `settings-automations-mutations` **test.fixme** (staging).
 - **Görsel:** Rules boş-durumu kararlı → snapshot alındı.
+
+## SLA Politikaları detayı (`/settings/sla`)
+
+- **Başlık:** "SLA Policies" + alt başlık "Define response and resolution time targets".
+- **KPI:** Total Policies / Active Policies (sayı).
+- **New Policy** butonu → dialog "New SLA Policy": Policy name · First/Resolution/Next response (spinbutton dk) · Priority (combobox) · Channel types (9 kanal toggle) · Active switch · Cancel · Create policy (disabled) · Close.
+- **Tablo:** Name/First Response/Resolution/Next response (min, optional)/Priority/Channels/Active/(2 satır aksiyon ikonu — **aria-label yok**). Örnek: "test sla, 15m, 4h, 5m, HIGH, VOICE EMAIL, Inactive".
+- **Backend:** `GET /api/v1/automations/sla-policies` (SLA verisi automations altında; /settings/automations SLA sekmesiyle aynı).
+- **4 dil:** başlık/alt başlık/kolonlar/New Policy tam çevrili; ar RTL; taşma yok.
+- **🐞 BULGU 1 (a11y, critical):** New Policy dialogu form alanları erişilebilir **etiket taşımıyor** (axe `label`) → `@a11y @known-bug` test.fail.
+- **🐞 BULGU 2 (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
+- **@data:** GET /automations/sla-policies tetiklenir + politika satırı render (KPI/veri).
+- **Mutasyon:** create + sil; satır aksiyon ikonları aria-label'sız → silme yolu prod'da doğrulanamadı → `settings-sla-mutations` **test.fixme** (staging).
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

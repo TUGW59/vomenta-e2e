@@ -1,0 +1,3 @@
+SLA CALLS: ["GET /api/v1/automations/sla-policies"]
+PAGE a11y: []
+DIALOG a11y: ["label(critical)"]

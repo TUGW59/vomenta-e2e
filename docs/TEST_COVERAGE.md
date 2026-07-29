@@ -537,6 +537,21 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: kural oluştur → görün → sil — tablo prod'da boş; staging teyidi bekliyor  `@regression` `@mutation`
 
+### `settings-sla.authed.spec.js`  (Ayarlar › SLA Politikaları)
+
+- sayfa "SLA Policies" başlığı + New Policy + tablo  `@smoke`
+- tablo kolonları + en az bir politika satırı  `@critical`
+- /automations/sla-policies çağrılıyor + satır render  `@data`
+- L1: New Policy dialogu (Create policy disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + kolonlar + New Policy çevrili  `@i18n`
+- 🐞 New Policy dialogu form alanları etiketsiz (axe label/critical)  `@a11y` `@known-bug` (test.fail)
+- 🐞 New Policy dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug`
+- layout / clean / errorpath / keyboard / deeplink / visual (New Policy dialog)
+
+### `settings-sla-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: SLA politikası oluştur → görün → sil — satır aksiyonları aria-label'sız; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
