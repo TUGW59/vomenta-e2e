@@ -71,10 +71,19 @@ export class ContactsPage extends BasePage {
     },
   };
 
-  /** Kontrollerin vurduğu backend uçları (Network ile doğrulandı, 28 Tem 2026). */
+  /** Toplu-eylem çubuğu (satır checkbox seçilince çıkar) — 4 dil (29 Tem 2026 canlı gözlem). */
+  static BULK_I18N = {
+    en: { selected: 'selected', assign: 'Assign', tag: 'Tag', addToCampaign: 'Add to Campaign', export: 'Export', delete: 'Delete' },
+    tr: { selected: 'seçildi', assign: 'Ata', tag: 'Etiket', addToCampaign: 'Kampanyaya Ekle', export: 'Dışa Aktar', delete: 'Sil' },
+    fr: { selected: 'sélectionné', assign: 'Attribuer', tag: 'Étiquette', addToCampaign: 'Ajouter à la campagne', export: 'Exporter', delete: 'Supprimer' },
+    ar: { selected: 'محدد', assign: 'تعيين', tag: 'علامة', addToCampaign: 'إضافة إلى الحملة', export: 'تصدير', delete: 'حذف' },
+  };
+
+  /** Kontrollerin vurduğu backend uçları (Network ile doğrulandı, 28–29 Tem 2026). */
   static API = {
     host: 'https://api.vomenta.com',
     contacts: '/api/v1/contacts',          // liste (GET ?page&limit&filters&sort), oluştur (POST)
+    contactsBulk: '/api/v1/contacts/bulk', // toplu etiket/ata/kampanya (PATCH)
     contactsExport: '/api/v1/contacts/export', // Export (POST → CSV indirme; veri değiştirmez)
     companies: '/api/v1/companies',
     users: '/api/v1/users',
@@ -144,6 +153,43 @@ export class ContactsPage extends BasePage {
 
   /** "Clear" (filtre temizle) butonu — arama/filtre etkinken görünür. */
   clearButton(name = 'Clear') { return this.toolbarButton(name); }
+
+  // ───────────────────── Satır seçimi + toplu-eylem çubuğu ─────────────────────
+  /** Bir satırın seçim checkbox'ı (satır indeksi 1'den başlar; 0 = başlık/select-all). */
+  rowCheckbox(index = 1) {
+    return this.rows.nth(index).getByRole('checkbox').first();
+  }
+
+  /** Başlık (tümünü seç) checkbox'ı. */
+  selectAllCheckbox() {
+    return this.rows.first().getByRole('checkbox').first();
+  }
+
+  /** Ada/metne göre DOĞRU satırı seçer (sıralamadan bağımsız — toplu sil/güncellemede kritik). */
+  async selectRowByText(token) {
+    const row = this.rows.filter({ hasText: token }).first();
+    await expect(row).toBeVisible({ timeout: 10000 });
+    await row.getByRole('checkbox').first().click();
+  }
+
+  /** Toplu-eylem çubuğu — "N selected" metni + Sil butonu içeren kap (data-testid yok → içerikle). */
+  bulkBar() {
+    return this.page
+      .locator('div')
+      .filter({ has: this.page.getByRole('button', { name: /^(Delete|Sil|Supprimer|حذف)$/ }) })
+      .filter({ hasText: /(selected|seçildi|sélectionné|محدد)/ })
+      .last();
+  }
+
+  /** Toplu çubuk butonu (Assign/Tag/Add to Campaign/Export/Delete) — çubuğa sabitli. */
+  bulkButton(name) {
+    return this.bulkBar().getByRole('button', { name, exact: true });
+  }
+
+  /** "N selected" sayaç metni. */
+  selectedCount() {
+    return this.page.getByText(/\d+\s*(selected|seçildi|sélectionné|محدد)/).first();
+  }
 
   /** İlk kişinin ad hücresindeki en uzun kelimeyi arama terimi olarak döndürür. */
   async firstNameToken() {
@@ -267,6 +313,26 @@ export class ContactsPage extends BasePage {
     await combo.click();
     await this.page.getByRole('option', { name: tag, exact: true }).click();
     await this.page.keyboard.press('Escape').catch(() => {});
+  }
+
+  /** Seçili kişileri toplu etiketler: Etiket → "Add Tag" dialog → tag seç → Confirm.
+   *  GERÇEK PATCH /contacts/bulk (yalnızca mutation). */
+  async bulkAddTag(tag) {
+    await this.bulkButton(ContactsPage.BULK_I18N.en.tag).click();
+    const dialog = this.page.getByRole('dialog').filter({ hasText: /Add Tag/ }).first();
+    await dialog.getByRole('combobox').first().click();
+    await this.page.getByRole('option', { name: tag, exact: true }).click();
+    await dialog.getByRole('button', { name: 'Confirm', exact: true }).click();
+    await expect(dialog).toBeHidden({ timeout: 10000 });
+  }
+
+  /** Seçili kişileri toplu siler: Sil → "Delete Contacts" alertdialog → Confirm.
+   *  GERÇEK DELETE /contacts/{id} (yalnızca mutation). */
+  async bulkDeleteConfirm() {
+    await this.bulkButton(ContactsPage.BULK_I18N.en.delete).click();
+    const alert = this.page.getByRole('alertdialog').first();
+    await alert.getByRole('button', { name: 'Confirm', exact: true }).click();
+    await expect(alert).toBeHidden({ timeout: 10000 });
   }
 
   /** Formu kaydeder (GERÇEK POST — yalnızca mutation). POST yanıtından oluşturulan id'yi döndürür
