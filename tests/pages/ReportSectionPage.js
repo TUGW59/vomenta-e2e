@@ -44,6 +44,10 @@ export class ReportSectionPage extends BasePage {
     return `/api/v1/reports/${key}`;
   }
 
+  static insightsApiFor(key) {
+    return `/api/v1/reports/${key}/insights`;
+  }
+
   /**
    * @param {import('@playwright/test').Page} page
    * @param {string} key - SECTIONS anahtarı (ör. 'call')
@@ -54,8 +58,14 @@ export class ReportSectionPage extends BasePage {
     this.heading = page.getByRole('heading', { level: 1 });
     this.exportButton = page.getByRole('button', { name: /^Export/ });
     this.scheduleButton = page.getByRole('button', { name: 'Schedule', exact: true });
+    this.aiInsightsButton = page.getByRole('button', { name: /AI Insights|Yapay Zeka/i });
     this.dateRangeCard = page.getByText(/Date Range|Tarih Aralığı|Plage de dates|نطاق التاريخ/i).first();
     this.charts = page.locator('.recharts-wrapper');
+    this.table = page.locator('table').first();
+    // NOT (a11y bulgusu): toolbar switch'lerinin aria-label'ı YOK → sıraya göre seçiliyor
+    // (0=Standard mod, 1=Auto-refresh). Frontend'den `aria-label`/`data-testid` talep edildi.
+    this.standardModeSwitch = page.getByRole('switch').nth(0);
+    this.autoRefreshSwitch = page.getByRole('switch').nth(1);
   }
 
   headingText(lang = 'en') {
@@ -87,6 +97,28 @@ export class ReportSectionPage extends BasePage {
   /** "Date Range … <aralık>" kartının tüm metni (aralık değişimini gözlemlemek için). */
   async dateRangeText() {
     return (await this.dateRangeCard.locator('..').innerText()).replace(/\s+/g, ' ').trim();
+  }
+
+  /** Date Range etiketindeki İLK tarihi ("Jul 29, 2026") döndürür (yerel-saat guard'ı için). */
+  async dateRangeStartLabel() {
+    const text = await this.dateRangeText();
+    const m = text.match(/[A-Z][a-z]{2}\s+\d{1,2},\s+\d{4}/);
+    return m ? m[0] : '';
+  }
+
+  /** Grafik türü düğmesi (bar/line/area). */
+  chartType(name) {
+    return this.page.getByRole('button', { name, exact: true }).first();
+  }
+
+  /** Değeri gösterilen bir filtre açılırı (ör. 'By Day', 'All Directions'). */
+  filterCombo(currentText) {
+    return this.page.getByRole('combobox').filter({ hasText: currentText }).first();
+  }
+
+  /** Export menüsü öğesi (CSV/Excel/PDF). Önce exportButton tıklanır. */
+  exportMenuItem(name) {
+    return this.page.getByRole('menuitem', { name });
   }
 
   // languageTrigger()/switchLanguage() BasePage'den miras alınır.

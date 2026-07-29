@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 391
-- **Test dosyası:** 30
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 45 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 222 · `@smoke` 38 · `@visual` 3
+- **Test edilen senaryo:** 400
+- **Test dosyası:** 31
+- **Etiketler:** `@a11y` 14 · `@clean` 3 · `@critical` 45 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 231 · `@smoke` 38 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -294,6 +294,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - paylaşım bağlantısı doğrudan açılınca pano görünümü yükleniyor (login'e düşmüyor)  `@deeplink`
 - paylaş diyaloğu görünümü değişmedi (URL maskeli)  `@visual`
 
+### `reports-route-sweep.authed.spec.js`
+
+- kenar menüsündeki her /reports/* rotası baseline geçiyor  `@regression` `@clean`
+
 ### `reports-sections.authed.spec.js`
 
 - [call] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
@@ -325,6 +329,14 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - grafikler bütçe içinde render oluyor  `@perf`
 - UI "Total Calls" KPI, API data.summary.totalCalls ile eşleşiyor  `@data`
 - boş-durum (campaign) görünümü değişmedi  `@visual`
+- L1+L2: tıklayınca insights ucuna POST gidiyor  `@regression`
+- L1 tıklama OK: menü CSV/Excel/PDF seçenekleriyle açılıyor  `@regression`
+- L1 tıklama OK: "Schedule This Report" diyaloğu açılıyor ve iptal edilebiliyor  `@regression`
+- L1+L3: "line" seçilince grafik çizgi türüne geçiyor (recharts-line)  `@regression`
+- L1+L2: "By Week" seçilince groupBy=week ile veri çekiyor  `@regression`
+- L1 tıklama OK: Standard ve Auto-refresh switch'leri durum değiştiriyor  `@regression`
+- Tablo sekmesinde başlık + veri satırları + sayfa boyutu kontrolü var  `@regression`
+- L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]  `@regression` `@known-bug`
 
 ### `reports.authed.spec.js`
 

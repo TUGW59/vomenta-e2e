@@ -256,3 +256,129 @@ test.describe('Rapor bölümleri — görsel @visual', () => {
     });
   });
 });
+
+// ═══════════════ KONTROL: YAPAY ZEKA İÇGÖRÜLERİ (L1 + L2) ═══════════════
+// L3 (içgörü içeriğinin doğruluğu) canlı/oynak → N/A; L1 (tetikleniyor) + L2 (doğru uç) kanıtlanır.
+test.describe(`Kontrol: AI Insights (${DATA_RICH}) @regression`, () => {
+  test('L1+L2: tıklayınca insights ucuna POST gidiyor', async ({ app, page }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await expect(rp.aiInsightsButton).toBeEnabled();
+    const req = page.waitForResponse(
+      (r) => r.url().includes(ReportSectionPage.insightsApiFor(DATA_RICH)) && r.request().method() === 'POST',
+      { timeout: 15000 }
+    );
+    await rp.aiInsightsButton.click();
+    const res = await req;
+    expect(res.status(), 'insights POST 2xx').toBeLessThan(400);
+  });
+});
+
+// ═══════════════ KONTROL: EXPORT (L1) ═══════════════
+// L2/L3 (gerçek indirme + dosya içeriği) = yan-etkili indirme → @export N/A (coverage-exclusions).
+test.describe(`Kontrol: Export (${DATA_RICH}) @regression`, () => {
+  test('L1 tıklama OK: menü CSV/Excel/PDF seçenekleriyle açılıyor', async ({ app }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await rp.exportButton.first().click();
+    await expect(rp.exportMenuItem(/CSV/i)).toBeVisible();
+    await expect(rp.exportMenuItem(/Excel/i)).toBeVisible();
+    await expect(rp.exportMenuItem(/PDF/i)).toBeVisible();
+    await rp.page.keyboard.press('Escape'); // indirmeyi TETİKLEMEDEN kapat
+  });
+});
+
+// ═══════════════ KONTROL: SCHEDULE (L1) ═══════════════
+// L2/L3 (zamanlama OLUŞTURMA) = mutation → gated/N/A. Burada L1: diyalog açılıp iptal edilebiliyor.
+test.describe(`Kontrol: Schedule (${DATA_RICH}) @regression`, () => {
+  test('L1 tıklama OK: "Schedule This Report" diyaloğu açılıyor ve iptal edilebiliyor', async ({ app }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await rp.scheduleButton.click();
+    const dialog = rp.page.getByRole('dialog');
+    await expect(dialog.getByRole('heading', { name: /Schedule This Report/i })).toBeVisible();
+    await rp.page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+  });
+});
+
+// ═══════════════ KONTROL: GRAFİK TÜRÜ Bar/Line/Area (L1 + L3) ═══════════════
+// L2 arka plan: YOK (N/A) — istemci tarafı yeniden çizim, network yok.
+test.describe(`Kontrol: Grafik türü (${DATA_RICH}) @regression`, () => {
+  test('L1+L3: "line" seçilince grafik çizgi türüne geçiyor (recharts-line)', async ({ app }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await rp.chartsTab().click();
+    await expect.poll(() => rp.charts.count(), { timeout: 15000 }).toBeGreaterThan(0);
+    await rp.chartType('line').click();
+    await expect.poll(() => rp.page.locator('.recharts-line').count(), { timeout: 8000 }).toBeGreaterThan(0);
+    await rp.chartType('area').click();
+    await expect.poll(() => rp.page.locator('.recharts-area').count(), { timeout: 8000 }).toBeGreaterThan(0);
+  });
+});
+
+// ═══════════════ KONTROL: GRUPLANDIR FİLTRESİ (L1 + L2) ═══════════════
+test.describe(`Kontrol: Group By filtresi (${DATA_RICH}) @regression`, () => {
+  test('L1+L2: "By Week" seçilince groupBy=week ile veri çekiyor', async ({ app, page }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    const req = page.waitForRequest(
+      (r) => r.url().includes(ReportSectionPage.apiFor(DATA_RICH)) && /groupBy=week/i.test(r.url()) && r.method() === 'GET',
+      { timeout: 12000 }
+    );
+    await rp.filterCombo('By Day').click();
+    await page.getByRole('option', { name: 'By Week', exact: true }).click();
+    await req; // groupBy=week isteği gitti (L2)
+    await expect(rp.filterCombo('By Week')).toBeVisible(); // L1: değer güncellendi
+  });
+});
+
+// ═══════════════ KONTROL: TOOLBAR SWITCH'LERİ (L1) ═══════════════
+// L2/L3: Standard mod düzen değişimi + Auto-refresh poll'u deterministik gözlemlenemez → N/A (yalnızca L1).
+test.describe(`Kontrol: Toolbar switch'leri (${DATA_RICH}) @regression`, () => {
+  test('L1 tıklama OK: Standard ve Auto-refresh switch\'leri durum değiştiriyor', async ({ app }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await expect(rp.autoRefreshSwitch).toHaveAttribute('aria-checked', 'false');
+    await rp.autoRefreshSwitch.click();
+    await expect(rp.autoRefreshSwitch).toHaveAttribute('aria-checked', 'true');
+    await rp.standardModeSwitch.click();
+    await expect(rp.standardModeSwitch).toHaveAttribute('aria-checked', 'true');
+  });
+});
+
+// ═══════════════ KONTROL: TABLO (agent) yapısı + pager (L1) ═══════════════
+test.describe(`Kontrol: Tablo yapısı (${DATA_RICH}) @regression`, () => {
+  test('Tablo sekmesinde başlık + veri satırları + sayfa boyutu kontrolü var', async ({ app }) => {
+    const rp = app.reportSection(DATA_RICH);
+    await rp.open();
+    await rp.tableTab().click();
+    await expect(rp.table).toBeVisible({ timeout: 15000 });
+    // başlık satırı + en az bir veri satırı
+    await expect(rp.table.locator('thead th').first()).toBeVisible();
+    await expect.poll(() => rp.table.locator('tbody tr').count(), { timeout: 10000 }).toBeGreaterThan(0);
+    // sayfa boyutu kontrolü (per-page)
+    await expect(rp.page.getByText(/per page|sayfa başına/i).first()).toBeVisible();
+  });
+});
+
+// ═══════════════ BİLİNEN HATA: DATE RANGE ETİKETİ UTC (yerel değil) @known-bug ═══════════════
+// Aralık API'de yerel-gece yarısına göre doğru; ANCAK gösterilen etiket UTC ile basılıyor →
+// UTC+3'te başlangıç bir gün geride görünüyor ("Bugün" → dün–bugün). Wallboard BULGU 4 ile aynı sınıf.
+// Manuel rapor: docs/manuel-test-raporu/02-tarih-araligi-utc.md
+test.describe('Rapor bölümleri — Date Range timezone @regression @known-bug', () => {
+  test.use({ timezoneId: 'Europe/Istanbul', locale: 'en-US' });
+
+  test('L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]', async ({ app }) => {
+    test.fail(); // BULGU açıkken beklenen başarısızlık (etiket UTC → dün gösteriyor)
+    const rp = app.reportSection('call');
+    await rp.open();
+    await rp.datePreset('Today').click();
+    await expect.poll(() => rp.dateRangeStartLabel(), { timeout: 8000 }).not.toBe('');
+    const startLabel = await rp.dateRangeStartLabel();
+    const localToday = await rp.page.evaluate(() =>
+      new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    );
+    expect(startLabel, `etiket başlangıcı="${startLabel}" yerel bugün="${localToday}" olmalı`).toBe(localToday);
+  });
+});
