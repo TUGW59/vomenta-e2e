@@ -1,4 +1,5 @@
 // @ts-check
+import { MAIN_NAVIGATION } from './navigation.js';
 /**
  * TEST EDİLEN SAYFALARIN STİL-KAPSAMA KAYDI (sözleşme).
  *
@@ -23,6 +24,23 @@
  * naStyles: koşullu bir stil uygulanmıyorsa AÇIK gerekçeyle beyan edilir (sessiz atlama yasak).
  */
 export const TESTED_PAGES = Object.freeze([
+  {
+    id: 'main-navigation',
+    routes: MAIN_NAVIGATION.map(({ path }) => path),
+    specFiles: ['quality-baseline.authed.spec.js'],
+    routeLevelBaseline: true,
+    archetype: {
+      hasData: false,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {},
+  },
   {
     id: 'reports-dashboards',
     routes: ['/reports/dashboards'],

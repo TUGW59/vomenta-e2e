@@ -8,11 +8,32 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 | Sayfa | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression | @keyboard | @errorpath | @visual | @perf | @data | @export | @mutation |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — |
 
+## Rota düzeyi baseline kanıtı
+
+| Rota | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression |
+|---|---|---|---|---|---|---|---|
+| `/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/inbox` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/voice` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/channels` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/ai` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/campaigns` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/bot-builder` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/contacts` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/analytics` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/reports` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/supervisor` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/settings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
 ## Rotalar
 
+- **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
 

@@ -18,6 +18,7 @@ import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, basename } from 'node:path';
 import { TESTED_PAGES } from '../tests/contracts/tested-pages.js';
+import { MAIN_NAVIGATION } from '../tests/contracts/navigation.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Baş '@' ve sondaki noktalama (ör. parantez içi başlıktan gelen "@mutation)") temizlenir;
@@ -64,6 +65,7 @@ const report = JSON.parse(raw);
 
 // 2) Dosya (basename) → o dosyadaki tüm etiketlerin kümesi.
 const tagsByFile = new Map();
+const tagsByRoute = new Map();
 const allTags = new Set();
 const walk = (suite) => {
   for (const sp of suite.specs || []) {
@@ -74,12 +76,26 @@ const walk = (suite) => {
       allTags.add(norm(t));
     }
     tagsByFile.set(file, set);
+    const routeMatch = `${suite.title || ''} ${sp.title || ''}`.match(/\[route:([^\]]+)\]/);
+    if (routeMatch) {
+      const routeSet = tagsByRoute.get(routeMatch[1]) || new Set();
+      for (const t of sp.tags || []) routeSet.add(norm(t));
+      tagsByRoute.set(routeMatch[1], routeSet);
+    }
   }
   for (const child of suite.suites || []) walk(child);
 };
 for (const s of report.suites || []) walk(s);
 
 const errors = [];
+
+// Navigasyona giren hiçbir rota stil sözleşmesinin dışında kalamaz.
+const registeredRoutes = new Set(TESTED_PAGES.flatMap(({ routes }) => routes));
+for (const { path: route } of MAIN_NAVIGATION) {
+  if (!registeredRoutes.has(route)) {
+    errors.push(`[route:${route}] MAIN_NAVIGATION rotası tested-pages.js içinde kayıtlı değil.`);
+  }
+}
 
 // 3) Etiket allowlist'i (JSON-liste tabanlı; JSDoc token'ı karışmaz).
 for (const t of [...allTags].sort()) {
@@ -107,6 +123,17 @@ for (const page of [...TESTED_PAGES].sort((a, b) => a.id.localeCompare(b.id))) {
   // Baseline N/A olamaz.
   for (const b of BASELINE) {
     if (naStyles[b]) errors.push(`[${page.id}] baseline stil "@${b}" N/A beyan edilemez.`);
+  }
+
+  if (page.routeLevelBaseline) {
+    for (const route of page.routes) {
+      const routeTags = tagsByRoute.get(route) || new Set();
+      for (const style of BASELINE) {
+        if (!routeTags.has(style)) {
+          errors.push(`[${page.id}][route:${route}] rota düzeyi baseline eksik: @${style}.`);
+        }
+      }
+    }
   }
 
   const cells = {};
@@ -139,6 +166,21 @@ L.push('| Sayfa | ' + STYLE_COLUMNS.map((s) => `@${s}`).join(' | ') + ' |');
 L.push('|---|' + STYLE_COLUMNS.map(() => '---').join('|') + '|');
 for (const { page, cells } of rows) {
   L.push(`| \`${page.id}\` | ` + STYLE_COLUMNS.map((s) => cells[s]).join(' | ') + ' |');
+}
+L.push('');
+L.push('## Rota düzeyi baseline kanıtı');
+L.push('');
+L.push('| Rota | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression |');
+L.push('|---|---|---|---|---|---|---|---|');
+for (const { page } of rows.filter(({ page }) => page.routeLevelBaseline)) {
+  for (const route of page.routes) {
+    const routeTags = tagsByRoute.get(route) || new Set();
+    L.push(
+      `| \`${route}\` | ` +
+      BASELINE.map((style) => routeTags.has(style) ? '✅' : '❌').join(' | ') +
+      ' |'
+    );
+  }
 }
 L.push('');
 L.push('## Rotalar');

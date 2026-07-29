@@ -69,6 +69,33 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
+  authenticated-quality:
+    name: Authenticated route quality / Chromium
+    needs: architecture
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:quality:pr
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: authenticated-route-quality-report
+          path: |
+            playwright-report/
+            test-results/junit.xml
+          retention-days: 30
+
   authenticated-critical:
     name: Critical authenticated / Chromium
     needs: architecture

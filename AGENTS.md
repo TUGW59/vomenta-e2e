@@ -292,6 +292,10 @@ Böylece gelecekteki her yeni sayfa aynı standardı otomatik dayatır. El kitab
 sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipeline'ı kırılgan olmaz.
 
 **Kurallar:**
+- `tests/contracts/navigation.js` içindeki her ana rota `tested-pages.js` kapsamına
+  otomatik olarak girmek zorundadır. `quality-baseline.authed.spec.js` testleri
+  `[route:<path>]` kanıtı üretir; başka bir rota veya dosyadaki etiket bu rotayı
+  yeşile çeviremez. Kayıtsız navigasyon rotası `quality:styles` kapısını kırar.
 - Uygulanmayan koşullu stil `tested-pages.js`'te `naStyles` ile **açık gerekçeyle** beyan edilir
   (sessiz atlama yasak — 3-katman N/A kuralının aynısı).
 - Bir stil bozuksa `test.fail` (`@known-bug`); düzelince kalıcı guard.
@@ -300,6 +304,9 @@ sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipelin
   `@errorpath`→`mockApi/route`, `@perf`→`expectContentWithin`).
 - Ortak yardımcılar `tests/helpers.js`'te (a11y/layout/clean/errorpath/perf/keyboard/data) — her stil ~1 satır.
 - **Cross-browser** yeni etiket değil: gece full-regression `firefox/webkit-authed` projelerinde koşar.
+- PR lane'i ana rotaların salt-okunur baseline paketini Chromium'da `retries=0,
+  workers=1` ile gerçekten çalıştırır; yalnız etiket varlığını kontrol etmek yeterli
+  değildir.
 
 Referans uygulama: `tests/reports-dashboards.authed.spec.js`, `tests/reports-sections.authed.spec.js`
 (+ matris: `docs/TEST_STYLE_MATRIX.md`). Karar: `docs/adr/0002-mandatory-test-styles.md`.

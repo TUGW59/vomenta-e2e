@@ -45,10 +45,14 @@ export class AppShell {
    */
   async switchLanguage(endonym) {
     const trigger = this.languageTrigger();
+    const option = this.page.getByText(endonym, { exact: true }).first();
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toBeEnabled();
     await expect(async () => {
-      await trigger.click();
-      await this.page.getByText(endonym, { exact: true }).first().click({ timeout: 2000 });
-    }).toPass({ timeout: 15000 });
+      if (!(await option.isVisible())) await trigger.click();
+      await expect(option).toBeVisible({ timeout: 5000 });
+      await option.click();
+    }).toPass({ timeout: 30000 });
     await expect(trigger).toContainText(endonym, { timeout: 10000 });
   }
 }
