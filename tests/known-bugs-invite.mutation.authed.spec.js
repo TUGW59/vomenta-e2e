@@ -34,7 +34,7 @@ test.describe('Vomenta - Bulgu 6 daveti üreterek doğrula @regression @known-bu
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('Bulgu 6: kullanıcı daveti oluşturma');
+    await mutationGuard('Bulgu 6: kullanıcı daveti oluşturma');
     const invite = buildUserInvite();
 
     await gotoApp(page, '/settings');

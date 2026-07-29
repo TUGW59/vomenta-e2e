@@ -34,7 +34,7 @@ test.describe('Giden Kampanyalar — mutasyonları @regression @mutation', () =>
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('Kampanya oluşturma (POST /api/v1/campaigns)');
+    await mutationGuard('Kampanya oluşturma (POST /api/v1/campaigns)');
     const data = buildCampaign();
 
     // TEMİZLİK (LIFO): oluşturulan kampanyayı listeden çöp ikonuyla sil.

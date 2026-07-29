@@ -13,10 +13,10 @@ const I18N = ContactsPage.I18N;
  * satırı seç → TOPLU SİL (Sil→Confirm). SADECE oluşturulan kişiye dokunulur; satır
  * "ada göre" seçilir (sıralamadan bağımsız), böylece başka kişi asla seçilmez.
  *
- * ÇİFT KİLİT (config/environment.js · playwright.config.js):
+ * STAGING KİLİDİ (config/environment.js · mutationGuard):
  *   Kilit 1 — ALLOW_MUTATING_TESTS=true yoksa @mutation her yerde dışlanır.
- *   Kilit 2 — CANLI tenant'a yazmak için ayrıca ALLOW_PROD_MUTATIONS=true.
- *   Çalıştırma: npm run test:mutation:prod (canlı, yalnızca ayrılmış test hesabı).
+ *   Kilit 2 — staging origin + beklenen `/auth/me` tenant kimliği eşleşir.
+ *   Çalıştırma: yalnızca ayrılmış staging tenant'ında npm run test:mutation.
  *
  * GÜVENLİK: mutationGuard ile başlar; testEntity cleanup create'ten ÖNCE kaydedilir ve oluşturulan
  *   kişiyi ADINA göre bulup API ile siler (yakalanan Bearer) — test ortada patlasa da
@@ -32,7 +32,7 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
+    await mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
     const c = app.contacts;
     const data = buildPeopleContact(); // firstName PW, lastName Auto…, phone +90… (E.164), tag VIP
 

@@ -80,15 +80,23 @@ test('ticket oluşturuluyor @critical @mutation', async ({
   app,
   api,
   mutationGuard,
+  testEntity,
 }) => {
-  mutationGuard('ticket oluşturma testi');
-  // Test verisini API ile hazırla, davranışı UI ile doğrula, finally ile temizle.
+  await mutationGuard('ticket oluşturma testi');
+  await testEntity.create({
+    label: 'ticket rollback',
+    cleanup: () => api.delete('/api/example/by-key/e2e-ticket-key'),
+    action: () => api.post('/api/example', { name: 'e2e-ticket-key' }),
+  });
+  // Davranışı UI ile doğrula.
 });
 ```
 
-Production ortamında `@mutation` testleri yapılandırma tarafından filtrelenir.
-Ayrıca API yazma işlemleri ve `mutationGuard` ikinci bir güvenlik katmanı sağlar.
-Mutasyon testleri staging'de ve yalnızca ayrılmış test tenant'ında çalışmalıdır.
+Production ortamında mutation teknik olarak reddedilir; kaçış bayrağı yoktur.
+`mutationGuard`, yazmadan önce staging app/API origin'lerini ve gerçek tarayıcı
+`/api/v1/auth/me` yanıtındaki `tenantId`, `tenant.id`, `tenant.slug` değerlerini
+yapılandırılmış ayrılmış test tenant'ıyla eşleştirir. Token okunmaz veya
+loglanmaz. Guard asenkron olduğu için mutlaka `await` edilir.
 
 ## Test verisi yaşam döngüsü
 
@@ -99,13 +107,17 @@ Her test:
 3. Yalnızca hedeflenen davranışı UI üzerinden gerçekleştirir.
 4. `try/finally` veya otomatik fixture ile oluşturduğu veriyi temizler.
 
-Tercih edilen kullanım, test başarısız olsa bile çalışan cleanup fixture'ıdır:
+Tercih edilen kullanım, rollback'i create işleminden önce kaydeden
+`testEntity.create` fixture'ıdır:
 
 ```js
-test('örnek @mutation', async ({ api, cleanup }) => {
-  const response = await api.post('/api/example', { name: 'test' });
-  const record = await response.json();
-  cleanup(() => api.delete(`/api/example/${record.id}`));
+test('örnek @mutation', async ({ api, mutationGuard, testEntity }) => {
+  await mutationGuard('örnek oluşturma');
+  await testEntity.create({
+    label: 'örnek rollback',
+    cleanup: () => api.delete('/api/example/by-key/e2e-example-key'),
+    action: () => api.post('/api/example', { name: 'e2e-example-key' }),
+  });
 });
 ```
 

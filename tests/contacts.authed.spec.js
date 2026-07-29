@@ -14,7 +14,8 @@ import { ContactsPage } from './pages/ContactsPage.js';
  * │ L3 — GÖREV OK   : kontrol amacını gerçekten yerine getirir. Kalıcı kayıt    │
  * │                    (create/delete) → opt-in mutation kategorisi (ayrı spec).       │
  * └────────────────────────────────────────────────────────────────────────────┘
- * L3 kalıcı-kayıt mutasyonları: tests/contacts-mutations.authed.spec.js (yalnızca npm run test:mutation:prod).
+ * L3 kalıcı-kayıt mutasyonları: tests/contacts-mutations.authed.spec.js
+ * (yalnızca kimliği doğrulanan staging tenant'ında `npm run test:mutation`).
  * BULGULAR (F1 callContact · F2 contacts.delete) test.fail guard'larıyla altta.
  */
 

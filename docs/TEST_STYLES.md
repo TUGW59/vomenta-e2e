@@ -113,7 +113,8 @@ erişim gerekir; eldeki Sigma MCP (finans/telekom/CRM) farklı bir sistemdir. Pr
 `tests/contracts/coverage-exclusions.js`'e 'download' N/A beyanı + `tested-pages.js naStyles`.
 
 ### `@mutation` — Yaşam döngüsü (create/edit/delete/save varsa)
-`@mutation` + `mutationGuard` + `cleanup`; yalnızca ayrılmış test tenant'ında. Bkz. `*-mutations.authed.spec.js`.
+`@mutation` + `await mutationGuard(...)` + `testEntity`; yalnızca kimliği
+doğrulanan ayrılmış staging tenant'ında. Production için kaçış yoktur.
 
 ---
 

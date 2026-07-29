@@ -2,8 +2,8 @@
 import { test as base, expect } from '@playwright/test';
 import { ApiClient } from '../api/ApiClient.js';
 import { App } from '../pages/App.js';
-import { assertMutationsAllowed } from '../../config/environment.js';
 import { collectDiagnostics } from './diagnostics.js';
+import { createMutationGuard } from './mutationGuard.js';
 import { createTestEntityRegistry } from './testEntity.js';
 
 /**
@@ -27,8 +27,8 @@ export const test = base.extend({
     await use(new App(page));
   },
 
-  mutationGuard: async ({}, use) => {
-    await use((reason) => assertMutationsAllowed(reason));
+  mutationGuard: async ({ page }, use) => {
+    await use(createMutationGuard(page));
   },
 
   api: async ({ request, mutationGuard }, use) => {

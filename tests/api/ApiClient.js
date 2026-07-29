@@ -7,7 +7,7 @@
 export class ApiClient {
   /**
    * @param {import('@playwright/test').APIRequestContext} request
-   * @param {(reason: string) => void} mutationGuard
+   * @param {(reason: string) => Promise<void>} mutationGuard
    */
   constructor(request, mutationGuard) {
     this.request = request;
@@ -19,17 +19,17 @@ export class ApiClient {
   }
 
   async post(path, data, options = {}) {
-    this.mutationGuard(`POST ${path}`);
+    await this.mutationGuard(`POST ${path}`);
     return this.expectOk(await this.request.post(path, { ...options, data }), 'POST');
   }
 
   async patch(path, data, options = {}) {
-    this.mutationGuard(`PATCH ${path}`);
+    await this.mutationGuard(`PATCH ${path}`);
     return this.expectOk(await this.request.patch(path, { ...options, data }), 'PATCH');
   }
 
   async delete(path, options = {}) {
-    this.mutationGuard(`DELETE ${path}`);
+    await this.mutationGuard(`DELETE ${path}`);
     return this.expectOk(await this.request.delete(path, options), 'DELETE');
   }
 

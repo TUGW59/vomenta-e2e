@@ -43,10 +43,10 @@ npm run test:auth
 # Chromium, Firefox ve WebKit'te tüm test paketi
 npm run test:e2e
 
-# Veri-değiştiren (@mutation) testler — ÇİFT KİLİT, yalnızca elle çalışır.
-# Normal koşular ve CI bunları ASLA çalıştırmaz (bkz. docs/adr/0002).
-npm run test:mutation        # kategoriyi açar (production'da fail-fast)
-npm run test:mutation:prod   # canlı tenant'a bilinçli yazar (yalnızca test hesabı)
+# Veri-değiştiren (@mutation) testler — yalnızca ayrılmış staging tenant.
+# .env: TEST_ENV=staging, production dışı BASE_URL + MUTATION_API_ORIGIN,
+# MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur.
+npm run test:mutation
 
 # Testleri görsel arayüzden seçerek çalıştırma
 npm run test:ui
@@ -100,9 +100,9 @@ npx playwright test -g "komut paleti" --project=chromium-authed
    ayrıca `npm run test:auth` çalıştırılmalıdır.
 7. Yeni testler `test` ve `expect` değerlerini `tests/fixtures/test.js` üzerinden
    almalıdır.
-8. Veri değiştiren testler `@mutation` etiketi, mutation guard ve güvenilir
-   temizlik içermelidir; yalnızca özel/ayrılmış bir test hesabına (tenant) karşı
-   çalıştırılır, gerçek müşteri hesabına yöneltilmez.
+8. Veri değiştiren testler `@mutation` etiketi, `await mutationGuard(...)` ve
+   güvenilir temizlik içermelidir; yalnızca kimliği doğrulanan ayrılmış staging
+   tenant'ında çalışır. Production mutasyonu için kaçış bayrağı yoktur.
 9. `quality:architecture` yeni spec'lerde ortak fixture, sabit bekleme, doğrudan
    ortam değişkeni ve eksik ESM uzantısı gibi mimari ihlalleri CI'da engeller.
 

@@ -14,7 +14,8 @@ import { WorkforcePage } from './pages/WorkforcePage.js';
  * │ L3 — GÖREV OK   : kontrol amacını gerçekten yerine getirir. Kalıcı kayıt    │
  * │                    (create/publish) → opt-in mutation kategorisi (ayrı spec).      │
  * └────────────────────────────────────────────────────────────────────────────┘
- * L3 mutation'lar: tests/workforce-mutations.authed.spec.js (yalnızca npm run test:mutation:prod).
+ * L3 mutation'lar: tests/workforce-mutations.authed.spec.js
+ * (yalnızca kimliği doğrulanan staging tenant'ında `npm run test:mutation`).
  */
 
 const I18N = WorkforcePage.I18N;
@@ -177,7 +178,7 @@ test.describe('Kontrol: Adherence aralığı @regression', () => {
 
 // ═══════════════ KONTROL: ADD SHIFT ("+") (L1 + L2) ═══════════════
 // L3 görev OK: kalıcı kayıt (vardiya oluşturma) → opt-in mutation kategorisi.
-//   Bkz. tests/workforce-mutations.authed.spec.js (yalnızca npm run test:mutation:prod).
+//   Bkz. tests/workforce-mutations.authed.spec.js (yalnızca staging'de npm run test:mutation).
 test.describe('Kontrol: Add Shift @regression', () => {
   test('L1 tıklama OK: çizelge hücresi "Add Shift" formunu açıyor (Start/End/Break)', async ({ app }) => {
     const wf = app.workforce;

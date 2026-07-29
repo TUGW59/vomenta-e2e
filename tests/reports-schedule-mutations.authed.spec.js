@@ -8,8 +8,8 @@ import { test, expect } from './fixtures/test.js';
  * UI Actions/Delete → backend DELETE 204 → listeden kaybolma.
  *
  * GÜVENLİK:
- * - Yalnızca `npm run test:mutation:prod` çift kilidiyle çalışır.
- * - Ayrılmış otomasyon/test tenant'ına yöneliktir.
+ * - Yalnızca `npm run test:mutation` ile, kimliği doğrulanan staging tenant'ında çalışır.
+ * - Production mutasyonu için kaçış bayrağı/komutu yoktur.
  * - Benzersiz `e2e-sched-…` ada ve teslim edilemeyen rezerv example.com alıcısına yazar.
  * - Çalışma saati 23:55 seçilir; schedule saniyeler içinde doğrulanıp silinir.
  * - `testEntity` cleanup, test herhangi bir noktada kırılırsa benzersiz adı API'den
@@ -28,7 +28,7 @@ test.describe('Rapor Schedule yaşam döngüsü @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('Rapor Schedule: oluştur + listele + sil');
+    await mutationGuard('Rapor Schedule: oluştur + listele + sil');
 
     const name = `e2e-sched-${Date.now()}`;
     const recipient = 'e2e-schedule@example.com';
@@ -85,7 +85,7 @@ test.describe('Rapor Schedule yaşam döngüsü @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('Rapor Schedule: mutation koşumu sonrası orphan kontrolü');
+    await mutationGuard('Rapor Schedule: mutation koşumu sonrası orphan kontrolü');
     void testEntity;
     await app.reports.open();
     await expect(

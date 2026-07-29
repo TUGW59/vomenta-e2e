@@ -62,9 +62,12 @@ Baş harf/avatar gibi kısmi eşleşme, tam iş kimliği yerine kullanılamaz.
 - Üretilen veri benzersiz ve ayrılmış otomasyon öneki taşır. Test başlangıcı ve
   sonunda ilgili önek/sayaç baseline'ı doğrulanır; doğrulanamıyorsa mutasyon
   etkinleştirilmez.
-- Production mutasyonu yalnız özel test tenant'ında, çift kilitle ve kanıtlanmış
-  teardown yoluyla çalışabilir. Teardown önce salt-okunur prova ile kanıtlanmadan
-  create/modify/delete akışı açılmaz.
+- Production mutasyonu teknik olarak yasaktır; izin bayrağıyla açılamaz. Mutasyon
+  yalnız `TEST_ENV=staging`, production dışı app/API origin'leri ve gerçek
+  `/api/v1/auth/me` response'u ile doğrulanan `MUTATION_TENANT_ID` +
+  `MUTATION_TENANT_SLUG` eşleşmesinde çalışır.
+  Her spec ilk yazma işleminden önce `await mutationGuard(...)` çağırır. Teardown
+  önce salt-okunur prova ile kanıtlanmadan create/modify/delete akışı açılmaz.
 
 ## Katman sınırları
 

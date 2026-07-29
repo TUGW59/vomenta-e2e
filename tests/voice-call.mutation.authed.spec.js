@@ -8,7 +8,7 @@ import { environment } from '../config/environment.js';
  * Bu testler GERÇEK bir giden çağrı başlatır / SMS gönderir → PRODUCTION'DA ASLA ÇALIŞMAZ.
  * Üç kat koruma:
  *   1) `@mutation` → prod'da `playwright.config` grepInvert ile tamamen dışlanır.
- *   2) `mutationGuard` → yanlışlıkla prod'da koşulursa hata fırlatır (çift kilit: ADR-0002).
+ *   2) async `mutationGuard` → staging origin + oturum tenant kimliğini doğrular (ADR-0004).
  *   3) `test.fixme` → staging'de bile seçiciler DOĞRULANANA kadar çalışmaz.
  *
  * Numara `environment.testPhone` (`VOMENTA_TEST_PHONE`) — koda YAZILMAZ, `.env`'de tutulur,
@@ -31,7 +31,7 @@ test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @re
     testEntity,
   }) => {
     test.fixme(true, 'Yalnızca staging: gerçek çağrı prod\'da yasak; seçiciler staging\'de doğrulanacak.');
-    mutationGuard('Voice: gerçek giden çağrı');
+    await mutationGuard('Voice: gerçek giden çağrı');
     test.skip(!environment.testPhone, 'VOMENTA_TEST_PHONE tanımlı değil.');
 
     await page.goto('/', { waitUntil: 'commit' });
@@ -66,7 +66,7 @@ test.describe('Voice/Mesaj — dışa-dönük gerçek çağrı/SMS (staging) @re
     testEntity,
   }) => {
     test.fixme(true, 'Yalnızca staging: gerçek SMS prod\'da yasak; SMS compose seçicileri staging\'de doğrulanacak.');
-    mutationGuard('Channels: gerçek SMS gönderimi');
+    await mutationGuard('Channels: gerçek SMS gönderimi');
     test.skip(!environment.testPhone, 'VOMENTA_TEST_PHONE tanımlı değil.');
 
     await page.goto('/channels/sms', { waitUntil: 'commit' });
