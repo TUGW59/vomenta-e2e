@@ -307,7 +307,7 @@ test.describe('Kontrol: Export @regression', () => {
     await req;
   });
 
-  test('L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok', async ({ app, page }, testInfo) => {
+  test('L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok', async ({ app, page, artifacts }) => {
     const c = app.contacts;
     await c.open();
     const [download] = await Promise.all([
@@ -321,7 +321,8 @@ test.describe('Kontrol: Export @regression', () => {
     // Bozulma yok: Unicode replacement char bulunmamalı
     expect(csv.includes('�'), 'kodlama bozulması (\\uFFFD) olmamalı').toBe(false);
     expect(csv.split('\n').length, 'en az bir veri satırı olmalı').toBeGreaterThan(3);
-    await testInfo.attach('contacts-export.csv', { body: csv, contentType: 'text/csv' });
+    // WP-01: gerçek müşteri PII'si (e-posta/telefon/isim) maskelenerek eklenir.
+    await artifacts.safeAttach('contacts-export.csv', { body: csv, contentType: 'text/csv' });
   });
 
   test('L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)', async ({ app, page }) => {

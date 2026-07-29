@@ -71,7 +71,7 @@
 | WP | Kapsam | Durum | Kanıt / engel |
 |---|---|---|---|
 | **WP-00** | Repo gerçekliğini kilitle (bu dosya) | **DONE (bu PR)** | branch/PR audit + sabit sayımlar + bu dosya |
-| **WP-01** | Artifact/secret/PII güvenliği (P0) | **PARTIAL** | `diagnostics.js` console/URL'de email+bearer maskeliyor; trace/video/HAR taraması + seed'li-secret CI self-check YOK |
+| **WP-01** | Artifact/secret/PII güvenliği (P0) | **DONE** | Ortak `tests/fixtures/sanitize.js` (JWT/Bearer/Authorization/cookie/email/telefon/provider-key/kv + URL); `artifacts.safeAttach`/`safeScreenshot`; `diagnostics` delege; sert kapı `quality:artifact-safety` (seed'li-secret + spec'te ham `testInfo.attach` yasağı); ADR-0006. İsim PII otomatik değil (ekran maskesi — bilinçli sınır) |
 | **WP-02** | Discovery fingerprint doğruluğu | **PARTIAL (P0)** | Runtime safety gate var; ama endpoint fingerprint'leri boş, 25/29 shared ARIA hash → radar shell'i ölçüyor |
 | **WP-03** | Surface Manifest + discovery hard-gate | **PARTIAL** | Coverage radarı (`untestedRoutes`/`registeredNotReached`) hesaplanıyor ama **drift assert edilmiyor** (`discovery.spec.js`'de `report.changes` üzerinde `expect` yok); 4 kayıtsız rota report-only |
 | **WP-04** | Evidence Registry + false-green fix | **PARTIAL** | `style-coverage.mjs` gerçek hard-gate + `[route:/path]`; ama yalnız 3 grup kayıtlı, 12/14 nav + tüm bölüm spec'leri generic baseline ile yeşil; makine-okur annotation modeli yok |
