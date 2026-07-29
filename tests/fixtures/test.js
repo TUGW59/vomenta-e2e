@@ -5,6 +5,7 @@ import { App } from '../pages/App.js';
 import { assertMutationsAllowed } from '../../config/environment.js';
 import { collectDiagnostics } from './diagnostics.js';
 import { createTestEntityRegistry } from './testEntity.js';
+import { SenderIdsApi } from '../api/SenderIdsApi.js';
 
 /**
  * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
@@ -33,6 +34,10 @@ export const test = base.extend({
 
   api: async ({ request, mutationGuard }, use) => {
     await use(new ApiClient(request, mutationGuard));
+  },
+
+  senderIdsApi: async ({ page, mutationGuard }, use) => {
+    await use(new SenderIdsApi(page, mutationGuard));
   },
 
   /**

@@ -1,0 +1,949 @@
+{
+  "capturedAt": "2026-07-29T10:56:41.653Z",
+  "structure": {
+    "url": "https://app.vomenta.com/campaigns/sender-ids",
+    "lang": "en",
+    "dir": "ltr",
+    "headings": [
+      "Sender IDs"
+    ],
+    "paragraphs": [
+      "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+    ],
+    "buttons": [
+      {
+        "text": "Request Sender ID",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "lucide lucide-plus mr-2 h-4 w-4"
+        ]
+      },
+      {
+        "text": "All Status",
+        "ariaLabel": null,
+        "title": null,
+        "disabled": false,
+        "iconClasses": [
+          "h-4 w-4 opacity-50"
+        ]
+      }
+    ],
+    "comboboxes": [
+      "All Status"
+    ],
+    "tableHeaders": [
+      "Sender ID",
+      "Type",
+      "Status",
+      "Purpose",
+      "Requested By",
+      "Review Note",
+      "Created at",
+      "Actions"
+    ],
+    "rowCount": 3,
+    "rowStatuses": [],
+    "dialogs": [],
+    "documentOverflow": false
+  },
+  "statusOptions": [
+    "All Status",
+    "Pending",
+    "Approved",
+    "Rejected",
+    "Docs Requested"
+  ],
+  "requestForm": null,
+  "senderTypeOptions": [],
+  "languages": {
+    "en": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids",
+        "lang": "en",
+        "dir": "ltr",
+        "headings": [
+          "Sender IDs"
+        ],
+        "paragraphs": [
+          "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+        ],
+        "buttons": [
+          {
+            "text": "Request Sender ID",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "All Status",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "All Status"
+        ],
+        "tableHeaders": [
+          "Sender ID",
+          "Type",
+          "Status",
+          "Purpose",
+          "Requested By",
+          "Review Note",
+          "Created at",
+          "Actions"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [],
+        "documentOverflow": false
+      },
+      "form": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids",
+        "lang": "en",
+        "dir": "ltr",
+        "headings": [
+          "Sender IDs"
+        ],
+        "paragraphs": [
+          "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+        ],
+        "buttons": [
+          {
+            "text": "Request Sender ID",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "All Status",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "All Status"
+        ],
+        "tableHeaders": [
+          "Sender ID",
+          "Type",
+          "Status",
+          "Purpose",
+          "Requested By",
+          "Review Note",
+          "Created at",
+          "Actions"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [
+          {
+            "text": "Request Sender IDSubmit a new Sender ID for approval. Approved IDs can be used in SMS campaigns.Sender ID *Alphanumeric (max 11 chars) or numericTypeAlphanumericPurposeSupporting Documents (optional)Upload business registration, authorization letter, or other supporting documents. PDF, JPG, PNG, DOC (max 5MB each, up to 5 files).Choose FilesCancelSubmit RequestClose",
+            "headings": [
+              "Request Sender ID"
+            ],
+            "labels": [
+              "Sender ID *",
+              "Type",
+              "Purpose",
+              "Supporting Documents (optional)"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "e.g. MYCOMPANY",
+                "ariaLabel": null,
+                "checked": false
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "Describe how this Sender ID will be used...",
+                "ariaLabel": null
+              }
+            ],
+            "comboboxes": [
+              "Alphanumeric"
+            ],
+            "buttons": [
+              {
+                "text": "Alphanumeric",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4 opacity-50"
+                ]
+              },
+              {
+                "text": "Choose Files",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "lucide lucide-upload mr-2 h-3.5 w-3.5"
+                ]
+              },
+              {
+                "text": "Cancel",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Submit Request",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ],
+        "documentOverflow": false
+      }
+    },
+    "tr": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=tr",
+        "lang": "tr",
+        "dir": "ltr",
+        "headings": [
+          "Gönderici Kimlikleri"
+        ],
+        "paragraphs": [
+          "Giden kampanyalar için SMS Gönderici Kimliklerini yönetin. Yeni kimlikler platform yönetici onayı gerektirir."
+        ],
+        "buttons": [
+          {
+            "text": "Gönderici Kimliği Talep Et",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "Tüm Durumlar",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "Tüm Durumlar"
+        ],
+        "tableHeaders": [
+          "Gönderici Kimliği",
+          "Tür",
+          "Durum",
+          "Amaç",
+          "Talep Eden",
+          "İnceleme Notu",
+          "Oluşturulma",
+          "İşlemler"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [],
+        "documentOverflow": false
+      },
+      "form": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=tr",
+        "lang": "tr",
+        "dir": "ltr",
+        "headings": [
+          "Gönderici Kimlikleri"
+        ],
+        "paragraphs": [
+          "Giden kampanyalar için SMS Gönderici Kimliklerini yönetin. Yeni kimlikler platform yönetici onayı gerektirir."
+        ],
+        "buttons": [
+          {
+            "text": "Gönderici Kimliği Talep Et",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "Tüm Durumlar",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "Tüm Durumlar"
+        ],
+        "tableHeaders": [
+          "Gönderici Kimliği",
+          "Tür",
+          "Durum",
+          "Amaç",
+          "Talep Eden",
+          "İnceleme Notu",
+          "Oluşturulma",
+          "İşlemler"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [
+          {
+            "text": "Gönderici Kimliği Talep EtOnay için yeni bir Gönderici Kimliği gönderin. Onaylanan kimlikler SMS kampanyalarında kullanılabilir.Gönderici Kimliği *Alfanümerik (maks. 11 karakter) veya sayısalTürAlfanümerikAmaçDestekleyici belgeler (isteğe bağlı)İş kaydı, yetki mektubu veya diğer destekleyici belgeleri yükleyin. PDF, JPG, PNG, DOC (her biri max 5MB, en fazla 5 dosya).Dosya seçİptalTalebi GönderClose",
+            "headings": [
+              "Gönderici Kimliği Talep Et"
+            ],
+            "labels": [
+              "Gönderici Kimliği *",
+              "Tür",
+              "Amaç",
+              "Destekleyici belgeler (isteğe bağlı)"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "e.g. MYCOMPANY",
+                "ariaLabel": null,
+                "checked": false
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "Bu Gönderici Kimliğinin nasıl kullanılacağını açıklayın...",
+                "ariaLabel": null
+              }
+            ],
+            "comboboxes": [
+              "Alfanümerik"
+            ],
+            "buttons": [
+              {
+                "text": "Alfanümerik",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4 opacity-50"
+                ]
+              },
+              {
+                "text": "Dosya seç",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "lucide lucide-upload mr-2 h-3.5 w-3.5"
+                ]
+              },
+              {
+                "text": "İptal",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Talebi Gönder",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ],
+        "documentOverflow": false
+      }
+    },
+    "fr": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=fr",
+        "lang": "fr",
+        "dir": "ltr",
+        "headings": [
+          "Identifiants d'expéditeur"
+        ],
+        "paragraphs": [
+          "Gérer les identifiants d'expéditeur SMS pour les campagnes sortantes. Les nouveaux ID nécessitent l'approbation de l'administrateur."
+        ],
+        "buttons": [
+          {
+            "text": "Demander un identifiant d'expéditeur",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "Tous les statuts",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "Tous les statuts"
+        ],
+        "tableHeaders": [
+          "Identifiant d'expéditeur",
+          "Type",
+          "Statut",
+          "Objectif",
+          "Demandé par",
+          "Note de révision",
+          "Créé le",
+          "Actions"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [],
+        "documentOverflow": false
+      },
+      "form": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=fr",
+        "lang": "fr",
+        "dir": "ltr",
+        "headings": [
+          "Identifiants d'expéditeur"
+        ],
+        "paragraphs": [
+          "Gérer les identifiants d'expéditeur SMS pour les campagnes sortantes. Les nouveaux ID nécessitent l'approbation de l'administrateur."
+        ],
+        "buttons": [
+          {
+            "text": "Demander un identifiant d'expéditeur",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "Tous les statuts",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "Tous les statuts"
+        ],
+        "tableHeaders": [
+          "Identifiant d'expéditeur",
+          "Type",
+          "Statut",
+          "Objectif",
+          "Demandé par",
+          "Note de révision",
+          "Créé le",
+          "Actions"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [
+          {
+            "text": "Demander un identifiant d'expéditeurSoumettre un nouvel identifiant d'expéditeur pour approbation. Les ID approuvés peuvent être utilisés dans les campagnes SMS.Identifiant d'expéditeur *Alphanumérique (max 11 caractères) ou numériqueTypeAlphanumériqueObjectifDocuments justificatifs (optionnel)Téléchargez l'enregistrement commercial, la lettre d'autorisation ou d'autres documents justificatifs. PDF, JPG, PNG, DOC (max 5 Mo chacun, jusqu'à 5 fichiers).Choisir des fichiersAnnulerSoumettre la demandeClose",
+            "headings": [
+              "Demander un identifiant d'expéditeur"
+            ],
+            "labels": [
+              "Identifiant d'expéditeur *",
+              "Type",
+              "Objectif",
+              "Documents justificatifs (optionnel)"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "e.g. MYCOMPANY",
+                "ariaLabel": null,
+                "checked": false
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "Décrivez comment cet identifiant d'expéditeur sera utilisé...",
+                "ariaLabel": null
+              }
+            ],
+            "comboboxes": [
+              "Alphanumérique"
+            ],
+            "buttons": [
+              {
+                "text": "Alphanumérique",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4 opacity-50"
+                ]
+              },
+              {
+                "text": "Choisir des fichiers",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "lucide lucide-upload mr-2 h-3.5 w-3.5"
+                ]
+              },
+              {
+                "text": "Annuler",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Soumettre la demande",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ],
+        "documentOverflow": false
+      }
+    },
+    "ar": {
+      "list": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=ar",
+        "lang": "ar",
+        "dir": "rtl",
+        "headings": [
+          "معرفات المرسل"
+        ],
+        "paragraphs": [
+          "إدارة معرفات مرسل SMS للحملات الصادرة. تتطلب المعرفات الجديدة موافقة مسؤول المنصة."
+        ],
+        "buttons": [
+          {
+            "text": "طلب معرف مرسل",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "جميع الحالات",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "جميع الحالات"
+        ],
+        "tableHeaders": [
+          "معرف المرسل",
+          "النوع",
+          "الحالة",
+          "الغرض",
+          "طُلب بواسطة",
+          "ملاحظة المراجعة",
+          "تاريخ الإنشاء",
+          "إجراءات"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [],
+        "documentOverflow": false
+      },
+      "form": {
+        "url": "https://app.vomenta.com/campaigns/sender-ids?lang=ar",
+        "lang": "ar",
+        "dir": "rtl",
+        "headings": [
+          "معرفات المرسل"
+        ],
+        "paragraphs": [
+          "إدارة معرفات مرسل SMS للحملات الصادرة. تتطلب المعرفات الجديدة موافقة مسؤول المنصة."
+        ],
+        "buttons": [
+          {
+            "text": "طلب معرف مرسل",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "lucide lucide-plus mr-2 h-4 w-4"
+            ]
+          },
+          {
+            "text": "جميع الحالات",
+            "ariaLabel": null,
+            "title": null,
+            "disabled": false,
+            "iconClasses": [
+              "h-4 w-4 opacity-50"
+            ]
+          }
+        ],
+        "comboboxes": [
+          "جميع الحالات"
+        ],
+        "tableHeaders": [
+          "معرف المرسل",
+          "النوع",
+          "الحالة",
+          "الغرض",
+          "طُلب بواسطة",
+          "ملاحظة المراجعة",
+          "تاريخ الإنشاء",
+          "إجراءات"
+        ],
+        "rowCount": 3,
+        "rowStatuses": [],
+        "dialogs": [
+          {
+            "text": "طلب معرف مرسلأرسل معرف مرسل جديد للموافقة. يمكن استخدام المعرفات الموافق عليها في حملات SMS.معرف المرسل *أبجدي رقمي (حد أقصى 11 حرف) أو رقميالنوعأبجدي رقميالغرضمستندات داعمة (اختياري)ارفع سجل الأعمال أو خطاب التفويض أو مستندات داعمة أخرى. PDF, JPG, PNG, DOC (حد أقصى 5 ميجابايت لكل ملف، حتى 5 ملفات).اختر الملفاتإلغاءإرسال الطلبClose",
+            "headings": [
+              "طلب معرف مرسل"
+            ],
+            "labels": [
+              "معرف المرسل *",
+              "النوع",
+              "الغرض",
+              "مستندات داعمة (اختياري)"
+            ],
+            "inputs": [
+              {
+                "type": "text",
+                "placeholder": "e.g. MYCOMPANY",
+                "ariaLabel": null,
+                "checked": false
+              }
+            ],
+            "textareas": [
+              {
+                "placeholder": "صف كيف سيتم استخدام معرف المرسل هذا...",
+                "ariaLabel": null
+              }
+            ],
+            "comboboxes": [
+              "أبجدي رقمي"
+            ],
+            "buttons": [
+              {
+                "text": "أبجدي رقمي",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4 opacity-50"
+                ]
+              },
+              {
+                "text": "اختر الملفات",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "lucide lucide-upload mr-2 h-3.5 w-3.5"
+                ]
+              },
+              {
+                "text": "إلغاء",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "إرسال الطلب",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": []
+              },
+              {
+                "text": "Close",
+                "ariaLabel": null,
+                "title": null,
+                "disabled": false,
+                "iconClasses": [
+                  "h-4 w-4"
+                ]
+              }
+            ]
+          }
+        ],
+        "documentOverflow": false
+      }
+    }
+  },
+  "responsive": {
+    "desktop": {
+      "url": "https://app.vomenta.com/campaigns/sender-ids",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "Sender IDs"
+      ],
+      "paragraphs": [
+        "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+      ],
+      "buttons": [
+        {
+          "text": "Request Sender ID",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus mr-2 h-4 w-4"
+          ]
+        },
+        {
+          "text": "All Status",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "h-4 w-4 opacity-50"
+          ]
+        }
+      ],
+      "comboboxes": [
+        "All Status"
+      ],
+      "tableHeaders": [
+        "Sender ID",
+        "Type",
+        "Status",
+        "Purpose",
+        "Requested By",
+        "Review Note",
+        "Created at",
+        "Actions"
+      ],
+      "rowCount": 3,
+      "rowStatuses": [],
+      "dialogs": [],
+      "documentOverflow": false
+    },
+    "tablet": {
+      "url": "https://app.vomenta.com/campaigns/sender-ids",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "Sender IDs"
+      ],
+      "paragraphs": [
+        "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+      ],
+      "buttons": [
+        {
+          "text": "Request Sender ID",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus mr-2 h-4 w-4"
+          ]
+        },
+        {
+          "text": "All Status",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "h-4 w-4 opacity-50"
+          ]
+        }
+      ],
+      "comboboxes": [
+        "All Status"
+      ],
+      "tableHeaders": [
+        "Sender ID",
+        "Type",
+        "Status",
+        "Purpose",
+        "Requested By",
+        "Review Note",
+        "Created at",
+        "Actions"
+      ],
+      "rowCount": 3,
+      "rowStatuses": [],
+      "dialogs": [],
+      "documentOverflow": false
+    },
+    "mobile": {
+      "url": "https://app.vomenta.com/campaigns/sender-ids",
+      "lang": "en",
+      "dir": "ltr",
+      "headings": [
+        "Sender IDs"
+      ],
+      "paragraphs": [
+        "Manage SMS Sender IDs for outbound campaigns. New IDs require platform admin approval."
+      ],
+      "buttons": [
+        {
+          "text": "Request Sender ID",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "lucide lucide-plus mr-2 h-4 w-4"
+          ]
+        },
+        {
+          "text": "All Status",
+          "ariaLabel": null,
+          "title": null,
+          "disabled": false,
+          "iconClasses": [
+            "h-4 w-4 opacity-50"
+          ]
+        }
+      ],
+      "comboboxes": [
+        "All Status"
+      ],
+      "tableHeaders": [
+        "Sender ID",
+        "Type",
+        "Status",
+        "Purpose",
+        "Requested By",
+        "Review Note",
+        "Created at",
+        "Actions"
+      ],
+      "rowCount": 3,
+      "rowStatuses": [],
+      "dialogs": [],
+      "documentOverflow": false
+    }
+  },
+  "network": [
+    {
+      "method": "GET",
+      "path": "/api/v1/modules/catalog",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications/unread-count",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/notifications",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/modules/active",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/voice/calls/live",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/dids",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/roles/me/permissions",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/sender-ids",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/onboarding/progress",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/settings/organization",
+      "status": 200
+    }
+  ]
+}

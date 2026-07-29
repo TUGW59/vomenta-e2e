@@ -4,6 +4,7 @@ import { AppShell } from './AppShell.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
 import { CampaignTemplatesPage } from './CampaignTemplatesPage.js';
+import { CampaignSenderIdsPage } from './CampaignSenderIdsPage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { LoginPage } from './LoginPage.js';
@@ -40,6 +41,7 @@ export class App {
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
     this.campaignTemplates = new CampaignTemplatesPage(page);
+    this.campaignSenderIds = new CampaignSenderIdsPage(page);
   }
 
   /**

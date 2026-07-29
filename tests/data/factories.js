@@ -82,3 +82,21 @@ export function buildSmsTemplate(overrides = {}) {
     ...overrides,
   };
 }
+
+/**
+ * Sender ID en fazla 11 karakter olabildiğinden kısa ama benzersiz bir E2E öneki
+ * kullanılır. Tam otomasyon kimliği purpose alanında da taşınır.
+ */
+export function buildSenderIdRequest(overrides = {}) {
+  const compact = `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`
+    .toUpperCase()
+    .slice(-8);
+  const senderId = `E2E${compact}`.slice(0, 11);
+  return {
+    prefix: 'E2E',
+    senderId,
+    senderType: 'ALPHANUMERIC',
+    purpose: `e2e-sender-id-${senderId}-Playwright`,
+    ...overrides,
+  };
+}
