@@ -141,7 +141,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 12 | Canned Responses | `/settings/canned-responses` | ✅ **TAMAM** (settings-canned-responses) |
 | 13 | Integrations | `/settings/integrations` | ✅ **TAMAM** (settings-integrations) |
 | 14 | Security | `/settings/security` | ✅ **TAMAM** (settings-security) |
-| 15 | Data Retention | `/settings/data-retention` | ⬜ |
+| 15 | Data Retention | `/settings/data-retention` | ✅ **TAMAM** (settings-data-retention) |
 | 16 | Notifications | `/settings/notifications` | ⬜ |
 | 17 | API Keys | `/settings/api-keys` | ⬜ |
 | 18 | Webhooks | `/settings/webhooks` | ⬜ |
@@ -290,6 +290,15 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU 1 (a11y, critical):** Password Policy / Session Timeout **sayı (spinbutton) alanları etiketsiz** (axe `label`, 3 düğüm) → `@a11y @known-bug` test.fail.
 - **🐞 BULGU 2 (sistemik):** Add IP dialogu "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **Mutasyon:** hassas config (2FA zorlama, session revoke, IP allowlist, password policy) → `settings-security-mutations` **test.fixme** (staging'de reversible policy-switch toggle).
+
+## Veri Saklama detayı (`/settings/data-retention`)
+
+- **Başlık:** "Data Retention" + alt başlık. Sekme/dialog YOK. **Retention Periods:** 5 spinbutton (Call Recordings 90 · CDR 365 · Chat & Message Logs 365 · Voicemail 30 · Audit Logs 730 gün). **Automatic Cleanup** switch (+"Last cleanup: Never run") + **Run cleanup now** (⚠️ veri siler — TIKLANMAZ) + **Save changes**.
+- **Backend:** `GET /api/v1/compliance/data-retention`.
+- **4 dil:** başlık/alt başlık/Save changes/Run cleanup tam çevrili; ar RTL; taşma yok.
+- **a11y TEMİZ:** Security'nin aksine spinbutton'lar erişilebilir etiket taşıyor (ciddi ihlal yok).
+- **@keyboard N/A:** diyalog/menü/sekme yok.
+- **Mutasyon:** Save changes (reversible spinbutton düzenleme) + Run cleanup (geri alınamaz silme, asla) → `settings-data-retention-mutations` **test.fixme** (staging).
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

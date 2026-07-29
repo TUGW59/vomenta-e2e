@@ -9,6 +9,7 @@ import { CannedResponsesPage } from './CannedResponsesPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
+import { DataRetentionPage } from './DataRetentionPage.js';
 import { DispositionCodesPage } from './DispositionCodesPage.js';
 import { LoginPage } from './LoginPage.js';
 import { OrganizationPage } from './OrganizationPage.js';
@@ -59,6 +60,7 @@ export class App {
     this.cannedResponses = new CannedResponsesPage(page);
     this.integrations = new IntegrationsPage(page);
     this.security = new SecurityPage(page);
+    this.dataRetention = new DataRetentionPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

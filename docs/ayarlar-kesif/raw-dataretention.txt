@@ -1,0 +1,61 @@
+URL: https://app.vomenta.com/settings/data-retention
+
+===== en dir=ltr =====
+h="Data Retention"
+sub="Configure how long different types of data are kept"
+tabs=[]
+cols=[]
+btns=["Run cleanup now","Save changes"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Data Retention" [level=1]
+  - paragraph: Configure how long different types of data are kept before automatic deletion
+  - img
+  - text: Retention Periods Set the number of days each data type is retained. Data older than the retention period will be eligible for cleanup. Call Recordings
+  - paragraph: Audio recordings of calls
+  - spinbutton: "90"
+  - text: days Call Detail Records (CDR)
+  - paragraph: Metadata for all calls (duration, timestamps, status)
+  - spinbutton: "365"
+  - text: days Chat & Message Logs
+  - paragraph: Conversation messages across all channels
+  - spinbutton: "365"
+  - text: days Voicemail
+  - paragraph: Voicemail messages and transcriptions
+  - spinbutton: "30"
+  - text: days Audit Logs
+  - paragraph: System activity and change history
+  - spinbutton: "730"
+  - text: days Automatic Cleanup When enabled, expired data is automatically deleted on a regular schedule
+  - switch
+  - paragraph: Last cleanup
+  - paragraph: Never run
+  - button "Run cleanup now":
+    - img
+    - text: Run cleanup now
+  - button "Save changes"
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/compliance/data-retention","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Veri Saklama"
+sub="Farklı veri türlerinin ne kadar süre saklanacağını yapılandırın"
+tabs=[]
+cols=[]
+btns=[]
+
+===== fr dir=ltr =====
+h="Conservation des données"
+sub="Configurez la durée de conservation des différents types de données avant la suppression automatique"
+tabs=[]
+cols=[]
+btns=["Lancer le nettoyage maintenant","Enregistrer les modifications"]
+
+===== ar dir=rtl =====
+h="الاحتفاظ بالبيانات"
+sub="إعداد مدة الاحتفاظ بأنواع البيانات المختلفة قبل الحذف التلقائي"
+tabs=[]
+cols=[]
+btns=["تشغيل التنظيف الآن","حفظ التغييرات"]

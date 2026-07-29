@@ -14,6 +14,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-canned-responses` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `settings-data-retention` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | — | — | ✅ |
 | `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-integrations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
@@ -53,6 +54,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-automations**: `/settings/automations`
 - **settings-canned-responses**: `/settings/canned-responses`
 - **settings-compliance**: `/settings/compliance`
+- **settings-data-retention**: `/settings/data-retention`
 - **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
 - **settings-integrations**: `/settings/integrations`
@@ -81,6 +83,10 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-compliance` **@data**: Sayısal KPI tile göstermiyor (retention gün değerleri config metni; tablolar).
 - `settings-compliance` **@export**: Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).
 - `settings-compliance` **@visual**: 3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.
+- `settings-data-retention` **@keyboard**: Diyalog/menü/sekme yok (spinbutton + switch + buton formu).
+- `settings-data-retention` **@perf**: Grafik/ağır içerik yok (saklama-süresi formu).
+- `settings-data-retention` **@data**: Sayısal KPI tile yok (gün config değerleri).
+- `settings-data-retention` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-disposition-codes` **@perf**: Grafik/ağır içerik yok (kod tablosu + dialog).
 - `settings-disposition-codes` **@data**: Sayısal KPI yok (kod listesi).
 - `settings-disposition-codes` **@export**: Bu sayfada export/indirme kontrolü yok.

@@ -412,4 +412,28 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-data-retention',
+    routes: ['/settings/data-retention'],
+    specFiles: [
+      'settings-data-retention.authed.spec.js',
+      'settings-data-retention-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (spinbutton + switch + buton formu).',
+      '@perf': 'Grafik/ağır içerik yok (saklama-süresi formu).',
+      '@data': 'Sayısal KPI tile yok (gün config değerleri).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

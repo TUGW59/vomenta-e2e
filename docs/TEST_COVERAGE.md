@@ -619,6 +619,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: password policy switch toggle → Save → kalıcı → geri al — hassas config; staging teyidi  `@regression` `@mutation`
 
+### `settings-data-retention.authed.spec.js`  (Ayarlar › Veri Saklama)
+
+- sayfa başlığı + saklama süreleri + Save changes  `@smoke`
+- 5 saklama-süresi spinbutton değerleriyle + Run cleanup mevcut  `@critical`
+- L1: Save/Run cleanup/Auto Cleanup switch mevcut (tıklanmıyor)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Save changes çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (spinbutton'lar etiketli)  `@a11y`
+- layout / clean / errorpath / deeplink / visual (retention formu); @keyboard N/A (dialog/tab yok)
+
+### `settings-data-retention-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: saklama süresi değiştir → Save → kalıcı → geri al; Run cleanup ASLA  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
