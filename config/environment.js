@@ -5,7 +5,11 @@ import path from 'path';
 dotenv.config({ path: path.resolve('.env'), quiet: true });
 
 const DEFAULT_BASE_URL = 'https://app.vomenta.com';
+const PRODUCTION_HOSTNAME = 'app.vomenta.com';
+const PRODUCTION_API_HOSTNAME = 'api.vomenta.com';
 const SUPPORTED_ROLES = ['default', 'admin', 'supervisor', 'agent'];
+const UUID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function booleanValue(value, fallback = false) {
   if (value === undefined) return fallback;
@@ -40,7 +44,9 @@ export const environment = Object.freeze({
   runVisualTests: booleanValue(process.env.RUN_VISUAL_TESTS, !process.env.CI),
   isProduction: name === 'production',
   allowMutations: booleanValue(process.env.ALLOW_MUTATING_TESTS),
-  allowProdMutations: booleanValue(process.env.ALLOW_PROD_MUTATIONS),
+  mutationApiOrigin: process.env.MUTATION_API_ORIGIN || '',
+  mutationTenantId: process.env.MUTATION_TENANT_ID || '',
+  mutationTenantSlug: process.env.MUTATION_TENANT_SLUG || '',
   retries: positiveInteger(process.env.PLAYWRIGHT_RETRIES, process.env.CI ? 2 : 1),
   workers: positiveInteger(process.env.PLAYWRIGHT_WORKERS, process.env.CI ? 2 : 4),
   actionTimeout: positiveInteger(process.env.PLAYWRIGHT_ACTION_TIMEOUT, 15_000),
@@ -87,22 +93,90 @@ export function credentialsFor(role = 'default') {
 }
 
 /**
- * Veri değiştiren bir test başlamadan önce çağrılır — ÇİFT KİLİT opt-in.
- * Kilit 1: mutation testleri yalnızca açık bayrakla (her ortamda) çalışır.
- * Kilit 2: CANLI (production) tenant'a yazmak ayrıca ikinci bir onay bayrağı ister.
+ * Veri değiştiren bir test başlamadan önce ortam kilitlerini doğrular.
+ * Production için kaçış bayrağı yoktur: mutation yalnızca açık opt-in, staging
+ * ortamı, production dışı origin ve açıkça tanımlı test tenant kimliğiyle açılır.
  */
-export function assertMutationsAllowed(reason) {
-  if (!environment.allowMutations) {
+export function assertMutationEnvironment(reason, candidate = environment) {
+  if (!candidate.allowMutations) {
     throw new Error(
       `"${reason}" veri değiştiriyor. Mutasyon testleri yalnızca ` +
         'ALLOW_MUTATING_TESTS=true ile (npm run test:mutation) çalışır.'
     );
   }
-  if (environment.isProduction && !environment.allowProdMutations) {
+
+  if (candidate.name !== 'staging') {
     throw new Error(
-      `"${reason}" CANLI tenant'a (${environment.baseURL}) yazıyor. ` +
-        'Bunun için ayrıca ALLOW_PROD_MUTATIONS=true gerekir (npm run test:mutation:prod). ' +
-        'Tercihen ayrılmış bir test hesabı/staging kullanın.'
+      `"${reason}" reddedildi: mutation yalnızca TEST_ENV=staging ortamında çalışır. ` +
+        'Production mutasyonu teknik olarak kapalıdır.'
     );
   }
+
+  const hostname = new URL(candidate.baseURL).hostname;
+  if (hostname === PRODUCTION_HOSTNAME) {
+    throw new Error(
+      `"${reason}" reddedildi: staging adı verilse bile production origin'i ` +
+        `(${candidate.baseURL}) mutation için kullanılamaz.`
+    );
+  }
+
+  let apiOrigin;
+  try {
+    apiOrigin = new URL(candidate.mutationApiOrigin).origin;
+  } catch {
+    throw new Error(
+      `"${reason}" reddedildi: MUTATION_API_ORIGIN geçerli staging API origin'i olmalı.`
+    );
+  }
+  if (
+    apiOrigin !== candidate.mutationApiOrigin ||
+    new URL(apiOrigin).hostname === PRODUCTION_API_HOSTNAME
+  ) {
+    throw new Error(
+      `"${reason}" reddedildi: MUTATION_API_ORIGIN production API olamaz ve ` +
+        'yalnız origin biçiminde yazılmalıdır.'
+    );
+  }
+
+  if (!UUID_PATTERN.test(candidate.mutationTenantId || '')) {
+    throw new Error(
+      `"${reason}" reddedildi: MUTATION_TENANT_ID ayrılmış staging tenant UUID'si olmalı.`
+    );
+  }
+
+  if (!candidate.mutationTenantSlug?.trim()) {
+    throw new Error(
+      `"${reason}" reddedildi: MUTATION_TENANT_SLUG ayrılmış staging tenant slug'ı olmalı.`
+    );
+  }
+
+  return {
+    apiOrigin,
+    tenantId: candidate.mutationTenantId,
+    tenantSlug: candidate.mutationTenantSlug,
+  };
+}
+
+/**
+ * `/api/v1/auth/me` sözleşmesinden gelen oturum tenant'ını beklenen staging
+ * tenant'ıyla eşleştirir. Üçlü eşleşme yanlış hesap/tenant oturumunu fail-fast
+ * durdurur: data.tenantId + data.tenant.id + data.tenant.slug.
+ */
+export function assertMutationTenant(reason, profile, candidate = environment) {
+  const expected = assertMutationEnvironment(reason, candidate);
+  const data = profile?.success === true ? profile.data : undefined;
+
+  if (
+    !data ||
+    data.tenantId !== expected.tenantId ||
+    data.tenant?.id !== expected.tenantId ||
+    data.tenant?.slug !== expected.tenantSlug
+  ) {
+    throw new Error(
+      `"${reason}" reddedildi: kimliği doğrulanmış oturum, yapılandırılmış ` +
+        'ayrılmış staging tenant ile eşleşmiyor.'
+    );
+  }
+
+  return expected;
 }

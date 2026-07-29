@@ -11,8 +11,8 @@ import { DashboardsPage } from './pages/DashboardsPage.js';
  *   - Delete: kart çöp ikonu → onay diyaloğu ["Cancel","Delete"] → "Delete" → `DELETE …/dashboards/{id}` 204
  *
  * GÜVENLİK (AGENTS.md temel ilke 3):
- *   - `@mutation` + `mutationGuard`: yalnızca ALLOW_MUTATING_TESTS ile koşar; prod'da ayrıca
- *     ALLOW_PROD_MUTATIONS gerekir → `npm run test:mutation:prod`. Normal koşu/CI'dan dışlanır.
+ *   - `@mutation` + async `mutationGuard`: yalnızca kimliği doğrulanan ayrılmış
+ *     staging tenant'ında koşar; production için kaçış bayrağı yoktur.
  *   - Her test YALNIZCA kendi oluşturduğu `e2e-…` panosuna dokunur (mevcut veriye asla).
  *   - `cleanup` LIFO ile oluşturulan panoyu SİLER (test başarısız olsa bile).
  *   - Otomasyon hesabı bir TEST hesabıdır (gerçek müşteri verisi değil).
@@ -23,7 +23,7 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
   test.describe.configure({ mode: 'serial', retries: 0 }); // aynı canlı kaynağı (özel pano listesi) paylaşırlar
 
   test('Create Dashboard: pano oluşunca özel listeye ekleniyor (L2 POST 201 + L3 kart)', async ({ app, mutationGuard, testEntity }) => {
-    mutationGuard('Panolar: pano oluşturma');
+    await mutationGuard('Panolar: pano oluşturma');
     const dashboards = app.dashboards;
     await dashboards.open();
     await dashboards.waitForCardsLoaded(); // kartlar render olmadan sayma (flaky önleme)
@@ -44,7 +44,7 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
   });
 
   test('Duplicate: çoğaltma bir "(Copy)" ekliyor (L3)', async ({ app, mutationGuard, testEntity }) => {
-    mutationGuard('Panolar: pano çoğaltma');
+    await mutationGuard('Panolar: pano çoğaltma');
     const dashboards = app.dashboards;
     await dashboards.open();
 
@@ -70,7 +70,7 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
   });
 
   test('Delete: silme kartı listeden kaldırıyor (L2 DELETE 204 + L3)', async ({ app, mutationGuard, testEntity }) => {
-    mutationGuard('Panolar: pano silme');
+    await mutationGuard('Panolar: pano silme');
     const dashboards = app.dashboards;
     await dashboards.open();
 

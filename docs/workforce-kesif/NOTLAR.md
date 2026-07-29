@@ -90,7 +90,8 @@ network incelemesiyle yeniden test edildi.
 
 `tests/workforce-mutations.authed.spec.js` (`@mutation`, L3 görev — opt-in çift kilit):
 - Add Shift kalıcı vardiya oluşturur (POST) + cleanup siler.
-- Publish "Draft"ı yayınlar + cleanup siler. Yalnızca `npm run test:mutation:prod` (bkz. docs/adr/0002).
+- Publish "Draft"ı yayınlar + cleanup siler. Yalnızca kimliği doğrulanan staging
+  tenant'ında `npm run test:mutation` (bkz. docs/adr/0004).
 
 **Kapsam raporu:** `docs/TEST_COVERAGE.md` — `npm run report:coverage` ile tüm depodan **otomatik** üretilir.
 

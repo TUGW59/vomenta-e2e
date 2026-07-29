@@ -7,6 +7,14 @@ export function mutationSafetyMessages(source) {
   if (!source.includes('mutationGuard')) {
     messages.push('@mutation testi mutationGuard kullanmalı');
   }
+  const guardCalls = source.match(/\bmutationGuard\s*\(/g)?.length || 0;
+  const awaitedGuardCalls =
+    source.match(/\bawait\s+mutationGuard\s*\(/g)?.length || 0;
+  if (guardCalls > awaitedGuardCalls) {
+    messages.push(
+      '@mutation testi tenant preflight tamamlanmadan ilerleyemez: mutationGuard await edilmeli'
+    );
+  }
   if (!source.includes('testEntity')) {
     messages.push('@mutation testi testEntity yaşam-döngüsü fixture’ını kullanmalı');
   }
@@ -26,13 +34,21 @@ export function mutationSafetyMessages(source) {
 
 export function mutationLaneMessages(scripts) {
   const messages = [];
-  for (const scriptName of ['test:mutation', 'test:mutation:prod']) {
-    const command = scripts?.[scriptName] || '';
-    for (const required of ['--retries=0', '--workers=1']) {
-      if (!command.includes(required)) {
-        messages.push(`${scriptName} mutasyon güvenliği için ${required} içermeli`);
-      }
+  const command = scripts?.['test:mutation'] || '';
+  for (const required of ['--retries=0', '--workers=1']) {
+    if (!command.includes(required)) {
+      messages.push(`test:mutation mutasyon güvenliği için ${required} içermeli`);
     }
+  }
+  if (scripts?.['test:mutation:prod']) {
+    messages.push(
+      'test:mutation:prod yasak: production mutasyonu için kaçış komutu bulunamaz'
+    );
+  }
+  if (command.includes('ALLOW_PROD_MUTATIONS')) {
+    messages.push(
+      'test:mutation production izin bayrağı içeremez; yalnız staging desteklenir'
+    );
   }
   return messages;
 }

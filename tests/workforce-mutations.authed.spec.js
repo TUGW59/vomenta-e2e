@@ -7,10 +7,10 @@ import { test, expect } from './fixtures/test.js';
  * Bunlar 3 katmanlı standardın L3 katmanıdır: kontrolün amacı KALICI kayıtla
  * gerçekleşiyor mu (workforce.authed.spec.js'te L1/L2 var, L3 buraya taşındı).
  *
- * ÇİFT KİLİT (config/environment.js · playwright.config.js):
+ * STAGING KİLİDİ (config/environment.js · mutationGuard):
  *   Kilit 1 — `ALLOW_MUTATING_TESTS=true` yoksa @mutation her yerde dışlanır.
- *   Kilit 2 — CANLI tenant'a yazmak için ayrıca `ALLOW_PROD_MUTATIONS=true`.
- *   Çalıştırma: `npm run test:mutation` (staging) / `npm run test:mutation:prod` (canlı).
+ *   Kilit 2 — staging origin + beklenen `/auth/me` tenant kimliği eşleşir.
+ *   Çalıştırma: yalnızca ayrılmış staging tenant'ında `npm run test:mutation`.
  *
  * GÜVENLİK: her test `mutationGuard` ile başlar ve `cleanup` ile oluşturduğu
  *   vardiyayı SİLER (DELETE /wfm/schedules/{id}). Endpoint'ler canlıda doğrulandı
@@ -23,7 +23,7 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('İş Gücü: vardiya oluşturma');
+    await mutationGuard('İş Gücü: vardiya oluşturma');
     const wf = app.workforce;
     await wf.open();
     await wf.deleteFirstShift(); // önceki koşudan artık kalmışsa temizle
@@ -43,7 +43,7 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
-    mutationGuard('İş Gücü: çizelge yayınlama (Publish Schedule)');
+    await mutationGuard('İş Gücü: çizelge yayınlama (Publish Schedule)');
     const wf = app.workforce;
     await wf.open();
     await wf.deleteFirstShift();
