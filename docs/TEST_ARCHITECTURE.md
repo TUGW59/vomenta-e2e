@@ -83,10 +83,13 @@ test('ticket oluşturuluyor @critical @mutation', async ({
   testEntity,
 }) => {
   await mutationGuard('ticket oluşturma testi');
+  const key = testEntityName('TICKET');
   await testEntity.create({
     label: 'ticket rollback',
-    cleanup: () => api.delete('/api/example/by-key/e2e-ticket-key'),
-    action: () => api.post('/api/example', { name: 'e2e-ticket-key' }),
+    key,
+    baseline: () => tickets.countByAutomationPrefixes(),
+    cleanup: () => api.delete(`/api/example/by-key/${key}`),
+    action: () => api.post('/api/example', { name: key }),
   });
   // Davranışı UI ile doğrula.
 });
@@ -100,12 +103,13 @@ loglanmaz. Guard asenkron olduğu için mutlaka `await` edilir.
 
 ## Test verisi yaşam döngüsü
 
-Her test:
+Her mutation testi:
 
-1. Benzersiz verisini `tests/data` fabrikasından üretir.
-2. Ön koşulu mümkünse API üzerinden oluşturur.
-3. Yalnızca hedeflenen davranışı UI üzerinden gerçekleştirir.
-4. `try/finally` veya otomatik fixture ile oluşturduğu veriyi temizler.
+1. Benzersiz `VOMENTA_E2E_` anahtarını `tests/data` fabrikasından üretir.
+2. Ayrılmış kaynağın başlangıç otomasyon baseline'ının `0` olduğunu kanıtlar.
+3. Rollback'i create/write işleminden **önce** kaydeder.
+4. Ön koşulu mümkünse API üzerinden oluşturur; kullanıcı davranışını UI ile doğrular.
+5. Create sonrası baseline'ın `1`, teardown sonrası yeniden `0` olduğunu kanıtlar.
 
 Tercih edilen kullanım, rollback'i create işleminden önce kaydeden
 `testEntity.create` fixture'ıdır:
@@ -113,16 +117,24 @@ Tercih edilen kullanım, rollback'i create işleminden önce kaydeden
 ```js
 test('örnek @mutation', async ({ api, mutationGuard, testEntity }) => {
   await mutationGuard('örnek oluşturma');
+  const key = testEntityName('EXAMPLE');
   await testEntity.create({
     label: 'örnek rollback',
-    cleanup: () => api.delete('/api/example/by-key/e2e-example-key'),
-    action: () => api.post('/api/example', { name: 'e2e-example-key' }),
+    key,
+    baseline: () => examples.countByAutomationPrefixes(),
+    cleanup: () => api.delete(`/api/example/by-key/${key}`),
+    action: () => api.post('/api/example', { name: key }),
   });
 });
 ```
 
-Başka bir testin oluşturduğu kayda veya production'da bulunan ilk tablo satırına
-bağımlılık zamanla kaldırılmalıdır.
+Başlangıç baseline'ı sıfır değilse mutasyon etkinleşmez. Cleanup/son-baseline
+hatası asıl test zaten kırmızı olsa bile `KRİTİK ALTYAPI HATASI` üretir ve
+`cleanup-errors.json` ekini bırakır. `npm run report:orphans`, aynı kaynakları
+mutation lane'inden bağımsız ve salt-okunur doğrular.
+
+Başka bir testin oluşturduğu kayda veya herhangi bir ortamdaki ilk tablo satırına
+bağımlılık yasaktır.
 
 ## Seçici sözleşmesi
 

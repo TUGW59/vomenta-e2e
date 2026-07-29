@@ -1,5 +1,9 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import {
+  AUTOMATION_ENTITY_PREFIXES,
+  testEntityName,
+} from './data/factories.js';
 import { DashboardsPage } from './pages/DashboardsPage.js';
 
 /**
@@ -13,8 +17,9 @@ import { DashboardsPage } from './pages/DashboardsPage.js';
  * GÜVENLİK (AGENTS.md temel ilke 3):
  *   - `@mutation` + async `mutationGuard`: yalnızca kimliği doğrulanan ayrılmış
  *     staging tenant'ında koşar; production için kaçış bayrağı yoktur.
- *   - Her test YALNIZCA kendi oluşturduğu `e2e-…` panosuna dokunur (mevcut veriye asla).
- *   - `cleanup` LIFO ile oluşturulan panoyu SİLER (test başarısız olsa bile).
+ *   - Her test YALNIZCA kendi oluşturduğu `VOMENTA_E2E_…` panosuna dokunur.
+ *   - `testEntity.create` rollback'i create öncesi kaydeder ve `0→1→0`
+ *     baseline'ını kanıtlar.
  *   - Otomasyon hesabı bir TEST hesabıdır (gerçek müşteri verisi değil).
  *
  * Tanı: `--trace on` ile koşulduğunda Trace Viewer'da tüm create/delete adımları + ağ + DOM görülür.
@@ -26,17 +31,21 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     await mutationGuard('Panolar: pano oluşturma');
     const dashboards = app.dashboards;
     await dashboards.open();
-    await dashboards.waitForCardsLoaded(); // kartlar render olmadan sayma (flaky önleme)
     const before = await dashboards.customCardCount();
 
-    const name = `e2e-create-${Date.now()}`;
-    testEntity.cleanup(async () => {
-      if (await dashboards.page.getByText(name, { exact: true }).count()) {
-        await dashboards.deleteDashboardByName(name);
-      }
-    }, `dashboard:${name}`);
-
-    await dashboards.createDashboard(name); // L2: POST list -> 201 (metot içinde beklenir)
+    const name = testEntityName('DASHBOARD_CREATE');
+    await testEntity.create({
+      label: `dashboard:${name}`,
+      key: name,
+      baseline: () =>
+        dashboards.automationDashboardCount(AUTOMATION_ENTITY_PREFIXES),
+      cleanup: async () => {
+        if (await dashboards.page.getByText(name, { exact: true }).count()) {
+          await dashboards.deleteDashboardByName(name);
+        }
+      },
+      action: () => dashboards.createDashboard(name),
+    });
 
     // L3: yeni pano özel listede görünüyor (sayaç +1).
     await expect(dashboards.page.getByText(name, { exact: true })).toBeVisible({ timeout: 10000 });
@@ -49,16 +58,27 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     await dashboards.open();
 
     // Kendi verimizi oluştur (mevcut kartlara dokunmadan onu çoğaltalım).
-    const name = `e2e-dup-${Date.now()}`;
+    const name = testEntityName('DASHBOARD_DUPLICATE');
     const copyName = `${name} (Copy)`;
-    testEntity.cleanup(async () => {
-      for (const n of [copyName, name]) {
-        if (await dashboards.page.getByText(n, { exact: true }).count()) {
-          await dashboards.deleteDashboardByName(n);
+    await testEntity.create({
+      label: `dashboard-copy:${copyName}`,
+      key: name,
+      baseline: () =>
+        dashboards.automationDashboardCount(AUTOMATION_ENTITY_PREFIXES),
+      cleanup: async () => {
+        await dashboards.open();
+        for (const dashboardName of [copyName, name]) {
+          if (
+            await dashboards.page
+              .getByText(dashboardName, { exact: true })
+              .count()
+          ) {
+            await dashboards.deleteDashboardByName(dashboardName);
+          }
         }
-      }
-    }, `dashboard-copy:${copyName}`);
-    await dashboards.createDashboard(name);
+      },
+      action: () => dashboards.createDashboard(name),
+    });
     const afterCreate = await dashboards.customCardCount();
 
     // Bu panonun kartındaki çoğalt (lucide-copy) ikonuna bas.
@@ -75,13 +95,19 @@ test.describe('Panolar — mutasyonları @regression @mutation', () => {
     await dashboards.open();
 
     // Ön koşul: silinecek geçici pano OLUŞTUR (başka verinin silinmemesi için).
-    const name = `e2e-del-${Date.now()}`;
-    testEntity.cleanup(async () => {
-      if (await dashboards.page.getByText(name, { exact: true }).count()) {
-        await dashboards.deleteDashboardByName(name);
-      }
-    }, `dashboard-delete-restore:${name}`);
-    await dashboards.createDashboard(name);
+    const name = testEntityName('DASHBOARD_DELETE');
+    await testEntity.create({
+      label: `dashboard-delete-restore:${name}`,
+      key: name,
+      baseline: () =>
+        dashboards.automationDashboardCount(AUTOMATION_ENTITY_PREFIXES),
+      cleanup: async () => {
+        if (await dashboards.page.getByText(name, { exact: true }).count()) {
+          await dashboards.deleteDashboardByName(name);
+        }
+      },
+      action: () => dashboards.createDashboard(name),
+    });
     const before = await dashboards.customCardCount();
 
     await dashboards.deleteDashboardByName(name); // L2: DELETE -> 204 (metot içinde beklenir)

@@ -30,6 +30,15 @@ export class ReportsPage extends BasePage {
     return this.page.getByText(name, { exact: true });
   }
 
+  /** Bilinen otomasyon önekleriyle başlayan schedule adlarının toplamı. */
+  async automationScheduledReportCount(prefixes) {
+    await this.open();
+    const pattern = new RegExp(
+      `^(?:${prefixes.map(escapeRegExp).join('|')}).+`
+    );
+    return this.page.getByText(pattern).count();
+  }
+
   /** İsim ve erişilebilir Actions düğmesini birlikte içeren schedule kartı. */
   scheduledReportCard(name) {
     return this.page
@@ -65,4 +74,8 @@ export class ReportsPage extends BasePage {
     await expect(this.scheduledReportName(name)).toHaveCount(0, { timeout: 15000 });
     return response;
   }
+}
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

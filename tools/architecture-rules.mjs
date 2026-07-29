@@ -1,7 +1,10 @@
-export function mutationSafetyMessages(source) {
+export function mutationSafetyMessages(
+  source,
+  { lifecycleExclusion = null } = {}
+) {
   const messages = [];
   const hasMutationTest =
-    /\btest(?:\.describe)?\s*\(\s*['"`][^'"`]*@mutation/.test(source);
+    /\btest(?:\.describe|\.fixme)?\s*\(\s*['"`][^'"`]*@mutation/.test(source);
   if (!hasMutationTest) return messages;
 
   if (!source.includes('mutationGuard')) {
@@ -15,8 +18,44 @@ export function mutationSafetyMessages(source) {
       '@mutation testi tenant preflight tamamlanmadan ilerleyemez: mutationGuard await edilmeli'
     );
   }
-  if (!source.includes('testEntity')) {
+  const exclusionMode = lifecycleExclusion?.mode || '';
+  const isReadOnlyAudit = exclusionMode === 'read-only';
+
+  if (!source.includes('testEntity') && !isReadOnlyAudit) {
     messages.push('@mutation testi testEntity yaşam-döngüsü fixture’ını kullanmalı');
+  }
+  if (!source.includes('testEntity.create') && !lifecycleExclusion) {
+    messages.push(
+      '@mutation spec’i kalıcı create için testEntity.create yaşam döngüsünü kullanmalı'
+    );
+  }
+  if (source.includes('testEntity.cleanup') && !lifecycleExclusion) {
+    messages.push(
+      '@mutation spec’inde doğrudan testEntity.cleanup yasak; baseline zorunlu testEntity.create kullanın'
+    );
+  }
+  if (exclusionMode === 'fixme' && !source.includes('test.fixme')) {
+    messages.push(
+      'mutation yaşam-döngüsü N/A istisnası yalnız test.fixme varken geçerlidir'
+    );
+  }
+  if (
+    isReadOnlyAudit &&
+    !source.includes('const MUTATION_LIFECYCLE_READ_ONLY = true')
+  ) {
+    messages.push(
+      'salt-okunur mutation denetimi MUTATION_LIFECYCLE_READ_ONLY = true işareti taşımalı'
+    );
+  }
+  if (
+    isReadOnlyAudit &&
+    /\b(?:testEntity|api|request)\b|(?:\.|\b)(?:create|save|delete|remove|publish|bulkAdd|bulkDelete)\w*\s*\(/.test(
+      source
+    )
+  ) {
+    messages.push(
+      'salt-okunur mutation denetimi write fixture’ı veya create/save/delete/publish çağrısı içeremez'
+    );
   }
   if (!/test\.describe\.configure\s*\(\s*\{[^}]*\bretries\s*:\s*0\b/s.test(source)) {
     messages.push(

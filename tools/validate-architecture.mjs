@@ -4,6 +4,7 @@ import {
   mutationLaneMessages,
   mutationSafetyMessages,
 } from './architecture-rules.mjs';
+import { MUTATION_LIFECYCLE_EXCLUSIONS } from '../tests/contracts/mutation-lifecycle.js';
 
 const root = process.cwd();
 const testsRoot = path.join(root, 'tests');
@@ -72,7 +73,9 @@ for (const file of javascriptFiles) {
       });
     }
 
-    for (const message of mutationSafetyMessages(source)) {
+    for (const message of mutationSafetyMessages(source, {
+      lifecycleExclusion: MUTATION_LIFECYCLE_EXCLUSIONS[relative] || null,
+    })) {
       violations.push({ file: relative, line: 1, message });
     }
 
@@ -134,6 +137,34 @@ for (const file of javascriptFiles) {
         message: `yerel ESM import uzantısı eksik: ${importPath}`,
       });
     }
+  }
+}
+
+for (const [relative, exclusion] of Object.entries(
+  MUTATION_LIFECYCLE_EXCLUSIONS
+)) {
+  const { mode, reason } = exclusion;
+  if (!['fixme', 'read-only'].includes(mode)) {
+    violations.push({
+      file: 'tests/contracts/mutation-lifecycle.js',
+      line: 1,
+      message: `${relative} mutation yaşam-döngüsü istisnasının mode değeri fixme veya read-only olmalı`,
+    });
+  }
+  if (!reason.startsWith('N/A: ')) {
+    violations.push({
+      file: 'tests/contracts/mutation-lifecycle.js',
+      line: 1,
+      message: `${relative} mutation yaşam-döngüsü istisnası "N/A: <gerekçe>" biçiminde olmalı`,
+    });
+    continue;
+  }
+  if (!javascriptFiles.some((file) => path.relative(root, file) === relative)) {
+    violations.push({
+      file: 'tests/contracts/mutation-lifecycle.js',
+      line: 1,
+      message: `mutation yaşam-döngüsü istisnası bilinmeyen spec'e bağlı: ${relative}`,
+    });
   }
 }
 

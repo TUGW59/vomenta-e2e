@@ -18,6 +18,8 @@
     "test:regression": "playwright test --project=chromium-authed",
     "pretest:mutation": "npm run quality:architecture",
     "test:mutation": "ALLOW_MUTATING_TESTS=true playwright test --project=chromium-authed --grep @mutation --retries=0 --workers=1",
+    "prereport:orphans": "npm run quality:architecture",
+    "report:orphans": "ALLOW_MUTATING_TESTS=true playwright test tests/mutation-orphans.authed.spec.js --project=chromium-authed --retries=0 --workers=1",
     "pretest:e2e": "npm run quality:architecture",
     "test:e2e": "playwright test",
     "test:ui": "playwright test --ui",
