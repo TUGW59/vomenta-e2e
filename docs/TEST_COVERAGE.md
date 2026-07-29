@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 365
-- **Test dosyası:** 29
-- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 42 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 200 · `@smoke` 37 · `@visual` 3
+- **Test edilen senaryo:** 379
+- **Test dosyası:** 30
+- **Etiketler:** `@a11y` 14 · `@clean` 2 · `@critical` 44 · `@data` 1 · `@deeplink` 2 · `@errorpath` 3 · `@i18n` 8 · `@keyboard` 2 · `@known-bug` 29 · `@layout` 8 · `@perf` 1 · `@public` 2 · `@regression` 210 · `@smoke` 38 · `@visual` 3
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -378,6 +378,23 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı  `@regression`
 - L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor  `@regression`
 - BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
+
+### `supervisor-coaching.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- istatistik döşemeleri görünüyor
+- tablo kolonları + sekmeler görünüyor  `@critical`
+- kontroller mevcut (arama / New Evaluation) + boş-durum
+- [en] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
+- [tr] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
+- [fr] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
+- [ar] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
+- L1 tıklama OK: "Pending Review" sekmesi seçili duruma geçiyor  `@regression`
+- L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
+- L1 tıklama OK: diyalog form alanlarıyla açılıyor  `@regression`
+- L3 görev OK: kriter puanları Overall Score'u yükseltiyor  `@regression`
+- L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor  `@regression`
+- L3: değerlendirme gönderimi kalıcı kayıt oluşturur (staging mutasyon)  `@regression`
 
 ### `supervisor-interactions.authed.spec.js`
 
