@@ -139,7 +139,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 10 | Templates | `/settings/templates` | ✅ **TAMAM** (settings-templates) |
 | 11 | Disposition Codes | `/settings/disposition-codes` | ✅ **TAMAM** (settings-disposition-codes) |
 | 12 | Canned Responses | `/settings/canned-responses` | ✅ **TAMAM** (settings-canned-responses) |
-| 13 | Integrations | `/settings/integrations` | ⬜ |
+| 13 | Integrations | `/settings/integrations` | ✅ **TAMAM** (settings-integrations) |
 | 14 | Security | `/settings/security` | ⬜ |
 | 15 | Data Retention | `/settings/data-retention` | ⬜ |
 | 16 | Notifications | `/settings/notifications` | ⬜ |
@@ -270,6 +270,16 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU (sistemik):** dialog "Close" 4 dilde İngilizce → `@i18n @known-bug`.
 - **Not:** /settings/templates üst sekmesi de "Canned Responses" paneli gösteriyor (örtüşme).
 - **Mutasyon:** create + sil; tablo prod'da boş → `settings-canned-responses-mutations` **test.fixme**.
+
+## Entegrasyonlar detayı (`/settings/integrations`)
+
+- **Başlık:** "Integrations" + alt başlık. Bölümler: CRM (Salesforce/HubSpot/Zoho), Helpdesk (Zendesk/Freshdesk/Jira), Communication (Slack/Teams/Zapier/Make) — her kart "Available" + **Request Access**. API Keys özeti (+**Manage API Keys** linki → /settings/api-keys). Webhook Subscriptions (**Add Webhook** + tablo URL/Events/Status/Last Delivered/Actions; boş-durum "No webhooks configured yet").
+- **Request Access dialogu:** "Request <Servis> Integration" + Additional details + Cancel + Submit Request + Close.
+- **Add Webhook dialogu:** URL · Secret (min 16 chars) · Events (çok sayıda checkbox: call.started…) · (+ Cancel/Add/Close).
+- **Backend:** `GET /api/v1/webhooks`, `GET /api/v1/settings/api-keys`.
+- **4 dil:** başlık/alt başlık/Request Access/Add Webhook tam çevrili; ar RTL; taşma yok.
+- **🐞 GEÇİCİ GÖZLEM:** Keşifte API Keys özetinde ham i18n anahtarı `settings.integrationsPage.activeKeysCount` görüldü; sayı yüklenince kayboluyor (yükleme-anı flaş) → kararlı guard yazılamadı, belge olarak burada.
+- **Mutasyon:** Add Webhook (create) + Request Access (Submit — talep gönderir); webhook tablosu prod'da boş → `settings-integrations-mutations` **test.fixme**.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

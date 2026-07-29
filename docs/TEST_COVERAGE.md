@@ -592,6 +592,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: hazır yanıt oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
 
+### `settings-integrations.authed.spec.js`  (Ayarlar › Entegrasyonlar)
+
+- sayfa başlığı + entegrasyon kartları (Salesforce/Slack) + Webhook bölümü  `@smoke`
+- Webhook tablosu kolonları + boş-durum  `@critical`
+- L3: "Manage API Keys" → /settings/api-keys; L1: Request Access + Add Webhook dialogları  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Request Access + Add Webhook çevrili  `@i18n`
+- a11y / layout / clean / errorpath / keyboard / deeplink / visual (Request Access dialog)
+- (gözlem: activeKeysCount ham anahtarı yükleme-anı flaş; kararlı guard yok — NOTLAR)
+
+### `settings-integrations-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: webhook oluştur → görün → sil — tablo prod'da boş; staging teyidi  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

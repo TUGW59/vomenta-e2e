@@ -25,6 +25,7 @@ import { TicketsPage } from './TicketsPage.js';
 import { WallboardPage } from './WallboardPage.js';
 import { WorkforcePage } from './WorkforcePage.js';
 import { AgentMonitorPage } from './AgentMonitorPage.js';
+import { IntegrationsPage } from './IntegrationsPage.js';
 import { InteractionsPage } from './InteractionsPage.js';
 import { AgentLivePage } from './AgentLivePage.js';
 import { CoachingPage } from './CoachingPage.js';
@@ -55,6 +56,7 @@ export class App {
     this.templates = new TemplatesPage(page);
     this.dispositionCodes = new DispositionCodesPage(page);
     this.cannedResponses = new CannedResponsesPage(page);
+    this.integrations = new IntegrationsPage(page);
     this.tickets = new TicketsPage(page);
     this.wallboard = new WallboardPage(page);
     this.workforce = new WorkforcePage(page);

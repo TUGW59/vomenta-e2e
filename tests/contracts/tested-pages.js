@@ -366,4 +366,27 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+  {
+    id: 'settings-integrations',
+    routes: ['/settings/integrations'],
+    specFiles: [
+      'settings-integrations.authed.spec.js',
+      'settings-integrations-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (entegrasyon kartları + webhook tablosu + dialoglar).',
+      '@data': 'Sayısal KPI yok (kart/tablo listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

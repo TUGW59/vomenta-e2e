@@ -16,6 +16,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-integrations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
@@ -53,6 +54,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-compliance**: `/settings/compliance`
 - **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
+- **settings-integrations**: `/settings/integrations`
 - **settings-organization**: `/settings/organization`
 - **settings-profile**: `/settings/profile`
 - **settings-roles**: `/settings/roles`
@@ -83,6 +85,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-hours` **@perf**: Grafik/ağır içerik yok (haftalık program formu).
 - `settings-hours` **@data**: Sayısal KPI yok (saat config değerleri).
 - `settings-hours` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-integrations` **@perf**: Grafik/ağır içerik yok (entegrasyon kartları + webhook tablosu + dialoglar).
+- `settings-integrations` **@data**: Sayısal KPI yok (kart/tablo listesi).
+- `settings-integrations` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-organization` **@perf**: Grafik/ağır içerik yok (statik şirket-bilgisi formu).
 - `settings-organization` **@data**: Sayısal KPI göstermiyor (form alanları).
 - `settings-organization` **@export**: Bu sayfada export/indirme kontrolü yok.
