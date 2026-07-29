@@ -15,6 +15,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `settings-teams` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 
 ## Rota düzeyi baseline kanıtı
@@ -45,6 +46,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-organization**: `/settings/organization`
 - **settings-profile**: `/settings/profile`
 - **settings-roles**: `/settings/roles`
+- **settings-teams**: `/settings/teams`
 - **settings-users**: `/settings/users`
 
 ## N/A beyanları (gerekçeli)
@@ -66,6 +68,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-roles` **@perf**: Grafik/ağır içerik yok (rol tablosu + create dialogu).
 - `settings-roles` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-roles` **@visual**: Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.
+- `settings-teams` **@perf**: Grafik/ağır içerik yok (ekip kartları + create dialogu).
+- `settings-teams` **@data**: Sayısal KPI tile yok (kart "N members" veri metni).
+- `settings-teams` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `settings-users` **@perf**: Grafik/ağır içerik yok (üye tablosu + davet dialogu).
 - `settings-users` **@data**: Sayısal KPI göstermiyor (üye listesi; sayaç yok).
 - `settings-users` **@export**: Bu sayfada export/indirme kontrolü yok.

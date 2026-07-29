@@ -206,4 +206,27 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': '3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.',
     },
   },
+  {
+    id: 'settings-teams',
+    routes: ['/settings/teams'],
+    specFiles: [
+      'settings-teams.authed.spec.js',
+      'settings-teams-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (ekip kartları + create dialogu).',
+      '@data': 'Sayısal KPI tile yok (kart "N members" veri metni).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

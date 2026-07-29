@@ -1,0 +1,10 @@
+
+== en dir=ltr h="Teams" sub="Organize your agents into teams for routing and management" create="Create Team" ==
+CREATE DIALOG textboxes: 2
+CARD MENU: []
+
+== tr dir=ltr h="Ekipler" sub="Temsilcilerinizi yönlendirme ve yönetim için ekiplere ayırın" create=undefined ==
+
+== fr dir=ltr h="Équipes" sub="Organisez vos agents en équipes pour le routage et la gestion" create=undefined ==
+
+== ar dir=rtl h="الفرق" sub="نظّم وكلاءك في فرق للتوجيه والإدارة" create="إنشاء فريق" ==

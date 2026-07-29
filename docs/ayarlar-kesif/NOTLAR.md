@@ -132,7 +132,7 @@ Bu ana sekme paketleri Profil bittikten sonra sırayla ele alınacak.
 | 3 | Users & Roles | `/settings/users` | ✅ **TAMAM** (settings-users) |
 | 4 | Roles | `/settings/roles` | ✅ **TAMAM** (settings-roles) |
 | 5 | Compliance | `/settings/compliance` | ✅ **TAMAM** (settings-compliance) |
-| 6 | Teams | `/settings/teams` | ⬜ |
+| 6 | Teams | `/settings/teams` | ✅ **TAMAM** (settings-teams) |
 | 7 | Business Hours | `/settings/hours` | ⬜ |
 | 8 | Automations | `/settings/automations` | ⬜ |
 | 9 | SLA Policies | `/settings/sla` | ⬜ |
@@ -195,6 +195,17 @@ Her sayfa Profil/Kuruluş ile aynı süreçten geçer: salt-okunur keşif (4 dil
 - **🐞 BULGU (sistemik):** Her iki dialogda **"Close" (X) butonu** 4 dilde de İngilizce "Close" kalıyor (Users/Roles ile aynı) → `@i18n @known-bug`.
 - **Mutasyon:** Log Consent / Create Request kalıcı uyumluluk/yasal kayıt üretir; UI'da **hard-delete YOK** (yalnız Revoke durum değiştirir) → zero-orphan temizliği yapılamadığından `settings-compliance-mutations` **test.fixme** (staging purge ucu teyidi bekliyor). Read-only spec dialogları yalnızca AÇAR + disabled doğrular.
 - **Görsel:** N/A (3 canlı tablo: göreli zaman/tarih/UUID → flaky).
+
+## Ekipler detayı (`/settings/teams`)
+
+- **Başlık:** "Teams" + alt başlık "Organize your agents into teams for routing and management". Sekme YOK.
+- **Create Team** butonu → dialog: Team name · Description · Cancel · Create (disabled) · Close.
+- **Ekip kartları:** ad + "N members" (ör. Sales Team, 2 members). Kart **hover'da isimsiz ikon buton** belirir → **"Edit Team name"** dialogu açar (Team name/Description/Save; **Delete YOK**).
+- **Backend:** `GET /api/v1/teams` + create `POST /api/v1/teams`.
+- **4 dil:** başlık/alt başlık/Create tam çevrili (Teams/Ekipler/Équipes/الفرق; Create Team/Ekip Oluştur/Créer une équipe/إنشاء فريق); ar RTL; taşma yok.
+- **🐞 BULGU (sistemik):** Create Team dialogu **"Close" (X)** 4 dilde İngilizce → `@i18n @known-bug`.
+- **🐞 İÇERİK BULGUSU:** Kart ikon butonunun açtığı dialog başlığı "**Edit Team name**" ama açıklaması yanlışlıkla **create metnini** ("Add a new team to organize your agents.") gösteriyor (edit modunda create açıklaması). Düşük önem; NOTLAR'da izlenir. Ayrıca kart ikon butonu **aria-label taşımıyor** (button-name borcu).
+- **Mutasyon:** Edit dialogunda **Delete YOK** → UI'da zero-orphan silme yolu bulunamadı → `settings-teams-mutations` **test.fixme** (staging silme ucu teyidi bekliyor). Read-only spec create dialogu yalnız AÇAR + disabled doğrular.
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.

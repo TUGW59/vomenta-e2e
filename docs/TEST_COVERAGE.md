@@ -486,6 +486,25 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - L3: onay kaydı oluştur → görün → temizle — UI'da hard-delete yok; staging purge ucu teyidi bekliyor  `@regression` `@mutation`
 
+### `settings-teams.authed.spec.js`  (Ayarlar › Ekipler)
+
+- sayfa "Teams" başlığı + Create Team + ekip kartı ile açılıyor  `@smoke`
+- en az bir ekip kartı üye sayısıyla görünüyor  `@critical`
+- L1: Create Team dialogu açılıyor (Ad/Açıklama + Create disabled)  `@regression`
+- [en/tr/fr/ar] başlık + yön (RTL) + alt başlık + Create butonu çevrili  `@i18n`
+- 🐞 Create Team dialogu "Close" butonu çevrilmiyor (sistemik)  `@i18n` `@known-bug` (test.fail)
+- sayfada + Create dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + RTL yatay-taşma yok  `@layout`
+- console/ağ hatası yok  `@clean`
+- ekip listesi 500 → kabuk sağlam  `@errorpath`
+- Create Team dialogu odak tuzağı + Escape  `@keyboard`
+- `/settings/teams` doğrudan açılıyor  `@deeplink`
+- Create Team dialogu görünümü değişmedi (gece)  `@visual`
+
+### `settings-teams-mutations.authed.spec.js`  (staging; test.fixme)
+
+- L3: ekip oluştur → görün → sil — Edit dialogunda Delete yok; staging silme ucu teyidi bekliyor  `@regression` `@mutation`
+
 ### `supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`

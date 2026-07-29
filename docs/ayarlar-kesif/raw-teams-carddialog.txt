@@ -1,0 +1,12 @@
+- dialog "Edit Team name":
+  - heading "Edit Team name" [level=2]
+  - paragraph: Add a new team to organize your agents.
+  - text: Team name
+  - textbox "e.g., Premium Support": Sales Team
+  - text: Description
+  - textbox "What does this team handle?"
+  - button "Cancel"
+  - button "Save"
+  - button "Close":
+    - img
+    - text: Close
