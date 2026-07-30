@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 706
+- **Test edilen senaryo:** 722
 - **Test dosyası:** 52
-- **Etiketler:** `@a11y` 35 · `@clean` 23 · `@critical` 62 · `@data` 3 · `@deeplink` 22 · `@errorpath` 23 · `@export` 1 · `@i18n` 103 · `@keyboard` 20 · `@known-bug` 47 · `@layout` 28 · `@perf` 1 · `@public` 2 · `@regression` 266 · `@smoke` 59 · `@visual` 18
+- **Etiketler:** `@a11y` 36 · `@clean` 24 · `@critical` 62 · `@data` 3 · `@deeplink` 23 · `@errorpath` 24 · `@export` 1 · `@i18n` 107 · `@keyboard` 21 · `@known-bug` 50 · `@layout` 29 · `@perf` 1 · `@public` 2 · `@regression` 273 · `@smoke` 59 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -226,6 +226,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler")  `@regression` `@known-bug`
 - B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı  `@regression` `@known-bug`
 - B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli  `@regression` `@known-bug`
+- SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı  `@regression` `@known-bug`
+- SETTINGS-BILLING-CHANGEPLAN · Ayarlar "Change plan" kök sayfaya atmamalı  `@regression` `@known-bug`
+- SETTINGS-BILLING-HISTORY · Ayarlar "Billing history" kök sayfaya atmamalı  `@regression` `@known-bug`
 
 ### `login.spec.js`
 
@@ -735,7 +738,20 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
-- her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
+- L1+L3: her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor  `@regression`
+- L3 görev OK: "Organization" paneli → /settings/organization (başlık "Organization")  `@regression`
+- L3 görev OK: "Security" paneli → /settings/security (başlık "Security")  `@regression`
+- L3 görev OK: "API Keys" paneli → /settings/api-keys (başlık "API Keys")  `@regression`
+- [en] başlık + yön + 6 sekme etiketi çevrili  `@i18n`
+- [tr] başlık + yön + 6 sekme etiketi çevrili  `@i18n`
+- [fr] başlık + yön + 6 sekme etiketi çevrili  `@i18n`
+- [ar] başlık + yön + 6 sekme etiketi çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- billing/subscription 500 dönse de hub sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- sekmelerde ok tuşu odağı taşıyor ve seçimi değiştiriyor (aria-selected)  `@keyboard`
+- /settings doğrudan açılınca hub yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `supervisor-agent-live.authed.spec.js`
 

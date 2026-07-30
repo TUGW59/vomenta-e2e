@@ -19,6 +19,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-data-retention` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | — | — | ✅ |
 | `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — |
 | `settings-integrations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-notifications` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | ✅ |
 | `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
@@ -63,6 +64,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-data-retention**: `/settings/data-retention`
 - **settings-disposition-codes**: `/settings/disposition-codes`
 - **settings-hours**: `/settings/hours`
+- **settings-hub**: `/settings`
 - **settings-integrations**: `/settings/integrations`
 - **settings-notifications**: `/settings/notifications`
 - **settings-organization**: `/settings/organization`
@@ -107,6 +109,11 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-hours` **@perf**: Grafik/ağır içerik yok (haftalık program formu).
 - `settings-hours` **@data**: Sayısal KPI yok (saat config değerleri).
 - `settings-hours` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-hub` **@perf**: Grafik/ağır içerik yok (sekmeli özet hub + paneller).
+- `settings-hub` **@data**: Sayısal KPI tile yok (plan tutarı "$29" bir panel metni; tile/sayaç değil).
+- `settings-hub` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-hub` **@visual**: Paneller canlı veri içerir (Users: takım üyesi listesi; Billing: plan tutarı) → kararlı snapshot bölgesi yok.
+- `settings-hub` **@mutation**: Hub salt özet + gezinme; create/edit/delete/save yok (dedicated sayfalarda test edilir).
 - `settings-integrations` **@perf**: Grafik/ağır içerik yok (entegrasyon kartları + webhook tablosu + dialoglar).
 - `settings-integrations` **@data**: Sayısal KPI yok (kart/tablo listesi).
 - `settings-integrations` **@export**: Bu sayfada export/indirme kontrolü yok.

@@ -347,3 +347,31 @@ Tüm sol alt-menü sayfaları test paketiyle kapsandı (her biri ayrı commit, r
 
 ## Ham çıktılar
 `raw-en.txt` (ana sekmeler + user menu), `raw-profile.txt` (EN alt sekmeler + combobox seçenekleri + taşma), `raw-langs.txt` (tr/fr paneller), `raw-ar.txt` (Arapça RTL), `raw-tabs.txt` (4 dil sekme adları), `raw-org-en.txt` (Kuruluş EN + taşma), `raw-org-langs.txt` (Kuruluş 4 dil), `raw-subnav.txt` (ayarlar sol alt-menüsü href'leri). Ekran görüntüleri: `screenshots/`.
+
+---
+
+# EK PAKET — Billing/Modules yönlendirme + `/settings` hub tam stil paketi (30 Tem 2026)
+
+Canlı gözlem `app.vomenta.com`, default otomasyon hesabı. Hesap izinleri (`GET /api/v1/roles/me/permissions`) `settings.billing.*` ve modül iznini **İÇERMİYOR**.
+
+## Billing & Modules — yetki-bloklu (içerik test EDİLEMİYOR)
+- `/settings/billing` deep-link ~1.5sn görünüp `GET /api/v1/billing/usage` + `/billing/invoices` **403** aldıktan sonra **`/` (Dashboard)** sayfasına yönleniyor. Konsol: "Failed to load resource: 403".
+- `/settings/billing/marketplace` (Modüller) de aynı şekilde `/`'ye düşüyor (`modules/catalog` + `modules/active` 200 dönse de). = **B4** (yeniden doğrulandı).
+- Hub Billing & Usage panelinde **"Change plan" ve "Billing history" AYNI** `/settings/billing`'e işaret ediyor → ikisi de `/`'ye düşüyor.
+- Bu yüzden Billing/Marketplace **içerik Page Object'i/suite'i YAZILMADI** (sayfalar render olmuyor). Bulgular registry + `test.fail` guard olarak kapsandı:
+  `SETTINGS-BILLING-REDIRECT`, `SETTINGS-BILLING-CHANGEPLAN`, `SETTINGS-BILLING-HISTORY` (yeni) + `B4` (kök-neden genişletildi). Guard'lar: `tests/known-bugs.authed.spec.js`.
+- **B7 yeniden açıldı:** Modüller açıklaması iki görünür öğede tekrar ediyor — bir `<div class="text-sm text-muted-foreground">` ve bir `<p class="…mb-4">`. Eski guard yalnız `main p` karşılaştırdığı için div+p tekrarını kaçırıyordu (false-green). Guard artık panelin tüm görünür leaf öğelerinde tekrar arıyor.
+
+## `/settings` hub — 4 dil (tam stil paketi, `tests/settings.authed.spec.js`)
+| Alan | en | tr | fr | ar (RTL) |
+|---|---|---|---|---|
+| Başlık (H1) | Settings | Ayarlar | Paramètres | الإعدادات |
+| Sekme 1 | Organization | Organizasyon | Organisation | المؤسسة |
+| Sekme 2 | Users | Kullanıcılar | Utilisateurs | المستخدمون |
+| Sekme 3 | Billing & Usage | Faturalandırma ve Kullanım | Facturation et utilisation | الفواتير والاستخدام |
+| Sekme 4 | Security | Güvenlik | Sécurité | الأمان |
+| Sekme 5 | API Keys | API Anahtarları | Clés API | مفاتيح API |
+| Sekme 6 | Modules | Modüller | Modules | الوحدات |
+
+**Panel gezinme (L3 hedef yüklendi):** Organization → `/settings/organization` ("Organization"), Security → `/settings/security` ("Security"), API Keys → `/settings/api-keys` ("API Keys") — ÇALIŞIYOR. Billing/Modules bağlantıları kök'e düşüyor → known-bugs guard'lı (yukarı).
+**Sekme klavye:** Radix roving-tabindex + otomatik aktivasyon; ok tuşu odağı taşır ve seçer (ilk basış hidrasyonda yutulabildiği için `toPass` ile tekrar). **Temizlik:** hub'da console hatası yok; yalnız Next.js `_rsc` prefetch iptalleri (allowlist). Billing 403'leri hub'da tetiklenMİYOR (yalnız standalone `/settings/billing`).
