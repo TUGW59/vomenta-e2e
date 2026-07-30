@@ -48,7 +48,12 @@
     "report:coverage": "node tools/generate-coverage.mjs",
     "report:coverage:check": "node tools/generate-coverage.mjs && git diff --exit-code -- docs/TEST_COVERAGE.md",
     "report:style-matrix": "node tools/style-coverage.mjs",
-    "report:style-matrix:check": "node tools/style-coverage.mjs && git diff --exit-code -- docs/TEST_STYLE_MATRIX.md"
+    "report:style-matrix:check": "node tools/style-coverage.mjs && git diff --exit-code -- docs/TEST_STYLE_MATRIX.md",
+    "report:findings": "node tools/generate-findings.mjs",
+    "report:test-report": "node tools/generate-test-report.mjs",
+    "report:build": "npm run report:findings && npm run report:test-report",
+    "report:pdf": "npm run report:build && node tools/render-report-pdf.mjs",
+    "report:findings:check": "npm run report:build && git diff --exit-code -- docs/raporlar/findings.json docs/raporlar/BULGULAR.md docs/raporlar/YAPILAN-TESTLER.md docs/raporlar/YAPILMAYAN-TESTLER.md"
   },
   "keywords": [],
   "author": "",

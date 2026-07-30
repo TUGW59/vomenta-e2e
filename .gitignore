@@ -14,3 +14,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# WP-R2 rapor artifact'leri — HTML/PDF Git'e commit EDİLMEZ (MD/JSON kaynak-of-truth commit'lenir)
+/docs/raporlar/*.html
+/docs/raporlar/*.pdf
