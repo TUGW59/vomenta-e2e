@@ -200,16 +200,36 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     expect(count, 'ayırt edilemeyen "Invited User" placeholder satır sayısı').toBe(0);
   });
 
-  // ── B7 · 🟡 ORTA · /settings › Modüller · (28 Tem: DÜZELMİŞ — kalıcı guard) ──
+  // ── B7 · 🟡 ORTA · /settings › Modüller · (30 Tem: YENİDEN AÇIK — div+p tekrarı) ──
+  // Açıklama iki görünür öğede (bir <div>, bir <p>) tekrar ediyor. Eski guard yalnız
+  // `main p` karşılaştırdığı için div+p tekrarını kaçırıyordu (false-green). Guard artık
+  // panelin TÜM görünür leaf öğelerinde tekrar arar → gerçek çift-render'ı yakalar.
   test('B7 · /settings · Modüller açıklaması iki kez render edilmemeli', async ({ page }) => {
+    knownBugGuard(test, 'B7');
     await gotoApp(page, '/settings');
     await selectTab(page, /Modules|Modüller/i);
     await waitContentLoaded(page);
-    const paragraphs = (await page.locator('main p').allInnerTexts())
-      .map((t) => t.trim())
-      .filter((t) => t.length > 20);
-    const duplicate = paragraphs.find((t, i) => paragraphs.indexOf(t) !== i);
-    expect(duplicate ?? null, `açıklama iki kez görünüyor: "${duplicate ?? ''}"`).toBeNull();
+    const duplicate = await page.evaluate(() => {
+      const scope =
+        document.querySelector('[role="tabpanel"]:not([hidden])') || document.querySelector('main');
+      if (!scope) return null;
+      /** @type {Map<string, number>} */
+      const seen = new Map();
+      for (const el of scope.querySelectorAll('*')) {
+        if (el.children.length) continue; // yalnız leaf öğeler
+        const r = el.getBoundingClientRect();
+        const cs = getComputedStyle(el);
+        const visible =
+          r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none';
+        if (!visible) continue;
+        const t = (el.textContent || '').trim();
+        if (t.length <= 20) continue; // veri/isim değil, açıklama metni ölçeğinde
+        seen.set(t, (seen.get(t) || 0) + 1);
+      }
+      for (const [t, n] of seen) if (n > 1) return t;
+      return null;
+    });
+    expect(duplicate, `açıklama görünürde iki kez render ediliyor: "${duplicate ?? ''}"`).toBeNull();
   });
 
   // ── B8 · 🟠 YÜKSEK · Softphone · (28 Tem: DÜZELMİŞ — kalıcı guard) ───────────
@@ -350,5 +370,51 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     await expect
       .poll(() => new URL(page.url()).pathname, { timeout: 8000, intervals: [400, 800, 1500] })
       .toBe('/ai');
+  });
+
+  // ── SETTINGS-BILLING-REDIRECT · 🟠 YÜKSEK · /settings/billing · (30 Tem: AÇIK) ──
+  // Hesap billing/modül iznine sahip değil → korunan uçlar (billing/usage, billing/invoices)
+  // 403 → sayfa ~1.5sn sonra "/"ye (Dashboard) düşüyor. B4 (marketplace) ile aynı sınıf.
+  test('SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı', async ({ page }) => {
+    knownBugGuard(test, 'SETTINGS-BILLING-REDIRECT');
+    await gotoApp(page, '/settings/billing');
+    // Kök route'a ("/") yönlenme GÖZLENDİĞİNDE bounced=true. Düzelirse hiç "/"ye
+    // gitmez → waitForURL timeout → bounced=false (deterministik, zamanlama-yarışsız).
+    const bounced = await page
+      .waitForURL((u) => new URL(u).pathname === '/', { timeout: 8000 })
+      .then(() => true)
+      .catch(() => false);
+    expect(bounced, '/settings/billing deep-link kök route (/) sayfasına düşüyor').toBe(false);
+  });
+
+  // ── SETTINGS-BILLING-CHANGEPLAN · 🟠 YÜKSEK · /settings › Billing & Usage · (30 Tem: AÇIK) ──
+  test('SETTINGS-BILLING-CHANGEPLAN · Ayarlar "Change plan" kök sayfaya atmamalı', async ({ page }) => {
+    knownBugGuard(test, 'SETTINGS-BILLING-CHANGEPLAN');
+    await gotoApp(page, '/settings');
+    await selectTab(page, /Billing & Usage|Fatura|Kullanım/i);
+    const link = page.getByRole('link', { name: /Change plan|Plan.*değiştir/i }).first();
+    await expect(link).toBeVisible();
+    await link.click();
+    // "Change plan" → /settings/billing → "/" (fallback). Kök'e düşerse bounced=true.
+    const bounced = await page
+      .waitForURL((u) => new URL(u).pathname === '/', { timeout: 8000 })
+      .then(() => true)
+      .catch(() => false);
+    expect(bounced, '"Change plan" kök route (/) sayfasına düşüyor').toBe(false);
+  });
+
+  // ── SETTINGS-BILLING-HISTORY · 🟠 YÜKSEK · /settings › Billing & Usage · (30 Tem: AÇIK) ──
+  test('SETTINGS-BILLING-HISTORY · Ayarlar "Billing history" kök sayfaya atmamalı', async ({ page }) => {
+    knownBugGuard(test, 'SETTINGS-BILLING-HISTORY');
+    await gotoApp(page, '/settings');
+    await selectTab(page, /Billing & Usage|Fatura|Kullanım/i);
+    const link = page.getByRole('link', { name: /Billing history|Fatura geçmişi/i }).first();
+    await expect(link).toBeVisible();
+    await link.click();
+    const bounced = await page
+      .waitForURL((u) => new URL(u).pathname === '/', { timeout: 8000 })
+      .then(() => true)
+      .catch(() => false);
+    expect(bounced, '"Billing history" kök route (/) sayfasına düşüyor').toBe(false);
   });
 });
