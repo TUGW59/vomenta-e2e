@@ -70,7 +70,11 @@ export default defineConfig({
        Viewer ile incelenir (`npx playwright show-trace <trace.zip>`). ZAYIFLATMA. */
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    /* WP-R3: forensik modda (FORENSIC_BUG set) video KAPALI — video sonradan text
+       sanitizer ile güvenilir temizlenemez (ekran PII'si). Trace lokal üretilir ve
+       binary-aware taranır ama CI'a yüklenmez (bkz. ADR-0007). Normal koşuda video
+       davranışı değişmez. */
+    video: process.env.FORENSIC_BUG ? 'off' : 'retain-on-failure',
     testIdAttribute: 'data-testid',
   },
 
