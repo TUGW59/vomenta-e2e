@@ -44,30 +44,6 @@ async function waitContentLoaded(page, min = 30) {
     .toBeGreaterThan(min);
 }
 
-/**
- * URL pathname oturana kadar bekler ve son değeri döndürür.
- * `needed` ardışık eşit okuma ister → geçici (ör. ~500ms görünen) SPA ara-URL'lerini eler.
- */
-async function waitUrlStable(page, needed = 3) {
-  let last = null;
-  let streak = 0;
-  await expect
-    .poll(
-      () => {
-        const cur = new URL(page.url()).pathname;
-        if (cur === last) streak += 1;
-        else {
-          last = cur;
-          streak = 1;
-        }
-        return streak;
-      },
-      { timeout: 12000, intervals: [600, 600, 600, 600, 600, 600, 600, 600] }
-    )
-    .toBeGreaterThanOrEqual(needed);
-  return last;
-}
-
 /** Radix sekmesine güvenli tıklama (tıklama yutulmasına karşı seçili olana kadar dener). */
 async function selectTab(page, name) {
   const tab = page.getByRole('tab', { name });
@@ -167,11 +143,13 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     await expect(manage).toBeVisible();
     await manage.click();
     // bug akışı: /settings → (geçici) /settings/billing/marketplace → "/" (fallback).
-    // Önce /settings'ten ayrılmayı bekle (aksi hâlde navigasyon gecikirse başlangıç
-    // URL'si "oturmuş" sanılır), sonra OTURMUŞ son URL'yi kontrol et.
-    await expect.poll(() => new URL(page.url()).pathname, { timeout: 8000 }).not.toBe('/settings');
-    const finalPath = await waitUrlStable(page);
-    expect(finalPath, 'buton kök route (/) sayfasına düşüyor').not.toBe('/');
+    // Kök'e ("/") yönlenme gözlendiğinde bounced=true. waitForURL ara-URL'ye kilitlenmez
+    // → paralel koşumda da deterministik (ara-URL'ye kilitlenme yarışı elenir).
+    const bounced = await page
+      .waitForURL((u) => new URL(u).pathname === '/', { timeout: 8000 })
+      .then(() => true)
+      .catch(() => false);
+    expect(bounced, 'buton kök route (/) sayfasına düşüyor').toBe(false);
   });
 
   // ── B5 · 🟡 ORTA · /channels · Ses kartı durumu ─────────────────────────────
