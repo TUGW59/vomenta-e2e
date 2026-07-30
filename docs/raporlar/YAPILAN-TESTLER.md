@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 749 / 77 dosya
-- **coverageStatus:** verified 0 · partial 711 · generic 9 · blocked 29
-- **executionStatus:** executed 0 · listed-only 720 · skipped 0 · fixme 29
+- **Listelenen test:** 765 / 77 dosya
+- **coverageStatus:** verified 0 · partial 727 · generic 9 · blocked 29
+- **executionStatus:** executed 0 · listed-only 736 · skipped 0 · fixme 29
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -20,13 +20,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
 | contacts | 48 | 48 | 0 | 0 |
-| cross-cutting | 31 | 30 | 0 | 1 |
+| cross-cutting | 34 | 33 | 0 | 1 |
 | dashboard | 22 | 22 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
 | other | 9 | 0 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
-| settings | 320 | 303 | 0 | 17 |
+| settings | 333 | 316 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -243,6 +243,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler") | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| SETTINGS-BILLING-CHANGEPLAN · Ayarlar "Change plan" kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| SETTINGS-BILLING-HISTORY · Ayarlar "Billing history" kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 
 ### `mutation-orphans.authed.spec.js` — _cross-cutting_
 
@@ -933,7 +936,20 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | sayfa "Settings" başlığıyla açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
 | tüm sekmeler görünüyor | @critical | — | listed-only | partial | medium | list-exec |
-| her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor |  | — | listed-only | partial | medium | list-exec |
+| L1+L3: her sekme tıklanınca seçili oluyor VE paneli o içeriği gösteriyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 görev OK: "Organization" paneli → /settings/organization (başlık "Organization") | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 görev OK: "Security" paneli → /settings/security (başlık "Security") | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 görev OK: "API Keys" paneli → /settings/api-keys (başlık "API Keys") | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] başlık + yön + 6 sekme etiketi çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + 6 sekme etiketi çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + 6 sekme etiketi çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + 6 sekme etiketi çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| billing/subscription 500 dönse de hub sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| sekmelerde ok tuşu odağı taşıyor ve seçimi değiştiriyor (aria-selected) | @keyboard | — | listed-only | partial | medium | list-exec |
+| /settings doğrudan açılınca hub yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `forms.authed.spec.js` — _shell_
 

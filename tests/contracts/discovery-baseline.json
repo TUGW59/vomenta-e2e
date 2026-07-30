@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-29T09:02:18.656Z",
+  "generatedAt": "2026-07-30T09:01:36.463Z",
   "routes": {
     "/": {
       "ariaStructureHash": "70c2160d33075622c1af5c1009164f5affc4aca9acfcd927cb5e8722ef095a15",
@@ -94,11 +94,79 @@
       "ariaStructureHash": "f5f1b5cca54f706e6cf49566296c4fc49ef509cce476dc50ce38735b8238f365",
       "endpoints": []
     },
+    "/settings/api-keys": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/audit": {
+      "ariaStructureHash": "340946ab2a4b3735282ea706f00a21604edd44c956c80c9b77bbfad089453ad5",
+      "endpoints": []
+    },
+    "/settings/automations": {
+      "ariaStructureHash": "de2a3e55becda33c96f93aa5d93799e7bf511c097bf2d712fbdd50079cc8e824",
+      "endpoints": []
+    },
+    "/settings/canned-responses": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/settings/compliance": {
+      "ariaStructureHash": "587767b943c005da24f109ff1aac376aaf70a742754239b90450f807578c4545",
+      "endpoints": []
+    },
+    "/settings/data-retention": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/disposition-codes": {
+      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "endpoints": []
+    },
+    "/settings/hours": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/integrations": {
+      "ariaStructureHash": "775b62451d10173495d1edd7d0be5806489b10b70584657ffc004878a31df797",
+      "endpoints": []
+    },
+    "/settings/notifications": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
     "/settings/organization": {
       "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
       "endpoints": []
     },
     "/settings/profile": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/roles": {
+      "ariaStructureHash": "3d837eef1a99c3f811601bccb6c474ef5aa47846b370eb9228f55765e32db43c",
+      "endpoints": []
+    },
+    "/settings/security": {
+      "ariaStructureHash": "cfbd17af0fdb274ce1b0363fbc9cd40ffbaa3be9f445a860dd1b690428f347a6",
+      "endpoints": []
+    },
+    "/settings/sla": {
+      "ariaStructureHash": "f1cc96a767178bb29a2a11de5dbe01e861b98e067714e318bd6ed11eaec60371",
+      "endpoints": []
+    },
+    "/settings/teams": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/templates": {
+      "ariaStructureHash": "1b9b697836c8a5614a877aabdc37f70261015661f85e530d0880a230ab5d54cc",
+      "endpoints": []
+    },
+    "/settings/users": {
+      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
+      "endpoints": []
+    },
+    "/settings/webhooks": {
       "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
       "endpoints": []
     },

@@ -90,6 +90,28 @@ export const TESTED_PAGES = Object.freeze([
     },
   },
   {
+    id: 'settings-hub',
+    routes: ['/settings'],
+    specFiles: ['settings.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (sekmeli özet hub + paneller).',
+      '@data': 'Sayısal KPI tile yok (plan tutarı "$29" bir panel metni; tile/sayaç değil).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Paneller canlı veri içerir (Users: takım üyesi listesi; Billing: plan tutarı) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Hub salt özet + gezinme; create/edit/delete/save yok (dedicated sayfalarda test edilir).',
+    },
+  },
+  {
     id: 'settings-profile',
     routes: ['/settings/profile'],
     specFiles: [
