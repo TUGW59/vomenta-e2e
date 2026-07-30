@@ -17,6 +17,13 @@ on:
         options:
           - critical
           - full
+      finding_id:
+        description: >-
+          (WP-R3) Known-bug registry ID (ör. B4). Doldurulursa YALNIZ o bulgu
+          forensik modda koşulur; güvenli kanıt paketi üretilir. Boş bırakılırsa
+          forensik job atlanır.
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -127,6 +134,43 @@ jobs:
             test-results/junit.xml
           retention-days: 30
 
+  known-bug-forensic:
+    name: Known-bug forensic (manual)
+    needs: architecture
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.finding_id != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      # Production read-only. Mutation kaçış bayrağı YOK.
+      ALLOW_MUTATING_TESTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Kısa SHA
+        id: vars
+        run: echo "short=$(echo "${GITHUB_SHA}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+      - name: Forensik koşu + güvenli kanıt paketi
+        # report:bug testi forensik modda koşar (beklenen-başarısızlık atlanır),
+        # yalnız güvenli upload bundle üretir. Testin kendisi kırmızı olsa da araç
+        # başarıyla (exit 0) çıkar; yalnız güvensiz/beklenmeyen dosyada exit 1 verir.
+        run: npm run report:bug -- "${{ inputs.finding_id }}"
+      - name: Registry değişmedi mi (forensik registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Güvenli artifact yükle (YALNIZ upload/ allowlist bundlei)
+        uses: actions/upload-artifact@v4
+        with:
+          name: known-bug-forensic-${{ inputs.finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
+          path: test-results/findings/${{ inputs.finding_id }}/upload/
+          if-no-files-found: error
+          retention-days: 14
+
   full-regression:
     name: Full cross-browser regression
     needs: architecture
@@ -218,3 +262,42 @@ jobs:
             playwright-report/
             test-results/
           retention-days: 30
+
+  nightly-known-bug-reconcile:
+    name: Nightly known-bug reconcile (fixed-candidate önerisi)
+    needs: architecture
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      ALLOW_MUTATING_TESTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Authed suite (JSON rapor) — known-bug sonuçlarını topla
+        # `|| true`: beklenen-başarısızlıklar geçer (exit 0); beklenmedik GEÇİŞ ise
+        # koşuyu kırar (exit != 0) — reconcile'ın yakalaması gerektiği için devam et.
+        run: |
+          mkdir -p test-results
+          npx playwright test --project=chromium-authed --reporter=json > test-results/results.json || true
+      - name: Reconcile — YALNIZ fixed-candidate önerisi (registry değişmez)
+        run: npm run report:reconcile -- test-results/results.json
+      - name: Registry değişmedi mi (nightly registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Öneri raporunu yükle (tek JSON; ham test-results DEĞİL)
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: known-bug-fixed-candidates-${{ github.run_id }}
+          path: test-results/findings/fixed-candidates.json
+          if-no-files-found: error
+          retention-days: 14

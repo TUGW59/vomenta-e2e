@@ -275,6 +275,34 @@ key veya müşteri verisi açık kalamaz.
 - **Kendi kodun token loglamaz.** Voice WS gibi kimlik taşıyan akışlarda `console.log`/ham attach
   ile secret'a dokunma; diagnostics zaten yakalar ve maskeler.
 
+## Bilinen-bulgu forensik modu (WP-R3)
+
+Açık bir bulgunun kök-neden incelemesi için, beklenen-başarısızlık kontratını GEÇİCİ
+olarak kaldırıp gerçek başarısızlığı (trace/screenshot/ağ özeti) yakalayan salt-okunur akış.
+
+- **Komut:** `npm run report:bug -- <ID>` (ör. `B4`). Registry'den testi çözer, YALNIZ o
+  testi `FORENSIC_BUG=<ID>` ile koşar → `knownBugGuard` `test.fail()` uygulamaz → bulgu gerçek
+  sonucuyla çalışır. Çıktı yalnız `test-results/findings/<ID>/` altına yazılır.
+- **Env yalnız helper/tool katmanında okunur** (`FORENSIC_BUG`); spec'lere `process.env` dağıtılmaz.
+  Aynı anda tek bulgu; CLI id ≠ `FORENSIC_BUG` → hard failure.
+- **Registry ASLA değişmez.** Otomasyon kök-neden UYDURMAZ: `possibleCauses=[]`,
+  `rootCauseCandidate=null`; yalnız deterministik/gözlemlenebilir `technicalEvidence` doldurulur.
+  `candidate-update.json` yalnız insan-inceleme önerisidir.
+- **Güvenli kanıt paketi:** `network-summary.json` (yalnız method + normalize path + status +
+  süre + tip + hata kodu; header/cookie/token/body YOK), `safe-final-state.png` (header kimlik
+  yüzeyleri capture anında maskeli), `metadata.json`, `candidate-update.json`.
+- **Trace lokal-only:** trace binary/sıkıştırılmış kaynakları text-sanitizer ile tam
+  kanıtlanamaz → `scanTraceZip` ile taranır ama **CI'a YÜKLENMEZ**. Video production forensikte
+  **kapalı** (`FORENSIC_BUG` set iken `video:'off'`).
+- **Upload güvenlik kapısı:** `npm run report:artifact -- <ID>` yalnız allowlist'teki
+  (JSON+PNG) dosyaları `<ID>/upload/` altına kopyalar; sızıntılı JSON / geçersiz PNG /
+  allowlist-dışı dosya → non-zero exit → CI upload step'i çalışmaz. Ham `test-results/` yüklenmez.
+- **Nightly reconcile:** `npm run report:reconcile -- <results.json>` beklenmedik geçişleri
+  bulur ve YALNIZ `fixed-candidate` önerisi (`fixed-candidates.json`) üretir — registry değişmez,
+  bug kapanmaz. Tek geçiş "verified fixed" değildir; kapanış WP-R4 kapsamıdır.
+- **Sert kapı:** `quality:forensic` (`quality:check` zincirinde) tüm bu kontratları negatif
+  self-check'lerle kanıtlar. Detay: `docs/adr/0007-known-bug-forensic-mode.md`.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.

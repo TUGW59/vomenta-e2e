@@ -7,6 +7,12 @@ import { createMutationGuard } from './mutationGuard.js';
 import { createTestEntityRegistry } from './testEntity.js';
 import { createArtifacts } from './artifacts.js';
 import { redactDeep } from './sanitize.js';
+import { AppShell } from '../pages/AppShell.js';
+import {
+  forensicBugId,
+  createForensicRecorder,
+  writeForensicEvidence,
+} from './forensic.js';
 
 /**
  * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
@@ -86,6 +92,34 @@ export const test = base.extend({
       );
     }
   },
+
+  /**
+   * WP-R3 forensik kanıt yakalama (auto). Yalnız `FORENSIC_BUG` set iken etkin;
+   * normal koşuda TAMAMEN atıldır (dinleyici yok, dosya yazımı yok). Etkinken ağ
+   * özetini toplar ve teardown'da `test-results/findings/<id>/` altına maskeli
+   * `network-summary.json` + `safe-final-state.png` yazar. Registry'ye/ürüne dokunmaz.
+   */
+  forensic: [
+    async ({ page }, use) => {
+      const id = forensicBugId();
+      if (!id) {
+        await use(null);
+        return;
+      }
+      const recorder = createForensicRecorder(page);
+      await use(recorder);
+      await recorder.stop();
+      const shell = new AppShell(page);
+      // Header kimlik yüzeyleri (kullanıcı adı/menüsü) capture anında maskelenir.
+      await writeForensicEvidence({
+        page,
+        id,
+        records: recorder.records,
+        masks: [shell.userMenu, shell.presenceMenu],
+      });
+    },
+    { auto: true },
+  ],
 
   diagnostics: [
     async ({ page }, use, testInfo) => {

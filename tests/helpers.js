@@ -4,6 +4,7 @@ import { AxeBuilder } from '@axe-core/playwright';
 import { AppShell } from './pages/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
 import { KNOWN_BUGS } from './contracts/known-bugs.js';
+import { forensicModeActive } from './fixtures/forensic.js';
 
 const KNOWN_BUG_IDS = new Set(KNOWN_BUGS.map((b) => b.id));
 
@@ -362,6 +363,13 @@ export async function traceInvestigation(context, name, fn) {
  * `tools/self-check-findings.mjs` çift yönlü tutarlılığı zorlar. Bilinmeyen id
  * anında (test kurulumunda) hata verir → yazım hatası sessiz kalmaz.
  *
+ * WP-R3 FORENSİK MOD: `FORENSIC_BUG=<id>` ortam değişkeni bu bulgunun id'siyle TAM
+ * eşleşiyorsa `test.fail()` (beklenen-başarısızlık) UYGULANMAZ; test gerçek sonucuyla
+ * koşar. Böylece bulgu forensik incelemede gerçek assertion failure + Playwright
+ * trace/screenshot üretir (bkz. tools/report-bug.mjs, ADR-0007). Env yalnız BURADA
+ * (helper katmanı) `forensicModeActive` üzerinden okunur — spec'lere dağıtılmaz.
+ * Bilinmeyen id her zaman (forensik modda dahil) hard failure verir.
+ *
  * @param {import('@playwright/test').TestType<any, any>} test  fixtures/test.js `test`
  * @param {string} id  known-bugs.js registry kimliği (ör. 'B4', 'ANALYTICS-A')
  */
@@ -371,5 +379,6 @@ export function knownBugGuard(test, id) {
       `knownBugGuard: bilinmeyen bulgu id'si "${id}" — önce tests/contracts/known-bugs.js kaydına ekleyin`
     );
   }
+  if (forensicModeActive(id)) return; // forensik: beklenen-başarısızlık atlanır
   test.fail();
 }

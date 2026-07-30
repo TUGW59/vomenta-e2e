@@ -1,0 +1,307 @@
+// @ts-check
+/**
+ * WP-R3 — Forensik araçların ortak (saf, birim-test edilebilir) çekirdeği.
+ *
+ * Buradaki hiçbir fonksiyon registry'yi YAZMAZ, mutation yapmaz, bug kapatmaz.
+ * Güvenlik kapıları (`prepareUploadBundle`, `scanEntriesForSecrets`, `scanTraceZip`)
+ * ve çözümleyiciler (`resolveFinding`, `classifyRunResult`, `reconcile`) burada; CLI
+ * sarmalayıcılar (report-bug / prepare-forensic-artifact / reconcile-known-bugs) yalnız
+ * argüman/çıktı yönetir.
+ */
+import {
+  readFileSync,
+  existsSync,
+  readdirSync,
+  mkdirSync,
+  copyFileSync,
+  rmSync,
+  statSync,
+} from 'node:fs';
+import { join } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
+import { findSecrets } from '../tests/fixtures/sanitize.js';
+
+/** CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi). */
+export const UPLOAD_ALLOWLIST = Object.freeze([
+  'candidate-update.json',
+  'network-summary.json',
+  'metadata.json',
+  'safe-final-state.png',
+]);
+
+/**
+ * Yerelde üretilebilir ama CI upload allowlist'ine BİLİNÇLİ olarak ALINMAYAN dosyalar.
+ * - `*.zip`  : Playwright trace — binary/sıkıştırılmış kaynaklar text-sanitizer ile
+ *              tam kanıtlanamaz; lokal-only (bkz. ADR-0007 + scanTraceZip).
+ * - `*.webm`/`*.mp4` : video — production forensikte kapalı; güvenilir temizlenemez.
+ * - Playwright'ın otomatik (maskesiz) ekran görüntüleri.
+ * - Sanitizer başarısız olduğunda bırakılan SKIPPED notları.
+ */
+export const LOCAL_ONLY_PATTERNS = Object.freeze([
+  /\.zip$/i,
+  /\.webm$/i,
+  /\.mp4$/i,
+  /-actual\.png$/i,
+  /-diff\.png$/i,
+  /^test-.*\.png$/i,
+  /\.SKIPPED\.txt$/i,
+]);
+
+/** Registry'den bulgu çözer; yoksa açık hata (CLI non-zero exit için). */
+export function resolveFinding(id) {
+  const finding = KNOWN_BUGS.find((b) => b.id === id);
+  if (!finding) {
+    const known = KNOWN_BUGS.map((b) => b.id).join(', ');
+    throw new Error(`Bilinmeyen bulgu id'si "${id}". Kayıtlı id'ler: ${known}`);
+  }
+  return finding;
+}
+
+/** Bulgu forensik çıktı dizini (repo köküne göreli). */
+export function findingDir(id) {
+  return join('test-results', 'findings', String(id));
+}
+
+/**
+ * CLI id'si ile önceden set edilmiş FORENSIC_BUG env'i çelişiyorsa hard failure.
+ * (Aynı anda tek bulgu forensik moda alınır.)
+ */
+export function assertForensicCliMatchesEnv(cliId, envId) {
+  if (envId && String(envId).trim() && String(envId).trim() !== cliId) {
+    throw new Error(
+      `Forensik uyuşmazlık: CLI id "${cliId}" ile FORENSIC_BUG="${envId}" farklı. ` +
+        'Aynı anda yalnız tek bulgu forensik moda alınabilir.'
+    );
+  }
+}
+
+/** RegExp özel karakterlerini kaçırır (Playwright --grep için). */
+export function escapeRegExp(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+/** Registry dosyasının içerik parmak izi (değişmediğini kanıtlamak için). */
+export function registryFingerprint(root) {
+  const p = join(root, 'tests', 'contracts', 'known-bugs.js');
+  return createHash('sha256').update(readFileSync(p)).digest('hex');
+}
+
+// ── Trace güvenlik taraması (binary-aware, ama upload'a alınmaz) ──────────────
+/**
+ * Metin girdileri ({name, content}) üzerinde sızıntı tarar. SAF — gerçek zip'e
+ * ihtiyaç duymaz; negatif self-check bunu seed'li girdilerle doğrular.
+ * @param {{name:string, content:string}[]} entries
+ * @returns {{ entry:string, where?:string, types:string[] }[]}
+ */
+export function scanEntriesForSecrets(entries) {
+  const hits = [];
+  for (const e of entries) {
+    const inContent = findSecrets(e.content);
+    if (inContent.length) hits.push({ entry: e.name, types: inContent });
+    const inName = findSecrets(e.name);
+    if (inName.length) hits.push({ entry: e.name, where: 'name', types: inName });
+  }
+  return hits;
+}
+
+/**
+ * Gerçek trace.zip'i geçici dizine açar, metin-çözülebilir girdileri tarar.
+ * `unzip` yoksa {tool:'none'} döner (trace güvenliği kanıtlanamaz → yine de
+ * upload edilmez; lokal-only politikası zaten geçerli).
+ * NOT: binary/sıkıştırılmış kaynak girdileri "undecodable" sayılır — bu yüzden
+ * trace CI'a YÜKLENMEZ; bu fonksiyon yalnız görünürlük/erken-uyarı içindir.
+ * @param {string} zipPath
+ * @param {string} tmpDir
+ */
+export function scanTraceZip(zipPath, tmpDir) {
+  if (!existsSync(zipPath)) return { tool: 'none', error: 'trace yok', hits: [], undecodable: 0, scanned: 0 };
+  let hasUnzip = true;
+  try {
+    execFileSync('unzip', ['-v'], { stdio: 'ignore' });
+  } catch {
+    hasUnzip = false;
+  }
+  if (!hasUnzip) return { tool: 'none', error: 'unzip bulunamadı', hits: [], undecodable: 0, scanned: 0 };
+
+  rmSync(tmpDir, { recursive: true, force: true });
+  mkdirSync(tmpDir, { recursive: true });
+  try {
+    execFileSync('unzip', ['-o', '-qq', zipPath, '-d', tmpDir], { stdio: 'ignore' });
+  } catch (error) {
+    return { tool: 'unzip', error: `açılamadı: ${error.message}`, hits: [], undecodable: 0, scanned: 0 };
+  }
+
+  /** @type {{name:string, content:string}[]} */
+  const entries = [];
+  let undecodable = 0;
+  const walk = (dir, prefix) => {
+    for (const name of readdirSync(dir)) {
+      const full = join(dir, name);
+      const relName = prefix ? `${prefix}/${name}` : name;
+      if (statSync(full).isDirectory()) {
+        walk(full, relName);
+        continue;
+      }
+      const buf = readFileSync(full);
+      // NUL yoğunluğu → binary say (metin-sanitizer güvence veremez).
+      let nul = 0;
+      for (let i = 0; i < Math.min(buf.length, 4096); i++) if (buf[i] === 0) nul++;
+      if (nul > 0) {
+        undecodable++;
+        entries.push({ name: relName, content: '' }); // isim yine taransın
+      } else {
+        entries.push({ name: relName, content: buf.toString('utf8') });
+      }
+    }
+  };
+  walk(tmpDir, '');
+  const hits = scanEntriesForSecrets(entries);
+  rmSync(tmpDir, { recursive: true, force: true });
+  return { tool: 'unzip', hits, undecodable, scanned: entries.length };
+}
+
+// ── Upload bundle güvenlik kapısı ─────────────────────────────────────────────
+/** PNG imza kontrolü (89 50 4E 47). */
+function isPng(buf) {
+  return buf.length > 8 && buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e && buf[3] === 0x47;
+}
+
+/**
+ * `<findingDir>/upload/` altına YALNIZ allowlist'teki, sanitizer/scanner'dan geçen
+ * dosyaları kopyalar. Allowlist dışı beklenmeyen dosya, sızıntılı JSON veya geçersiz
+ * PNG → `rejected` (CLI bunu non-zero exit'e çevirir). Lokal-only dosyalar atlanır.
+ * @param {string} dir  bulgu dizini
+ * @returns {{ uploadDir:string, copied:string[], skippedLocal:string[], rejected:{name:string,reason:string}[] }}
+ */
+export function prepareUploadBundle(dir) {
+  if (!existsSync(dir)) throw new Error(`bulgu dizini yok: ${dir}`);
+  const uploadDir = join(dir, 'upload');
+  rmSync(uploadDir, { recursive: true, force: true });
+
+  const copied = [];
+  const skippedLocal = [];
+  const rejected = [];
+
+  for (const name of readdirSync(dir)) {
+    if (name === 'upload') continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) {
+      rejected.push({ name, reason: 'beklenmeyen alt-dizin (allowlist dışı)' });
+      continue;
+    }
+
+    if (UPLOAD_ALLOWLIST.includes(name)) {
+      if (name.endsWith('.json')) {
+        const content = readFileSync(full, 'utf8');
+        const leaks = findSecrets(content);
+        if (leaks.length) {
+          rejected.push({ name, reason: `sanitizer sızıntı yakaladı: ${leaks.join(', ')}` });
+          continue;
+        }
+      } else if (name.endsWith('.png')) {
+        if (!isPng(readFileSync(full))) {
+          rejected.push({ name, reason: 'geçersiz PNG imzası' });
+          continue;
+        }
+      }
+      mkdirSync(uploadDir, { recursive: true });
+      copyFileSync(full, join(uploadDir, name));
+      copied.push(name);
+    } else if (LOCAL_ONLY_PATTERNS.some((re) => re.test(name))) {
+      skippedLocal.push(name);
+    } else {
+      rejected.push({ name, reason: 'allowlist dışı beklenmeyen dosya' });
+    }
+  }
+
+  return { uploadDir, copied, skippedLocal, rejected };
+}
+
+// ── Playwright JSON sonuç çözümleme ──────────────────────────────────────────
+/** JSON raporundaki tüm test kayıtlarını (spec+result) düzleştirir. */
+export function flattenPlaywrightReport(report) {
+  /** @type {{file:string, title:string, expectedStatus:string, status:string, error?:string, durationMs?:number, project?:string, attachments:{name:string,path?:string,contentType?:string}[]}[]} */
+  const out = [];
+  const walk = (suite) => {
+    for (const spec of suite.specs || []) {
+      for (const t of spec.tests || []) {
+        const r = (t.results || [])[t.results.length - 1] || {};
+        out.push({
+          file: spec.file,
+          title: spec.title,
+          expectedStatus: t.expectedStatus || 'unknown',
+          status: r.status || 'unknown',
+          error: r.error?.message || (r.errors && r.errors[0]?.message) || undefined,
+          durationMs: r.duration,
+          project: t.projectName || t.projectId,
+          attachments: r.attachments || [],
+        });
+      }
+    }
+    for (const child of suite.suites || []) walk(child);
+  };
+  for (const s of report.suites || []) walk(s);
+  return out;
+}
+
+/**
+ * Forensik koşuda (test.fail atlanmış → expectedStatus='passed') tek test sonucunu
+ * sınıflar. Deterministik ve gözlemlenebilir.
+ * @param {{status:string, expectedStatus?:string}|undefined} t
+ */
+export function classifyRunResult(t) {
+  if (!t) return 'infra-error'; // grep hiçbir teste uymadı / rapor boş
+  switch (t.status) {
+    case 'failed':
+      return 'reproduced'; // bug hâlâ mevcut (assertion gerçekten kırıldı)
+    case 'passed':
+      return 'unexpected-pass'; // bug artık reproduce olmuyor → WP-R4 adayı
+    case 'skipped':
+      return 'inconclusive'; // veri/koşul yok (test.skip)
+    case 'timedOut':
+    case 'interrupted':
+      return 'infra-error';
+    default:
+      return 'inconclusive';
+  }
+}
+
+// ── Nightly reconcile (fixed-candidate önerisi) ───────────────────────────────
+/**
+ * Normal koşu sonuçlarından "beklenmedik geçiş" gösteren knownBugGuard bulgularını
+ * bulur. YALNIZ öneri üretir — registry değişmez, status güncellenmez, bug kapanmaz.
+ *
+ * Beklenmedik geçiş: guard='knownBugGuard' (expectedStatus='failed') VE gerçek status
+ * 'passed'. `permanent`/`fixme` bulgular ve normal beklenen-başarısızlıklar aday DEĞİL.
+ *
+ * @param {any} report  Playwright JSON raporu
+ * @param {readonly any[]} registry  KNOWN_BUGS
+ * @param {{ generatedAt?:string|null, commitSha?:string|null }} [meta]
+ */
+export function reconcile(report, registry, meta = {}) {
+  const flat = flattenPlaywrightReport(report);
+  const byKey = new Map(flat.map((t) => [`${t.file}::${t.title}`, t]));
+  const candidates = [];
+  for (const b of registry) {
+    if (b.guard !== 'knownBugGuard') continue; // yalnız beklenen-başarısızlık kontratı
+    const t = byKey.get(`${b.test.file}::${b.test.title}`);
+    if (!t) continue;
+    const unexpectedPass = t.expectedStatus === 'failed' && t.status === 'passed';
+    if (unexpectedPass) {
+      candidates.push({
+        findingId: b.id,
+        reason: 'unexpected-pass',
+        recommendedStatus: 'fixed-candidate',
+        registryChanged: false,
+      });
+    }
+  }
+  return {
+    generatedAt: meta.generatedAt ?? null,
+    commitSha: meta.commitSha ?? null,
+    note: 'ÖNERİDİR. Tek beklenmedik geçiş "verified fixed" DEĞİLDİR. Registry değişmedi. Doğrulama WP-R4.',
+    candidates,
+  };
+}
