@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { CampaignsOutboundPage } from './pages/CampaignsOutboundPage.js';
+import { knownBugGuard } from './helpers.js';
 
 /**
  * KAMPANYALAR → GİDEN (`/campaigns/outbound`)
@@ -405,7 +406,7 @@ test.describe('Kampanya detayı — yapı @regression', () => {
 test.describe('Giden Kampanyalar — bilinen hatalar @regression @known-bug', () => {
   // BULGU 1 — liste 10'da kapanıyor; API hasNextPage:true ama sayfalama/sonsuz-kaydırma yok.
   test('BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı', async ({ app, page }) => {
-    test.fail(); // BULGU 1 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'CAMPAIGNS-PAGER'); // BULGU 1 açıkken beklenen başarısızlık
     const oc = app.campaignsOutbound;
     // Liste yanıtını yakalamak için open sırasında dinle.
     const respP = page.waitForResponse(
@@ -428,7 +429,7 @@ test.describe('Giden Kampanyalar — bilinen hatalar @regression @known-bug', ()
   // BULGU 2 — satır işlem ikonları erişilebilir isimsiz (a11y button-name).
   // göz TÜM satırlarda; çöp yalnız silinebilir (Draft/Completed) satırlarda → ayrı ayrı hedeflenir.
   test('BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı', async ({ app }) => {
-    test.fail(); // BULGU 2 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'CAMPAIGNS-ICON-A11Y'); // BULGU 2 açıkken beklenen başarısızlık
     const oc = app.campaignsOutbound;
     await oc.open();
     await expect(oc.rowAction(oc.rows.first(), 'view')).toHaveAccessibleName(/.+/, { timeout: 4000 });

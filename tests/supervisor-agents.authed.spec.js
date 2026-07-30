@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { assertLocalClock } from './helpers.js';
+import { assertLocalClock, knownBugGuard } from './helpers.js';
 import { AgentMonitorPage } from './pages/AgentMonitorPage.js';
 
 /**
@@ -332,7 +332,7 @@ test.describe('Temsilci İzleme — zaman damgası (timezone) @regression @known
   // "Last refreshed at HH:MM" yerel saati göstermeli; sunucunun UTC zamanını
   // çevirmeden bastığı için UTC+3'te ~180 dk sapıyor (Duvar Panosu BULGU 4 ile aynı).
   test('BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)', async ({ app, page }) => {
-    test.fail();
+    knownBugGuard(test, 'AGENTS-TZ');
     const am = app.agentMonitor;
     await am.open();
     await expect(am.lastRefreshed).toBeVisible({ timeout: 15000 });

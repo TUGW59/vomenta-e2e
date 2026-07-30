@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { assertLocalClock } from './helpers.js';
+import { assertLocalClock, knownBugGuard } from './helpers.js';
 import { WallboardPage } from './pages/WallboardPage.js';
 
 /**
@@ -112,7 +112,7 @@ test.describe('Buton: Refresh All @regression', () => {
   // L3 görev OK: yenilenen "son-güncelleme" saati doğru (yerel) gösterilmeli.
   // BULGU 4: saat UTC basıldığı için UTC+3'te ~180 dk sapıyor → beklenen başarısızlık.
   test('L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]', async ({ app, page }) => {
-    test.fail(); // BULGU 4 açıkken beklenen başarısızlık (yalnızca bu testi işaretler)
+    knownBugGuard(test, 'WALLBOARD-LIVE-TZ'); // BULGU 4 açıkken beklenen başarısızlık (yalnızca bu testi işaretler)
     const wallboard = app.wallboard;
     await wallboard.open();
     await expect(wallboard.liveTimestamp).toBeVisible({ timeout: 15000 });
@@ -135,7 +135,7 @@ test.describe('Buton: Auto-scroll @regression', () => {
   // L3 görev OK: içerik taşınca otomatik kaydırmalı.
   // BULGU 3: toggle açılıyor ama (TV modu dahil) hiç kaydırmıyor → beklenen başarısızlık.
   test('L3 görev OK: içerik taşınca otomatik kaydırmalı [BULGU 3]', async ({ app, page }) => {
-    test.fail(); // BULGU 3 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'WALLBOARD-AUTOSCROLL'); // BULGU 3 açıkken beklenen başarısızlık
     const wallboard = app.wallboard;
     await wallboard.open();
     await page.setViewportSize({ width: 1280, height: 460 }); // içerik taşsın
@@ -211,7 +211,7 @@ test.describe('Kontrol: Tema seçici @regression', () => {
   // L3 görev OK: seçilen tema sayfaya uygulanmalı.
   // BULGU 1: "Dark" seçilince <html> koyu temaya geçmeli; class 'light' kalıyor → beklenen başarısızlık.
   test('L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]', async ({ app }) => {
-    test.fail(); // BULGU 1 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'WALLBOARD-THEME'); // BULGU 1 açıkken beklenen başarısızlık
     const wallboard = app.wallboard;
     await wallboard.open();
     await wallboard.selectTheme('Dark');
@@ -260,7 +260,7 @@ test.describe('Kontrol: Kuyruk eylemleri (⋮) @regression', () => {
   // BULGU 5 — "Resume queue" hiçbir dilde çevrilmiyor (menü içi çeviri sızıntısı).
   // Türkçe menüde diğer 4 öğe çevriliyken bu İngilizce kalıyor.
   test('BULGU 5: "Resume queue" Türkçe menüde çevrilmeli', async ({ app }) => {
-    test.fail(); // BULGU 5 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'WALLBOARD-RESUME-I18N'); // BULGU 5 açıkken beklenen başarısızlık
     const wallboard = app.wallboard;
     await wallboard.open();
     await wallboard.switchLanguage(I18N.tr.endonym);
@@ -286,7 +286,7 @@ test.describe('Kuyruk eylemleri — L2/L3 yıkıcı (staging planı) @regression
 test.describe('Duvar Panosu — bilinen hatalar (i18n) @regression @known-bug', () => {
   // BULGU 2 — "Refresh All"/"Auto-scroll" hiçbir dilde çevrilmiyor.
   test('BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli', async ({ app }) => {
-    test.fail(); // BULGU 2 açıkken beklenen başarısızlık
+    knownBugGuard(test, 'WALLBOARD-I18N'); // BULGU 2 açıkken beklenen başarısızlık
     const wallboard = app.wallboard;
     await wallboard.open();
     await wallboard.switchLanguage(I18N.tr.endonym);

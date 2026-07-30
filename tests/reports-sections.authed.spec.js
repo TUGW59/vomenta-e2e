@@ -6,6 +6,7 @@ import {
   expectNoSevereA11y,
   expectNoOverflowAtViewports,
   expectContentWithin,
+  knownBugGuard,
   mockApi,
   captureJson,
   waitForUiToSettle,
@@ -371,7 +372,7 @@ test.describe('Rapor bölümleri — Date Range timezone @regression @known-bug'
   test.use({ timezoneId: 'Europe/Istanbul', locale: 'en-US' });
 
   test('L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]', async ({ app }) => {
-    test.fail(); // BULGU açıkken beklenen başarısızlık (etiket UTC → dün gösteriyor)
+    knownBugGuard(test, 'REPORTS-SECTIONS-TZ'); // BULGU açıkken beklenen başarısızlık (etiket UTC → dün gösteriyor)
     const rp = app.reportSection('call');
     await rp.open();
     await rp.datePreset('Today').click();

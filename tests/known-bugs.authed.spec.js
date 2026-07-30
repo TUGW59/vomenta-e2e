@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { gotoApp, waitForUiToSettle } from './helpers.js';
+import { gotoApp, knownBugGuard, waitForUiToSettle } from './helpers.js';
 
 /**
  * BİLİNEN HATA REGRESYON PAKETİ
@@ -111,7 +111,7 @@ async function rawKeyVisible(page, key) {
 test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', () => {
   // ── B1 · 🔴 KRİTİK · /voice/regulatory · (28 Tem: AÇIK — 9 ham anahtar) ──────
   test('B1 · /voice/regulatory · ham i18n anahtarları görünmemeli', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B1');
     await gotoApp(page, '/voice/regulatory');
     // KYC içeriği yüklendi mi: "KYC" içeren aksiyon butonu her iki durumda da (bozuk: "voiceRegulatory.startKyc", düzgün: "Start KYC") vardır.
     await expect(page.getByRole('button', { name: /KYC/i }).first()).toBeVisible({ timeout: 20000 });
@@ -130,7 +130,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
 
   // ── B2 · 🟠 YÜKSEK · /campaigns · (28 Tem: AÇIK — %200 gözlendi) ─────────────
   test('B2 · /campaigns · ilerleme yüzdesi 100ü aşmamalı', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B2');
     await gotoApp(page, '/campaigns');
     // Kampanya kartları (yüzde metni) render olana kadar bekle.
     await expect
@@ -146,7 +146,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
 
   // ── B3 · 🟠 YÜKSEK · /inbox · (28 Tem: AÇIK) ────────────────────────────────
   test('B3 · /inbox · ham i18n anahtarı inbox.noMessagesYet görünmemeli', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B3');
     await gotoApp(page, '/inbox');
     await expect(page.getByRole('heading', { name: 'Soft Phone', exact: true })).toBeVisible({
       timeout: 30000,
@@ -157,7 +157,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
 
   // ── B4 · 🟠 YÜKSEK · /settings › Modüller · (28 Tem: AÇIK — tıklama → "/") ───
   test('B4 · /settings · "Manage Modules" kök sayfaya atmamalı', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B4');
     await gotoApp(page, '/settings');
     await selectTab(page, /Modules|Modüller/i);
     const manage = page
@@ -196,7 +196,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     const count = await invitedRows.count();
     test.skip(count === 0, 'Bekleyen "Invited User" satırı yok; bulgu reproduce edilemiyor.');
 
-    test.fail();
+    knownBugGuard(test, 'B6');
     expect(count, 'ayırt edilemeyen "Invited User" placeholder satır sayısı').toBe(0);
   });
 
@@ -236,7 +236,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
 
   // ── B9 · 🟡 ORTA · /channels/email · (28 Tem: AÇIK — ham anahtar input'ta) ───
   test('B9 · /channels/email · varsayılan imza ham i18n anahtarı göstermemeli', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B9');
     await gotoApp(page, '/channels/email');
     // İmza alanı (textarea/contenteditable) render olana kadar bekle.
     await expect(page.locator('textarea, [contenteditable]').first()).toBeVisible({ timeout: 20000 });
@@ -248,7 +248,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
 
   // ── B10 · 🟡 ORTA · /voice/regulatory · (28 Tem: AÇIK — üst sekme çubuğu yok) ─
   test('B10 · /voice/regulatory · Voice sekme çubuğu görünmeli (bölüm düzeni)', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B10');
     await gotoApp(page, '/voice/regulatory');
     await waitContentLoaded(page);
     // Çalışan Voice sayfalarında üst sekme çubuğu içerik alanında "Live Calls" başlığını
@@ -280,7 +280,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     });
     test.skip(unlabeled === -1, 'Sesli mesaj / işlem butonu yok; bulgu reproduce edilemiyor.');
 
-    test.fail();
+    knownBugGuard(test, 'B11');
     expect(unlabeled, 'erişilebilir ismi olmayan işlem butonu sayısı').toBe(0);
   });
 
@@ -290,7 +290,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     await waitContentLoaded(page);
     test.skip(!(await isTurkishUI(page)), 'Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli.');
 
-    test.fail();
+    knownBugGuard(test, 'B12');
     const text = await page.locator('main').innerText();
     for (const leak of [
       'Deep analytics',
@@ -310,7 +310,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     await waitContentLoaded(page);
     test.skip(!(await isTurkishUI(page)), 'Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli.');
 
-    test.fail();
+    knownBugGuard(test, 'B13');
     expect(await page.locator('body').innerText(), 'sekme etiketinde boşluk eksik: "ZekaTemsilciler"').not.toContain(
       'ZekaTemsilciler'
     );
@@ -323,7 +323,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     const rejected = page.getByText(/Rejection:/).first();
     test.skip((await rejected.count()) === 0, 'Reddedilmiş talep yok; bulgu reproduce edilemiyor.');
 
-    test.fail();
+    knownBugGuard(test, 'B14');
     const hasTooltip = await rejected.evaluate((el) => {
       let node = /** @type {Element|null} */ (el);
       while (node) {
@@ -339,7 +339,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
   // Not: navigation.authed.spec.js grup başlıklarının "yalnız alt-menü açtığını" MEVCUT
   //   davranış olarak belgeliyor. Bu test bug raporunun BEKLENTİSİNİ kodlar (bir UX kararı).
   test('B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli', async ({ page }) => {
-    test.fail();
+    knownBugGuard(test, 'B15');
     await gotoApp(page, '/ai/voice');
     const header = page
       .getByRole('link', { name: /^(AI|Yapay Zeka)$/i })
