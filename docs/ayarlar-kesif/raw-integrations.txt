@@ -1,0 +1,131 @@
+URL: https://app.vomenta.com/settings/integrations
+
+===== en dir=ltr =====
+h="Integrations"
+sub="Connect third-party services, manage API keys, and configure webhooks"
+tabs=[]
+cols=["URL","Events","Status","Last Delivered","Actions"]
+btns=["Request Access","Request Access","Request Access","Request Access","Request Access","Request Access","Request Access","Request Access","Request Access","Request Access","Add Webhook"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Integrations" [level=1]
+  - paragraph: Connect third-party services, manage API keys, and configure webhooks
+  - text: CRM Integrations Sync customer data with your CRM platform SF
+  - paragraph: Salesforce
+  - text: Available
+  - paragraph: Sync contacts, leads, and cases with Salesforce CRM
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: HS
+  - paragraph: HubSpot
+  - text: Available
+  - paragraph: Connect your HubSpot CRM for contact sync and deal tracking
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: ZO
+  - paragraph: Zoho CRM
+  - text: Available
+  - paragraph: Integrate with Zoho CRM for customer data management
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: Helpdesk & Ticketing Connect your helpdesk for unified ticket management ZD
+  - paragraph: Zendesk
+  - text: Available
+  - paragraph: Sync tickets and customer interactions with Zendesk
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: FD
+  - paragraph: Freshdesk
+  - text: Available
+  - paragraph: Connect Freshdesk for unified helpdesk management
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: JI
+  - paragraph: Jira
+  - text: Available
+  - paragraph: Create and track Jira issues from support conversations
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: Communication Receive notifications and collaborate with your team SL
+  - paragraph: Slack
+  - text: Available
+  - paragraph: Get real-time notifications and alerts in Slack channels
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: MT
+  - paragraph: Microsoft Teams
+  - text: Available
+  - paragraph: Integrate with Teams for notifications and collaboration
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: ZP
+  - paragraph: Zapier
+  - text: Available
+  - paragraph: Connect Vomenta to 5,000+ apps with automated Zaps
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - text: MK
+  - paragraph: Make (Integromat)
+  - text: Available
+  - paragraph: Build powerful multi-step automations with Make scenarios
+  - button "Request Access":
+    - img
+    - text: Request Access
+  - img
+  - text: API Keys Manage API keys for programmatic access
+  - paragraph: settings.integrationsPage.activeKeysCount
+  - paragraph: View and manage API keys for third-party integrations.
+  - link "Manage API Keys":
+    - /url: /settings/api-keys
+  - img
+  - text: Webhook Subscriptions Receive real-time event notifications via HTTP callbacks
+  - button "Add Webhook":
+    - img
+    - text: Add Webhook
+  - table:
+    - rowgroup:
+      - row "URL Events Status Last Delivered Actions":
+        - columnheader "URL"
+        - columnheader "Events"
+        - columnheader "Status"
+        - columnheader "Last Delivered"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "No webhooks configured yet":
+        - cell "No webhooks configured yet":
+          - img
+          - paragraph: No webhooks configured yet
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/settings/api-keys","GET /api/v1/webhooks","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Entegrasyonlar"
+sub="Üçüncü taraf hizmetlerini bağlayın, API anahtarlarını yönetin ve webhook'ları yapılandırın"
+tabs=[]
+cols=["URL","Olaylar","Durum","Son Teslimat","İşlemler"]
+btns=["Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Erişim Talep Et","Webhook Ekle"]
+
+===== fr dir=ltr =====
+h="Intégrations"
+sub="Connectez des services tiers, gérez les clés API et configurez les webhooks"
+tabs=[]
+cols=["URL","Événements","Statut","Dernier envoi","Actions"]
+btns=["Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Demander l'accès","Ajouter un Webhook"]
+
+===== ar dir=rtl =====
+h="التكاملات"
+sub="ربط الخدمات الخارجية وإدارة مفاتيح API وإعداد Webhooks"
+tabs=[]
+cols=["الرابط","الأحداث","الحالة","آخر تسليم","الإجراءات"]
+btns=["طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","طلب الوصول","إضافة Webhook"]

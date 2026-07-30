@@ -11,6 +11,25 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
+| `settings-api-keys` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-audit` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | — |
+| `settings-automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-canned-responses` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `settings-data-retention` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | — | — | ✅ |
+| `settings-disposition-codes` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-hours` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-integrations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-notifications` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | ✅ |
+| `settings-organization` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-profile` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-roles` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `settings-security` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-sla` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ |
+| `settings-teams` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 
 ## Rota düzeyi baseline kanıtı
 
@@ -36,6 +55,25 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
+- **settings-api-keys**: `/settings/api-keys`
+- **settings-audit**: `/settings/audit`
+- **settings-automations**: `/settings/automations`
+- **settings-canned-responses**: `/settings/canned-responses`
+- **settings-compliance**: `/settings/compliance`
+- **settings-data-retention**: `/settings/data-retention`
+- **settings-disposition-codes**: `/settings/disposition-codes`
+- **settings-hours**: `/settings/hours`
+- **settings-integrations**: `/settings/integrations`
+- **settings-notifications**: `/settings/notifications`
+- **settings-organization**: `/settings/organization`
+- **settings-profile**: `/settings/profile`
+- **settings-roles**: `/settings/roles`
+- **settings-security**: `/settings/security`
+- **settings-sla**: `/settings/sla`
+- **settings-teams**: `/settings/teams`
+- **settings-templates**: `/settings/templates`
+- **settings-users**: `/settings/users`
+- **settings-webhooks**: `/settings/webhooks`
 
 ## N/A beyanları (gerekçeli)
 
@@ -43,3 +81,63 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `reports-sections` **@export**: Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).
+- `settings-api-keys` **@perf**: Grafik/ağır içerik yok (anahtar listesi + dialog).
+- `settings-api-keys` **@data**: Sayısal KPI yok (anahtar listesi).
+- `settings-api-keys` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-audit` **@perf**: Grafik/ağır içerik yok (log tablosu + detay dialog).
+- `settings-audit` **@data**: Sayısal KPI tile yok (log listesi).
+- `settings-audit` **@visual**: Tablo canlı log verisi (timestamp/UUID/IP) içerir → kararlı snapshot bölgesi yok.
+- `settings-automations` **@perf**: Grafik/ağır içerik yok (kural tablosu + SLA tablosu + dialog).
+- `settings-automations` **@data**: Sayısal KPI tile yok (SLA süreleri tablo verisi).
+- `settings-automations` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-canned-responses` **@perf**: Grafik/ağır içerik yok (hazır yanıt tablosu + dialog).
+- `settings-canned-responses` **@data**: Sayısal KPI yok (hazır yanıt listesi).
+- `settings-canned-responses` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-compliance` **@perf**: Grafik/ağır içerik yok (özet kart + uyumluluk tabloları).
+- `settings-compliance` **@data**: Sayısal KPI tile göstermiyor (retention gün değerleri config metni; tablolar).
+- `settings-compliance` **@export**: Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).
+- `settings-compliance` **@visual**: 3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.
+- `settings-data-retention` **@keyboard**: Diyalog/menü/sekme yok (spinbutton + switch + buton formu).
+- `settings-data-retention` **@perf**: Grafik/ağır içerik yok (saklama-süresi formu).
+- `settings-data-retention` **@data**: Sayısal KPI tile yok (gün config değerleri).
+- `settings-data-retention` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-disposition-codes` **@perf**: Grafik/ağır içerik yok (kod tablosu + dialog).
+- `settings-disposition-codes` **@data**: Sayısal KPI yok (kod listesi).
+- `settings-disposition-codes` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-hours` **@perf**: Grafik/ağır içerik yok (haftalık program formu).
+- `settings-hours` **@data**: Sayısal KPI yok (saat config değerleri).
+- `settings-hours` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-integrations` **@perf**: Grafik/ağır içerik yok (entegrasyon kartları + webhook tablosu + dialoglar).
+- `settings-integrations` **@data**: Sayısal KPI yok (kart/tablo listesi).
+- `settings-integrations` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-notifications` **@keyboard**: Diyalog/menü/sekme yok (uzun switch tercih formu).
+- `settings-notifications` **@perf**: Grafik/ağır içerik yok (tercih formu).
+- `settings-notifications` **@data**: Sayısal KPI yok (switch tercihleri).
+- `settings-notifications` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-notifications` **@visual**: Çok uzun tercih formu (onlarca switch, kategoriler) → tek kararlı snapshot bölgesi pratik değil.
+- `settings-organization` **@perf**: Grafik/ağır içerik yok (statik şirket-bilgisi formu).
+- `settings-organization` **@data**: Sayısal KPI göstermiyor (form alanları).
+- `settings-organization` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-profile` **@perf**: Grafik/ağır içerik yok (statik profil formu + oturum tablosu).
+- `settings-profile` **@data**: Sayısal KPI göstermiyor (form alanları + oturum listesi).
+- `settings-profile` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-roles` **@perf**: Grafik/ağır içerik yok (rol tablosu + create dialogu).
+- `settings-roles` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-roles` **@visual**: Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.
+- `settings-security` **@perf**: Grafik/ağır içerik yok (config formu + oturum/login tabloları + dialog).
+- `settings-security` **@data**: Sayısal KPI tile yok (policy config değerleri).
+- `settings-security` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-sla` **@perf**: Grafik/ağır içerik yok (politika tablosu + dialog).
+- `settings-sla` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-teams` **@perf**: Grafik/ağır içerik yok (ekip kartları + create dialogu).
+- `settings-teams` **@data**: Sayısal KPI tile yok (kart "N members" veri metni).
+- `settings-teams` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-templates` **@perf**: Grafik/ağır içerik yok (şablon tablosu + dialog).
+- `settings-templates` **@data**: Sayısal KPI yok (şablon listesi).
+- `settings-templates` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-users` **@perf**: Grafik/ağır içerik yok (üye tablosu + davet dialogu).
+- `settings-users` **@data**: Sayısal KPI göstermiyor (üye listesi; sayaç yok).
+- `settings-users` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
+- `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
+- `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.

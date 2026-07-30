@@ -1,0 +1,5 @@
+main non-create buttons: 0
+after click url=https://app.vomenta.com/settings/teams (before https://app.vomenta.com/settings/teams)
+menuitems: []
+dialog? 1
+TR buttons: ["Ekip Oluştur"]

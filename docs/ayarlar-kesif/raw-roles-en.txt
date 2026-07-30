@@ -1,0 +1,108 @@
+URL: https://app.vomenta.com/settings/roles
+HEADINGS: ["Role Management"]
+=== EN MAIN SNAPSHOT ===
+- main:
+  - heading "Role Management" [level=1]:
+    - img
+    - text: Role Management
+  - paragraph: Create and manage user roles with granular permissions
+  - button "Create Role":
+    - img
+    - text: Create Role
+  - text: Roles
+  - table:
+    - rowgroup:
+      - row "Name Description Permissions System Users Actions":
+        - columnheader "Name"
+        - columnheader "Description"
+        - columnheader "Permissions"
+        - columnheader "System"
+        - columnheader "Users"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "ADMIN Modified — 106 permissions Yes 2 Edit role Reset to defaults Delete role":
+        - cell "ADMIN Modified"
+        - cell "—"
+        - cell "106 permissions"
+        - cell "Yes"
+        - cell "2"
+        - cell "Edit role Reset to defaults Delete role":
+          - button "Edit role":
+            - img
+          - button "Reset to defaults":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+      - row "AGENT — 29 permissions Yes 4 Edit role Delete role":
+        - cell "AGENT"
+        - cell "—"
+        - cell "29 permissions"
+        - cell "Yes"
+        - cell "4"
+        - cell "Edit role Delete role":
+          - button "Edit role":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+      - row "MANAGER Modified — 74 permissions Yes 0 Edit role Reset to defaults Delete role":
+        - cell "MANAGER Modified"
+        - cell "—"
+        - cell "74 permissions"
+        - cell "Yes"
+        - cell "0"
+        - cell "Edit role Reset to defaults Delete role":
+          - button "Edit role":
+            - img
+          - button "Reset to defaults":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+      - row "OWNER Modified — 109 permissions Yes 0 Edit role Reset to defaults Delete role":
+        - cell "OWNER Modified"
+        - cell "—"
+        - cell "109 permissions"
+        - cell "Yes"
+        - cell "0"
+        - cell "Edit role Reset to defaults Delete role":
+          - button "Edit role":
+            - img
+          - button "Reset to defaults":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+      - row "SUPERVISOR Modified — 60 permissions Yes 0 Edit role Reset to defaults Delete role":
+        - cell "SUPERVISOR Modified"
+        - cell "—"
+        - cell "60 permissions"
+        - cell "Yes"
+        - cell "0"
+        - cell "Edit role Reset to defaults Delete role":
+          - button "Edit role":
+            - img
+          - button "Reset to defaults":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+      - row "VIEWER — 12 permissions Yes 0 Edit role Delete role":
+        - cell "VIEWER"
+        - cell "—"
+        - cell "12 permissions"
+        - cell "Yes"
+        - cell "0"
+        - cell "Edit role Delete role":
+          - button "Edit role":
+            - img
+          - button "Delete role" [disabled]:
+            - img
+
+BUTTONS: ["🇬🇧 English","Tuğçe TopuzAvailable","Search...⌘K","4","TT","Create Role"]
+OVERFLOW 768px: ok
+OVERFLOW 1024px: ok
+OVERFLOW 1280px: ok
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/roles/permissions/catalog
+GET https://api.vomenta.com/api/v1/roles
+GET https://api.vomenta.com/api/v1/roles/me/permissions
+
+=== BLOCKED WRITES ===

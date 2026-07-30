@@ -1,0 +1,57 @@
+
+===== en dir=ltr h="Compliance & Data Privacy" sub="Manage data retention, GDPR requests, and consent records" =====
+SECTIONS: ["Compliance & Data Privacy"]
+ACTION BTNS: ["Log Consent","Revoke","Revoke","Create Request"]
+LOG CONSENT DIALOG:
+- dialog "Log Consent Record":
+  - heading "Log Consent Record" [level=2]
+  - paragraph: Record a customer consent event for compliance tracking.
+  - text: Contact
+  - textbox "Contact ID"
+  - text: Channel
+  - combobox: Email
+  - text: Type
+  - combobox: Opt-in
+  - text: Source
+  - textbox "e.g. Web form, Phone call": manual
+  - button "Cancel"
+  - button "Log Consent" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+CREATE REQUEST DIALOG:
+- dialog "Create GDPR Request":
+  - heading "Create GDPR Request" [level=2]
+  - paragraph: Submit a new data subject request under GDPR regulations
+  - text: Contact
+  - textbox "Contact ID or email address"
+  - text: Request Type
+  - combobox: Access (Article 15)
+  - text: Execute Now
+  - radiogroup:
+    - radio "Execute immediately Export all stored data for contact …. The download will start automatically." [checked]:
+      - img
+    - text: Execute immediately Export all stored data for contact …. The download will start automatically.
+    - radio "Submit for admin review The request has been submitted and will be processed"
+    - text: Submit for admin review The request has been submitted and will be processed
+  - text: Notes (optional)
+  - textbox "Reason or additional details for this request..."
+  - button "Cancel"
+  - button "Export Data" [disabled]:
+    - img
+    - text: Export Data
+  - button "Close":
+    - img
+    - text: Close
+
+===== tr dir=ltr h="Uyumluluk ve Veri Gizliliği" sub="Veri saklama, KVKK/GDPR talepleri ve onay kayıtlarını yönetin" =====
+SECTIONS: ["Uyumluluk ve Veri Gizliliği"]
+ACTION BTNS: ["Onay Kaydet","İptal Et","İptal Et","Talep Oluştur"]
+
+===== fr dir=ltr h="Conformité et protection des données" sub="Gérez la rétention des données, les demandes RGPD et les consentements" =====
+SECTIONS: ["Conformité et protection des données"]
+ACTION BTNS: ["Révoquer","Révoquer"]
+
+===== ar dir=rtl h="الامتثال وخصوصية البيانات" sub="إدارة الاحتفاظ بالبيانات وطلبات GDPR وسجلات الموافقة" =====
+SECTIONS: ["الامتثال وخصوصية البيانات"]
+ACTION BTNS: ["تسجيل الموافقة","إلغاء","إلغاء","إنشاء طلب"]

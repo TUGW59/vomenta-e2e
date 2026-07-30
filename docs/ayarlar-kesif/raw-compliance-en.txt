@@ -1,0 +1,180 @@
+URL: https://app.vomenta.com/settings/compliance
+HEADINGS: ["Compliance & Data Privacy"]
+TABS: []
+=== EN MAIN SNAPSHOT ===
+- main:
+  - heading "Compliance & Data Privacy" [level=1]:
+    - img
+    - text: Compliance & Data Privacy
+  - paragraph: Manage data retention, GDPR requests, and consent records
+  - img
+  - text: Data Retention Configure how long different data types are stored
+  - paragraph: "Recordings: 90 days · CDR: 365 days · Chat logs: 365 days"
+  - paragraph: "Auto-Cleanup: No"
+  - link "Manage Retention":
+    - /url: /settings/data-retention
+    - text: Manage Retention
+    - img
+  - img
+  - text: GDPR Compliance Handle data subject requests and ensure regulatory compliance
+  - paragraph: Submit and track GDPR data subject requests (access, erasure, rectification) from the contacts detail page.
+  - img
+  - text: Audit Logs Recent compliance-related activity across your organization
+  - link "View More":
+    - /url: /settings/audit
+    - text: View More
+    - img
+  - table:
+    - rowgroup:
+      - row "Action Entity User Time":
+        - columnheader "Action"
+        - columnheader "Entity"
+        - columnheader "User"
+        - columnheader "Time"
+    - rowgroup:
+      - row "UPDATE SlaPolicy Tuğçe Topuz 6m ago":
+        - cell "UPDATE"
+        - cell "SlaPolicy"
+        - cell "Tuğçe Topuz"
+        - cell "6m ago"
+      - row "CREATE SlaPolicy Tuğçe Topuz 6m ago":
+        - cell "CREATE"
+        - cell "SlaPolicy"
+        - cell "Tuğçe Topuz"
+        - cell "6m ago"
+      - row "UPDATE User Tuğçe Topuz 12m ago":
+        - cell "UPDATE"
+        - cell "User"
+        - cell "Tuğçe Topuz"
+        - cell "12m ago"
+      - row "DELETE SenderIdRequest Tuğçe Topuz 2h ago":
+        - cell "DELETE"
+        - cell "SenderIdRequest"
+        - cell "Tuğçe Topuz"
+        - cell "2h ago"
+      - row "CREATE SenderIdRequest Tuğçe Topuz 2h ago":
+        - cell "CREATE"
+        - cell "SenderIdRequest"
+        - cell "Tuğçe Topuz"
+        - cell "2h ago"
+      - row "DELETE ScheduledReport Tuğçe Topuz 5h ago":
+        - cell "DELETE"
+        - cell "ScheduledReport"
+        - cell "Tuğçe Topuz"
+        - cell "5h ago"
+      - row "CREATE ScheduledReport Tuğçe Topuz 5h ago":
+        - cell "CREATE"
+        - cell "ScheduledReport"
+        - cell "Tuğçe Topuz"
+        - cell "5h ago"
+      - row "DELETE ScheduledReport Tuğçe Topuz 5h ago":
+        - cell "DELETE"
+        - cell "ScheduledReport"
+        - cell "Tuğçe Topuz"
+        - cell "5h ago"
+      - row "CREATE ScheduledReport Tuğçe Topuz 5h ago":
+        - cell "CREATE"
+        - cell "ScheduledReport"
+        - cell "Tuğçe Topuz"
+        - cell "5h ago"
+      - row "CREATE ScheduledReport Tuğçe Topuz 5h ago":
+        - cell "CREATE"
+        - cell "ScheduledReport"
+        - cell "Tuğçe Topuz"
+        - cell "5h ago"
+  - text: Consent Records Track and manage customer consent across all communication channels
+  - button "Log Consent":
+    - img
+    - text: Log Consent
+  - table:
+    - rowgroup:
+      - row "Channel Type Source Date":
+        - columnheader "Channel"
+        - columnheader "Type"
+        - columnheader "Source"
+        - columnheader "Date"
+        - columnheader
+    - rowgroup:
+      - row "SMS Interaction Log outbound_sms Jun 23, 2026, 03:52 PM Revoke":
+        - cell "SMS"
+        - cell "Interaction Log"
+        - cell "outbound_sms"
+        - cell "Jun 23, 2026, 03:52 PM"
+        - cell "Revoke":
+          - button "Revoke":
+            - img
+            - text: Revoke
+      - row "SMS Interaction Log outbound_sms Jun 4, 2026, 08:06 AM Revoke":
+        - cell "SMS"
+        - cell "Interaction Log"
+        - cell "outbound_sms"
+        - cell "Jun 4, 2026, 08:06 AM"
+        - cell "Revoke":
+          - button "Revoke":
+            - img
+            - text: Revoke
+  - text: GDPR Requests Track data subject access, erasure, and rectification requests
+  - button "Create Request":
+    - img
+    - text: Create Request
+  - table:
+    - rowgroup:
+      - row "Request Type Status Contact Created Actions":
+        - columnheader "Request Type"
+        - columnheader "Status"
+        - columnheader "Contact"
+        - columnheader "Created"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "RECTIFY Completed 4856558d-418b-4b3e-8ddc-57933b02bc4a Jun 3, 2026, 12:26 PM":
+        - cell "RECTIFY"
+        - cell "Completed"
+        - cell "4856558d-418b-4b3e-8ddc-57933b02bc4a"
+        - cell "Jun 3, 2026, 12:26 PM"
+        - cell
+      - row "RECTIFY Completed 4856558d-418b-4b3e-8ddc-57933b02bc4a Jun 3, 2026, 12:26 PM":
+        - cell "RECTIFY"
+        - cell "Completed"
+        - cell "4856558d-418b-4b3e-8ddc-57933b02bc4a"
+        - cell "Jun 3, 2026, 12:26 PM"
+        - cell
+      - row "EXPORT Completed 5750a07c-4f5f-4464-ac81-d4fc79ae7d90 Jun 3, 2026, 06:10 AM":
+        - cell "EXPORT"
+        - cell "Completed"
+        - cell "5750a07c-4f5f-4464-ac81-d4fc79ae7d90"
+        - cell "Jun 3, 2026, 06:10 AM"
+        - cell
+      - row "EXPORT Completed 5750a07c-4f5f-4464-ac81-d4fc79ae7d90 Jun 3, 2026, 06:07 AM":
+        - cell "EXPORT"
+        - cell "Completed"
+        - cell "5750a07c-4f5f-4464-ac81-d4fc79ae7d90"
+        - cell "Jun 3, 2026, 06:07 AM"
+        - cell
+
+BUTTONS: ["🇬🇧 English","Tuğçe TopuzAvailable","Search...⌘K","4","TT","Log Consent","Revoke","Revoke","Create Request"]
+OVERFLOW 768px: ok
+OVERFLOW 1024px: ok
+OVERFLOW 1280px: ok
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/compliance/consent?page=1&limit=50
+GET https://api.vomenta.com/api/v1/compliance/gdpr/requests?page=1&limit=50
+GET https://api.vomenta.com/api/v1/compliance/data-retention
+GET https://api.vomenta.com/api/v1/compliance/audit-logs?page=1&limit=10
+ALL API (ilk 20):
+  GET https://api.vomenta.com/api/v1/modules/active
+  GET https://api.vomenta.com/api/v1/modules/catalog
+  GET https://api.vomenta.com/api/v1/notifications/unread-count
+  GET https://api.vomenta.com/api/v1/notifications?page=1
+  GET https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D
+  GET https://api.vomenta.com/api/v1/voice/calls/live
+  GET https://api.vomenta.com/api/v1/auth/me
+  GET https://api.vomenta.com/api/v1/compliance/consent?page=1&limit=50
+  GET https://api.vomenta.com/api/v1/compliance/gdpr/requests?page=1&limit=50
+  GET https://api.vomenta.com/api/v1/compliance/data-retention
+  GET https://api.vomenta.com/api/v1/compliance/audit-logs?page=1&limit=10
+  GET https://api.vomenta.com/api/v1/roles/me/permissions
+  GET https://api.vomenta.com/api/v1/settings/organization
+  GET https://api.vomenta.com/api/v1/onboarding/progress
+
+=== BLOCKED WRITES ===

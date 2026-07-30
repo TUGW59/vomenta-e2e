@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 406
-- **Test dosyası:** 33
-- **Etiketler:** `@a11y` 15 · `@clean` 4 · `@critical` 45 · `@data` 1 · `@deeplink` 3 · `@errorpath` 3 · `@i18n` 12 · `@keyboard` 2 · `@known-bug` 30 · `@layout` 9 · `@perf` 1 · `@public` 2 · `@regression` 228 · `@smoke` 39 · `@visual` 3
+- **Test edilen senaryo:** 706
+- **Test dosyası:** 52
+- **Etiketler:** `@a11y` 35 · `@clean` 23 · `@critical` 62 · `@data` 3 · `@deeplink` 22 · `@errorpath` 23 · `@export` 1 · `@i18n` 103 · `@keyboard` 20 · `@known-bug` 47 · `@layout` 28 · `@perf` 1 · `@public` 2 · `@regression` 266 · `@smoke` 59 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -373,6 +373,363 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Search butonu komut paletini açıyor
 - komut paleti klavye kısayolu (⌘K / Ctrl+K) ile açılıyor
 - arama kutusuna yazılabiliyor ve Escape ile kapanıyor
+
+### `settings-api-keys.authed.spec.js`
+
+- sayfa başlığı + Create Key + boş-durum ile açılıyor  `@smoke`
+- L1 tıklama OK: dialog açılıyor (Key name/Permissions + Create Key disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Create/Generate çevrili  `@i18n`
+- Create Key dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- api-keys ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Create Key dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Create Key dialogu görünümü değişmedi  `@visual`
+
+### `settings-audit.authed.spec.js`
+
+- sayfa başlığı + Export + tablo ile açılıyor  `@smoke`
+- tablo kolonları + en az bir log satırı görünüyor  `@critical`
+- L1 tıklama OK: "View" → "Change details" dialogu açılıyor  `@regression`
+- Export tıklanınca audit-log CSV indiriliyor  `@export`
+- [en] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + Export çevrili  `@i18n`
+- "Full Export" butonu Türkçede çevrili olmalı (şu an İngilizce)  `@i18n` `@known-bug`
+- View dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- audit-logs ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- View dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/audit doğrudan açılınca log yükleniyor (login'e düşmüyor)  `@deeplink`
+
+### `settings-automations.authed.spec.js`
+
+- sayfa başlığı + 2 sekme + New Rule ile açılıyor  `@smoke`
+- Rules sekmesi boş-durum, SLA Policies sekmesi tabloyu gösteriyor  `@critical`
+- L1: sekmeler tıklanınca aria-selected=true  `@regression`
+- L1: New Rule dialogu açılıyor (Rule Name + Save Rule disabled)  `@regression`
+- [en] başlık + yön + alt başlık + sekmeler + New Rule çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + sekmeler + New Rule çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + sekmeler + New Rule çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + sekmeler + New Rule çevrili  `@i18n`
+- New Rule dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ve New Rule dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- otomasyon ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- New Rule dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/automations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Rules boş-durumu görünümü değişmedi  `@visual`
+
+### `settings-canned-responses.authed.spec.js`
+
+- sayfa başlığı + New canned response + tablo/boş-durum ile açılıyor  `@smoke`
+- tablo kolonları görünüyor  `@critical`
+- L1 tıklama OK: dialog açılıyor (Title/Shortcode + Create disabled)  `@regression`
+- [en] başlık + yön + alt başlık + kolonlar + New çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + New çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + New çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + New çevrili  `@i18n`
+- Create dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- canned ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Create dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/canned-responses doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+- Create dialogu görünümü değişmedi  `@visual`
+
+### `settings-compliance.authed.spec.js`
+
+- sayfa başlığı + tüm bölümler render ediliyor  `@smoke`
+- bölüm eylem butonları görünüyor (Log Consent / Create Request)  `@critical`
+- L3: "Manage Retention" → /settings/data-retention sayfasını yüklüyor  `@regression`
+- L3: "View More" → /settings/audit sayfasını yüklüyor  `@regression`
+- L1: Log Consent dialogu açılıyor (alanlar + Log Consent disabled)  `@regression`
+- L1: Create Request dialogu açılıyor (alanlar + Export Data disabled)  `@regression`
+- L3 (kalıcı kayıt) N/A: prod salt-okunur — staging lane'ine bırakıldı  `@regression`
+- [en] başlık + yön + alt başlık + eylem butonları çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + eylem butonları çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + eylem butonları çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + eylem butonları çevrili  `@i18n`
+- Log Consent dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ve Log Consent dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- onay listesi ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Log Consent dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/compliance doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+
+### `settings-data-retention.authed.spec.js`
+
+- sayfa başlığı + saklama süreleri + Save changes ile açılıyor  `@smoke`
+- 5 saklama-süresi spinbutton'u değerleriyle görünüyor + Run cleanup mevcut  `@critical`
+- L1: Save changes + Run cleanup now + Automatic Cleanup switch mevcut (tıklanmıyor)  `@regression`
+- [en] başlık + yön + alt başlık + Save changes çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Save changes çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Save changes çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Save changes çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- retention ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- /settings/data-retention doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
+- saklama-süresi formu görünümü değişmedi  `@visual`
+
+### `settings-disposition-codes.authed.spec.js`
+
+- sayfa başlığı + Add Code + tablo ile açılıyor  `@smoke`
+- tablo kolonları + bilinen kodlar (SALE/NO_ANSWER) görünüyor  `@critical`
+- L1 tıklama OK: dialog açılıyor (Code/Label alanları + Create)  `@regression`
+- [en] başlık + yön + alt başlık + kolonlar + Add çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + Add çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + Add çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + Add çevrili  `@i18n`
+- Add Code dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- kod ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Add Code dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/disposition-codes doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+- Add Code dialogu görünümü değişmedi  `@visual`
+
+### `settings-hours.authed.spec.js`
+
+- sayfa başlığı + haftalık program + Save changes ile açılıyor  `@smoke`
+- 7 günlük Open switch'i var; Pzt-Cum açık, Cmt/Paz kapalı  `@critical`
+- Holiday Calendar bölümü + Add (boşken disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Save/Add çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Save/Add çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Save/Add çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Save/Add çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- business-hours ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Timezone combobox açılıp Escape ile kapanıyor  `@keyboard`
+- /settings/hours doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
+- haftalık program görünümü değişmedi  `@visual`
+
+### `settings-integrations.authed.spec.js`
+
+- sayfa başlığı + entegrasyon kartları + Webhook bölümü ile açılıyor  `@smoke`
+- Webhook tablosu kolonları + boş-durum  `@critical`
+- L3: "Manage API Keys" → /settings/api-keys yüklüyor  `@regression`
+- L1: Request Access "Request … Integration" dialogunu açıyor (Submit tıklanmaz)  `@regression`
+- L1: Add Webhook dialogu açılıyor (URL/Secret/Events)  `@regression`
+- [en] başlık + yön + alt başlık + Request Access + Add Webhook çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Request Access + Add Webhook çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Request Access + Add Webhook çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Request Access + Add Webhook çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- webhooks ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Add Webhook dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/integrations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Request Access dialogu görünümü değişmedi  `@visual`
+
+### `settings-notifications.authed.spec.js`
+
+- sayfa başlığı + Email Category Preferences + Save ile açılıyor  `@smoke`
+- kategori switch'leri + Delivery Channels bölümü görünüyor  `@critical`
+- L1: Save preferences + Enable push + kategori switch'leri mevcut (tıklanmıyor)  `@regression`
+- [en] başlık + yön + alt başlık + Save + Enable push çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Save + Enable push çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Save + Enable push çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Save + Enable push çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- tercihler ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- /settings/notifications doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
+
+### `settings-organization.authed.spec.js`
+
+- sayfa "Organization" başlığı + Company Information formu ile açılıyor  `@smoke`
+- form alanları render ediliyor (Company name/Website/Domain + Save)  `@critical`
+- L1 tıklama OK: Save changes formda değişiklik olunca aktifleşiyor (dirty)  `@regression`
+- L2 arka plan OK: sayfa açılınca kuruluş ayarları çekiliyor  `@regression`
+- L1 tıklama OK: Currency açılınca para birimi seçenekleri listeleniyor  `@regression`
+- [en] başlık + yön + alt başlık + bölüm + Save çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + bölüm + Save çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + bölüm + Save çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + bölüm + Save çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- kuruluş ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Currency popover Escape ile kapanıyor  `@keyboard`
+- /settings/organization doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
+- Company Information formu görünümü değişmedi  `@visual`
+
+### `settings-profile.authed.spec.js`
+
+- sayfa "Profile" başlığı + 4 alt sekme ile açılıyor  `@smoke`
+- User menu → Profile navigasyonu sayfayı yüklüyor  `@smoke`
+- Profile sekmesi kişisel-bilgi formunu render ediyor  `@critical`
+- L1 tıklama OK: her sekme tıklanınca aria-selected=true  `@regression`
+- L3 görev OK: her sekme paneli KENDİ içerik imzasını gösteriyor  `@regression`
+- L2 arka plan OK: Sessions sekmesi oturum listesini çekiyor  `@regression`
+- L1 tıklama OK: Timezone açılınca seçenekler listeleniyor (UTC dahil)  `@regression`
+- L1 tıklama OK: Language açılınca çok-dilli seçenekler listeleniyor  `@regression`
+- L3 görev OK: link /settings/notifications sayfasını yüklüyor  `@regression`
+- Save/Password/2FA/Revoke kontrolleri MEVCUT ama tıklanmıyor (yan-etki)
+- [en] başlık + yön + sekmeler + panel imzaları çevrili  `@i18n`
+- [tr] başlık + yön + sekmeler + panel imzaları çevrili  `@i18n`
+- [fr] başlık + yön + sekmeler + panel imzaları çevrili  `@i18n`
+- [ar] başlık + yön + sekmeler + panel imzaları çevrili  `@i18n`
+- sayfada ve her alt sekmede ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- profil ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- oturum ucu 500 dönerse Sessions sekmesi zarifçe çöküyor (tablo yok)  `@errorpath`
+- sekmeler ok tuşlarıyla gezilebiliyor (Radix roving tabindex)  `@keyboard`
+- Language popover Escape ile kapanıyor  `@keyboard`
+- /settings/profile doğrudan açılınca profil yükleniyor (login'e düşmüyor)  `@deeplink`
+- Profile sekmesi kişisel-bilgi kartı görünümü değişmedi  `@visual`
+
+### `settings-roles.authed.spec.js`
+
+- sayfa "Role Management" başlığı + rol tablosu ile açılıyor  `@smoke`
+- tablo kolonları + sistem rolleri (ADMIN/AGENT/OWNER…) görünüyor  `@critical`
+- L1: sistem rolünde Edit/Reset var, Delete DISABLED (silinemez)  `@regression`
+- L1 tıklama OK: dialog açılıyor (Ad/Açıklama + izin kategorileri + Save)  `@regression`
+- UI rol satırı sayısı, /roles yanıtındaki rol sayısıyla eşleşiyor  `@data`
+- [en] başlık + yön + alt başlık + kolonlar + Create + dialog çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + Create + dialog çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + Create + dialog çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + Create + dialog çevrili  `@i18n`
+- Create Role dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ve Create Role dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- roller ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Create Role dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/roles doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+
+### `settings-security.authed.spec.js`
+
+- sayfa başlığı + Password Policies + Save (disabled) ile açılıyor  `@smoke`
+- bölümler: Session Management / IP Whitelist / API Keys görünüyor  `@critical`
+- L3: "Open Contacts" → /contacts; "Manage API Keys" → /settings/api-keys  `@regression`
+- L1: Add IP dialogu açılıyor (IP/CIDR + Add to Whitelist disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Save Policy + Add IP çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Save Policy + Add IP çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Save Policy + Add IP çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Save Policy + Add IP çevrili  `@i18n`
+- Add IP dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali olmamalı (şu an: label/critical spinbutton)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- security ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Add IP dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/security doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Add IP dialogu görünümü değişmedi  `@visual`
+
+### `settings-sla.authed.spec.js`
+
+- sayfa "SLA Policies" başlığı + New Policy + tablo ile açılıyor  `@smoke`
+- tablo beklenen kolonları + en az bir politika satırı  `@critical`
+- /sla ucu çağrılıyor ve politika satır(lar)ı render ediliyor  `@data`
+- L1 tıklama OK: dialog açılıyor (Policy name + Create policy disabled)  `@regression`
+- [en] başlık + yön + alt başlık + kolonlar + New Policy çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + New Policy çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + New Policy çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + New Policy çevrili  `@i18n`
+- New Policy dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- New Policy dialogunda ciddi a11y ihlali olmamalı  `@a11y` `@known-bug`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- sla ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- New Policy dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/sla doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+- New Policy dialogu görünümü değişmedi  `@visual`
+
+### `settings-teams.authed.spec.js`
+
+- sayfa "Teams" başlığı + Create Team + ekip kartı ile açılıyor  `@smoke`
+- en az bir ekip kartı üye sayısıyla görünüyor  `@critical`
+- L1 tıklama OK: dialog açılıyor (Ad/Açıklama + Create disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Create butonu çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Create butonu çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Create butonu çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Create butonu çevrili  `@i18n`
+- Create Team dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ve Create Team dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- ekip listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Create Team dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/teams doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+- Create Team dialogu görünümü değişmedi  `@visual`
+
+### `settings-templates.authed.spec.js`
+
+- sayfa başlığı + üst sekmeler + New Template ile açılıyor  `@smoke`
+- şablon tablosu kolonları + boş-durum  `@critical`
+- L1: üst sekmeler tıklanınca aria-selected=true  `@regression`
+- L1: New Template dialogu açılıyor (Name + Create disabled)  `@regression`
+- [en] başlık + yön + alt başlık + üst sekmeler + New Template çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + üst sekmeler + New Template çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + üst sekmeler + New Template çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + üst sekmeler + New Template çevrili  `@i18n`
+- içerik alanı placeholder'ı ham anahtar "settings.templatesPage.contentPlaceholder" GÖSTERMEMELİ  `@i18n` `@known-bug`
+- New Template dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- şablon ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- New Template dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/templates doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- New Template dialogu görünümü değişmedi  `@visual`
+
+### `settings-users.authed.spec.js`
+
+- sayfa "Users & Roles" başlığı + üye tablosu ile açılıyor  `@smoke`
+- tablo beklenen kolonları gösteriyor + en az bir üye satırı  `@critical`
+- L1+L3 görev OK: ada göre arama eşleşen üyeyi süzüyor  `@regression`
+- L1 tıklama OK: Invite User dialogu açılıyor (Email/Role/Team + Send disabled)  `@regression`
+- L3 (kalıcı davet) N/A: prod salt-okunur — staging mutation lane'ine bırakıldı  `@regression`
+- [en] başlık + yön + alt başlık + kolonlar + Invite + dialog çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + kolonlar + Invite + dialog çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + kolonlar + Invite + dialog çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + kolonlar + Invite + dialog çevrili  `@i18n`
+- davet dialogundaki kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ve davet dialogunda ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- kullanıcı listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- davet dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/users doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
+- davet dialogu görünümü değişmedi  `@visual`
+
+### `settings-webhooks.authed.spec.js`
+
+- sayfa başlığı + Add Webhook + boş-durum ile açılıyor  `@smoke`
+- L1 tıklama OK: dialog açılıyor (URL + Events + Create webhook disabled)  `@regression`
+- [en] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık + Add Webhook çevrili  `@i18n`
+- Add Webhook dialogu kapat butonu Türkçede "Kapat" olmalı (şu an "Close")  `@i18n` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- webhooks ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- Add Webhook dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
+- /settings/webhooks doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+- Add Webhook dialogu görünümü değişmedi  `@visual`
 
 ### `settings.authed.spec.js`
 

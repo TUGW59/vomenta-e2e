@@ -1,0 +1,56 @@
+row count: 1
+row0 text: "No automation rules configured"
+after New Rule: url=https://app.vomenta.com/settings/automations dialog=1
+DIALOG: - dialog "New Automation Rule":
+  - heading "New Automation Rule" [level=2]
+  - text: Rule Name
+  - textbox "e.g. Auto-assign urgent tickets"
+  - text: Description
+  - textbox "What does this rule do?"
+  - text: Trigger
+  - combobox: On New Conversation
+  - text: Conditions
+  - combobox: AND
+  - button "Add":
+    - img
+    - text: Add
+  - text: Actions
+  - button "Add":
+    - img
+    - text: Add
+  - combobox: Add Tag
+  - button:
+    - img
+  - textbox "Tag name"
+  - button "Cancel"
+  - button "Save Rule" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+SLA TAB snapshot: - tabpanel "SLA Policies":
+  - table:
+    - rowgroup:
+      - row "Policy Name Priority First Response Resolution Next Response Channels Active":
+        - columnheader "Policy Name"
+        - columnheader "Priority"
+        - columnheader "First Response"
+        - columnheader "Resolution"
+        - columnheader "Next Response"
+        - columnheader "Channels"
+        - columnheader "Active"
+        - columnheader
+    - rowgroup:
+      - row "test sla High 15m 240m 5m VOICE EMAIL":
+        - cell "test sla":
+          - img
+          - text: test sla
+        - cell "High"
+        - cell "15m"
+        - cell "240m"
+        - cell "5m"
+        - cell "VOICE EMAIL"
+        - cell:
+          - switch
+        - cell:
+          - button:
+            - img

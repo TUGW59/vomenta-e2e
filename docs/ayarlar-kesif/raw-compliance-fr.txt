@@ -1,0 +1,14 @@
+BTNS: ["🇫🇷 Français","Tuğçe TopuzDisponible","Rechercher...⌘K","4","TT","Enregistrer un consentement","Révoquer","Révoquer","Créer une demande"]
+SEC LINES:
+Gérez la rétention des données, les demandes RGPD et les consentements
+Gérer la rétention
+Conformité RGPD
+Traitez les demandes des personnes concernées et assurez la conformité réglementaire
+Soumettez et suivez les demandes RGPD (accès, effacement, rectification) depuis la fiche contact.
+Journaux d'audit
+Registres de consentement
+Suivez et gérez le consentement client sur tous les canaux de communication
+Enregistrer un consentement
+Demandes RGPD
+Suivez les demandes d'accès, d'effacement et de rectification
+Créer une demande

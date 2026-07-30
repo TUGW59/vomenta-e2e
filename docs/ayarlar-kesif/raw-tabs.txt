@@ -1,0 +1,2 @@
+
+tr: dir=ltr tabs=["Profil","Güvenlik","Oturumlar","Bildirimler"]

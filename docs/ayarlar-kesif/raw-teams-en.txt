@@ -1,0 +1,37 @@
+URL: https://app.vomenta.com/settings/teams
+HEADINGS: ["Teams"]
+=== EN MAIN SNAPSHOT ===
+- main:
+  - heading "Teams" [level=1]
+  - paragraph: Organize your agents into teams for routing and management
+  - button "Create Team":
+    - img
+    - text: Create Team
+  - img
+  - text: Sales Team 2 members
+  - button:
+    - img
+  - paragraph
+
+BUTTONS: ["🇬🇧 English","Tuğçe TopuzAvailable","Search...⌘K","4","TT","Create Team"]
+
+=== ADD DIALOG ===
+- dialog "Create Team":
+  - heading "Create Team" [level=2]
+  - paragraph: Add a new team to organize your agents.
+  - text: Team name
+  - textbox "e.g., Premium Support"
+  - text: Description
+  - textbox "What does this team handle?"
+  - button "Cancel"
+  - button "Create" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+OVERFLOW 768px: ok
+OVERFLOW 1024px: ok
+OVERFLOW 1280px: ok
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/teams
+BLOCKED:

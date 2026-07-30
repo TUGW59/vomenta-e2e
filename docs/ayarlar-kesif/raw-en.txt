@@ -1,0 +1,152 @@
+=== /settings açılıyor (EN) ===
+URL: https://app.vomenta.com/settings
+TABS: ["Organization","Users","Billing & Usage","Security","API Keys","Modules"]
+HEADINGS: ["Settings"]
+
+=== TAB 0: Organization (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "Organization":
+  - paragraph: Manage your organization settings on the dedicated page.
+  - link "Go to Organization Settings":
+    - /url: /settings/organization
+    - text: Go to Organization Settings
+    - img
+
+=== TAB 1: Users (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "Users":
+  - img
+  - text: Team Members Manage who has access to your workspace
+  - link "Invite user":
+    - /url: /settings/users?invite=1
+    - img
+    - text: Invite user
+  - text: IU
+  - paragraph: Invited User
+  - paragraph
+  - text: AGENT TT
+  - paragraph: Tuğçe Topuz
+  - paragraph
+  - text: ADMIN PT
+  - paragraph: Product Team
+  - paragraph
+  - text: AGENT IU
+  - paragraph: Invited User
+  - paragraph
+  - text: AGENT AA
+  - paragraph: Account Agent
+  - paragraph
+  - text: AGENT IU
+  - paragraph: Invited User
+  - paragraph
+  - text: ADMIN AU
+  - paragraph: Arda Uğurlu
+  - paragraph
+  - text: TENANT_OWNER
+
+=== TAB 2: Billing & Usage (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "Billing & Usage":
+  - img
+  - text: Current Plan Manage your subscription and billing
+  - paragraph: Starter
+  - paragraph: 1 agent · Billed monthly
+  - paragraph: $29.00
+  - paragraph: /month
+  - link "Change plan":
+    - /url: /settings/billing
+  - link "Billing history":
+    - /url: /settings/billing
+
+=== TAB 3: Security (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "Security":
+  - img
+  - text: Security Settings Configure security policies for your organization Two-factor authentication Disabled Session timeout 60 min IP allowlisting Disabled
+  - link "Go to Security Settings":
+    - /url: /settings/security
+
+=== TAB 4: API Keys (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "API Keys":
+  - img
+  - text: API Keys Manage your API keys for integrations
+  - link "Create key":
+    - /url: /settings/api-keys
+    - img
+    - text: Create key
+
+=== TAB 5: Modules (aria-selected=true) — URL: https://app.vomenta.com/settings ===
+- tabpanel "Modules":
+  - img
+  - text: Modules Manage add-on modules for your contact center. Activate or deactivate capabilities as needed.
+  - paragraph: Manage add-on modules for your contact center. Activate or deactivate capabilities as needed.
+  - link "Manage Modules":
+    - /url: /settings/billing/marketplace
+    - img
+    - text: Manage Modules
+
+=== API CALLS (settings gezinme sırasında) ===
+GET https://api.vomenta.com/api/v1/modules/active
+GET https://api.vomenta.com/api/v1/modules/catalog
+GET https://api.vomenta.com/api/v1/notifications/unread-count
+GET https://api.vomenta.com/api/v1/notifications?page=1
+GET https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D
+GET https://api.vomenta.com/api/v1/voice/calls/live
+GET https://api.vomenta.com/api/v1/auth/me
+GET https://api.vomenta.com/api/v1/users?limit=10
+GET https://api.vomenta.com/api/v1/settings/api-keys
+GET https://api.vomenta.com/api/v1/billing/subscription
+GET https://api.vomenta.com/api/v1/settings/security
+GET https://api.vomenta.com/api/v1/roles/me/permissions
+GET https://api.vomenta.com/api/v1/settings/organization
+GET https://api.vomenta.com/api/v1/onboarding/progress
+
+=== BLOCKED WRITES ===
+
+=== User menu / Profile keşfi ===
+USER MENU ITEMS: [" Profile"," Settings"," Log out"]
+PROFILE URL: https://app.vomenta.com/settings/profile
+PROFILE HEADINGS: ["Profile"]
+- main:
+  - heading "Profile" [level=1]
+  - paragraph: Manage your personal information
+  - tablist:
+    - tab "Profile" [selected]
+    - tab "Security"
+    - tab "Sessions"
+    - tab "Notifications"
+  - tabpanel "Profile":
+    - img
+    - text: Personal Information Update your name, phone, and avatar. Changes are visible across the platform. TT Profile photo
+    - textbox "Avatar URL"
+    - button "Upload image":
+      - img
+    - paragraph: Enter a URL or upload an image (base64)
+    - text: First name
+    - textbox "First name":
+      - /placeholder: Enter first name
+      - text: Tuğçe
+    - text: Last name
+    - textbox "Last name":
+      - /placeholder: Enter last name
+      - text: Topuz
+    - text: Email
+    - textbox "Email" [disabled]: tugw59@gmail.com
+    - paragraph: Email cannot be changed. Contact support if needed.
+    - text: Phone
+    - textbox "Phone":
+      - /placeholder: +1 555 000 0000 (E.164 format)
+    - text: Timezone
+    - combobox: UTC
+    - text: Language
+    - combobox: Turkish (Türkçe)
+    - text: Role
+    - paragraph: admin
+    - button "Save changes"
+    - img
+    - text: Phone Configuration Choose how you receive and make calls on the platform.
+    - radiogroup:
+      - radio "Browser (WebRTC) Use the built-in softphone in your browser — no extra setup needed." [checked]:
+        - img
+      - text: Browser (WebRTC)
+      - paragraph: Use the built-in softphone in your browser — no extra setup needed.
+      - radio "External SIP Phone Route calls to a desk phone or SIP softphone app registered to the platform."
+      - text: External SIP Phone
+      - paragraph: Route calls to a desk phone or SIP softphone app registered to the platform.
+    - button "Save phone settings"

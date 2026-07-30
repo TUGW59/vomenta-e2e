@@ -1,0 +1,71 @@
+URL: https://app.vomenta.com/settings/sla
+
+===== en dir=ltr =====
+h="SLA Policies"
+sub="Define response and resolution time targets"
+tabs=[]
+cols=["Name","First Response","Resolution","Next response (min, optional)","Priority","Channels","Active",""]
+btns=["New Policy"]
+MAIN SNAPSHOT:
+- main:
+  - heading "SLA Policies" [level=1]
+  - paragraph: Define response and resolution time targets
+  - button "New Policy":
+    - img
+    - text: New Policy
+  - text: Total Policies
+  - img
+  - text: 1 Active Policies
+  - img
+  - text: 0 (1 inactive)
+  - table:
+    - rowgroup:
+      - row "Name First Response Resolution Next response (min, optional) Priority Channels Active":
+        - columnheader "Name"
+        - columnheader "First Response"
+        - columnheader "Resolution"
+        - columnheader "Next response (min, optional)"
+        - columnheader "Priority"
+        - columnheader "Channels"
+        - columnheader "Active"
+        - columnheader
+    - rowgroup:
+      - row "test sla 15m 4h 5m HIGH VOICE EMAIL Inactive":
+        - cell "test sla":
+          - img
+          - text: test sla
+        - cell "15m"
+        - cell "4h"
+        - cell "5m"
+        - cell "HIGH"
+        - cell "VOICE EMAIL"
+        - cell "Inactive"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="SLA Politikaları"
+sub="Yanıt ve çözüm süresi hedeflerini tanımlayın"
+tabs=[]
+cols=["Ad","İlk yanıt","Çözüm","Sonraki yanıt (dk, isteğe bağlı)","Öncelik","Kanallar","Aktif",""]
+btns=["Yeni Politika"]
+
+===== ar dir=rtl =====
+h="سياسات اتفاقية الخدمة"
+sub="حدد أهداف وقت الاستجابة والحل"
+tabs=[]
+cols=["الاسم","أول استجابة","الحل","الاستجابة التالية (دقيقة، اختياري)","الأولوية","القنوات","نشط",""]
+btns=["سياسة جديدة"]
+
+===== fr dir=ltr =====
+h="Politiques SLA"
+sub="Définissez les objectifs de temps de réponse et de résolution"
+tabs=[]
+cols=["Nom","Première réponse","Résolution","Réponse suivante (min, optionnel)","Priorité","Canaux","Actif",""]
+btns=["Nouvelle politique"]

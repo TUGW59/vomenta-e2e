@@ -1,0 +1,73 @@
+dialog=1
+- dialog "Add webhook":
+  - heading "Add webhook" [level=2]
+  - paragraph: Configure a webhook endpoint to receive events. Your endpoint must accept POST requests.
+  - text: URL
+  - textbox "https://example.com/webhook"
+  - text: Secret (min 16 characters)
+  - textbox "Your webhook signing secret"
+  - paragraph: Used to verify webhook authenticity via HMAC signature
+  - text: Events
+  - checkbox
+  - text: call.started
+  - checkbox
+  - text: call.answered
+  - checkbox
+  - text: call.ended
+  - checkbox
+  - text: call.transferred
+  - checkbox
+  - text: call.supervisor_action
+  - checkbox
+  - text: callback.scheduled
+  - checkbox
+  - text: conversation.created
+  - checkbox
+  - text: conversation.resolved
+  - checkbox
+  - text: message.sent
+  - checkbox
+  - text: message.received
+  - checkbox
+  - text: ticket.created
+  - checkbox
+  - text: ticket.updated
+  - checkbox
+  - text: ticket.resolved
+  - checkbox
+  - text: ticket.merged
+  - checkbox
+  - text: agent.status.changed
+  - checkbox
+  - text: contact.created
+  - checkbox
+  - text: contact.updated
+  - checkbox
+  - text: contact.deleted
+  - checkbox
+  - text: campaign.started
+  - checkbox
+  - text: campaign.completed
+  - checkbox
+  - text: sla.breach
+  - checkbox
+  - text: billing.payment.succeeded
+  - checkbox
+  - text: billing.payment.failed
+  - checkbox
+  - text: billing.invoice.finalized
+  - checkbox
+  - text: billing.credit.added
+  - checkbox
+  - text: billing.credit.low
+  - checkbox
+  - text: billing.dispute.created
+  - checkbox
+  - text: billing.charge.refunded
+  - checkbox
+  - text: billing.payment.action_required
+  - button "Cancel"
+  - button "Create webhook" [disabled]
+  - button "Close":
+    - img
+    - text: Close

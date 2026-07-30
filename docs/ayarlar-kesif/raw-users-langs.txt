@@ -1,0 +1,54 @@
+
+===== en dir=ltr h="Users & Roles" sub="Manage who has access to your workspace" cols=[] =====
+DIALOG:
+- dialog "Invite User":
+  - heading "Invite User" [level=2]
+  - paragraph: Send an invitation to join your workspace.
+  - text: Email address
+  - textbox "Email address":
+    - /placeholder: colleague@company.com
+  - text: Role
+  - combobox: Agent
+  - text: Team
+  - combobox: None
+  - button "Cancel"
+  - button "Send Invitation" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+
+===== tr dir=ltr h="Kullanıcılar ve Roller" sub="Çalışma alanınıza kimlerin erişimi olduğunu yönetin" cols=["","Ad","E-posta","Rol","Durum","Son Giriş","İşlemler"] =====
+DIALOG:
+- dialog "Kullanıcı Davet Et":
+  - heading "Kullanıcı Davet Et" [level=2]
+  - paragraph: Çalışma alanınıza katılması için bir davet gönderin.
+  - text: E-posta adresi
+  - textbox "E-posta adresi":
+    - /placeholder: calisan@sirket.com
+  - text: Rol
+  - combobox: Temsilci
+  - text: Ekip
+  - combobox: Hiçbiri
+  - button "İptal"
+  - button "Davet Gönder" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+
+===== ar dir=rtl h="المستخدمون والأدوار" sub="إدارة من لديه حق الوصول إلى مساحة عملك" cols=["","الاسم","البريد الإلكتروني","الدور","الحالة","آخر تسجيل دخول","إجراءات"] =====
+DIALOG:
+- dialog "دعوة مستخدم":
+  - heading "دعوة مستخدم" [level=2]
+  - paragraph: إرسال دعوة للانضمام إلى مساحة عملك.
+  - text: عنوان البريد الإلكتروني
+  - textbox "عنوان البريد الإلكتروني":
+    - /placeholder: colleague@company.com
+  - text: الدور
+  - combobox: وكيل
+  - text: الفريق
+  - combobox: لا شيء
+  - button "إلغاء"
+  - button "إرسال الدعوة" [disabled]
+  - button "Close":
+    - img
+    - text: Close

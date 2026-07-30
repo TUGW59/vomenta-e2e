@@ -1,0 +1,18 @@
+after Export: dialog=0 download=audit-log-2026-07-29.csv exportReq=null
+menu items: []
+VIEW DIALOG: - dialog "Change details":
+  - heading "Change details" [level=2]
+  - paragraph: View the full change record for this audit log entry.
+  - text: "{ \"isActive\": false }"
+  - paragraph: Entity
+  - paragraph: SlaPolicy (9698ac96-c287-4268-bb56-b9d46ef91245)
+  - paragraph: Performed by
+  - paragraph: Tuğçe Topuz
+  - paragraph: Timestamp
+  - paragraph: Jul 29, 2026, 01:39 PM
+  - paragraph: IP address
+  - paragraph
+  - button "Close":
+    - img
+    - text: Close
+EXPORT/AUDIT reqs: ["GET https://app.vomenta.com/settings/audit","GET https://app.vomenta.com/_next/static/chunks/app/(dashboard)/settings/audit/page-10ba7886eb","GET /api/v1/compliance/audit-logs?page=1&limit=8"]

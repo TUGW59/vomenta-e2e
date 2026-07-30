@@ -1,0 +1,201 @@
+URL: https://app.vomenta.com/settings/disposition-codes
+
+===== en dir=ltr =====
+h="Disposition Codes"
+sub="Manage outcome codes that agents use to categorize call and interaction results."
+tabs=[]
+cols=["Code","Label","Category","Description","Actions"]
+btns=["Add Code"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Disposition Codes" [level=1]:
+    - img
+    - text: Disposition Codes
+  - paragraph: Manage outcome codes that agents use to categorize call and interaction results.
+  - button "Add Code":
+    - img
+    - text: Add Code
+  - table:
+    - rowgroup:
+      - row "Code Label Category Description Actions":
+        - columnheader "Code"
+        - columnheader "Label"
+        - columnheader "Category"
+        - columnheader "Description"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "SALE Sale / Completed Positive —":
+        - cell "SALE"
+        - cell "Sale / Completed"
+        - cell "Positive"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "QUALIFIED_LEAD Qualified Lead Positive —":
+        - cell "QUALIFIED_LEAD"
+        - cell "Qualified Lead"
+        - cell "Positive"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "APPOINTMENT_SET Appointment Set Positive —":
+        - cell "APPOINTMENT_SET"
+        - cell "Appointment Set"
+        - cell "Positive"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "CALLBACK Callback Requested Callback —":
+        - cell "CALLBACK"
+        - cell "Callback Requested"
+        - cell "Callback"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "FOLLOW_UP Follow Up Required Callback —":
+        - cell "FOLLOW_UP"
+        - cell "Follow Up Required"
+        - cell "Callback"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "INFORMATION_SENT Information Sent Neutral —":
+        - cell "INFORMATION_SENT"
+        - cell "Information Sent"
+        - cell "Neutral"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "NOT_INTERESTED Not Interested Negative —":
+        - cell "NOT_INTERESTED"
+        - cell "Not Interested"
+        - cell "Negative"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "NO_ANSWER No Answer No Answer —":
+        - cell "NO_ANSWER"
+        - cell "No Answer"
+        - cell "No Answer"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "BUSY Busy No Answer —":
+        - cell "BUSY"
+        - cell "Busy"
+        - cell "No Answer"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "VOICEMAIL Left Voicemail Voicemail —":
+        - cell "VOICEMAIL"
+        - cell "Left Voicemail"
+        - cell "Voicemail"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "WRONG_NUMBER Wrong Number Negative —":
+        - cell "WRONG_NUMBER"
+        - cell "Wrong Number"
+        - cell "Negative"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "DISCONNECTED Disconnected Number Negative —":
+        - cell "DISCONNECTED"
+        - cell "Disconnected Number"
+        - cell "Negative"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "DO_NOT_CALL Do Not Call Negative —":
+        - cell "DO_NOT_CALL"
+        - cell "Do Not Call"
+        - cell "Negative"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "TRANSFERRED Transferred Neutral —":
+        - cell "TRANSFERRED"
+        - cell "Transferred"
+        - cell "Neutral"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+      - row "LANGUAGE_BARRIER Language Barrier Other —":
+        - cell "LANGUAGE_BARRIER"
+        - cell "Language Barrier"
+        - cell "Other"
+        - cell "—"
+        - cell:
+          - button:
+            - img
+          - button:
+            - img
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/disposition-codes?limit=50","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Sonuç Kodları"
+sub="Temsilcilerin çağrı ve etkileşim sonuçlarını kategorize etmek için kullandıkları sonuç kodlarını yönetin."
+tabs=[]
+cols=["Kod","Etiket","Kategori","Açıklama","İşlemler"]
+btns=["Kod Ekle"]
+
+===== fr dir=ltr =====
+h="Codes de disposition"
+sub="Gérez les codes de résultat utilisés par les agents pour catégoriser les résultats des appels et interactions."
+tabs=[]
+cols=["Code","Libellé","Catégorie","Description","Actions"]
+btns=["Ajouter un code"]
+
+===== ar dir=rtl =====
+h="رموز التصنيف"
+sub="إدارة رموز النتائج التي يستخدمها الوكلاء لتصنيف نتائج المكالمات والتفاعلات."
+tabs=[]
+cols=["الرمز","التسمية","الفئة","الوصف","الإجراءات"]
+btns=["إضافة رمز"]

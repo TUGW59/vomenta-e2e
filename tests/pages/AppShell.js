@@ -33,8 +33,12 @@ export class AppShell {
    * Dil seçimi sunucuda kalıcı DEĞİL → her test taze bağlamda İngilizce başlar.
    */
   languageTrigger() {
+    // `:not([role="combobox"])`: bazı sayfalarda (ör. /settings/profile) sayfanın KENDİ
+    // "Language" form alanı da bir dil-adı (Türkçe…) içerir ve bir combobox'tır; onu
+    // dışlayarak yalnızca kenar çubuğundaki dil DÜĞMESİni hedefleriz (aksi halde `.last()`
+    // form alanını seçip yanlış menüyü açabilir).
     return this.page
-      .locator('button', { hasText: /English|Türkçe|Français|العربية/ })
+      .locator('button:not([role="combobox"])', { hasText: /English|Türkçe|Français|العربية/ })
       .last();
   }
 

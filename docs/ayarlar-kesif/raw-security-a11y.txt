@@ -1,0 +1,8 @@
+[
+  {
+    "id": "label",
+    "impact": "critical",
+    "n": 3,
+    "sample": "<input type=\"number\" class=\"flex h-10 rounded-md...\" min=\"8\" max=\"128\" value=\"20\">"
+  }
+]

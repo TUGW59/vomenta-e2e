@@ -1,0 +1,21 @@
+=== SETTINGS SUB-NAV (href /settings*) ===
+"Settings"  ->  /settings
+"Profile"  ->  /settings/profile
+"Organization"  ->  /settings/organization
+"Users & Roles"  ->  /settings/users
+"Roles"  ->  /settings/roles
+"Compliance"  ->  /settings/compliance
+"Teams"  ->  /settings/teams
+"Business Hours"  ->  /settings/hours
+"Automations"  ->  /settings/automations
+"SLA Policies"  ->  /settings/sla
+"Templates"  ->  /settings/templates
+"Disposition Codes"  ->  /settings/disposition-codes
+"Canned Responses"  ->  /settings/canned-responses
+"Integrations"  ->  /settings/integrations
+"Security"  ->  /settings/security
+"Data Retention"  ->  /settings/data-retention
+"Notifications"  ->  /settings/notifications
+"API Keys"  ->  /settings/api-keys
+"Webhooks"  ->  /settings/webhooks
+"Audit Log"  ->  /settings/audit

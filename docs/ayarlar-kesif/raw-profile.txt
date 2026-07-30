@@ -1,0 +1,407 @@
+URL: https://app.vomenta.com/settings/profile
+
+=== PROFILE TAB: Profile (aria-selected=true) URL=https://app.vomenta.com/settings/profile ===
+- tabpanel "Profile":
+  - img
+  - text: Personal Information Update your name, phone, and avatar. Changes are visible across the platform. TT Profile photo
+  - textbox "Avatar URL"
+  - button "Upload image":
+    - img
+  - paragraph: Enter a URL or upload an image (base64)
+  - text: First name
+  - textbox "First name":
+    - /placeholder: Enter first name
+    - text: Tuğçe
+  - text: Last name
+  - textbox "Last name":
+    - /placeholder: Enter last name
+    - text: Topuz
+  - text: Email
+  - textbox "Email" [disabled]: tugw59@gmail.com
+  - paragraph: Email cannot be changed. Contact support if needed.
+  - text: Phone
+  - textbox "Phone":
+    - /placeholder: +1 555 000 0000 (E.164 format)
+  - text: Timezone
+  - combobox: UTC
+  - text: Language
+  - combobox: Turkish (Türkçe)
+  - text: Role
+  - paragraph: admin
+  - button "Save changes"
+  - img
+  - text: Phone Configuration Choose how you receive and make calls on the platform.
+  - radiogroup:
+    - radio "Browser (WebRTC) Use the built-in softphone in your browser — no extra setup needed." [checked]:
+      - img
+    - text: Browser (WebRTC)
+    - paragraph: Use the built-in softphone in your browser — no extra setup needed.
+    - radio "External SIP Phone Route calls to a desk phone or SIP softphone app registered to the platform."
+    - text: External SIP Phone
+    - paragraph: Route calls to a desk phone or SIP softphone app registered to the platform.
+  - button "Save phone settings"
+
+=== PROFILE TAB: Security (aria-selected=true) URL=https://app.vomenta.com/settings/profile ===
+- tabpanel "Security":
+  - img
+  - text: Change Password Update your password. You will need to enter your current password for verification. Current Password
+  - textbox "Current Password":
+    - /placeholder: ••••••••
+  - text: New Password
+  - textbox "New Password":
+    - /placeholder: ••••••••
+  - paragraph: Must be at least 8 characters with uppercase, lowercase, and a number
+  - text: Confirm New Password
+  - textbox "Confirm New Password":
+    - /placeholder: ••••••••
+  - button "Update Password" [disabled]
+  - paragraph: Password reset
+  - paragraph: We'll send a secure link to your email to reset your password.
+  - button "Request reset email"
+  - img
+  - text: Two-Factor Authentication Add an extra layer of security to your account
+  - paragraph: 2FA status
+  - paragraph: Protect your account with an authenticator app
+  - button "Enable 2FA"
+
+=== PROFILE TAB: Sessions (aria-selected=true) URL=https://app.vomenta.com/settings/profile ===
+- tabpanel "Sessions":
+  - img
+  - text: Active Sessions Manage your active sessions. Revoking a session will log you out immediately.
+  - table:
+    - rowgroup:
+      - row "Device IP Address Location Last Active Actions":
+        - columnheader "Device"
+        - columnheader "IP Address"
+        - columnheader "Location"
+        - columnheader "Last Active"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "Desktop Unknown 10.1.99.81 Unknown 9m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "9m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 9m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "9m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 9m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "9m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 10m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "10m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 16m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "16m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 17m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "17m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 17m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "17m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 22m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "22m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 30m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "30m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 31m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "31m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 33m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "33m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 36m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "36m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 38m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "38m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 39m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "39m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 42m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "42m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 44m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "44m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 45m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "45m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 46m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "46m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 47m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "47m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 48m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "48m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 49m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "49m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 51m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "51m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 53m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Unknown":
+          - img
+          - text: Unknown
+        - cell "53m ago"
+        - cell "Revoke":
+          - button "Revoke"
+      - row "Desktop Unknown 10.1.99.81 Unknown 53m ago Revoke":
+        - cell "Desktop Unknown":
+          - paragraph: Desktop
+          - paragraph: Unknown
+        - cell "10.1.99.81":
+         
+
+=== PROFILE TAB: Notifications (aria-selected=true) URL=https://app.vomenta.com/settings/profile ===
+- tabpanel "Notifications":
+  - img
+  - text: Notification Preferences Manage how and when you receive notifications
+  - paragraph: Configure email, in-app, and push notification preferences for each category.
+  - link "Open notification settings":
+    - /url: /settings/notifications
+    - img
+    - text: Open notification settings
+
+=== API CALLS ===
+GET https://api.vomenta.com/api/v1/modules/active
+GET https://api.vomenta.com/api/v1/modules/catalog
+GET https://api.vomenta.com/api/v1/notifications/unread-count
+GET https://api.vomenta.com/api/v1/notifications?page=1
+GET https://api.vomenta.com/api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D
+GET https://api.vomenta.com/api/v1/voice/calls/live
+GET https://api.vomenta.com/api/v1/auth/me
+GET https://api.vomenta.com/api/v1/auth/sessions
+GET https://api.vomenta.com/api/v1/roles/me/permissions
+GET https://api.vomenta.com/api/v1/settings/organization
+GET https://api.vomenta.com/api/v1/onboarding/progress
+
+Timezone OPTIONS (41): ["UTC","Eastern Time (ET)","Central Time (CT)","Mountain Time (MT)","Pacific Time (PT)","Alaska (AKT)","Hawaii (HST)","São Paulo (BRT)","Buenos Aires (ART)","Mexico City (CST)","Bogotá (COT)","Toronto (ET)","London (GMT/BST)","Berlin (CET)","Paris (CET)","Madrid (CET)","Rome (CET)","Amsterdam (CET)","Istanbul (TRT)","Moscow (MSK)","Athens (EET)","Warsaw (CET)","Dubai (GST)","Riyadh (AST)","India (IST)","Bangkok (ICT)","Singapore (SGT)","Shanghai (CST)","Hong Kong (HKT)","Tokyo (JST)"]
+
+Language OPTIONS (34): ["English","Arabic (العربية)","Turkish (Türkçe)","French (Français)","German (Deutsch)","Spanish (Español)","Portuguese (Português)","Portuguese - Brazil","Italian (Italiano)","Dutch (Nederlands)","Russian (Русский)","Chinese - Simplified (简体中文)","Chinese - Traditional (繁體中文)","Japanese (日本語)","Korean (한국어)","Hindi (हिन्दी)","Indonesian (Bahasa)","Malay (Melayu)","Thai (ไทย)","Vietnamese (Tiếng Việt)","Polish (Polski)","Ukrainian (Українська)","Hebrew (עברית)","Urdu (اردو)","Persian (فارسی)","Swahili (Kiswahili)","Filipino (Tagalog)","Romanian (Română)","Greek (Ελληνικά)","Czech (Čeština)"]
+LANG SWITCH tr FAILED: TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByText('Türkçe', { exact: true }).first()
+
+LANG SWITCH fr FAILED: TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByText('Français', { exact: true }).first()
+
+LANG SWITCH ar FAILED: TimeoutError: locator.click: Timeout 5000ms exceeded.
+Call log:
+  - waiting for getByText('العربية', { exact: true }).first()
+
+
+Dil İngilizceye geri alındı.
+OVERFLOW 768px: scrollW=768 clientW=768 ok
+OVERFLOW 1024px: scrollW=1024 clientW=1024 ok
+OVERFLOW 1280px: scrollW=1280 clientW=1280 ok
+
+=== BLOCKED WRITES ===

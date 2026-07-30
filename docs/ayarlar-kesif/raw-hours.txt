@@ -1,0 +1,36 @@
+URL: https://app.vomenta.com/settings/hours
+
+===== en dir=ltr =====
+h="Business Hours"
+sub="Configure working hours and holidays"
+tabs=[]
+cols=[]
+btns=[]
+MAIN SNAPSHOT:
+- main:
+  - heading "Business Hours" [level=1]
+  - paragraph: Configure working hours and holidays
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Çalışma Saatleri"
+sub="Çalışma saatlerini ve tatilleri yapılandırın"
+tabs=[]
+cols=[]
+btns=["Ekle","Değişiklikleri kaydet"]
+
+===== fr dir=ltr =====
+h="Heures de travail"
+sub="Configurez les heures de travail et les jours fériés"
+tabs=[]
+cols=[]
+btns=["Ajouter","Enregistrer les modifications"]
+
+===== ar dir=rtl =====
+h="ساعات العمل"
+sub="تهيئة ساعات العمل والإجازات"
+tabs=[]
+cols=[]
+btns=["إضافة","حفظ التغييرات"]

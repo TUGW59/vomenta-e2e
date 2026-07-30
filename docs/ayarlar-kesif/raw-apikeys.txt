@@ -1,0 +1,44 @@
+URL: https://app.vomenta.com/settings/api-keys
+
+===== en dir=ltr =====
+h="API Keys"
+sub="Manage API keys for programmatic access to your account"
+tabs=[]
+cols=[]
+btns=["Create Key","Generate API Key"]
+MAIN SNAPSHOT:
+- main:
+  - heading "API Keys" [level=1]
+  - paragraph: Manage API keys for programmatic access to your account
+  - button "Create Key":
+    - img
+    - text: Create Key
+  - img
+  - heading "No API keys" [level=3]
+  - paragraph: Create your first API key for programmatic access
+  - button "Generate API Key"
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/settings/api-keys","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="API Anahtarları"
+sub="Hesabınıza programatik erişim için API anahtarlarını yönetin"
+tabs=[]
+cols=[]
+btns=["Anahtar Oluştur","API Anahtarı Oluştur"]
+
+===== fr dir=ltr =====
+h="Clés API"
+sub="Gérez les clés API pour l'accès programmatique à votre compte"
+tabs=[]
+cols=[]
+btns=["Créer une clé","Générer une clé API"]
+
+===== ar dir=rtl =====
+h="مفاتيح API"
+sub="إدارة مفاتيح API للوصول البرمجي إلى حسابك"
+tabs=[]
+cols=[]
+btns=["إنشاء مفتاح","إنشاء مفتاح API"]

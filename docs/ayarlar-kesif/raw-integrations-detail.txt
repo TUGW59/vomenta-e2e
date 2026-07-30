@@ -1,0 +1,62 @@
+addwebhook dialog=1
+DIALOG: - dialog "Add Webhook":
+  - heading "Add Webhook" [level=2]
+  - paragraph: Create a webhook subscription to receive real-time event notifications.
+  - text: URL
+  - textbox "URL":
+    - /placeholder: https://your-server.com/webhooks
+  - text: Secret (min 16 chars)
+  - textbox "Secret (min 16 chars)":
+    - /placeholder: Enter a secret for signing payloads
+  - text: Events
+  - checkbox "call.started"
+  - text: call.started
+  - checkbox "call.answered"
+  - text: call.answered
+  - checkbox "call.ended"
+  - text: call.ended
+  - checkbox "call.transferred"
+  - text: call.transferred
+  - checkbox "call.supervisor_action"
+  - text: call.supervisor_action
+  - checkbox "callback.scheduled"
+  - text: callback.scheduled
+  - checkbox "conversation.created"
+  - text: conversation.created
+  - checkbox "conversation.resolved"
+  - text: conversation.resolved
+  - checkbox "message.sent"
+  - text: message.sent
+  - checkbox "message.received"
+  - text: message.received
+  - checkbox "ticket.created"
+  - text: ticket.created
+  - checkbox "ticket.updated"
+  - text: ticket.updated
+  - checkbox "ticket.resolved"
+  - text: ticket.resolved
+  - checkbox "ticket.merged"
+  - text: ticket.merged
+  - checkbox "agent.status.changed"
+  - text: agent.status.changed
+  - checkbox "contact.created"
+  - text: contact.created
+  - checkbox "contact.updated"
+  - text: contact.updated
+  - checkbox "contact.deleted"
+  -
+after Request Access: dialog=1 toast/text sample
+REQ DIALOG: - dialog "Request Salesforce Integration":
+  - heading "Request Salesforce Integration" [level=2]
+  - paragraph: Submit a request to enable Salesforce for your organization. Our integrations team will review your request and reach out to help with setup.
+  - text: SF
+  - paragraph: Salesforce
+  - paragraph: Sync contacts, leads, and cases with Salesforce CRM
+  - text: Additional details (optional)
+  - textbox "Additional details (optional)":
+    - /placeholder: Describe your use case or any specific requirements...
+  - button "Cancel"
+  - button "Submit Request"
+  - button "Close":
+    - img
+    - text: Close

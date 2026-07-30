@@ -1,0 +1,363 @@
+
+=== LANG tr — dir=ltr — heading=["Profil"] tabs=[] ===
+- tabpanel "Profil":
+  - img
+  - text: Kişisel bilgiler Ad, telefon ve avatarı güncelleyin. Değişiklikler platform genelinde görünür. TT Profil fotoğrafı
+  - textbox "Avatar URL'si"
+  - button "Görsel yükle":
+    - img
+  - paragraph: URL girin veya base64 ile görsel yükleyin
+  - text: Ad
+  - textbox "Ad":
+    - /placeholder: Adınızı girin
+    - text: Tuğçe
+  - text: Soyad
+  - textbox "Soyad":
+    - /placeholder: Soyadınızı girin
+    - text: Topuz
+  - text: E-posta
+  - textbox "E-posta" [disabled]: tugw59@gmail.com
+  - paragraph: E-posta değiştirilemez. Gerekirse destek ile iletişime geçin.
+  - text: Telefon
+  - textbox "Telefon":
+    - /placeholder: +90 5XX XXX XX XX (E.164 formatı)
+  - text: Saat dilimi
+  - combobox: UTC
+  - text: Dil
+  - combobox: Turkish (Türkçe)
+  - text: Rol
+  - paragraph: admin
+  - button "Değişiklikleri kaydet"
+  - img
+  - text: Telefon Yapılandırması Platformda nasıl arama yapacağınızı ve alacağınızı seçin.
+  - radiogroup:
+    - radio "Tarayıcı (WebRTC) Tarayıcınızdaki yerleşik yazılım telefonu kullanın — ek kurulum gerekmez." [checked]:
+      - img
+    - text: Tarayıcı (WebRTC)
+    - paragraph: Tarayıcınızdaki yerleşik yazılım telefonu kullanın — ek kurulum gerekmez.
+    - radio "Harici SIP Telefon Aramaları platformda kayıtlı bir masa telefonu veya SIP uygulamasına yönlendirin."
+    - text: Harici SIP Telefon
+    - paragraph: Aramaları platformda kayıtlı bir masa telefonu veya SIP uygulamasına yönlendirin.
+  - button "Telefon ayarlarını kaydet"
+--- tr / Security paneli ---
+- tabpanel "Güvenlik":
+  - img
+  - text: Şifre değiştir Şifrenizi güncelleyin. Doğrulama için mevcut şifrenizi girmeniz gerekecektir. Mevcut Şifre
+  - textbox "Mevcut Şifre":
+    - /placeholder: ••••••••
+  - text: Yeni Şifre
+  - textbox "Yeni Şifre":
+    - /placeholder: ••••••••
+  - paragraph: En az 8 karakter, büyük harf, küçük harf ve bir rakam içermelidir
+  - text: Yeni Şifreyi Onayla
+  - textbox "Yeni Şifreyi Onayla":
+    - /placeholder: ••••••••
+  - button "Şifreyi Güncelle" [disabled]
+  - paragraph: Şifre sıfırlama
+  - paragraph: E-postanıza güvenli bir bağlantı göndereceğiz.
+  - button "Sıfırlama e-postası iste"
+  - img
+  - text: İki faktörlü doğrulama Hesabınıza ek güvenlik katmanı ekleyin
+  - paragraph: 2FA durumu
+  - paragraph: Hesabınızı doğrulayıcı uygulama ile koruyun
+  - button "2FA'yı aç"
+--- tr / Sessions paneli ---
+- tabpanel "Oturumlar":
+  - img
+  - text: Aktif oturumlar Oturumlarınızı yönetin. İptal edilen oturumda hemen çıkış yapılır.
+  - table:
+    - rowgroup:
+      - row "Cihaz IP adresi Konum Son etkinlik İşlemler":
+        - columnheader "Cihaz"
+        - columnheader "IP adresi"
+        - columnheader "Konum"
+        - columnheader "Son etkinlik"
+        - columnheader "İşlemler"
+    - rowgroup:
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor Az önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "Az önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 1 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "1 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 11 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "11 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 11 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "11 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 12 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "12 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 13 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "13 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 19 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bilinmiyor
+        - cell "19 dk önce"
+        - cell "Sonlandır":
+          - button "Sonlandır"
+      - row "Masaüstü Bilinmiyor 10.1.99.81 Bilinmiyor 19 dk önce Sonlandır":
+        - cell "Masaüstü Bilinmiyor":
+          - paragraph: Masaüstü
+          - paragraph: Bilinmiyor
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Bilinmiyor":
+          - img
+          - text: Bi
+--- tr / Notifications paneli ---
+- tabpanel "Bildirimler":
+  - img
+  - text: Bildirim tercihleri Bildirimleri nasıl ve ne zaman alacağınızı seçin
+  - paragraph: Her kategori için e-posta, uygulama içi ve anlık bildirimleri yapılandırın.
+  - link "Bildirim ayarlarını aç":
+    - /url: /settings/notifications
+    - img
+    - text: Bildirim ayarlarını aç
+
+=== LANG fr — dir=ltr — heading=["Profil"] tabs=[] ===
+- tabpanel "Profil":
+  - img
+  - text: Informations personnelles Mettez à jour votre nom, téléphone et photo. Les changements sont visibles sur la plateforme. TT Photo de profil
+  - textbox "URL de l'avatar"
+  - button "Téléverser une image":
+    - img
+  - paragraph: Saisissez une URL ou téléversez une image (base64)
+  - text: Prénom
+  - textbox "Prénom":
+    - /placeholder: Saisir le prénom
+    - text: Tuğçe
+  - text: Nom
+  - textbox "Nom":
+    - /placeholder: Saisir le nom
+    - text: Topuz
+  - text: E-mail
+  - textbox "E-mail" [disabled]: tugw59@gmail.com
+  - paragraph: L'e-mail ne peut pas être modifié. Contactez le support si besoin.
+  - text: Téléphone
+  - textbox "Téléphone":
+    - /placeholder: +33 6 12 34 56 78 (format E.164)
+  - text: Fuseau horaire
+  - combobox: UTC
+  - text: Langue
+  - combobox: Turkish (Türkçe)
+  - text: Rôle
+  - paragraph: admin
+  - button "Enregistrer les modifications"
+  - img
+  - text: Configuration téléphonique Choisissez comment vous recevez et passez des appels sur la plateforme.
+  - radiogroup:
+    - radio "Navigateur (WebRTC) Utilisez le softphone intégré dans votre navigateur — aucune configuration supplémentaire requise." [checked]:
+      - img
+    - text: Navigateur (WebRTC)
+    - paragraph: Utilisez le softphone intégré dans votre navigateur — aucune configuration supplémentaire requise.
+    - radio "Téléphone SIP externe Acheminez les appels vers un téléphone de bureau ou une application SIP enregistrée sur la plateforme."
+    - text: Téléphone SIP externe
+    - paragraph: Acheminez les appels vers un téléphone de bureau ou une application SIP enregistrée sur la plateforme.
+  - button "Enregistrer les paramètres téléphoniques"
+--- fr / Security paneli ---
+- tabpanel "Sécurité":
+  - img
+  - text: Changer le mot de passe Mettez à jour votre mot de passe. Vous devrez entrer votre mot de passe actuel pour vérification. Mot de passe actuel
+  - textbox "Mot de passe actuel":
+    - /placeholder: ••••••••
+  - text: Nouveau mot de passe
+  - textbox "Nouveau mot de passe":
+    - /placeholder: ••••••••
+  - paragraph: Doit contenir au moins 8 caractères avec une majuscule, une minuscule et un chiffre
+  - text: Confirmer le nouveau mot de passe
+  - textbox "Confirmer le nouveau mot de passe":
+    - /placeholder: ••••••••
+  - button "Mettre à jour le mot de passe" [disabled]
+  - paragraph: Réinitialisation du mot de passe
+  - paragraph: Nous enverrons un lien sécurisé à votre adresse e-mail.
+  - button "Demander l'e-mail de réinitialisation"
+  - img
+  - text: Authentification à deux facteurs Renforcez la sécurité de votre compte
+  - paragraph: État 2FA
+  - paragraph: Protégez votre compte avec une application d'authentification
+  - button "Activer la 2FA"
+--- fr / Sessions paneli ---
+- tabpanel "Sessions":
+  - img
+  - text: Sessions actives Gérez vos sessions. La révocation vous déconnecte immédiatement.
+  - table:
+    - rowgroup:
+      - row "Appareil Adresse IP Lieu Dernière activité Actions":
+        - columnheader "Appareil"
+        - columnheader "Adresse IP"
+        - columnheader "Lieu"
+        - columnheader "Dernière activité"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "Bureau Inconnu 10.1.99.81 Inconnu À l'instant Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "À l'instant"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 1 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 1 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 12 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 12 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 12 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 12 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 12 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 12 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 13 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 13 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 19 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 19 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 20 min Révoquer":
+        - cell "Bureau Inconnu":
+          - paragraph: Bureau
+          - paragraph: Inconnu
+        - cell "10.1.99.81":
+          - code: 10.1.99.81
+        - cell "Inconnu":
+          - img
+          - text: Inconnu
+        - cell "Il y a 20 min"
+        - cell "Révoquer":
+          - button "Révoquer"
+      - row "Bureau Inconnu 10.1.99.81 Inconnu Il y a 20 m
+--- fr / Notifications paneli ---
+- tabpanel "Notifications":
+  - img
+  - text: Préférences de notification Choisissez comment et quand vous recevez des notifications
+  - paragraph: Configurez les notifications par e-mail, dans l'application et push pour chaque catégorie.
+  - link "Ouvrir les paramètres de notification":
+    - /url: /settings/notifications
+    - img
+    - text: Ouvrir les paramètres de notification
+LANG SWITCH ar FAILED: TimeoutError: locator.click: Timeout 8000ms exceeded.
+Call log:
+  - waiting for getByText('العربية', { exact: true }).first()

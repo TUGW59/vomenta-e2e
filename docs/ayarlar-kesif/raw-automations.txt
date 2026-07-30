@@ -1,0 +1,107 @@
+URL: https://app.vomenta.com/settings/automations
+
+===== en dir=ltr =====
+h="Automation Rules"
+sub="Automate workflows based on triggers and conditions"
+tabs=[" Rules"," SLA Policies"]
+cols=["Name","Trigger","Conditions","Actions","Active","Executions","Last Run",""]
+btns=["New Rule"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Automation Rules" [level=1]
+  - paragraph: Automate workflows based on triggers and conditions
+  - button "New Rule":
+    - img
+    - text: New Rule
+  - tablist:
+    - tab "Rules" [selected]:
+      - img
+      - text: Rules
+    - tab "SLA Policies":
+      - img
+      - text: SLA Policies
+  - tabpanel "Rules":
+    - table:
+      - rowgroup:
+        - row "Name Trigger Conditions Actions Active Executions Last Run":
+          - columnheader "Name"
+          - columnheader "Trigger"
+          - columnheader "Conditions"
+          - columnheader "Actions"
+          - columnheader "Active"
+          - columnheader "Executions"
+          - columnheader "Last Run"
+          - columnheader
+      - rowgroup:
+        - row:
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+        - row:
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+        - row:
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+        - row:
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+        - row:
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+          - cell
+    - text: Execution Logs
+    - paragraph: Recent automation rule execution history
+    - img
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Otomasyon Kuralları"
+sub="Tetikleyiciler ve koşullara dayalı iş akışlarını otomatikleştirin"
+tabs=[" Kurallar"," SLA Politikaları"]
+cols=["Ad","Tetikleyici","Koşullar","Eylemler","Aktif","Çalıştırmalar","Son Çalışma",""]
+btns=["Yeni Kural"]
+
+===== ar dir=rtl =====
+h="قواعد الأتمتة"
+sub="أتمتة سير العمل بناءً على المشغلات والشروط"
+tabs=[" القواعد"," سياسات SLA"]
+cols=["الاسم","المشغل","الشروط","الإجراءات","نشط","عمليات التنفيذ","آخر تشغيل",""]
+btns=["قاعدة جديدة"]
+
+===== fr dir=ltr =====
+h="Règles d'automatisation"
+sub="Automatisez les flux de travail basés sur des déclencheurs et des conditions"
+tabs=[" Règles"," Politiques SLA"]
+cols=["Nom","Déclencheur","Conditions","Actions","Actif","Exécutions","Dernière exécution",""]
+btns=["Nouvelle règle"]

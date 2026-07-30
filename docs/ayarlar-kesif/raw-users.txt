@@ -1,0 +1,129 @@
+URL: https://app.vomenta.com/settings/users
+=== EN MAIN SNAPSHOT ===
+- main:
+  - heading "Users & Roles" [level=1]
+  - paragraph: Manage who has access to your workspace
+  - button "Invite User":
+    - img
+    - text: Invite User
+
+=== INVITE DIALOG ===
+- dialog "Invite User":
+  - heading "Invite User" [level=2]
+  - paragraph: Send an invitation to join your workspace.
+  - text: Email address
+  - textbox "Email address":
+    - /placeholder: colleague@company.com
+  - text: Role
+  - combobox: Agent
+  - text: Team
+  - combobox: None
+  - button "Cancel"
+  - button "Send Invitation" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+
+tr SWITCH FAIL: TimeoutError: locator.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for getByText('Türkçe', { exact: true }).fir
+
+=== fr dir=ltr heading="Utilisateurs et rôles" inviteBtn=["Inviter un utilisateur"] ===
+- main:
+  - heading "Utilisateurs et rôles" [level=1]
+  - paragraph: Gérez les accès à votre espace de travail
+  - button "Inviter un utilisateur":
+    - img
+    - text: Inviter un utilisateur
+  - img
+  - textbox "Rechercher des utilisateurs..."
+  - table:
+    - rowgroup:
+      - row "Nom E-mail Rôle Statut Dernière connexion Actions":
+        - columnheader:
+          - checkbox
+        - columnheader "Nom"
+        - columnheader "E-mail"
+        - columnheader "Rôle"
+        - columnheader "Statut"
+        - columnheader "Dernière connexion"
+        - columnheader "Actions"
+    - rowgroup:
+      - row "IU Invited User Agent Actif Jamais":
+        - cell:
+          - checkbox
+        - cell "IU Invited User"
+        - cell
+        - cell "Agent"
+        - cell "Actif"
+        - cell "Jamais"
+        - cell:
+          - button:
+            - img
+      - row "TT Tuğçe Topuz Administrateur Actif Jul 29, 2026, 12:58 PM":
+        - cell:
+          - checkbox
+        - cell "TT Tuğçe Topuz"
+        - cell
+        - cell "Administrateur"
+        - cell "Actif"
+        - cell "Jul 29, 2026, 12:58 PM"
+        - cell:
+          - button:
+            - img
+      - row "PT Product Team Agent Actif Jun 13, 2026, 02:26 PM":
+        - cell:
+          - checkbox
+        - cell "PT Product Team"
+        - cell
+        - cell "Agent"
+        - cell "Actif"
+        - cell "Jun 13, 2026, 02:26 PM"
+        - cell:
+          - button:
+            - img
+      - row "IU Invited User Agent Actif Jamais":
+        - cell:
+          - checkbox
+        - cell "IU Invited User"
+        - cell
+        - cell "Agent"
+        - cell "Actif"
+        - cell "Jamais"
+        - cell:
+          - button:
+            - img
+      - row "AA Account Agent Agent Actif Jamais":
+        - cell:
+          - checkbox
+        - cell "AA Account Agent"
+        - cell
+        - cell "Agent"
+        - cell "Actif"
+        - cell "Jamais"
+        - cell:
+          - button:
+            - img
+      - row "IU Invited User Administrateur Actif Jamais":
+        - cell:
+          - checkbox
+        - cell "IU Invited User"
+        - cell
+        - cell "Administrateur"
+        - cell "Actif"
+        - cell "Jamais"
+        - cell:
+          - button:
+            - img
+      - row "AU Arda Uğurlu Propriétaire Actif Jul 22, 2026, 12:16 PM":
+        - cell:
+          - checkbox
+        - cell "AU Arda Uğurlu"
+        - cell
+        - cell "Propriétaire"
+        - cell "Actif"
+        - cell "Jul 22, 2026, 12:16 PM
+
+ar SWITCH FAIL: TimeoutError: locator.click: Timeout 6000ms exceeded.
+Call log:
+  - waiting for getByText('العربية', { exact: true }).fi

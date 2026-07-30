@@ -1,0 +1,44 @@
+URL: https://app.vomenta.com/settings/webhooks
+
+===== en dir=ltr =====
+h="Webhooks"
+sub="Configure webhooks to receive real-time events from your contact center"
+tabs=[]
+cols=[]
+btns=["Add Webhook","Add Webhook"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Webhooks" [level=1]
+  - paragraph: Configure webhooks to receive real-time events from your contact center
+  - button "Add Webhook":
+    - img
+    - text: Add Webhook
+  - img
+  - heading "No webhooks configured" [level=3]
+  - paragraph: Add a webhook to receive events like call.started, message.received, ticket.created, and more
+  - button "Add Webhook"
+API: ["GET /api/v1/webhooks/events","GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/webhooks","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Webhooks"
+sub="İletişim merkezinizden gerçek zamanlı olaylar almak için webhook yapılandırın"
+tabs=[]
+cols=[]
+btns=["Webhook Ekle","Webhook Ekle"]
+
+===== fr dir=ltr =====
+h="Webhooks"
+sub="Configurez les webhooks pour recevoir des événements en temps réel de votre centre de contact"
+tabs=[]
+cols=[]
+btns=["Ajouter un webhook","Ajouter un webhook"]
+
+===== ar dir=rtl =====
+h="Webhooks"
+sub="اضبط webhooks لاستقبال الأحداث الفورية من مركز الاتصال"
+tabs=[]
+cols=[]
+btns=["إضافة Webhook","إضافة Webhook"]

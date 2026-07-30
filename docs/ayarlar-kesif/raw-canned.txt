@@ -1,0 +1,55 @@
+URL: https://app.vomenta.com/settings/canned-responses
+
+===== en dir=ltr =====
+h="Canned Responses"
+sub="Quick-reply text snippets for the inbox chat — agents can insert these during live conversations."
+tabs=[]
+cols=["Title","Shortcode","Preview","Category",""]
+btns=["New canned response"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Canned Responses" [level=1]:
+    - img
+    - text: Canned Responses
+  - paragraph: Quick-reply text snippets for the inbox chat — agents can insert these during live conversations.
+  - button "New canned response":
+    - img
+    - text: New canned response
+  - img
+  - textbox "e.g. /greeting"
+  - table:
+    - rowgroup:
+      - row "Title Shortcode Preview Category":
+        - columnheader "Title"
+        - columnheader "Shortcode"
+        - columnheader "Preview"
+        - columnheader "Category"
+        - columnheader
+    - rowgroup:
+      - row "No canned responses yet. Create one to get started.":
+        - cell "No canned responses yet. Create one to get started."
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/chat/canned-responses","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Hazır yanıtlar"
+sub="Gelen kutusu sohbeti için hızlı yanıt metin parçacıkları — temsilciler canlı görüşmeler sırasında bunları ekleyebilir."
+tabs=[]
+cols=["Başlık","Kısayol","Önizleme","Kategori",""]
+btns=["Yeni hazır yanıt"]
+
+===== ar dir=rtl =====
+h="ردود جاهزة"
+sub="نصوص رد سريعة لصندوق الوارد — يمكن للوكلاء إدراجها أثناء المحادثات المباشرة."
+tabs=[]
+cols=["العنوان","الاختصار","معاينة","الفئة",""]
+btns=["رد جاهز جديد"]
+
+===== fr dir=ltr =====
+h="Réponses prédéfinies"
+sub="Extraits de texte de réponse rapide pour la boîte de réception — les agents peuvent les insérer lors des conversations en direct."
+tabs=[]
+cols=["Titre","Raccourci","Aperçu","Catégorie",""]
+btns=["Nouvelle réponse prédéfinie"]

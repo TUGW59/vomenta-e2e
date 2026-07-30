@@ -1,0 +1,33 @@
+SLA JSON type: object keys []
+KPI texts: ["Total Policies","Active Policies"]
+NEW POLICY DIALOG: - dialog "New SLA Policy":
+  - heading "New SLA Policy" [level=2]
+  - paragraph: Define service level agreements
+  - text: Policy name
+  - textbox "e.g. Urgent Voice SLA"
+  - text: First response (min)
+  - spinbutton: "15"
+  - text: Resolution (min)
+  - spinbutton: "240"
+  - text: Next response (min, optional)
+  - spinbutton "Optional"
+  - text: Priority
+  - combobox: MEDIUM
+  - text: Channel types
+  - button "VOICE"
+  - button "WEBCHAT"
+  - button "EMAIL"
+  - button "SMS"
+  - button "WHATSAPP"
+  - button "FACEBOOK"
+  - button "INSTAGRAM"
+  - button "TELEGRAM"
+  - button "VIDEO"
+  - switch [checked]
+  - text: Active
+  - button "Cancel"
+  - button "Create policy" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+ROW ACTION labels: []

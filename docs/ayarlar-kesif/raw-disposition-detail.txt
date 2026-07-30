@@ -1,0 +1,22 @@
+dialog=1
+DIALOG: - dialog "Add Disposition Code":
+  - heading "Add Disposition Code" [level=2]
+  - text: Code
+  - textbox "e.g. SALE_COMPLETE"
+  - text: Label
+  - textbox "e.g. Sale Completed"
+  - text: Category
+  - combobox: Neutral
+  - text: Description
+  - textbox "Optional description for this disposition code"
+  - text: Sort Order
+  - spinbutton "0"
+  - text: Positive Outcome
+  - switch "Positive Outcome"
+  - text: Default
+  - switch "Default"
+  - button "Cancel"
+  - button "Create"
+  - button "Close":
+    - img
+    - text: Close

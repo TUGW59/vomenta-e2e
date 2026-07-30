@@ -1,0 +1,236 @@
+URL: https://app.vomenta.com/settings/notifications
+
+===== en dir=ltr =====
+h="Notifications"
+sub="Configure notification preferences"
+tabs=[]
+cols=[]
+btns=["Save preferences","Enable push notifications","Save preferences"]
+MAIN SNAPSHOT:
+- main:
+  - heading "Notifications" [level=1]
+  - paragraph: Configure notification preferences
+  - button "Save preferences" [disabled]
+  - img
+  - text: Browser Push Notifications Receive real-time notifications in your browser even when the app is in the background.
+  - img
+  - paragraph: Not active
+  - paragraph: Browser notifications are blocked. Please allow notifications in your browser settings and try again.
+  - button "Enable push notifications" [disabled]
+  - img
+  - text: Email Category Preferences Control which categories of email notifications you receive. Disabling a category will stop all emails in that group.
+  - button "Save preferences" [disabled]
+  - img
+  - paragraph: Account & Activity
+  - paragraph: Calls, chats, tickets, schedule changes, and role updates
+  - switch [checked]
+  - img
+  - paragraph: Billing & Payments
+  - paragraph: Invoices, payment confirmations, subscription and credit alerts
+  - switch [checked]
+  - img
+  - paragraph: Campaigns
+  - paragraph: Campaign start, completion, and failure notifications
+  - switch [checked]
+  - img
+  - paragraph: AI & Automation
+  - paragraph: AI system alerts and automation notifications
+  - switch [checked]
+  - img
+  - paragraph: SLA
+  - paragraph: SLA breach and warning notifications
+  - switch [checked]
+  - img
+  - paragraph: Reports & Usage
+  - paragraph: Report readiness, usage alerts, and digest summaries
+  - switch [checked]
+  - img
+  - paragraph: Security
+  - paragraph: Security alerts and account suspension warnings
+  - switch [checked]
+  - img
+  - text: Delivery Channels Choose how you want to receive notifications for each category
+  - img
+  - text: In-App
+  - img
+  - text: Email
+  - img
+  - text: Push Notifications
+  - img
+  - heading "Account & Activity" [level=3]
+  - paragraph: Calls, chats, tickets, team changes, and security
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Incoming calls
+  - text: Agent Supervisor
+  - paragraph: Notifications for new incoming calls assigned to you
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: New chat messages
+  - text: Agent Supervisor
+  - paragraph: Notifications for new chat conversations
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Ticket assignments
+  - text: Agent Supervisor
+  - paragraph: When a ticket is assigned to you or your team
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Mentions & tags
+  - text: Agent Supervisor Admin
+  - paragraph: When you are mentioned in a conversation or note
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Schedule changes
+  - text: Agent Supervisor
+  - paragraph: Changes to your shift or schedule
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Role changes
+  - text: Agent Supervisor Admin
+  - paragraph: When your role or permissions are updated
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Security alerts
+  - text: Admin
+  - paragraph: Unusual login activity or security-related events
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Account suspension warning
+  - text: Admin
+  - paragraph: Warnings when your account is at risk of suspension
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Chat transcript ready
+  - text: Agent Supervisor
+  - paragraph: When a conversation transcript is available after resolution
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Recording ready
+  - text: Agent Supervisor
+  - paragraph: When a call recording has been processed and is ready to review
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Callback reminder
+  - text: Agent Supervisor
+  - paragraph: Reminders for scheduled customer callbacks
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: CSAT survey results
+  - text: Supervisor Admin
+  - paragraph: When a customer satisfaction survey response is received
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - img
+  - heading "Billing & Payments" [level=3]
+  - paragraph: Payments, invoices, subscriptions, and credit balance
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Payment received
+  - text: Admin
+  - paragraph: Successful payment confirmations
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Payment failed
+  - text: Admin
+  - paragraph: Failed payment alerts requiring action
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Payment action required
+  - text: Admin
+  - paragraph: Payments requiring additional authentication or action
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Invoice ready
+  - text: Admin
+  - paragraph: New invoices available for download
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Subscription confirmed
+  - text: Admin
+  - paragraph: When a new subscription is activated
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Subscription changed
+  - text: Admin
+  - paragraph: When your plan is upgraded, downgraded, or modified
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Subscription renewed
+  - text: Admin
+  - paragraph: Automatic renewal confirmations
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Trial expiring
+  - text: Admin
+  - paragraph: Reminders before your trial period ends
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Low credit balance
+  - text: Admin
+  - paragraph: Alerts when your credit balance drops below threshold
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Purchase confirmed
+  - text: Admin
+  - paragraph: Confirmation for add-on or module purchases
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - img
+  - heading "Campaigns" [level=3]
+  - paragraph: Campaign status updates and completions
+  - switch [checked]
+  - switch [checked]
+  - switch
+  - paragraph: Campaign started
+  - text: Admin Supervisor
+  - 
+API: ["GET /api/v1/modules/active","GET /api/v1/modules/catalog","GET /api/v1/notifications/unread-count","GET /api/v1/notifications?page=1","GET /api/v1/dids?page=1&limit=30&filters=%7B%22assigned%22%3Atrue%7D","GET /api/v1/voice/calls/live","GET /api/v1/auth/me","GET /api/v1/notifications/preferences","GET /api/v1/roles/me/permissions","GET /api/v1/settings/organization","GET /api/v1/onboarding/progress","GET /api/v1/notifications/email-preferences"]
+OVERFLOW 768: ok
+OVERFLOW 1024: ok
+OVERFLOW 1280: ok
+
+===== tr dir=ltr =====
+h="Bildirimler"
+sub="Bildirim tercihlerini yapılandırın"
+tabs=[]
+cols=[]
+btns=["Tercihleri kaydet","Anlık bildirimleri etkinleştir","Tercihleri kaydet"]
+
+===== fr dir=ltr =====
+h="Notifications"
+sub="Configurez les préférences de notifications"
+tabs=[]
+cols=[]
+btns=["Enregistrer les préférences","Activer les notifications push","Enregistrer les préférences"]
+
+===== ar dir=rtl =====
+h="الإشعارات"
+sub="إعداد تفضيلات الإشعارات"
+tabs=[]
+cols=[]
+btns=["حفظ التفضيلات","تفعيل الإشعارات الفورية","حفظ التفضيلات"]

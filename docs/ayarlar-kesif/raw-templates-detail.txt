@@ -1,0 +1,41 @@
+rows: 1 row0="No templates in this category"
+after New Template: dialog=1 url=https://app.vomenta.com/settings/templates
+DIALOG: - dialog "New Template":
+  - heading "New Template" [level=2]
+  - paragraph: Manage message templates
+  - text: Name
+  - textbox "Template name"
+  - text: Category
+  - combobox: Canned Responses
+  - text: Language
+  - combobox: English
+  - text: Content
+  - img
+  - text: "Insert variable:"
+  - button "customerName"
+  - button "ticketNumber"
+  - button "agentName"
+  - button "companyName"
+  - textbox "settings.templatesPage.contentPlaceholder"
+  - button "Cancel"
+  - button "Create" [disabled]
+  - button "Close":
+    - img
+    - text: Close
+CANNED TAB panel: - tabpanel "Canned Responses":
+  - heading "Canned Responses" [level=2]
+  - paragraph: Quick-reply text snippets for the inbox chat — agents can insert these during live conversations.
+  - button "New canned response":
+    - img
+    - text: New canned response
+  - table:
+    - rowgroup:
+      - row "Title Shortcode Preview Category":
+        - columnheader "Title"
+        - columnheader "Shortcode"
+        - columnheader "Preview"
+        - columnheader "Category"
+        - columnheader
+    - rowgroup:
+      - row "No canned responses yet. Create one to get started.":
+        - cell "No canned responses yet. Create one to get started."
