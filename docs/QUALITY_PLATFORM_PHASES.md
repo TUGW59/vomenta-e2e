@@ -11,7 +11,7 @@
   ref adları çözülmüyor; taban commit SHA ile sabitlendi.
 - **Ortam:** **read-only production** (`app.vomenta.com`). `TEST_ENV` default `production`;
   `MUTATION_*` env değişkenleri ve rol hesapları repoda tanımsız → mutation/rol canlı testleri **BLOCKED**.
-- **Son güncelleme (audit):** 2026-07-30, WP-R1 (bulgu registry + linkage gate merge edildi, PR #44).
+- **Son güncelleme (audit):** 2026-07-30, WP-R2 (bulgu + test raporları + drift kapısı merge edildi, PR #46).
 
 **Durum lejantı:** `DONE` (kanıtlı bitti) · `PARTIAL` (altyapı var, kapsam/enforcement eksik) ·
 `BLOCKED` (dış bağımlılık — genelde staging) · `NOT STARTED`.
@@ -73,7 +73,7 @@
 | **WP-00** | Repo gerçekliğini kilitle (bu dosya) | **DONE (bu PR)** | branch/PR audit + sabit sayımlar + bu dosya |
 | **WP-01** | Artifact/secret/PII güvenliği (P0) | **DONE** | Ortak `tests/fixtures/sanitize.js` (JWT/Bearer/Authorization/cookie/email/telefon/provider-key/kv + URL); `artifacts.safeAttach`/`safeScreenshot`; `diagnostics` delege; sert kapı `quality:artifact-safety` (seed'li-secret + spec'te ham `testInfo.attach` yasağı); ADR-0006. İsim PII otomatik değil (ekran maskesi — bilinçli sınır) |
 | **WP-R1** | Bulgu registry + validator + knownBugGuard + linkage gate | **DONE + MERGED** | `tests/contracts/known-bugs.js` (31 bulgu: 28 knownBugGuard / 1 fixme / 2 permanent) + `knownBugGuard(test,id)` (helpers.js) + `tools/self-check-findings.mjs` (çift yönlü linkage + 6 negatif meta-test) `quality:check`'te. PR #44 → `origin/main` `ee4d0a2`. owner/expiry/rootCause null (uydurma yok) |
-| **WP-R2** | Bulgu + test raporları (MD/JSON repo + HTML/PDF artifact) | **NOT STARTED** | konsolide → alan → rota → bug-kartı; YAPILAN/YAPILMAYAN test raporları (provenance'lı); legacy görsel `piiReviewed` kapısı. Onay bekliyor |
+| **WP-R2** | Bulgu + test raporları (MD/JSON repo + HTML/PDF artifact) | **DONE + MERGED** | `docs/raporlar/`: `findings.json` + `BULGULAR.md` + `YAPILAN-TESTLER.md` + `YAPILMAYAN-TESTLER.md`; üreteçler `tools/generate-findings.mjs`/`generate-test-report.mjs`/`render-report-pdf.mjs` (+`report-lib.mjs`); HTML/PDF gitignored artifact; `report:findings:check` drift kapısı CI'da; coverageStatus/provenance (verified=0, executed=0); `piiReviewed` kapısı. PR #46 → `origin/main` `0bf0c0e` |
 | **WP-R3** | Forensik mod + CI + nightly | **NOT STARTED** | `report:bug` (trace + maskeli screenshot + `candidate-update.json`; registry değişmez); `workflow_dispatch` güvenlik-kapılı upload; nightly yalnız `fixed-candidate` önerisi |
 | **WP-02** | Discovery fingerprint doğruluğu | **PARTIAL (P0)** | Runtime safety gate var; ama endpoint fingerprint'leri boş, 25/29 shared ARIA hash → radar shell'i ölçüyor |
 | **WP-03** | Surface Manifest + discovery hard-gate | **PARTIAL** | Coverage radarı (`untestedRoutes`/`registeredNotReached`) hesaplanıyor ama **drift assert edilmiyor** (`discovery.spec.js`'de `report.changes` üzerinde `expect` yok); 4 kayıtsız rota report-only |
