@@ -24,6 +24,14 @@ on:
           forensik job atlanır.
         required: false
         type: string
+      verify_finding_id:
+        description: >-
+          (WP-R4) Fixed-candidate DOĞRULAMA için known-bug registry ID (ör. B4).
+          Doldurulursa YALNIZ o bulgu için tek bir bağımsız doğrulama koşusu yapılır,
+          attestation + verification-report üretilir. Registry DEĞİŞMEZ, finding
+          KAPANMAZ (yalnız öneri). Boş bırakılırsa doğrulama job atlanır.
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -170,6 +178,61 @@ jobs:
           path: test-results/findings/${{ inputs.finding_id }}/upload/
           if-no-files-found: error
           retention-days: 14
+
+  known-bug-verify:
+    name: Known-bug fix verification (manual)
+    needs: architecture
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.verify_finding_id != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      ALLOW_MUTATING_TESTS: 'false'
+      # CI'da auth.setup her koşuda taze login üretir → bağımsız-koşu kriteri için freshLogin=true.
+      VERIFY_FRESH_SESSION: 'true'
+      FID: ${{ inputs.verify_finding_id }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Kısa SHA
+        id: vars
+        run: echo "short=$(echo "${GITHUB_SHA}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+      - name: Önceki attestation'ları geri yükle (best-effort; seri günlere yayılsın)
+        # Seri (≥3 koşu / ≥2 gün) ayrı dispatch koşularına yayıldığından, önceki
+        # `known-bug-verify-<id>-*` artifact'lerindeki attestation'ları toplarız.
+        # Tamamen best-effort: başarısız olsa da bu koşu kendi attestation'ını üretir.
+        run: |
+          set +e
+          mkdir -p "test-results/findings/${FID}/verification/attestations"
+          ids=$(gh api "repos/${{ github.repository }}/actions/artifacts?per_page=100" \
+            --jq ".artifacts[] | select(.expired==false) | select(.name | startswith(\"known-bug-verify-${FID}-\")) | .id" 2>/dev/null | head -30)
+          for aid in $ids; do
+            gh api "repos/${{ github.repository }}/actions/artifacts/$aid/zip" > "/tmp/att-$aid.zip" 2>/dev/null || continue
+            unzip -o -qq "/tmp/att-$aid.zip" -d "/tmp/att-$aid" 2>/dev/null || continue
+            find "/tmp/att-$aid" -name 'attestation-*.json' -exec cp {} "test-results/findings/${FID}/verification/attestations/" \; 2>/dev/null
+          done
+          echo "geri yüklenen attestation: $(ls test-results/findings/${FID}/verification/attestations/ 2>/dev/null | wc -l)"
+          exit 0
+      - name: Doğrulama koşusu + toplama (registry DEĞİŞMEZ; finding KAPANMAZ)
+        # report:verify tek bağımsız koşu yapar, attestation üretir, tüm attestation'ları
+        # eşiğe göre birleştirir. verified-fixed-proposal bile YALNIZ öneridir.
+        run: npm run report:verify -- "${FID}"
+      - name: Registry değişmedi mi (doğrulama registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Güvenli doğrulama artifact'i yükle (YALNIZ upload/ allowlist bundlei)
+        uses: actions/upload-artifact@v4
+        with:
+          name: known-bug-verify-${{ inputs.verify_finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
+          path: test-results/findings/${{ inputs.verify_finding_id }}/verification/upload/
+          if-no-files-found: error
+          retention-days: 30
 
   full-regression:
     name: Full cross-browser regression

@@ -22,6 +22,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { redactText, findSecrets } from './sanitize.js';
+import { verificationProfileFor } from '../contracts/verification-profiles.js';
 
 /** Forensik modu tetikleyen ortam değişkeni adı. */
 export const FORENSIC_ENV = 'FORENSIC_BUG';
@@ -147,6 +148,90 @@ export function createForensicRecorder(page) {
       await Promise.allSettled(pending);
     },
   };
+}
+
+/** Scope-anahtarı biçimi (değer/secret/PII değil): "settings.billing.view", "modules:read" */
+const SCOPE_KEY_RE = /^[a-z0-9][a-z0-9._:*-]{2,80}$/i;
+
+/** JSON içinden yalnız scope-anahtarı görünümlü (nokta/iki-nokta içeren) string/anahtarları toplar. */
+function collectScopeKeys(node, out, depth = 0) {
+  if (depth > 6 || node == null) return;
+  if (typeof node === 'string') {
+    if (SCOPE_KEY_RE.test(node) && /[.:]/.test(node)) out.add(node);
+    return;
+  }
+  if (Array.isArray(node)) {
+    for (const x of node) collectScopeKeys(x, out, depth + 1);
+    return;
+  }
+  if (typeof node === 'object') {
+    for (const [k, v] of Object.entries(node)) {
+      if (SCOPE_KEY_RE.test(k) && /[.:]/.test(k)) out.add(k);
+      collectScopeKeys(v, out, depth + 1);
+    }
+  }
+}
+
+/**
+ * WP-R4 — Doğrulama profil yakalama (YALNIZ `VERIFY_PROFILE=1` iken; report:bug/WP-R3'ü
+ * ETKİLEMEZ). Bulgunun izin ucundan yalnız scope-ANAHTARLARINI çıkarır; yanıt gövdesi
+ * diske YAZILMAZ. Amaç: bulgunun orijinal rol/izin bağlamında doğrulandığını kanıtlamak.
+ * @param {import('@playwright/test').Page} page
+ * @param {string} findingId
+ */
+export function createProfileCapture(page, findingId) {
+  const cfg = verificationProfileFor(findingId);
+  if (!cfg || process.env.VERIFY_PROFILE !== '1') {
+    return { active: false, get keys() { return []; }, stop() {} };
+  }
+  /** @type {Set<string>} */
+  const keys = new Set();
+  /** @type {Promise<unknown>[]} */
+  const pending = [];
+  const onResp = (resp) => {
+    const p = (async () => {
+      try {
+        if (resp.request().method() !== 'GET') return;
+        if (!resp.url().includes(cfg.permissionsUrlIncludes)) return;
+        const json = await resp.json();
+        collectScopeKeys(json, keys);
+      } catch {
+        /* json değil / okunamadı — atla */
+      }
+    })();
+    pending.push(p);
+  };
+  page.on('response', onResp);
+  return {
+    active: true,
+    get keys() { return [...keys]; },
+    async stop() {
+      page.off('response', onResp);
+      await Promise.allSettled(pending);
+    },
+  };
+}
+
+/**
+ * Yakalanan izin anahtarlarını (secret/PII-taramasından geçmiş, scope-biçimli) diske yazar:
+ * `test-results/findings/<id>/profile.json`. Ham yanıt gövdesi yazılmaz.
+ * @param {string} id
+ * @param {string[]} rawKeys
+ */
+export function writeCapturedProfile(id, rawKeys) {
+  const dir = findingDirRel(id);
+  mkdirSync(dir, { recursive: true });
+  const keys = [...new Set((rawKeys || []).map(String))]
+    .filter((k) => SCOPE_KEY_RE.test(k))
+    .filter((k) => findSecrets(k).length === 0)
+    .sort();
+  const body = JSON.stringify({ findingId: id, environment: 'production-readonly', keys }, null, 2);
+  if (findSecrets(body).length) {
+    writeFileSync(join(dir, 'profile.SKIPPED.txt'), 'profile.json YAZILMADI: sanitizer sızıntı buldu.\n');
+    return { written: false, count: 0 };
+  }
+  writeFileSync(join(dir, 'profile.json'), body + '\n');
+  return { written: true, count: keys.length };
 }
 
 /**

@@ -303,6 +303,31 @@ olarak kaldırıp gerçek başarısızlığı (trace/screenshot/ağ özeti) yaka
 - **Sert kapı:** `quality:forensic` (`quality:check` zincirinde) tüm bu kontratları negatif
   self-check'lerle kanıtlar. Detay: `docs/adr/0007-known-bug-forensic-mode.md`.
 
+## Bug fix verification & regresyon koruması (WP-R4)
+
+Bir `fixed-candidate`'in (WP-R3 reconcile/forensik `unexpected-pass` sinyali) gerçekten
+düzeldiğini KANITA DAYALI, çok-koşulu, insan-onaylı biçimde doğrulayan salt-okunur mekanizma.
+**Tek geçiş "verified-fixed" DEĞİLDİR.** Bu mekanizma hiçbir finding'i kapatmaz.
+
+- **Komut:** `npm run report:verify -- <ID>` — tek bağımsız doğrulama koşusu (forensik mod,
+  `retries=0`, read-only) + attestation üretir; tüm attestation'ları eşiğe göre birleştirip
+  `test-results/findings/<ID>/verification/verification-report.json` yazar.
+- **Bağımsız başarılı koşu** = `result=pass` + ilk-denemede-pass + `retries=0` + `profileVerified`
+  + `freshLogin` + `production-readonly` + ayrı `workflowRunId` + registry fingerprint sabit.
+- **Eşik:** ≥3 farklı run + ≥2 ayrı takvim günü. Arada reproduce/infra-error/profil-uyuşmazlığı/
+  retry-pass → seri sıfırlanır. Sonuç durumları: `candidate` · `insufficient-evidence` ·
+  `verified-fixed-proposal` · `reproduced` · `inconclusive` · `infra-error`.
+- **`verified-fixed-proposal` YALNIZ öneridir** — registry değişmez, guard kaldırılmaz, bug
+  kapanmaz. Kapanış (`open→closed`, `knownBugGuard→permanent`, `test.fail` kaldırma) yalnız
+  **insan onaylı ayrı PR** ile (B8 modeli).
+- **Profil kısıtı (ör. B4):** `tests/contracts/verification-profiles.js` (registry ŞEMASI DEĞİL)
+  bulgunun orijinal rol/izin bağlamını tanımlar; koşu izin ucunu YALNIZ okur, scope-anahtarlarını
+  çıkarır (gövde yazılmaz), eşleşmezse `inconclusive`. Şema (`verifiedAt`/`closedAt`) EKLENMEDİ.
+- **Güvenlik:** `report:verify` yalnız `verification-report.json`+`profile.json`+`attestations/*.json`
+  (secret-taramalı) yükler; registry fingerprint değişirse hard failure; ham `test-results/` yok.
+- **Sert kapı:** `quality:verify` (`quality:check`'te) tüm kuralları negatif self-check'lerle kanıtlar.
+  Detay: `docs/adr/0008-bug-fix-verification.md`.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
