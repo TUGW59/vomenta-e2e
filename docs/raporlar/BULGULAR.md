@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 31
-- **Durum:** open 29 · closed 2
-- **Guard:** knownBugGuard 28 · fixme 1 · permanent 2
-- **Ciddiyet:** critical 1 · high 4 · medium 24 · low 2
+- **Toplam bulgu:** 34
+- **Durum:** open 33 · closed 1
+- **Guard:** knownBugGuard 32 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 24 · low 2
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 31 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
+- **Sahipsiz (owner=null):** 34 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -38,8 +38,11 @@
 | REPORTS-SECTIONS-TZ | reports | /reports/call | medium | open | knownBugGuard | — |
 | DASHBOARDS-SHARE-OVERFLOW | reports | /reports/dashboards | medium | open | knownBugGuard | — |
 | B4 | settings | /settings | high | open | knownBugGuard | — |
+| SETTINGS-BILLING-CHANGEPLAN | settings | /settings | high | open | knownBugGuard | — |
+| SETTINGS-BILLING-HISTORY | settings | /settings | high | open | knownBugGuard | — |
 | B6 | settings | /settings | medium | open | knownBugGuard | — |
-| B7 | settings | /settings | medium | closed | permanent | — |
+| B7 | settings | /settings | medium | open | knownBugGuard | — |
+| SETTINGS-BILLING-REDIRECT | settings | /settings/billing | high | open | knownBugGuard | — |
 | AGENTS-TZ | supervisor | /supervisor/agents | medium | open | knownBugGuard | — |
 | WALLBOARD-AUTOSCROLL | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-I18N | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
@@ -285,13 +288,35 @@
 **[B4] "Manage Modules" kök sayfaya (/) düşüyor** — `high` · `open` · guard `knownBugGuard`
 
 - **Beklenen:** İlgili modül yönetim sayfası açılır
-- **Gerçekleşen:** /settings → (geçici) /settings/billing/marketplace → "/" (kök fallback)
+- **Gerçekleşen:** /settings → (geçici) /settings/billing/marketplace → "/" (kök fallback). Doğrudan deep-link de aynı şekilde "/"ye yönleniyor.
 - **Repro:** /settings aç → Modüller sekmesi → "Manage Modules" tıkla
-- **Olası nedenler:** Yönlendirme/route fallback zinciri kök route ("/") ile sonuçlanıyor (kaynakta gözlenen akış)
+- **Olası nedenler:** Yönlendirme/route fallback zinciri kök route ("/") ile sonuçlanıyor (kaynakta gözlenen akış).; Yetki eksikliği (settings.billing.*/modules yok) → korunan uç 403 → yetkisiz kullanıcıya açık "erişim yok" durumu yerine Dashboard'a fallback (canlı gözlem).
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
-- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B4 · /settings · "Manage Modules" kök sayfaya atmamalı
+
+**[SETTINGS-BILLING-CHANGEPLAN] Ayarlar hub "Change plan" linki kök sayfaya (/) düşüyor** — `high` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Plan değiştirme sayfası açılır
+- **Gerçekleşen:** "Change plan" → /settings/billing → "/" (kök fallback). Ayrıca "Change plan" ve "Billing history" aynı /settings/billing URL'ine işaret ediyor.
+- **Repro:** /settings aç → Billing & Usage sekmesi → "Change plan" linkine tıkla
+- **Olası nedenler:** /settings/billing rota fallback'i + billing yetkisi eksik (bkz. SETTINGS-BILLING-REDIRECT).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Guard testi:** `tests/known-bugs.authed.spec.js` → SETTINGS-BILLING-CHANGEPLAN · Ayarlar "Change plan" kök sayfaya atmamalı
+
+**[SETTINGS-BILLING-HISTORY] Ayarlar hub "Billing history" linki kök sayfaya (/) düşüyor** — `high` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Fatura geçmişi sayfası açılır
+- **Gerçekleşen:** "Billing history" → /settings/billing → "/" (kök fallback)
+- **Repro:** /settings aç → Billing & Usage sekmesi → "Billing history" linkine tıkla
+- **Olası nedenler:** /settings/billing rota fallback'i + billing yetkisi eksik (bkz. SETTINGS-BILLING-REDIRECT).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Guard testi:** `tests/known-bugs.authed.spec.js` → SETTINGS-BILLING-HISTORY · Ayarlar "Billing history" kök sayfaya atmamalı
 
 **[B6] Davet satırları ayırt edilemiyor (placeholder "Invited User")** — `medium` · `open` · guard `knownBugGuard`
 
@@ -303,15 +328,29 @@
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B6 · /settings · davet satırları ayırt edilebilir olmalı (placeholder "Invited User" değil)
 
-**[B7] Modüller açıklaması iki kez render ediliyordu** — `medium` · `closed` · guard `permanent`
+**[B7] Modüller açıklaması iki kez render ediliyor** — `medium` · `open` · guard `knownBugGuard`
 
 - **Beklenen:** Açıklama tek kez görünür
-- **Gerçekleşen:** 28 Tem itibarıyla DÜZELMİŞ; kalıcı regresyon guard'ı olarak tutuluyor
-- **Repro:** /settings aç → Modüller sekmesi → açıklama paragraflarını say
+- **Gerçekleşen:** 30 Tem 2026 canlı: açıklama İKİ görünür öğede tekrar ediyor — bir <div class="text-sm text-muted-foreground"> ve bir <p class="text-sm text-muted-foreground mb-4">. Eski guard yalnız <p> paragraflarını karşılaştırdığı için div+p tekrarını KAÇIRIYORDU (false-green). Bulgu yeniden açıldı.
+- **Repro:** /settings aç → Modüller sekmesi → açıklama metnini içeren görünür öğeleri say
+- **Olası nedenler:** Açıklama hem panel başlığı/alt-metni (<div>) hem de gövde paragrafı (<p>) olarak iki ayrı öğede basılıyor (canlı gözlem).
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
-- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B7 · /settings · Modüller açıklaması iki kez render edilmemeli
+
+### /settings/billing
+
+**[SETTINGS-BILLING-REDIRECT] /settings/billing deep-link kök sayfaya (/) yönleniyor** — `high` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Billing & Usage sayfası açılır (yetki yoksa açık "erişim yok" durumu gösterilir)
+- **Gerçekleşen:** /settings/billing ~1.5sn görünüp korunan uçlardan 403 aldıktan sonra "/" (Dashboard) sayfasına yönleniyor
+- **Repro:** /settings/billing doğrudan aç (deep-link) → URL oturana kadar bekle
+- **Olası nedenler:** Korunan billing uçları 403 dönünce sayfa kök route ("/") fallback'ine yönleniyor; yetkisiz kullanıcıya açık "erişim yok" durumu yerine Dashboard'a atıyor (canlı gözlem).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Guard testi:** `tests/known-bugs.authed.spec.js` → SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı
 
 ## supervisor
 
