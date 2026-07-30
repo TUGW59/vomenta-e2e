@@ -47,6 +47,8 @@ jobs:
         run: npm run report:coverage:check
       - name: Stil kapsama matrisi güncel mi (drift kontrolü)
         run: npm run report:style-matrix:check
+      - name: Bulgu + test raporları güncel mi (drift kontrolü)
+        run: npm run report:findings:check
 
   public-smoke:
     name: Public smoke / Chromium
