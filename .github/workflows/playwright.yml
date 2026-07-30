@@ -223,10 +223,15 @@ jobs:
       - name: Doğrulama koşusu + toplama (registry DEĞİŞMEZ; finding KAPANMAZ)
         # report:verify tek bağımsız koşu yapar, attestation üretir, tüm attestation'ları
         # eşiğe göre birleştirir. verified-fixed-proposal bile YALNIZ öneridir.
+        # Hedef testte mutation method görülürse güvenli bundle yazılır AMA exit 1 (policy gate).
         run: npm run report:verify -- "${FID}"
       - name: Registry değişmedi mi (doğrulama registrye YAZMAZ)
+        # Policy violation'da bile registry kontrolü + güvenli bundle upload'ı çalışsın.
+        if: ${{ !cancelled() }}
         run: git diff --exit-code -- tests/contracts/known-bugs.js
       - name: Güvenli doğrulama artifact'i yükle (YALNIZ upload/ allowlist bundlei)
+        # Policy violation'da bundle YİNE yüklenir (kanıt korunur); job yine kırmızı kalır.
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: known-bug-verify-${{ inputs.verify_finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}

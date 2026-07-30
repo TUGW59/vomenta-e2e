@@ -34,6 +34,7 @@ import {
   profileMatches,
   aggregateVerification,
   prepareVerificationBundle,
+  assessReadOnly,
 } from './forensic-lib.mjs';
 import { verificationProfileFor } from '../tests/contracts/verification-profiles.js';
 
@@ -97,7 +98,7 @@ if (cfg) {
   if (existsSync(pPath)) {
     try {
       const captured = JSON.parse(readFileSync(pPath, 'utf8'));
-      const norm = normalizeProfile(captured.keys || []);
+      const norm = normalizeProfile(captured.keys || [], { contractId: id, version: cfg.version });
       profileVerified = profileMatches(norm.permissions, cfg);
       profile = { constraint: true, fingerprint: norm.fingerprint, permissions: norm.permissions, matched: profileVerified };
       copyFileSync(pPath, join(vDirAbs, 'profile.json'));
@@ -113,6 +114,28 @@ if (cfg) {
 // Kısıtlı bulguda profil doğrulanamazsa: pass bile olsa inconclusive (WP-R4 #7).
 if (cfg && !profileVerified && result === 'pass') result = 'inconclusive';
 
+// ── 3b. Salt-okunur ağ kanıtı (WP-R4 takip #2) ────────────────────────────────
+// WP-R3 forensik recorder hedef testin page context'inde network-summary.json üretir
+// (auth-setup ayrı context → dahil DEĞİL). Sanitize edilmiş (method+path+status+süre+tip).
+// Mutation method görülürse: policy violation → başarılı sayılmaz + CI hard failure.
+let readOnlyVerified = false;
+let mutatingRequests = [];
+const netPath = join(dirAbs, 'network-summary.json');
+if (existsSync(netPath)) {
+  try {
+    const summary = JSON.parse(readFileSync(netPath, 'utf8'));
+    const assessment = assessReadOnly(summary);
+    readOnlyVerified = assessment.readOnly;
+    mutatingRequests = assessment.mutating;
+    copyFileSync(netPath, join(vDirAbs, 'network-summary.json'));
+  } catch {
+    readOnlyVerified = false;
+  }
+}
+const policyViolation = mutatingRequests.length > 0;
+// Mutation method → koşu başarılı kanıt sayılmasın (result pass ise inconclusive'e düşür).
+if (policyViolation && result === 'pass') result = 'inconclusive';
+
 // ── 4. Attestation ─────────────────────────────────────────────────────────────
 const timestamp = new Date().toISOString();
 const workflowRunId = process.env.GITHUB_RUN_ID || null;
@@ -125,6 +148,9 @@ const attestation = {
   retries,
   profile,
   profileVerified,
+  readOnlyVerified,
+  mutatingRequests,
+  policyViolation,
   freshLogin: process.env.VERIFY_FRESH_SESSION === 'true', // taze login/storage state
   workflowRunId,
   timestamp,
@@ -157,8 +183,15 @@ if (bundle.rejected.length > 0) {
   fail('güvenli olmayan/beklenmeyen dosya; upload bundle üretilmedi.');
 }
 
-console.log(`✔ bu koşu: result=${attestation.result} · firstAttemptPass=${firstAttemptPass} · profileVerified=${profileVerified} · freshLogin=${attestation.freshLogin} · run=${workflowRunId || 'local'}`);
+console.log(`✔ bu koşu: result=${attestation.result} · firstAttemptPass=${firstAttemptPass} · profileVerified=${profileVerified} · readOnlyVerified=${readOnlyVerified} · freshLogin=${attestation.freshLogin} · run=${workflowRunId || 'local'}`);
 console.log(`✔ TOPLAM sonuç: ${aggregate.result} (seri: ${aggregate.streak.runs} run / ${aggregate.streak.days} gün, eşik ${aggregate.threshold.minRuns}/${aggregate.threshold.minDays})`);
 console.log(`✔ rapor: ${join(dirRel, 'verification', 'verification-report.json')}`);
 console.log(`✔ upload bundle: ${join(dirRel, 'verification', 'upload')}/ → ${bundle.copied.join(', ') || '(boş)'}`);
 console.log('✔ registry değişmedi; hiçbir finding kapatılmadı (yalnız öneri).');
+
+// ── 8. Policy gate: hedef testte mutation method → HARD FAILURE (güvenli bundle yazıldı) ──
+if (policyViolation) {
+  console.error(`✗ POLICY VIOLATION: hedef finding koşusunda mutation method(ları) görüldü: ${mutatingRequests.join(', ')}`);
+  console.error('  Koşu başarılı sayılmadı; verified-fixed-proposal üretilemez. Bundle güvenli yazıldı; CI job hard failure.');
+  process.exit(1);
+}

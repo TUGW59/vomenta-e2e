@@ -22,6 +22,7 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
 import { findSecrets } from '../tests/fixtures/sanitize.js';
+import { isValidScope } from '../tests/fixtures/scope-extract.js';
 
 /** CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi). */
 export const UPLOAD_ALLOWLIST = Object.freeze([
@@ -321,20 +322,44 @@ export const VERIFY_MIN_DAYS = 2; // en az 2 ayrı takvim gününe yayılmış
 export const VERIFICATION_UPLOAD_ALLOWLIST = Object.freeze([
   'verification-report.json',
   'profile.json',
+  'network-summary.json', // WP-R4 takip: read-only ağ kanıtı (WP-R3 collector'ı üretir; sanitize edilmiş)
 ]);
 
+/** Salt-okunur ihlali sayılan HTTP method'ları. */
+export const MUTATING_METHODS = Object.freeze(['POST', 'PUT', 'PATCH', 'DELETE']);
+
 /**
- * İzin anahtarlarını güvenli/normalize profile indirger: yalnız scope-anahtarı
- * biçimindeki (değer/secret/PII olmayan) anahtarlar; benzersiz + sıralı + fingerprint.
+ * Sanitize edilmiş network-summary'den mutation method isteklerini çıkarır (salt-okunur
+ * kanıtı). Auth-setup trafiği DEĞİL — özet yalnız hedef testin page context'ini kapsar
+ * (WP-R3 forensik recorder testin page'ine bağlıdır).
+ * @param {{ requests?: {method?:string, path?:string}[] }|null|undefined} summary
+ * @returns {{ readOnly: boolean, mutating: string[] }}
+ */
+export function assessReadOnly(summary) {
+  const reqs = (summary && Array.isArray(summary.requests)) ? summary.requests : [];
+  const mutating = reqs
+    .filter((r) => MUTATING_METHODS.includes(String(r.method || '').toUpperCase()))
+    .map((r) => `${String(r.method).toUpperCase()} ${r.path || ''}`.trim());
+  return { readOnly: mutating.length === 0, mutating: [...new Set(mutating)] };
+}
+
+/**
+ * İzin anahtarlarını deterministik normalize profile indirger: yalnız YAPISAL geçerli
+ * scope'lar (isValidScope — timestamp/UUID/URL/e-posta/sayısal yapısal dışlanır),
+ * secret/PII taramalı, benzersiz + sıralı. Fingerprint = sha256(contractId@version +
+ * sıralı scope listesi). run-id / timestamp / yanıt sırası fingerprint'e GİRMEZ →
+ * aynı hesap + aynı kontrat → aynı fingerprint (WP-R4 takip düzeltmesi #1).
  * @param {string[]} keys
+ * @param {{ contractId?: string, version?: number }} [ctx]
  * @returns {{ fingerprint: string, permissions: string[] }}
  */
-export function normalizeProfile(keys) {
+export function normalizeProfile(keys, ctx = {}) {
   const safe = [...new Set((keys || []).map((k) => String(k).trim()).filter(Boolean))]
-    .filter((k) => /^[a-z0-9][a-z0-9._:*-]{0,80}$/i.test(k)) // scope-anahtarı şekli
+    .filter((k) => isValidScope(k)) // yapısal geçerli scope
     .filter((k) => findSecrets(k).length === 0) // secret/PII eleme
     .sort();
-  const fingerprint = 'sha256:' + createHash('sha256').update(safe.join('\n')).digest('hex');
+  const basis = `${ctx.contractId ?? ''}@${ctx.version ?? 0}\n${safe.join('\n')}`;
+  const fingerprint = 'sha256:' + createHash('sha256').update(basis).digest('hex');
   return { fingerprint, permissions: safe };
 }
 
@@ -367,6 +392,8 @@ export function qualifiesAsSuccess(a, expectedRegistryFingerprint) {
       a.firstAttemptPass === true && // ilk denemede pass
       a.retries === 0 && // retry-pass sayılmaz
       a.profileVerified === true && // beklenen rol/izin profili
+      a.readOnlyVerified === true && // salt-okunur ağ kanıtı (WP-R4 takip #2)
+      a.policyViolation !== true && // mutation method görülmedi
       a.freshLogin === true && // taze login/storage state (alan adı sanitizer'a takılmasın diye 'session' değil)
       a.environment === 'production-readonly' &&
       typeof a.workflowRunId === 'string' &&
@@ -416,6 +443,7 @@ export function aggregateVerification(findingId, attestations, opts) {
     findingId,
     generatedAt: opts?.now ?? null,
     result,
+    policyViolation: Boolean(latest && latest.policyViolation), // son koşuda mutation method görüldü mü
     threshold: { minRuns: VERIFY_MIN_RUNS, minDays: VERIFY_MIN_DAYS },
     streak: { runs: distinctRuns, days: distinctDays, attestations: streak.length },
     totalAttestations: sorted.length,

@@ -23,6 +23,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { redactText, findSecrets } from './sanitize.js';
 import { verificationProfileFor } from '../contracts/verification-profiles.js';
+import { extractPermissionScopes, isValidScope } from './scope-extract.js';
 
 /** Forensik modu tetikleyen ortam değişkeni adı. */
 export const FORENSIC_ENV = 'FORENSIC_BUG';
@@ -150,32 +151,11 @@ export function createForensicRecorder(page) {
   };
 }
 
-/** Scope-anahtarı biçimi (değer/secret/PII değil): "settings.billing.view", "modules:read" */
-const SCOPE_KEY_RE = /^[a-z0-9][a-z0-9._:*-]{2,80}$/i;
-
-/** JSON içinden yalnız scope-anahtarı görünümlü (nokta/iki-nokta içeren) string/anahtarları toplar. */
-function collectScopeKeys(node, out, depth = 0) {
-  if (depth > 6 || node == null) return;
-  if (typeof node === 'string') {
-    if (SCOPE_KEY_RE.test(node) && /[.:]/.test(node)) out.add(node);
-    return;
-  }
-  if (Array.isArray(node)) {
-    for (const x of node) collectScopeKeys(x, out, depth + 1);
-    return;
-  }
-  if (typeof node === 'object') {
-    for (const [k, v] of Object.entries(node)) {
-      if (SCOPE_KEY_RE.test(k) && /[.:]/.test(k)) out.add(k);
-      collectScopeKeys(v, out, depth + 1);
-    }
-  }
-}
-
 /**
  * WP-R4 — Doğrulama profil yakalama (YALNIZ `VERIFY_PROFILE=1` iken; report:bug/WP-R3'ü
- * ETKİLEMEZ). Bulgunun izin ucundan yalnız scope-ANAHTARLARINI çıkarır; yanıt gövdesi
- * diske YAZILMAZ. Amaç: bulgunun orijinal rol/izin bağlamında doğrulandığını kanıtlamak.
+ * ETKİLEMEZ). Bulgunun izin ucundan YALNIZ yapısal olarak izin taşıyan bağlamlardan
+ * deterministik scope-ANAHTARLARINI çıkarır (bkz. scope-extract.js: timestamp/UUID/URL/
+ * e-posta/sayısal/metadata yapısal olarak dışlanır). Yanıt gövdesi diske YAZILMAZ.
  * @param {import('@playwright/test').Page} page
  * @param {string} findingId
  */
@@ -194,7 +174,7 @@ export function createProfileCapture(page, findingId) {
         if (resp.request().method() !== 'GET') return;
         if (!resp.url().includes(cfg.permissionsUrlIncludes)) return;
         const json = await resp.json();
-        collectScopeKeys(json, keys);
+        for (const scope of extractPermissionScopes(json)) keys.add(scope);
       } catch {
         /* json değil / okunamadı — atla */
       }
@@ -213,16 +193,17 @@ export function createProfileCapture(page, findingId) {
 }
 
 /**
- * Yakalanan izin anahtarlarını (secret/PII-taramasından geçmiş, scope-biçimli) diske yazar:
- * `test-results/findings/<id>/profile.json`. Ham yanıt gövdesi yazılmaz.
+ * Yakalanan izin anahtarlarını (yapısal geçerli scope + secret/PII taramalı, sıralı,
+ * benzersiz) diske yazar: `test-results/findings/<id>/profile.json`. Ham yanıt gövdesi
+ * yazılmaz. Deterministik (timestamp/sıra fingerprint'e girmez — bkz. normalizeProfile).
  * @param {string} id
  * @param {string[]} rawKeys
  */
 export function writeCapturedProfile(id, rawKeys) {
   const dir = findingDirRel(id);
   mkdirSync(dir, { recursive: true });
-  const keys = [...new Set((rawKeys || []).map(String))]
-    .filter((k) => SCOPE_KEY_RE.test(k))
+  const keys = [...new Set((rawKeys || []).map((k) => String(k).trim()))]
+    .filter((k) => isValidScope(k))
     .filter((k) => findSecrets(k).length === 0)
     .sort();
   const body = JSON.stringify({ findingId: id, environment: 'production-readonly', keys }, null, 2);
