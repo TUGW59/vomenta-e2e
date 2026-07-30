@@ -17,7 +17,7 @@ import {
   rmSync,
   statSync,
 } from 'node:fs';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
@@ -227,12 +227,15 @@ export function flattenPlaywrightReport(report) {
   const walk = (suite) => {
     for (const spec of suite.specs || []) {
       for (const t of spec.tests || []) {
-        const r = (t.results || [])[t.results.length - 1] || {};
+        const results = t.results || [];
+        const r = results[results.length - 1] || {};
         out.push({
           file: spec.file,
           title: spec.title,
           expectedStatus: t.expectedStatus || 'unknown',
           status: r.status || 'unknown',
+          firstStatus: results[0]?.status || 'unknown', // WP-R4: retry-pass tespiti
+          attempts: results.length, // WP-R4: retry sayısı = attempts-1
           error: r.error?.message || (r.errors && r.errors[0]?.message) || undefined,
           durationMs: r.duration,
           project: t.projectName || t.projectId,
@@ -304,4 +307,177 @@ export function reconcile(report, registry, meta = {}) {
     note: 'ÖNERİDİR. Tek beklenmedik geçiş "verified fixed" DEĞİLDİR. Registry değişmedi. Doğrulama WP-R4.',
     candidates,
   };
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// WP-R4 — Fixed-candidate verification (mekanizma; hiçbir finding KAPATILMAZ).
+// ════════════════════════════════════════════════════════════════════════════
+
+/** Doğrulama eşiği (WP-R4 tasarım kararı #5). */
+export const VERIFY_MIN_RUNS = 3; // en az 3 bağımsız başarılı run
+export const VERIFY_MIN_DAYS = 2; // en az 2 ayrı takvim gününe yayılmış
+
+/** Doğrulama artifact upload allowlist'i (üst düzey tam-ad + attestations/*.json). */
+export const VERIFICATION_UPLOAD_ALLOWLIST = Object.freeze([
+  'verification-report.json',
+  'profile.json',
+]);
+
+/**
+ * İzin anahtarlarını güvenli/normalize profile indirger: yalnız scope-anahtarı
+ * biçimindeki (değer/secret/PII olmayan) anahtarlar; benzersiz + sıralı + fingerprint.
+ * @param {string[]} keys
+ * @returns {{ fingerprint: string, permissions: string[] }}
+ */
+export function normalizeProfile(keys) {
+  const safe = [...new Set((keys || []).map((k) => String(k).trim()).filter(Boolean))]
+    .filter((k) => /^[a-z0-9][a-z0-9._:*-]{0,80}$/i.test(k)) // scope-anahtarı şekli
+    .filter((k) => findSecrets(k).length === 0) // secret/PII eleme
+    .sort();
+  const fingerprint = 'sha256:' + createHash('sha256').update(safe.join('\n')).digest('hex');
+  return { fingerprint, permissions: safe };
+}
+
+/**
+ * Normalize izin listesi beklenen profil kısıtını sağlıyor mu?
+ * @param {string[]} permissions
+ * @param {{ require?: string[], forbid?: string[] }} expected
+ */
+export function profileMatches(permissions, expected) {
+  const set = new Set(permissions || []);
+  const requireOk = (expected?.require || []).every((k) => set.has(k));
+  const forbidOk = (expected?.forbid || []).every((k) => !set.has(k));
+  return requireOk && forbidOk;
+}
+
+/** YYYY-MM-DD biçimi mi? */
+function isDay(s) {
+  return typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s);
+}
+
+/**
+ * Bir attestation "bağımsız başarılı run" niteliğini taşıyor mu (WP-R4 kararı #4)?
+ * @param {any} a
+ * @param {string} expectedRegistryFingerprint
+ */
+export function qualifiesAsSuccess(a, expectedRegistryFingerprint) {
+  return Boolean(
+    a &&
+      a.result === 'pass' && // bulgu reproduce OLMADI
+      a.firstAttemptPass === true && // ilk denemede pass
+      a.retries === 0 && // retry-pass sayılmaz
+      a.profileVerified === true && // beklenen rol/izin profili
+      a.freshLogin === true && // taze login/storage state (alan adı sanitizer'a takılmasın diye 'session' değil)
+      a.environment === 'production-readonly' &&
+      typeof a.workflowRunId === 'string' &&
+      a.workflowRunId.trim().length > 0 && // ayrı tetikleme kimliği
+      isDay(a.day) &&
+      a.registryFingerprint === expectedRegistryFingerprint // registry değişmemiş
+  );
+}
+
+/**
+ * Attestation kümesini WP-R4 eşiğine göre birleştirir ve sonuç durumu üretir.
+ * YALNIZ öneri; registry DEĞİŞMEZ. `verified-fixed-proposal` bile öneridir.
+ *
+ * Sonuç durumları: candidate | insufficient-evidence | verified-fixed-proposal |
+ *                  reproduced | inconclusive | infra-error
+ *
+ * @param {string} findingId
+ * @param {any[]} attestations
+ * @param {{ now?: string|null, expectedRegistryFingerprint: string }} opts
+ */
+export function aggregateVerification(findingId, attestations, opts) {
+  const expectedFp = opts?.expectedRegistryFingerprint;
+  const sorted = [...(attestations || [])]
+    .filter((a) => a && a.findingId === findingId)
+    .sort((x, y) => String(x.timestamp).localeCompare(String(y.timestamp)));
+
+  // Sondan başlayarak kesintisiz nitelikli başarılı seri (arada disqualifier serirseti sıfırlar).
+  const streak = [];
+  for (let i = sorted.length - 1; i >= 0; i--) {
+    if (qualifiesAsSuccess(sorted[i], expectedFp)) streak.unshift(sorted[i]);
+    else break;
+  }
+  const distinctRuns = new Set(streak.map((a) => a.workflowRunId)).size;
+  const distinctDays = new Set(streak.map((a) => a.day)).size;
+  const latest = sorted[sorted.length - 1];
+
+  let result;
+  if (!latest) result = 'candidate';
+  else if (latest.result === 'reproduced') result = 'reproduced';
+  else if (latest.result === 'infra-error') result = 'infra-error';
+  else if (latest.result === 'inconclusive' || latest.profileVerified === false) result = 'inconclusive';
+  else if (distinctRuns >= VERIFY_MIN_RUNS && distinctDays >= VERIFY_MIN_DAYS)
+    result = 'verified-fixed-proposal';
+  else result = 'insufficient-evidence';
+
+  return {
+    findingId,
+    generatedAt: opts?.now ?? null,
+    result,
+    threshold: { minRuns: VERIFY_MIN_RUNS, minDays: VERIFY_MIN_DAYS },
+    streak: { runs: distinctRuns, days: distinctDays, attestations: streak.length },
+    totalAttestations: sorted.length,
+    expectedRegistryFingerprint: expectedFp,
+    registryChanged: false,
+    note:
+      'ÖNERİDİR. verified-fixed-proposal dahi yalnız öneridir; registry DEĞİŞMEZ, ' +
+      'guard kaldırılmaz, bug kapanmaz. Kapanış yalnız insan onaylı ayrı PR ile.',
+  };
+}
+
+/**
+ * Doğrulama upload bundle güvenlik kapısı: `<dir>/upload/` altına YALNIZ
+ * `verification-report.json` + `profile.json` (varsa) + `attestations/*.json`
+ * (her biri secret-taramasından geçer) kopyalar. Beklenmeyen dosya/dizin → rejected.
+ * @param {string} dir
+ */
+export function prepareVerificationBundle(dir) {
+  if (!existsSync(dir)) throw new Error(`doğrulama dizini yok: ${dir}`);
+  const uploadDir = join(dir, 'upload');
+  rmSync(uploadDir, { recursive: true, force: true });
+
+  const copied = [];
+  const skippedLocal = [];
+  const rejected = [];
+
+  const scanCopy = (absFile, relName) => {
+    if (relName.endsWith('.json')) {
+      const leaks = findSecrets(readFileSync(absFile, 'utf8'));
+      if (leaks.length) {
+        rejected.push({ name: relName, reason: `sanitizer sızıntı yakaladı: ${leaks.join(', ')}` });
+        return;
+      }
+    } else {
+      rejected.push({ name: relName, reason: 'yalnız .json doğrulama artifact\'i yüklenir' });
+      return;
+    }
+    const dest = join(uploadDir, relName);
+    mkdirSync(dirname(dest), { recursive: true });
+    copyFileSync(absFile, dest);
+    copied.push(relName);
+  };
+
+  for (const name of readdirSync(dir)) {
+    if (name === 'upload') continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) {
+      if (name === 'attestations') {
+        for (const f of readdirSync(full)) {
+          const af = join(full, f);
+          if (statSync(af).isDirectory()) { rejected.push({ name: `attestations/${f}`, reason: 'beklenmeyen alt-dizin' }); continue; }
+          scanCopy(af, `attestations/${f}`);
+        }
+      } else {
+        rejected.push({ name, reason: 'beklenmeyen alt-dizin (allowlist dışı)' });
+      }
+      continue;
+    }
+    if (VERIFICATION_UPLOAD_ALLOWLIST.includes(name)) scanCopy(full, name);
+    else if (LOCAL_ONLY_PATTERNS.some((re) => re.test(name))) skippedLocal.push(name);
+    else rejected.push({ name, reason: 'allowlist dışı beklenmeyen dosya' });
+  }
+
+  return { uploadDir, copied, skippedLocal, rejected };
 }

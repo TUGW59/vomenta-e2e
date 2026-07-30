@@ -44,8 +44,9 @@
     "quality:artifact-safety": "node tools/self-check-artifact-safety.mjs",
     "quality:findings": "node tools/self-check-findings.mjs",
     "quality:forensic": "node tools/self-check-forensic.mjs",
+    "quality:verify": "node tools/self-check-verification.mjs",
     "quality:styles": "node tools/style-coverage.mjs",
-    "quality:check": "npm run quality:architecture && npm run quality:mutation-safety && npm run quality:discovery-safety && npm run quality:artifact-safety && npm run quality:findings && npm run quality:forensic && npm run quality:styles",
+    "quality:check": "npm run quality:architecture && npm run quality:mutation-safety && npm run quality:discovery-safety && npm run quality:artifact-safety && npm run quality:findings && npm run quality:forensic && npm run quality:verify && npm run quality:styles",
     "report:coverage": "node tools/generate-coverage.mjs",
     "report:coverage:check": "node tools/generate-coverage.mjs && git diff --exit-code -- docs/TEST_COVERAGE.md",
     "report:style-matrix": "node tools/style-coverage.mjs",
@@ -57,7 +58,8 @@
     "report:findings:check": "npm run report:build && git diff --exit-code -- docs/raporlar/findings.json docs/raporlar/BULGULAR.md docs/raporlar/YAPILAN-TESTLER.md docs/raporlar/YAPILMAYAN-TESTLER.md",
     "report:bug": "node tools/report-bug.mjs",
     "report:artifact": "node tools/prepare-forensic-artifact.mjs",
-    "report:reconcile": "node tools/reconcile-known-bugs.mjs"
+    "report:reconcile": "node tools/reconcile-known-bugs.mjs",
+    "report:verify": "node tools/verify-fixed-candidate.mjs"
   },
   "keywords": [],
   "author": "",

@@ -12,6 +12,8 @@ import {
   forensicBugId,
   createForensicRecorder,
   writeForensicEvidence,
+  createProfileCapture,
+  writeCapturedProfile,
 } from './forensic.js';
 
 /**
@@ -107,8 +109,10 @@ export const test = base.extend({
         return;
       }
       const recorder = createForensicRecorder(page);
+      const profileCapture = createProfileCapture(page, id); // WP-R4: yalnız VERIFY_PROFILE=1 iken aktif
       await use(recorder);
       await recorder.stop();
+      await profileCapture.stop();
       const shell = new AppShell(page);
       // Header kimlik yüzeyleri (kullanıcı adı/menüsü) capture anında maskelenir.
       await writeForensicEvidence({
@@ -117,6 +121,7 @@ export const test = base.extend({
         records: recorder.records,
         masks: [shell.userMenu, shell.presenceMenu],
       });
+      if (profileCapture.active) writeCapturedProfile(id, profileCapture.keys);
     },
     { auto: true },
   ],
