@@ -21,6 +21,7 @@ const uniqueRoleName = () => `PW_AUTO_ROLE_${Date.now().toString(36).toUpperCase
 
 test.describe('Roller — L3 mutasyonu @regression @mutation', () => {
   test.describe.configure({ retries: 0 });
+  test.fixme(true, 'Staging teyidi bekliyor: custom rol create+delete (POST/DELETE /roles) ve orphan sayacı ayrılmış staging tenant\'ında doğrulanmadı.');
 
   test('L3 görev OK: custom rol oluştur → listede görün → sil', async ({
     app,

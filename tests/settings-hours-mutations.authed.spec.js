@@ -15,6 +15,7 @@ const SATURDAY_INDEX = 5; // 0=Pzt … 5=Cmt
 
 test.describe('Çalışma Saatleri — L3 mutasyonu @regression @mutation', () => {
   test.describe.configure({ retries: 0 });
+  test.fixme(true, 'Staging teyidi bekliyor: haftalık program Save kalıcılık + switch geri-alma yolu ayrılmış staging tenant\'ında doğrulanmadı.');
 
   test('L3 görev OK: Cumartesi Open switch toggle → Save → kalıcı → geri al', async ({
     app,

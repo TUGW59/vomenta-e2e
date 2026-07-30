@@ -23,6 +23,7 @@ const TEST_WEBSITE = 'https://automation-e2e.example.org';
 
 test.describe('Kuruluş — L3 mutasyonu @regression @mutation', () => {
   test.describe.configure({ retries: 0 });
+  test.fixme(true, 'Staging teyidi bekliyor: website PATCH/PUT /settings/organization kalıcılık + geri-alma yolu ayrılmış staging tenant\'ında doğrulanmadı.');
 
   test('L3 görev OK: Website değiştir → Save → kalıcı → eski değere geri al', async ({
     app,

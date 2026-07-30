@@ -26,6 +26,7 @@ const TEST_PHONE = '+15550000199';
 test.describe('Profil — L3 mutasyonu @regression @mutation', () => {
   // Retry yok: mutation retry'da churn/yarı-yazılmış durum riski yaratır.
   test.describe.configure({ retries: 0 });
+  test.fixme(true, 'Staging teyidi bekliyor: telefon PATCH /auth/me kalıcılık + geri-alma yolu ayrılmış staging tenant\'ında doğrulanmadı.');
 
   test('L3 görev OK: Telefon değiştir → Save → kalıcı → eski değere geri al', async ({
     app,
