@@ -12,9 +12,9 @@ import { test, expect } from './fixtures/test.js';
  *   Kilit 2 — staging origin + beklenen `/auth/me` tenant kimliği eşleşir.
  *   Çalıştırma: yalnızca ayrılmış staging tenant'ında `npm run test:mutation`.
  *
- * GÜVENLİK: her test `mutationGuard` ile başlar ve `cleanup` ile oluşturduğu
- *   vardiyayı SİLER (DELETE /wfm/schedules/{id}). Endpoint'ler canlıda doğrulandı
- *   (POST → 201, DELETE → 204). Yalnızca ayrılmış test hesabında koşmalı.
+ * GÜVENLİK: her test `mutationGuard` ile başlar. `testEntity.create`, rollback'i
+ *   create öncesi kaydeder ve ayrılmış haftanın vardiya sayısını `0→1→0`
+ *   doğrular. Endpoint'ler canlıda doğrulandı (POST → 201, DELETE → 204).
  */
 test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
   test.describe.configure({ retries: 0 });
@@ -26,13 +26,15 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
     await mutationGuard('İş Gücü: vardiya oluşturma');
     const wf = app.workforce;
     await wf.open();
-    await wf.deleteFirstShift(); // önceki koşudan artık kalmışsa temizle
 
-    // Oluştur → cleanup'ı HEMEN kaydet (test sonrası her hâlde silinsin)
-    testEntity.cleanup(async () => {
-      await wf.deleteFirstShift();
-    }, 'workforce-shift');
-    await wf.createDefaultShift();
+    await testEntity.create({
+      label: 'workforce-shift',
+      prefixNaReason:
+        'N/A: WFM schedule DTO/UI vardiyaya kullanıcı tanımlı ad veya iş anahtarı vermiyor; ayrılmış haftanın toplam vardiya sayısı izleniyor.',
+      baseline: () => wf.automationShiftCount(),
+      cleanup: () => wf.deleteFirstShift(),
+      action: () => wf.createDefaultShift(),
+    });
 
     // Kalıcı kayıt gözlemlenebilir: hücre vardiyayı gösteriyor ("09:00 - 17:00")
     await expect(wf.scheduleCell()).toContainText(/\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}/);
@@ -46,12 +48,15 @@ test.describe('İş Gücü — L3 mutasyonları @regression @mutation', () => {
     await mutationGuard('İş Gücü: çizelge yayınlama (Publish Schedule)');
     const wf = app.workforce;
     await wf.open();
-    await wf.deleteFirstShift();
 
-    testEntity.cleanup(async () => {
-      await wf.deleteFirstShift();
-    }, 'workforce-schedule-rollback');
-    await wf.createDefaultShift();
+    await testEntity.create({
+      label: 'workforce-schedule-rollback',
+      prefixNaReason:
+        'N/A: WFM schedule DTO/UI vardiyaya kullanıcı tanımlı ad veya iş anahtarı vermiyor; ayrılmış haftanın toplam vardiya sayısı izleniyor.',
+      baseline: () => wf.automationShiftCount(),
+      cleanup: () => wf.deleteFirstShift(),
+      action: () => wf.createDefaultShift(),
+    });
 
     // Yayın öncesi: taslak
     await expect(wf.scheduleCell()).toContainText('Draft');

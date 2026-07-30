@@ -1,23 +1,9 @@
 // @ts-check
+import { redactText, redactUrl } from './sanitize.js';
 
-function safeUrl(rawUrl) {
-  try {
-    const url = new URL(rawUrl);
-    for (const key of url.searchParams.keys()) {
-      url.searchParams.set(key, '<redacted>');
-    }
-    return url.toString();
-  } catch {
-    return '<invalid-url>';
-  }
-}
-
-function safeText(text) {
-  return text
-    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '<redacted-email>')
-    .replace(/bearer\s+[A-Z0-9._~+/=-]+/gi, 'Bearer <redacted>')
-    .slice(0, 1_000);
-}
+// Geriye dönük uyumlu, ortak maskeleyiciye delege eden yerel sarmalayıcılar.
+const safeUrl = (rawUrl) => redactUrl(rawUrl);
+const safeText = (text) => redactText(text, { maxLen: 1_000 });
 
 /**
  * Hata anında tanı koymayı hızlandıran, secret/PII değerlerini maskeleyen kayıtçı.

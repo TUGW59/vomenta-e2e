@@ -1,7 +1,10 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { ContactsPage } from './pages/ContactsPage.js';
-import { buildPeopleContact } from './data/factories.js';
+import {
+  AUTOMATION_ENTITY_PREFIXES,
+  buildPeopleContact,
+} from './data/factories.js';
 
 const I18N = ContactsPage.I18N;
 
@@ -18,9 +21,9 @@ const I18N = ContactsPage.I18N;
  *   Kilit 2 — staging origin + beklenen `/auth/me` tenant kimliği eşleşir.
  *   Çalıştırma: yalnızca ayrılmış staging tenant'ında npm run test:mutation.
  *
- * GÜVENLİK: mutationGuard ile başlar; testEntity cleanup create'ten ÖNCE kaydedilir ve oluşturulan
- *   kişiyi ADINA göre bulup API ile siler (yakalanan Bearer) — test ortada patlasa da
- *   kayıt silinir. Uçlar canlıda doğrulandı: POST /contacts→201, PATCH /contacts/bulk,
+ * GÜVENLİK: mutationGuard ile başlar; testEntity.create rollback'i create'ten
+ *   ÖNCE kaydeder, oluşturulan kişiyi benzersiz adına göre siler ve `0→1→0`
+ *   baseline'ını kanıtlar. Uçlar canlıda doğrulandı: POST /contacts→201, PATCH /contacts/bulk,
  *   DELETE /contacts/{id}→204.
  */
 test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
@@ -34,18 +37,26 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
   }) => {
     await mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
     const c = app.contacts;
-    const data = buildPeopleContact(); // firstName PW, lastName Auto…, phone +90… (E.164), tag VIP
+    const data = buildPeopleContact();
 
     await c.open();
-    // Bulletproof cleanup: ne olursa olsun bu addaki kişi(ler)i sil (yalnızca oluşturulan)
-    testEntity.cleanup(async () => {
-      await c.deleteContactsByName(data.lastName);
-    }, `contact:${data.lastName}`);
-
     // 1) OLUŞTUR (etiketsiz) — GERÇEK POST /contacts
-    await c.openNewContactForm();
-    await c.fillNewContact({ firstName: data.firstName, lastName: data.lastName, phone: data.phone });
-    const id = await c.saveNewContact();
+    const id = await testEntity.create({
+      label: `contact:${data.key}`,
+      key: data.key,
+      baseline: () =>
+        c.automationContactCount(AUTOMATION_ENTITY_PREFIXES),
+      cleanup: () => c.deleteContactsByName(data.lastName),
+      action: async () => {
+        await c.openNewContactForm();
+        await c.fillNewContact({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
+        });
+        return c.saveNewContact();
+      },
+    });
     expect(id, 'oluşturma POST bir kişi id döndürmeli (data.contact.id)').toBeTruthy();
 
     // 2) ARAMA oluşturulan kişiyi buluyor (kalıcı kayıt gözlemlenebilir)

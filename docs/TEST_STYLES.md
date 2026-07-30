@@ -113,8 +113,18 @@ erişim gerekir; eldeki Sigma MCP (finans/telekom/CRM) farklı bir sistemdir. Pr
 `tests/contracts/coverage-exclusions.js`'e 'download' N/A beyanı + `tested-pages.js naStyles`.
 
 ### `@mutation` — Yaşam döngüsü (create/edit/delete/save varsa)
-`@mutation` + `await mutationGuard(...)` + `testEntity`; yalnızca kimliği
+`@mutation` + `await mutationGuard(...)` + `testEntity.create`; yalnızca kimliği
 doğrulanan ayrılmış staging tenant'ında. Production için kaçış yoktur.
+
+Her kalıcı create benzersiz `VOMENTA_E2E_` anahtarı taşır ve tek fixture içinde
+`başlangıç baseline=0 → rollback kaydı → action → create baseline=1 → rollback →
+bitiş baseline=0` sırasını kanıtlar. İsim/anahtar verilemeyen varlık açık
+`prefixNaReason: "N/A: ..."` beyanı ve ayrılmış kaynak sayacı kullanır. Ham
+`testEntity.cleanup` yeni aktif mutasyonlarda kullanılamaz.
+
+`npm run report:orphans`, aynı ayrılmış staging tenant'ında dashboard, scheduled
+report, contact ve WFM vardiya baseline'larını salt-okunur tarar. Dosya `@mutation`
+kilidini taşır; normal/prod lane'lerinde seçilmez ve hiçbir write yapmaz.
 
 ---
 

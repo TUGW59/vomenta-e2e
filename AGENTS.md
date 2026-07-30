@@ -10,7 +10,8 @@ Amaç testlerin değişikliklere dayanıklı, güvenli ve teşhis edilebilir kal
 2. Spec dosyaları doğrudan şifre, `process.env`, ortam URL'si veya storage-state
    yolu kullanmaz. Bunlar `config/environment.js` tarafından yönetilir.
 3. Production ortamında veri oluşturan, değiştiren veya silen test yazılmaz.
-   Mutasyon testleri `@mutation`, `mutationGuard` ve `cleanup` içermek zorundadır.
+   Mutasyon testleri `@mutation`, `mutationGuard` ve `testEntity.create`
+   yaşam döngüsü içermek zorundadır.
    Mutasyon testleri yalnızca özel/ayrılmış bir test hesabına (tenant) karşı
    çalıştırılır; otomasyon gerçek bir müşteri hesabına yöneltilmez. Otomasyon
    hesabı gerçek bir hesapla değiştirilecekse, önce ayrı bir test hesabı açılır.
@@ -55,13 +56,18 @@ Baş harf/avatar gibi kısmi eşleşme, tam iş kimliği yerine kullanılamaz.
   de zorlar.
 - Ham `cleanup` fixture'ı kullanılmaz. `testEntity.cleanup` rollback'i mutasyondan
   **önce** kaydeder; create + rollback sırasını yapısal garantiye almak için
-  `testEntity.create({ label, cleanup, action })` tercih edilir.
+  `testEntity.create({ label, key|prefixNaReason, baseline, cleanup, action })`
+  zorunludur.
 - Cleanup hatası test zaten kırmızı olsa bile yutulmaz; `KRİTİK ALTYAPI HATASI`
   olarak koşuyu başarısız bırakır ve `cleanup-errors.json` üretir. Cleanup içinde
   boş `.catch(() => {})` yasaktır.
 - Üretilen veri benzersiz ve ayrılmış otomasyon öneki taşır. Test başlangıcı ve
   sonunda ilgili önek/sayaç baseline'ı doğrulanır; doğrulanamıyorsa mutasyon
   etkinleştirilmez.
+- `npm run report:orphans`, kimliği doğrulanan ayrılmış staging tenant'ında
+  dashboard, scheduled report, contact ve WFM vardiya baseline'larını salt-okunur
+  tarar. Tarama hiçbir create/edit/delete çağrısı yapmaz; normal/prod lane'lerinden
+  `@mutation` kilidiyle ayrılır.
 - Production mutasyonu teknik olarak yasaktır; izin bayrağıyla açılamaz. Mutasyon
   yalnız `TEST_ENV=staging`, production dışı app/API origin'leri ve gerçek
   `/api/v1/auth/me` response'u ile doğrulanan `MUTATION_TENANT_ID` +
@@ -250,6 +256,25 @@ gövdeleri), DOM anlık görüntüleri, konsol ve adım adım zaman çizelgesi. 
 Referans: agents "Force" kök-neden incelemesi (frontend isteği = OpenAPI DTO ile birebir →
 sunucu reddi) ve `analyze-trace.zip` (detect-anomaly paket doğrulaması).
 
+## Artifact secret/PII güvenliği standardı (WP-01)
+
+Testler production'a karşı koşar; hiçbir artifact'te (trace, video, screenshot,
+`attach` çıktısı, console) token, Authorization, cookie, e-posta, telefon, provider
+key veya müşteri verisi açık kalamaz.
+
+- **Ham `testInfo.attach(...)` yasak.** Bunun yerine `artifacts.safeAttach(name, { json | body, contentType })`
+  kullan — body maskelenmeden (`redactDeep`/`redactText`) eklenmez. Sert kapı:
+  `quality:artifact-safety` her `*.spec.js`'i statik tarar (istisna: kendi pipeline'ında
+  maskeleyen `tests/discovery/discovery.spec.js`).
+- **Ekran görüntüsü:** `artifacts.safeScreenshot(name, { mask: [...] })` ile al; kimlik içeren
+  yüzeylerde (Settings/Profile, header kullanıcı menüsü) PII locator'larını `mask`'e ver.
+- **Ortak maskeleyici:** `tests/fixtures/sanitize.js` (`redactText/redactUrl/redactHeaders/redactDeep`
+  + tarayıcı `findSecrets`). `diagnostics` de buna delege eder. Yeni maskeleme mantığı buraya eklenir.
+- **Sınır:** serbest-form kişi adı otomatik maskelenmez (aşırı-maskeleme riski); isim PII'si
+  ekran maskesi veya alan-bazlı redaksiyonla korunur. Detay: `docs/adr/0006-artifact-secret-sanitizer.md`.
+- **Kendi kodun token loglamaz.** Voice WS gibi kimlik taşıyan akışlarda `console.log`/ham attach
+  ile secret'a dokunma; diagnostics zaten yakalar ve maskeler.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
@@ -258,7 +283,7 @@ Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/styl
 - `@smoke`: Temel kullanılabilirlik, kısa PR paketi.
 - `@critical`: Release'i durduracak müşteri/operasyon davranışı.
 - `@regression`: Genel regresyon; interaktif kontrol 3-katman testleri burada.
-- `@mutation`: Veri değiştirir; production'da yasaktır (guard + cleanup zorunlu).
+- `@mutation`: Veri değiştirir; production'da yasaktır (guard + yaşam döngüsü zorunlu).
 - `@known-bug`: Açık bulgunun `test.fail` guard'ı.
 - `@public`: Giriş gerektirmeyen (login) testi.
 
@@ -288,7 +313,7 @@ Böylece gelecekteki her yeni sayfa aynı standardı otomatik dayatır. El kitab
 - `@data` — sayısal KPI gösteriyorsa (yakalanan API yanıtı ↔ UI sadakati). Kaynak↔API doğruluğu (B)
   test dışıdır ve şu an açık — Vomenta backend erişimi gerekir (`docs/data-audit/`).
 - `@export` — export/indirme varsa (dosya içeriği doğrula ya da coverage-exclusions ile N/A).
-- `@mutation` — create/edit/delete/save varsa (ayrılmış tenant; guard + cleanup).
+- `@mutation` — create/edit/delete/save varsa (ayrılmış tenant; guard + `testEntity.create`).
 
 **Lane:** Deterministik stiller (`@i18n @a11y @layout @clean @deeplink @errorpath @keyboard` + 3-katman)
 **her PR**'da koşar. Oynak/canlı stiller (`@visual @perf @data`) **gece** full-regression'da koşar;

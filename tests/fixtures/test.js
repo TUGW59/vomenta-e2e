@@ -5,6 +5,8 @@ import { App } from '../pages/App.js';
 import { collectDiagnostics } from './diagnostics.js';
 import { createMutationGuard } from './mutationGuard.js';
 import { createTestEntityRegistry } from './testEntity.js';
+import { createArtifacts } from './artifacts.js';
+import { redactDeep } from './sanitize.js';
 
 /**
  * "Sessiz hata yok" guard'ının varsayılan olarak GÖRMEZDEN geldiği, üründe zararsız
@@ -36,27 +38,46 @@ export const test = base.extend({
   },
 
   /**
+   * Güvenli artifact ekleme (WP-01). Testler ham `testInfo.attach` yerine bunu
+   * kullanır; body maskelenmeden trace'e girmez.
+   *   await artifacts.safeAttach('export.csv', { body: csv, contentType: 'text/csv' })
+   *   await artifacts.safeScreenshot('profile.png', { mask: [app.header.userMenu()] })
+   */
+  artifacts: async ({ page }, use, testInfo) => {
+    await use(createArtifacts(page, testInfo));
+  },
+
+  /**
    * Mutasyon yaşam döngüsü: rollback/cleanup işlemlerini mutasyondan ÖNCE kaydeder,
    * test başarısız olsa da LIFO sırasıyla çalıştırır.
    *
-   * Kullanım:
-   *   testEntity.cleanup(() => api.delete(`/api/tickets/${id}`), 'ticket rollback')
-   *
-   * Oluşturma ile cleanup kaydının sırasını yapısal olarak garanti etmek için:
+   * Kalıcı create için başlangıç/create/bitiş sayaçlarını ve rollback sırasını
+   * yapısal olarak garanti eden zorunlu kullanım:
    *   await testEntity.create({
    *     label: 'ticket',
+   *     key,
+   *     baseline: () => tickets.countAutomationRecords(),
    *     cleanup: () => api.delete(`/api/tickets/by-key/${key}`),
    *     action: () => api.post('/api/tickets', payload),
    *   })
+   *
+   * `testEntity.cleanup` yalnız kalıcı create olmayan, açık sözleşmeli N/A
+   * akışlarında kullanılabilir; validator bunu zorlar.
    */
   testEntity: async ({}, use, testInfo) => {
     const registry = createTestEntityRegistry();
-    await use({ cleanup: registry.cleanup, create: registry.create });
+    await use({
+      cleanup: registry.cleanup,
+      create: registry.create,
+      get created() {
+        return registry.created;
+      },
+    });
     const errors = await registry.teardown();
 
     if (errors.length > 0) {
       await testInfo.attach('cleanup-errors.json', {
-        body: Buffer.from(JSON.stringify(errors, null, 2)),
+        body: Buffer.from(JSON.stringify(redactDeep(errors), null, 2)),
         contentType: 'application/json',
       });
       throw new Error(
@@ -94,7 +115,7 @@ export const test = base.extend({
 
       if (testInfo.status !== testInfo.expectedStatus && collector.events.length > 0) {
         await testInfo.attach('runtime-diagnostics.json', {
-          body: Buffer.from(JSON.stringify(collector.events, null, 2)),
+          body: Buffer.from(JSON.stringify(redactDeep(collector.events), null, 2)),
           contentType: 'application/json',
         });
       }
