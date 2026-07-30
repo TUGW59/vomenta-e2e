@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { AnalyticsPage } from './pages/AnalyticsPage.js';
-import { assertNoHorizontalOverflow, expectMetricHasValue, waitForUiToSettle } from './helpers.js';
+import { assertNoHorizontalOverflow, expectMetricHasValue, knownBugGuard, waitForUiToSettle } from './helpers.js';
 
 /**
  * ANALİTİK (`/analytics`) — Raporlar ailesinin özet/hub ekranı.
@@ -268,7 +268,7 @@ test.describe('Analitik — bilinen hatalar (i18n) @regression @known-bug', () =
   // Mevcut B12 (known-bugs.spec) yalnızca TR'yi işaretliyor; bu guard tr/fr/ar üçünü de kapsar.
   for (const code of ['tr', 'fr', 'ar']) {
     test(`BULGU A [${code}]: "Deep analytics" bölümü ${code} arayüzde çevrili olmalı`, async ({ app }) => {
-      test.fail(); // BULGU A açıkken beklenen başarısızlık
+      knownBugGuard(test, 'ANALYTICS-A'); // BULGU A açıkken beklenen başarısızlık
       const analytics = app.analytics;
       await analytics.open();
       await analytics.switchLanguage(I18N[code].endonym, I18N[code].heading);
@@ -281,7 +281,7 @@ test.describe('Analitik — bilinen hatalar (i18n) @regression @known-bug', () =
 
   // BULGU B — iç/teknik terim "ClickHouse" kullanıcıya dönük metinde görünüyor (İngilizce dahil).
   test('BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli', async ({ app }) => {
-    test.fail(); // BULGU B açıkken beklenen başarısızlık
+    knownBugGuard(test, 'ANALYTICS-B'); // BULGU B açıkken beklenen başarısızlık
     const analytics = app.analytics;
     await analytics.open();
     const text = await analytics.mainText();

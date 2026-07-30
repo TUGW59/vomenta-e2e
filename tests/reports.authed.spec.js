@@ -1,6 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { gotoApp, waitForUiToSettle } from './helpers.js';
+import { gotoApp, knownBugGuard, waitForUiToSettle } from './helpers.js';
 
 /**
  * Reports sayfası testleri (girişli, salt-okunur).
@@ -69,7 +69,7 @@ test.describe('Vomenta - Reports', () => {
   // ("...variable 'type' was not provided to the string 'Generate AI insights...'").
   // Bkz. AGENTS.md "Responsive/taşma ve erişilebilirlik standardı" komşusu: sessiz-hata guard.
   test('sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli @known-bug', async ({ page, diagnostics }) => {
-    test.fail(); // hata açıkken beklenen başarısızlık; düzelince "beklenmedik geçiş"
+    knownBugGuard(test, 'REPORTS-INTL'); // hata açıkken beklenen başarısızlık; düzelince "beklenmedik geçiş"
     await openReports(page);
     const tab = page.getByRole('tab', { name: 'AI Insights', exact: true });
     await expect(async () => {
@@ -83,7 +83,7 @@ test.describe('Vomenta - Reports', () => {
   // BULGU (keşifte çıktı): AI Insights panelinde ham i18n anahtarı sızıyor.
   // Bkz. AGENTS.md "Çok dilli (i18n) doğrulama standardı" → iç/ham anahtar = bulgu.
   test('AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) @known-bug', async ({ page }) => {
-    test.fail(); // bulgu açıkken beklenen başarısızlık; çevrilince "beklenmedik geçiş"
+    knownBugGuard(test, 'REPORTS-AIKEY'); // bulgu açıkken beklenen başarısızlık; çevrilince "beklenmedik geçiş"
     await openReports(page);
     const tab = page.getByRole('tab', { name: 'AI Insights', exact: true });
     await expect(async () => {

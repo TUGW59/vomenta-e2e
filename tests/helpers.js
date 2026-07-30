@@ -3,6 +3,9 @@ import { expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 import { AppShell } from './pages/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
+import { KNOWN_BUGS } from './contracts/known-bugs.js';
+
+const KNOWN_BUG_IDS = new Set(KNOWN_BUGS.map((b) => b.id));
 
 /**
  * Ortak test yardımcıları.
@@ -350,4 +353,23 @@ export async function traceInvestigation(context, name, fn) {
     await context.tracing.stop({ path });
   }
   return path;
+}
+
+/**
+ * WP-R1 — Bilinen bulgu "beklenen başarısızlık" guard'ı. Ham `test.fail()`
+ * yerine kullanılır; testi `tests/contracts/known-bugs.js` kaydındaki `id`'ye
+ * bağlar. Böylece bulgu ↔ test bağı makine-okur olur ve
+ * `tools/self-check-findings.mjs` çift yönlü tutarlılığı zorlar. Bilinmeyen id
+ * anında (test kurulumunda) hata verir → yazım hatası sessiz kalmaz.
+ *
+ * @param {import('@playwright/test').TestType<any, any>} test  fixtures/test.js `test`
+ * @param {string} id  known-bugs.js registry kimliği (ör. 'B4', 'ANALYTICS-A')
+ */
+export function knownBugGuard(test, id) {
+  if (!KNOWN_BUG_IDS.has(id)) {
+    throw new Error(
+      `knownBugGuard: bilinmeyen bulgu id'si "${id}" — önce tests/contracts/known-bugs.js kaydına ekleyin`
+    );
+  }
+  test.fail();
 }

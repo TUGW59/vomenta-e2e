@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import { test, expect } from './fixtures/test.js';
 import { ContactsPage } from './pages/ContactsPage.js';
+import { knownBugGuard } from './helpers.js';
 
 /**
  * KİŞİLER (`/contacts` = "People") — salt-okunur.
@@ -506,7 +507,7 @@ test.describe('Kontrol: Toplu Sil (onay) @regression', () => {
 // ═══════════════════════ BULGULAR (test.fail guard) ═══════════════════════
 test.describe('Kişiler — bilinen çeviri sızıntıları (BULGU) @regression', () => {
   test('BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı', async ({ app }) => {
-    test.fail(true, 'callContact ham i18n anahtarı (a11y+i18n); düzelince bu test yeşile döner → guard kalıcılaşır');
+    knownBugGuard(test, 'CONTACTS-F1');
     const c = app.contacts;
     await c.open();
     const label = await c.firstCallButton().getAttribute('aria-label');
@@ -514,7 +515,7 @@ test.describe('Kişiler — bilinen çeviri sızıntıları (BULGU) @regression'
   });
 
   test('BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli', async ({ app }) => {
-    test.fail(true, 'contacts.delete ham i18n anahtarı (görünür metin); düzelince yeşile döner → guard kalıcılaşır');
+    knownBugGuard(test, 'CONTACTS-F2');
     const c = app.contacts;
     await c.open();
     await c.openFirstContact();

@@ -6,6 +6,7 @@ import {
   expectNoSevereA11y,
   expectNoOverflowAtViewports,
   expectDialogKeyboard,
+  knownBugGuard,
   mockApi,
   waitForUiToSettle,
 } from './helpers.js';
@@ -152,7 +153,7 @@ test.describe('Kontrol: Paylaş @regression', () => {
   // Yöne DUYARSIZ ölçüm: scrollWidth-clientWidth (sağ-kenar kontrolü RTL'de taşmayı kaçırır).
   for (const [code, t] of Object.entries(I18N)) {
     test(`L3 görev OK: [${code}] paylaş diyaloğu yatayda taşmamalı [BULGU 1] @layout @known-bug`, async ({ app }) => {
-      test.fail(); // BULGU 1 açıkken beklenen başarısızlık (yalnızca bu testi işaretler)
+      knownBugGuard(test, 'DASHBOARDS-SHARE-OVERFLOW'); // BULGU 1 açıkken beklenen başarısızlık (yalnızca bu testi işaretler)
       const d = app.dashboards;
       await d.open();
       if (t.endonym) await d.switchLanguage(t.endonym);
