@@ -318,6 +318,14 @@ export function reconcile(report, registry, meta = {}) {
 export const VERIFY_MIN_RUNS = 3; // en az 3 bağımsız başarılı run
 export const VERIFY_MIN_DAYS = 2; // en az 2 ayrı takvim gününe yayılmış
 
+/**
+ * Attestation uyumluluk kimlikleri (WP-R4 takip #2). Eski/sürümsüz veya farklı sürümlü
+ * kayıtlar başarılı kanıt sayılmaz; raporda `ignoredAttestations` altında gösterilir.
+ * Şema veya ağ-politikası değişince bu sürümler artırılır → eski artifact'ler otomatik elenir.
+ */
+export const VERIFICATION_SCHEMA_VERSION = 2;
+export const NETWORK_POLICY_VERSION = 1;
+
 /** Doğrulama artifact upload allowlist'i (üst düzey tam-ad + attestations/*.json). */
 export const VERIFICATION_UPLOAD_ALLOWLIST = Object.freeze([
   'verification-report.json',
@@ -416,11 +424,35 @@ export function qualifiesAsSuccess(a, expectedRegistryFingerprint) {
  */
 export function aggregateVerification(findingId, attestations, opts) {
   const expectedFp = opts?.expectedRegistryFingerprint;
-  const sorted = [...(attestations || [])]
-    .filter((a) => a && a.findingId === findingId)
-    .sort((x, y) => String(x.timestamp).localeCompare(String(y.timestamp)));
+  const expectedContractId = opts?.expectedProfileContractId ?? findingId;
+  const expectedContractVersion = opts?.expectedProfileContractVersion ?? 0;
+  const expectedNetworkPolicy = opts?.expectedNetworkPolicyVersion ?? NETWORK_POLICY_VERSION;
 
-  // Sondan başlayarak kesintisiz nitelikli başarılı seri (arada disqualifier serirseti sıfırlar).
+  // ── Uyumluluk kapısı: uyumsuz kayıtlar seri/eşiğe GİRMEZ, nedeniyle raporlanır ──
+  const ignored = [];
+  const compatibleList = [];
+  for (const a of attestations || []) {
+    if (!a || typeof a !== 'object') { ignored.push({ key: '(bozuk)', reason: 'invalid-record' }); continue; }
+    const key = `${a.findingId ?? '?'}::${a.workflowRunId ?? '?'}`;
+    if (a.findingId !== findingId) { ignored.push({ key, reason: 'finding-mismatch' }); continue; }
+    if (a.schemaVersion !== VERIFICATION_SCHEMA_VERSION) { ignored.push({ key, reason: 'legacy-or-unversioned-schema' }); continue; }
+    if (a.profileContractId !== expectedContractId) { ignored.push({ key, reason: 'profile-contract-id-mismatch' }); continue; }
+    if (a.profileContractVersion !== expectedContractVersion) { ignored.push({ key, reason: 'profile-contract-version-mismatch' }); continue; }
+    if (a.networkPolicyVersion !== expectedNetworkPolicy) { ignored.push({ key, reason: 'network-policy-version-mismatch' }); continue; }
+    compatibleList.push(a);
+  }
+
+  // ── Dedupe: findingId + workflowRunId (yalnız dosya adına güvenme); en yeni timestamp kalır ──
+  const byRun = new Map();
+  for (const a of compatibleList) {
+    const k = `${a.findingId}::${a.workflowRunId}`;
+    const prev = byRun.get(k);
+    if (!prev || String(a.timestamp) > String(prev.timestamp)) byRun.set(k, a);
+  }
+  const dedupDropped = compatibleList.length - byRun.size;
+  const sorted = [...byRun.values()].sort((x, y) => String(x.timestamp).localeCompare(String(y.timestamp)));
+
+  // Sondan başlayarak kesintisiz nitelikli başarılı seri (arada disqualifier seriyi sıfırlar).
   const streak = [];
   for (let i = sorted.length - 1; i >= 0; i--) {
     if (qualifiesAsSuccess(sorted[i], expectedFp)) streak.unshift(sorted[i]);
@@ -442,16 +474,20 @@ export function aggregateVerification(findingId, attestations, opts) {
   return {
     findingId,
     generatedAt: opts?.now ?? null,
+    schemaVersion: VERIFICATION_SCHEMA_VERSION,
     result,
     policyViolation: Boolean(latest && latest.policyViolation), // son koşuda mutation method görüldü mü
     threshold: { minRuns: VERIFY_MIN_RUNS, minDays: VERIFY_MIN_DAYS },
     streak: { runs: distinctRuns, days: distinctDays, attestations: streak.length },
-    totalAttestations: sorted.length,
+    expectedProfileContract: { id: expectedContractId, version: expectedContractVersion },
+    consideredAttestations: sorted.length,
+    ignoredAttestations: { count: ignored.length + dedupDropped, dedupDropped, reasons: ignored },
     expectedRegistryFingerprint: expectedFp,
     registryChanged: false,
     note:
       'ÖNERİDİR. verified-fixed-proposal dahi yalnız öneridir; registry DEĞİŞMEZ, ' +
-      'guard kaldırılmaz, bug kapanmaz. Kapanış yalnız insan onaylı ayrı PR ile.',
+      'guard kaldırılmaz, bug kapanmaz. Uyumsuz/eski kayıtlar ignoredAttestations\'ta ' +
+      'gösterilir ve seriye/eşiğe KATILMAZ. Kapanış yalnız insan onaylı ayrı PR ile.',
   };
 }
 

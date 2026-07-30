@@ -47,11 +47,21 @@ const check = (label, fn) => { try { fn(); } catch (e) { failures.push(`${label}
 
 const FP = 'sha256:expected-registry-fingerprint';
 const SEED_JWT = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c';
-const OPTS = { now: '2026-08-01T00:00:00.000Z', expectedRegistryFingerprint: FP };
+const OPTS = {
+  now: '2026-08-01T00:00:00.000Z',
+  expectedRegistryFingerprint: FP,
+  expectedProfileContractId: 'B4',
+  expectedProfileContractVersion: 1,
+  expectedNetworkPolicyVersion: 1,
+};
 
 /** Nitelikli başarılı bir attestation iskeleti; over ile tek eksen bozulur. */
 function att(over = {}) {
   return {
+    schemaVersion: 2,
+    profileContractId: 'B4',
+    profileContractVersion: 1,
+    networkPolicyVersion: 1,
     findingId: 'B4',
     test: { file: 'tests/known-bugs.authed.spec.js', title: 'B4 · x' },
     environment: 'production-readonly',
@@ -225,6 +235,64 @@ check('mutation method içeren son koşu → verified-fixed-proposal ÜRETİLMEZ
   const agg = aggregateVerification('B4', atts, OPTS);
   assert.notEqual(agg.result, 'verified-fixed-proposal');
   assert.equal(agg.policyViolation, true);
+});
+
+// ── TAKİP DÜZELTMESİ 2b — attestation uyumluluk kapısı (legacy/sürüm/finding/dedupe) ──
+function threeCompatible(extra = []) {
+  return [
+    att({ workflowRunId: 'r1', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'r2', day: '2026-07-30', timestamp: '2026-07-30T20:00:00Z' }),
+    att({ workflowRunId: 'r3', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }),
+    ...extra,
+  ];
+}
+check('iki uyumlu yeni attestation doğru birleşir (considered=2)', () => {
+  const agg = aggregateVerification('B4', [
+    att({ workflowRunId: 'r1', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'r2', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }),
+  ], OPTS);
+  assert.equal(agg.consideredAttestations, 2);
+  assert.equal(agg.ignoredAttestations.count, 0);
+});
+check('sürümsüz legacy attestation SAYILMAZ + raporda neden görünür', () => {
+  const legacy = { findingId: 'B4', workflowRunId: 'old1', day: '2026-07-30', timestamp: '2026-07-30T09:00:00Z', result: 'pass', profileVerified: true, freshLogin: true, environment: 'production-readonly', registryFingerprint: FP }; // schemaVersion YOK (eski format)
+  const agg = aggregateVerification('B4', threeCompatible([legacy]), OPTS);
+  assert.equal(agg.consideredAttestations, 3, 'legacy seriye girmemeli');
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'legacy-or-unversioned-schema'));
+});
+check('eski profile contract version SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ workflowRunId: 'v0', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z', profileContractVersion: 0 }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'profile-contract-version-mismatch'));
+  assert.equal(agg.consideredAttestations, 3);
+});
+check('farklı finding ID SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ findingId: 'B7', workflowRunId: 'x', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z' }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'finding-mismatch'));
+  assert.equal(agg.consideredAttestations, 3);
+});
+check('networkPolicyVersion uyuşmazlığı SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ workflowRunId: 'np', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z', networkPolicyVersion: 99 }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'network-policy-version-mismatch'));
+});
+check('duplicate workflowRunId İKİ KEZ sayılmaz (findingId+workflowRunId dedupe)', () => {
+  // 3 farklı gün ama iki attestation AYNI run (SAME) → distinctRuns eşiği karşılamaz
+  const atts = [
+    att({ workflowRunId: 'SAME', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'SAME', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }), // aynı run, dedupe → 1 kayıt
+    att({ workflowRunId: 'other', day: '2026-08-01', timestamp: '2026-08-01T10:00:00Z' }),
+  ];
+  const agg = aggregateVerification('B4', atts, OPTS);
+  assert.equal(agg.ignoredAttestations.dedupDropped, 1, 'aynı run çift kaydı düşürülmeli');
+  assert.notEqual(agg.result, 'verified-fixed-proposal'); // yalnız 2 farklı run
+});
+check('POZİTİF yol uyumluluk kimlikleriyle hâlâ verified-fixed-proposal', () => {
+  assert.equal(aggregateVerification('B4', threeCompatible(), OPTS).result, 'verified-fixed-proposal');
 });
 
 // 7. infra-error → pass sayılmaz

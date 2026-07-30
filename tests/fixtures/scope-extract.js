@@ -2,8 +2,9 @@
 /**
  * WP-R4 takip — Deterministik izin/scope çıkarımı (saf; harici bağımlılık YOK).
  *
- * Gerçek `/api/v1/roles/me/permissions` yanıtından yakalanan 106 gerçek anahtarın
- * yapısal analizi (30 Tem 2026, run 30549912614):
+ * Kanıt: iki canlı doğrulama run'ının (30549912614 + 30550776103, 30 Tem 2026)
+ * artifact'lerinde SANITIZE EDİLEREK çıkarılmış 106 permission anahtarı incelendi
+ * (ham response SAKLANMADI). Bu kümeden doğrulanan biçimler:
  *   - hepsi noktalı, 2–4 segment; her segment harf-başlangıçlı camelCase
  *     (ör. `settings.apiKeys.manage`, `voice.recordings.play.masked`, `wfm.view`)
  *   - underscore YOK, tire YOK, iki-nokta YOK, rakam YOK, boşluk YOK

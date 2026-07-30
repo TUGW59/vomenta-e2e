@@ -206,13 +206,16 @@ jobs:
         run: echo "short=$(echo "${GITHUB_SHA}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
       - name: Önceki attestation'ları geri yükle (best-effort; seri günlere yayılsın)
         # Seri (≥3 koşu / ≥2 gün) ayrı dispatch koşularına yayıldığından, önceki
-        # `known-bug-verify-<id>-*` artifact'lerindeki attestation'ları toplarız.
+        # `known-bug-verification-v2-<id>-*` artifact'lerindeki attestation'ları toplarız.
+        # v2 NAMESPACE: WP-R4-öncesi/eski `known-bug-verify-*` (non-deterministik fingerprint)
+        # artifact'leri restore aramasına HİÇ girmez. Ayrıca aggregate uyumluluk kapısı
+        # (schemaVersion/profileContractVersion) eski kayıtları yine de yok sayar (defense-in-depth).
         # Tamamen best-effort: başarısız olsa da bu koşu kendi attestation'ını üretir.
         run: |
           set +e
           mkdir -p "test-results/findings/${FID}/verification/attestations"
           ids=$(gh api "repos/${{ github.repository }}/actions/artifacts?per_page=100" \
-            --jq ".artifacts[] | select(.expired==false) | select(.name | startswith(\"known-bug-verify-${FID}-\")) | .id" 2>/dev/null | head -30)
+            --jq ".artifacts[] | select(.expired==false) | select(.name | startswith(\"known-bug-verification-v2-${FID}-\")) | .id" 2>/dev/null | head -30)
           for aid in $ids; do
             gh api "repos/${{ github.repository }}/actions/artifacts/$aid/zip" > "/tmp/att-$aid.zip" 2>/dev/null || continue
             unzip -o -qq "/tmp/att-$aid.zip" -d "/tmp/att-$aid" 2>/dev/null || continue
@@ -234,7 +237,7 @@ jobs:
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: known-bug-verify-${{ inputs.verify_finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
+          name: known-bug-verification-v2-${{ inputs.verify_finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
           path: test-results/findings/${{ inputs.verify_finding_id }}/verification/upload/
           if-no-files-found: error
           retention-days: 30

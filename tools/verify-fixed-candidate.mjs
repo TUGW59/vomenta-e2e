@@ -35,6 +35,8 @@ import {
   aggregateVerification,
   prepareVerificationBundle,
   assessReadOnly,
+  VERIFICATION_SCHEMA_VERSION,
+  NETWORK_POLICY_VERSION,
 } from './forensic-lib.mjs';
 import { verificationProfileFor } from '../tests/contracts/verification-profiles.js';
 
@@ -140,6 +142,10 @@ if (policyViolation && result === 'pass') result = 'inconclusive';
 const timestamp = new Date().toISOString();
 const workflowRunId = process.env.GITHUB_RUN_ID || null;
 const attestation = {
+  schemaVersion: VERIFICATION_SCHEMA_VERSION, // uyumluluk kimliği (eski/sürümsüz kayıt elenir)
+  profileContractId: id,
+  profileContractVersion: cfg?.version ?? 0,
+  networkPolicyVersion: NETWORK_POLICY_VERSION,
   findingId: id,
   test: finding.test,
   environment: 'production-readonly',
@@ -169,6 +175,9 @@ const attestations = readdirSync(attDirAbs)
 const aggregate = aggregateVerification(id, attestations, {
   now: timestamp,
   expectedRegistryFingerprint: fingerprintBefore,
+  expectedProfileContractId: id,
+  expectedProfileContractVersion: cfg?.version ?? 0,
+  expectedNetworkPolicyVersion: NETWORK_POLICY_VERSION,
 });
 writeFileSync(join(vDirAbs, 'verification-report.json'), JSON.stringify(aggregate, null, 2) + '\n');
 
@@ -184,7 +193,7 @@ if (bundle.rejected.length > 0) {
 }
 
 console.log(`✔ bu koşu: result=${attestation.result} · firstAttemptPass=${firstAttemptPass} · profileVerified=${profileVerified} · readOnlyVerified=${readOnlyVerified} · freshLogin=${attestation.freshLogin} · run=${workflowRunId || 'local'}`);
-console.log(`✔ TOPLAM sonuç: ${aggregate.result} (seri: ${aggregate.streak.runs} run / ${aggregate.streak.days} gün, eşik ${aggregate.threshold.minRuns}/${aggregate.threshold.minDays})`);
+console.log(`✔ TOPLAM sonuç: ${aggregate.result} (seri: ${aggregate.streak.runs} run / ${aggregate.streak.days} gün, eşik ${aggregate.threshold.minRuns}/${aggregate.threshold.minDays}; uyumlu ${aggregate.consideredAttestations}, yok sayılan ${aggregate.ignoredAttestations.count})`);
 console.log(`✔ rapor: ${join(dirRel, 'verification', 'verification-report.json')}`);
 console.log(`✔ upload bundle: ${join(dirRel, 'verification', 'upload')}/ → ${bundle.copied.join(', ') || '(boş)'}`);
 console.log('✔ registry değişmedi; hiçbir finding kapatılmadı (yalnız öneri).');
