@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 845 / 85 dosya
-- **coverageStatus:** verified 0 · partial 805 · generic 9 · blocked 31
-- **executionStatus:** executed 0 · listed-only 814 · skipped 0 · fixme 31
+- **Listelenen test:** 878 / 87 dosya
+- **coverageStatus:** verified 0 · partial 838 · generic 9 · blocked 31
+- **executionStatus:** executed 0 · listed-only 847 · skipped 0 · fixme 31
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -20,11 +20,11 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
 | contacts | 48 | 48 | 0 | 0 |
-| cross-cutting | 34 | 33 | 0 | 1 |
+| cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 22 | 22 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 9 | 0 | 9 | 0 |
+| other | 41 | 32 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
 | settings | 333 | 316 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -241,6 +241,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | B11 · /voice/voicemail · İşlemler butonlarının erişilebilir ismi olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B12 · /analytics · TR arayüzde İngilizce/iç metin sızmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler") | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
@@ -303,6 +304,48 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | eşleşmeyen aramada boş-durum mesajı gösteriliyor |  | — | listed-only | partial | medium | list-exec |
 | kanal / atama filtre çipleri görünüyor |  | — | listed-only | partial | medium | list-exec |
 | sağ panel sekmeleri görünüyor ve tıklanınca seçili oluyor |  | — | listed-only | partial | medium | list-exec |
+
+### `ai-subroutes.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| [voice] /ai/voice açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [chatbot] /ai/chatbot açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [copilot] /ai/copilot açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [sentiment] /ai/sentiment açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [knowledge-base] /ai/knowledge-base açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [prompts] /ai/prompts açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [usage] /ai/usage açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [providers] /ai/providers açılıyor: başlık + bölüm görünür | @regression @smoke | — | listed-only | partial | medium | list-exec |
+| [voice] /ai/voice yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [chatbot] /ai/chatbot yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [copilot] /ai/copilot yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [sentiment] /ai/sentiment yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [knowledge-base] /ai/knowledge-base yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [usage] /ai/usage yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| [providers] /ai/providers yüklemede sessiz hata yok () | @regression @clean) | — | listed-only | partial | medium | list-exec |
+| KPI tile'ları bir DEĞER gösteriyor + kullanım tabloları görünüyor | @regression | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: "Documents" sekmesi seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1 tıklama OK: "30D" aralığı seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1 tıklama OK: "Voice" filtresi Chat senaryosunu gizliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `ai.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| başlık ve alt başlık görünüyor | @smoke @critical | — | listed-only | partial | medium | list-exec |
+| dört sekme görünüyor | @critical | — | listed-only | partial | medium | list-exec |
+| Agents sekmesi: istatistik döşemeleri + bot listesi (Configure) görünüyor |  | — | listed-only | partial | medium | list-exec |
+| AI Copilot sekmesi: ayar kartı çapaları görünüyor |  | — | listed-only | partial | medium | list-exec |
+| Supervisor sekmesi: oto-değerlendirme + skor kriterleri çapaları görünüyor |  | — | listed-only | partial | medium | list-exec |
+| Providers sekmesi: sağlayıcı yapılandırma çapaları + Manage Providers görünüyor |  | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: her sekme kendi panelini gösteriyor (içerik takası) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 navigasyon OK: "Configure" botu /bot-builder editörüne götürüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 navigasyon OK: "Manage Providers" /ai/providers (Provider Settings) sayfasını yüklüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
 ### `quality-baseline.authed.spec.js` — _other_
 

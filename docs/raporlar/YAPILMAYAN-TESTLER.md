@@ -26,7 +26,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/campaigns-outbound.mutation.authed.spec.js:29 | fixme | dan silinemiyor; staging API DELETE/teardown teyidi gerekli. |
 | tests/known-bugs.authed.spec.js:175 | skip | satırı yok; bulgu reproduce edilemiyor. |
 | tests/known-bugs.authed.spec.js:279 | skip | Sesli mesaj / işlem butonu yok; bulgu reproduce edilemiyor. |
-| tests/known-bugs.authed.spec.js:322 | skip | Reddedilmiş talep yok; bulgu reproduce edilemiyor. |
+| tests/known-bugs.authed.spec.js:345 | skip | Reddedilmiş talep yok; bulgu reproduce edilemiyor. |
 | tests/settings-data-retention-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: reversible spinbutton düzenle+Save+geri al; Run cleanup ASLA. |
 | tests/settings-disposition-codes-mutations.authed.spec.js:20 | fixme | Staging teyidi bekliyor: satır silme yolu (aksiyon ikonları aria-label\ |
 | tests/settings-notifications-mutations.authed.spec.js:18 | fixme | Staging teyidi bekliyor: kategori switch toggle + Save preferences + geri al. |
@@ -45,6 +45,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/known-bugs.authed.spec.js:157 | fixme |  |
 | tests/known-bugs.authed.spec.js:289 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
 | tests/known-bugs.authed.spec.js:309 | skip | Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli. |
+| tests/known-bugs.authed.spec.js:332 | skip |  |
 | tests/login.spec.js:79 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/reports-dashboards.authed.spec.js:175 | skip | da güvenilir. |
 | tests/reports-dashboards.authed.spec.js:324 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |

@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 39
-- **Durum:** open 38 · closed 1
-- **Guard:** knownBugGuard 37 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 27 · low 4
+- **Toplam bulgu:** 40
+- **Durum:** open 39 · closed 1
+- **Guard:** knownBugGuard 38 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 28 · low 4
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 34 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
+- **Sahipsiz (owner=null):** 35 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -20,6 +20,7 @@
 | id | alan | rota | ciddiyet | durum | guard | owner |
 |---|---|---|---|---|---|---|
 | B13 | ai | /ai | low | open | knownBugGuard | — |
+| AI-PROMPTS-CONSOLE | ai | /ai/prompts | medium | open | knownBugGuard | — |
 | ANALYTICS-A | analytics | /analytics | medium | open | knownBugGuard | — |
 | ANALYTICS-B | analytics | /analytics | medium | open | knownBugGuard | — |
 | B12 | analytics | /analytics | medium | open | knownBugGuard | — |
@@ -74,6 +75,18 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler")
+
+### /ai/prompts
+
+**[AI-PROMPTS-CONSOLE] AI Prompts sayfası yüklemede konsola ICU/intl hatası basıyor (MALFORMED_ARGUMENT)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Konsol temiz; prompt şablonları çeviri/format hatası olmadan render olur
+- **Gerçekleşen:** Yükleme sırasında 4+ kez "INVALID_MESSAGE: MALFORMED_ARGUMENT" (next-intl ICU) hatası basılıyor; kaynak ai/prompts/page chunk. NOT: prompt/şablon verisine bağlı — kişisel tenant'ta gözlendi; CI test tenant'ında reproduce olmayabilir (guard bu durumda test.skip).
+- **Repro:** /ai/prompts aç (prompt/şablon verisi olan tenant) → tarayıcı konsolunu izle → sayfa yüklenirken hataları oku
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/known-bugs.authed.spec.js` → AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı
 
 ## analytics
 

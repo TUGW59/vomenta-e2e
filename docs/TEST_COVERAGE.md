@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 799
-- **Test dosyası:** 57
-- **Etiketler:** `@a11y` 44 · `@clean` 30 · `@critical` 67 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 27 · `@known-bug` 50 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 294 · `@smoke` 72 · `@visual` 18
+- **Test edilen senaryo:** 832
+- **Test dosyası:** 59
+- **Etiketler:** `@a11y` 44 · `@clean)` 7 · `@clean` 30 · `@critical` 69 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 27 · `@known-bug` 51 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 321 · `@smoke` 81 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -29,6 +29,44 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Voice: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
 - Reports · Call: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
 - Reports · Dashboards: bilinen borç dışında ciddi/kritik a11y ihlali yok  `@a11y`
+
+### `ai-subroutes.authed.spec.js`
+
+- [voice] /ai/voice açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [chatbot] /ai/chatbot açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [copilot] /ai/copilot açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [sentiment] /ai/sentiment açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [knowledge-base] /ai/knowledge-base açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [prompts] /ai/prompts açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [usage] /ai/usage açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [providers] /ai/providers açılıyor: başlık + bölüm görünür  `@regression` `@smoke`
+- [voice] /ai/voice yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [chatbot] /ai/chatbot yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [copilot] /ai/copilot yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [sentiment] /ai/sentiment yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [knowledge-base] /ai/knowledge-base yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [usage] /ai/usage yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- [providers] /ai/providers yüklemede sessiz hata yok ()  `@regression` `@clean)`
+- KPI tile'ları bir DEĞER gösteriyor + kullanım tabloları görünüyor  `@regression`
+- L1 tıklama OK: "Documents" sekmesi seçili duruma geçiyor  `@regression`
+- L1 tıklama OK: "30D" aralığı seçili duruma geçiyor  `@regression`
+- L1 tıklama OK: "Voice" filtresi Chat senaryosunu gizliyor  `@regression`
+
+### `ai.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical`
+- dört sekme görünüyor  `@critical`
+- Agents sekmesi: istatistik döşemeleri + bot listesi (Configure) görünüyor
+- AI Copilot sekmesi: ayar kartı çapaları görünüyor
+- Supervisor sekmesi: oto-değerlendirme + skor kriterleri çapaları görünüyor
+- Providers sekmesi: sağlayıcı yapılandırma çapaları + Manage Providers görünüyor
+- [en] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili  `@regression`
+- [tr] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili  `@regression`
+- [fr] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili  `@regression`
+- [ar] başlık + yön + sekmeler + döşeme etiketleri + Configure çevrili  `@regression`
+- L1 tıklama OK: her sekme kendi panelini gösteriyor (içerik takası)  `@regression`
+- L3 navigasyon OK: "Configure" botu /bot-builder editörüne götürüyor  `@regression`
+- L3 navigasyon OK: "Manage Providers" /ai/providers (Provider Settings) sayfasını yüklüyor  `@regression`
 
 ### `analytics.authed.spec.js`
 
@@ -224,6 +262,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - B11 · /voice/voicemail · İşlemler butonlarının erişilebilir ismi olmalı  `@regression` `@known-bug`
 - B12 · /analytics · TR arayüzde İngilizce/iç metin sızmamalı  `@regression` `@known-bug`
 - B13 · /ai · sekme etiketinde boşluk eksik olmamalı ("Yapay ZekaTemsilciler")  `@regression` `@known-bug`
+- AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı  `@regression` `@known-bug`
 - B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı  `@regression` `@known-bug`
 - B15 · Sol menü · bölüm üst-başlığı bölüm köküne gitmeli  `@regression` `@known-bug`
 - SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı  `@regression` `@known-bug`
