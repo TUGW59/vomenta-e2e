@@ -35,9 +35,11 @@ import {
   VERIFICATION_UPLOAD_ALLOWLIST,
   VERIFY_MIN_RUNS,
   VERIFY_MIN_DAYS,
+  assessReadOnly,
 } from './forensic-lib.mjs';
 import { verificationProfileFor } from '../tests/contracts/verification-profiles.js';
 import { findSecrets } from '../tests/fixtures/sanitize.js';
+import { isValidScope, extractPermissionScopes } from '../tests/fixtures/scope-extract.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const failures = [];
@@ -45,11 +47,21 @@ const check = (label, fn) => { try { fn(); } catch (e) { failures.push(`${label}
 
 const FP = 'sha256:expected-registry-fingerprint';
 const SEED_JWT = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJVadQssw5c';
-const OPTS = { now: '2026-08-01T00:00:00.000Z', expectedRegistryFingerprint: FP };
+const OPTS = {
+  now: '2026-08-01T00:00:00.000Z',
+  expectedRegistryFingerprint: FP,
+  expectedProfileContractId: 'B4',
+  expectedProfileContractVersion: 1,
+  expectedNetworkPolicyVersion: 1,
+};
 
 /** Nitelikli başarılı bir attestation iskeleti; over ile tek eksen bozulur. */
 function att(over = {}) {
   return {
+    schemaVersion: 2,
+    profileContractId: 'B4',
+    profileContractVersion: 1,
+    networkPolicyVersion: 1,
     findingId: 'B4',
     test: { file: 'tests/known-bugs.authed.spec.js', title: 'B4 · x' },
     environment: 'production-readonly',
@@ -58,6 +70,9 @@ function att(over = {}) {
     retries: 0,
     profile: { constraint: false },
     profileVerified: true,
+    readOnlyVerified: true,
+    mutatingRequests: [],
+    policyViolation: false,
     freshLogin: true,
     workflowRunId: 'run-1',
     timestamp: '2026-07-30T10:00:00.000Z',
@@ -150,6 +165,136 @@ check('ortada reproduce sonrası kısa seri → insufficient (proposal değil)',
   assert.equal(stateOf(atts), 'insufficient-evidence');
 });
 
+// ── TAKİP DÜZELTMESİ 1 — deterministik profil çıkarımı ────────────────────────
+check('isValidScope: timestamp/UUID/URL/e-posta/sayısal/metadata REDDEDİLİR', () => {
+  // gerçek B4 örnekleri korunur
+  for (const ok of ['settings.apiKeys.manage', 'voice.recordings.play.masked', 'wfm.view', 'ai.copilot.use', 'contacts.view.all']) {
+    assert.equal(isValidScope(ok), true, `geçerli scope reddedildi: ${ok}`);
+  }
+  // yapısal olarak dışlanmalı
+  for (const bad of [
+    '2026-07-30T14:11:43.125Z', // ISO timestamp (run1'de sızan)
+    '2026-07-30',
+    'a1b2c3d4-e5f6-7890-abcd-ef1234567890', // UUID
+    'https://app.vomenta.com/x', // URL
+    'user@example.com', // e-posta
+    '12345', // sayısal id
+    'settings billing view', // boşluk
+    'settings', // tek segment
+    'settings_billing_view', // underscore (gerçek veride yok)
+    'settings-billing-view', // tire (gerçek veride yok)
+    'modules:read', // iki-nokta (gerçek veride yok)
+  ]) {
+    assert.equal(isValidScope(bad), false, `geçersiz değer scope sayıldı: ${bad}`);
+  }
+});
+check('extractPermissionScopes: dizi + boolean-map + izin-alanı; metadata/timestamp alınmaz', () => {
+  const resp = {
+    generatedAt: '2026-07-30T14:11:43.125Z', // metadata timestamp — ALINMAMALI
+    requestId: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890', // UUID — ALINMAMALI
+    data: {
+      permissions: ['settings.view', 'contacts.manage'], // dizi
+      scopes: { 'voice.calls.view': true, 'reports.export': false }, // boolean-map (yalnız true)
+      meta: { updatedBy: 'system', version: '1.2.3' }, // metadata — ALINMAMALI
+    },
+  };
+  const got = extractPermissionScopes(resp);
+  assert.deepEqual(got, ['contacts.manage', 'settings.view', 'voice.calls.view']);
+});
+check('normalizeProfile: sıra bağımsız + dedupe → AYNI fingerprint; kontrat/sürüm katkısı', () => {
+  const a = normalizeProfile(['settings.view', 'contacts.manage', 'settings.view'], { contractId: 'B4', version: 1 });
+  const b = normalizeProfile(['contacts.manage', 'settings.view'], { contractId: 'B4', version: 1 });
+  assert.equal(a.fingerprint, b.fingerprint, 'sıra/dupe fingerprint\'i değiştirmemeli');
+  assert.deepEqual(a.permissions, ['contacts.manage', 'settings.view']);
+  // timestamp gibi kirlilik girse bile fingerprint deterministik (elenir)
+  const c = normalizeProfile(['settings.view', 'contacts.manage', '2026-07-30T14:11:43.125Z'], { contractId: 'B4', version: 1 });
+  assert.equal(c.fingerprint, a.fingerprint, 'timestamp elenmeli → fingerprint sabit');
+  // farklı kontrat/sürüm → farklı fingerprint
+  assert.notEqual(a.fingerprint, normalizeProfile(['settings.view', 'contacts.manage'], { contractId: 'B4', version: 2 }).fingerprint);
+});
+
+// ── TAKİP DÜZELTMESİ 2 — read-only ağ kanıtı ──────────────────────────────────
+check('assessReadOnly: yalnız GET → readOnly; mutation method → violation', () => {
+  const ro = assessReadOnly({ requests: [{ method: 'GET', path: '/a' }, { method: 'GET', path: '/b' }] });
+  assert.deepEqual(ro, { readOnly: true, mutating: [] });
+  const viol = assessReadOnly({ requests: [{ method: 'GET', path: '/a' }, { method: 'POST', path: '/x' }, { method: 'DELETE', path: '/y' }] });
+  assert.equal(viol.readOnly, false);
+  assert.deepEqual(viol.mutating.sort(), ['DELETE /y', 'POST /x']);
+});
+check('qualifiesAsSuccess: readOnlyVerified=false veya policyViolation → nitelik DÜŞER', () => {
+  assert.equal(qualifiesAsSuccess(att(), FP), true);
+  assert.equal(qualifiesAsSuccess(att({ readOnlyVerified: false }), FP), false);
+  assert.equal(qualifiesAsSuccess(att({ policyViolation: true, mutatingRequests: ['POST /x'] }), FP), false);
+});
+check('mutation method içeren son koşu → verified-fixed-proposal ÜRETİLMEZ + policyViolation raporlanır', () => {
+  const atts = [
+    att({ workflowRunId: 'r1', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'r2', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }),
+    att({ workflowRunId: 'r3', day: '2026-08-01', timestamp: '2026-08-01T10:00:00Z', policyViolation: true, mutatingRequests: ['POST /api/x'] }),
+  ];
+  const agg = aggregateVerification('B4', atts, OPTS);
+  assert.notEqual(agg.result, 'verified-fixed-proposal');
+  assert.equal(agg.policyViolation, true);
+});
+
+// ── TAKİP DÜZELTMESİ 2b — attestation uyumluluk kapısı (legacy/sürüm/finding/dedupe) ──
+function threeCompatible(extra = []) {
+  return [
+    att({ workflowRunId: 'r1', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'r2', day: '2026-07-30', timestamp: '2026-07-30T20:00:00Z' }),
+    att({ workflowRunId: 'r3', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }),
+    ...extra,
+  ];
+}
+check('iki uyumlu yeni attestation doğru birleşir (considered=2)', () => {
+  const agg = aggregateVerification('B4', [
+    att({ workflowRunId: 'r1', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'r2', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }),
+  ], OPTS);
+  assert.equal(agg.consideredAttestations, 2);
+  assert.equal(agg.ignoredAttestations.count, 0);
+});
+check('sürümsüz legacy attestation SAYILMAZ + raporda neden görünür', () => {
+  const legacy = { findingId: 'B4', workflowRunId: 'old1', day: '2026-07-30', timestamp: '2026-07-30T09:00:00Z', result: 'pass', profileVerified: true, freshLogin: true, environment: 'production-readonly', registryFingerprint: FP }; // schemaVersion YOK (eski format)
+  const agg = aggregateVerification('B4', threeCompatible([legacy]), OPTS);
+  assert.equal(agg.consideredAttestations, 3, 'legacy seriye girmemeli');
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'legacy-or-unversioned-schema'));
+});
+check('eski profile contract version SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ workflowRunId: 'v0', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z', profileContractVersion: 0 }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'profile-contract-version-mismatch'));
+  assert.equal(agg.consideredAttestations, 3);
+});
+check('farklı finding ID SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ findingId: 'B7', workflowRunId: 'x', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z' }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'finding-mismatch'));
+  assert.equal(agg.consideredAttestations, 3);
+});
+check('networkPolicyVersion uyuşmazlığı SAYILMAZ', () => {
+  const agg = aggregateVerification('B4', threeCompatible([
+    att({ workflowRunId: 'np', day: '2026-07-30', timestamp: '2026-07-30T08:00:00Z', networkPolicyVersion: 99 }),
+  ]), OPTS);
+  assert.ok(agg.ignoredAttestations.reasons.some((r) => r.reason === 'network-policy-version-mismatch'));
+});
+check('duplicate workflowRunId İKİ KEZ sayılmaz (findingId+workflowRunId dedupe)', () => {
+  // 3 farklı gün ama iki attestation AYNI run (SAME) → distinctRuns eşiği karşılamaz
+  const atts = [
+    att({ workflowRunId: 'SAME', day: '2026-07-30', timestamp: '2026-07-30T10:00:00Z' }),
+    att({ workflowRunId: 'SAME', day: '2026-07-31', timestamp: '2026-07-31T10:00:00Z' }), // aynı run, dedupe → 1 kayıt
+    att({ workflowRunId: 'other', day: '2026-08-01', timestamp: '2026-08-01T10:00:00Z' }),
+  ];
+  const agg = aggregateVerification('B4', atts, OPTS);
+  assert.equal(agg.ignoredAttestations.dedupDropped, 1, 'aynı run çift kaydı düşürülmeli');
+  assert.notEqual(agg.result, 'verified-fixed-proposal'); // yalnız 2 farklı run
+});
+check('POZİTİF yol uyumluluk kimlikleriyle hâlâ verified-fixed-proposal', () => {
+  assert.equal(aggregateVerification('B4', threeCompatible(), OPTS).result, 'verified-fixed-proposal');
+});
+
 // 7. infra-error → pass sayılmaz
 check('en son infra-error → infra-error; nitelik DÜŞER', () => {
   assert.equal(qualifiesAsSuccess(att({ result: 'infra-error' }), FP), false);
@@ -227,10 +372,20 @@ check('temiz doğrulama bundle: report+profile+attestations kopyalanır', () => 
 check('allowlist dışı dosya REDDEDİLİR', () => {
   const dir = makeVDir('stray', {
     'verification-report.json': '{"result":"candidate"}',
-    'network-summary.json': '{"total":0}', // WP-R4 doğrulama bundle\'ında değil
+    'random-stray.json': '{"x":1}', // allowlist dışı beklenmeyen dosya
   });
   const b = prepareVerificationBundle(dir);
-  assert.ok(b.rejected.some((r) => r.name === 'network-summary.json'));
+  assert.ok(b.rejected.some((r) => r.name === 'random-stray.json'));
+});
+check('network-summary.json artık allowlist\'te (read-only ağ kanıtı)', () => {
+  assert.ok(VERIFICATION_UPLOAD_ALLOWLIST.includes('network-summary.json'));
+  const dir = makeVDir('net', {
+    'verification-report.json': '{"result":"reproduced"}',
+    'network-summary.json': '{"total":1,"requests":[{"method":"GET","path":"/x","status":200}]}',
+  });
+  const b = prepareVerificationBundle(dir);
+  assert.deepEqual(b.rejected, []);
+  assert.ok(b.copied.includes('network-summary.json'));
 });
 check('secret/PII seed\'li JSON güvenlik kapısını kırar', () => {
   const dir = makeVDir('leaky', {

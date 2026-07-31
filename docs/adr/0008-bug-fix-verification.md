@@ -101,3 +101,42 @@ değişmedi kapısı, YALNIZ `verification/upload/` allowlist bundle'ını yükl
 - Cross-run attestation birikimi CI'da best-effort artifact geri-yüklemeyle yapılır;
   canlı davranışı bu oturumda doğrulanmadı.
 - Repo/deploy SHA bağımsız-koşu kriteri DEĞİLDİR; yalnız metadata (WP-R4 #8).
+
+## Takip düzeltmeleri (post-merge doğrulama sonrası)
+
+30 Tem 2026 post-merge iki `workflow_dispatch verify_finding_id=B4` koşusu (run
+30549912614 + 30550776103) gerçek CI'da iki defekt ortaya çıkardı; ikisi de düzeltildi:
+
+- **Düzeltme 1 — deterministik profil çıkarımı.** Gevşek tarama izin yanıtındaki bir
+  ISO timestamp'ı `permissions`'a alıyor, fingerprint'i NON-DETERMINISTIC yapıyordu
+  (iki koşuda farklı fingerprint). Yeni `tests/fixtures/scope-extract.js`
+  (`isValidScope` + `extractPermissionScopes`) timestamp/UUID/URL/e-posta/sayısal/
+  metadata'yı YAPISAL olarak dışlar ve yalnız izin taşıyan bağlamlardan (scope-string
+  dizileri, boolean-map anahtarları, bilinen izin alanları) toplar. `normalizeProfile`
+  fingerprint'i artık `contractId@version` + sıralı scope listesinden üretir;
+  run-id/timestamp/sıra GİRMEZ → aynı hesap + aynı kontrat → aynı fingerprint.
+- **Düzeltme 2 — read-only ağ kanıtı.** Doğrulama bundle'ı artık sanitize edilmiş
+  `network-summary.json` (WP-R3 collector; method+path+status+süre+tip; body/header/
+  secret YOK) içerir ve YALNIZ hedef testin page context'ini kapsar (auth-setup ayrı
+  context → dahil değil). Hedef koşuda mutation method (POST/PUT/PATCH/DELETE) görülürse:
+  koşu başarılı sayılmaz, `verified-fixed-proposal` üretilemez, raporda `policyViolation`
+  işaretlenir ve CI job hard failure verir (güvenli bundle yine de yüklenir).
+
+- **Düzeltme 3 — attestation uyumluluk kapısı + v2 namespace.** Attestation'a
+  `schemaVersion` / `profileContractId` / `profileContractVersion` / `networkPolicyVersion`
+  eklendi. `aggregateVerification` uyumsuz kayıtları (eski/sürümsüz şema, farklı profil
+  kontrat sürümü, farklı finding, farklı ağ-politikası) SERİYE/EŞİĞE KATMAZ; `findingId +
+  workflowRunId` üzerinden dedupe eder (yalnız dosya adına güvenmez); yok sayılanları
+  `ignoredAttestations` (adet + neden) altında raporlar. CI artifact namespace'i
+  `known-bug-verification-v2-<id>-…`'e taşındı → WP-R4-öncesi non-deterministik artifact'ler
+  (`known-bug-verify-*`, run 30549912614/30550776103) restore aramasına HİÇ girmez
+  (defense-in-depth: namespace + şema kapısı).
+
+`qualifiesAsSuccess` artık `readOnlyVerified===true` ve `policyViolation!==true` de arar.
+Bu düzeltmeler yalnız mekanizmayı sağlamlaştırır; B4 hâlâ AÇIK (iki kez reproduce),
+registry DEĞİŞMEDİ, hiçbir finding kapatılmadı.
+
+> Kanıt kaynağı notu: yukarıdaki biçim analizinde ham `/roles/me/permissions` response'u
+> SAKLANMADI. İki canlı run artifact'inde SANITIZE EDİLEREK çıkarılmış 106 permission
+> anahtarı incelendi; geçerli anahtar biçimleri ve tek timestamp kirliliği bu kümeden
+> doğrulandı.

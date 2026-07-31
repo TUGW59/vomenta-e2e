@@ -8,6 +8,8 @@
  * geçerlidir (WP-R4 tasarım kararı #7). Bu dosya, bir bulgu için beklenen normalize
  * profil kısıtını (allowlisted izin ANAHTARLARI — değer/secret/PII YOK) tanımlar.
  *
+ * `version`: profil kontratı sürümü — profil fingerprint'ine katılır (kontrat değişince
+ *   fingerprint bilinçli değişir; ama run-id/timestamp/sıra fingerprint'e GİRMEZ).
  * `require`: bu izin ANAHTARLARININ profilde bulunması beklenir.
  * `forbid` : bu izin ANAHTARLARININ profilde bulunMAMASI beklenir (yetkisiz bağlam).
  * `permissionsUrlIncludes`: profilin okunacağı salt-okunur izin ucu (yalnız anahtarlar
@@ -17,7 +19,7 @@
  * Kısıtı OLAN bulguda profil okunamaz/eşleşmezse koşu `inconclusive` sayılır — pass değil.
  */
 
-/** @typedef {{ permissionsUrlIncludes: string, require: string[], forbid: string[], note: string }} VerificationProfile */
+/** @typedef {{ version: number, permissionsUrlIncludes: string, require: string[], forbid: string[], note: string }} VerificationProfile */
 
 /** @type {Record<string, VerificationProfile>} */
 export const VERIFICATION_PROFILES = Object.freeze({
@@ -27,6 +29,7 @@ export const VERIFICATION_PROFILES = Object.freeze({
   // profilde BULUNMAMALI. Farklı (yetkili) bir profilde geçiş, orijinal bulguyu
   // doğrulamaz → inconclusive.
   B4: {
+    version: 1,
     permissionsUrlIncludes: '/api/v1/roles/me/permissions',
     require: [],
     forbid: ['settings.billing.view', 'settings.billing.manage', 'modules.manage'],
