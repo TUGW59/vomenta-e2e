@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 832
-- **Test dosyası:** 59
-- **Etiketler:** `@a11y` 44 · `@clean)` 7 · `@clean` 30 · `@critical` 69 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 27 · `@known-bug` 51 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 321 · `@smoke` 81 · `@visual` 18
+- **Test edilen senaryo:** 920
+- **Test dosyası:** 66
+- **Etiketler:** `@a11y` 51 · `@clean)` 7 · `@clean` 37 · `@critical` 70 · `@data` 10 · `@deeplink` 36 · `@errorpath` 38 · `@export` 1 · `@i18n` 160 · `@keyboard` 30 · `@known-bug` 61 · `@layout` 42 · `@perf` 1 · `@public` 2 · `@regression` 325 · `@smoke` 88 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -145,6 +145,115 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - göz ile açılan detayda sekmeler ve metrik kartları var  `@regression`
 - BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı  `@regression` `@known-bug`
 - BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı  `@regression` `@known-bug`
+
+### `channels-email.authed.spec.js`
+
+- sayfa "Email Channel" + Add Account + Save Changes ile açılıyor  `@smoke`
+- GET /channels/email/config çağrılıyor  `@data`
+- L1 tıklama OK: dialog açılıyor  `@regression`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı  `@clean` `@known-bug`
+- Add Account dialogu odak tuzağı + Escape ile kapanma  `@keyboard`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/email doğrudan açılınca yükleniyor  `@deeplink`
+
+### `channels-hub.authed.spec.js`
+
+- sayfa "Channels" başlığı + 7 kanal kartı + Configure bağlantıları ile açılıyor  `@smoke`
+- her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor  `@critical`
+- kanal config uçları çağrılıyor (GET /channels/<kanal>/config 2xx)  `@data`
+- L1+L3: Email kartı Configure → /channels/email gerçekten yükleniyor  `@regression`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- kanal config uçları 500 dönse de kabuk + hub başlığı sağlam  `@errorpath`
+- /channels doğrudan açılınca hub yükleniyor (login'e düşmüyor)  `@deeplink`
+- kanal kartları ızgarası görünümü değişmedi  `@visual`
+
+### `channels-sms.authed.spec.js`
+
+- sayfa "SMS Configuration" + Send SMS + Add Sender + Save Changes ile açılıyor  `@smoke`
+- GET /channels/sms/config çağrılıyor  `@data`
+- L1 tıklama OK: dialog açılıyor  `@regression`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı  `@clean` `@known-bug`
+- Add Sender dialogu odak tuzağı + Escape ile kapanma  `@keyboard`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/sms doğrudan açılınca yükleniyor  `@deeplink`
+
+### `channels-social.authed.spec.js`
+
+- sayfa "Social Media Channels" + Connect + Save Changes ile açılıyor  `@smoke`
+- GET /channels/social/config çağrılıyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı  `@clean` `@known-bug`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/social doğrudan açılınca yükleniyor  `@deeplink`
+
+### `channels-video.authed.spec.js`
+
+- sayfa "Video Call Configuration" + Save Changes ile açılıyor  `@smoke`
+- GET /channels/video/config çağrılıyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/video doğrudan açılınca yükleniyor  `@deeplink`
+- yapılandırma formu görünümü değişmedi  `@visual`
+
+### `channels-webchat.authed.spec.js`
+
+- sayfa "Web Chat Configuration" + sekmeler + Save Changes ile açılıyor  `@smoke`
+- GET /channels/webchat/config çağrılıyor  `@data`
+- L1+L3: Integration sekmesine geçince aria-selected + gömme içeriği  `@regression`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- sekmeler klavye ile gezilebilir (ArrowRight → Integration seçili)  `@keyboard`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/webchat doğrudan açılınca yükleniyor  `@deeplink`
+- yapılandırma sekmesi görünümü değişmedi  `@visual`
+
+### `channels-whatsapp.authed.spec.js`
+
+- sayfa "WhatsApp Business" + Save Changes ile açılıyor  `@smoke`
+- GET /channels/whatsapp/config çağrılıyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı  `@clean` `@known-bug`
+- config 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /channels/whatsapp doğrudan açılınca yükleniyor  `@deeplink`
 
 ### `contacts.authed.spec.js`
 

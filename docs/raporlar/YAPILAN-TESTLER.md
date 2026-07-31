@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 878 / 87 dosya
-- **coverageStatus:** verified 0 · partial 838 · generic 9 · blocked 31
-- **executionStatus:** executed 0 · listed-only 847 · skipped 0 · fixme 31
+- **Listelenen test:** 972 / 100 dosya
+- **coverageStatus:** verified 0 · partial 926 · generic 9 · blocked 37
+- **executionStatus:** executed 0 · listed-only 935 · skipped 0 · fixme 37
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -19,6 +19,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | analytics | 33 | 33 | 0 | 0 |
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
+| channels | 94 | 88 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 22 | 22 | 0 | 0 |
@@ -143,6 +144,165 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: sihirbaz uçtan uca kampanya OLUŞTURUYOR (create → detay → cleanup) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-email-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: e-posta hesabı ekle → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-email.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Email Channel" + Add Account + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/email/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: dialog açılıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| Add Account dialogu odak tuzağı + Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/email doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `channels-hub.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Channels" başlığı + 7 kanal kartı + Configure bağlantıları ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor | @critical | — | listed-only | partial | medium | list-exec |
+| kanal config uçları çağrılıyor (GET /channels/<kanal>/config 2xx) | @data | — | listed-only | partial | medium | list-exec |
+| L1+L3: Email kartı Configure → /channels/email gerçekten yükleniyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| kanal config uçları 500 dönse de kabuk + hub başlığı sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels doğrudan açılınca hub yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| kanal kartları ızgarası görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `channels-sms-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: gönderici kimliği ekle → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-sms.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "SMS Configuration" + Send SMS + Add Sender + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/sms/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: dialog açılıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| Add Sender dialogu odak tuzağı + Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/sms doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `channels-social-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: platform bağla → bağlı görün → bağlantıyı kaldır | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-social.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Social Media Channels" + Connect + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/social/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/social doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `channels-video-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: video ayarını değiştir → kaydet → eski değere döndür | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-video.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Video Call Configuration" + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/video/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/video doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+| yapılandırma formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `channels-webchat-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: widget ayarını değiştir → kaydet → eski değere döndür | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-webchat.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Web Chat Configuration" + sekmeler + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/webchat/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| L1+L3: Integration sekmesine geçince aria-selected + gömme içeriği | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| sekmeler klavye ile gezilebilir (ArrowRight → Integration seçili) | @keyboard | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/webchat doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+| yapılandırma sekmesi görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `channels-whatsapp-mutations.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: şablon oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `channels-whatsapp.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "WhatsApp Business" + Save Changes ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /channels/whatsapp/config çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /channels/whatsapp doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `contacts-mutations.authed.spec.js` — _contacts_
 

@@ -24,6 +24,12 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | dosya:satır | tür | gerekçe |
 |---|---|---|
 | tests/campaigns-outbound.mutation.authed.spec.js:29 | fixme | dan silinemiyor; staging API DELETE/teardown teyidi gerekli. |
+| tests/channels-email-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: hesap ekleme sahte SMTP + silme ucu. |
+| tests/channels-sms-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: POST /sender-ids + silme ucu. |
+| tests/channels-social-mutations.authed.spec.js:17 | fixme | Staging teyidi bekliyor: harici OAuth (sahte sağlayıcı) + bağlantı kaldırma ucu. |
+| tests/channels-video-mutations.authed.spec.js:17 | fixme | Staging teyidi bekliyor: video ayarı geri-alma ucu (PUT /channels/video/config). |
+| tests/channels-webchat-mutations.authed.spec.js:17 | fixme | Staging teyidi bekliyor: widget ayarı geri-alma ucu (PUT /channels/webchat/config). |
+| tests/channels-whatsapp-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: bağlı WABA + şablon POST/DELETE ucu. |
 | tests/known-bugs.authed.spec.js:175 | skip | satırı yok; bulgu reproduce edilemiyor. |
 | tests/known-bugs.authed.spec.js:279 | skip | Sesli mesaj / işlem butonu yok; bulgu reproduce edilemiyor. |
 | tests/known-bugs.authed.spec.js:345 | skip | Reddedilmiş talep yok; bulgu reproduce edilemiyor. |
@@ -41,6 +47,9 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | dosya:satır | tür | gerekçe |
 |---|---|---|
 | tests/campaigns-outbound.authed.spec.js:419 | skip | Bu tenantta 10+ kampanya yok; sayfalama gerekmiyor. |
+| tests/channels-hub.authed.spec.js:138 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
+| tests/channels-video.authed.spec.js:105 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
+| tests/channels-webchat.authed.spec.js:130 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/known-bugs-invite.mutation.authed.spec.js:25 | fixme |  |
 | tests/known-bugs.authed.spec.js:157 | fixme |  |
 | tests/known-bugs.authed.spec.js:289 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
@@ -107,7 +116,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 ### Yüzey boşluğu (envanter karşılaştırması)
 
 - **Rota-bazlı arketip/derin kapsam yok** (yalnız generic baseline ile örtülü) — sıradaki nav yüzeyleri WP-04/WP-06 bekliyor:
-  `/` · `/inbox` · `/voice` · `/channels` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
+  `/` · `/inbox` · `/voice` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
 - **WP-00'da keşfedilen kayıtsız rotalar** (tested-pages'te tam sözleşme yok):
   `/campaigns/outbound` · `/channels/sms` · `/settings/organization` · `/settings/profile`
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 49 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 55 adet — çoğunlukla `reports` alt rotaları.
