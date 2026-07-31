@@ -90,8 +90,10 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/voice-call.mutation.authed.spec.js:35 | skip | VOMENTA_TEST_PHONE tanımlı değil. |
 | tests/voice-call.mutation.authed.spec.js:68 | fixme | de doğrulanacak. |
 | tests/voice-call.mutation.authed.spec.js:70 | skip | VOMENTA_TEST_PHONE tanımlı değil. |
-| tests/workforce-badges.authed.spec.js:79 | skip | Tabloda rozet yok — kontrol atlandı. |
-| tests/workforce-surveys.authed.spec.js:65 | skip | Tabloda anket yok — a11y kontrolü atlandı. |
+| tests/workforce-badges-mutations.authed.spec.js:28 | fixme |  |
+| tests/workforce-badges.authed.spec.js:93 | skip | Tabloda rozet yok — kontrol atlandı. |
+| tests/workforce-evaluations-mutations.authed.spec.js:29 | fixme |  |
+| tests/workforce-surveys.authed.spec.js:83 | skip | Tabloda anket yok — a11y kontrolü atlandı. |
 
 ### İncelendi, standart test edilemedi (coverage-TODO)
 
@@ -103,7 +105,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 ### Yüzey boşluğu (envanter karşılaştırması)
 
 - **Rota-bazlı arketip/derin kapsam yok** (yalnız generic baseline ile örtülü) — sıradaki nav yüzeyleri WP-04/WP-06 bekliyor:
-  `/` · `/inbox` · `/voice` · `/channels` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor` · `/workforce`
+  `/` · `/inbox` · `/voice` · `/channels` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
 - **WP-00'da keşfedilen kayıtsız rotalar** (tested-pages'te tam sözleşme yok):
   `/campaigns/outbound` · `/channels/sms` · `/settings/organization` · `/settings/profile`
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 44 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 49 adet — çoğunlukla `reports` alt rotaları.

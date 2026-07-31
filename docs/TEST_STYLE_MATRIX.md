@@ -31,6 +31,12 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `workforce-evaluations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `workforce-schedules` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — |
+| `workforce-surveys` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
+| `workforce-time-off` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — |
 
 ## Rota düzeyi baseline kanıtı
 
@@ -76,6 +82,12 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **workforce**: `/workforce`
+- **workforce-badges**: `/workforce/badges`
+- **workforce-evaluations**: `/workforce/evaluations`
+- **workforce-schedules**: `/workforce/schedules`
+- **workforce-surveys**: `/workforce/surveys`
+- **workforce-time-off**: `/workforce/time-off`
 
 ## N/A beyanları (gerekçeli)
 
@@ -148,3 +160,30 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `workforce` **@perf**: Ağır grafik kütüphanesi yok; Uyum boş-durum/basit görsel, Tahmin tablo.
+- `workforce` **@data**: Tahmin KPI kartları var ama ayrılmış tenant'ta 0 gösteriyor ve sekme-tıklamada AYRI fetch yok (canlı ağ: istek yok) → yakalanacak deterministik JSON ucu yok; @data anlamlı değil.
+- `workforce` **@export**: Bu yüzeyde export/indirme kontrolü yok.
+- `workforce` **@visual**: İçerik tarih/haftaya bağlı (çizelge grid) → kararlı snapshot bölgesi yok.
+- `workforce-badges` **@perf**: Grafik/ağır içerik yok (rozet tablosu + Sıralama sekmesi + dialoglar).
+- `workforce-badges` **@data**: Sayısal KPI tile yok (rozet/lider listesi).
+- `workforce-badges` **@export**: Export/indirme kontrolü yok.
+- `workforce-badges` **@visual**: Rozet/lider tablosu canlı veri → kararlı snapshot yok.
+- `workforce-evaluations` **@perf**: Grafik/ağır içerik yok (değerlendirme tablosu + oluştur dialogu).
+- `workforce-evaluations` **@data**: Sayısal KPI tile yok (puan sütunu tablo verisi).
+- `workforce-evaluations` **@export**: Export/indirme kontrolü yok.
+- `workforce-evaluations` **@visual**: Değerlendirme tablosu canlı veri → kararlı snapshot yok.
+- `workforce-schedules` **@keyboard**: Ayrı rota salt-okunur (dialog/sekme modellenmiyor); vardiya diyaloğu /workforce yüzeyinde @keyboard ile kapsanır.
+- `workforce-schedules` **@perf**: Grafik/ağır içerik yok (haftalık çizelge grid).
+- `workforce-schedules` **@data**: Sayısal KPI tile yok.
+- `workforce-schedules` **@export**: Export/indirme kontrolü yok.
+- `workforce-schedules` **@visual**: İçerik tarih/haftaya bağlı → kararlı snapshot yok.
+- `workforce-schedules` **@mutation**: Vardiya create/publish yaşam döngüsü /workforce yüzeyinde (workforce-mutations) sahiplenilir; ayrı rotada tekrar edilmez (uzlaştırma).
+- `workforce-surveys` **@perf**: Grafik/ağır içerik yok (anket tablosu + dialoglar).
+- `workforce-surveys` **@data**: Sayısal KPI tile yok (anket listesi).
+- `workforce-surveys` **@export**: Export/indirme kontrolü yok.
+- `workforce-surveys` **@visual**: Anket tablosu canlı veri → kararlı snapshot yok.
+- `workforce-time-off` **@perf**: Grafik/ağır içerik yok (izin tablosu + talep dialogu).
+- `workforce-time-off` **@data**: Sayısal KPI tile yok.
+- `workforce-time-off` **@export**: Export/indirme kontrolü yok.
+- `workforce-time-off` **@visual**: İzin tablosu canlı veri → kararlı snapshot yok.
+- `workforce-time-off` **@mutation**: İzin talebi UI'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).

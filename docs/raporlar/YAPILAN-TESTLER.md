@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 780 / 82 dosya
-- **coverageStatus:** verified 0 · partial 742 · generic 9 · blocked 29
-- **executionStatus:** executed 0 · listed-only 751 · skipped 0 · fixme 29
+- **Listelenen test:** 843 / 85 dosya
+- **coverageStatus:** verified 0 · partial 803 · generic 9 · blocked 31
+- **executionStatus:** executed 0 · listed-only 812 · skipped 0 · fixme 31
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -31,7 +31,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 9 | 9 | 0 | 0 |
-| workforce | 40 | 40 | 0 | 0 |
+| workforce | 103 | 101 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
 
@@ -1150,23 +1150,55 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | aktif çağrı yokken boş durum gösteriliyor |  | — | listed-only | partial | medium | list-exec |
 | Voice alt-navigasyon öğeleri görünüyor |  | — | listed-only | partial | medium | list-exec |
 
+### `workforce-badges-mutations.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: Rozet oluştur kalıcı kayıt yaratıyor (silme yolu gelince aktifleşir) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
 ### `workforce-badges.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan) | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden) | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor | @smoke @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı | @regression | — | listed-only | partial | medium | list-exec |
+| [en] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| rozet listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| Rozet oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
+| /workforce/badges doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `workforce-evaluations-mutations.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: Değerlendirme oluştur kalıcı kayıt yaratıyor (staging kanıtı gelince aktifleşir) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
 ### `workforce-evaluations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat" | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat" | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan) | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor | @smoke @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| değerlendirme listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| Değerlendirme Oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
+| /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `workforce-mutations.authed.spec.js` — _workforce_
 
@@ -1179,23 +1211,58 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor | @smoke @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| çizelge ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| /workforce/schedules doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `workforce-surveys-mutations.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: Anket oluştur kalıcı kayıt yaratıyor ve silinebiliyor (0→1→0) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
 ### `workforce-surveys.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder) | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor | @smoke @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | satır aksiyon ikonları erişilebilir ad taşımalı | @regression | — | listed-only | partial | medium | list-exec |
+| [en] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok (bilinen ikon-adı borcu hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| anket listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| Anket oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
+| /workforce/surveys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `workforce-time-off.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| L1: standalone sayfa + "İzin talep et" formu açılıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: standalone sayfa + "İzin talep et" formu açılıyor | @smoke @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor | @smoke @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| [en] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| izin listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| İzin talep et diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
+| /workforce/time-off doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `workforce.authed.spec.js` — _workforce_
 
@@ -1203,10 +1270,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | başlık ve 7 sekme görünüyor | @smoke | — | listed-only | partial | medium | list-exec |
 | Schedules çizelgesi ve Publish butonu mevcut | @critical | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: her sekme tıklanınca seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: veri sekmeleri ilgili API ucundan veri çekiyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: her sekme kendi içeriğini gösteriyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
@@ -1224,3 +1291,14 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: "Award badge" formu açılıyor ("Award badge") | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: "Create survey" formu açılıyor ("Create survey") | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: "Create Evaluation" formu açılıyor ("Create Quality Evaluation") | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| sekme açılıyor; aralık kontrolleri + veri/boş-durum görünür | @regression | — | listed-only | partial | medium | list-exec |
+| adherence ucu 500 dönse de sekme çökmüyor | @regression @errorpath | — | listed-only | partial | medium | list-exec |
+| sekme açılıyor; KPI kartları + saatlik tahmin tablosu görünür | @regression | — | listed-only | partial | medium | list-exec |
+| KPI kartları veri kaynağını gösteriyor (boş tenant'ta 0 değerleri) | @regression | — | listed-only | partial | medium | list-exec |
+| Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| Add Shift diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
+| çizelge ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| /workforce doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |

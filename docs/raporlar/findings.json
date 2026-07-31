@@ -1,13 +1,13 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 36,
+  "total": 37,
   "summary": {
     "byStatus": {
-      "open": 35,
+      "open": 36,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 34,
+      "knownBugGuard": 35,
       "fixme": 1,
       "permanent": 1
     },
@@ -15,7 +15,7 @@
       "critical": 1,
       "high": 7,
       "medium": 26,
-      "low": 2
+      "low": 3
     },
     "byArea": {
       "voice": 4,
@@ -29,7 +29,7 @@
       "reports": 4,
       "supervisor": 6,
       "contacts": 2,
-      "workforce": 2
+      "workforce": 3
     }
   },
   "governanceFlags": {
@@ -67,9 +67,7 @@
       "WALLBOARD-RESUME-I18N",
       "SETTINGS-BILLING-REDIRECT",
       "SETTINGS-BILLING-CHANGEPLAN",
-      "SETTINGS-BILLING-HISTORY",
-      "WORKFORCE-SURVEYS-ICON-A11Y",
-      "WORKFORCE-BADGES-NO-EDIT-DELETE"
+      "SETTINGS-BILLING-HISTORY"
     ],
     "unverified": [
       "B5",
@@ -1217,7 +1215,7 @@
         "file": "tests/workforce-surveys.authed.spec.js",
         "title": "satır aksiyon ikonları erişilebilir ad taşımalı"
       },
-      "owner": null,
+      "owner": "quality-guild",
       "issueRef": null
     },
     {
@@ -1251,7 +1249,42 @@
         "file": "tests/workforce-badges.authed.spec.js",
         "title": "bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı"
       },
-      "owner": null,
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "WORKFORCE-ADHERENCE-I18N",
+      "title": "Uyum (Adherence) paneli Türkçe seçiliyken İngilizce fallback gösteriyor",
+      "area": "workforce",
+      "route": "/workforce",
+      "severity": "low",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-07-31",
+      "lastVerified": "2026-07-31",
+      "expiry": null,
+      "repro": [
+        "/workforce aç ve dili Türkçe yap",
+        "Uyum sekmesine geç",
+        "Panel başlığı/metnini kontrol et"
+      ],
+      "expected": "Uyum paneli başlık/metni seçili dile (Türkçe) çevrilir",
+      "actual": "Panel İngilizce fallback gösteriyor: \"Adherence Trend\", \"Average adherence percentage over time\", \"No historical adherence data available\" (Türkçe UI'da çevrilmemiş).",
+      "technicalEvidence": [
+        "31 Tem 2026 canlı (app.vomenta.com, Türkçe UI): /workforce › Uyum panelinde başlık ve boş-durum metni İngilizce kaldı; sekme etiketleri (Uyum) çevrili."
+      ],
+      "possibleCauses": [
+        "Adherence panel bileşeni i18n anahtarları yerine sabit İngilizce metin kullanıyor"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/workforce.authed.spec.js",
+        "title": "Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli"
+      },
+      "owner": "quality-guild",
       "issueRef": null
     }
   ]
