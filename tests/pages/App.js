@@ -7,6 +7,13 @@ import { AutomationsPage } from './AutomationsPage.js';
 import { BusinessHoursPage } from './BusinessHoursPage.js';
 import { CampaignCreatePage } from './CampaignCreatePage.js';
 import { CampaignsOutboundPage } from './CampaignsOutboundPage.js';
+import { ChannelsHubPage } from './ChannelsHubPage.js';
+import { ChannelWebchatPage } from './ChannelWebchatPage.js';
+import { ChannelEmailPage } from './ChannelEmailPage.js';
+import { ChannelSmsPage } from './ChannelSmsPage.js';
+import { ChannelWhatsappPage } from './ChannelWhatsappPage.js';
+import { ChannelSocialPage } from './ChannelSocialPage.js';
+import { ChannelVideoPage } from './ChannelVideoPage.js';
 import { CannedResponsesPage } from './CannedResponsesPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
@@ -91,6 +98,13 @@ export class App {
     this.aiManagement = new AiManagementPage(page);
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
+    this.channelsHub = new ChannelsHubPage(page);
+    this.channelWebchat = new ChannelWebchatPage(page);
+    this.channelEmail = new ChannelEmailPage(page);
+    this.channelSms = new ChannelSmsPage(page);
+    this.channelWhatsapp = new ChannelWhatsappPage(page);
+    this.channelSocial = new ChannelSocialPage(page);
+    this.channelVideo = new ChannelVideoPage(page);
   }
 
   /**
