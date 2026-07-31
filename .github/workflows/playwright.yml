@@ -185,6 +185,15 @@ jobs:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.verify_finding_id != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    # WP-R4 takip düzeltmesi (restore-403): cross-run attestation restore adımı
+    # GITHUB_TOKEN ile `actions/artifacts` REST listesini sorgular; bu çağrı
+    # `actions: read` ister. Üst düzey tek başına `contents: read` verildiğinden
+    # liste 403 döndü ve restore HİÇBİR önceki v2 attestation'ı getiremedi (seri
+    # birikimi + namespace izolasyonu canlı doğrulanamadı). En dar kapsam: yalnız
+    # bu job'a `actions: read` (checkout için `contents: read` korunur).
+    permissions:
+      contents: read
+      actions: read
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
@@ -214,8 +223,22 @@ jobs:
         run: |
           set +e
           mkdir -p "test-results/findings/${FID}/verification/attestations"
-          ids=$(gh api "repos/${{ github.repository }}/actions/artifacts?per_page=100" \
-            --jq ".artifacts[] | select(.expired==false) | select(.name | startswith(\"known-bug-verification-v2-${FID}-\")) | .id" 2>/dev/null | head -30)
+          # Liste çağrısı `actions: read` ister (job-level permissions ile verildi).
+          # Hata ARTIK gizlenmez: ham yanıt yakalanır, exit-code kontrol edilir, geçici
+          # hataya karşı birkaç kez denenir ve tanılama `::warning::` olarak yazdırılır.
+          # (Önceki sürüm `--jq ... 2>/dev/null` ile 403 gövdesini $ids'e sızdırıyordu →
+          #  restore sessizce 0 döndürüyordu; kök neden görünmüyordu.)
+          ids=""
+          for attempt in 1 2 3; do
+            resp=$(gh api "repos/${{ github.repository }}/actions/artifacts?per_page=100" 2>/tmp/artifacts-list.err)
+            rc=$?
+            if [ "$rc" -eq 0 ]; then
+              ids=$(printf '%s' "$resp" | jq -r ".artifacts[] | select(.expired==false) | select(.name | startswith(\"known-bug-verification-v2-${FID}-\")) | .id" | head -30)
+              break
+            fi
+            echo "::warning::artifacts listesi denemesi ${attempt}/3 başarısız (rc=${rc}): $(cat /tmp/artifacts-list.err 2>/dev/null)"
+            sleep 5
+          done
           for aid in $ids; do
             gh api "repos/${{ github.repository }}/actions/artifacts/$aid/zip" > "/tmp/att-$aid.zip" 2>/dev/null || continue
             unzip -o -qq "/tmp/att-$aid.zip" -d "/tmp/att-$aid" 2>/dev/null || continue
