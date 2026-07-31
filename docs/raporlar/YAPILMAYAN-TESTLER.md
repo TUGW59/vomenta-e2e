@@ -93,6 +93,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/workforce-badges-mutations.authed.spec.js:28 | fixme |  |
 | tests/workforce-badges.authed.spec.js:93 | skip | Tabloda rozet yok — kontrol atlandı. |
 | tests/workforce-evaluations-mutations.authed.spec.js:29 | fixme |  |
+| tests/workforce-schedules.authed.spec.js:90 | skip | hücresi yok — kontrol atlandı. |
 | tests/workforce-surveys.authed.spec.js:83 | skip | Tabloda anket yok — a11y kontrolü atlandı. |
 
 ### İncelendi, standart test edilemedi (coverage-TODO)

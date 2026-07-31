@@ -46,4 +46,14 @@ export class WorkforceSchedulesPage extends BasePage {
   publishButton() {
     return this.page.getByRole('button', { name: WorkforceSchedulesPage.L.publish });
   }
+
+  /**
+   * Boş vardiya "+" hücresi (add-shift affordance). Tıklanınca "Vardiya Ekle/Add
+   * Shift" formu açılır → gerçek interaktif kontrol. NOT: semantik buton DEĞİL
+   * (div.border-dashed; role/tabindex/aria-label yok) → a11y/klavye bulgusu
+   * WORKFORCE-SCHEDULE-CELL-A11Y. Semantik hedef olmadığından son çare CSS.
+   */
+  firstAddShiftCell() {
+    return this.page.locator('main table td .border-dashed').first();
+  }
 }

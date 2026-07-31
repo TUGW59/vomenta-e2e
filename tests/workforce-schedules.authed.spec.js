@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import {
+  knownBugGuard,
   expectNoSevereA11y,
   expectNoOverflowAtViewports,
   mockApi,
@@ -68,6 +69,51 @@ test.describe('Programlar — dil yönü/başlık @i18n', () => {
       await expect(s.heading).not.toHaveText('');
     });
   }
+});
+
+/**
+ * BULGU (a11y/klavye) — boş vardiya "+" hücresi interaktif ama buton semantiği yok.
+ *
+ * Çizelgedeki boş hücre tıklanınca "Vardiya Ekle/Add Shift" formu açar → gerçek
+ * bir kontrol. Ancak `<div class="border-dashed">` olarak render edilir: role yok,
+ * tabindex yok, erişilebilir ad yok → ekran okuyucu görmez, klavye ile odaklanıp
+ * çalıştırılamaz (WCAG 2.1.1 / 4.1.2). Canlı doğrulama 31 Tem 2026 (read-only).
+ */
+test.describe('Programlar — "+" hücresi buton semantiği a11y bulgusu @a11y @keyboard', () => {
+  test('boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı', async ({
+    app,
+  }) => {
+    knownBugGuard(test, 'WORKFORCE-SCHEDULE-CELL-A11Y');
+    const s = app.workforceSchedules;
+    await s.open();
+    const cell = s.firstAddShiftCell();
+    test.skip((await cell.count()) === 0, 'Görünür haftada boş "+" hücresi yok — kontrol atlandı.');
+    await expect(cell).toBeVisible();
+
+    // Davranış kanıtı: hücre tıklanınca Vardiya Ekle/Add Shift formu açılıyor (GÖNDERME YOK).
+    await cell.click();
+    const dialog = s.page.getByRole('dialog');
+    await expect(
+      dialog.getByRole('heading', { name: /^(Add Shift|Vardiya Ekle)$/ })
+    ).toBeVisible();
+    await s.page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden({ timeout: 10000 });
+
+    // BULGU: interaktif kontrol ama buton rolü + fokuslanabilirlik + erişilebilir ad eksik.
+    const semantics = await cell.evaluate((el) => ({
+      tag: el.tagName,
+      role: el.getAttribute('role'),
+      tabindex: el.getAttribute('tabindex'),
+      ariaLabel: el.getAttribute('aria-label'),
+    }));
+    const isButton = semantics.role === 'button' || semantics.tag === 'BUTTON';
+    const focusable = semantics.tabindex !== null && semantics.tabindex !== '-1';
+    const hasName = !!(semantics.ariaLabel && semantics.ariaLabel.trim());
+    expect(
+      isButton && focusable && hasName,
+      'add-shift "+" hücresi buton rolü + fokus (tabindex) + erişilebilir ad taşımalı'
+    ).toBe(true);
+  });
 });
 
 // ═══════════════ STİL: ERİŞİLEBİLİRLİK (@a11y) ═══════════════
