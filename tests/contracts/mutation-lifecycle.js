@@ -84,4 +84,16 @@ export const MUTATION_LIFECYCLE_EXCLUSIONS = Object.freeze({
   'tests/settings-webhooks-mutations.authed.spec.js': Object.freeze({
     mode: 'fixme', reason: 'N/A: webhook create+delete (liste prod\'da boş) staging\'de kanıtlanmadı; spec fixme.',
   }),
+
+  // İş Gücü gamification/kalite mutasyonları (yeni /workforce/{badges,evaluations} rotaları).
+  'tests/workforce-badges-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme',
+    reason:
+      'N/A: rozet create canlıda çalışıyor ama UI\'da düzenle/sil yok; güvenli teardown (0→1→0) kanıtlanamadı; spec fixme.',
+  }),
+  'tests/workforce-evaluations-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme',
+    reason:
+      'N/A: manuel değerlendirme gerçek etkileşim ID\'si + temsilci ister; create+sil ve orphan sayacı staging\'de kanıtlanmadı; spec fixme.',
+  }),
 });
