@@ -33,6 +33,8 @@ import { WorkforcePage } from './WorkforcePage.js';
 import { WorkforceSurveysPage } from './WorkforceSurveysPage.js';
 import { WorkforceBadgesPage } from './WorkforceBadgesPage.js';
 import { WorkforceEvaluationsPage } from './WorkforceEvaluationsPage.js';
+import { WorkforceSchedulesPage } from './WorkforceSchedulesPage.js';
+import { WorkforceTimeOffPage } from './WorkforceTimeOffPage.js';
 import { AgentMonitorPage } from './AgentMonitorPage.js';
 import { IntegrationsPage } from './IntegrationsPage.js';
 import { InteractionsPage } from './InteractionsPage.js';
@@ -78,6 +80,8 @@ export class App {
     this.workforceSurveys = new WorkforceSurveysPage(page);
     this.workforceBadges = new WorkforceBadgesPage(page);
     this.workforceEvaluations = new WorkforceEvaluationsPage(page);
+    this.workforceSchedules = new WorkforceSchedulesPage(page);
+    this.workforceTimeOff = new WorkforceTimeOffPage(page);
     this.agentMonitor = new AgentMonitorPage(page);
     this.interactions = new InteractionsPage(page);
     this.agentLive = new AgentLivePage(page);
