@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 722
-- **Test dosyası:** 52
-- **Etiketler:** `@a11y` 36 · `@clean` 24 · `@critical` 62 · `@data` 3 · `@deeplink` 23 · `@errorpath` 24 · `@export` 1 · `@i18n` 107 · `@keyboard` 21 · `@known-bug` 50 · `@layout` 29 · `@perf` 1 · `@public` 2 · `@regression` 273 · `@smoke` 59 · `@visual` 18
+- **Test edilen senaryo:** 737
+- **Test dosyası:** 57
+- **Etiketler:** `@a11y` 36 · `@clean` 24 · `@critical` 67 · `@data` 3 · `@deeplink` 23 · `@errorpath` 24 · `@export` 1 · `@i18n` 107 · `@keyboard` 21 · `@known-bug` 50 · `@layout` 29 · `@perf` 1 · `@public` 2 · `@regression` 288 · `@smoke` 59 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -867,6 +867,36 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /voice, Live Calls sayfasına açılıyor
 - aktif çağrı yokken boş durum gösteriliyor
 - Voice alt-navigasyon öğeleri görünüyor
+
+### `workforce-badges.authed.spec.js`
+
+- L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları  `@regression`
+- L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan)  `@regression`
+- L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden)  `@regression`
+- L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor  `@regression` `@critical`
+- bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı  `@regression`
+
+### `workforce-evaluations.authed.spec.js`
+
+- L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat"  `@regression`
+- L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan)  `@regression`
+- L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor  `@regression` `@critical`
+
+### `workforce-schedules.authed.spec.js`
+
+- L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür  `@regression`
+- L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor  `@regression` `@critical`
+
+### `workforce-surveys.authed.spec.js`
+
+- L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder)  `@regression`
+- L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor  `@regression` `@critical`
+- satır aksiyon ikonları erişilebilir ad taşımalı  `@regression`
+
+### `workforce-time-off.authed.spec.js`
+
+- L1: standalone sayfa + "İzin talep et" formu açılıyor  `@regression`
+- L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor  `@regression` `@critical`
 
 ### `workforce.authed.spec.js`
 
