@@ -1,20 +1,20 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 34,
+  "total": 36,
   "summary": {
     "byStatus": {
-      "open": 33,
+      "open": 35,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 32,
+      "knownBugGuard": 34,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 7,
-      "medium": 24,
+      "medium": 26,
       "low": 2
     },
     "byArea": {
@@ -28,7 +28,8 @@
       "navigation": 1,
       "reports": 4,
       "supervisor": 6,
-      "contacts": 2
+      "contacts": 2,
+      "workforce": 2
     }
   },
   "governanceFlags": {
@@ -66,7 +67,9 @@
       "WALLBOARD-RESUME-I18N",
       "SETTINGS-BILLING-REDIRECT",
       "SETTINGS-BILLING-CHANGEPLAN",
-      "SETTINGS-BILLING-HISTORY"
+      "SETTINGS-BILLING-HISTORY",
+      "WORKFORCE-SURVEYS-ICON-A11Y",
+      "WORKFORCE-BADGES-NO-EDIT-DELETE"
     ],
     "unverified": [
       "B5",
@@ -1179,6 +1182,74 @@
       "test": {
         "file": "tests/known-bugs.authed.spec.js",
         "title": "SETTINGS-BILLING-HISTORY · Ayarlar \"Billing history\" kök sayfaya atmamalı"
+      },
+      "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "WORKFORCE-SURVEYS-ICON-A11Y",
+      "title": "Anket satırı işlem ikonları (düzenle/sil) erişilebilir isimsiz",
+      "area": "workforce",
+      "route": "/workforce/surveys",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": null,
+      "lastVerified": "2026-07-30",
+      "expiry": null,
+      "repro": [
+        "/workforce/surveys aç",
+        "Anketler tablosunda satır düzenle (kalem) ve sil (çöp) ikonlarının erişilebilir ismini kontrol et"
+      ],
+      "expected": "düzenle/sil ikonlarının erişilebilir ismi (aria-label) var",
+      "actual": "Satır düzenle/sil ikon-butonları erişilebilir isimsiz (a11y button-name / WCAG 4.1.2)",
+      "technicalEvidence": [
+        "30 Tem 2026 canlı: /workforce/surveys satırındaki kalem/çöp butonları accessible name taşımıyor; testler konumdan seçmek zorunda kalıyor."
+      ],
+      "possibleCauses": [
+        "ikon-buton yalnız SVG ikon içeriyor; aria-label/görünmez metin yok"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/workforce-surveys.authed.spec.js",
+        "title": "satır aksiyon ikonları erişilebilir ad taşımalı"
+      },
+      "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "WORKFORCE-BADGES-NO-EDIT-DELETE",
+      "title": "Rozet satırında düzenle/sil kontrolü yok (UI'dan kaldırılamıyor)",
+      "area": "workforce",
+      "route": "/workforce/badges",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": null,
+      "lastVerified": "2026-07-30",
+      "expiry": null,
+      "repro": [
+        "/workforce/badges aç",
+        "Tüm rozetler tablosunda bir satırın düzenle/sil kontrolü olup olmadığını kontrol et"
+      ],
+      "expected": "rozet satırı en az bir aksiyon (düzenle veya sil) sunar",
+      "actual": "Rozet oluşturulabiliyor ama satırda düzenle/sil kontrolü yok → rozet UI'dan kaldırılamıyor (orphan riski)",
+      "technicalEvidence": [
+        "30 Tem 2026 canlı: /workforce/badges satırında aksiyon butonu yok; oluşturulan test rozeti (E2E-TEST-SILINECEK-badge) UI'dan silinemedi."
+      ],
+      "possibleCauses": [
+        "rozet yönetimi salt-create tasarlanmış; düzenle/sil UI eklenmemiş"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/workforce-badges.authed.spec.js",
+        "title": "bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı"
       },
       "owner": null,
       "issueRef": null

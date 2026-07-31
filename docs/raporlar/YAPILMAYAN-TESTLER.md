@@ -90,6 +90,8 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/voice-call.mutation.authed.spec.js:35 | skip | VOMENTA_TEST_PHONE tanımlı değil. |
 | tests/voice-call.mutation.authed.spec.js:68 | fixme | de doğrulanacak. |
 | tests/voice-call.mutation.authed.spec.js:70 | skip | VOMENTA_TEST_PHONE tanımlı değil. |
+| tests/workforce-badges.authed.spec.js:79 | skip | Tabloda rozet yok — kontrol atlandı. |
+| tests/workforce-surveys.authed.spec.js:65 | skip | Tabloda anket yok — a11y kontrolü atlandı. |
 
 ### İncelendi, standart test edilemedi (coverage-TODO)
 

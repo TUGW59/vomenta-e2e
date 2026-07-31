@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 34
-- **Durum:** open 33 · closed 1
-- **Guard:** knownBugGuard 32 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 24 · low 2
+- **Toplam bulgu:** 36
+- **Durum:** open 35 · closed 1
+- **Guard:** knownBugGuard 34 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 26 · low 2
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 34 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
+- **Sahipsiz (owner=null):** 36 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY, WORKFORCE-SURVEYS-ICON-A11Y, WORKFORCE-BADGES-NO-EDIT-DELETE
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -53,6 +53,8 @@
 | B1 | voice | /voice/regulatory | critical | open | knownBugGuard | — |
 | B10 | voice | /voice/regulatory | medium | open | knownBugGuard | — |
 | B11 | voice | /voice/voicemail | medium | open | knownBugGuard | — |
+| WORKFORCE-BADGES-NO-EDIT-DELETE | workforce | /workforce/badges | medium | open | knownBugGuard | — |
+| WORKFORCE-SURVEYS-ICON-A11Y | workforce | /workforce/surveys | medium | open | knownBugGuard | — |
 
 ## Ayrıntılar
 
@@ -467,3 +469,31 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B11 · /voice/voicemail · İşlemler butonlarının erişilebilir ismi olmalı
+
+## workforce
+
+### /workforce/badges
+
+**[WORKFORCE-BADGES-NO-EDIT-DELETE] Rozet satırında düzenle/sil kontrolü yok (UI'dan kaldırılamıyor)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** rozet satırı en az bir aksiyon (düzenle veya sil) sunar
+- **Gerçekleşen:** Rozet oluşturulabiliyor ama satırda düzenle/sil kontrolü yok → rozet UI'dan kaldırılamıyor (orphan riski)
+- **Repro:** /workforce/badges aç → Tüm rozetler tablosunda bir satırın düzenle/sil kontrolü olup olmadığını kontrol et
+- **Olası nedenler:** rozet yönetimi salt-create tasarlanmış; düzenle/sil UI eklenmemiş
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Guard testi:** `tests/workforce-badges.authed.spec.js` → bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı
+
+### /workforce/surveys
+
+**[WORKFORCE-SURVEYS-ICON-A11Y] Anket satırı işlem ikonları (düzenle/sil) erişilebilir isimsiz** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** düzenle/sil ikonlarının erişilebilir ismi (aria-label) var
+- **Gerçekleşen:** Satır düzenle/sil ikon-butonları erişilebilir isimsiz (a11y button-name / WCAG 4.1.2)
+- **Repro:** /workforce/surveys aç → Anketler tablosunda satır düzenle (kalem) ve sil (çöp) ikonlarının erişilebilir ismini kontrol et
+- **Olası nedenler:** ikon-buton yalnız SVG ikon içeriyor; aria-label/görünmez metin yok
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Guard testi:** `tests/workforce-surveys.authed.spec.js` → satır aksiyon ikonları erişilebilir ad taşımalı

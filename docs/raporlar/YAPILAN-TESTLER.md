@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 765 / 77 dosya
-- **coverageStatus:** verified 0 · partial 727 · generic 9 · blocked 29
-- **executionStatus:** executed 0 · listed-only 736 · skipped 0 · fixme 29
+- **Listelenen test:** 780 / 82 dosya
+- **coverageStatus:** verified 0 · partial 742 · generic 9 · blocked 29
+- **executionStatus:** executed 0 · listed-only 751 · skipped 0 · fixme 29
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -31,7 +31,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 9 | 9 | 0 | 0 |
-| workforce | 25 | 25 | 0 | 0 |
+| workforce | 40 | 40 | 0 | 0 |
 
 ## Ayrıntı (dosya bazlı)
 
@@ -1150,12 +1150,52 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | aktif çağrı yokken boş durum gösteriliyor |  | — | listed-only | partial | medium | list-exec |
 | Voice alt-navigasyon öğeleri görünüyor |  | — | listed-only | partial | medium | list-exec |
 
+### `workforce-badges.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı | @regression | — | listed-only | partial | medium | list-exec |
+
+### `workforce-evaluations.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat" | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+
 ### `workforce-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Add Shift kalıcı vardiya oluşturuyor (POST /wfm/schedules) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: Publish Schedule taslağı yayınlıyor ("Draft" kalkıyor) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `workforce-schedules.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `workforce-surveys.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| satır aksiyon ikonları erişilebilir ad taşımalı | @regression | — | listed-only | partial | medium | list-exec |
+
+### `workforce-time-off.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L1: standalone sayfa + "İzin talep et" formu açılıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 
 ### `workforce.authed.spec.js` — _workforce_
 
