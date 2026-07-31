@@ -1,21 +1,21 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 37,
+  "total": 39,
   "summary": {
     "byStatus": {
-      "open": 36,
+      "open": 38,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 35,
+      "knownBugGuard": 37,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 7,
-      "medium": 26,
-      "low": 3
+      "medium": 27,
+      "low": 4
     },
     "byArea": {
       "voice": 4,
@@ -29,7 +29,7 @@
       "reports": 4,
       "supervisor": 6,
       "contacts": 2,
-      "workforce": 3
+      "workforce": 5
     }
   },
   "governanceFlags": {
@@ -1283,6 +1283,76 @@
       "test": {
         "file": "tests/workforce.authed.spec.js",
         "title": "Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "WORKFORCE-SCHEDULE-CELL-A11Y",
+      "title": "Program çizelgesi boş \"+\" hücresi interaktif ama buton semantiği/klavye erişimi yok",
+      "area": "workforce",
+      "route": "/workforce/schedules",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-07-31",
+      "lastVerified": "2026-07-31",
+      "expiry": null,
+      "repro": [
+        "/workforce/schedules aç",
+        "Boş bir çizelge hücresine (\"+\") bak/tıkla",
+        "Hücrenin role/tabindex/aria-label + klavye erişimini kontrol et"
+      ],
+      "expected": "\"+\" hücresi buton rolü + klavye ile odaklanma/çalıştırma + erişilebilir ad sunar",
+      "actual": "Hücre <div class=\"border-dashed\"> olarak render (role/tabindex/aria-label yok); tıklanınca Vardiya Ekle formu açılıyor ama klavye ile erişilemez ve ekran okuyucu görmez (WCAG 2.1.1 / 4.1.2)",
+      "technicalEvidence": [
+        "31 Tem 2026 canlı (app.vomenta.com, Türkçe UI): /workforce/schedules boş hücreler <div class=\"flex h-12 items-center justify-center rounded-md border border-dashed …\"> + plus SVG; getAttribute role=null, tabindex=null, aria-label=null; tablo içinde td button / [role=\"button\"] sayısı 0. Hücre tıklaması \"Vardiya Ekle\" formunu açıyor → interaktif kontrol ama buton semantiği yok."
+      ],
+      "possibleCauses": [
+        "boş hücre yalnız stilli <div> + onClick ile yapılmış; <button>/role=\"button\" + tabindex + aria-label eklenmemiş"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/workforce-schedules.authed.spec.js",
+        "title": "boş vardiya \"+\" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "WORKFORCE-ADHERENCE-RANGE-STATE",
+      "title": "Uyum aralığı (7d/14d/30d) seçili-durum semantiği yok (yalnız görsel)",
+      "area": "workforce",
+      "route": "/workforce",
+      "severity": "low",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-07-31",
+      "lastVerified": "2026-07-31",
+      "expiry": null,
+      "repro": [
+        "/workforce aç",
+        "Uyum sekmesine geç",
+        "7d/14d/30d düğmelerinin aria-pressed/aria-selected/aria-current durumunu kontrol et"
+      ],
+      "expected": "aktif aralık düğmesi güvenilir seçili-durum sinyali (aria-pressed/aria-selected/aria-current) taşır",
+      "actual": "Aktif aralık yalnız görsel sınıfla (bg-secondary) işaretli; üç düğmede de aria-pressed/aria-selected/aria-current null → ekran okuyucu seçili aralığı bildiremez (WCAG 4.1.2)",
+      "technicalEvidence": [
+        "31 Tem 2026 canlı (app.vomenta.com): /workforce › Uyum, 7d/14d/30d <button> öğelerinde role=null, aria-pressed=null, aria-selected=null, aria-current=null. 14d tıklanınca aktif görsel sınıf (bg-secondary) 7d→14d kayıyor ama aria-pressed üçünde de null kalıyor."
+      ],
+      "possibleCauses": [
+        "seçili aralık yalnız CSS varyantı (bg-secondary) ile gösteriliyor; aria-pressed/aria-current eklenmemiş"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/workforce.authed.spec.js",
+        "title": "aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı"
       },
       "owner": "quality-guild",
       "issueRef": null

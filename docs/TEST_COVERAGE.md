@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 797
+- **Test edilen senaryo:** 799
 - **Test dosyası:** 57
-- **Etiketler:** `@a11y` 42 · `@clean` 30 · `@critical` 67 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 26 · `@known-bug` 50 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 293 · `@smoke` 72 · `@visual` 18
+- **Etiketler:** `@a11y` 44 · `@clean` 30 · `@critical` 67 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 27 · `@known-bug` 50 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 294 · `@smoke` 72 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -910,6 +910,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [tr] doğru yazı yönü + başlık görünür  `@i18n`
 - [fr] doğru yazı yönü + başlık görünür  `@i18n`
 - [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı  `@a11y` `@keyboard`
 - sayfada ciddi/kritik a11y ihlali yok  `@a11y`
 - mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
 - sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
@@ -977,6 +978,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme açılıyor; KPI kartları + saatlik tahmin tablosu görünür  `@regression`
 - KPI kartları veri kaynağını gösteriyor (boş tenant'ta 0 değerleri)  `@regression`
 - Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli  `@i18n` `@regression`
+- aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı  `@a11y` `@regression`
 - sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok  `@a11y`
 - mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
 - sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`

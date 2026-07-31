@@ -5,10 +5,10 @@
 
 ## Özet
 
-- **Toplam bulgu:** 37
-- **Durum:** open 36 · closed 1
-- **Guard:** knownBugGuard 35 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 26 · low 3
+- **Toplam bulgu:** 39
+- **Durum:** open 38 · closed 1
+- **Guard:** knownBugGuard 37 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 27 · low 4
 
 ### Governance işaretleri
 - **Sahipsiz (owner=null):** 34 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
@@ -54,7 +54,9 @@
 | B10 | voice | /voice/regulatory | medium | open | knownBugGuard | — |
 | B11 | voice | /voice/voicemail | medium | open | knownBugGuard | — |
 | WORKFORCE-ADHERENCE-I18N | workforce | /workforce | low | open | knownBugGuard | quality-guild |
+| WORKFORCE-ADHERENCE-RANGE-STATE | workforce | /workforce | low | open | knownBugGuard | quality-guild |
 | WORKFORCE-BADGES-NO-EDIT-DELETE | workforce | /workforce/badges | medium | open | knownBugGuard | quality-guild |
+| WORKFORCE-SCHEDULE-CELL-A11Y | workforce | /workforce/schedules | medium | open | knownBugGuard | quality-guild |
 | WORKFORCE-SURVEYS-ICON-A11Y | workforce | /workforce/surveys | medium | open | knownBugGuard | quality-guild |
 
 ## Ayrıntılar
@@ -486,6 +488,17 @@
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
 - **Guard testi:** `tests/workforce.authed.spec.js` → Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli
 
+**[WORKFORCE-ADHERENCE-RANGE-STATE] Uyum aralığı (7d/14d/30d) seçili-durum semantiği yok (yalnız görsel)** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** aktif aralık düğmesi güvenilir seçili-durum sinyali (aria-pressed/aria-selected/aria-current) taşır
+- **Gerçekleşen:** Aktif aralık yalnız görsel sınıfla (bg-secondary) işaretli; üç düğmede de aria-pressed/aria-selected/aria-current null → ekran okuyucu seçili aralığı bildiremez (WCAG 4.1.2)
+- **Repro:** /workforce aç → Uyum sekmesine geç → 7d/14d/30d düğmelerinin aria-pressed/aria-selected/aria-current durumunu kontrol et
+- **Olası nedenler:** seçili aralık yalnız CSS varyantı (bg-secondary) ile gösteriliyor; aria-pressed/aria-current eklenmemiş
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/workforce.authed.spec.js` → aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı
+
 ### /workforce/badges
 
 **[WORKFORCE-BADGES-NO-EDIT-DELETE] Rozet satırında düzenle/sil kontrolü yok (UI'dan kaldırılamıyor)** — `medium` · `open` · guard `knownBugGuard`
@@ -498,6 +511,19 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
 - **Guard testi:** `tests/workforce-badges.authed.spec.js` → bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı
+
+### /workforce/schedules
+
+**[WORKFORCE-SCHEDULE-CELL-A11Y] Program çizelgesi boş "+" hücresi interaktif ama buton semantiği/klavye erişimi yok** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** "+" hücresi buton rolü + klavye ile odaklanma/çalıştırma + erişilebilir ad sunar
+- **Gerçekleşen:** Hücre <div class="border-dashed"> olarak render (role/tabindex/aria-label yok); tıklanınca Vardiya Ekle formu açılıyor ama klavye ile erişilemez ve ekran okuyucu görmez (WCAG 2.1.1 / 4.1.2)
+- **Repro:** /workforce/schedules aç → Boş bir çizelge hücresine ("+") bak/tıkla → Hücrenin role/tabindex/aria-label + klavye erişimini kontrol et
+- **Olası nedenler:** boş hücre yalnız stilli <div> + onClick ile yapılmış; <button>/role="button" + tabindex + aria-label eklenmemiş
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/workforce-schedules.authed.spec.js` → boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı
 
 ### /workforce/surveys
 

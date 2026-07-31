@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 843 / 85 dosya
-- **coverageStatus:** verified 0 · partial 803 · generic 9 · blocked 31
-- **executionStatus:** executed 0 · listed-only 812 · skipped 0 · fixme 31
+- **Listelenen test:** 845 / 85 dosya
+- **coverageStatus:** verified 0 · partial 805 · generic 9 · blocked 31
+- **executionStatus:** executed 0 · listed-only 814 · skipped 0 · fixme 31
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -31,7 +31,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 9 | 9 | 0 | 0 |
-| workforce | 103 | 101 | 0 | 2 |
+| workforce | 105 | 103 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
 
@@ -1217,6 +1217,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [tr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
 | [fr] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
 | [ar] doğru yazı yönü + başlık görünür | @i18n | — | listed-only | partial | medium | list-exec |
+| boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı | @a11y @keyboard | — | listed-only | partial | medium | list-exec |
 | sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
 | mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
 | sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
@@ -1296,6 +1297,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | sekme açılıyor; KPI kartları + saatlik tahmin tablosu görünür | @regression | — | listed-only | partial | medium | list-exec |
 | KPI kartları veri kaynağını gösteriyor (boş tenant'ta 0 değerleri) | @regression | — | listed-only | partial | medium | list-exec |
 | Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı | @a11y @regression | — | listed-only | partial | medium | list-exec |
 | sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
 | mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
 | sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |

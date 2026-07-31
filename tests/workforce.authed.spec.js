@@ -395,6 +395,35 @@ test.describe('İş Gücü — Uyum paneli i18n sızıntısı @i18n @regression'
   });
 });
 
+// ═══════ BULGU (a11y): Uyum aralığı 7d/14d/30d seçili-durum semantiği yok (@a11y) ═══════
+// Aktif aralık yalnız görsel sınıfla (bg-secondary) işaretleniyor; hiçbir düğme
+// aria-pressed/aria-selected/aria-current taşımıyor → ekran okuyucu hangi aralığın
+// seçili olduğunu bildiremez (WCAG 4.1.2). knownBugGuard: WORKFORCE-ADHERENCE-RANGE-STATE.
+// Canlı doğrulama 31 Tem 2026 (read-only): 14d'ye tıklayınca görsel aktiflik 7d→14d
+// kayıyor ama aria-pressed üçünde de null kalıyor.
+test.describe('İş Gücü — Uyum aralığı seçili-durum a11y bulgusu @a11y @regression', () => {
+  test('aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı', async ({ app }) => {
+    knownBugGuard(test, 'WORKFORCE-ADHERENCE-RANGE-STATE');
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Adherence');
+    let anyState = false;
+    for (const r of ['7d', '14d', '30d']) {
+      const btn = wf.adherenceRange(r);
+      await expect(btn).toBeVisible();
+      const pressed = await btn.getAttribute('aria-pressed');
+      const selected = await btn.getAttribute('aria-selected');
+      const current = await btn.getAttribute('aria-current');
+      if (pressed !== null || selected !== null || current !== null) anyState = true;
+    }
+    // BULGU: hiçbiri güvenilir seçili-durum sinyali taşımıyor → aktif aralık yalnız görsel.
+    expect(
+      anyState,
+      'aktif aralık en az bir güvenilir seçili-durum sinyali (aria-pressed/selected/current) taşımalı'
+    ).toBe(true);
+  });
+});
+
 // ═══════════════ STİL: ERİŞİLEBİLİRLİK (@a11y) ═══════════════
 test.describe('İş Gücü — erişilebilirlik @a11y', () => {
   test('sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok', async ({ app }) => {
