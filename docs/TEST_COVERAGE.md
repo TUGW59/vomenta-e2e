@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 737
+- **Test edilen senaryo:** 797
 - **Test dosyası:** 57
-- **Etiketler:** `@a11y` 36 · `@clean` 24 · `@critical` 67 · `@data` 3 · `@deeplink` 23 · `@errorpath` 24 · `@export` 1 · `@i18n` 107 · `@keyboard` 21 · `@known-bug` 50 · `@layout` 29 · `@perf` 1 · `@public` 2 · `@regression` 288 · `@smoke` 59 · `@visual` 18
+- **Etiketler:** `@a11y` 42 · `@clean` 30 · `@critical` 67 · `@data` 3 · `@deeplink` 29 · `@errorpath` 31 · `@export` 1 · `@i18n` 132 · `@keyboard` 26 · `@known-bug` 50 · `@layout` 35 · `@perf` 1 · `@public` 2 · `@regression` 293 · `@smoke` 72 · `@visual` 18
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -870,42 +870,91 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `workforce-badges.authed.spec.js`
 
-- L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları  `@regression`
-- L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan)  `@regression`
-- L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden)  `@regression`
-- L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor  `@regression` `@critical`
+- L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları  `@smoke` `@regression`
+- L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan)  `@smoke` `@regression`
+- L1: "Rozet ver" formu açılıyor (Rozet + Temsilci + Neden)  `@smoke` `@regression`
+- L2 arka plan OK: sayfa açılışında rozet listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
 - bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı  `@regression`
+- [en] doğru yazı yönü + başlık görünür  `@i18n`
+- [tr] doğru yazı yönü + başlık görünür  `@i18n`
+- [fr] doğru yazı yönü + başlık görünür  `@i18n`
+- [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- rozet listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
+- Rozet oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
+- /workforce/badges doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `workforce-evaluations.authed.spec.js`
 
-- L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat"  `@regression`
-- L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan)  `@regression`
-- L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor  `@regression` `@critical`
+- L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat"  `@smoke` `@regression`
+- L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan)  `@smoke` `@regression`
+- L2 arka plan OK: sayfa açılışında değerlendirme listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
+- [en] doğru yazı yönü + başlık görünür  `@i18n`
+- [tr] doğru yazı yönü + başlık görünür  `@i18n`
+- [fr] doğru yazı yönü + başlık görünür  `@i18n`
+- [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- değerlendirme listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
+- Değerlendirme Oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
+- /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `workforce-schedules.authed.spec.js`
 
-- L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür  `@regression`
-- L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor  `@regression` `@critical`
+- L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür  `@smoke` `@regression`
+- L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor  `@smoke` `@regression` `@critical`
+- [en] doğru yazı yönü + başlık görünür  `@i18n`
+- [tr] doğru yazı yönü + başlık görünür  `@i18n`
+- [fr] doğru yazı yönü + başlık görünür  `@i18n`
+- [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- çizelge ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
+- /workforce/schedules doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `workforce-surveys.authed.spec.js`
 
-- L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder)  `@regression`
-- L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor  `@regression` `@critical`
+- L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder)  `@smoke` `@regression`
+- L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
 - satır aksiyon ikonları erişilebilir ad taşımalı  `@regression`
+- [en] doğru yazı yönü + başlık görünür  `@i18n`
+- [tr] doğru yazı yönü + başlık görünür  `@i18n`
+- [fr] doğru yazı yönü + başlık görünür  `@i18n`
+- [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok (bilinen ikon-adı borcu hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- anket listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
+- Anket oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
+- /workforce/surveys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `workforce-time-off.authed.spec.js`
 
-- L1: standalone sayfa + "İzin talep et" formu açılıyor  `@regression`
-- L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor  `@regression` `@critical`
+- L1: standalone sayfa + "İzin talep et" formu açılıyor  `@smoke` `@regression`
+- L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
+- [en] doğru yazı yönü + başlık görünür  `@i18n`
+- [tr] doğru yazı yönü + başlık görünür  `@i18n`
+- [fr] doğru yazı yönü + başlık görünür  `@i18n`
+- [ar] doğru yazı yönü + başlık görünür  `@i18n`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- izin listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
+- İzin talep et diyaloğu Escape ile kapanıyor  `@keyboard`
+- /workforce/time-off doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `workforce.authed.spec.js`
 
 - başlık ve 7 sekme görünüyor  `@smoke`
 - Schedules çizelgesi ve Publish butonu mevcut  `@critical`
-- [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
-- [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
-- [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
-- [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@regression`
+- [en] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@i18n` `@regression`
+- [tr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@i18n` `@regression`
+- [fr] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@i18n` `@regression`
+- [ar] başlık + yazı yönü + sekmeler + oluşturma formu çevrili  `@i18n` `@regression`
 - L1 tıklama OK: her sekme tıklanınca seçili duruma geçiyor  `@regression`
 - L2 arka plan OK: veri sekmeleri ilgili API ucundan veri çekiyor  `@regression` `@critical`
 - L3 görev OK: her sekme kendi içeriğini gösteriyor  `@regression`
@@ -923,6 +972,17 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: "Award badge" formu açılıyor ("Award badge")  `@regression`
 - L1 tıklama OK: "Create survey" formu açılıyor ("Create survey")  `@regression`
 - L1 tıklama OK: "Create Evaluation" formu açılıyor ("Create Quality Evaluation")  `@regression`
+- sekme açılıyor; aralık kontrolleri + veri/boş-durum görünür  `@regression`
+- adherence ucu 500 dönse de sekme çökmüyor  `@regression` `@errorpath`
+- sekme açılıyor; KPI kartları + saatlik tahmin tablosu görünür  `@regression`
+- KPI kartları veri kaynağını gösteriyor (boş tenant'ta 0 değerleri)  `@regression`
+- Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli  `@i18n` `@regression`
+- sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- Add Shift diyaloğu Escape ile kapanıyor  `@keyboard`
+- çizelge ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- /workforce doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ## ⛔ Bilerek test edilmeyen tuşlar (güvenlik)
 

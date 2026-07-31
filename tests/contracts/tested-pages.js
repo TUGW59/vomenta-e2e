@@ -549,4 +549,152 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Tablo canlı log verisi (timestamp/UUID/IP) içerir → kararlı snapshot bölgesi yok.',
     },
   },
+
+  // ─────────────────────────── İŞ GÜCÜ (WORKFORCE) ───────────────────────────
+  // Canlı mimari: /workforce = 7-sekmeli yüzey (Programlar/İzinler/Uyum/Tahmin/
+  //   Rozetler/Anketler/Değerlendirmeler). Uyum + Tahmin'in AYRI rotası YOK →
+  //   derin kapsamı /workforce sekmesinde sahiplenilir. Beş alt bölümün ayrıca
+  //   ayrı rotası var (schedules/time-off/surveys/badges/evaluations); onlar kendi
+  //   özelliklerini sahiplenir, /workforce ile gereksiz derin tekrar yapılmaz.
+  {
+    id: 'workforce',
+    routes: ['/workforce'],
+    specFiles: [
+      'workforce.authed.spec.js',
+      'workforce-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Ağır grafik kütüphanesi yok; Uyum boş-durum/basit görsel, Tahmin tablo.',
+      '@data': 'Tahmin KPI kartları var ama ayrılmış tenant\'ta 0 gösteriyor ve sekme-tıklamada AYRI fetch yok (canlı ağ: istek yok) → yakalanacak deterministik JSON ucu yok; @data anlamlı değil.',
+      '@export': 'Bu yüzeyde export/indirme kontrolü yok.',
+      '@visual': 'İçerik tarih/haftaya bağlı (çizelge grid) → kararlı snapshot bölgesi yok.',
+    },
+  },
+  {
+    id: 'workforce-schedules',
+    routes: ['/workforce/schedules'],
+    specFiles: ['workforce-schedules.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Ayrı rota salt-okunur (dialog/sekme modellenmiyor); vardiya diyaloğu /workforce yüzeyinde @keyboard ile kapsanır.',
+      '@perf': 'Grafik/ağır içerik yok (haftalık çizelge grid).',
+      '@data': 'Sayısal KPI tile yok.',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'İçerik tarih/haftaya bağlı → kararlı snapshot yok.',
+      '@mutation': 'Vardiya create/publish yaşam döngüsü /workforce yüzeyinde (workforce-mutations) sahiplenilir; ayrı rotada tekrar edilmez (uzlaştırma).',
+    },
+  },
+  {
+    id: 'workforce-time-off',
+    routes: ['/workforce/time-off'],
+    specFiles: ['workforce-time-off.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (izin tablosu + talep dialogu).',
+      '@data': 'Sayısal KPI tile yok.',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'İzin tablosu canlı veri → kararlı snapshot yok.',
+      '@mutation': 'İzin talebi UI\'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).',
+    },
+  },
+  {
+    id: 'workforce-surveys',
+    routes: ['/workforce/surveys'],
+    specFiles: [
+      'workforce-surveys.authed.spec.js',
+      'workforce-surveys-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (anket tablosu + dialoglar).',
+      '@data': 'Sayısal KPI tile yok (anket listesi).',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'Anket tablosu canlı veri → kararlı snapshot yok.',
+    },
+  },
+  {
+    id: 'workforce-badges',
+    routes: ['/workforce/badges'],
+    specFiles: [
+      'workforce-badges.authed.spec.js',
+      'workforce-badges-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (rozet tablosu + Sıralama sekmesi + dialoglar).',
+      '@data': 'Sayısal KPI tile yok (rozet/lider listesi).',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'Rozet/lider tablosu canlı veri → kararlı snapshot yok.',
+    },
+  },
+  {
+    id: 'workforce-evaluations',
+    routes: ['/workforce/evaluations'],
+    specFiles: [
+      'workforce-evaluations.authed.spec.js',
+      'workforce-evaluations-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (değerlendirme tablosu + oluştur dialogu).',
+      '@data': 'Sayısal KPI tile yok (puan sütunu tablo verisi).',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'Değerlendirme tablosu canlı veri → kararlı snapshot yok.',
+    },
+  },
 ]);

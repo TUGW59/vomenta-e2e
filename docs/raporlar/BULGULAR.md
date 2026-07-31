@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 36
-- **Durum:** open 35 · closed 1
-- **Guard:** knownBugGuard 34 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 26 · low 2
+- **Toplam bulgu:** 37
+- **Durum:** open 36 · closed 1
+- **Guard:** knownBugGuard 35 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 26 · low 3
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 36 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY, WORKFORCE-SURVEYS-ICON-A11Y, WORKFORCE-BADGES-NO-EDIT-DELETE
+- **Sahipsiz (owner=null):** 34 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -53,8 +53,9 @@
 | B1 | voice | /voice/regulatory | critical | open | knownBugGuard | — |
 | B10 | voice | /voice/regulatory | medium | open | knownBugGuard | — |
 | B11 | voice | /voice/voicemail | medium | open | knownBugGuard | — |
-| WORKFORCE-BADGES-NO-EDIT-DELETE | workforce | /workforce/badges | medium | open | knownBugGuard | — |
-| WORKFORCE-SURVEYS-ICON-A11Y | workforce | /workforce/surveys | medium | open | knownBugGuard | — |
+| WORKFORCE-ADHERENCE-I18N | workforce | /workforce | low | open | knownBugGuard | quality-guild |
+| WORKFORCE-BADGES-NO-EDIT-DELETE | workforce | /workforce/badges | medium | open | knownBugGuard | quality-guild |
+| WORKFORCE-SURVEYS-ICON-A11Y | workforce | /workforce/surveys | medium | open | knownBugGuard | quality-guild |
 
 ## Ayrıntılar
 
@@ -472,6 +473,19 @@
 
 ## workforce
 
+### /workforce
+
+**[WORKFORCE-ADHERENCE-I18N] Uyum (Adherence) paneli Türkçe seçiliyken İngilizce fallback gösteriyor** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Uyum paneli başlık/metni seçili dile (Türkçe) çevrilir
+- **Gerçekleşen:** Panel İngilizce fallback gösteriyor: "Adherence Trend", "Average adherence percentage over time", "No historical adherence data available" (Türkçe UI'da çevrilmemiş).
+- **Repro:** /workforce aç ve dili Türkçe yap → Uyum sekmesine geç → Panel başlığı/metnini kontrol et
+- **Olası nedenler:** Adherence panel bileşeni i18n anahtarları yerine sabit İngilizce metin kullanıyor
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/workforce.authed.spec.js` → Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli
+
 ### /workforce/badges
 
 **[WORKFORCE-BADGES-NO-EDIT-DELETE] Rozet satırında düzenle/sil kontrolü yok (UI'dan kaldırılamıyor)** — `medium` · `open` · guard `knownBugGuard`
@@ -482,7 +496,7 @@
 - **Olası nedenler:** rozet yönetimi salt-create tasarlanmış; düzenle/sil UI eklenmemiş
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
-- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
 - **Guard testi:** `tests/workforce-badges.authed.spec.js` → bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı
 
 ### /workforce/surveys
@@ -495,5 +509,5 @@
 - **Olası nedenler:** ikon-buton yalnız SVG ikon içeriyor; aria-label/görünmez metin yok
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
-- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
 - **Guard testi:** `tests/workforce-surveys.authed.spec.js` → satır aksiyon ikonları erişilebilir ad taşımalı

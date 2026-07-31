@@ -1,5 +1,12 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import {
+  knownBugGuard,
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  mockApi,
+  waitForUiToSettle,
+} from './helpers.js';
 import { WorkforcePage } from './pages/WorkforcePage.js';
 
 /**
@@ -54,7 +61,7 @@ test.describe('İş Gücü — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL ÇEVİRİ GUARD'LARI ────────────────────────
-test.describe("İş Gücü — 4 dil çeviri guard'ları @regression", () => {
+test.describe("İş Gücü — 4 dil çeviri guard'ları @i18n @regression", () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yazı yönü + sekmeler + oluşturma formu çevrili`, async ({ app }) => {
       const wf = app.workforce;
@@ -300,4 +307,161 @@ test.describe('Kontrol: İş Gücü oluşturma formları (L1) @regression', () =
       await wf.page.keyboard.press('Escape');
     });
   }
+});
+
+// ═══════════════ UYUM (Adherence) — sekme derin kapsamı @regression ═══════════════
+// Ayrı rota YOK; derin kapsam yalnız /workforce sekmesinde sahiplenilir.
+// L1 kontrol + L2 API (range→adherence GET) yukarıda "Adherence aralığı" başlığında
+// kanıtlanıyor. Burada sekme içeriği + boş-durum + hata-yolu eklenir.
+// Canlı gözlem (31 Tem 2026): "Adherence Trend" paneli + 7d/14d/30d; hesapta veri yok →
+//   boş-durum "No historical adherence data available"; altında "Real-time schedule
+//   adherence" tablosu. (Boş-durum/panel metni İngilizce fallback — bkz. i18n bulgusu.)
+test.describe('Uyum (Adherence) — sekme içeriği @regression', () => {
+  test('sekme açılıyor; aralık kontrolleri + veri/boş-durum görünür', async ({ app }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Adherence');
+    // Temel kontroller.
+    for (const r of ['7d', '14d', '30d']) {
+      await expect(wf.adherenceRange(r)).toBeVisible();
+    }
+    // Boş durum VEYA veri: hesapta adherence verisi yoksa boş-durum metni görünür;
+    // her hâlükârda gerçek-zamanlı uyum tablosu/trend görseli render edilir (panel çökmez).
+    const panel = wf.page.locator('main');
+    const emptyState = panel.getByText(/No historical adherence data available/i);
+    const chartOrTable = panel.locator('canvas, svg, table');
+    await expect
+      .poll(async () => (await emptyState.count()) + (await chartOrTable.count()), {
+        timeout: 10000,
+        message: 'Adherence paneli boş-durum metni ya da grafik/tablo göstermeli',
+      })
+      .toBeGreaterThan(0);
+  });
+
+  test('adherence ucu 500 dönse de sekme çökmüyor @errorpath', async ({ app, page }) => {
+    await mockApi(page, `**${API.adherence}**`, { status: 500 });
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Adherence');
+    // Aralık seçimi adherence fetch'ini tetikler (artık 500) — kabuk sağlam, panel çökmez.
+    await wf.adherenceRange('7d').click();
+    await expect(wf.adherenceRange('7d')).toBeVisible();
+    await expect(wf.shell.loginHeading).toBeHidden();
+  });
+});
+
+// ═══════════════ TAHMİN (Forecast) — sekme derin kapsamı @regression ═══════════════
+// Ayrı rota YOK; derin kapsam yalnız /workforce sekmesinde sahiplenilir.
+// Canlı gözlem (31 Tem 2026): Forecast sekmesi KPI kartları (Toplam tahmin / Yoğun saat /
+//   Gerekli maksimum temsilci / Veri kaynağı=Historical) + "Saatlik tahmin" (hourly)
+//   tablosunu gösterir. L2 API = N/A: sekme tıklamasında AYRI bir GET tetiklenmez
+//   (canlı ağ incelemesi: istek yok; orijinal yazar da Forecast'i DATA_TABS'a koymadı) —
+//   tahmin verisi çizelge/sayfa yükünde gelir; schedules L2 zaten kanıtlar. Tekrar yok.
+test.describe('Tahmin (Forecast) — sekme içeriği @regression', () => {
+  test('sekme açılıyor; KPI kartları + saatlik tahmin tablosu görünür', async ({ app }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Forecast');
+    await expect(wf.tab('Forecast')).toHaveAttribute('aria-selected', 'true');
+    // Tahmin içeriği: saatlik tahmin tablosu (canlı gözlem) — panel boş/çökmüş değil.
+    const table = wf.page.locator('main table').first();
+    await expect(table).toBeVisible();
+    // Boş-durum dahil en az bir saat satırı render edilmeli (00:00 → …).
+    await expect(table.locator('tbody tr').first()).toBeVisible();
+  });
+
+  test('KPI kartları veri kaynağını gösteriyor (boş tenant\'ta 0 değerleri)', async ({ app }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.selectTab('Forecast');
+    // "Historical" veri kaynağı kartı (canlı gözlem) — panel gerçek veri/özet gösteriyor.
+    await expect(wf.page.getByText(/Historical/i).first()).toBeVisible();
+  });
+});
+
+// ═══════════ BULGU (i18n): Uyum paneli İngilizce fallback (@i18n) ═══════════
+// Sekme etiketleri çevrili ama Uyum panel içeriği (başlık + boş-durum) İngilizce kalıyor.
+// knownBugGuard ile "bilinen açık" olarak işaretli (WORKFORCE-ADHERENCE-I18N).
+test.describe('İş Gücü — Uyum paneli i18n sızıntısı @i18n @regression', () => {
+  test('Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli', async ({ app }) => {
+    knownBugGuard(test, 'WORKFORCE-ADHERENCE-I18N');
+    const wf = app.workforce;
+    await wf.open();
+    await wf.switchLanguage('Türkçe');
+    // Türkçe UI'da Uyum sekmesi ("Uyum") — I18N.tr.tabs[2].
+    await wf.selectTab(I18N.tr.tabs[2]);
+    // BULGU: panel başlığı İngilizce fallback ("Adherence Trend"); beklenen: görünmez (çevrili).
+    await expect(wf.page.getByText('Adherence Trend', { exact: false })).toHaveCount(0);
+  });
+});
+
+// ═══════════════ STİL: ERİŞİLEBİLİRLİK (@a11y) ═══════════════
+test.describe('İş Gücü — erişilebilirlik @a11y', () => {
+  test('sayfada ve Uyum/Tahmin sekmelerinde ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await expectNoSevereA11y(wf.page); // bilinen borç (button-name/contrast) hariç
+    for (const name of ['Adherence', 'Forecast']) {
+      await wf.selectTab(name);
+      await expectNoSevereA11y(wf.page);
+    }
+  });
+});
+
+// ═══════════════ STİL: DÜZEN/TAŞMA (@layout) ═══════════════
+test.describe('İş Gücü — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/workforce');
+  });
+});
+
+// ═══════════════ STİL: CONSOLE/AĞ TEMİZLİĞİ (@clean) ═══════════════
+test.describe('İş Gücü — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({
+    app,
+    diagnostics,
+  }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await waitForUiToSettle(wf.page);
+    diagnostics.assertClean();
+  });
+});
+
+// ═══════════════ STİL: KLAVYE/ODAK (@keyboard) ═══════════════
+test.describe('İş Gücü — klavye/odak @keyboard', () => {
+  test('Add Shift diyaloğu Escape ile kapanıyor', async ({ app }) => {
+    const wf = app.workforce;
+    await wf.open();
+    await wf.firstScheduleCell().click();
+    const dialog = wf.addShiftDialog();
+    await expect(dialog).toBeVisible();
+    await wf.page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden({ timeout: 10000 });
+  });
+});
+
+// ═══════════════ STİL: HATA-YOLU (sayfa düzeyi) (@errorpath) ═══════════════
+test.describe('İş Gücü — hata-yolu (sayfa) @errorpath', () => {
+  test('çizelge ucu 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({
+    app,
+    page,
+  }) => {
+    await mockApi(page, `**${API.schedules}**`, { status: 500 });
+    const wf = app.workforce;
+    await page.goto('/workforce', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(wf.shell.loginHeading).toBeHidden();
+  });
+});
+
+// ═══════════════ STİL: DEEP-LINK (@deeplink) ═══════════════
+test.describe('İş Gücü — deep-link @deeplink', () => {
+  test('/workforce doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const wf = app.workforce;
+    await page.goto('/workforce', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(wf.shell.loginHeading).toBeHidden();
+    await expect(wf.heading).toHaveText(I18N.en.heading);
+  });
 });

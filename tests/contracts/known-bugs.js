@@ -925,7 +925,7 @@ export const KNOWN_BUGS = Object.freeze([
       file: 'tests/workforce-surveys.authed.spec.js',
       title: 'satır aksiyon ikonları erişilebilir ad taşımalı',
     },
-    owner: null,
+    owner: 'quality-guild',
     issueRef: null,
   },
   {
@@ -958,7 +958,43 @@ export const KNOWN_BUGS = Object.freeze([
       file: 'tests/workforce-badges.authed.spec.js',
       title: 'bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı',
     },
-    owner: null,
+    owner: 'quality-guild',
+    issueRef: null,
+  },
+  {
+    id: 'WORKFORCE-ADHERENCE-I18N',
+    title: 'Uyum (Adherence) paneli Türkçe seçiliyken İngilizce fallback gösteriyor',
+    area: 'workforce',
+    route: '/workforce',
+    severity: 'low',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: [
+      '/workforce aç ve dili Türkçe yap',
+      'Uyum sekmesine geç',
+      'Panel başlığı/metnini kontrol et',
+    ],
+    expected: 'Uyum paneli başlık/metni seçili dile (Türkçe) çevrilir',
+    actual:
+      'Panel İngilizce fallback gösteriyor: "Adherence Trend", "Average adherence percentage over time", "No historical adherence data available" (Türkçe UI\'da çevrilmemiş).',
+    technicalEvidence: [
+      '31 Tem 2026 canlı (app.vomenta.com, Türkçe UI): /workforce › Uyum panelinde başlık ve boş-durum metni İngilizce kaldı; sekme etiketleri (Uyum) çevrili.',
+    ],
+    possibleCauses: [
+      'Adherence panel bileşeni i18n anahtarları yerine sabit İngilizce metin kullanıyor',
+    ],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: [],
+    evidence: [],
+    test: {
+      file: 'tests/workforce.authed.spec.js',
+      title: 'Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli',
+    },
+    owner: 'quality-guild',
     issueRef: null,
   },
 ]);

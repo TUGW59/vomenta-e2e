@@ -84,4 +84,26 @@ export const MUTATION_LIFECYCLE_EXCLUSIONS = Object.freeze({
   'tests/settings-webhooks-mutations.authed.spec.js': Object.freeze({
     mode: 'fixme', reason: 'N/A: webhook create+delete (liste prod\'da boş) staging\'de kanıtlanmadı; spec fixme.',
   }),
+
+  // İş Gücü mutasyonları — SÜRELİ istisnalar (mode/reason/owner/expiry/removalCondition).
+  // Anketler (surveys) TAM CRUD sunduğu için istisna DEĞİL: gerçek 0→1→0 yaşam döngüsü
+  // tests/workforce-surveys-mutations.authed.spec.js içinde testEntity.create ile kanıtlanır.
+  'tests/workforce-badges-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme',
+    reason:
+      'N/A: rozet UI\'da yalnız oluşturulur; düzenle/sil yok (WORKFORCE-BADGES-NO-EDIT-DELETE) → güvenli 0→1→0 teardown UI\'dan kapatılamaz; spec fixme.',
+    owner: 'quality-guild',
+    expiry: '2026-09-30',
+    removalCondition:
+      'Backend/DB destekli silme (veya UI düzenle/sil) staging\'de kanıtlanınca fixme kaldırılır, testEntity.create 0→1→0 döngüsüne geçilir; orphan E2E-TEST-SILINECEK-badge temizlenir.',
+  }),
+  'tests/workforce-evaluations-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme',
+    reason:
+      'N/A: manuel değerlendirme gerçek etkileşim ID + temsilci gerektirir; tablo prod\'da boş, silme yolu gözlemlenemedi → güvenli teardown kanıtlanmadı; spec fixme.',
+    owner: 'quality-guild',
+    expiry: '2026-09-30',
+    removalCondition:
+      'Staging\'de sabit test etkileşim ID + DELETE `…/wfm/evaluations/{id}` kanıtlanınca fixme kaldırılır, testEntity.create 0→1→0 döngüsüne geçilir.',
+  }),
 });
