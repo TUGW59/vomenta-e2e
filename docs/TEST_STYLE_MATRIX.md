@@ -8,6 +8,13 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 | Sayfa | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression | @keyboard | @errorpath | @visual | @perf | @data | @export | @mutation |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `channels-email` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `channels-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | — |
+| `channels-sms` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `channels-social` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ |
+| `channels-video` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | ✅ |
+| `channels-webchat` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ |
+| `channels-whatsapp` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ |
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
@@ -59,6 +66,13 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 ## Rotalar
 
+- **channels-email**: `/channels/email`
+- **channels-hub**: `/channels`
+- **channels-sms**: `/channels/sms`
+- **channels-social**: `/channels/social`
+- **channels-video**: `/channels/video`
+- **channels-webchat**: `/channels/webchat`
+- **channels-whatsapp**: `/channels/whatsapp`
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
@@ -91,6 +105,36 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 ## N/A beyanları (gerekçeli)
 
+- `channels-email` **@perf**: Grafik/ağır içerik yok (hesap boş-durumu + imza/yönlendirme formu).
+- `channels-email` **@data**: Sayısal KPI tile yok (form + hesap listesi).
+- `channels-email` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-email` **@visual**: Açılışta B17 format hatası + imza içeriği canlı → kararlı snapshot bölgesi yok.
+- `channels-hub` **@keyboard**: Diyalog/menü/sekme yok (kanal kartları ızgarası + Configure bağlantıları).
+- `channels-hub` **@perf**: Grafik/ağır içerik yok (statik kart ızgarası).
+- `channels-hub` **@data**: Sayısal KPI tile yok (kartlar durum rozeti gösterir).
+- `channels-hub` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-hub` **@mutation**: Hub salt gezinme; create/edit/delete/save yok (yazma alt sayfalarda).
+- `channels-sms` **@perf**: Grafik/ağır içerik yok (gönderici/şablon listeleri + SMPP formu + dialoglar).
+- `channels-sms` **@data**: Sayısal KPI tile yok (liste + config alanları).
+- `channels-sms` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-sms` **@visual**: Açılışta B18 konsol hatası + canlı listeler → kararlı snapshot bölgesi yok.
+- `channels-social` **@keyboard**: Diyalog/menü/sekme yok (platform kartları + Connect + ayar formu).
+- `channels-social` **@perf**: Grafik/ağır içerik yok (platform kartları ızgarası).
+- `channels-social` **@data**: Sayısal KPI tile yok (platform kartları).
+- `channels-social` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-social` **@visual**: Açılışta B16 eksik-çeviri konsol hatası → kararlı snapshot bölgesi yok.
+- `channels-video` **@keyboard**: Diyalog/menü/sekme yok (kalite/fps seçicileri + Save + Start Video Call).
+- `channels-video` **@perf**: Grafik/ağır içerik yok (ayar seçicileri formu).
+- `channels-video` **@data**: Sayısal KPI tile yok (kalite/fps config değerleri).
+- `channels-video` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-webchat` **@perf**: Grafik/ağır içerik yok (yapılandırma formu + iki sekme).
+- `channels-webchat` **@data**: Sayısal KPI tile yok (widget ayar alanları).
+- `channels-webchat` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-whatsapp` **@keyboard**: API "Not Configured" boş-durumunda dialog/sekme yok (Create Template pasif); bağlantı sonrası dialog akışı staging mutation kapsamında.
+- `channels-whatsapp` **@perf**: Grafik/ağır içerik yok (bağlantı boş-durumu + şablon listesi).
+- `channels-whatsapp` **@data**: Sayısal KPI tile yok (config + şablon listesi).
+- `channels-whatsapp` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `channels-whatsapp` **@visual**: Açılışta B19 konsol hatası + bağlantı durumu canlı → kararlı snapshot yok.
 - `reports-dashboards` **@perf**: Grafik/ağır içerik yüklemiyor (özel pano kartlarını listeler).
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.

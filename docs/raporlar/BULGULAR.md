@@ -5,10 +5,10 @@
 
 ## Özet
 
-- **Toplam bulgu:** 40
-- **Durum:** open 39 · closed 1
-- **Guard:** knownBugGuard 38 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 28 · low 4
+- **Toplam bulgu:** 50
+- **Durum:** open 49 · closed 1
+- **Guard:** knownBugGuard 48 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 38 · low 4
 
 ### Governance işaretleri
 - **Sahipsiz (owner=null):** 35 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
@@ -28,7 +28,17 @@
 | CAMPAIGNS-ICON-A11Y | campaigns | /campaigns/outbound | medium | open | knownBugGuard | — |
 | CAMPAIGNS-PAGER | campaigns | /campaigns/outbound | medium | open | knownBugGuard | — |
 | B5 | channels | /channels | medium | open | fixme | — |
+| B17 | channels | /channels/email | medium | open | knownBugGuard | quality-guild |
+| B21 | channels | /channels/email | medium | open | knownBugGuard | quality-guild |
 | B9 | channels | /channels/email | medium | open | knownBugGuard | — |
+| B18 | channels | /channels/sms | medium | open | knownBugGuard | quality-guild |
+| B22 | channels | /channels/sms | medium | open | knownBugGuard | quality-guild |
+| B16 | channels | /channels/social | medium | open | knownBugGuard | quality-guild |
+| B24 | channels | /channels/social | medium | open | knownBugGuard | quality-guild |
+| B25 | channels | /channels/video | medium | open | knownBugGuard | quality-guild |
+| B20 | channels | /channels/webchat | medium | open | knownBugGuard | quality-guild |
+| B19 | channels | /channels/whatsapp | medium | open | knownBugGuard | quality-guild |
+| B23 | channels | /channels/whatsapp | medium | open | knownBugGuard | quality-guild |
 | CONTACTS-F1 | contacts | /contacts | medium | open | knownBugGuard | — |
 | CONTACTS-F2 | contacts | /contacts | medium | open | knownBugGuard | — |
 | B3 | inbox | /inbox | high | open | knownBugGuard | — |
@@ -165,7 +175,7 @@
 **[B5] Ses kartı yanlışlıkla "Yapılandırılmadı" gösterebiliyor** — `medium` · `open` · guard `fixme`
 
 - **Beklenen:** Ses kartı gerçek durumu gösterir
-- **Gerçekleşen:** Güvenilir test yok; /channels <main> kullanmıyor ve kart için stabil role/testid yok (test.fixme)
+- **Gerçekleşen:** Voice kartı canlıda "Not configured" gösteriyor (31 Tem 2026 doğrulama). Güvenilir guard yazılamıyor: (a) etiketin DOĞRU olup olmadığının yer-gerçeği client'tan bilinemiyor, (b) durum rozeti için stabil semantik role/testid yok (test.fixme). Düzeltme: eski "/channels <main> kullanmıyor" notu yanlıştı — /channels <main> KULLANIYOR.
 - **Repro:** /channels aç → Voice/Ses kartının durum etiketini oku
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Olası çözümler:** Frontend: kart için data-testid (ör. data-testid="channel-card-voice") ekle
@@ -174,6 +184,30 @@
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B5 · /channels · Ses kartı yanlışlıkla "Yapılandırılmadı" göstermemeli
 
 ### /channels/email
+
+**[B17] E-posta varsayılan imzası intl formatlama hatası veriyor (FORMATTING_ERROR)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Konsolda format hatası yok; varsayılan imza sorunsuz render edilir
+- **Gerçekleşen:** Açılışta konsol hatası: `FORMATTING_ERROR: The intl string context variable "p" was not provided to the string "<p>Best regards,<br/>Support Team</p>"`. B9 (ham anahtar) ile aynı imza alanının AYRI belirtisi.
+- **Repro:** /channels/email aç → Tarayıcı konsolunu izle (sayfa açılışında)
+- **Olası nedenler:** Varsayılan imza metni ham HTML (`<p>…</p>`) içeriyor ve intl/ICU mesaj formatlayıcısı `<p>` yer tutucusunu değişken sanıp değer bekliyor
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: imza metnini intl formatlayıcıdan geçirme veya HTML etiketlerini ICU-güvenli işle (rich-text tag handler)
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-email.authed.spec.js` → B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı
+
+**[B21] /channels/email form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 1 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/email aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-email.authed.spec.js` → B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label)
 
 **[B9] Varsayılan e-posta imzasında ham i18n anahtarı** — `medium` · `open` · guard `knownBugGuard`
 
@@ -184,6 +218,112 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B9 · /channels/email · varsayılan imza ham i18n anahtarı göstermemeli
+
+### /channels/sms
+
+**[B18] SMS sayfası açılışta MALFORMED_ARGUMENT konsol hatası veriyor** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Konsolda i18n/format hatası yok
+- **Gerçekleşen:** Açılışta konsol hatası: "INVALID_MESSAGE: MALFORMED_ARGUMENT" (birden çok kez).
+- **Repro:** /channels/sms aç → Tarayıcı konsolunu izle (sayfa açılışında)
+- **Olası nedenler:** Bir çeviri mesajı hatalı ICU argüman söz dizimi içeriyor (ör. kapatılmamış `{}` / yanlış tür)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: sms/page çeviri mesajlarındaki ICU argümanlarını düzelt
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-sms.authed.spec.js` → B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
+
+**[B22] /channels/sms form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 4 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/sms aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-sms.authed.spec.js` → B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label)
+
+### /channels/social
+
+**[B16] Sosyal Medya sayfasında eksik çeviri anahtarı (MISSING_MESSAGE)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Konsolda i18n hatası yok; platform adları çözümlenmiş anahtarla gösterilir
+- **Gerçekleşen:** Açılışta konsol hatası: "MISSING_MESSAGE: channels.socialPage.platformNames. (en)" (birden çok kez).
+- **Repro:** /channels/social aç → Tarayıcı konsolunu izle (sayfa açılışında)
+- **Olası nedenler:** social/page bileşeni `channels.socialPage.platformNames` anahtarını çeviri sözlüğünde bulunmayan bir yol/biçimde çağırıyor
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: eksik `channels.socialPage.platformNames` anahtarını (tüm dillerde) ekle veya çağrı yolunu düzelt
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-social.authed.spec.js` → B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı
+
+**[B24] /channels/social form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 2 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/social aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-social.authed.spec.js` → B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label)
+
+### /channels/video
+
+**[B25] /channels/video form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 2 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/video aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-video.authed.spec.js` → B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)
+
+### /channels/webchat
+
+**[B20] /channels/webchat form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 5 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/webchat aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-webchat.authed.spec.js` → B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label)
+
+### /channels/whatsapp
+
+**[B19] WhatsApp sayfası açılışta MALFORMED_ARGUMENT konsol hatası veriyor** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Konsolda i18n/format hatası yok
+- **Gerçekleşen:** Açılışta konsol hatası: "INVALID_MESSAGE: MALFORMED_ARGUMENT" (birden çok kez).
+- **Repro:** /channels/whatsapp aç → Tarayıcı konsolunu izle (sayfa açılışında)
+- **Olası nedenler:** Bir çeviri mesajı hatalı ICU argüman söz dizimi içeriyor (ör. kapatılmamış `{}` / yanlış tür)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: whatsapp/page çeviri mesajlarındaki ICU argümanlarını düzelt
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-whatsapp.authed.spec.js` → B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
+
+**[B23] /channels/whatsapp form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 2 adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).
+- **Repro:** /channels/whatsapp aç → axe (wcag2a/2aa) ile tara → label (critical) ihlallerini oku
+- **Olası nedenler:** Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
+- **Guard testi:** `tests/channels-whatsapp.authed.spec.js` → B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label)
 
 ## contacts
 
