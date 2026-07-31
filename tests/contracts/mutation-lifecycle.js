@@ -106,4 +106,25 @@ export const MUTATION_LIFECYCLE_EXCLUSIONS = Object.freeze({
     removalCondition:
       'Staging\'de sabit test etkileşim ID + DELETE `…/wfm/evaluations/{id}` kanıtlanınca fixme kaldırılır, testEntity.create 0→1→0 döngüsüne geçilir.',
   }),
+
+  // Kanallar bölümü mutasyonları — tümü staging-kilitli; production salt-okunur olduğundan
+  // güvenli 0→1→0 (değiştir/oluştur→doğrula→geri al/sil) yolu kanıtlanana kadar test.fixme.
+  'tests/channels-webchat-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: widget config Save kalıcılık/geri-alma (PUT /channels/webchat/config) staging\'de kanıtlanmadı; spec fixme.',
+  }),
+  'tests/channels-email-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: e-posta hesabı ekleme gerçek IMAP/SMTP + silme ucu staging\'de kanıtlanmadı; spec fixme.',
+  }),
+  'tests/channels-sms-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: gönderici kimliği POST /sender-ids + silme ucu staging\'de kanıtlanmadı; spec fixme.',
+  }),
+  'tests/channels-whatsapp-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: WABA "Not Configured"; şablon POST/DELETE templates/whatsapp bağlı tenant\'ta kanıtlanmadı; spec fixme.',
+  }),
+  'tests/channels-social-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: Connect harici OAuth akışı otomatikleşemez; bağlama/kaldırma ucu staging\'de kanıtlanmadı; spec fixme.',
+  }),
+  'tests/channels-video-mutations.authed.spec.js': Object.freeze({
+    mode: 'fixme', reason: 'N/A: video config Save kalıcılık/geri-alma (PUT /channels/video/config) staging\'de kanıtlanmadı; spec fixme.',
+  }),
 });

@@ -156,7 +156,7 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
   test('B5 · /channels · Ses kartı yanlışlıkla "Yapılandırılmadı" göstermemeli', async ({ page }) => {
     test.fixme(
       true,
-      '/channels <main> kullanmıyor ve Voice kartı için stabil role/testid yok. Frontend data-testid (ör. data-testid="channel-card-voice") ekleyince açılacak.'
+      'Voice kartının durum rozeti için stabil role/testid yok (31 Tem 2026: /channels <main> KULLANIYOR; eski "main yok" notu düzeltildi). Frontend data-testid (ör. data-testid="channel-card-voice") ekleyince açılacak.'
     );
     await gotoApp(page, '/channels');
     // TODO(testid): const voiceCard = page.getByTestId('channel-card-voice');

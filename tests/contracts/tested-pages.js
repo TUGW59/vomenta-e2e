@@ -697,4 +697,178 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Değerlendirme tablosu canlı veri → kararlı snapshot yok.',
     },
   },
+
+  // ─────────────────────────────── KANALLAR (CHANNELS) ───────────────────────────────
+  // Canlı mimari (31 Tem 2026): /channels = 7 kanal kartlı hub; her kart /channels/<kanal>
+  //   config sayfasına gider (Voice hariç → /voice). Alt sayfalar GET /channels/<kanal>/config
+  //   ile yüklenir; çoğunda "Save Changes" (yazma) var. 4 alt sayfa açılışta i18n/format
+  //   konsol hatası basıyor (B16 social, B17 email, B18 sms, B19 whatsapp) → @clean bu
+  //   sayfalarda knownBugGuard altında.
+  {
+    id: 'channels-hub',
+    routes: ['/channels'],
+    specFiles: ['channels-hub.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (kanal kartları ızgarası + Configure bağlantıları).',
+      '@perf': 'Grafik/ağır içerik yok (statik kart ızgarası).',
+      '@data': 'Sayısal KPI tile yok (kartlar durum rozeti gösterir).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@mutation': 'Hub salt gezinme; create/edit/delete/save yok (yazma alt sayfalarda).',
+    },
+  },
+  {
+    id: 'channels-webchat',
+    routes: ['/channels/webchat'],
+    specFiles: [
+      'channels-webchat.authed.spec.js',
+      'channels-webchat-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (yapılandırma formu + iki sekme).',
+      '@data': 'Sayısal KPI tile yok (widget ayar alanları).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
+  {
+    id: 'channels-email',
+    routes: ['/channels/email'],
+    specFiles: [
+      'channels-email.authed.spec.js',
+      'channels-email-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (hesap boş-durumu + imza/yönlendirme formu).',
+      '@data': 'Sayısal KPI tile yok (form + hesap listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Açılışta B17 format hatası + imza içeriği canlı → kararlı snapshot bölgesi yok.',
+    },
+  },
+  {
+    id: 'channels-sms',
+    routes: ['/channels/sms'],
+    specFiles: [
+      'channels-sms.authed.spec.js',
+      'channels-sms-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (gönderici/şablon listeleri + SMPP formu + dialoglar).',
+      '@data': 'Sayısal KPI tile yok (liste + config alanları).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Açılışta B18 konsol hatası + canlı listeler → kararlı snapshot bölgesi yok.',
+    },
+  },
+  {
+    id: 'channels-whatsapp',
+    routes: ['/channels/whatsapp'],
+    specFiles: [
+      'channels-whatsapp.authed.spec.js',
+      'channels-whatsapp-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'API "Not Configured" boş-durumunda dialog/sekme yok (Create Template pasif); bağlantı sonrası dialog akışı staging mutation kapsamında.',
+      '@perf': 'Grafik/ağır içerik yok (bağlantı boş-durumu + şablon listesi).',
+      '@data': 'Sayısal KPI tile yok (config + şablon listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Açılışta B19 konsol hatası + bağlantı durumu canlı → kararlı snapshot yok.',
+    },
+  },
+  {
+    id: 'channels-social',
+    routes: ['/channels/social'],
+    specFiles: [
+      'channels-social.authed.spec.js',
+      'channels-social-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (platform kartları + Connect + ayar formu).',
+      '@perf': 'Grafik/ağır içerik yok (platform kartları ızgarası).',
+      '@data': 'Sayısal KPI tile yok (platform kartları).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Açılışta B16 eksik-çeviri konsol hatası → kararlı snapshot bölgesi yok.',
+    },
+  },
+  {
+    id: 'channels-video',
+    routes: ['/channels/video'],
+    specFiles: [
+      'channels-video.authed.spec.js',
+      'channels-video-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: true,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (kalite/fps seçicileri + Save + Start Video Call).',
+      '@perf': 'Grafik/ağır içerik yok (ayar seçicileri formu).',
+      '@data': 'Sayısal KPI tile yok (kalite/fps config değerleri).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+  },
 ]);

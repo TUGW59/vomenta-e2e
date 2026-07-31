@@ -168,7 +168,7 @@ export const KNOWN_BUGS = Object.freeze([
     expiry: null,
     repro: ['/channels aç', 'Voice/Ses kartının durum etiketini oku'],
     expected: 'Ses kartı gerçek durumu gösterir',
-    actual: 'Güvenilir test yok; /channels <main> kullanmıyor ve kart için stabil role/testid yok (test.fixme)',
+    actual: 'Voice kartı canlıda "Not configured" gösteriyor (31 Tem 2026 doğrulama). Güvenilir guard yazılamıyor: (a) etiketin DOĞRU olup olmadığının yer-gerçeği client\'tan bilinemiyor, (b) durum rozeti için stabil semantik role/testid yok (test.fixme). Düzeltme: eski "/channels <main> kullanmıyor" notu yanlıştı — /channels <main> KULLANIYOR.',
     technicalEvidence: [],
     possibleCauses: [],
     rootCauseCandidate: null,
@@ -1094,4 +1094,178 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  {
+    id: 'B16',
+    title: 'Sosyal Medya sayfasında eksik çeviri anahtarı (MISSING_MESSAGE)',
+    area: 'channels',
+    route: '/channels/social',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: ['/channels/social aç', 'Tarayıcı konsolunu izle (sayfa açılışında)'],
+    expected: 'Konsolda i18n hatası yok; platform adları çözümlenmiş anahtarla gösterilir',
+    actual:
+      'Açılışta konsol hatası: "MISSING_MESSAGE: channels.socialPage.platformNames. (en)" (birden çok kez).',
+    technicalEvidence: [
+      '31 Tem 2026 canlı (app.vomenta.com): /channels/social açılışında console-error MISSING_MESSAGE channels.socialPage.platformNames. (en); kaynak chunk app/(dashboard)/channels/social/page.',
+    ],
+    possibleCauses: [
+      'social/page bileşeni `channels.socialPage.platformNames` anahtarını çeviri sözlüğünde bulunmayan bir yol/biçimde çağırıyor',
+    ],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: eksik `channels.socialPage.platformNames` anahtarını (tüm dillerde) ekle veya çağrı yolunu düzelt'],
+    evidence: [],
+    test: {
+      file: 'tests/channels-social.authed.spec.js',
+      title: 'B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
+  {
+    id: 'B17',
+    title: 'E-posta varsayılan imzası intl formatlama hatası veriyor (FORMATTING_ERROR)',
+    area: 'channels',
+    route: '/channels/email',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: ['/channels/email aç', 'Tarayıcı konsolunu izle (sayfa açılışında)'],
+    expected: 'Konsolda format hatası yok; varsayılan imza sorunsuz render edilir',
+    actual:
+      'Açılışta konsol hatası: `FORMATTING_ERROR: The intl string context variable "p" was not provided to the string "<p>Best regards,<br/>Support Team</p>"`. B9 (ham anahtar) ile aynı imza alanının AYRI belirtisi.',
+    technicalEvidence: [
+      '31 Tem 2026 canlı (app.vomenta.com): /channels/email açılışında console-error FORMATTING_ERROR; kaynak chunk app/(dashboard)/channels/email/page.',
+    ],
+    possibleCauses: [
+      'Varsayılan imza metni ham HTML (`<p>…</p>`) içeriyor ve intl/ICU mesaj formatlayıcısı `<p>` yer tutucusunu değişken sanıp değer bekliyor',
+    ],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: imza metnini intl formatlayıcıdan geçirme veya HTML etiketlerini ICU-güvenli işle (rich-text tag handler)'],
+    evidence: [],
+    test: {
+      file: 'tests/channels-email.authed.spec.js',
+      title: 'B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
+  {
+    id: 'B18',
+    title: 'SMS sayfası açılışta MALFORMED_ARGUMENT konsol hatası veriyor',
+    area: 'channels',
+    route: '/channels/sms',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: ['/channels/sms aç', 'Tarayıcı konsolunu izle (sayfa açılışında)'],
+    expected: 'Konsolda i18n/format hatası yok',
+    actual:
+      'Açılışta konsol hatası: "INVALID_MESSAGE: MALFORMED_ARGUMENT" (birden çok kez).',
+    technicalEvidence: [
+      '31 Tem 2026 canlı (app.vomenta.com): /channels/sms açılışında console-error INVALID_MESSAGE MALFORMED_ARGUMENT; kaynak chunk app/(dashboard)/channels/sms/page.',
+    ],
+    possibleCauses: [
+      'Bir çeviri mesajı hatalı ICU argüman söz dizimi içeriyor (ör. kapatılmamış `{}` / yanlış tür)',
+    ],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: sms/page çeviri mesajlarındaki ICU argümanlarını düzelt'],
+    evidence: [],
+    test: {
+      file: 'tests/channels-sms.authed.spec.js',
+      title: 'B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
+  {
+    id: 'B19',
+    title: 'WhatsApp sayfası açılışta MALFORMED_ARGUMENT konsol hatası veriyor',
+    area: 'channels',
+    route: '/channels/whatsapp',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: ['/channels/whatsapp aç', 'Tarayıcı konsolunu izle (sayfa açılışında)'],
+    expected: 'Konsolda i18n/format hatası yok',
+    actual:
+      'Açılışta konsol hatası: "INVALID_MESSAGE: MALFORMED_ARGUMENT" (birden çok kez).',
+    technicalEvidence: [
+      '31 Tem 2026 canlı (app.vomenta.com): /channels/whatsapp açılışında console-error INVALID_MESSAGE MALFORMED_ARGUMENT; kaynak chunk app/(dashboard)/channels/whatsapp/page.',
+    ],
+    possibleCauses: [
+      'Bir çeviri mesajı hatalı ICU argüman söz dizimi içeriyor (ör. kapatılmamış `{}` / yanlış tür)',
+    ],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: whatsapp/page çeviri mesajlarındaki ICU argümanlarını düzelt'],
+    evidence: [],
+    test: {
+      file: 'tests/channels-whatsapp.authed.spec.js',
+      title: 'B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
+  ...channelsLabelA11yBugs(),
 ]);
+
+/**
+ * B20–B25 — Kanallar config alt sayfalarında sistemik a11y bulgusu: form alanları (renk/sayı/
+ * metin girdileri) erişilebilir etiket (label) taşımıyor → axe `label` (critical). Her rota ayrı
+ * fix yeri olduğundan sayfa başına ayrı kayıt. 31 Tem 2026 canlı doğrulama (app.vomenta.com).
+ */
+function channelsLabelA11yBugs() {
+  const specs = [
+    ['B20', '/channels/webchat', 'tests/channels-webchat.authed.spec.js', 5],
+    ['B21', '/channels/email', 'tests/channels-email.authed.spec.js', 1],
+    ['B22', '/channels/sms', 'tests/channels-sms.authed.spec.js', 4],
+    ['B23', '/channels/whatsapp', 'tests/channels-whatsapp.authed.spec.js', 2],
+    ['B24', '/channels/social', 'tests/channels-social.authed.spec.js', 2],
+    ['B25', '/channels/video', 'tests/channels-video.authed.spec.js', 2],
+  ];
+  return specs.map(([id, route, file, n]) => ({
+    id,
+    title: `${route} form alanları erişilebilir etiket taşımıyor (a11y label)`,
+    area: 'channels',
+    route,
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-07-31',
+    lastVerified: '2026-07-31',
+    expiry: null,
+    repro: [`${route} aç`, 'axe (wcag2a/2aa) ile tara', 'label (critical) ihlallerini oku'],
+    expected: 'Tüm form alanları erişilebilir etikete sahip (axe label ihlali yok)',
+    actual: `axe ${n} adet "label" (critical) ihlali raporluyor (etiketsiz input/textarea).`,
+    technicalEvidence: [
+      `31 Tem 2026 canlı (app.vomenta.com): ${route} sayfasında axe critical "label" ihlali (${n} düğüm); girdiler <label>/aria-label taşımıyor.`,
+    ],
+    possibleCauses: ['Form girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)'],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: her input/textarea için <label htmlFor> veya aria-label ekle'],
+    evidence: [],
+    test: {
+      file,
+      title: `${id} · ${route} · form alanları erişilebilir etiket taşımalı (label)`,
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  }));
+}
