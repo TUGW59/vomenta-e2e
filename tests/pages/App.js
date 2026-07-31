@@ -40,6 +40,8 @@ import { IntegrationsPage } from './IntegrationsPage.js';
 import { InteractionsPage } from './InteractionsPage.js';
 import { AgentLivePage } from './AgentLivePage.js';
 import { CoachingPage } from './CoachingPage.js';
+import { AiManagementPage } from './AiManagementPage.js';
+import { AiSubPage } from './AiSubPage.js';
 
 /**
  * Testlerin uygulamadaki ekranlara tek fixture üzerinden erişmesini sağlar.
@@ -86,6 +88,7 @@ export class App {
     this.interactions = new InteractionsPage(page);
     this.agentLive = new AgentLivePage(page);
     this.coaching = new CoachingPage(page);
+    this.aiManagement = new AiManagementPage(page);
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
   }
@@ -96,5 +99,13 @@ export class App {
    */
   reportSection(key) {
     return new ReportSectionPage(this.page, key);
+  }
+
+  /**
+   * Ortak kabuğu paylaşan bir Yapay Zeka alt rotası döndürür (parametreli).
+   * @param {keyof typeof import('./AiSubPage.js').AiSubPage.SECTIONS} key - ör. 'usage'
+   */
+  aiSub(key) {
+    return new AiSubPage(this.page, key);
   }
 }

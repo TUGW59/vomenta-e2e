@@ -1,20 +1,20 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 39,
+  "total": 40,
   "summary": {
     "byStatus": {
-      "open": 38,
+      "open": 39,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 37,
+      "knownBugGuard": 38,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 7,
-      "medium": 27,
+      "medium": 28,
       "low": 4
     },
     "byArea": {
@@ -24,7 +24,7 @@
       "settings": 6,
       "channels": 2,
       "analytics": 3,
-      "ai": 1,
+      "ai": 2,
       "navigation": 1,
       "reports": 4,
       "supervisor": 6,
@@ -47,6 +47,7 @@
       "B11",
       "B12",
       "B13",
+      "AI-PROMPTS-CONSOLE",
       "B14",
       "B15",
       "ANALYTICS-A",
@@ -494,6 +495,37 @@
       "test": {
         "file": "tests/known-bugs.authed.spec.js",
         "title": "B13 · /ai · sekme etiketinde boşluk eksik olmamalı (\"Yapay ZekaTemsilciler\")"
+      },
+      "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "AI-PROMPTS-CONSOLE",
+      "title": "AI Prompts sayfası yüklemede konsola ICU/intl hatası basıyor (MALFORMED_ARGUMENT)",
+      "area": "ai",
+      "route": "/ai/prompts",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": null,
+      "lastVerified": "2026-07-31",
+      "expiry": null,
+      "repro": [
+        "/ai/prompts aç (prompt/şablon verisi olan tenant)",
+        "tarayıcı konsolunu izle",
+        "sayfa yüklenirken hataları oku"
+      ],
+      "expected": "Konsol temiz; prompt şablonları çeviri/format hatası olmadan render olur",
+      "actual": "Yükleme sırasında 4+ kez \"INVALID_MESSAGE: MALFORMED_ARGUMENT\" (next-intl ICU) hatası basılıyor; kaynak ai/prompts/page chunk. NOT: prompt/şablon verisine bağlı — kişisel tenant'ta gözlendi; CI test tenant'ında reproduce olmayabilir (guard bu durumda test.skip).",
+      "technicalEvidence": [],
+      "possibleCauses": [],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/known-bugs.authed.spec.js",
+        "title": "AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı"
       },
       "owner": null,
       "issueRef": null

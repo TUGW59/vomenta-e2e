@@ -314,6 +314,29 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     );
   });
 
+  // ── AI-PROMPTS-CONSOLE · 🟡 ORTA · /ai/prompts · (konsol ICU hatası; veri/tenant'a bağlı) ──
+  // Sayfa yüklemede next-intl "INVALID_MESSAGE: MALFORMED_ARGUMENT" hatası basıyor
+  // (ai/prompts/page chunk) — kişisel tenant'ta canlı gözlendi (31 Tem 2026). Ancak
+  // hata prompt/şablon VERİSİNE bağlı; CI test kimliğinin tenant'ında reproduce
+  // OLMAYABİLİR → B14 deseni: reproduce edilemezse test.skip (beklenmedik-geçiş yerine
+  // atlanır). Reproduce olunca knownBugGuard ile beklenen-başarısızlık doğrulanır.
+  test('AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı', async ({ page }) => {
+    const errors = [];
+    page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+    page.on('pageerror', (e) => errors.push(String(e)));
+    await gotoApp(page, '/ai/prompts?lang=en');
+    await waitContentLoaded(page);
+    await waitForUiToSettle(page);
+
+    const malformed = errors.filter((t) => /MALFORMED_ARGUMENT|INVALID_MESSAGE/.test(t));
+    test.skip(
+      malformed.length === 0,
+      'Konsol ICU hatası bu oturum/tenant verisinde reproduce olmuyor (kişisel tenant gözlemi).'
+    );
+    knownBugGuard(test, 'AI-PROMPTS-CONSOLE');
+    expect(malformed, `konsolda ICU/intl hatası: ${malformed.slice(0, 2).join(' | ')}`).toEqual([]);
+  });
+
   // ── B14 · 🟡 ORTA · /voice/dids › Bekleyen Talepler · (veri gerektirir) ──────
   test('B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı', async ({ page }) => {
     await gotoApp(page, '/voice/dids');
