@@ -328,6 +328,29 @@ düzeldiğini KANITA DAYALI, çok-koşulu, insan-onaylı biçimde doğrulayan sa
 - **Sert kapı:** `quality:verify` (`quality:check`'te) tüm kuralları negatif self-check'lerle kanıtlar.
   Detay: `docs/adr/0008-bug-fix-verification.md`.
 
+## Güvenli CI artifact allowlist (WP-SEC-B)
+
+Hiçbir CI job'ı ham çıktı yükleyemez. Bütün `actions/upload-artifact` adımları
+YALNIZ önceden hazırlanmış, doğrulanmış bir bundle'a bakar.
+
+- **Tek politika:** `tools/artifact-policy.mjs` (9-lane enum + exact output allowlist
+  + limitler + fail-closed FS + atomik `finalizeBundle` + manifest + stabil rule ID).
+  forensic/verification allowlist'leri `forensic-lib.mjs`'den import edilir (tek kaynak).
+- **Preparer:** `npm run report:artifact:prepare -- --lane <lane>` özet lane'leri için
+  Playwright JSON raporundan güvenli `summary.json` + yeniden üretilmiş `junit.xml`
+  (system-out/err/stack/env YOK) + `summary.html` (HTML-escape, script/asset YOK) +
+  `manifest.json` üretir → `test-results/secure-upload/<lane>/`. Ham `playwright-report/`
+  veya ham/genel `test-results/` **hiçbir** upload path'inde olamaz.
+- **Trace/video/screenshot:** `*.zip`/`*.webm`/`*.mp4` ve ham baseline/actual/diff PNG
+  CI upload = DENY (lokal-only). Runtime trace/video üretimi (yukarıdaki tracing
+  standardı) ZAYIFLATILMAZ; üretilse bile bundle'a girmez.
+- **Workflow kuralı:** her secure upload `prepare` step'inin `ready=true` çıktısına ve
+  `if-no-files-found: error`'a bağlıdır; `continue-on-error` ile yumuşatılamaz. Yeni bir
+  ham upload eklenirse `quality:artifact-allowlist` (yapısal YAML parser) CI'ı düşürür.
+- **Sert kapı:** `quality:artifact-allowlist` (`quality:check` zincirinde) politika
+  negatif matrisini + workflow statik enforcement'ını kanıtlar. Detay:
+  `docs/adr/0009-artifact-allowlist.md`.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
