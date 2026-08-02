@@ -366,6 +366,16 @@ Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/styl
   `registered-routes-smoke.authed.spec.js`). Feature/derin testin yerine geçmez; `[route:/x]`
   işaretiyle envanter ↔ test birebirliği `tools/self-check-routes-baseline.mjs` ile zorlanır.
 
+**Runtime rapor motoru** (WP-MORNING Faz 2): `npm run report:runtime` (=`tools/generate-runtime-report.mjs`)
+Playwright'ın GERÇEK JSON koşum sonucundan (statik `--list` DEĞİL) yönetici + makine-okur teslim
+dosyalarını üretir: `docs/raporlar/{TEST-SONUCLARI.json, SAYFA-TEST-SONUCLARI.md, SABAH-KALITE-OZETI.html,
+SABAH-TESLIM-MANIFEST.json}`. Her kayıtlı rota tek nihai durum alır (PASS/FAIL/FLAKY/BLOCKED/NOT_RUN;
+toplam = kayıtlı rota). Sonuç bir rotaya YALNIZ exact `[route:/x]` işaretiyle bağlanır (işaretsiz test
+sahte PASS üretemez → `unmappedTests`). FAIL olsa bile rapor üretilir + exit 0; kaynak yok / geçersiz
+JSON / 0 seçilen test / sızıntı / stale girdi → non-zero. Sert kapı: `npm run quality:runtime-report`
+(=`tools/self-check-runtime-report.mjs`, tamamen sentetik) `quality:check` zincirindedir. Not: HTML
+`docs/raporlar/*.html` gitignore'lu artifact; MD/JSON teslim snapshot'ı Faz 3 gerçek koşumunda commit edilir.
+
 **Test stilleri** (bkz. "Zorunlu test stilleri"): `@i18n` `@a11y` `@layout` `@visual`
 `@errorpath` `@clean` `@perf` `@keyboard` `@deeplink` `@data` `@export`.
 

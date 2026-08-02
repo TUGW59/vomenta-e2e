@@ -13,12 +13,13 @@
  *
  * Çalıştır: npm run report:test-report
  */
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, relative } from 'node:path';
 import { loadPlaywrightList, areaOf, mdCell, scanSkipsAndFixmes } from './report-lib.mjs';
 import { MAIN_NAVIGATION } from '../tests/contracts/navigation.js';
 import { TESTED_PAGES } from '../tests/contracts/tested-pages.js';
+import { REGISTERED_ROUTE_PATHS } from '../tests/contracts/registered-routes.js';
 import { COVERAGE_EXCLUSIONS, COVERAGE_TODO } from '../tests/contracts/coverage-exclusions.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -26,8 +27,27 @@ const outDir = resolve(root, 'docs/raporlar');
 mkdirSync(outDir, { recursive: true });
 const rel = (p) => relative(root, p).split('\\').join('/');
 
-// WP-00'da tespit edilen, kayıtlı olmayan keşif rotaları (kanıt: discovery-baseline).
-const UNREGISTERED_DISCOVERED = ['/campaigns/outbound', '/channels/sms', '/settings/organization', '/settings/profile'];
+/**
+ * Kayıtsız keşif rotaları DİNAMİK türetilir (WP-MORNING §2.4): discovery-baseline
+ * rotaları − kayıtlı rota envanteri. Hard-code YOK → artık kayıtlı olan rotalar
+ * (ör. /channels/sms, /settings/*) kayıtsız listede görünmez; yeni keşfedilen ama
+ * kayıtlı olmayanlar otomatik görünür. Baseline kaynağı yoksa uydurma YOK.
+ * @returns {{ list: string[], source: 'discovery-baseline'|'unavailable' }}
+ */
+function deriveUnregisteredDiscovered() {
+  const baselinePath = resolve(root, 'tests/contracts/discovery-baseline.json');
+  if (!existsSync(baselinePath)) return { list: [], source: 'unavailable' };
+  let discovered;
+  try {
+    const parsed = JSON.parse(readFileSync(baselinePath, 'utf8'));
+    discovered = Object.keys((parsed && parsed.routes) || {});
+  } catch {
+    return { list: [], source: 'unavailable' };
+  }
+  const registered = new Set(REGISTERED_ROUTE_PATHS);
+  return { list: discovered.filter((r) => !registered.has(r)).sort(), source: 'discovery-baseline' };
+}
+const UNREGISTERED = deriveUnregisteredDiscovered();
 const BASELINE_SPEC = 'quality-baseline.authed.spec.js';
 
 // ── YAPILAN TESTLER ──────────────────────────────────────────────────────────
@@ -146,8 +166,14 @@ B.push('### Yüzey boşluğu (envanter karşılaştırması)');
 B.push('');
 B.push('- **Rota-bazlı arketip/derin kapsam yok** (yalnız generic baseline ile örtülü) — sıradaki nav yüzeyleri WP-04/WP-06 bekliyor:');
 B.push(`  ${navOnlyGeneric.map((n) => `\`${n.path}\``).join(' · ')}`);
-B.push('- **WP-00\'da keşfedilen kayıtsız rotalar** (tested-pages\'te tam sözleşme yok):');
-B.push(`  ${UNREGISTERED_DISCOVERED.map((r) => `\`${r}\``).join(' · ')}`);
+B.push('- **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages\'te tam sözleşme yok):');
+if (UNREGISTERED.source === 'unavailable') {
+  B.push('  _discovery-baseline kaynağı yok — kayıtsız rota listesi üretilemedi (uydurma yapılmadı)._');
+} else if (UNREGISTERED.list.length === 0) {
+  B.push('  _yok — tüm keşif rotaları kayıtlı._');
+} else {
+  B.push(`  ${UNREGISTERED.list.map((r) => `\`${r}\``).join(' · ')}`);
+}
 B.push(`- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): ${[...registeredRoutes].length} adet — çoğunlukla \`reports\` alt rotaları.`);
 B.push('');
 writeFileSync(resolve(outDir, 'YAPILMAYAN-TESTLER.md'), B.join('\n'));
