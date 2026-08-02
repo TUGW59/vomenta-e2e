@@ -351,6 +351,33 @@ YALNIZ önceden hazırlanmış, doğrulanmış bir bundle'a bakar.
   negatif matrisini + workflow statik enforcement'ını kanıtlar. Detay:
   `docs/adr/0009-artifact-allowlist.md`.
 
+## PR değişiklik-etkisi seçici (WP-CI-E1)
+
+Bir PR'da değişen dosyalardan hangi gerçek testlerin koşması gerektiğini
+deterministik ve **fail-closed** çıkaran motor `tools/pr-impact-lib.mjs`'tir;
+CLI `tools/plan-pr-impact.mjs` (`npm run ci:impact:plan`) planı
+`test-results/pr-impact/selection.json`'a yazar. Karar sırası: (1) spec-köklü
+ters import grafiği, (2) yol-tabanlı sınıflandırma, (3) eşlenemeyen runtime
+dosyasında geniş güvenli fallback ya da non-zero. Detay:
+`docs/adr/0010-pr-impact-selection.md`.
+
+Bağlayıcı kurallar:
+
+- Değişen bir spec doğrudan; onu import eden page object/fixture/helper transitif
+  olarak seçilir. `tests/pages/App.js` barrel'ı + ortak fixture yüzünden herhangi
+  bir page object değişikliği neredeyse tüm authed suite'e yayılır (fail-safe:
+  fazla seçer, kaçırmaz).
+- Mutation spec'leri (`*.mutation.*` / `*-mutations.*` / `mutation-orphans`)
+  production seçimine GİRMEZ; `STAGING_BLOCKED` raporlanır. Güvenlik ayrıca
+  `grepInvert: /@mutation/` ile bağımsız garantidir.
+- `selectedRunnableSpecCount=0` durumları ayrılır: docs/ci/visual →
+  `NO_RUNTIME_REQUIRED`; yalnız mutation → `STAGING_BLOCKED`; eşlenemeyen runtime
+  → `UNMAPPED_RUNTIME_CHANGE` (non-zero); eksik/shallow kaynak → `SOURCE_MISSING`
+  (non-zero). Sessiz boş liste yasak.
+- **Sert kapı:** `quality:ci-impact` (`quality:check` zincirinde) 21 sentetik
+  vakayı production çağrısı yapmadan doğrular. Motor değişikliği bu self-check'i
+  düşürmeden yeşil olamaz. Workflow bağlama Faz 2 (WP-CI-E2) işidir.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
