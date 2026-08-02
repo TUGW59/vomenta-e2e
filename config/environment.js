@@ -62,6 +62,8 @@ export const environment = Object.freeze({
   // Yalnızca staging E2E (arama/SMS) için ayrılmış test numarası. Boşsa ilgili
   // mutation testleri atlanır. Gerçek numara .env'de tutulur, repoya GİRMEZ.
   testPhone: process.env.VOMENTA_TEST_PHONE || '',
+  testContactPhone: process.env.VOMENTA_TEST_CONTACT_PHONE || '',
+  testAgentEmail: process.env.VOMENTA_TEST_AGENT_EMAIL || '',
 });
 
 export function authStatePath(role = 'default') {

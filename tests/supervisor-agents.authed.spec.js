@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { assertLocalClock, knownBugGuard } from './helpers.js';
+import { environment } from '../config/environment.js';
 import { AgentMonitorPage } from './pages/AgentMonitorPage.js';
 
 /**
@@ -280,7 +281,9 @@ test.describe('Kontrol: Ajan detay paneli @regression', () => {
     await historyReq;
     // L3 + TUTARLILIK: panel, satırdaki ajanı ve durumunu göstermeli.
     await expect(dialog.getByText('Account Agent', { exact: true })).toBeVisible();
-    await expect(dialog.getByText('testagent@sigmatelecom.com', { exact: true })).toBeVisible();
+    const agentEmail = environment.testAgentEmail;
+    if (!agentEmail) return test.skip('VOMENTA_TEST_AGENT_EMAIL eksik');
+    await expect(dialog.getByText(agentEmail, { exact: true })).toBeVisible();
     await expect(dialog.getByText(/Offline/i).first()).toBeVisible(); // satırdaki durumla tutarlı
     await expect(dialog.getByText(/Software/i).first()).toBeVisible(); // satırdaki kuyrukla tutarlı
     await page.keyboard.press('Escape');

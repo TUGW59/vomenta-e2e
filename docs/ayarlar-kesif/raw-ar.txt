@@ -16,7 +16,7 @@ headings=["الملف الشخصي"]
     - /placeholder: أدخل اسم العائلة
     - text: Topuz
   - text: البريد الإلكتروني
-  - textbox "البريد الإلكتروني" [disabled]: tugw59@gmail.com
+  - textbox "البريد الإلكتروني" [disabled]: user@example.com
   - paragraph: لا يمكن تغيير البريد. تواصل مع الدعم إذا لزم.
   - text: الهاتف
   - textbox "الهاتف":

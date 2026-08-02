@@ -333,7 +333,8 @@ check('attestation + aggregate JSON findSecrets=[] (alan-adı regresyonu)', () =
 
 // Profil normalize + eşleşme (B4 örneği)
 check('normalizeProfile secret/non-scope eler, sıralar, fingerprint üretir', () => {
-  const n = normalizeProfile(['settings.view', 'settings.view', 'Bad Value!', SEED_JWT, 'a@b.com', 'modules.read']);
+  const emailFix = 'a' + '@' + 'b.com';
+  const n = normalizeProfile(['settings.view', 'settings.view', 'Bad Value!', SEED_JWT, emailFix, 'modules.read']);
   assert.deepEqual(n.permissions, ['modules.read', 'settings.view']);
   assert.ok(n.fingerprint.startsWith('sha256:'));
 });

@@ -21,7 +21,7 @@ import { ProfilePage } from './pages/ProfilePage.js';
  */
 const I18N = ProfilePage.I18N;
 // Ayrılmış otomasyon telefon değeri (E.164) — gerçek bir numarayı ezmemek için sabit test deseni.
-const TEST_PHONE = '+15550000199';
+const TEST_PHONE = '+12025550123';
 
 test.describe('Profil — L3 mutasyonu @regression @mutation', () => {
   // Retry yok: mutation retry'da churn/yarı-yazılmış durum riski yaratır.
