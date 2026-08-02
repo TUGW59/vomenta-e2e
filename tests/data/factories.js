@@ -39,7 +39,6 @@ export function buildContact(overrides = {}) {
   return {
     name: key,
     email: `${key.toLowerCase()}@example.test`,
-    phone: '+12025550123',
     ...overrides,
   };
 }

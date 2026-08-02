@@ -270,6 +270,8 @@ test.describe('Kontrol: Görünüm toggle (liste/ızgara) @regression', () => {
 // ═══════════════ KONTROL: SATIR → DETAY PANELİ — L1 + L2 + L3 (+ tutarlılık) ═══════════════
 test.describe('Kontrol: Ajan detay paneli @regression', () => {
   test('L1+L2+L3: satıra tıklayınca panel açılıyor, status-history çekiliyor, veri tutarlı', async ({ app, page }) => {
+    test.skip(!environment.testAgentEmail, 'VOMENTA_TEST_AGENT_EMAIL eksik');
+
     const am = app.agentMonitor;
     await am.open();
     // L2: panel açılışında status-history isteği.
@@ -282,7 +284,6 @@ test.describe('Kontrol: Ajan detay paneli @regression', () => {
     // L3 + TUTARLILIK: panel, satırdaki ajanı ve durumunu göstermeli.
     await expect(dialog.getByText('Account Agent', { exact: true })).toBeVisible();
     const agentEmail = environment.testAgentEmail;
-    if (!agentEmail) return test.skip('VOMENTA_TEST_AGENT_EMAIL eksik');
     await expect(dialog.getByText(agentEmail, { exact: true })).toBeVisible();
     await expect(dialog.getByText(/Offline/i).first()).toBeVisible(); // satırdaki durumla tutarlı
     await expect(dialog.getByText(/Software/i).first()).toBeVisible(); // satırdaki kuyrukla tutarlı
