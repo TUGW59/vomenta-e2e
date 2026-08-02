@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { ProfilePage } from './pages/ProfilePage.js';
+import { environment } from '../config/environment.js';
 
 /**
  * AYARLAR › PROFİL — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)
@@ -20,8 +21,6 @@ import { ProfilePage } from './pages/ProfilePage.js';
  *   ÖNCE kaydeder ve test ortada patlasa bile eski değere geri döner. Uç: PATCH /auth/me.
  */
 const I18N = ProfilePage.I18N;
-// Ayrılmış otomasyon telefon değeri (E.164) — gerçek bir numarayı ezmemek için sabit test deseni.
-const TEST_PHONE = '+12025550123';
 
 test.describe('Profil — L3 mutasyonu @regression @mutation', () => {
   // Retry yok: mutation retry'da churn/yarı-yazılmış durum riski yaratır.
@@ -33,7 +32,10 @@ test.describe('Profil — L3 mutasyonu @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
+    test.skip(!environment.testContactPhone, 'VOMENTA_TEST_CONTACT_PHONE eksik');
+
     await mutationGuard('Profil: Telefon güncelle + geri al');
+    const testPhone = environment.testContactPhone;
     const p = app.profile;
 
     await p.open();
@@ -47,12 +49,12 @@ test.describe('Profil — L3 mutasyonu @regression @mutation', () => {
     }, `profile-phone-restore:${original || '(boş)'}`);
 
     // 1) DEĞİŞTİR + KAYDET — GERÇEK PATCH /auth/me
-    expect(TEST_PHONE, 'test değeri orijinalden farklı olmalı').not.toBe(original);
-    await p.savePhone(TEST_PHONE);
+    expect(testPhone, 'test değeri orijinalden farklı olmalı').not.toBe(original);
+    await p.savePhone(testPhone);
 
     // 2) KALICILIK (L3): sayfayı yeniden yükle, yeni değer sunucudan geri geliyor mu?
     await p.open();
-    await expect(p.phoneInput).toHaveValue(TEST_PHONE, { timeout: 10000 });
+    await expect(p.phoneInput).toHaveValue(testPhone, { timeout: 10000 });
 
     // 3) GERİ AL (test içinde de açıkça — cleanup yine garanti eder)
     await p.savePhone(original);

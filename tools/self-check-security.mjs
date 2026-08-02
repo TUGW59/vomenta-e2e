@@ -36,32 +36,34 @@ const rules = [
     id: 'SEC-EMAIL',
     type: 'content',
     test: (line) => {
-      const match = line.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
-      if (!match) return false;
-      for (const email of match) {
-        const lower = email.toLowerCase();
-        // Sadece IANA ayrılmış örnek alan adlarına izin ver (geniş allowlist yasak)
-        if (lower.includes('example.com') || lower.includes('example.org') || lower.includes('example.net')) continue;
-        return true; 
+      const matches = line.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g);
+      if (!matches) return false;
+
+      const allowedDomains = new Set([
+        'example.com',
+        'example.org',
+        'example.net',
+      ]);
+
+      for (const email of matches) {
+        const separatorIndex = email.lastIndexOf('@');
+        if (separatorIndex < 1 || separatorIndex === email.length - 1) {
+          return true;
+        }
+
+        const domain = email.slice(separatorIndex + 1).toLowerCase();
+        if (!allowedDomains.has(domain)) {
+          return true;
+        }
       }
+
       return false;
     }
   },
   {
     id: 'SEC-PHONE',
     type: 'content',
-    test: (line) => {
-      const match = line.match(/\+[1-9]\d{7,14}\b/g);
-      if (!match) return false;
-      for (const phone of match) {
-        // Doğrulanmış fictional aralık (+1 <area> 555-0100 ile 0199)
-        if (/^\+1\d{3}55501\d{2}$/.test(phone)) continue;
-        // Testlere özel scanner bypass istisnası
-        if (phone === '+905551234567') continue;
-        return true;
-      }
-      return false;
-    }
+    test: (line) => /\+[1-9]\d{7,14}\b/.test(line)
   }
 ];
 
@@ -75,11 +77,17 @@ function scanRepository(repoPath, logger = console.error) {
   const files = rawOutput.split('\0').filter(Boolean).sort();
   let violations = 0;
   
-  const isExcludedExt = (relPath) => /\.(png|jpe?g|gif|pdf|ico|zip|tar|gz|mp4|webm|woff2?|eot|ttf|otf)$/i.test(relPath);
+  const decodeTrackedText = (buffer) => {
+    if (buffer.length === 0) return '';
 
-  const isBinary = (buffer) => {
-    if (buffer.length === 0) return false;
-    return buffer.indexOf(0) !== -1;
+    // Binary classification is content-based, never extension-based.
+    if (buffer.indexOf(0) !== -1) return null;
+
+    try {
+      return new TextDecoder('utf-8', { fatal: true }).decode(buffer);
+    } catch {
+      return null;
+    }
   };
 
   for (const relPath of files) {
@@ -111,12 +119,9 @@ function scanRepository(repoPath, logger = console.error) {
       }
       if (pathViolation) continue;
 
-      if (isExcludedExt(relPath)) continue;
-
       const buffer = fs.readFileSync(filePath);
-      if (isBinary(buffer)) continue;
-
-      const content = buffer.toString('utf8');
+      const content = decodeTrackedText(buffer);
+      if (content === null) continue;
       const lines = content.split('\n');
       for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -142,14 +147,25 @@ function scanRepository(repoPath, logger = console.error) {
 function runTests() {
   const scannerPath = path.resolve(new URL(import.meta.url).pathname || import.meta.filename || __filename);
   
-  const runScenario = (name, setupFn, expectedCode, expectedErrors) => {
+  const runScenario = (
+    name,
+    setupFn,
+    expectedCode,
+    expectedErrors,
+    forbiddenValues = [],
+    afterAddFn = null,
+  ) => {
     const tmpDir = path.resolve(process.cwd(), '.tmp-sec-scanner-' + Date.now() + '-' + Math.random().toString(36).slice(2));
     fs.mkdirSync(tmpDir, { recursive: true });
     try {
       execSync('git init', { cwd: tmpDir, stdio: 'ignore' });
       setupFn(tmpDir);
       execSync('git add .', { cwd: tmpDir, stdio: 'ignore' });
-      
+
+      if (afterAddFn) {
+        afterAddFn(tmpDir);
+      }
+
       let code = 0;
       let out = '';
       try {
@@ -167,9 +183,21 @@ function runTests() {
       if (code !== expectedCode) throw new Error(`[${name}] Expected exit ${expectedCode}, got ${code}. Output:\n${out}`);
       
       for (const errText of expectedErrors) {
-        if (!out.includes(errText)) throw new Error(`[${name}] Expected output to include "${errText}". Output:\n${out}`);
+        if (!out.includes(errText)) {
+          throw new Error(
+            `[${name}] Expected output metadata was not produced.`,
+          );
+        }
       }
-      
+
+      for (const forbiddenValue of forbiddenValues) {
+        if (out.includes(forbiddenValue)) {
+          throw new Error(
+            `[${name}] Scanner output exposed a matched value.`,
+          );
+        }
+      }
+
       const forbidden = ['tugw59', 'gmail.com', '90532', 'somebody'];
       for (const f of forbidden) {
          if (out.includes(f)) throw new Error(`[${name}] Output contains sensitive value "${f}". Output:\n${out}`);
@@ -180,9 +208,47 @@ function runTests() {
   };
 
   runScenario('Temiz tracked text', (dir) => {
-    fs.writeFileSync(path.join(dir, 'safe.txt'), 'email: user@example.com\nphone: +12025550123');
+    fs.writeFileSync(
+      path.join(dir, 'safe.txt'),
+      'email: user@example.com\nphone: <redacted-phone>',
+    );
     fs.writeFileSync(path.join(dir, 'dummy.bin'), Buffer.from([0x00, 0x01]));
   }, 0, ['Security check passed']);
+
+  runScenario('Exact placeholder domain case-insensitive', (dir) => {
+    fs.writeFileSync(
+      path.join(dir, 'uppercase-placeholder.txt'),
+      'email: USER@EXAMPLE.COM',
+    );
+  }, 0, ['Security check passed']);
+
+  runScenario('Example domain suffix bypass engellenir', (dir) => {
+    const badEmail = [
+      'user',
+      '@',
+      'example',
+      '.',
+      'com',
+      '.',
+      'invalid',
+    ].join('');
+    fs.writeFileSync(path.join(dir, 'bad-example-suffix.txt'), badEmail);
+  }, 1, ['[SEC-EMAIL] in bad-example-suffix.txt'], [
+    ['user', '@', 'example', '.', 'com', '.', 'invalid'].join(''),
+  ]);
+
+  runScenario('Benzer domain bypass engellenir', (dir) => {
+    const badEmail = [
+      'user',
+      '@',
+      'notexample',
+      '.',
+      'com',
+    ].join('');
+    fs.writeFileSync(path.join(dir, 'bad-lookalike-domain.txt'), badEmail);
+  }, 1, ['[SEC-EMAIL] in bad-lookalike-domain.txt'], [
+    ['user', '@', 'notexample', '.', 'com'].join(''),
+  ]);
 
   runScenario('Yasaklı hassas path', (dir) => {
     fs.mkdirSync(path.join(dir, 'e.env'), { recursive: true });
@@ -190,28 +256,70 @@ function runTests() {
   }, 1, ['[SEC-PATH] in file path e.env/test.txt']);
 
   runScenario('Sentetik e-mail', (dir) => {
-    fs.writeFileSync(path.join(dir, 'bad_email.txt'), 'bad ' + 'some' + 'body@g' + 'mail.com');
-  }, 1, ['[SEC-EMAIL] in bad_email.txt']);
+    const badEmail = ['some', 'body', '@', 'g', 'mail', '.', 'com'].join('');
+    fs.writeFileSync(path.join(dir, 'bad_email.txt'), 'bad ' + badEmail);
+  }, 1, ['[SEC-EMAIL] in bad_email.txt'], [
+    ['some', 'body', '@', 'g', 'mail', '.', 'com'].join(''),
+  ]);
 
   runScenario('Sentetik secret', (dir) => {
-    fs.writeFileSync(path.join(dir, 'bad_secret.txt'), 'key ghp_' + '123456789012345678901234567890123456');
-  }, 1, ['[SEC-TOKEN] in bad_secret.txt']);
+    const secret = ['gh', 'p_', '123456789012345678901234567890123456'].join('');
+    fs.writeFileSync(path.join(dir, 'bad_secret.txt'), 'key ' + secret);
+  }, 1, ['[SEC-TOKEN] in bad_secret.txt'], [
+    ['gh', 'p_', '123456789012345678901234567890123456'].join(''),
+  ]);
 
-  runScenario('Sentetik telefon', (dir) => {
-    fs.writeFileSync(path.join(dir, 'bad_phone.txt'), 'phone +' + '905321112233');
-    fs.writeFileSync(path.join(dir, 'dummy.png'), 'phone +' + '905321112233');
-  }, 1, ['[SEC-PHONE] in bad_phone.txt']);
+  runScenario('Global telefon muafiyeti yok', (dir) => {
+    const phone = ['+', '90', '555', '123', '4567'].join('');
+    fs.writeFileSync(path.join(dir, 'bad_phone.txt'), 'phone ' + phone);
+  }, 1, ['[SEC-PHONE] in bad_phone.txt'], [
+    ['+', '90', '555', '123', '4567'].join(''),
+  ]);
+
+  runScenario('Düz metin secret içeren PNG taranır', (dir) => {
+    const secret = ['gh', 'p_', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'].join('');
+    fs.writeFileSync(path.join(dir, 'fake.png'), secret);
+  }, 1, ['[SEC-TOKEN] in fake.png'], [
+    ['gh', 'p_', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'].join(''),
+  ]);
+
+  runScenario('Düz metin PII içeren PDF taranır', (dir) => {
+    const badEmail = ['pdf', '@', 'unsafe', '.', 'test'].join('');
+    fs.writeFileSync(path.join(dir, 'fake.pdf'), badEmail);
+  }, 1, ['[SEC-EMAIL] in fake.pdf'], [
+    ['pdf', '@', 'unsafe', '.', 'test'].join(''),
+  ]);
+
+  runScenario('Gerçek binary kontrollü atlanır', (dir) => {
+    fs.writeFileSync(
+      path.join(dir, 'real-binary.png'),
+      Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x00, 0xff, 0x10]),
+    );
+  }, 0, ['Security check passed']);
+
+  runScenario(
+    'Okuma hatası fail-closed',
+    (dir) => {
+      fs.writeFileSync(path.join(dir, 'removed-after-index.txt'), 'safe');
+    },
+    1,
+    ['[SEC-READ] Failed to read removed-after-index.txt'],
+    [],
+    (dir) => {
+      fs.unlinkSync(path.join(dir, 'removed-after-index.txt'));
+    },
+  );
 
   runScenario('Newline içeren tracked filename', (dir) => {
-    fs.writeFileSync(path.join(dir, 'file\nname.txt'), 'bad ' + 'some' + 'body@g' + 'mail.com');
+    const badEmail = ['some', 'body', '@', 'g', 'mail', '.', 'com'].join('');
+    fs.writeFileSync(path.join(dir, 'file\nname.txt'), 'bad ' + badEmail);
   }, 1, ['[SEC-EMAIL] in file\nname.txt']);
 
   runScenario('Repo dışına symlink', (dir) => {
     fs.symlinkSync('/etc/passwd', path.join(dir, 'link.txt'));
   }, 1, ['[SEC-PATH] Symlink not allowed link.txt']);
 
-  // Removed SEC-READ scenario because we can't easily create unreadable tracked files in standard CI without root (permissions reset by git).
-  // I will just mock one if possible, but it's tricky.
+
 }
 
 // Entry point

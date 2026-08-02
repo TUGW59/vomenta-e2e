@@ -36,8 +36,9 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
     mutationGuard,
     testEntity,
   }) => {
+    test.skip(!environment.testContactPhone, 'VOMENTA_TEST_CONTACT_PHONE eksik');
+
     await mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
-    if (!environment.testContactPhone) return test.skip('VOMENTA_TEST_CONTACT_PHONE eksik');
     const c = app.contacts;
     const data = buildPeopleContact();
 
