@@ -50,6 +50,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/channels-hub.authed.spec.js:138 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-video.authed.spec.js:105 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-webchat.authed.spec.js:130 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
+| tests/contacts-mutations.authed.spec.js:40 | skip | VOMENTA_TEST_CONTACT_PHONE eksik |
 | tests/known-bugs-invite.mutation.authed.spec.js:25 | fixme |  |
 | tests/known-bugs.authed.spec.js:157 | fixme |  |
 | tests/known-bugs.authed.spec.js:289 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
@@ -86,8 +87,9 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/settings-webhooks-mutations.authed.spec.js:19 | fixme | da boş). |
 | tests/settings-webhooks.authed.spec.js:146 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/supervisor-agent-live.authed.spec.js:55 | fixme |  |
-| tests/supervisor-agents.authed.spec.js:187 | fixme |  |
 | tests/supervisor-agents.authed.spec.js:188 | fixme |  |
+| tests/supervisor-agents.authed.spec.js:189 | fixme |  |
+| tests/supervisor-agents.authed.spec.js:285 | skip | VOMENTA_TEST_AGENT_EMAIL eksik |
 | tests/supervisor-coaching.authed.spec.js:160 | fixme |  |
 | tests/supervisor-interactions.authed.spec.js:108 | fixme |  |
 | tests/supervisor-wallboard.authed.spec.js:163 | skip | da güvenilir. |
