@@ -376,7 +376,30 @@ Bağlayıcı kurallar:
   (non-zero). Sessiz boş liste yasak.
 - **Sert kapı:** `quality:ci-impact` (`quality:check` zincirinde) 21 sentetik
   vakayı production çağrısı yapmadan doğrular. Motor değişikliği bu self-check'i
-  düşürmeden yeşil olamaz. Workflow bağlama Faz 2 (WP-CI-E2) işidir.
+  düşürmeden yeşil olamaz.
+
+### Runner + workflow enforcement (WP-CI-E2)
+
+Seçici planı gerçek koşuya `tools/run-pr-impact.mjs` (`npm run ci:impact:run`)
+bağlar; kararlar saf `tools/pr-impact-runner-lib.mjs`'tedir. `.github/workflows/
+playwright.yml` içindeki `pr-impact` job'ı planner + runner'ı çağırır ve runner
+exit-code'uyla gate edilir. Detay: `docs/adr/0011-pr-impact-runner-enforcement.md`.
+
+Bağlayıcı kurallar:
+
+- Runner EXACT spec/fallback gruplarını güvenli argument array'iyle (shell
+  interpolation YOK) Chromium'da koşar; setup/dependency testleri hedef sayıdan
+  ayrı sayılır. `sourceMissing`/unmapped/bozuk-plan → REFUSE (non-zero).
+- 0-test (exact grup `--list`'te test bulamaz), `unexpected>0`, `flaky>0` veya
+  herhangi bir grubun non-zero'su → genel exit non-zero. `--retries=0`; flaky
+  başarıya çevrilmez. grep-only fallback 0-test'i uyarıdır, kırmızı değil.
+- Mutation son savunması: her gruba `--grep-invert=@mutation` + seçili dosya
+  mutation spec ise REFUSE. Üç katman (dosya-adı + config `grepInvert` + runner).
+- **Sert kapılar:** `quality:ci-runner` (8 negatif kanıt §2.6 non-zero) +
+  `quality:ci-workflow` (12 yapısal YAML kuralı) `quality:check` zincirindedir.
+  Runner/workflow değişikliği bunları düşürmeden yeşil olamaz.
+- Negatif kanıt PRODUCTION'a karşı kasıtlı hata ÜRETMEZ: saf mantığa sentetik
+  gözlem enjekte edilir. YAML enforcement metin araması değil, yapısal parse'tır.
 
 ## Test sınıfları (kanonik etiket kaydı)
 
