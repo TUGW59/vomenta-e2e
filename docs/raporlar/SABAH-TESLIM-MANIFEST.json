@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-02T19:46:28.218Z",
+  "manifestOf": "wp-morning-delivery",
+  "note": "Manifest kendini hash'lemez; yalnız listelenen teslim dosyalarını doğrular.",
+  "files": [
+    {
+      "relativePath": "docs/raporlar/BULGULAR.md",
+      "size": 51116,
+      "sha256": "27ada5fb05ed7ab42b2bc8c3cbb3dea4ff5c7ea459dab3ef206a898e5475ad3c"
+    },
+    {
+      "relativePath": "docs/raporlar/SABAH-KALITE-OZETI.html",
+      "size": 19019,
+      "sha256": "e206618e855f59fc74424abf895669636c719213ef20080a9b5c0af5040d1829"
+    },
+    {
+      "relativePath": "docs/raporlar/SAYFA-TEST-SONUCLARI.md",
+      "size": 6622,
+      "sha256": "7269e9d003e4b133d196df83756a29a698158b7a6027013a89c1b03ab307186e"
+    },
+    {
+      "relativePath": "docs/raporlar/TEST-SONUCLARI.json",
+      "size": 34664,
+      "sha256": "f2f50051249df48c6a138ed578fde9c992be9b19e795e948f6d7bc9691576210"
+    },
+    {
+      "relativePath": "docs/raporlar/YAPILAN-TESTLER.md",
+      "size": 157337,
+      "sha256": "cdb97ca32f8ac14f136920de69dac25c9743c7e0143a9a00d24af3c2ebfb6295"
+    },
+    {
+      "relativePath": "docs/raporlar/YAPILMAYAN-TESTLER.md",
+      "size": 10266,
+      "sha256": "673461645c26aa57b98ecfe4b8de58dddf56059ed7ee4dd89ab2ab0bf5de07e7"
+    }
+  ],
+  "missing": []
+}
