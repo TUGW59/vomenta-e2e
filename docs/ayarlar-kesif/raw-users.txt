@@ -13,7 +13,7 @@ URL: https://app.vomenta.com/settings/users
   - paragraph: Send an invitation to join your workspace.
   - text: Email address
   - textbox "Email address":
-    - /placeholder: colleague@company.com
+    - /placeholder: colleague@example.com
   - text: Role
   - combobox: Agent
   - text: Team

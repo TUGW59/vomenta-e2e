@@ -6,7 +6,7 @@ DIALOG:
   - paragraph: Send an invitation to join your workspace.
   - text: Email address
   - textbox "Email address":
-    - /placeholder: colleague@company.com
+    - /placeholder: colleague@example.com
   - text: Role
   - combobox: Agent
   - text: Team
@@ -24,7 +24,7 @@ DIALOG:
   - paragraph: Çalışma alanınıza katılması için bir davet gönderin.
   - text: E-posta adresi
   - textbox "E-posta adresi":
-    - /placeholder: calisan@sirket.com
+    - /placeholder: calisan@example.com
   - text: Rol
   - combobox: Temsilci
   - text: Ekip
@@ -42,7 +42,7 @@ DIALOG:
   - paragraph: إرسال دعوة للانضمام إلى مساحة عملك.
   - text: عنوان البريد الإلكتروني
   - textbox "عنوان البريد الإلكتروني":
-    - /placeholder: colleague@company.com
+    - /placeholder: colleague@example.com
   - text: الدور
   - combobox: وكيل
   - text: الفريق

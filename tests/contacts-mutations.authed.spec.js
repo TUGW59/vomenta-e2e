@@ -5,6 +5,7 @@ import {
   AUTOMATION_ENTITY_PREFIXES,
   buildPeopleContact,
 } from './data/factories.js';
+import { environment } from '../config/environment.js';
 
 const I18N = ContactsPage.I18N;
 
@@ -36,6 +37,7 @@ test.describe('Kişiler — L3 mutasyonları @regression @mutation', () => {
     testEntity,
   }) => {
     await mutationGuard('Kişiler: oluştur + toplu etiketle + toplu sil');
+    if (!environment.testContactPhone) return test.skip('VOMENTA_TEST_CONTACT_PHONE eksik');
     const c = app.contacts;
     const data = buildPeopleContact();
 

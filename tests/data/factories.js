@@ -1,5 +1,6 @@
 // @ts-check
 import { randomUUID } from 'node:crypto';
+import { environment } from '../../config/environment.js';
 
 function uniqueSuffix() {
   return `${Date.now().toString(36)}_${randomUUID().replaceAll('-', '').slice(0, 10)}`;
@@ -38,7 +39,7 @@ export function buildContact(overrides = {}) {
   return {
     name: key,
     email: `${key.toLowerCase()}@example.test`,
-    phone: '+15550000000',
+    phone: '+12025550123',
     ...overrides,
   };
 }
@@ -50,10 +51,12 @@ export function buildContact(overrides = {}) {
  */
 export function buildPeopleContact(overrides = {}) {
   const key = testEntityName('CONTACT');
+  const phone = environment.testContactPhone;
+  if (!phone) throw new Error('VOMENTA_TEST_CONTACT_PHONE env degiskeni eksik');
   return {
     firstName: 'Test',
     lastName: key,
-    phone: '+905072507710',
+    phone,
     tag: 'VIP',
     key,
     ...overrides,

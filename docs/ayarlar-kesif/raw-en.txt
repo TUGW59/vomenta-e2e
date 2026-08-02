@@ -127,7 +127,7 @@ PROFILE HEADINGS: ["Profile"]
       - /placeholder: Enter last name
       - text: Topuz
     - text: Email
-    - textbox "Email" [disabled]: tugw59@gmail.com
+    - textbox "Email" [disabled]: user@example.com
     - paragraph: Email cannot be changed. Contact support if needed.
     - text: Phone
     - textbox "Phone":

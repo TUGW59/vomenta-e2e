@@ -16,7 +16,7 @@
     - /placeholder: Soyadınızı girin
     - text: Topuz
   - text: E-posta
-  - textbox "E-posta" [disabled]: tugw59@gmail.com
+  - textbox "E-posta" [disabled]: user@example.com
   - paragraph: E-posta değiştirilemez. Gerekirse destek ile iletişime geçin.
   - text: Telefon
   - textbox "Telefon":
@@ -194,7 +194,7 @@
     - /placeholder: Saisir le nom
     - text: Topuz
   - text: E-mail
-  - textbox "E-mail" [disabled]: tugw59@gmail.com
+  - textbox "E-mail" [disabled]: user@example.com
   - paragraph: L'e-mail ne peut pas être modifié. Contactez le support si besoin.
   - text: Téléphone
   - textbox "Téléphone":
