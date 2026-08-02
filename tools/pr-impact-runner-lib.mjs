@@ -226,8 +226,8 @@ export function planRun(rawPlan) {
  * Bir grubun gözlenen sonucunu (Playwright'tan) yorumlar.
  *
  * `observed`:
- *   - listedCount: koşumdan ÖNCE `--list` ile bulunan HEDEF test sayısı
- *                  (setup/dependency HARİÇ).
+ *   - listedCount: koşu raporunda hedef projede GÖRÜLEN test sayısı
+ *                  (setup/dependency HARİÇ). 0 → seçim test üretmedi.
  *   - exitCode:    Playwright'ın grup için döndürdüğü çıkış kodu.
  *   - stats:       { expected, unexpected, flaky, skipped } (setup HARİÇ hedef).
  *

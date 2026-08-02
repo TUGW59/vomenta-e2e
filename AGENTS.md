@@ -390,9 +390,10 @@ Bağlayıcı kurallar:
 - Runner EXACT spec/fallback gruplarını güvenli argument array'iyle (shell
   interpolation YOK) Chromium'da koşar; setup/dependency testleri hedef sayıdan
   ayrı sayılır. `sourceMissing`/unmapped/bozuk-plan → REFUSE (non-zero).
-- 0-test (exact grup `--list`'te test bulamaz), `unexpected>0`, `flaky>0` veya
-  herhangi bir grubun non-zero'su → genel exit non-zero. `--retries=0`; flaky
-  başarıya çevrilmez. grep-only fallback 0-test'i uyarıdır, kırmızı değil.
+- 0-test (exact grup koşu raporunda hedef projede 0 test), eksik spec dosyası,
+  `unexpected>0`, `flaky>0` veya herhangi bir grubun non-zero'su → genel exit
+  non-zero. Koşu `--reporter=json` ile (config'i override; `--list` JSON yazmaz).
+  `--retries=0`; flaky başarıya çevrilmez. grep-only fallback 0-test'i uyarıdır.
 - Mutation son savunması: her gruba `--grep-invert=@mutation` + seçili dosya
   mutation spec ise REFUSE. Üç katman (dosya-adı + config `grepInvert` + runner).
 - **Sert kapılar:** `quality:ci-runner` (8 negatif kanıt §2.6 non-zero) +

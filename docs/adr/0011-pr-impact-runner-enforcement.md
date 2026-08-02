@@ -35,8 +35,13 @@ Runner sözleşmesi (handoff §2.4):
 3. Her seçim grubu (`publicSpecs`→`chromium`, `authenticatedSpecs`→
    `chromium-authed`, `discoverySpecs`→`chromium-discovery`) ve her fallback suite
    EXACT argument array'iyle koşulur — **shell interpolation yok** (`execFileSync`).
-4. Koşumdan ÖNCE `--list` ile hedef test sayısı doğrulanır; exact grup 0 test
-   bulursa koşmadan **kırmızı** (`ZERO_TEST_SELECTION`).
+4. Koşumdan ÖNCE (offline) seçili exact spec dosyaları diskte doğrulanır
+   (yoksa `SPEC_FILE_MISSING` → kırmızı). Koşu `--reporter=json` ile çalışır;
+   raporda hedef projede **0 test** görülürse exact grup **kırmızı**
+   (`ZERO_TEST_SELECTION`). Not: Playwright `--list` modu JSON dosyası YAZMADIĞI
+   ve config json reporter'ı sabit `test-results/report.json`'a yazdığı için,
+   sayım ayrı `--list` yerine gerçek koşu raporundan alınır; `--reporter=json`
+   CLI'da config reporter'ını override ederek çıktıyı grup-başına dosyaya yazar.
 5. Setup/dependency (`setup` projesi) testleri hedef sayıdan **ayrı** sayılır.
 6. Birden çok grupta herhangi biri kırmızıysa genel exit **non-zero**.
 7. Koşu `--retries=0` iledir; ayrıca rapor `flaky>0` verirse grup **kırmızı**

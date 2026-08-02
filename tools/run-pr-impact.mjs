@@ -169,44 +169,44 @@ function main() {
 
   const interpreted = [];
   const outDir = path.join(opts.root, 'test-results', 'pr-impact');
+  const safeKey = (k) => k.replace(/[^\w.-]/g, '_');
   for (const g of decision.groups) {
-    // Güvenli argument array. --grep-invert=@mutation: son savunma (config'ten bağımsız).
-    const common = [
-      'test',
-      ...g.files,
-      '--project',
-      g.project,
-      '--grep-invert=@mutation',
-    ];
+    // Güvenli argument array (shell interpolation YOK).
+    //  - --grep-invert=@mutation: mutation son savunması (config'ten bağımsız).
+    //  - --reporter=json: config reporter'ını OVERRIDE eder → JSON gerçekten
+    //    PLAYWRIGHT_JSON_OUTPUT_NAME'e yazılır. (Config'in json reporter'ı sabit
+    //    `test-results/report.json`'a yazar; onu okumak grup başına çakışır.)
+    const common = ['test', ...g.files, '--project', g.project, '--grep-invert=@mutation'];
     if (g.grep) common.push('--grep', g.grep);
 
-    // 1) Koşumdan ÖNCE hedef test sayısını doğrula (setup hariç).
-    const listOut = path.join(outDir, `list-${g.key.replace(/[^\w.-]/g, '_')}.json`);
-    const listed = runPlaywright(bin, opts.root, [...common, '--list'], listOut);
-    const listTally = tallyReport(listed.report, g.project, g.setup);
-
-    // exact grup (ya da dosyalı fallback) 0 test → koşmadan kırmızı (hızlı negatif).
-    const expectsTests = g.kind === 'exact' || g.files.length > 0;
-    if (expectsTests && listTally.count === 0) {
-      interpreted.push(interpretGroup(g, { listedCount: 0, exitCode: listed.exitCode, stats: {} }));
+    // Koşumdan ÖNCE (offline, tarayıcısız): seçili exact spec dosyaları gerçekten
+    // diskte var mı? Yoksa plan tamper/rename kaçağıdır → grup kırmızı.
+    const missing = g.files.filter((f) => !existsSync(path.join(opts.root, f)));
+    if (missing.length > 0) {
+      interpreted.push({
+        key: g.key,
+        passed: false,
+        reason: `SPEC_FILE_MISSING:${missing.join(',')}`,
+        listedCount: 0,
+        ran: 0,
+        unexpected: 0,
+        flaky: 0,
+      });
       continue;
     }
 
-    // 2) Gerçek koşu (retries=0 → flaky maskesi yok).
-    const runOut = path.join(outDir, `run-${g.key.replace(/[^\w.-]/g, '_')}.json`);
-    const ran = runPlaywright(bin, opts.root, [...common, '--retries=0'], runOut);
-    const runTally = tallyReport(ran.report, g.project, g.setup);
+    // Gerçek koşu (retries=0 → flaky maskesi yok). JSON dosyaya yazılır ve okunur.
+    const runOut = path.join(outDir, `run-${safeKey(g.key)}.json`);
+    const ran = runPlaywright(bin, opts.root, [...common, '--retries=0', '--reporter=json'], runOut);
+    const t = tallyReport(ran.report, g.project, g.setup);
 
+    // listedCount = koşuda hedef projede GÖRÜLEN test sayısı (setup hariç). exact
+    // grup 0 test → interpretGroup ZERO_TEST verir → sahte-yeşil engellenir.
     interpreted.push(
       interpretGroup(g, {
-        listedCount: listTally.count,
+        listedCount: t.count,
         exitCode: ran.exitCode,
-        stats: {
-          expected: runTally.expected,
-          unexpected: runTally.unexpected,
-          flaky: runTally.flaky,
-          skipped: runTally.skipped,
-        },
+        stats: { expected: t.expected, unexpected: t.unexpected, flaky: t.flaky, skipped: t.skipped },
       })
     );
   }
