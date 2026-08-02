@@ -362,6 +362,9 @@ Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/styl
 - `@mutation`: Veri değiştirir; production'da yasaktır (guard + yaşam döngüsü zorunlu).
 - `@known-bug`: Açık bulgunun `test.fail` guard'ı.
 - `@public`: Giriş gerektirmeyen (login) testi.
+- `@route-baseline`: Kayıtlı HER rota için tek read-only açılış tabanı (WP-MORNING Faz 1,
+  `registered-routes-smoke.authed.spec.js`). Feature/derin testin yerine geçmez; `[route:/x]`
+  işaretiyle envanter ↔ test birebirliği `tools/self-check-routes-baseline.mjs` ile zorlanır.
 
 **Test stilleri** (bkz. "Zorunlu test stilleri"): `@i18n` `@a11y` `@layout` `@visual`
 `@errorpath` `@clean` `@perf` `@keyboard` `@deeplink` `@data` `@export`.

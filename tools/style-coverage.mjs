@@ -28,7 +28,7 @@ const norm = (t) => String(t).replace(/^@/, '').replace(/[^\w-]+$/, '');
 // Kanonik etiket kaydı (AGENTS.md → "Test sınıfları" ile senkron). @'siz saklanır.
 const ALLOWED_TAGS = new Set([
   // risk / yapı
-  'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public',
+  'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public', 'route-baseline',
   // stiller
   'i18n', 'a11y', 'layout', 'visual', 'errorpath', 'clean', 'perf', 'keyboard', 'deeplink', 'data', 'export',
 ]);
