@@ -56,6 +56,10 @@ export default defineConfig({
         ['github'],
         ['junit', { outputFile: 'test-results/junit.xml' }],
         ['html', { open: 'never' }],
+        /* WP-SEC-B: makine-okunur kaynak — güvenli CI artifact preparer'ı
+           (tools/prepare-ci-artifact.mjs) bu raporu sanitize edip yeniden üretir.
+           Bu dosya ASLA ham upload edilmez; test-results/ zaten gitignore + upload dışı. */
+        ['json', { outputFile: 'test-results/report.json' }],
       ]
     : [['list'], ['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */

@@ -79,11 +79,21 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm test
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (public-smoke)
+        id: prep_public_smoke
+        # Test adımı kırmızı olsa da güvenli özet üretilebilir; ama upload YALNIZ
+        # preparer ready=true üretirse çalışır (aşağıdaki step).
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane public-smoke
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_public_smoke.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: public-smoke-report
-          path: playwright-report/
+          name: public-smoke-secure
+          path: test-results/secure-upload/public-smoke/
+          if-no-files-found: error
           retention-days: 14
 
   authenticated-quality:
@@ -104,13 +114,19 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:quality:pr
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (authenticated-quality)
+        id: prep_auth_quality
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane authenticated-quality
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_auth_quality.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: authenticated-route-quality-report
-          path: |
-            playwright-report/
-            test-results/junit.xml
+          name: authenticated-route-quality-secure
+          path: test-results/secure-upload/authenticated-quality/
+          if-no-files-found: error
           retention-days: 30
 
   authenticated-critical:
@@ -133,13 +149,19 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:critical
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (authenticated-critical)
+        id: prep_auth_critical
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane authenticated-critical
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_auth_critical.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: authenticated-critical-report
-          path: |
-            playwright-report/
-            test-results/junit.xml
+          name: authenticated-critical-secure
+          path: test-results/secure-upload/authenticated-critical/
+          if-no-files-found: error
           retention-days: 30
 
   known-bug-forensic:
@@ -287,13 +309,19 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps
       - run: npm run test:e2e
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (full-regression)
+        id: prep_full
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane full-regression
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_full.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: full-regression-report
-          path: |
-            playwright-report/
-            test-results/junit.xml
+          name: full-regression-secure
+          path: test-results/secure-upload/full-regression/
+          if-no-files-found: error
           retention-days: 30
 
   visual-regression:
@@ -318,13 +346,21 @@ jobs:
       - run: npm ci
       - run: npx playwright install chromium firefox webkit
       - run: npm run test:visual
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (visual-regression)
+        id: prep_visual
+        # Görsel diff PNG'leri canlı müşteri verisi taşıyabilir → raw upload DENY.
+        # Yalnız güvenli sayısal/test özeti + manifest yüklenir.
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane visual-regression
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_visual.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: visual-regression-report
-          path: |
-            playwright-report/
-            test-results/
+          name: visual-regression-secure
+          path: test-results/secure-upload/visual-regression/
+          if-no-files-found: error
           retention-days: 30
 
   read-only-discovery:
@@ -348,13 +384,20 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run test:discovery
-      - uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (read-only-discovery)
+        id: prep_discovery
+        # Ham discovery/test-results yüklenmez; güvenli sayısal/test özeti + manifest.
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane read-only-discovery
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_discovery.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
-          name: read-only-discovery-report
-          path: |
-            playwright-report/
-            test-results/
+          name: read-only-discovery-secure
+          path: test-results/secure-upload/read-only-discovery/
+          if-no-files-found: error
           retention-days: 30
 
   nightly-known-bug-reconcile:
@@ -387,11 +430,19 @@ jobs:
         run: npm run report:reconcile -- test-results/results.json
       - name: Registry değişmedi mi (nightly registrye YAZMAZ)
         run: git diff --exit-code -- tests/contracts/known-bugs.js
-      - name: Öneri raporunu yükle (tek JSON; ham test-results DEĞİL)
-        uses: actions/upload-artifact@v4
+      - name: Güvenli artifact bundle hazırla (nightly-known-bug-reconcile)
+        id: prep_reconcile
+        # fixed-candidates.json ortak politikadan geçer: şema (candidates[]/registryChanged=false)
+        # + secret/PII taraması + manifest. Ham test-results yüklenmez.
         if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane nightly-known-bug-reconcile
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Öneri raporunu yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_reconcile.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
         with:
           name: known-bug-fixed-candidates-${{ github.run_id }}
-          path: test-results/findings/fixed-candidates.json
+          path: test-results/secure-upload/nightly-known-bug-reconcile/
           if-no-files-found: error
           retention-days: 14
