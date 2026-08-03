@@ -1,6 +1,15 @@
 {
   "schemaVersion": 1,
   "generatedAt": "2026-08-02T19:46:28.218Z",
+  "provenance": {
+    "verdict": "UNVERIFIED",
+    "reasons": [
+      "sourcetype-missing-or-not-runtime",
+      "runid-missing",
+      "sha-mismatch"
+    ],
+    "note": "Bu snapshot HEAD ile doğrulanamıyor (kaynak türü ve run ID yok, commitSha güncel HEAD ile eşleşmiyor). Gerçek bir Playwright koşumu yapılmadan güncel PASS gibi kullanılmamalıdır; tazelemek için: npm run report:runtime (gerçek test-results/report.json ile)."
+  },
   "source": {
     "commitSha": "88033f03ef638c926243e66ae525c66805bfd0a1",
     "environment": "production-read-only",
