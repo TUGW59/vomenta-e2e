@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 54
-- **Durum:** open 53 · closed 1
-- **Guard:** knownBugGuard 52 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 8 · medium 40 · low 5
+- **Toplam bulgu:** 61
+- **Durum:** open 60 · closed 1
+- **Guard:** knownBugGuard 59 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 9 · medium 44 · low 7
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 35 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
+- **Sahipsiz (owner=null):** 37 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, DASH-CLICKHOUSE, DASH-AI-I18N, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -45,6 +45,8 @@
 | B23 | channels | /channels/whatsapp | medium | open | knownBugGuard | quality-guild |
 | CONTACTS-F1 | contacts | /contacts | medium | open | knownBugGuard | — |
 | CONTACTS-F2 | contacts | /contacts | medium | open | knownBugGuard | — |
+| DASH-CLICKHOUSE | dashboard | / | medium | open | knownBugGuard | — |
+| DASH-AI-I18N | dashboard | / | low | open | knownBugGuard | — |
 | B3 | inbox | /inbox | high | open | knownBugGuard | — |
 | B8 | inbox | /inbox | high | closed | permanent | — |
 | B15 | navigation | /ai | medium | open | knownBugGuard | — |
@@ -65,9 +67,14 @@
 | WALLBOARD-THEME | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-RESUME-I18N | supervisor | /supervisor/wallboard | low | open | knownBugGuard | — |
 | B14 | voice | /voice/dids | medium | open | knownBugGuard | — |
+| VOICE-HISTORY-A11Y-LABEL | voice | /voice/history | medium | open | knownBugGuard | quality-guild |
+| VOICE-RECORDINGS-A11Y-LABEL | voice | /voice/recordings | medium | open | knownBugGuard | quality-guild |
 | B1 | voice | /voice/regulatory | critical | open | knownBugGuard | — |
+| VOICE-REGULATORY-BROKEN | voice | /voice/regulatory | high | open | knownBugGuard | quality-guild |
 | B10 | voice | /voice/regulatory | medium | open | knownBugGuard | — |
+| VOICE-SIP-TRUNKS-SUBTITLE-I18N | voice | /voice/sip-trunks | low | open | knownBugGuard | quality-guild |
 | B11 | voice | /voice/voicemail | medium | open | knownBugGuard | — |
+| VOICEMAIL-PAGER-I18N | voice | /voice/voicemail | medium | open | knownBugGuard | quality-guild |
 | WORKFORCE-ADHERENCE-I18N | workforce | /workforce | low | open | knownBugGuard | quality-guild |
 | WORKFORCE-ADHERENCE-RANGE-STATE | workforce | /workforce | low | open | knownBugGuard | quality-guild |
 | WORKFORCE-BADGES-NO-EDIT-DELETE | workforce | /workforce/badges | medium | open | knownBugGuard | quality-guild |
@@ -405,6 +412,30 @@
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/contacts.authed.spec.js` → BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli
 
+## dashboard
+
+### /
+
+**[DASH-CLICKHOUSE] İç/teknik terim "ClickHouse" Gösterge Paneli'nde kullanıcıya görünüyor** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** İç/teknik terim kullanıcıya görünmez
+- **Gerçekleşen:** "Deep analytics powered by ClickHouse" — 4 dilde de "ClickHouse" sızıyor (ANALYTICS-B ile aynı sınıf, farklı yüzey)
+- **Repro:** / (Dashboard) aç → "Analytics Insights" bölüm alt başlığını oku
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/dashboard.authed.spec.js` → BULGU DASH-CLICKHOUSE: iç terim "ClickHouse" Dashboard'da görünmemeli
+
+**[DASH-AI-I18N] AI Agent Performance metrik etiketleri tr/fr/ar'da çevrilmiyor** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** AI Interactions / AI Tokens Used / AI Cost etiketleri hedef dilde çevrili
+- **Gerçekleşen:** Üç etiket de tr/fr/ar arayüzde çevrilmeden İngilizce kalıyor (canlı gözlem 3 Ağu 2026)
+- **Repro:** / (Dashboard) aç → dili tr/fr/ar yap → "AI Agent Performance" kart etiketlerini oku
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/dashboard.authed.spec.js` → BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı
+
 ## inbox
 
 ### /inbox
@@ -648,6 +679,34 @@
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B14 · /voice/dids · reddedilen talebin nedeni tam okunabilir olmalı
 
+### /voice/history
+
+**[VOICE-HISTORY-A11Y-LABEL] /voice/history form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe "label" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.
+- **Repro:** /voice/history aç → axe (wcag2a/2aa) ile tara → label (critical) ihlalini oku
+- **Olası nedenler:** Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: From/To Date ve filtre girdilerine <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/voice-history.authed.spec.js` → VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)
+
+### /voice/recordings
+
+**[VOICE-RECORDINGS-A11Y-LABEL] /voice/recordings form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe 2 adet "label" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.
+- **Repro:** /voice/recordings aç → axe (wcag2a/2aa) ile tara → label (critical) ihlalini oku
+- **Olası nedenler:** Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: From/To Date girdilerine <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/voice-recordings.authed.spec.js` → VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)
+
 ### /voice/regulatory
 
 **[B1] Ham i18n anahtarları görünüyor (regülasyon sayfası)** — `critical` · `open` · guard `knownBugGuard`
@@ -660,6 +719,18 @@
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B1 · /voice/regulatory · ham i18n anahtarları görünmemeli
 
+**[VOICE-REGULATORY-BROKEN] /voice/regulatory i18n namespace eksik → içerik ham anahtar/boş + konsol MISSING_MESSAGE** — `high` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** KYC/Regulatory içeriği çevrilmiş metinle render olur; konsolda MISSING_MESSAGE yok.
+- **Gerçekleşen:** Tüm `voiceRegulatory` i18n namespace eksik: açılışta konsol `MISSING_MESSAGE: voiceRegulatory (en)`; <main> ya ham anahtar (voiceRegulatory.title…) ya da BOŞ render ediyor (deterministik değil). B1 (ham anahtar) + B10 (Voice sekme çubuğu yok) ile aynı bozuk sayfanın kök nedeni; bu kayıt deterministik konsol sinyalini guard eder.
+- **Repro:** /voice/regulatory aç → konsolu + <main> içeriğini izle → MISSING_MESSAGE: voiceRegulatory + ham anahtar/boş içerik gör
+- **Olası nedenler:** voiceRegulatory çeviri namespace'i messages'ta hiç tanımlı değil → next-intl MISSING_MESSAGE + bileşen boş/ham render
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: voiceRegulatory namespace çevirilerini 4 dilde ekle; içerik/KYC bileşenini eksik-mesajda güvenli fallback ile render et
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/voice-regulatory.authed.spec.js` → VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean
+
 **[B10] Voice üst sekme çubuğu yok (bölüm düzeni kayıp)** — `medium` · `open` · guard `knownBugGuard`
 
 - **Beklenen:** Voice bölüm sekme çubuğu içerik alanında görünür
@@ -669,6 +740,20 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B10 · /voice/regulatory · Voice sekme çubuğu görünmeli (bölüm düzeni)
+
+### /voice/sip-trunks
+
+**[VOICE-SIP-TRUNKS-SUBTITLE-I18N] /voice/sip-trunks alt-başlığı tr/fr/ar'da çevrilmiyor (İngilizce kalıyor)** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Alt-başlık seçili dile çevrilir (başlık "SIP Hatları/Trunks SIP/خطوط SIP" çevriliyor).
+- **Gerçekleşen:** Başlık çevriliyor ama alt-başlık 4 dilde de "Manage your SIP trunk connections for inbound and outbound calling." (İngilizce) kalıyor.
+- **Repro:** /voice/sip-trunks aç → dili Türkçe/Français/العربية yap → alt-başlığın hâlâ İngilizce olduğunu gör
+- **Olası nedenler:** Alt-başlık çeviri anahtarı eksik veya sabit-kodlu İngilizce string
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: sip-trunks alt-başlığını çeviri anahtarına bağla (4 dil)
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/voice-sip-trunks.authed.spec.js` → VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli
 
 ### /voice/voicemail
 
@@ -681,6 +766,18 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → B11 · /voice/voicemail · İşlemler butonlarının erişilebilir ismi olmalı
+
+**[VOICEMAIL-PAGER-I18N] /voice/voicemail pagination ham i18n anahtarı (common.previousPage/nextPage MISSING_MESSAGE)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Pagination düğmeleri çevrilmiş etiket gösterir; konsolda MISSING_MESSAGE yok.
+- **Gerçekleşen:** Açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)` basıyor; pager düğmeleri ham i18n anahtarını erişilebilir isim olarak taşıyor. B11 (işlem butonu a11y, veri-bağlı) ile ayrı; bu deterministik.
+- **Repro:** /voice/voicemail aç → konsolu izle → MISSING_MESSAGE: common.previousPage/nextPage (en) oku
+- **Olası nedenler:** Ortak pagination bileşeni `common.previousPage`/`common.nextPage` çeviri anahtarlarını bekliyor ama voice namespace/messages'ta tanımlı değil
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: common.previousPage/common.nextPage çeviri anahtarlarını ekle (4 dil)
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/voice-voicemail.authed.spec.js` → VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı
 
 ## workforce
 
