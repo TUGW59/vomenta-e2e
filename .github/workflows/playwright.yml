@@ -57,14 +57,30 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # quality:check = generatör MANTIĞININ self-check'leri (git-diff YOK). Her
+      # tetikleyicide (PR + push + schedule) koşar; evrensel kapı budur.
       - run: npm run quality:check
+      # ── Committed-doc drift kapıları — YALNIZ pull_request ──────────────────
+      # Bu 4 kapı üretilen dokümanı yeniden üretip committed sürümle `git diff
+      # --exit-code` karşılaştırır. Doküman içeriği BİRLEŞİK AĞACIN fonksiyonudur;
+      # iki PR eşzamanlı merge edilince ne biri ne öbürü nihai birleşik ağacı
+      # görür → merge commit'inin committed doc'ları kaçınılmaz bayatlar. Bu kapı
+      # `push` (merge commit) üzerinde koşarsa main, kimsenin hatası olmayan bir
+      # yarıştan ötürü kronik kırmızıya düşer (ADR-0013). Drift YALNIZ PR'da
+      # (taban stabil + yazar aksiyon alabilir) anlamlı ve uygulanabilir; bu yüzden
+      # kapılar pull_request'e sınırlandı. Push/merge sonrası tazelik, drift'i
+      # yakalayan bir sonraki PR'ın regen'iyle kendiliğinden iyileşir.
       - name: Kapsama raporu güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:coverage:check
       - name: Stil kapsama matrisi güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:style-matrix:check
       - name: Bulgu + test raporları güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:findings:check
       - name: Rota kapsam derinliği matrisi güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:surface:check
 
   pr-impact:
