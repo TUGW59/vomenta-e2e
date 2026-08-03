@@ -432,6 +432,24 @@ JSON / 0 seçilen test / sızıntı / stale girdi → non-zero. Sert kapı: `npm
 
 Retry'da geçen test flaky'dir. CI'da başarı sayılmaz ve gizlenemez.
 
+**Production read-only manifesti + güvenli seçici** (WP-FULL-READONLY-AUDIT Faz 1, ADR-0015):
+`npm run report:readonly-manifest` (=`tools/generate-readonly-manifest.mjs`) her `*.spec.js`'i
+tek gerçeklik kaynaklarından (dosya-adı konvansiyonu + `mutation-lifecycle.js` +
+`registered-routes.js` + `tested-pages.js` + `config/environment.js`) DETERMİNİSTİK bir
+manifest kaydına eşler: `effect` (read-only/mutation/external-cost), `environment`
+(production/staging/both), `auth`, `projects`, `routes`/`surface`, `exclusionReason` vb.
+Konvansiyon-dışı yeni spec → `UNCLASSIFIED_SPEC` fail-closed (sessiz "güvenli" yok).
+Committed snapshot: `docs/raporlar/READONLY-MANIFEST.{json,md}`. Yedi kanonik güvenli profil
+(`route-baseline-chromium`, `readonly-critical-chromium`, `readonly-full-chromium`,
+`known-bug-readonly-chromium`, `readonly-cross-browser`, `a11y-readonly`, `visual-readonly`)
+`npm run ci:readonly:select -- --profile=<ad>` ile CI'a yazılabilecek güvenli JSON/MD üretir;
+seçime mutation/external-cost girerse veya güvenli seçim 0 ise NON-ZERO. `listed != selected
+!= executed`: bu katman yalnız spec DOSYASI seçer, çalıştırılan/geçen test runtime raporunun
+(Faz 2+) işidir. Sert kapı: `npm run quality:readonly-manifest`
+(=`tools/self-check-readonly-manifest.mjs`, tamamen sentetik; determinizm + drift + 10-madde
+negatif matris) `quality:check` zincirindedir. Mutation güvenliğini YALNIZ raporlar,
+değiştirmez (bkz. `grepInvert:/@mutation/` + `assertMutationEnvironment` + runner `assertNoMutation`).
+
 ## Zorunlu test stilleri
 
 Test edilen **her sayfa/bölüm**, aşağıdaki stilleri arketipine göre **ya kapsar ya da açık
