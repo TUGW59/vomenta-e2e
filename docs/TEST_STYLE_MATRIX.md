@@ -39,10 +39,12 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A |
+| `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -103,10 +105,12 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
 - **voice-queues**: `/voice/queues`
 - **voice-recordings**: `/voice/recordings`
+- **voice-regulatory**: `/voice/regulatory`
 - **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
@@ -216,6 +220,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
+- `voice-dids` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@visual**: Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.
 - `voice-history` **@perf**: Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu).
 - `voice-history` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
 - `voice-history` **@visual**: Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.
@@ -231,6 +238,13 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-recordings` **@perf**: Grafik/ağır içerik yok (tarih filtreleri + kayıt tablosu + Delete onay dialogu).
 - `voice-recordings` **@visual**: Tablo canlı veri (Call ID/tarih/süre/boyut/retention) → kararlı snapshot bölgesi yok.
 - `voice-recordings` **@mutation**: Delete Recording destructive ve UI'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur. Onay alertdialog'u @keyboard/@regression'da açılıp Escape ile kapatılır (ONAYLANMAZ).
+- `voice-regulatory` **@keyboard**: Diyalog/menü/sekme güvenilir render etmiyor (sayfa bozuk); KYC akışı staging.
+- `voice-regulatory` **@errorpath**: Sayfa zaten kırık render ediyor (voiceRegulatory namespace eksik) → veri-hata yolu ayırt edilemez; kök neden VOICE-REGULATORY-BROKEN altında.
+- `voice-regulatory` **@perf**: Ağır içerik yok (KYC/regulatory içeriği render bile etmiyor).
+- `voice-regulatory` **@data**: Sayısal KPI yok; içerik güvenilir render etmiyor.
+- `voice-regulatory` **@export**: Export/indirme kontrolü yok.
+- `voice-regulatory` **@visual**: İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.
+- `voice-regulatory` **@mutation**: KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.
 - `voice-voicemail` **@keyboard**: Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).
 - `voice-voicemail` **@perf**: Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).
 - `voice-voicemail` **@export**: Bu sayfada export/indirme kontrolü yok.

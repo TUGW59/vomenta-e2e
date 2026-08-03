@@ -1358,6 +1358,35 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  {
+    id: 'VOICE-REGULATORY-BROKEN',
+    title: '/voice/regulatory i18n namespace eksik → içerik ham anahtar/boş + konsol MISSING_MESSAGE',
+    area: 'voice',
+    route: '/voice/regulatory',
+    severity: 'high',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-08-03',
+    lastVerified: '2026-08-03',
+    expiry: null,
+    repro: ['/voice/regulatory aç', 'konsolu + <main> içeriğini izle', 'MISSING_MESSAGE: voiceRegulatory + ham anahtar/boş içerik gör'],
+    expected: 'KYC/Regulatory içeriği çevrilmiş metinle render olur; konsolda MISSING_MESSAGE yok.',
+    actual: 'Tüm `voiceRegulatory` i18n namespace eksik: açılışta konsol `MISSING_MESSAGE: voiceRegulatory (en)`; <main> ya ham anahtar (voiceRegulatory.title…) ya da BOŞ render ediyor (deterministik değil). B1 (ham anahtar) + B10 (Voice sekme çubuğu yok) ile aynı bozuk sayfanın kök nedeni; bu kayıt deterministik konsol sinyalini guard eder.',
+    technicalEvidence: [
+      '3 Ağu 2026 canlı (app.vomenta.com): /voice/regulatory açılışında `MISSING_MESSAGE: voiceRegulatory (en)` HER YÜKLEMEDE; <main> içeriği bir koşuda ham anahtar, başka koşuda tamamen boştu (render kararsız).',
+    ],
+    possibleCauses: ['voiceRegulatory çeviri namespace\'i messages\'ta hiç tanımlı değil → next-intl MISSING_MESSAGE + bileşen boş/ham render'],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: voiceRegulatory namespace çevirilerini 4 dilde ekle; içerik/KYC bileşenini eksik-mesajda güvenli fallback ile render et'],
+    evidence: [],
+    test: {
+      file: 'tests/voice-regulatory.authed.spec.js',
+      title: 'VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
 ]);
 
 /**

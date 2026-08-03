@@ -1014,4 +1014,56 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Delete Recording destructive ve UI\'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur. Onay alertdialog\'u @keyboard/@regression\'da açılıp Escape ile kapatılır (ONAYLANMAZ).',
     },
   },
+  {
+    id: 'voice-dids',
+    routes: ['/voice/dids'],
+    specFiles: [
+      'voice-dids.authed.spec.js',
+      'voice-dids-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.',
+    },
+  },
+  {
+    // BOZUK SAYFA: voiceRegulatory i18n namespace eksik → içerik ham anahtar/boş render
+    // (VOICE-REGULATORY-BROKEN) + Voice alt-nav yok (B10). Rota MAIN_NAVIGATION'da ve Voice
+    // alt-nav'ında YOK; baseline stiller çalışan yerlerde normal, i18n/console + bölüm düzeni
+    // known-bug guard'ları ile sabitlenir. Koşullu stiller uygulanamaz (içerik güvenilir render
+    // etmiyor) → arketip minimal.
+    id: 'voice-regulatory',
+    routes: ['/voice/regulatory'],
+    specFiles: ['voice-regulatory.authed.spec.js'],
+    archetype: {
+      hasData: false,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme güvenilir render etmiyor (sayfa bozuk); KYC akışı staging.',
+      '@errorpath': 'Sayfa zaten kırık render ediyor (voiceRegulatory namespace eksik) → veri-hata yolu ayırt edilemez; kök neden VOICE-REGULATORY-BROKEN altında.',
+      '@perf': 'Ağır içerik yok (KYC/regulatory içeriği render bile etmiyor).',
+      '@data': 'Sayısal KPI yok; içerik güvenilir render etmiyor.',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.',
+    },
+  },
 ]);
