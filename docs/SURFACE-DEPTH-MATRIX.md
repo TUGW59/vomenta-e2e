@@ -7,8 +7,8 @@
 ## Bu rapor neyi kanıtlar / ne kanıtlamaz
 
 - **L1 (PROVEN):** rotanın GERÇEK read-only runtime açılış sonucu (erişim/URL/temel yüzey). Runtime sonucu olmayan rota L1 PROVEN olamaz.
-- **L2 iki katman:** (a) **Stil sözleşmesi** — a11y/i18n/layout/errorpath/keyboard/clean/deeplink/visual/perf/data/export için STATİK etiket kanıtı (`COVERED` = test VAR; bu koşumda çalıştı demek DEĞİL). (b) **Etkileşim derinliği** — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi makine-okur işaret YOK → dürüstçe `UNVERIFIED`. Bu yüzden bir rota stil kapısı yeşil diye "derin test edildi" sayılmaz.
-- **`L2·style`** = açılış + stil sözleşmesi kapsandı, etkileşim derinliği bağımsız doğrulanamadı. **`L2·deep`** = ayrıca tüm geçerli etkileşim boyutu kanıtlı (bu faz makine-okur etkileşim kanıtı üretmediğinden derin etkileşim kanıtı yalnız etkileşim bileşeni OLMAYAN yüzeylerde oluşur).
+- **L2 iki katman:** (a) **Stil sözleşmesi** — a11y/i18n/layout/errorpath/keyboard/clean/deeplink/visual/perf/data/export için STATİK etiket kanıtı (`COVERED` = test VAR; bu koşumda çalıştı demek DEĞİL). (b) **Etkileşim derinliği** — sekme/filtre/tablo/pagination/boş/loading için, ilgili `@ix-*` makine-okur işaretini taşıyan bir dedicated etkileşim testi VARSA `COVERED`, yoksa dürüstçe `UNVERIFIED` (ADR-0014). Kanıt standardı stil ile AYNI: etiket = o boyut için gerçek test var.
+- **`L2·style`** = açılış + stil sözleşmesi kapsandı, etkileşim derinliği kanıtsız. **`L2·deep`** = ayrıca tüm geçerli etkileşim boyutu `@ix-*` işaretli testle kanıtlı (yüzeyde bulunmayan boyut açık gerekçeyle N/A — `naInteraction`).
 - **L3/L4/L5:** production read-only + rol/tenant/provider altyapısı olmadan KANITLANAMAZ → tasarım gereği `BLOCKED`/`NOT_APPLICABLE`. Eksik değil, dürüst sınır beyanı.
 
 ## Özet (türetilmiş — sabit sayı yok)
@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 65 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 10
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 0
-- **L2 durum:** COMPLETE 0 · PARTIAL 65 · NOT_COVERED 0
-- **Etkileşim derinliği bağımsız doğrulanamayan rota:** 63 — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi işaret yok (FAZ 5 / WP-L2-WAVE-1 adayı).
+- **L2 durum:** COMPLETE 3 · PARTIAL 62 · NOT_COVERED 0
+- **Etkileşim derinliği tam doğrulanmayan rota:** 60 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 19
 - **L4:** BLOCKED(rol/tenant) 65 · **L5:** BLOCKED(provider) 65
-- **En yüksek seviye dağılımı:** L0 10 · L1 0 · L2·style 55 · L2·deep 0
+- **En yüksek seviye dağılımı:** L0 10 · L1 0 · L2·style 52 · L2·deep 3
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 48 (28 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 12
 
@@ -41,7 +41,7 @@
 | `/reports` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | REPORTS-AIKEY(medium/open) REPORTS-INTL(medium/open) |
 | `/supervisor` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/workforce` | main-navigation,workforce | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-ADHERENCE-I18N(low/open) WORKFORCE-ADHERENCE-RANGE-STATE(low/open) |
-| `/settings` | main-navigation,settings-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/6 | N/A | ⛔ rol | ⛔ provider | B4(high/open) B6(medium/open) B7(medium/open) SETTINGS-BILLING-CHANGEPLAN(high/open) SETTINGS-BILLING-HISTORY(high/open) |
+| `/settings` | main-navigation,settings-hub | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider | B4(high/open) B6(medium/open) B7(medium/open) SETTINGS-BILLING-CHANGEPLAN(high/open) SETTINGS-BILLING-HISTORY(high/open) |
 | `/reports/dashboards` | reports-dashboards | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | DASHBOARDS-SHARE-OVERFLOW(medium/open) |
 | `/reports/call` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | REPORTS-SECTIONS-TZ(medium/open) |
 | `/reports/agent` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -55,8 +55,8 @@
 | `/reports/sla` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/profile` | settings-profile | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/organization` | settings-organization | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/users` | settings-users | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/roles` | settings-roles | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/users` | settings-users | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/roles` | settings-roles | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/compliance` | settings-compliance | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/teams` | settings-teams | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/hours` | settings-hours | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -166,9 +166,9 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/voice/sip-settings` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A | N/A | N/A | N/A |
 | `/voice/skills` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
 
-## L2 etkileşim boyutu detayı (bağımsız doğrulanabilirlik)
+## L2 etkileşim boyutu detayı (makine-okur işaret kapsamı)
 
-Hücreler: 🔎 UNVERIFIED (bileşen var, rota düzeyi makine-okur işaret yok) · — geçerli değil (arketip beyan etmiyor). Bu faz sahte COVERED üretmez.
+Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var) · 🔎 UNVERIFIED (bileşen geçerli ama işaret yok) · N/A gerekçeli (`naInteraction` — yüzeyde bulunmuyor) · — geçerli değil (arketip beyan etmiyor).
 
 | rota | tabs | search-filter | table-list | pagination-sort | empty-state | loading-state |
 |---|---|---|---|---|---|---|
@@ -185,7 +185,7 @@ Hücreler: 🔎 UNVERIFIED (bileşen var, rota düzeyi makine-okur işaret yok) 
 | `/reports` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/workforce` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/reports/dashboards` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports/call` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports/agent` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -199,8 +199,8 @@ Hücreler: 🔎 UNVERIFIED (bileşen var, rota düzeyi makine-okur işaret yok) 
 | `/reports/sla` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/profile` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/organization` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/users` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/roles` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/users` | — | ✅ | ✅ | N/A | ✅ | N/A |
+| `/settings/roles` | — | N/A | ✅ | N/A | N/A | N/A |
 | `/settings/compliance` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/teams` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/hours` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |

@@ -23,10 +23,10 @@
     "l1NotProven": 10,
     "l2StyleContractMet": 65,
     "l2StyleGap": 0,
-    "l2Complete": 0,
-    "l2Partial": 65,
+    "l2Complete": 3,
+    "l2Partial": 62,
     "l2NotCovered": 0,
-    "interactionUnverifiedRoutes": 63,
+    "interactionUnverifiedRoutes": 60,
     "l3Blocked": 46,
     "l3NotApplicable": 19,
     "l4Blocked": 65,
@@ -34,8 +34,8 @@
     "highestLevel": {
       "L0": 10,
       "L1": 0,
-      "L2_STYLE": 55,
-      "L2_DEEP": 0
+      "L2_STYLE": 52,
+      "L2_DEEP": 3
     },
     "routesWithFindings": 28,
     "openFindingsOnRoutes": 48
@@ -137,6 +137,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -287,6 +289,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -441,6 +445,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -583,6 +589,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -728,6 +736,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -878,6 +888,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1023,6 +1035,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1173,6 +1187,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1323,6 +1339,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1462,6 +1480,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1617,6 +1637,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1767,6 +1789,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": false,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1913,6 +1937,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -1975,7 +2001,7 @@
         "main-navigation",
         "settings-hub"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -1987,7 +2013,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -2058,42 +2084,42 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "tabs"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
+            "presentSignals": [
+              "ix-tabs"
+            ],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -2239,6 +2265,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -2388,6 +2416,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -2537,6 +2567,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -2680,6 +2712,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -2823,6 +2857,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -2966,6 +3002,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3109,6 +3147,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3252,6 +3292,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3395,6 +3437,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3538,6 +3582,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3681,6 +3727,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3825,6 +3873,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -3968,6 +4018,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -4018,7 +4070,7 @@
       "contracts": [
         "settings-users"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -4030,7 +4082,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -4100,41 +4152,48 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
               "search-filter",
               "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "empty-state"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 3,
+            "coveredCount": 3,
             "surfaceArchetype": true,
+            "presentSignals": [
+              "ix-empty",
+              "ix-filter",
+              "ix-table"
+            ],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-filter"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-table"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-empty"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -4161,7 +4220,7 @@
       "contracts": [
         "settings-roles"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -4173,7 +4232,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -4243,41 +4302,42 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "table-list"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
+            "presentSignals": [
+              "ix-table"
+            ],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-table"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -4398,6 +4458,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -4541,6 +4603,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -4684,6 +4748,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -4828,6 +4894,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -4970,6 +5038,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5114,6 +5184,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -5257,6 +5329,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5400,6 +5474,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5543,6 +5619,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5686,6 +5764,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5830,6 +5910,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -5975,6 +6057,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6118,6 +6202,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6261,6 +6347,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6403,6 +6491,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6544,6 +6634,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6692,6 +6784,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6835,6 +6929,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -6986,6 +7082,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -7136,6 +7234,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -7278,6 +7378,8 @@
             "applicableCount": 6,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "UNVERIFIED",
@@ -7426,6 +7528,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -7584,6 +7688,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -7738,6 +7844,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -7892,6 +8000,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8045,6 +8155,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8191,6 +8303,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8331,6 +8445,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8477,6 +8593,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8627,6 +8745,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8773,6 +8893,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -8917,6 +9039,8 @@
             "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -9072,6 +9196,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -9212,6 +9338,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -9356,6 +9484,8 @@
             "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",
@@ -9496,6 +9626,8 @@
             "applicableCount": 5,
             "coveredCount": 0,
             "surfaceArchetype": true,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
                 "status": "NOT_APPLICABLE",

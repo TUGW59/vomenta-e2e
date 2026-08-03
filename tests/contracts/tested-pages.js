@@ -118,7 +118,7 @@ export const TESTED_PAGES = Object.freeze([
   {
     id: 'settings-hub',
     routes: ['/settings'],
-    specFiles: ['settings.authed.spec.js'],
+    specFiles: ['settings.authed.spec.js', 'settings-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -135,6 +135,16 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Paneller canlı veri içerir (Users: takım üyesi listesi; Billing: plan tutarı) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Hub salt özet + gezinme; create/edit/delete/save yok (dedicated sayfalarda test edilir).',
+    },
+    // L2 etkileşim derinliği (WP-L2-WAVE-1 / ADR-0014): hub'ın tek gerçek etkileşim
+    // boyutu SEKMELER'dir (@ix-tabs, settings-interactions.authed.spec.js). Liste/filtre/
+    // tablo/pagination/boş-durum hub'da YOK — dedicated alt-rotalarda (users/audit/roles…).
+    naInteraction: {
+      'search-filter': 'Hub sekmeli özet; arama/filtre yok (alt-rotalarda: users/audit).',
+      'table-list': 'Hub panelleri özet + gezinme bağlantısı; etkileşimli liste alt-rotalarda.',
+      'pagination-sort': 'Hub liste içermez → pager/sıralama yok.',
+      'empty-state': 'Hub liste içermez → "boş liste" durumu yok.',
+      'loading-state': 'Panel yüklemesi sekme değişimiyle birlikte; ayrı liste-yükleme iskeleti yok.',
     },
   },
   {
@@ -188,6 +198,7 @@ export const TESTED_PAGES = Object.freeze([
     routes: ['/settings/users'],
     specFiles: [
       'settings-users.authed.spec.js',
+      'settings-users-interactions.authed.spec.js',
       // Invite (davet) L3 mutasyonu = aynı davet akışı; staging revoke ucu teyidi bekliyor.
       'known-bugs-invite.mutation.authed.spec.js',
     ],
@@ -206,12 +217,20 @@ export const TESTED_PAGES = Object.freeze([
       '@data': 'Sayısal KPI göstermiyor (üye listesi; sayaç yok).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (WP-L2-WAVE-1 / ADR-0014): tablo + arama-süzme + boş-durum
+    // kapsanır (settings-users-interactions.authed.spec.js). Pager/sıralama ve ayrı
+    // liste-yükleme iskeleti bu yüzeyde gözlenmedi → açık N/A.
+    naInteraction: {
+      'pagination-sort': 'Üye listesinde pager/sütun-sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
+    },
   },
   {
     id: 'settings-roles',
     routes: ['/settings/roles'],
     specFiles: [
       'settings-roles.authed.spec.js',
+      'settings-roles-interactions.authed.spec.js',
       'settings-roles-mutations.authed.spec.js',
     ],
     archetype: {
@@ -228,6 +247,14 @@ export const TESTED_PAGES = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (rol tablosu + create dialogu).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Kararlı snapshot bölgesi yok: tablo canlı sayaç (permissions/users) içerir, Create dialogu 14 kategorili uzun/kaydırmalı liste → tam-dialog snapshot flaky.',
+    },
+    // L2 etkileşim derinliği (WP-L2-WAVE-1 / ADR-0014): tek gerçek boyut LİSTE (@ix-table,
+    // satır==API sadakati). Diğer boyutlar yüzeyde yok → açık N/A.
+    naInteraction: {
+      'search-filter': 'Rol tablosunda arama/filtre kontrolü yok.',
+      'pagination-sort': 'Sabit küçük sistem+özel rol rosteri → pager/sıralama yok.',
+      'empty-state': 'Sistem rolleri (ADMIN/AGENT/OWNER…) daima mevcut → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
     },
   },
   {

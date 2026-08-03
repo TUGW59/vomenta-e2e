@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1151
-- **Test dosyası:** 79
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 65 · `@smoke` 172 · `@visual` 21
+- **Test edilen senaryo:** 1157
+- **Test dosyası:** 82
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 65 · `@smoke` 172 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -798,6 +798,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/integrations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Request Access dialogu görünümü değişmedi  `@visual`
 
+### `settings-interactions.authed.spec.js`
+
+- sekme seçimi dışlayıcı + panel içeriği değişiyor  `@ix-tabs`
+- sekmeler-arası gidiş-dönüşte seçim + içerik tutarlı  `@ix-tabs`
+
 ### `settings-notifications.authed.spec.js`
 
 - sayfa başlığı + Email Category Preferences + Save ile açılıyor  `@smoke`
@@ -857,6 +862,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Language popover Escape ile kapanıyor  `@keyboard`
 - /settings/profile doğrudan açılınca profil yükleniyor (login'e düşmüyor)  `@deeplink`
 - Profile sekmesi kişisel-bilgi kartı görünümü değişmedi  `@visual`
+
+### `settings-roles-interactions.authed.spec.js`
+
+- rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor  `@ix-table`
 
 ### `settings-roles.authed.spec.js`
 
@@ -953,6 +962,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - New Template dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/templates doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - New Template dialogu görünümü değişmedi  `@visual`
+
+### `settings-users-interactions.authed.spec.js`
+
+- üye tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
+- ada göre arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
+- eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı")  `@ix-empty`
 
 ### `settings-users.authed.spec.js`
 
