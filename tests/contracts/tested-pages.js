@@ -871,4 +871,35 @@ export const TESTED_PAGES = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
   },
+
+  // ─────────────────────────────── SESLİ ARAMA (VOICE) ───────────────────────────────
+  // Canlı mimari (2 Ağu 2026, docs/sesli-kesif/NOTLAR.md): /voice = "Live Calls" hub'ı
+  //   (→ /voice/live yönlenir), bölüm alt-nav'ı 10 hedef taşır. Hub gerçek-zamanlı aktif
+  //   çağrı görünümü (KPI döşemeleri + mevcudiyet sayaçları), salt-okunur → yazma yok.
+  //   Softphone (gerçek çağrı) = staging mutation (voice-call.mutation.authed.spec.js).
+  {
+    id: 'voice-hub',
+    routes: ['/voice'],
+    specFiles: [
+      'voice.authed.spec.js',
+      'voice-subnav.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: true,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Hub <main>\'inde diyalog/menü/ARIA-sekme yok (alt-nav düğmeleri = bölüm gezinmesi, nav-L3 ile kapsanır).',
+      '@perf': 'Ağır grafik kütüphanesi yok (KPI döşemeleri + mevcudiyet sayaçları + boş-durum).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok (Recordings\'te var).',
+      '@visual': 'İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation\'da (voice-call.mutation.authed.spec.js).',
+    },
+  },
 ]);

@@ -1,24 +1,20 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import { VoicePage } from './pages/VoicePage.js';
 import { assertDestinationLoaded, gotoApp } from './helpers.js';
 
 /**
- * Voice alt-navigasyon öğelerinin FONKSİYONEL testi — tıklayınca doğru alt-rotaya
- * gidip ilgili panelin gerçekten yüklendiğini (başlık render'ı) doğrular.
- * Gerçek çağrı/kayıt işlemi YAPILMAZ; sadece gezinme/görünüm.
+ * Voice bölümü alt-navigasyonunun FONKSİYONEL testi (nav-L3 @regression) — her alt-nav
+ * düğmesine tıklayınca DOĞRU alt-rotaya gidip hedef panelin gerçekten yüklendiğini
+ * (başlık render'ı) doğrular. Salt URL eşleşmesi yetersizdir (AGENTS.md nav-L3).
  *
- * L3: tıklama → /voice/<alt> rotası + hedef panelin başlığı görünür (canlı gözlem).
+ * Keşif: docs/sesli-kesif/NOTLAR.md (2 Ağu 2026) — alt-nav 10 hedef; eski test yalnız 4'ünü
+ * biliyordu (IVR Builder / Phone Numbers / SIP Trunks / SIP settings / Skills gözden kaçmıştı).
+ * Gerçek çağrı/kayıt işlemi YAPILMAZ; sadece gezinme/görünüm.
  */
-const SUBNAV = [
-  { name: 'Queues', path: '/voice/queues', heading: 'Queues' },
-  { name: 'Call History', path: '/voice/history', heading: 'Call History' },
-  { name: 'Voicemails', path: '/voice/voicemail', heading: 'Voicemails' },
-  { name: 'Recordings', path: '/voice/recordings', heading: 'Call Recordings' },
-];
-
-test.describe('Vomenta - Voice alt-navigasyonu (fonksiyonel)', () => {
-  for (const item of SUBNAV) {
-    test(`"${item.name}" alt-navigasyonu ${item.path} ("${item.heading}") panelini açıyor`, async ({ page }) => {
+test.describe('Voice alt-navigasyonu (fonksiyonel nav-L3) @regression', () => {
+  for (const item of VoicePage.SUBNAV) {
+    test(`"${item.name}" → ${item.path} ("${item.heading}") panelini açıyor`, async ({ page }) => {
       await gotoApp(page, '/voice');
       const control = page.getByRole('button', { name: item.name, exact: true });
       await expect(control).toBeVisible({ timeout: 30000 });
