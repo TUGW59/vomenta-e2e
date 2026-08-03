@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 982
-- **Test dosyası:** 67
-- **Etiketler:** `@a11y` 52 · `@clean)` 7 · `@clean` 38 · `@critical` 70 · `@data` 12 · `@deeplink` 37 · `@errorpath` 39 · `@export` 1 · `@i18n` 164 · `@keyboard` 30 · `@known-bug` 65 · `@layout` 45 · `@perf` 2 · `@public` 2 · `@regression` 346 · `@route-baseline` 55 · `@smoke` 147 · `@visual` 21
+- **Test edilen senaryo:** 1011
+- **Test dosyası:** 68
+- **Etiketler:** `@a11y` 54 · `@clean)` 7 · `@clean` 40 · `@critical` 70 · `@data` 14 · `@deeplink` 39 · `@errorpath` 41 · `@export` 1 · `@i18n` 172 · `@keyboard` 31 · `@known-bug` 65 · `@layout` 47 · `@perf` 2 · `@public` 2 · `@regression` 358 · `@route-baseline` 56 · `@smoke` 151 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -488,6 +488,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/channels/whatsapp] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/social] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/video] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
 ### `reports-actions.authed.spec.js`
 
@@ -1068,18 +1069,49 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-queues.authed.spec.js`
+
+- sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor  `@smoke`
+- GET /queues çağrılıyor + en az bir kuyruk kartı render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Create Queue" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
+- GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-subnav.authed.spec.js`
 
-- "Queues" alt-navigasyonu /voice/queues ("Queues") panelini açıyor
-- "Call History" alt-navigasyonu /voice/history ("Call History") panelini açıyor
-- "Voicemails" alt-navigasyonu /voice/voicemail ("Voicemails") panelini açıyor
-- "Recordings" alt-navigasyonu /voice/recordings ("Call Recordings") panelini açıyor
+- "Live Calls" → /voice/live ("Live Calls") panelini açıyor  `@regression`
+- "Queues" → /voice/queues ("Queues") panelini açıyor  `@regression`
+- "IVR Builder" → /voice/ivr ("IVR Builder") panelini açıyor  `@regression`
+- "Phone Numbers" → /voice/dids ("Phone Numbers") panelini açıyor  `@regression`
+- "Call History" → /voice/history ("Call History") panelini açıyor  `@regression`
+- "Voicemails" → /voice/voicemail ("Voicemails") panelini açıyor  `@regression`
+- "Recordings" → /voice/recordings ("Call Recordings") panelini açıyor  `@regression`
+- "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor  `@regression`
+- "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
+- "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
 
 ### `voice.authed.spec.js`
 
-- /voice, Live Calls sayfasına açılıyor
-- aktif çağrı yokken boş durum gösteriliyor
-- Voice alt-navigasyon öğeleri görünüyor
+- /voice, "Live Calls" başlığı + alt-başlık + boş durum ile açılıyor  `@smoke`
+- Voice alt-navigasyonunun 10 hedefi görünüyor  `@smoke`
+- canlı istatistik ucu çağrılıyor + "Agents Available" döşemesi DEĞER gösteriyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- canlı çağrı ucu 500 dönse de kabuk + başlık + boş durum sağlam  `@errorpath`
+- "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez)  `@regression`
+- /voice doğrudan açılınca /voice/live yüklüyor  `@deeplink`
 
 ### `workforce-badges.authed.spec.js`
 
