@@ -100,6 +100,20 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'خطوط SIP', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
       },
     },
+    'sip-settings': {
+      path: '/voice/sip-settings',
+      // Sunucu API'si YOK: ayarlar tarayıcıda (localStorage) saklanır ("stored in this browser").
+      api: null,
+      consoleClean: true,
+      // Alt-başlık iki paragraflı (açıklama + saklama notu) ve EN/yerel arası ilk-paragraf
+      // değişiyor → i18n testi yalnız BAŞLIK + yön doğrular.
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'SIP & phone settings', subtitle: 'Configure how this workstation registers for voice. Values are stored in this browser until a server profile is available.' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'SIP Ayarları', subtitle: 'SIP dahili numaranızı veya SIP telefonunuzu yapılandırın.' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Paramètres SIP', subtitle: 'Configurez votre extension SIP ou téléphone SIP.' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'إعدادات SIP', subtitle: 'قم بتكوين داخلي SIP أو هاتف SIP.' },
+      },
+    },
   });
 
   /**

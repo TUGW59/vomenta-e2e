@@ -1084,4 +1084,28 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.',
     },
   },
+  {
+    id: 'voice-sip-settings',
+    routes: ['/voice/sip-settings'],
+    specFiles: ['voice-sip-settings.authed.spec.js'],
+    archetype: {
+      hasData: false,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme yok (SIP extension/Display name girdileri + Endpoint mode radio).',
+      '@errorpath': 'Sunucu API\'si yok; ayarlar tarayıcıda (localStorage) saklanır → yakalanacak veri-hata yolu yok.',
+      '@perf': 'Grafik/ağır içerik yok (küçük yapılandırma formu).',
+      '@data': 'Sunucudan veri çekmiyor; sayısal KPI yok (yerel config).',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'Yerel-config formu; kararlı bölge dar ama snapshot lane bu pakette açılmadı.',
+      '@mutation': 'Değişiklikler yalnız tarayıcı localStorage\'ına yazılır ("stored in this browser"); sunucu/tenant verisi DEĞİŞMEZ → tenant mutation yok. Girdi L1 @regression\'da yerel doldurma ile kapsanır.',
+    },
+  },
 ]);

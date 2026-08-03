@@ -45,6 +45,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A |
 | `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
+| `voice-sip-settings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `voice-sip-trunks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -112,6 +113,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **voice-queues**: `/voice/queues`
 - **voice-recordings**: `/voice/recordings`
 - **voice-regulatory**: `/voice/regulatory`
+- **voice-sip-settings**: `/voice/sip-settings`
 - **voice-sip-trunks**: `/voice/sip-trunks`
 - **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
@@ -250,6 +252,13 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-regulatory` **@export**: Export/indirme kontrolü yok.
 - `voice-regulatory` **@visual**: İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.
 - `voice-regulatory` **@mutation**: KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.
+- `voice-sip-settings` **@keyboard**: Diyalog/menü/sekme yok (SIP extension/Display name girdileri + Endpoint mode radio).
+- `voice-sip-settings` **@errorpath**: Sunucu API'si yok; ayarlar tarayıcıda (localStorage) saklanır → yakalanacak veri-hata yolu yok.
+- `voice-sip-settings` **@perf**: Grafik/ağır içerik yok (küçük yapılandırma formu).
+- `voice-sip-settings` **@data**: Sunucudan veri çekmiyor; sayısal KPI yok (yerel config).
+- `voice-sip-settings` **@export**: Export/indirme kontrolü yok.
+- `voice-sip-settings` **@visual**: Yerel-config formu; kararlı bölge dar ama snapshot lane bu pakette açılmadı.
+- `voice-sip-settings` **@mutation**: Değişiklikler yalnız tarayıcı localStorage'ına yazılır ("stored in this browser"); sunucu/tenant verisi DEĞİŞMEZ → tenant mutation yok. Girdi L1 @regression'da yerel doldurma ile kapsanır.
 - `voice-sip-trunks` **@perf**: Grafik/ağır içerik yok (SIP trunk listesi/boş-durum + Add SIP Trunk dialogu).
 - `voice-sip-trunks` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-sip-trunks` **@visual**: Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.
