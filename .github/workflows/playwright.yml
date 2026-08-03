@@ -344,12 +344,25 @@ jobs:
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # WP-NIGHT-STABILITY (ADR-0017): 3854 test (authed 1275 × 3 tarayıcı) tek
+    # runner + 45dk kutuya sığmıyordu → her gece timeout'ta cancelled. Çözüm:
+    # tarayıcı × parça (shard) matrisi. Her hücre kendi kutusunda BİTER; kapsam
+    # korunur. Kutu 45→60: shard başına düşen yükün güvenli tamamlanması için.
+    timeout-minutes: 60
+    strategy:
+      # Bir tarayıcı/parça kırmızı olunca diğerleri iptal edilmez; her tarayıcının
+      # gerçek sonucu ayrı görünür (handoff §7.5: browser bazlı sonuçlar ayrı).
+      fail-fast: false
+      matrix:
+        browser: [chromium-authed, firefox-authed, webkit-authed]
+        shard: [1, 2]
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
       PLAYWRIGHT_WORKERS: 2
-      PLAYWRIGHT_RETRIES: 2
+      # retries 2→1: her başarısızlık maliyeti 3x→2x. failOnFlakyTests korunur →
+      # retry'da geçen test PASS değil FLAKY olarak run'ı kırar (handoff §7.4).
+      PLAYWRIGHT_RETRIES: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -358,7 +371,10 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps
-      - run: npm run test:e2e
+      - name: Shard koşumu (tarayıcı × parça; kapsam korunur, retry-pass FLAKY kalır)
+        # --project=<browser>-authed setup dependency'sini + storageState'i otomatik
+        # koşar (playwright.config.js:132-149). --shard testleri parçaya böler.
+        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/2
       - name: Güvenli artifact bundle hazırla (full-regression)
         id: prep_full
         if: ${{ !cancelled() }}
@@ -369,7 +385,9 @@ jobs:
         if: ${{ !cancelled() && steps.prep_full.outputs.ready == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: full-regression-secure
+          # Matris hücresi başına benzersiz ad (v4 aynı-ad çakışmasını önler); path
+          # aynı güvenli lane'de kalır → allowlist lane kaydı değişmez.
+          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}
           path: test-results/secure-upload/full-regression/
           if-no-files-found: error
           retention-days: 30
@@ -381,7 +399,14 @@ jobs:
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
     runs-on: macos-14
+    # WP-NIGHT-STABILITY (ADR-0017): 64 @visual test tek koşumda 30dk kutuya
+    # sığmayıp cancelled oluyordu. Tarayıcı bazlı ayrılınca her hücre küçülür ve
+    # tarayıcı sonucu ayrı görünür. Kutu 30dk korunur (hücre başına ~21 test).
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium-authed, firefox-authed, webkit-authed]
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
@@ -395,7 +420,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install chromium firefox webkit
-      - run: npm run test:visual
+      - name: Görsel koşum (tarayıcı bazlı ayrı)
+        run: npm run test:visual -- --project=${{ matrix.browser }}
       - name: Güvenli artifact bundle hazırla (visual-regression)
         id: prep_visual
         # Görsel diff PNG'leri canlı müşteri verisi taşıyabilir → raw upload DENY.
@@ -408,7 +434,7 @@ jobs:
         if: ${{ !cancelled() && steps.prep_visual.outputs.ready == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: visual-regression-secure
+          name: visual-regression-secure-${{ matrix.browser }}
           path: test-results/secure-upload/visual-regression/
           if-no-files-found: error
           retention-days: 30
