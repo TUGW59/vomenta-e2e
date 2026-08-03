@@ -41,6 +41,29 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'سجل المكالمات', subtitle: 'تصفح ومراجعة المكالمات السابقة والتسجيلات والنصوص' },
       },
     },
+    voicemail: {
+      path: '/voice/voicemail',
+      api: '/api/v1/voicemails',
+      // consoleClean=false: açılışta VOICEMAIL-PAGER-I18N (common.previousPage/nextPage MISSING_MESSAGE).
+      consoleClean: false,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Voicemails', subtitle: 'Listen to and manage voicemail messages left by callers' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Sesli mesajlar', subtitle: 'Arayanların bıraktığı sesli mesajları dinleyin ve yönetin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Messages vocaux', subtitle: 'Écoutez et gérez les messages laissés par les appelants' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'البريد الصوتي', subtitle: 'استمع إلى رسائل البريد الصوتي وأدرها' },
+      },
+    },
+    recordings: {
+      path: '/voice/recordings',
+      api: '/api/v1/voice/recordings',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Call Recordings', subtitle: 'Browse, play, and download recorded calls' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Arama kayıtları', subtitle: 'Kayıtlı aramaları inceleyin, oynatın ve indirin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: "Enregistrements d'appels", subtitle: 'Parcourez, écoutez et téléchargez les appels enregistrés' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'تسجيلات المكالمات', subtitle: 'تصفح وتشغيل وتنزيل المكالمات المسجّلة' },
+      },
+    },
   });
 
   /**
