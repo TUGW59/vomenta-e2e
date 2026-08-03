@@ -1252,6 +1252,35 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  {
+    id: 'VOICEMAIL-PAGER-I18N',
+    title: '/voice/voicemail pagination ham i18n anahtarı (common.previousPage/nextPage MISSING_MESSAGE)',
+    area: 'voice',
+    route: '/voice/voicemail',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-08-03',
+    lastVerified: '2026-08-03',
+    expiry: null,
+    repro: ['/voice/voicemail aç', 'konsolu izle', 'MISSING_MESSAGE: common.previousPage/nextPage (en) oku'],
+    expected: 'Pagination düğmeleri çevrilmiş etiket gösterir; konsolda MISSING_MESSAGE yok.',
+    actual: 'Açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)` basıyor; pager düğmeleri ham i18n anahtarını erişilebilir isim olarak taşıyor. B11 (işlem butonu a11y, veri-bağlı) ile ayrı; bu deterministik.',
+    technicalEvidence: [
+      '3 Ağu 2026 canlı (app.vomenta.com): /voice/voicemail açılışında next-intl MISSING_MESSAGE common.previousPage + common.nextPage (chunk 1719...js); veriden bağımsız, her açılışta.',
+    ],
+    possibleCauses: ['Ortak pagination bileşeni `common.previousPage`/`common.nextPage` çeviri anahtarlarını bekliyor ama voice namespace/messages\'ta tanımlı değil'],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: common.previousPage/common.nextPage çeviri anahtarlarını ekle (4 dil)'],
+    evidence: [],
+    test: {
+      file: 'tests/voice-voicemail.authed.spec.js',
+      title: 'VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
 ]);
 
 /**

@@ -41,6 +41,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-evaluations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -102,6 +103,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
 - **voice-queues**: `/voice/queues`
+- **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
 - **workforce-evaluations**: `/workforce/evaluations`
@@ -222,6 +224,11 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-queues` **@perf**: Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu).
 - `voice-queues` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-queues` **@visual**: Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.
+- `voice-voicemail` **@keyboard**: Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).
+- `voice-voicemail` **@perf**: Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).
+- `voice-voicemail` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-voicemail` **@visual**: Tablo canlı veri (arayan/tarih/durum) + açılış konsol hatası (VOICEMAIL-PAGER-I18N) → kararlı snapshot bölgesi yok.
+- `voice-voicemail` **@mutation**: Satır aksiyonları (Delete Voicemail / Mark as Read) destructive ve UI'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur (workforce-time-off deseni).
 - `workforce` **@perf**: Ağır grafik kütüphanesi yok; Uyum boş-durum/basit görsel, Tahmin tablo.
 - `workforce` **@data**: Tahmin KPI kartları var ama ayrılmış tenant'ta 0 gösteriyor ve sekme-tıklamada AYRI fetch yok (canlı ağ: istek yok) → yakalanacak deterministik JSON ucu yok; @data anlamlı değil.
 - `workforce` **@export**: Bu yüzeyde export/indirme kontrolü yok.

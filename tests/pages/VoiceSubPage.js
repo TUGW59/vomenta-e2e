@@ -41,6 +41,18 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'سجل المكالمات', subtitle: 'تصفح ومراجعة المكالمات السابقة والتسجيلات والنصوص' },
       },
     },
+    voicemail: {
+      path: '/voice/voicemail',
+      api: '/api/v1/voicemails',
+      // consoleClean=false: açılışta VOICEMAIL-PAGER-I18N (common.previousPage/nextPage MISSING_MESSAGE).
+      consoleClean: false,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Voicemails', subtitle: 'Listen to and manage voicemail messages left by callers' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Sesli mesajlar', subtitle: 'Arayanların bıraktığı sesli mesajları dinleyin ve yönetin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Messages vocaux', subtitle: 'Écoutez et gérez les messages laissés par les appelants' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'البريد الصوتي', subtitle: 'استمع إلى رسائل البريد الصوتي وأدرها' },
+      },
+    },
   });
 
   /**

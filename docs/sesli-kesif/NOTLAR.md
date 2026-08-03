@@ -59,7 +59,7 @@ Hub alt-nav TR: Kuyruklar / IVR Oluşturucu / Telefon Numaraları / Arama Geçmi
 **Zaten kayıtlı (regresyon):** B1 (`/voice/regulatory` ham i18n anahtarları), B10 (`/voice/regulatory` Voice sekme çubuğu yok), B11 (`/voice/voicemail` işlem butonu a11y, veri-bağlı), B14 (`/voice/dids` red nedeni tooltip, veri-bağlı).
 
 **Bu keşifte açılan yeni bulgular:**
-- **VOICEMAIL-PAGER-I18N** — `/voice/voicemail` açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)`; pagination düğmeleri erişilebilir isim/etiket olarak ham i18n anahtarını gösteriyor. B11'den ayrı (bu, veriden bağımsız, deterministik). PR-4'te registry'ye kaydedilip regresyon testi yazılacak.
+- **VOICEMAIL-PAGER-I18N** — `/voice/voicemail` açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)`; pagination düğmeleri erişilebilir isim/etiket olarak ham i18n anahtarını gösteriyor. B11'den ayrı (bu, veriden bağımsız, deterministik). PR-4'te registry'ye kaydedildi + `@clean @known-bug` guard testi.
 - **VOICE-HISTORY-A11Y-LABEL** — `/voice/history` tarih filtre girdileri (From/To Date) erişilebilir etiket taşımıyor → axe `label` (critical). Kanallar B20–B25 ile aynı sistemik sınıf. PR-3'te registry'ye kaydedildi + `@a11y @known-bug` guard testi.
 
 ## Test kapsamı (ilerleme)

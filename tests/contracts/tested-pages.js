@@ -946,4 +946,26 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Sayfa veri yazmıyor (salt geçmiş görünümü + Details); satır "Call back" gerçek giden çağrı → softphone/staging alanı (voice-call.mutation.authed.spec.js), bu sayfada tetiklenmez.',
     },
   },
+  {
+    id: 'voice-voicemail',
+    routes: ['/voice/voicemail'],
+    specFiles: ['voice-voicemail.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).',
+      '@perf': 'Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Tablo canlı veri (arayan/tarih/durum) + açılış konsol hatası (VOICEMAIL-PAGER-I18N) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Satır aksiyonları (Delete Voicemail / Mark as Read) destructive ve UI\'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur (workforce-time-off deseni).',
+    },
+  },
 ]);
