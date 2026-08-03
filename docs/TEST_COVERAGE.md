@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1004
-- **Test dosyası:** 68
-- **Etiketler:** `@a11y` 53 · `@clean)` 7 · `@clean` 39 · `@critical` 70 · `@data` 12 · `@deeplink` 38 · `@errorpath` 40 · `@export` 1 · `@i18n` 168 · `@keyboard` 31 · `@known-bug` 61 · `@layout` 44 · `@perf` 1 · `@public` 2 · `@regression` 337 · `@route-baseline` 56 · `@smoke` 147 · `@visual` 21
+- **Test edilen senaryo:** 1151
+- **Test dosyası:** 79
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 65 · `@smoke` 172 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -103,6 +103,40 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
+
+### `bot-builder-editor.authed.spec.js`
+
+- editör yükleniyor: sekmeler + bot adı + Save Draft/Publish + geri dön  `@smoke` `@critical`
+- editör URL'si doğrudan (tam yükleme) açılıyor  `@deeplink`
+- editör açılışında editöre özgü console/ağ hatası yok  `@clean`
+- BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard  `@a11y` `@known-bug`
+- masaüstü tuval / mobil-tablet "Desktop Screen Required" kapısı; yatay taşma yok  `@layout`
+- İngilizce sekme + üst eylem etiketleri  `@i18n` `@regression`
+- tr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- fr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- ar: sekmeler + Kaydet/Yayınla çevrili + yön (rtl)  `@i18n` `@regression`
+- BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli  `@i18n` `@regression` `@i18n` `@known-bug`
+- L1 tıklama OK: Analytics ↔ Editor sekme takası  `@regression`
+- L3 navigasyon OK: geri dön /bot-builder listesini yüklüyor  `@regression`
+
+### `bot-builder.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical` `@deeplink`
+- "Create Bot" birincil eylemi görünür ve etkin  `@smoke`
+- listedeki botlar /api/v1/bots yanıtıyla tutarlı  `@data` `@regression`
+- BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- ciddi/kritik axe ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatay taşma yok  `@layout`
+- İngilizce başlık/alt başlık/eylem  `@i18n` `@regression`
+- tr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- fr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- ar: başlık/alt başlık/eylem + yön (rtl)  `@i18n` `@regression`
+- Create diyaloğu İngilizce çevrili (başlık/alanlar/eylemler)  `@i18n` `@regression`
+- L1 tıklama OK: "Create Bot" diyaloğu açar  `@regression`
+- klavye: odak tuzağı + Escape ile kapanır  `@regression` `@keyboard`
+- BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli  `@regression` `@i18n` `@known-bug`
+- L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor  `@regression`
+- /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur  `@errorpath`
 
 ### `campaigns-outbound.authed.spec.js`
 
@@ -307,31 +341,38 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `dashboard-actions.authed.spec.js`
 
-- "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor
-- "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor
-- "View Reports" /reports ("Reports") sayfasına götürüyor
+- L1+L3: "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor  `@regression`
+- L1+L3: "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor  `@regression`
+- L1+L3: "View Reports" /reports ("Reports") sayfasına götürüyor  `@regression`
 
 ### `dashboard.authed.spec.js`
 
 - oturum geçerli — giriş formu görünmüyor  `@smoke`
-- panel ve kullanıcı menüsü görünüyor  `@smoke` `@critical`
-- kenar menüsü tüm ana bölümleri içeriyor  `@critical`
-- menü linkleri doğru href değerlerine sahip
-- arama kutusu ve tarih filtreleri görünüyor
-- panelde sessiz hata yok (console-error / failed-request / 5xx)  `@smoke`
-- /inbox doğrudan açılıyor ("Inbox")
-- /voice doğrudan açılıyor ("Live Calls")
-- /channels doğrudan açılıyor ("Channels")
-- /ai doğrudan açılıyor ("AI Management")
-- /campaigns doğrudan açılıyor ("Campaigns")
-- /bot-builder doğrudan açılıyor ("Bot Builder")
-- /contacts doğrudan açılıyor ("Contacts")
-- /tickets doğrudan açılıyor ("Tickets")
-- /analytics doğrudan açılıyor ("Analytics")
-- /reports doğrudan açılıyor ("Reports")
-- /supervisor doğrudan açılıyor ("Supervisor")
-- /workforce doğrudan açılıyor ("Workforce Management")
-- /settings doğrudan açılıyor ("Settings")
+- başlık + alt başlık + kullanıcı menüsü görünüyor  `@smoke` `@critical`
+- tarih aralığı + Live toggle görünüyor (Today / 7 Days / 30 Days / Live)  `@smoke`
+- 4 üst KPI döşemesi görünüyor  `@smoke`
+- hızlı eylemler görünüyor (Start Call butonu + 3 gezinme linki)  `@smoke`
+- ana bölüm başlıkları görünüyor (Queue/Agent/Call Volume/Insights/AI/Activity)  `@smoke`
+- kenar menüsü tüm ana bölümleri doğru href ile içeriyor  `@critical`
+- sayfada sessiz hata yok (console-error / failed-request / 5xx)  `@smoke` `@clean`
+- üst KPI döşemeleri değer gösteriyor  `@data` `@regression`
+- "Analytics Insights" KPI döşemeleri değer gösteriyor  `@data` `@regression`
+- "/" doğrudan URL ile açılıyor ve Dashboard render oluyor  `@deeplink` `@regression`
+- [en] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- L1 tıklama OK: "Start Call" softphone dialer'ını açıyor (tuş takımı görünür)  `@regression`
+- ciddi/kritik axe ihlali yok (bilinen borç hariç)  `@a11y` `@regression`
+- [desktop] yatay taşma yok  `@layout` `@regression`
+- [mobile] yatay taşma yok  `@layout` `@regression`
+- [ar/rtl desktop] yatay taşma yok  `@layout` `@regression`
+- içerik (başlık) makul bütçe içinde görünüyor  `@perf` `@regression`
+- canlı veri ucu 500 dönerse sayfa yine de yükleniyor (çökmüyor)  `@errorpath` `@regression`
+- BULGU DASH-CLICKHOUSE: iç terim "ClickHouse" Dashboard'da görünmemeli  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [fr]: AI metrik etiketleri fr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [ar]: AI metrik etiketleri ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 
 ### `discovery/discovery.spec.js`
 
@@ -482,6 +523,15 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/channels/social] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/video] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/history] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/voicemail] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/recordings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/dids] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/regulatory] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/ivr] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/sip-trunks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/sip-settings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/skills] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
 ### `reports-actions.authed.spec.js`
 
@@ -1062,6 +1112,52 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-dids.authed.spec.js`
+
+- sayfa "Phone Numbers" + "Pending Requests" ile açılıyor  `@smoke`
+- GET /dids çağrılıyor + numara tablosu render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Request Number" tıklanınca "Request Phone Number" dialogu açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
+- GET /dids 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı)  `@deeplink`
+
+### `voice-history.authed.spec.js`
+
+- sayfa "Call History" başlığı + alt-başlık + yön filtreleri ile açılıyor  `@smoke`
+- GET /voice/calls çağrılıyor + geçmiş tablosu render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Details" tıklanınca dialog açılıyor; klavye ile kapanıyor  `@regression` `@keyboard`
+- L1: yön filtresi combobox'u açılıp seçim yapılabiliyor; tablo sağlam  `@regression`
+- GET /voice/calls 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/history doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-ivr.authed.spec.js`
+
+- sayfa "IVR Builder" başlığı + alt-başlık + "Create IVR" ile açılıyor  `@smoke`
+- GET /ivr çağrılıyor + IVR tablosu render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Create IVR" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
+- GET /ivr 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/ivr doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-queues.authed.spec.js`
 
 - sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor  `@smoke`
@@ -1077,6 +1173,75 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
 
+### `voice-recordings.authed.spec.js`
+
+- sayfa "Call Recordings" başlığı + alt-başlık ile açılıyor  `@smoke`
+- GET /voice/recordings çağrılıyor + tablo render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- "Download" tıklanınca kayıt stream ucu (GET .../recordings/<id>/stream) çağrılıyor  `@export`
+- L1: "Delete Recording" tıklanınca onay alertdialog'u açılıyor; klavye ile kapanıyor (ONAYLANMAZ)  `@regression` `@keyboard`
+- GET /voice/recordings 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/recordings doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-regulatory.authed.spec.js`
+
+- /voice/regulatory rotası oturum korunarak yükleniyor (içerik bozuk olsa da kabuk sağlam)  `@smoke`
+- VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı  `@i18n` `@clean` `@known-bug` `@clean`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- B10 · /voice/regulatory · Voice alt-navigasyonu (Live Calls) sayfada görünmeli  `@regression` `@known-bug`
+- /voice/regulatory doğrudan açılınca oturum korunuyor  `@deeplink`
+
+### `voice-sip-settings.authed.spec.js`
+
+- sayfa "SIP & phone settings" + SIP extension/Display name alanları ile açılıyor  `@smoke`
+- [en] başlık + yön çevrili  `@i18n`
+- [tr] başlık + yön çevrili  `@i18n`
+- [fr] başlık + yön çevrili  `@i18n`
+- [ar] başlık + yön çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "SIP extension" alanına değer girilebiliyor ve yansıyor (yalnız localStorage, sunucuya yazmaz)  `@regression`
+- /voice/sip-settings doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-sip-trunks.authed.spec.js`
+
+- sayfa "SIP Trunks" başlığı + "Add SIP Trunk" ile açılıyor  `@smoke`
+- GET /voice/sip-trunks çağrılıyor  `@data`
+- [en] başlık + yön çevrili  `@i18n`
+- [tr] başlık + yön çevrili  `@i18n`
+- [fr] başlık + yön çevrili  `@i18n`
+- [ar] başlık + yön çevrili  `@i18n`
+- VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli  `@i18n` `@known-bug`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Add SIP Trunk" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
+- GET /voice/sip-trunks 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/sip-trunks doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-skills.authed.spec.js`
+
+- sayfa "Skills-Based Routing" başlığı + alt-başlık + "Select Queue" ile açılıyor  `@smoke`
+- GET /queues çağrılıyor (kuyruk seçici doldurulur)  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Select Queue" açılıp bir kuyruk seçilebiliyor; sayfa sağlam  `@regression`
+- GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/skills doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-subnav.authed.spec.js`
 
 - "Live Calls" → /voice/live ("Live Calls") panelini açıyor  `@regression`
@@ -1089,6 +1254,21 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor  `@regression`
 - "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
 - "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
+
+### `voice-voicemail.authed.spec.js`
+
+- sayfa "Voicemails" başlığı + alt-başlık ile açılıyor  `@smoke`
+- GET /voicemails çağrılıyor + tablo render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- L1: "All Status" filtresi açılıp seçim yapılabiliyor; sayfa sağlam  `@regression`
+- GET /voicemails 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/voicemail doğrudan açılınca yükleniyor  `@deeplink`
 
 ### `voice.authed.spec.js`
 

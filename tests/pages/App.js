@@ -17,6 +17,7 @@ import { ChannelVideoPage } from './ChannelVideoPage.js';
 import { CannedResponsesPage } from './CannedResponsesPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
+import { DashboardPage } from './DashboardPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { DataRetentionPage } from './DataRetentionPage.js';
 import { DispositionCodesPage } from './DispositionCodesPage.js';
@@ -51,6 +52,8 @@ import { AiManagementPage } from './AiManagementPage.js';
 import { AiSubPage } from './AiSubPage.js';
 import { VoicePage } from './VoicePage.js';
 import { VoiceSubPage } from './VoiceSubPage.js';
+import { BotBuilderPage } from './BotBuilderPage.js';
+import { BotBuilderEditorPage } from './BotBuilderEditorPage.js';
 
 /**
  * Testlerin uygulamadaki ekranlara tek fixture üzerinden erişmesini sağlar.
@@ -60,6 +63,7 @@ export class App {
   constructor(page) {
     this.page = page;
     this.shell = new AppShell(page);
+    this.dashboard = new DashboardPage(page);
     this.analytics = new AnalyticsPage(page);
     this.login = new LoginPage(page);
     this.contacts = new ContactsPage(page);
@@ -108,6 +112,8 @@ export class App {
     this.channelSocial = new ChannelSocialPage(page);
     this.channelVideo = new ChannelVideoPage(page);
     this.voice = new VoicePage(page);
+    this.botBuilder = new BotBuilderPage(page);
+    this.botBuilderEditor = new BotBuilderEditorPage(page);
   }
 
   /**

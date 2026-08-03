@@ -58,10 +58,17 @@ Hub alt-nav TR: Kuyruklar / IVR Oluşturucu / Telefon Numaraları / Arama Geçmi
 
 **Zaten kayıtlı (regresyon):** B1 (`/voice/regulatory` ham i18n anahtarları), B10 (`/voice/regulatory` Voice sekme çubuğu yok), B11 (`/voice/voicemail` işlem butonu a11y, veri-bağlı), B14 (`/voice/dids` red nedeni tooltip, veri-bağlı).
 
-**Bu keşifte açılan yeni bulgu:**
-- **VOICEMAIL-PAGER-I18N** — `/voice/voicemail` açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)`; pagination düğmeleri erişilebilir isim/etiket olarak ham i18n anahtarını gösteriyor. B11'den ayrı (bu, veriden bağımsız, deterministik). PR-4'te registry'ye kaydedilip regresyon testi yazılacak.
+**Bu keşifte açılan yeni bulgular:**
+- **VOICEMAIL-PAGER-I18N** — `/voice/voicemail` açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)`; pagination düğmeleri erişilebilir isim/etiket olarak ham i18n anahtarını gösteriyor. B11'den ayrı (bu, veriden bağımsız, deterministik). PR-4'te registry'ye kaydedildi + `@clean @known-bug` guard testi.
+- **VOICE-HISTORY-A11Y-LABEL** — `/voice/history` tarih filtre girdileri (From/To Date) erişilebilir etiket taşımıyor → axe `label` (critical). Kanallar B20–B25 ile aynı sistemik sınıf. PR-3'te registry'ye kaydedildi + `@a11y @known-bug` guard testi.
+- **VOICE-SIP-TRUNKS-SUBTITLE-I18N** — `/voice/sip-trunks` başlık çevriliyor (SIP Hatları/Trunks SIP/خطوط SIP) ama alt-başlık 4 dilde de İngilizce ("Manage your SIP trunk connections…") kalıyor. PR-9'da registry + `@i18n @known-bug` guard.
+- **VOICE-REGULATORY-BROKEN** — `/voice/regulatory` tüm `voiceRegulatory` i18n namespace eksik → `<main>` ham anahtar (voiceRegulatory.title…) veya BOŞ render ediyor (kararsız) + açılışta konsol `MISSING_MESSAGE: voiceRegulatory (en)` (deterministik). B1 (ham anahtar) + B10 (Voice alt-nav yok) ile aynı bozuk sayfanın kök nedeni. PR-7'de registry + `@i18n @clean @known-bug` guard; `@regression` B10 guard'ı.
+- **VOICE-RECORDINGS-A11Y-LABEL** — `/voice/recordings` tarih filtre girdileri etiketsiz → axe `label` (critical, 2 düğüm). Aynı sistemik sınıf. PR-5'te registry + `@a11y @known-bug` guard. Ek gözlem: "Download" bir `<button>` (indirme-olayı üretmiyor; `GET .../recordings/<id>/stream` fetch'liyor) → @export ağ katmanında doğrulanır.
+
+**Doğrulanmamış gözlem (tek örnek, veri-bağlı olabilir):** `/voice/recordings` ilk kaydın "Download" tıklamasında `GET /api/v1/voice/recordings/<id>/stream` **HTTP 500** döndü (3 Ağu 2026). Tek kayıtla gözlendiği için sistemik mi yoksa o dosyaya özgü mü belirsiz → registry bulgu OLARAK KAYDEDİLMEDİ; @export testi export eylemini statüden bağımsız doğrular. Staging'de çok-kayıtla teyit edilmeli.
 
 ## Test kapsamı (ilerleme)
 
 - **PR-1 (bu):** `tests/pages/VoicePage.js` (hub, App.js'e kayıtlı) + `voice.authed.spec.js` (tam stil seti) + `voice-subnav.authed.spec.js` (10 hedef nav-L3) + `tested-pages.js` → `voice-hub`.
-- **PR-2..PR-11:** alt-rotalar (queues/ivr/dids/history/voicemail/recordings/sip-trunks/sip-settings/skills/regulatory) — parametreli `VoiceSubPage.js` + per-rota spec.
+- **PR-2..PR-11 (TAMAM):** alt-rotalar — parametreli `VoiceSubPage.js` (queues/history/voicemail/recordings/dids/ivr/sip-trunks/sip-settings/skills key'leri) + per-rota spec + tested-pages girişi. `/voice/regulatory` ayrı bozuk-sayfa spec'i. Her rota ayrı PR (stack), merge en sonda topluca.
+- **Yüzeyler:** voice-hub + 9 VoiceSubPage rotası + voice-regulatory = 11 tested-pages girişi. Softphone gerçek çağrı + tüm mutasyonlar `test.fixme` (staging).

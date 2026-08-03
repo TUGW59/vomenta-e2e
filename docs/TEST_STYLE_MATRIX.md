@@ -15,6 +15,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `channels-video` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | ✅ |
 | `channels-webchat` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ |
 | `channels-whatsapp` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ |
+| `dashboard` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✅ | — | — |
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `reports-sections` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ |
@@ -38,8 +39,17 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
+| `voice-ivr` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
+| `voice-recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A |
+| `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
+| `voice-sip-settings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
+| `voice-sip-trunks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
+| `voice-skills` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
+| `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-evaluations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -75,6 +85,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **channels-video**: `/channels/video`
 - **channels-webchat**: `/channels/webchat`
 - **channels-whatsapp**: `/channels/whatsapp`
+- **dashboard**: `/`
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
 - **reports-sections**: `/reports/call`, `/reports/agent`, `/reports/queue`, `/reports/campaign`, `/reports/channel`, `/reports/ai`, `/reports/quality`, `/reports/csat`, `/reports/billing`, `/reports/sla`
@@ -98,8 +109,17 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **voice-dids**: `/voice/dids`
+- **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
+- **voice-ivr**: `/voice/ivr`
 - **voice-queues**: `/voice/queues`
+- **voice-recordings**: `/voice/recordings`
+- **voice-regulatory**: `/voice/regulatory`
+- **voice-sip-settings**: `/voice/sip-settings`
+- **voice-sip-trunks**: `/voice/sip-trunks`
+- **voice-skills**: `/voice/skills`
+- **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
 - **workforce-evaluations**: `/workforce/evaluations`
@@ -208,14 +228,55 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
+- `voice-dids` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@visual**: Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.
+- `voice-history` **@perf**: Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu).
+- `voice-history` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
+- `voice-history` **@visual**: Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.
+- `voice-history` **@mutation**: Sayfa veri yazmıyor (salt geçmiş görünümü + Details); satır "Call back" gerçek giden çağrı → softphone/staging alanı (voice-call.mutation.authed.spec.js), bu sayfada tetiklenmez.
 - `voice-hub` **@keyboard**: Hub <main>'inde diyalog/menü/ARIA-sekme yok (alt-nav düğmeleri = bölüm gezinmesi, nav-L3 ile kapsanır).
 - `voice-hub` **@perf**: Ağır grafik kütüphanesi yok (KPI döşemeleri + mevcudiyet sayaçları + boş-durum).
 - `voice-hub` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
 - `voice-hub` **@visual**: İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.
 - `voice-hub` **@mutation**: Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation'da (voice-call.mutation.authed.spec.js).
+- `voice-ivr` **@perf**: Grafik/ağır içerik yok (IVR tablosu + Create IVR dialogu).
+- `voice-ivr` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-ivr` **@visual**: IVR tablosu canlı veri (ad/tip/durum/tarih) → kararlı snapshot bölgesi yok.
 - `voice-queues` **@perf**: Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu).
 - `voice-queues` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-queues` **@visual**: Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.
+- `voice-recordings` **@perf**: Grafik/ağır içerik yok (tarih filtreleri + kayıt tablosu + Delete onay dialogu).
+- `voice-recordings` **@visual**: Tablo canlı veri (Call ID/tarih/süre/boyut/retention) → kararlı snapshot bölgesi yok.
+- `voice-recordings` **@mutation**: Delete Recording destructive ve UI'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur. Onay alertdialog'u @keyboard/@regression'da açılıp Escape ile kapatılır (ONAYLANMAZ).
+- `voice-regulatory` **@keyboard**: Diyalog/menü/sekme güvenilir render etmiyor (sayfa bozuk); KYC akışı staging.
+- `voice-regulatory` **@errorpath**: Sayfa zaten kırık render ediyor (voiceRegulatory namespace eksik) → veri-hata yolu ayırt edilemez; kök neden VOICE-REGULATORY-BROKEN altında.
+- `voice-regulatory` **@perf**: Ağır içerik yok (KYC/regulatory içeriği render bile etmiyor).
+- `voice-regulatory` **@data**: Sayısal KPI yok; içerik güvenilir render etmiyor.
+- `voice-regulatory` **@export**: Export/indirme kontrolü yok.
+- `voice-regulatory` **@visual**: İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.
+- `voice-regulatory` **@mutation**: KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.
+- `voice-sip-settings` **@keyboard**: Diyalog/menü/sekme yok (SIP extension/Display name girdileri + Endpoint mode radio).
+- `voice-sip-settings` **@errorpath**: Sunucu API'si yok; ayarlar tarayıcıda (localStorage) saklanır → yakalanacak veri-hata yolu yok.
+- `voice-sip-settings` **@perf**: Grafik/ağır içerik yok (küçük yapılandırma formu).
+- `voice-sip-settings` **@data**: Sunucudan veri çekmiyor; sayısal KPI yok (yerel config).
+- `voice-sip-settings` **@export**: Export/indirme kontrolü yok.
+- `voice-sip-settings` **@visual**: Yerel-config formu; kararlı bölge dar ama snapshot lane bu pakette açılmadı.
+- `voice-sip-settings` **@mutation**: Değişiklikler yalnız tarayıcı localStorage'ına yazılır ("stored in this browser"); sunucu/tenant verisi DEĞİŞMEZ → tenant mutation yok. Girdi L1 @regression'da yerel doldurma ile kapsanır.
+- `voice-sip-trunks` **@perf**: Grafik/ağır içerik yok (SIP trunk listesi/boş-durum + Add SIP Trunk dialogu).
+- `voice-sip-trunks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-sip-trunks` **@visual**: Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.
+- `voice-sip-trunks` **@mutation**: Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.
+- `voice-skills` **@keyboard**: Diyalog/menü/ARIA-sekme yok (Select Queue combobox'ı + üye/beceri paneli).
+- `voice-skills` **@perf**: Grafik/ağır içerik yok (kuyruk seçici + üye listesi).
+- `voice-skills` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-skills` **@visual**: Seçilen kuyruğa bağlı üye/beceri listesi canlı → kararlı snapshot bölgesi yok.
+- `voice-skills` **@mutation**: Beceri/öncelik ATAMA kuyruk üyelerini kalıcı değiştirir; kuyruk seçimine bağlı + güvenli 0→1→0 teardown ayrılmış staging tenant gerektirir → L3 staging, prod salt-okunur (kuyruk SEÇME salt-okuma @regression'da kapsanır).
+- `voice-voicemail` **@keyboard**: Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).
+- `voice-voicemail` **@perf**: Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).
+- `voice-voicemail` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-voicemail` **@visual**: Tablo canlı veri (arayan/tarih/durum) + açılış konsol hatası (VOICEMAIL-PAGER-I18N) → kararlı snapshot bölgesi yok.
+- `voice-voicemail` **@mutation**: Satır aksiyonları (Delete Voicemail / Mark as Read) destructive ve UI'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur (workforce-time-off deseni).
 - `workforce` **@perf**: Ağır grafik kütüphanesi yok; Uyum boş-durum/basit görsel, Tahmin tablo.
 - `workforce` **@data**: Tahmin KPI kartları var ama ayrılmış tenant'ta 0 gösteriyor ve sekme-tıklamada AYRI fetch yok (canlı ağ: istek yok) → yakalanacak deterministik JSON ucu yok; @data anlamlı değil.
 - `workforce` **@export**: Bu yüzeyde export/indirme kontrolü yok.
