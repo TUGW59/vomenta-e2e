@@ -87,6 +87,19 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'مصمم IVR', subtitle: 'تصميم وإدارة تدفقات الاستجابة الصوتية التفاعلية' },
       },
     },
+    'sip-trunks': {
+      path: '/voice/sip-trunks',
+      api: '/api/v1/voice/sip-trunks',
+      consoleClean: true,
+      // NOT: alt-başlık tr/fr/ar'da çevrilmiyor (EN kalıyor) → VOICE-SIP-TRUNKS-SUBTITLE-I18N.
+      // subtitle alanları GERÇEK render'ı yansıtır (tr/fr/ar = EN metni).
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'SIP Trunks', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'SIP Hatları', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Trunks SIP', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'خطوط SIP', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
+      },
+    },
   });
 
   /**

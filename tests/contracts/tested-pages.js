@@ -1063,4 +1063,25 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'IVR tablosu canlı veri (ad/tip/durum/tarih) → kararlı snapshot bölgesi yok.',
     },
   },
+  {
+    id: 'voice-sip-trunks',
+    routes: ['/voice/sip-trunks'],
+    specFiles: ['voice-sip-trunks.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (SIP trunk listesi/boş-durum + Add SIP Trunk dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.',
+    },
+  },
 ]);

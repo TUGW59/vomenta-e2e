@@ -45,6 +45,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A |
 | `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
+| `voice-sip-trunks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -111,6 +112,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **voice-queues**: `/voice/queues`
 - **voice-recordings**: `/voice/recordings`
 - **voice-regulatory**: `/voice/regulatory`
+- **voice-sip-trunks**: `/voice/sip-trunks`
 - **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
@@ -248,6 +250,10 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-regulatory` **@export**: Export/indirme kontrolü yok.
 - `voice-regulatory` **@visual**: İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.
 - `voice-regulatory` **@mutation**: KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.
+- `voice-sip-trunks` **@perf**: Grafik/ağır içerik yok (SIP trunk listesi/boş-durum + Add SIP Trunk dialogu).
+- `voice-sip-trunks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-sip-trunks` **@visual**: Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.
+- `voice-sip-trunks` **@mutation**: Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.
 - `voice-voicemail` **@keyboard**: Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).
 - `voice-voicemail` **@perf**: Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).
 - `voice-voicemail` **@export**: Bu sayfada export/indirme kontrolü yok.

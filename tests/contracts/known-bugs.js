@@ -1339,6 +1339,35 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  {
+    id: 'VOICE-SIP-TRUNKS-SUBTITLE-I18N',
+    title: '/voice/sip-trunks alt-başlığı tr/fr/ar\'da çevrilmiyor (İngilizce kalıyor)',
+    area: 'voice',
+    route: '/voice/sip-trunks',
+    severity: 'low',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-08-03',
+    lastVerified: '2026-08-03',
+    expiry: null,
+    repro: ['/voice/sip-trunks aç', 'dili Türkçe/Français/العربية yap', 'alt-başlığın hâlâ İngilizce olduğunu gör'],
+    expected: 'Alt-başlık seçili dile çevrilir (başlık "SIP Hatları/Trunks SIP/خطوط SIP" çevriliyor).',
+    actual: 'Başlık çevriliyor ama alt-başlık 4 dilde de "Manage your SIP trunk connections for inbound and outbound calling." (İngilizce) kalıyor.',
+    technicalEvidence: [
+      '3 Ağu 2026 canlı (app.vomenta.com): /voice/sip-trunks tr/fr/ar başlıkları çevrili ama alt-başlık aynı İngilizce metin.',
+    ],
+    possibleCauses: ['Alt-başlık çeviri anahtarı eksik veya sabit-kodlu İngilizce string'],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: sip-trunks alt-başlığını çeviri anahtarına bağla (4 dil)'],
+    evidence: [],
+    test: {
+      file: 'tests/voice-sip-trunks.authed.spec.js',
+      title: 'VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
 ]);
 
 /**
