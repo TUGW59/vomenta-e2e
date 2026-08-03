@@ -100,6 +100,31 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'خطوط SIP', subtitle: 'Manage your SIP trunk connections for inbound and outbound calling.' },
       },
     },
+    'sip-settings': {
+      path: '/voice/sip-settings',
+      // Sunucu API'si YOK: ayarlar tarayıcıda (localStorage) saklanır ("stored in this browser").
+      api: null,
+      consoleClean: true,
+      // Alt-başlık iki paragraflı (açıklama + saklama notu) ve EN/yerel arası ilk-paragraf
+      // değişiyor → i18n testi yalnız BAŞLIK + yön doğrular.
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'SIP & phone settings', subtitle: 'Configure how this workstation registers for voice. Values are stored in this browser until a server profile is available.' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'SIP Ayarları', subtitle: 'SIP dahili numaranızı veya SIP telefonunuzu yapılandırın.' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Paramètres SIP', subtitle: 'Configurez votre extension SIP ou téléphone SIP.' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'إعدادات SIP', subtitle: 'قم بتكوين داخلي SIP أو هاتف SIP.' },
+      },
+    },
+    skills: {
+      path: '/voice/skills',
+      api: '/api/v1/queues',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Skills-Based Routing', subtitle: 'Assign skills and priorities to queue members for intelligent call routing' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Beceri Tabanlı Yönlendirme', subtitle: 'Akıllı çağrı yönlendirmesi için kuyruk üyelerine beceri ve öncelik atayın' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Routage basé sur les compétences', subtitle: "Attribuez des compétences et des priorités aux membres de la file d'attente pour un routage intelligent des appels" },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'التوجيه القائم على المهارات', subtitle: 'تعيين المهارات والأولويات لأعضاء قائمة الانتظار للتوجيه الذكي للمكالمات' },
+      },
+    },
   });
 
   /**
