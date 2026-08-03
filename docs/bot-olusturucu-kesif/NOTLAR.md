@@ -61,6 +61,30 @@ Standartlar: 3 katman (L1/L2/L3) + 4 dil i18n + zorunlu stiller — bkz. `AGENTS
   bilgilendirmesi gösteriliyor → editör masaüstü-öncelikli; `@layout` mobil/tablette taşma yok
   (kapı ekranı) olarak doğrulanır.
 
+### Editör i18n (4 dil, doğrulandı)
+
+| key | en | tr | fr | ar |
+| --- | --- | --- | --- | --- |
+| sekme Editor | Editor | Düzenleyici | Éditeur | المحرر |
+| sekme Analytics | Analytics | Analitik | Analytique | التحليلات |
+| Save Draft | Save Draft | Taslağı Kaydet | Enregistrer le brouillon | حفظ المسودة |
+| Publish | Publish | Yayınla | Publier | نشر |
+| Desktop gate | Desktop Screen Required | Masaüstü ekranı gerekli | **Desktop Screen Required** ❌ | **Desktop Screen Required** ❌ |
+
+### Editör bulguları
+
+- **BOT-BUILDER-EDITOR-GATE-I18N (medium).** Dar-ekran kapısı "Desktop Screen Required" fr/ar'da
+  çevrilmiyor (tr çevrili). Mobilde görünür durumda doğrulandı.
+- **BOT-BUILDER-EDITOR-A11Y (medium).** axe ciddi ihlaller: `link-name` (üst-bardaki geri-dön linki
+  ikon-only, erişilebilir ad YOK) + `scrollable-region-focusable` (React Flow tuvali klavye ile
+  odaklanamıyor). Bilinen borç (`button-name`/`color-contrast`) dışı → `@a11y` testi düzelene kadar
+  guard'lı.
+- **Not (bulgu değil):** üst-bardaki görünür geri-dön kontrolü tamamen adsız/metinsizdir; kullanıcıya
+  görünen "Back to Bots" İngilizce metni yalnızca GİZLİ mobil-gate içinde geçer → görünür i18n metin
+  sızıntısı sayılmaz (adsızlık `link-name` a11y bulgusunda kapsanır).
+- React Flow tuval kontrolleri (zoom in/out · fit view · toggle interactivity) tüm dillerde İngilizce
+  aria-label taşır (kütüphane varsayılanı) — düşük öncelikli gözlem, guard'lanmadı.
+
 ## Keşif kapanış matrisi
 
 - varsayılan/veri-dolu durum — **Kapsandı** (liste: 4 bot; editör: Support Bot).

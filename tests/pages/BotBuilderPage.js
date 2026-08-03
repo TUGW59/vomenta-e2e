@@ -150,7 +150,9 @@ export class BotBuilderPage extends BasePage {
     // Kartlar h1'den sonra /bots fetch'iyle gelir → görünmesini bekle; gerçekten yoksa null.
     await card.waitFor({ state: 'visible', timeout: 20000 }).catch(() => {});
     if (!(await card.count())) return null;
-    const raw = (await card.innerText()).trim();
-    return raw.split('\n')[0].trim() || null;
+    const raw = await card.innerText();
+    // İlk BOŞ OLMAYAN satır bot adıdır (bazı render'larda başta boş satır olabilir).
+    const first = raw.split('\n').map((s) => s.trim()).find(Boolean);
+    return first || null;
   }
 }

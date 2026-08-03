@@ -52,6 +52,7 @@ import { AiSubPage } from './AiSubPage.js';
 import { VoicePage } from './VoicePage.js';
 import { VoiceSubPage } from './VoiceSubPage.js';
 import { BotBuilderPage } from './BotBuilderPage.js';
+import { BotBuilderEditorPage } from './BotBuilderEditorPage.js';
 
 /**
  * Testlerin uygulamadaki ekranlara tek fixture üzerinden erişmesini sağlar.
@@ -110,6 +111,7 @@ export class App {
     this.channelVideo = new ChannelVideoPage(page);
     this.voice = new VoicePage(page);
     this.botBuilder = new BotBuilderPage(page);
+    this.botBuilderEditor = new BotBuilderEditorPage(page);
   }
 
   /**
