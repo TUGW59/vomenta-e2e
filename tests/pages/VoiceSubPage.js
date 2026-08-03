@@ -114,6 +114,17 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'إعدادات SIP', subtitle: 'قم بتكوين داخلي SIP أو هاتف SIP.' },
       },
     },
+    skills: {
+      path: '/voice/skills',
+      api: '/api/v1/queues',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Skills-Based Routing', subtitle: 'Assign skills and priorities to queue members for intelligent call routing' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Beceri Tabanlı Yönlendirme', subtitle: 'Akıllı çağrı yönlendirmesi için kuyruk üyelerine beceri ve öncelik atayın' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Routage basé sur les compétences', subtitle: "Attribuez des compétences et des priorités aux membres de la file d'attente pour un routage intelligent des appels" },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'التوجيه القائم على المهارات', subtitle: 'تعيين المهارات والأولويات لأعضاء قائمة الانتظار للتوجيه الذكي للمكالمات' },
+      },
+    },
   });
 
   /**

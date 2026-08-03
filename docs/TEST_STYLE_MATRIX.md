@@ -47,6 +47,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `voice-sip-settings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `voice-sip-trunks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
+| `voice-skills` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `voice-voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -115,6 +116,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **voice-regulatory**: `/voice/regulatory`
 - **voice-sip-settings**: `/voice/sip-settings`
 - **voice-sip-trunks**: `/voice/sip-trunks`
+- **voice-skills**: `/voice/skills`
 - **voice-voicemail**: `/voice/voicemail`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
@@ -263,6 +265,11 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-sip-trunks` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-sip-trunks` **@visual**: Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.
 - `voice-sip-trunks` **@mutation**: Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.
+- `voice-skills` **@keyboard**: Diyalog/menü/ARIA-sekme yok (Select Queue combobox'ı + üye/beceri paneli).
+- `voice-skills` **@perf**: Grafik/ağır içerik yok (kuyruk seçici + üye listesi).
+- `voice-skills` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-skills` **@visual**: Seçilen kuyruğa bağlı üye/beceri listesi canlı → kararlı snapshot bölgesi yok.
+- `voice-skills` **@mutation**: Beceri/öncelik ATAMA kuyruk üyelerini kalıcı değiştirir; kuyruk seçimine bağlı + güvenli 0→1→0 teardown ayrılmış staging tenant gerektirir → L3 staging, prod salt-okunur (kuyruk SEÇME salt-okuma @regression'da kapsanır).
 - `voice-voicemail` **@keyboard**: Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging).
 - `voice-voicemail` **@perf**: Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu).
 - `voice-voicemail` **@export**: Bu sayfada export/indirme kontrolü yok.

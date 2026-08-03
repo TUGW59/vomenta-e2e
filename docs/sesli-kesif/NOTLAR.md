@@ -70,4 +70,5 @@ Hub alt-nav TR: Kuyruklar / IVR Oluşturucu / Telefon Numaraları / Arama Geçmi
 ## Test kapsamı (ilerleme)
 
 - **PR-1 (bu):** `tests/pages/VoicePage.js` (hub, App.js'e kayıtlı) + `voice.authed.spec.js` (tam stil seti) + `voice-subnav.authed.spec.js` (10 hedef nav-L3) + `tested-pages.js` → `voice-hub`.
-- **PR-2..PR-11:** alt-rotalar (queues/ivr/dids/history/voicemail/recordings/sip-trunks/sip-settings/skills/regulatory) — parametreli `VoiceSubPage.js` + per-rota spec.
+- **PR-2..PR-11 (TAMAM):** alt-rotalar — parametreli `VoiceSubPage.js` (queues/history/voicemail/recordings/dids/ivr/sip-trunks/sip-settings/skills key'leri) + per-rota spec + tested-pages girişi. `/voice/regulatory` ayrı bozuk-sayfa spec'i. Her rota ayrı PR (stack), merge en sonda topluca.
+- **Yüzeyler:** voice-hub + 9 VoiceSubPage rotası + voice-regulatory = 11 tested-pages girişi. Softphone gerçek çağrı + tüm mutasyonlar `test.fixme` (staging).

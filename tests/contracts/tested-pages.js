@@ -1108,4 +1108,26 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Değişiklikler yalnız tarayıcı localStorage\'ına yazılır ("stored in this browser"); sunucu/tenant verisi DEĞİŞMEZ → tenant mutation yok. Girdi L1 @regression\'da yerel doldurma ile kapsanır.',
     },
   },
+  {
+    id: 'voice-skills',
+    routes: ['/voice/skills'],
+    specFiles: ['voice-skills.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/ARIA-sekme yok (Select Queue combobox\'ı + üye/beceri paneli).',
+      '@perf': 'Grafik/ağır içerik yok (kuyruk seçici + üye listesi).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Seçilen kuyruğa bağlı üye/beceri listesi canlı → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Beceri/öncelik ATAMA kuyruk üyelerini kalıcı değiştirir; kuyruk seçimine bağlı + güvenli 0→1→0 teardown ayrılmış staging tenant gerektirir → L3 staging, prod salt-okunur (kuyruk SEÇME salt-okuma @regression\'da kapsanır).',
+    },
+  },
 ]);
