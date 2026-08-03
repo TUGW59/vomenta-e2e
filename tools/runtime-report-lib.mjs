@@ -36,6 +36,24 @@ export const ROUTE_STATUS = Object.freeze({
 });
 export const ROUTE_STATUS_ORDER = Object.freeze(['PASS', 'FAIL', 'FLAKY', 'BLOCKED', 'NOT_RUN']);
 
+/**
+ * Kanonik runtime sonuç sözlüğü (HANDOFF §3.3 — 7 durum). İlk 5'i rota-düzeyi
+ * nihai durumdur (toplamı = kayıtlı rota); son 2'si AYRI semantiktir:
+ * EXPECTED_KNOWN_BUG = knownBugGuard beklenen-başarısızlık (normal FAIL DEĞİL),
+ * SKIPPED_BY_POLICY = seçim politikasıyla dışlanan (mutation/external-cost →
+ * koşuma HİÇ girmez, JSON'da görünmez; manifestten türer). Bu sözlük raporun
+ * durum kelime dağarcığının TAM olduğunu belgeler; sahte durum icat edilmez.
+ */
+export const TEST_STATUS = Object.freeze({
+  PASS: 'PASS',
+  FAIL: 'FAIL',
+  FLAKY: 'FLAKY',
+  BLOCKED: 'BLOCKED',
+  NOT_RUN: 'NOT_RUN',
+  EXPECTED_KNOWN_BUG: 'EXPECTED_KNOWN_BUG',
+  SKIPPED_BY_POLICY: 'SKIPPED_BY_POLICY',
+});
+
 /** Güvenli, deterministik hata sınıfı (ham mesaj/stack ASLA emit edilmez). */
 export function safeErrorClass(status) {
   switch (String(status)) {
@@ -301,6 +319,10 @@ export function buildResultModel(opts) {
   // Gözlemlenen yürütme kanıtı: toplam gerçek `results` denemesi. 0 ise girdi
   // yalnız-listelenmiş (`--list`) demektir → provenance runtime sayamaz.
   const observedAttempts = tests.reduce((s, t) => s + (Number(t.attempts) || 0), 0);
+  const skippedByPolicy =
+    manifestCounts && Number.isFinite(manifestCounts.totalSpecs) && Number.isFinite(manifestCounts.productionSafeReadOnly)
+      ? manifestCounts.totalSpecs - manifestCounts.productionSafeReadOnly
+      : null;
 
   const model = {
     schemaVersion: SCHEMA_VERSION,
@@ -334,9 +356,32 @@ export function buildResultModel(opts) {
       manifestTotalSpecs: manifestCounts && Number.isFinite(manifestCounts.totalSpecs) ? manifestCounts.totalSpecs : null,
       productionSafeSelectable: manifestCounts && Number.isFinite(manifestCounts.productionSafeReadOnly) ? manifestCounts.productionSafeReadOnly : null,
       stagingRequired: manifestCounts && Number.isFinite(manifestCounts.stagingRequired) ? manifestCounts.stagingRequired : null,
+      // SKIPPED_BY_POLICY (§3.3): seçim politikasıyla dışlanan spec sayısı = tanımlı
+      // − production-safe (mutation/external-cost). Manifest yoksa null (uydurma yok).
+      skippedByPolicy,
       manifestCountsSource: manifestCounts ? 'provided' : 'not-provided',
     },
-    runtime: { ...runtimeTotals, observedAttempts, routeStatusTotals: totals },
+    runtime: {
+      ...runtimeTotals,
+      observedAttempts,
+      routeStatusTotals: totals,
+      // Kanonik §3.3 sözlüğü tek görünümde: ilk 5 rota-düzeyi, son 2 ayrı semantik.
+      canonical: {
+        PASS: totals.PASS,
+        FAIL: totals.FAIL,
+        FLAKY: totals.FLAKY,
+        BLOCKED: totals.BLOCKED,
+        NOT_RUN: totals.NOT_RUN,
+        EXPECTED_KNOWN_BUG: runtimeTotals.knownBugExpectedFail,
+        SKIPPED_BY_POLICY: skippedByPolicy,
+      },
+    },
+    // Trend/delta için stabil başarısız-test anahtarları (§item12). Sanitize edilmiş
+    // rota + unmapped test kimlikleri; ham içerik yok. report-history bunu tüketir.
+    failingTestKeys: [
+      ...pages.filter((p) => p.baselineStatus === 'FAIL').map((p) => `route:${p.route}`),
+      ...unmappedTests.filter((u) => u.errorClass === 'failed' || u.errorClass === 'timeout').map((u) => `test:${u.file}::${u.title}`),
+    ].sort(),
     pages,
     unmappedTests,
     unmappedFindings: bugIdx.unmappedFindings,
@@ -404,7 +449,8 @@ export function renderMarkdown(model) {
   L.push(
     `- **Kapsam hunisi (ayrı semantik):** tanımlı ${nOrDash(inv.definedLogical ?? inv.manifestTotalSpecs)} → ` +
       `production-safe seçilebilir ${nOrDash(inv.productionSafeSelectable)} → bu koşumda seçilen ${rt.selectedThisRun} → ` +
-      `gerçekten çalışan ${rt.executedThisRun}  ·  staging gerektiren ${nOrDash(inv.stagingRequired)}`
+      `gerçekten çalışan ${rt.executedThisRun}  ·  staging gerektiren ${nOrDash(inv.stagingRequired)}` +
+      `  ·  politikayla dışlanan (SKIPPED_BY_POLICY) ${nOrDash(inv.skippedByPolicy)}  ·  EXPECTED_KNOWN_BUG ${rt.knownBugExpectedFail}`
   );
   L.push('- ℹ️ **`listed != selected != executed != passed`** — bu sayılar aynı şey DEĞİLDİR; her biri ayrı kapsam katmanıdır.');
   L.push(`- **Bilinen bulgu:** ${model.inventory.knownBugs.total} (open ${model.inventory.knownBugs.open} · fixed-candidate ${model.inventory.knownBugs.fixedCandidate} · closed ${model.inventory.knownBugs.closed})`);

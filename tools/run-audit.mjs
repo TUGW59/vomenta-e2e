@@ -126,6 +126,18 @@ function main() {
       )} --environment ${JSON.stringify(o.environment)}${o.minStartTime ? ` --min-start-time ${JSON.stringify(o.minStartTime)}` : ''}`;
     reportExitCode = run('report', reportCmd, root);
     reportProduced = REQUIRED_OUTPUTS.every((f) => existsSync(join(outDirAbs, f)));
+
+    // Rapor başarıyla üretildiyse trend geçmişine sanitize snapshot ekle (§item12).
+    // Best-effort: runId yoksa (yerel) yazmaz; başarısızlığı final exit'i YEŞİLDEN
+    // KIRMIZIYA çevirmez (zenginleştirme katmanı, doğruluk kapısı değil) ama loglanır.
+    if (!o.testCmd && reportProduced && reportExitCode === 0) {
+      const histCode = run(
+        'history',
+        `node tools/append-runtime-history.mjs --input ${JSON.stringify(join(o.outDir, 'TEST-SONUCLARI.json'))} --history-dir ${JSON.stringify(join(o.outDir, 'history'))}`,
+        root
+      );
+      if (histCode !== 0) log('UYARI: trend geçmişi eklenemedi (final exit etkilenmez).');
+    }
   } else {
     log(runtimeJsonExists ? 'rapor atlandı: stale girdi.' : 'rapor atlandı: runtime JSON yok (stale reuse yasak).');
   }

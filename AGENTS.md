@@ -437,6 +437,12 @@ non-zero; runtime JSON yok/stale → hard-fail (stale reuse yasak). Sert kapı: 
 (exit matrisi + errorFingerprint + cross-output tutarlılık + 7 enjekte-komut CLI senaryosu, tamamen sentetik)
 `quality:check` zincirindedir. Runtime raporunun git-diff drift kapısı YOKTUR (canlı koşum ürünü, her koşumda
 meşru değişir); dürüstlük `quality:runtime-provenance` + `quality:runtime-report` + `quality:audit-orchestrator` ile korunur.
+Rapor §3.3 kanonik durum sözlüğünü (`runtime.canonical`: PASS/FAIL/FLAKY/BLOCKED/NOT_RUN +
+EXPECTED_KNOWN_BUG + SKIPPED_BY_POLICY) taşır. Trend/delta: `npm run report:history:append`
+(=`tools/append-runtime-history.mjs`) gerçek koşum sonunda sanitize + executive-uyumlu snapshot'ı
+`docs/raporlar/history/` (gitignore'lu) altına yazar (yalnız commit SHA + run ID varsa → yerel
+koşum sahte trend üretmez); executive rapor bunları okuyup GERÇEK delta üretir, <2 snapshot varken
+dürüstçe INSUFFICIENT_HISTORY der. Sert kapı: `npm run quality:report-history` (`quality:check` zincirinde).
 
 **Test stilleri** (bkz. "Zorunlu test stilleri"): `@i18n` `@a11y` `@layout` `@visual`
 `@errorpath` `@clean` `@perf` `@keyboard` `@deeplink` `@data` `@export`.

@@ -58,6 +58,26 @@ orchestrator korur" diye erteliyordu.
    **`listed != selected != executed != passed`** ilkesini açıkça yazar. Manifest
    yoksa sayılar `null` + `not-provided` (UYDURMA YOK).
 
+7. **Kanonik durum sözlüğü (§3.3)** — `TEST_STATUS` (7 durum) export edilir;
+   runtime modeline `runtime.canonical` tek görünümü + inventory'ye
+   `skippedByPolicy` (= tanımlı − production-safe, manifestten) eklenir.
+   EXPECTED_KNOWN_BUG = knownBugGuard beklenen-başarısızlık (normal FAIL DEĞİL);
+   SKIPPED_BY_POLICY = seçim politikasıyla dışlanan (mutation/external-cost; koşuma
+   HİÇ girmez). Manifest yoksa `null` (uydurma yok). Rota invariantı korunur (ilk 5
+   durum rota-düzeyi, son 2 ayrı semantik sayaç).
+
+8. **Gerçek delta / trend geçmişi (§item12)** — executive `computeTrend` ZATEN
+   `docs/raporlar/history/executive-*.json`'dan delta üretiyor ve <2 uygun snapshot
+   varsa dürüstçe INSUFFICIENT_HISTORY diyordu; ama bilerek history YAZMIYORDU.
+   Eksik yazıcı eklendi: `tools/report-history-lib.mjs` (saf) +
+   `tools/append-runtime-history.mjs` (`report:history:append`) gerçek koşum SONUNDA
+   sanitize + executive-uyumlu snapshot yazar. run-audit rapor başarılıysa best-effort
+   çağırır (başarısızlığı yeşili kırmızıya çevirmez). **DÜRÜSTLÜK:** snapshot ancak
+   commit SHA + run ID varsa yazılır → yerel (runId'siz) koşum sahte trend üretemez.
+   History dizini gitignore'lu artifact'tir; koşumlar-arası CI kalıcılığı FAZ 3 işi.
+   Sert kapı: `quality:report-history` (`quality:check` zincirinde) — iki sentetik
+   snapshot → GERÇEK new/fixed delta; tek/uyumsuz → INSUFFICIENT_HISTORY.
+
 ## Neden runtime raporunun git-diff DRIFT kapısı YOK (bilinçli)
 
 Diğer üreteçler (surface, executive, findings, readonly-manifest) DETERMİNİSTİK
