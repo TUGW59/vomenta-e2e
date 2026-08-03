@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "generator": "wp-report-truth-2",
+  "generatedAt": "2026-08-02T19:46:28.218Z",
+  "sourcesPresent": {
+    "runtime": true,
+    "depth": true,
+    "findings": true
+  },
+  "missingSources": [],
+  "headlineProvenance": "UNVERIFIED",
+  "consistency": {
+    "verdict": "DRIFT",
+    "checks": [
+      {
+        "name": "Kayıtlı rota sayısı",
+        "values": {
+          "runtime": 55,
+          "depth": 65
+        },
+        "agree": false,
+        "note": "İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır."
+      },
+      {
+        "name": "Bilinen bulgu toplamı",
+        "values": {
+          "runtimeSnapshot": 50,
+          "findingsRegistry": 61
+        },
+        "agree": false,
+        "note": "Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır."
+      },
+      {
+        "name": "Açık bulgu",
+        "values": {
+          "runtimeSnapshot": 49,
+          "findingsRegistry": 60
+        },
+        "agree": false,
+        "note": "Açık bulgu sayısı kaynaklar arası farklı."
+      }
+    ],
+    "warnings": [
+      "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=65). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+      "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+      "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.",
+      "Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
+    ]
+  },
+  "runtimeSummary": {
+    "source": {
+      "commitSha": "88033f03ef638c926243e66ae525c66805bfd0a1",
+      "environment": "production-read-only",
+      "browser": "chromium",
+      "project": "setup",
+      "runId": null,
+      "runStartedAt": "2026-08-02T19:41:20.208Z"
+    },
+    "generatedAt": "2026-08-02T19:46:28.218Z",
+    "provenance": {
+      "verdict": "UNVERIFIED",
+      "reasons": [
+        "sourcetype-missing-or-not-runtime",
+        "runid-missing",
+        "sha-mismatch"
+      ]
+    },
+    "registeredRoutes": 55,
+    "testedPagesContracts": 36,
+    "definedLogicalTests": 1028,
+    "safeRunnableTests": null,
+    "selectedThisRun": 56,
+    "executedThisRun": 56,
+    "passedThisRun": 56,
+    "failedThisRun": 0,
+    "flakyThisRun": 0,
+    "skippedThisRun": 0,
+    "knownBugExpectedFail": 0,
+    "routeStatusTotals": {
+      "PASS": 55,
+      "FAIL": 0,
+      "FLAKY": 0,
+      "BLOCKED": 0,
+      "NOT_RUN": 0
+    },
+    "unmappedTests": 1
+  },
+  "depthSummary": {
+    "source": {
+      "commitSha": "88033f03ef638c926243e66ae525c66805bfd0a1",
+      "environment": "production-read-only",
+      "browser": "chromium"
+    },
+    "generatedAt": "2026-08-02T19:46:28.218Z",
+    "registeredRoutes": 65,
+    "l1Proven": 55,
+    "l1NotProven": 10,
+    "l2StyleContractMet": 65,
+    "l2Complete": 3,
+    "l2Partial": 62,
+    "l2NotCovered": 0,
+    "interactionUnverifiedRoutes": 60,
+    "l3Blocked": 46,
+    "l3NotApplicable": 19,
+    "l3Proven": 0,
+    "l4Blocked": 65,
+    "l4Proven": 0,
+    "l5Blocked": 65,
+    "l5Proven": 0,
+    "highestLevel": {
+      "L0": 10,
+      "L1": 0,
+      "L2_STYLE": 52,
+      "L2_DEEP": 3
+    },
+    "routesWithFindings": 28,
+    "openFindingsOnRoutes": 48,
+    "blockReasons": {
+      "L3": {
+        "STAGING_REQUIRED": 46
+      },
+      "L4": {
+        "ROLE_ACCOUNTS_REQUIRED": 65
+      },
+      "L5": {
+        "PROVIDER_HARNESS_REQUIRED": 65
+      }
+    }
+  },
+  "findingsSummary": {
+    "total": 61,
+    "byStatus": {
+      "open": 60,
+      "closed": 1,
+      "fixedCandidate": 0,
+      "other": 0
+    },
+    "bySeverity": {
+      "critical": 1,
+      "high": 9,
+      "medium": 44,
+      "low": 7,
+      "other": 0
+    },
+    "openBySeverity": {
+      "critical": 1,
+      "high": 8,
+      "medium": 44,
+      "low": 7,
+      "other": 0
+    }
+  },
+  "riskGaps": [
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/dids",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/history",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/ivr",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/queues",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/recordings",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/regulatory",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/sip-settings",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/sip-trunks",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/skills",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/voicemail",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/bot-builder",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: BOT-BUILDER-TEMPLATE-I18N(high).",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/campaigns",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: B2(high).",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/inbox",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: B3(high).",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/settings",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: B4(high), SETTINGS-BILLING-CHANGEPLAN(high), SETTINGS-BILLING-HISTORY(high).",
+      "highestProvenLevel": "L2_DEEP"
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/settings/billing",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: SETTINGS-BILLING-REDIRECT(high).",
+      "highestProvenLevel": null
+    },
+    {
+      "kind": "OPEN_CRITICAL_HIGH_FINDING",
+      "route": "/voice/regulatory",
+      "rank": 1,
+      "detail": "Açık yüksek-önem bulgu: B1(critical), VOICE-REGULATORY-BROKEN(high).",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/ai",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/analytics",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/bot-builder",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/campaigns",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/email",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/sms",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/social",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/video",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/webchat",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/channels/whatsapp",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/contacts",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/inbox",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/reports",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/reports/call",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/reports/dashboards",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/dids",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/history",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/recordings",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/regulatory",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/sip-trunks",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/voice/voicemail",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/workforce",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/workforce/badges",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/workforce/schedules",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/workforce/surveys",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
+    }
+  ],
+  "topFindingPages": [
+    {
+      "route": "/settings",
+      "openCount": 5,
+      "severities": {
+        "high": 3,
+        "medium": 2
+      },
+      "worst": "high"
+    },
+    {
+      "route": "/supervisor/wallboard",
+      "openCount": 5,
+      "severities": {
+        "medium": 4,
+        "low": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/regulatory",
+      "openCount": 3,
+      "severities": {
+        "critical": 1,
+        "high": 1,
+        "medium": 1
+      },
+      "worst": "critical"
+    },
+    {
+      "route": "/analytics",
+      "openCount": 3,
+      "severities": {
+        "medium": 3
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/email",
+      "openCount": 3,
+      "severities": {
+        "medium": 3
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/bot-builder",
+      "openCount": 2,
+      "severities": {
+        "high": 1,
+        "low": 1
+      },
+      "worst": "high"
+    },
+    {
+      "route": "/",
+      "openCount": 2,
+      "severities": {
+        "medium": 1,
+        "low": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/ai",
+      "openCount": 2,
+      "severities": {
+        "medium": 1,
+        "low": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/bot-builder/{id}",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/campaigns/outbound",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/sms",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/social",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/whatsapp",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/contacts",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/reports",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/voicemail",
+      "openCount": 2,
+      "severities": {
+        "medium": 2
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/workforce",
+      "openCount": 2,
+      "severities": {
+        "low": 2
+      },
+      "worst": "low"
+    },
+    {
+      "route": "/campaigns",
+      "openCount": 1,
+      "severities": {
+        "high": 1
+      },
+      "worst": "high"
+    },
+    {
+      "route": "/inbox",
+      "openCount": 1,
+      "severities": {
+        "high": 1
+      },
+      "worst": "high"
+    },
+    {
+      "route": "/settings/billing",
+      "openCount": 1,
+      "severities": {
+        "high": 1
+      },
+      "worst": "high"
+    },
+    {
+      "route": "/ai/prompts",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/video",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/channels/webchat",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/reports/call",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/reports/dashboards",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/supervisor/agents",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/dids",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/history",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/recordings",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/workforce/badges",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/workforce/schedules",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/workforce/surveys",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
+      "route": "/voice/sip-trunks",
+      "openCount": 1,
+      "severities": {
+        "low": 1
+      },
+      "worst": "low"
+    }
+  ],
+  "flakyTests": [],
+  "slowestTests": [
+    {
+      "route": "/reports/quality",
+      "durationMs": 8502
+    },
+    {
+      "route": "/channels",
+      "durationMs": 8210
+    },
+    {
+      "route": "/ai",
+      "durationMs": 8119
+    },
+    {
+      "route": "/reports/sla",
+      "durationMs": 8048
+    },
+    {
+      "route": "/reports/dashboards",
+      "durationMs": 7895
+    },
+    {
+      "route": "/settings/hours",
+      "durationMs": 7755
+    },
+    {
+      "route": "/voice",
+      "durationMs": 7707
+    },
+    {
+      "route": "/workforce/surveys",
+      "durationMs": 7619
+    },
+    {
+      "route": "/workforce/schedules",
+      "durationMs": 7188
+    },
+    {
+      "route": "/campaigns",
+      "durationMs": 7158
+    }
+  ],
+  "blockedRuntimeRoutes": [],
+  "trend": {
+    "status": "INSUFFICIENT_HISTORY",
+    "reason": "Trend için ≥2 uygun snapshot gerekir; 0 bulundu. Sahte yüzde/eğilim üretilmez.",
+    "eligibleSnapshots": 0,
+    "warnings": []
+  },
+  "warnings": [
+    "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=65). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+    "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+    "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.",
+    "Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
+  ]
+}
