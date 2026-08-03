@@ -64,6 +64,8 @@ jobs:
         run: npm run report:style-matrix:check
       - name: Bulgu + test raporları güncel mi (drift kontrolü)
         run: npm run report:findings:check
+      - name: Rota kapsam derinliği matrisi güncel mi (drift kontrolü)
+        run: npm run report:surface:check
 
   pr-impact:
     name: PR change-impact tests / Chromium
