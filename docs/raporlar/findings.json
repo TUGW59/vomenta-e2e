@@ -1,24 +1,24 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 52,
+  "total": 57,
   "summary": {
     "byStatus": {
-      "open": 51,
+      "open": 56,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 50,
+      "knownBugGuard": 55,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
-      "high": 7,
-      "medium": 39,
-      "low": 5
+      "high": 8,
+      "medium": 42,
+      "low": 6
     },
     "byArea": {
-      "voice": 4,
+      "voice": 9,
       "campaigns": 3,
       "inbox": 2,
       "settings": 6,
@@ -1815,6 +1815,191 @@
       "test": {
         "file": "tests/channels-video.authed.spec.js",
         "title": "B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-HISTORY-A11Y-LABEL",
+      "title": "/voice/history form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)",
+      "area": "voice",
+      "route": "/voice/history",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/history aç",
+        "axe (wcag2a/2aa) ile tara",
+        "label (critical) ihlalini oku"
+      ],
+      "expected": "Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)",
+      "actual": "axe \"label\" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/history axe critical \"label\" ihlali; From/To Date girdileri erişilebilir etiket taşımıyor (kanallar B20–B25 ile aynı sistemik sınıf)."
+      ],
+      "possibleCauses": [
+        "Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: From/To Date ve filtre girdilerine <label htmlFor> veya aria-label ekle"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-history.authed.spec.js",
+        "title": "VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICEMAIL-PAGER-I18N",
+      "title": "/voice/voicemail pagination ham i18n anahtarı (common.previousPage/nextPage MISSING_MESSAGE)",
+      "area": "voice",
+      "route": "/voice/voicemail",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/voicemail aç",
+        "konsolu izle",
+        "MISSING_MESSAGE: common.previousPage/nextPage (en) oku"
+      ],
+      "expected": "Pagination düğmeleri çevrilmiş etiket gösterir; konsolda MISSING_MESSAGE yok.",
+      "actual": "Açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)` basıyor; pager düğmeleri ham i18n anahtarını erişilebilir isim olarak taşıyor. B11 (işlem butonu a11y, veri-bağlı) ile ayrı; bu deterministik.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/voicemail açılışında next-intl MISSING_MESSAGE common.previousPage + common.nextPage (chunk 1719...js); veriden bağımsız, her açılışta."
+      ],
+      "possibleCauses": [
+        "Ortak pagination bileşeni `common.previousPage`/`common.nextPage` çeviri anahtarlarını bekliyor ama voice namespace/messages'ta tanımlı değil"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: common.previousPage/common.nextPage çeviri anahtarlarını ekle (4 dil)"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-voicemail.authed.spec.js",
+        "title": "VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-RECORDINGS-A11Y-LABEL",
+      "title": "/voice/recordings form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)",
+      "area": "voice",
+      "route": "/voice/recordings",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/recordings aç",
+        "axe (wcag2a/2aa) ile tara",
+        "label (critical) ihlalini oku"
+      ],
+      "expected": "Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)",
+      "actual": "axe 2 adet \"label\" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/recordings axe critical \"label\" (2 düğüm); From/To Date girdileri etiketsiz (VOICE-HISTORY-A11Y-LABEL + kanallar B20–B25 ile aynı sistemik sınıf)."
+      ],
+      "possibleCauses": [
+        "Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: From/To Date girdilerine <label htmlFor> veya aria-label ekle"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-recordings.authed.spec.js",
+        "title": "VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-REGULATORY-BROKEN",
+      "title": "/voice/regulatory i18n namespace eksik → içerik ham anahtar/boş + konsol MISSING_MESSAGE",
+      "area": "voice",
+      "route": "/voice/regulatory",
+      "severity": "high",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/regulatory aç",
+        "konsolu + <main> içeriğini izle",
+        "MISSING_MESSAGE: voiceRegulatory + ham anahtar/boş içerik gör"
+      ],
+      "expected": "KYC/Regulatory içeriği çevrilmiş metinle render olur; konsolda MISSING_MESSAGE yok.",
+      "actual": "Tüm `voiceRegulatory` i18n namespace eksik: açılışta konsol `MISSING_MESSAGE: voiceRegulatory (en)`; <main> ya ham anahtar (voiceRegulatory.title…) ya da BOŞ render ediyor (deterministik değil). B1 (ham anahtar) + B10 (Voice sekme çubuğu yok) ile aynı bozuk sayfanın kök nedeni; bu kayıt deterministik konsol sinyalini guard eder.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/regulatory açılışında `MISSING_MESSAGE: voiceRegulatory (en)` HER YÜKLEMEDE; <main> içeriği bir koşuda ham anahtar, başka koşuda tamamen boştu (render kararsız)."
+      ],
+      "possibleCauses": [
+        "voiceRegulatory çeviri namespace'i messages'ta hiç tanımlı değil → next-intl MISSING_MESSAGE + bileşen boş/ham render"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: voiceRegulatory namespace çevirilerini 4 dilde ekle; içerik/KYC bileşenini eksik-mesajda güvenli fallback ile render et"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-regulatory.authed.spec.js",
+        "title": "VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-SIP-TRUNKS-SUBTITLE-I18N",
+      "title": "/voice/sip-trunks alt-başlığı tr/fr/ar'da çevrilmiyor (İngilizce kalıyor)",
+      "area": "voice",
+      "route": "/voice/sip-trunks",
+      "severity": "low",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/sip-trunks aç",
+        "dili Türkçe/Français/العربية yap",
+        "alt-başlığın hâlâ İngilizce olduğunu gör"
+      ],
+      "expected": "Alt-başlık seçili dile çevrilir (başlık \"SIP Hatları/Trunks SIP/خطوط SIP\" çevriliyor).",
+      "actual": "Başlık çevriliyor ama alt-başlık 4 dilde de \"Manage your SIP trunk connections for inbound and outbound calling.\" (İngilizce) kalıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/sip-trunks tr/fr/ar başlıkları çevrili ama alt-başlık aynı İngilizce metin."
+      ],
+      "possibleCauses": [
+        "Alt-başlık çeviri anahtarı eksik veya sabit-kodlu İngilizce string"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: sip-trunks alt-başlığını çeviri anahtarına bağla (4 dil)"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-sip-trunks.authed.spec.js",
+        "title": "VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli"
       },
       "owner": "quality-guild",
       "issueRef": null
