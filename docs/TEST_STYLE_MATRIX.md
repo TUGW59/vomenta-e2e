@@ -41,6 +41,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
+| `voice-ivr` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A |
 | `voice-regulatory` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
@@ -106,6 +107,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
+- **voice-ivr**: `/voice/ivr`
 - **voice-queues**: `/voice/queues`
 - **voice-recordings**: `/voice/recordings`
 - **voice-regulatory**: `/voice/regulatory`
@@ -230,6 +232,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-hub` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
 - `voice-hub` **@visual**: İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.
 - `voice-hub` **@mutation**: Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation'da (voice-call.mutation.authed.spec.js).
+- `voice-ivr` **@perf**: Grafik/ağır içerik yok (IVR tablosu + Create IVR dialogu).
+- `voice-ivr` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-ivr` **@visual**: IVR tablosu canlı veri (ad/tip/durum/tarih) → kararlı snapshot bölgesi yok.
 - `voice-queues` **@perf**: Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu).
 - `voice-queues` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-queues` **@visual**: Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.

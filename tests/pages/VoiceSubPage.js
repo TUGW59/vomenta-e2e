@@ -76,6 +76,17 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'أرقام الهاتف', subtitle: 'إدارة أرقام الهاتف والتخصيصات' },
       },
     },
+    ivr: {
+      path: '/voice/ivr',
+      api: '/api/v1/ivr',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'IVR Builder', subtitle: 'Design and manage interactive voice response flows' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'IVR Tasarımcısı', subtitle: 'İnteraktif sesli yanıt akışları tasarlayın ve yönetin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Concepteur IVR', subtitle: 'Concevez et gérez les flux de réponse vocale interactive' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'مصمم IVR', subtitle: 'تصميم وإدارة تدفقات الاستجابة الصوتية التفاعلية' },
+      },
+    },
   });
 
   /**
