@@ -30,6 +30,17 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'قوائم الانتظار', subtitle: 'إدارة قوائم انتظار المكالمات واستراتيجيات التوجيه وتعيينات الوكلاء' },
       },
     },
+    history: {
+      path: '/voice/history',
+      api: '/api/v1/voice/calls',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Call History', subtitle: 'Browse and review past calls, recordings, and transcripts' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Arama Geçmişi', subtitle: 'Geçmiş aramaları, kayıtları ve transkriptleri inceleyin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Historique des appels', subtitle: 'Parcourez et consultez les appels passés, enregistrements et transcriptions' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'سجل المكالمات', subtitle: 'تصفح ومراجعة المكالمات السابقة والتسجيلات والنصوص' },
+      },
+    },
   });
 
   /**

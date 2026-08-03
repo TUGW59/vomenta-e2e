@@ -39,6 +39,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -100,6 +101,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
 - **voice-queues**: `/voice/queues`
 - **workforce**: `/workforce`
@@ -210,6 +212,10 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-history` **@perf**: Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu).
+- `voice-history` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
+- `voice-history` **@visual**: Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.
+- `voice-history` **@mutation**: Sayfa veri yazmıyor (salt geçmiş görünümü + Details); satır "Call back" gerçek giden çağrı → softphone/staging alanı (voice-call.mutation.authed.spec.js), bu sayfada tetiklenmez.
 - `voice-hub` **@keyboard**: Hub <main>'inde diyalog/menü/ARIA-sekme yok (alt-nav düğmeleri = bölüm gezinmesi, nav-L3 ile kapsanır).
 - `voice-hub` **@perf**: Ağır grafik kütüphanesi yok (KPI döşemeleri + mevcudiyet sayaçları + boş-durum).
 - `voice-hub` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
