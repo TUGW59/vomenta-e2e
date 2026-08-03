@@ -131,7 +131,117 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
-// 8) Mutation spec production runnable listesine GİRMEZ; STAGING_BLOCKED.
+// 8) Root .env deletion → successful security remediation.
+{
+  const p = plan([{ path: '.env', status: 'D' }]);
+  check(
+    'env-delete-security-remediation',
+    p.status === 'SECURITY_REMEDIATION' &&
+      p.exitCode === 0 &&
+      p.selectedRunnableSpecCount === 0 &&
+      p.reasons.some((r) => r.startsWith('SECURITY_REMEDIATION:')),
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 9) .env add/modify/rename → fail closed.
+{
+  const add = plan([{ path: '.env', status: 'A' }]);
+  const mod = plan([{ path: '.env', status: 'M' }]);
+  const rename = plan([{ path: '.env', status: 'R', oldPath: 'old.env' }]);
+  check(
+    'env-add-fail',
+    add.status === 'ENV_POLICY_VIOLATION' && add.exitCode === 1,
+    `status=${add.status} exit=${add.exitCode}`
+  );
+  check(
+    'env-modify-fail',
+    mod.status === 'ENV_POLICY_VIOLATION' && mod.exitCode === 1,
+    `status=${mod.status} exit=${mod.exitCode}`
+  );
+  check(
+    'env-rename-fail',
+    rename.status === 'ENV_POLICY_VIOLATION' && rename.exitCode === 1,
+    `status=${rename.status} exit=${rename.exitCode}`
+  );
+}
+
+// 10) Only explicit generated docs files → explicit quality-only plan.
+{
+  const p = plan([
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'docs/raporlar/YAPILAN-TESTLER.md', status: 'M' },
+    { path: 'docs/raporlar/YAPILMAYAN-TESTLER.md', status: 'M' },
+  ]);
+  check(
+    'generated-docs-quality-only',
+    p.status === 'QUALITY_ONLY' && p.exitCode === 0 && p.selectedRunnableSpecCount === 0,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 11) Random docs file → fail closed.
+{
+  const p = plan([{ path: 'docs/notes.md', status: 'M' }]);
+  check(
+    'random-docs-fail',
+    p.status === 'QUALITY_ONLY_POLICY_VIOLATION' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 12) Generated docs + unknown runtime → fail closed.
+{
+  const p = plan([
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'Dockerfile', status: 'A' },
+  ]);
+  check(
+    'generated-plus-unknown-fail',
+    p.status === 'QUALITY_ONLY_POLICY_VIOLATION' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 13) Generated docs + normal runtime test → runtime plan, not quality-only.
+{
+  const p = plan([
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'tests/login.spec.js', status: 'M' },
+  ]);
+  check(
+    'generated-plus-runtime',
+    p.status === 'RUNTIME_SELECTED' &&
+      p.exitCode === 0 &&
+      p.selected.publicSpecs.includes('tests/login.spec.js'),
+    `status=${p.status} public=${JSON.stringify(p.selected.publicSpecs)}`
+  );
+}
+
+// 14) Generated docs + mutation test → not quality-only.
+{
+  const p = plan([
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'tests/contacts-mutations.authed.spec.js', status: 'M' },
+  ]);
+  check(
+    'generated-plus-mutation',
+    p.status === 'STAGING_BLOCKED' && p.exitCode === 0,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 15) No explanation/empty plan → fail closed.
+{
+  const p = planImpact({ changedFiles: [], root, graph });
+  check(
+    'empty-plan-requires-explicit-reason',
+    p.status === 'PLAN_EXPLAIN_REQUIRED' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 16) Mutation spec production runnable listesine GİRMEZ; STAGING_BLOCKED.
 {
   const p = plan([{ path: 'tests/contacts-mutations.authed.spec.js', status: 'M' }]);
   check(
@@ -145,7 +255,7 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
-// 9) Unknown runtime file → FAIL CLOSED (non-zero).
+// 17) Unknown runtime file → FAIL CLOSED (non-zero).
 {
   const p = plan([{ path: 'Dockerfile', status: 'A' }]);
   check(

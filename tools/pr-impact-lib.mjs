@@ -95,6 +95,17 @@ const isMutationSpec = (rel) =>
   isSpecPath(rel) &&
   /(?:\.mutation\.|-mutations?\.|(?:^|\/)mutation-orphans\.)/.test(rel);
 const isAuthedSpec = (rel) => /\.authed\.spec\.js$/.test(rel);
+const QUALITY_ONLY_ALLOWED_DOCS = Object.freeze([
+  'docs/TEST_COVERAGE.md',
+  'docs/raporlar/YAPILAN-TESTLER.md',
+  'docs/raporlar/YAPILMAYAN-TESTLER.md',
+]);
+const DOCS_ONLY_ALLOWED_PATHS = Object.freeze([
+  'README.md',
+  'docs/TEST_COVERAGE.md',
+  'docs/raporlar/YAPILAN-TESTLER.md',
+  'docs/raporlar/YAPILMAYAN-TESTLER.md',
+]);
 
 // ─────────────────────────── Sınıflandırma (yol) ───────────────────────────
 
@@ -337,6 +348,7 @@ export function planImpact(input = {}) {
     baseSha = null,
     headSha = null,
     mode = 'local',
+    explanation = '',
   } = input;
 
   const graph =
@@ -362,6 +374,23 @@ export function planImpact(input = {}) {
   const unmapped = new Set();
   const reasons = new Set();
   const graphWarnings = new Set();
+
+  const explicitExplanation = typeof explanation === 'string' ? explanation.trim() : '';
+  const hasOnlyEnvDeletion = details.length > 0 && details.every((f) => f.path === '.env' && f.status === 'D');
+  const hasEnvPolicyChange = details.some((f) => f.path === '.env' && f.status !== 'D');
+  const hasOnlyGeneratedDocs =
+    details.length > 0 && details.every((f) => QUALITY_ONLY_ALLOWED_DOCS.includes(f.path));
+  const hasOnlyDocsAllowedPaths =
+    details.length > 0 && details.every((f) => DOCS_ONLY_ALLOWED_PATHS.includes(f.path));
+  const hasRuntimeChange = details.some((f) => f.path !== '.env' && !f.path.startsWith('docs/'));
+  const hasDocsOnlyChange = details.length > 0 && details.every((f) => f.path.startsWith('docs/') || f.path === 'README.md');
+  const hasGeneratedDocs = details.some((f) => QUALITY_ONLY_ALLOWED_DOCS.includes(f.path));
+  const hasUnexpectedQualityOnlyFiles = details.some((f) => {
+    if (f.path === '.env' || f.path === 'README.md') return false;
+    if (QUALITY_ONLY_ALLOWED_DOCS.includes(f.path)) return false;
+    if (f.path.startsWith('docs/')) return true;
+    return classifyFile(f.path) === 'unknown-runtime';
+  });
 
   const bucketSpec = (spec) => {
     switch (specBucket(spec)) {
@@ -391,6 +420,186 @@ export function planImpact(input = {}) {
   // Grafik uyarılarını (çözülemeyen/dinamik import) görünür kıl → fail-closed.
   for (const w of graph.warnings || []) {
     graphWarnings.add(`${w.kind}:${w.from}→${w.specifier}`);
+  }
+
+  if (sourceMissing) {
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'SOURCE_MISSING',
+      exitCode: 1,
+      changedFiles: [],
+      changedFileDetails: [],
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: [],
+      ciToolingFiles: [],
+      policyOnlyFiles: [],
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: ['SOURCE_MISSING'],
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length === 0 && !explicitExplanation) {
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'PLAN_EXPLAIN_REQUIRED',
+      exitCode: 1,
+      changedFiles: [],
+      changedFileDetails: [],
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: [],
+      ciToolingFiles: [],
+      policyOnlyFiles: [],
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: ['PLAN_EXPLAIN_REQUIRED'],
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length > 0 && hasOnlyEnvDeletion) {
+    reasons.add('SECURITY_REMEDIATION:.env deleted');
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'SECURITY_REMEDIATION',
+      exitCode: 0,
+      changedFiles: details.map((d) => d.path),
+      changedFileDetails: details,
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: [],
+      ciToolingFiles: [],
+      policyOnlyFiles: [],
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: uniqSort([...reasons]),
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length > 0 && hasEnvPolicyChange) {
+    reasons.add('ENV_POLICY_VIOLATION:.env');
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'ENV_POLICY_VIOLATION',
+      exitCode: 1,
+      changedFiles: details.map((d) => d.path),
+      changedFileDetails: details,
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: [],
+      ciToolingFiles: [],
+      policyOnlyFiles: [],
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: uniqSort([...reasons]),
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length > 0 && hasGeneratedDocs && !hasUnexpectedQualityOnlyFiles && !hasRuntimeChange) {
+    reasons.add('QUALITY_ONLY:generated-docs');
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'QUALITY_ONLY',
+      exitCode: 0,
+      changedFiles: details.map((d) => d.path),
+      changedFileDetails: details,
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: details.map((d) => d.path),
+      ciToolingFiles: [],
+      policyOnlyFiles: details.map((d) => d.path),
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: uniqSort([...reasons]),
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length > 0 && hasGeneratedDocs && hasUnexpectedQualityOnlyFiles) {
+    reasons.add('QUALITY_ONLY_POLICY_VIOLATION:docs');
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'QUALITY_ONLY_POLICY_VIOLATION',
+      exitCode: 1,
+      changedFiles: details.map((d) => d.path),
+      changedFileDetails: details,
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: details.map((d) => d.path),
+      ciToolingFiles: [],
+      policyOnlyFiles: details.map((d) => d.path),
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: uniqSort([...reasons]),
+      selectedRunnableSpecCount: 0,
+    };
+  }
+
+  if (details.length > 0 && !hasRuntimeChange && hasDocsOnlyChange && !hasOnlyDocsAllowedPaths) {
+    reasons.add('QUALITY_ONLY_POLICY_VIOLATION:docs');
+    return {
+      schemaVersion: 1,
+      mode,
+      baseSha,
+      headSha,
+      sourceMissing,
+      status: 'QUALITY_ONLY_POLICY_VIOLATION',
+      exitCode: 1,
+      changedFiles: details.map((d) => d.path),
+      changedFileDetails: details,
+      selected: { publicSpecs: [], authenticatedSpecs: [], discoverySpecs: [] },
+      fallbackSuites: [],
+      stagingBlockedMutationSpecs: [],
+      visualPolicyFiles: [],
+      docsOnlyFiles: details.map((d) => d.path),
+      ciToolingFiles: [],
+      policyOnlyFiles: details.map((d) => d.path),
+      unmappedRuntimeFiles: [],
+      graphWarnings: [],
+      reasons: uniqSort([...reasons]),
+      selectedRunnableSpecCount: 0,
+    };
   }
 
   for (const f of details) {
