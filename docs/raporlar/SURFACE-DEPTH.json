@@ -8,43 +8,44 @@
     "runtimeGeneratedAt": "2026-08-02T19:46:28.218Z"
   },
   "inventory": {
-    "registeredRoutes": 55,
-    "testedPagesContracts": 36,
+    "registeredRoutes": 56,
+    "testedPagesContracts": 39,
     "knownBugs": {
-      "total": 50,
-      "open": 49,
+      "total": 52,
+      "open": 51,
       "fixedCandidate": 0,
       "closed": 1
     }
   },
   "totals": {
-    "registeredRoutes": 55,
+    "registeredRoutes": 56,
     "l1Proven": 55,
-    "l1NotProven": 0,
-    "l2StyleContractMet": 55,
+    "l1NotProven": 1,
+    "l2StyleContractMet": 56,
     "l2StyleGap": 0,
     "l2Complete": 0,
-    "l2Partial": 55,
+    "l2Partial": 56,
     "l2NotCovered": 0,
-    "interactionUnverifiedRoutes": 55,
-    "l3Blocked": 39,
+    "interactionUnverifiedRoutes": 56,
+    "l3Blocked": 40,
     "l3NotApplicable": 16,
-    "l4Blocked": 55,
-    "l5Blocked": 55,
+    "l4Blocked": 56,
+    "l5Blocked": 56,
     "highestLevel": {
-      "L0": 0,
+      "L0": 1,
       "L1": 0,
       "L2_STYLE": 55,
       "L2_DEEP": 0
     },
-    "routesWithFindings": 20,
-    "openFindingsOnRoutes": 35
+    "routesWithFindings": 21,
+    "openFindingsOnRoutes": 37
   },
   "pages": [
     {
       "route": "/",
       "heading": "Dashboard",
       "contracts": [
+        "dashboard",
         "main-navigation"
       ],
       "highestProvenLevel": "L2_STYLE",
@@ -66,10 +67,13 @@
               "a11y",
               "layout",
               "clean",
-              "deeplink"
+              "deeplink",
+              "errorpath",
+              "perf",
+              "data"
             ],
-            "coveredOrExempt": 5,
-            "requiredCount": 5,
+            "coveredOrExempt": 8,
+            "requiredCount": 8,
             "gaps": 0,
             "dimensions": {
               "i18n": {
@@ -98,9 +102,8 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "errorpath": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "visual": {
                 "status": "NOT_APPLICABLE",
@@ -108,14 +111,12 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "perf": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "data": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "export": {
                 "status": "NOT_APPLICABLE",
@@ -127,20 +128,19 @@
           "interaction": {
             "verified": false,
             "applicableDimensions": [
-              "tabs",
               "search-filter",
               "table-list",
               "pagination-sort",
               "empty-state",
               "loading-state"
             ],
-            "applicableCount": 6,
+            "applicableCount": 5,
             "coveredCount": 0,
-            "surfaceArchetype": false,
+            "surfaceArchetype": true,
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
                 "status": "UNVERIFIED",
@@ -178,7 +178,18 @@
           "reasonCode": "PROVIDER_HARNESS_REQUIRED"
         }
       },
-      "findings": []
+      "findings": [
+        {
+          "id": "DASH-AI-I18N",
+          "severity": "low",
+          "status": "open"
+        },
+        {
+          "id": "DASH-CLICKHOUSE",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
     },
     {
       "route": "/inbox",
@@ -334,7 +345,8 @@
       "route": "/voice",
       "heading": "Live Calls",
       "contracts": [
-        "main-navigation"
+        "main-navigation",
+        "voice-hub"
       ],
       "highestProvenLevel": "L2_STYLE",
       "levels": {
@@ -355,10 +367,12 @@
               "a11y",
               "layout",
               "clean",
-              "deeplink"
+              "deeplink",
+              "errorpath",
+              "data"
             ],
-            "coveredOrExempt": 5,
-            "requiredCount": 5,
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
             "gaps": 0,
             "dimensions": {
               "i18n": {
@@ -384,52 +398,53 @@
               "keyboard": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "Hub <main>'inde diyalog/menü/ARIA-sekme yok (alt-nav düğmeleri = bölüm gezinmesi, nav-L3 ile kapsanır)."
               },
               "errorpath": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "visual": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok."
               },
               "perf": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "Ağır grafik kütüphanesi yok (KPI döşemeleri + mevcudiyet sayaçları + boş-durum)."
               },
               "data": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "export": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok (Recordings'te var)."
               }
             }
           },
           "interaction": {
             "verified": false,
             "applicableDimensions": [
-              "tabs",
               "search-filter",
               "table-list",
               "pagination-sort",
               "empty-state",
               "loading-state"
             ],
-            "applicableCount": 6,
+            "applicableCount": 5,
             "coveredCount": 0,
-            "surfaceArchetype": false,
+            "surfaceArchetype": true,
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
                 "status": "UNVERIFIED",
@@ -8068,6 +8083,146 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/voice/queues",
+      "heading": null,
+      "contracts": [
+        "voice-queues"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath"
+            ],
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": true
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     }
   ],
   "unmappedTests": [
