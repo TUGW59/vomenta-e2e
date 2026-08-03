@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1064 / 103 dosya
-- **coverageStatus:** verified 0 · partial 1017 · generic 9 · blocked 38
-- **executionStatus:** executed 0 · listed-only 1026 · skipped 0 · fixme 38
+- **Listelenen test:** 1178 / 114 dosya
+- **coverageStatus:** verified 0 · partial 1129 · generic 9 · blocked 40
+- **executionStatus:** executed 0 · listed-only 1138 · skipped 0 · fixme 40
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,13 +25,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 97 | 88 | 9 | 0 |
+| other | 106 | 97 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
 | settings | 333 | 316 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
-| voice | 38 | 37 | 0 | 1 |
+| voice | 143 | 140 | 0 | 3 |
 | workforce | 105 | 103 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
@@ -588,6 +588,15 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/channels/social] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/video] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/voice/queues] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/history] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/voicemail] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/recordings] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/dids] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/regulatory] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/ivr] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/sip-trunks] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/sip-settings] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/skills] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 
 ### `reports-actions.authed.spec.js` — _reports_
 
@@ -1404,6 +1413,70 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L3: softphone ile test numarası aranıyor ve çağrı kuruluyor | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: test numarasına SMS gönderiliyor (channels.sms.send) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
+### `voice-dids-mutations.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: DID ata → "Assigned" doğrula → atamayı geri al (Unassign) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `voice-dids.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Phone Numbers" + "Pending Requests" ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /dids çağrılıyor + numara tablosu render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Request Number" tıklanınca "Request Phone Number" dialogu açılıyor; klavye ile kapanıyor (gönderilmez) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /dids 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı) | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-history.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Call History" başlığı + alt-başlık + yön filtreleri ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /voice/calls çağrılıyor + geçmiş tablosu render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Details" tıklanınca dialog açılıyor; klavye ile kapanıyor | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: yön filtresi combobox'u açılıp seçim yapılabiliyor; tablo sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /voice/calls 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/history doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-ivr-mutations.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: IVR oluştur → listede doğrula → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `voice-ivr.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "IVR Builder" başlığı + alt-başlık + "Create IVR" ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /ivr çağrılıyor + IVR tablosu render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Create IVR" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /ivr 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/ivr doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
 ### `voice-queues-mutations.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1427,6 +1500,85 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/queues doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `voice-recordings.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Call Recordings" başlığı + alt-başlık ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /voice/recordings çağrılıyor + tablo render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| "Download" tıklanınca kayıt stream ucu (GET .../recordings/<id>/stream) çağrılıyor | @export | — | listed-only | partial | medium | list-exec |
+| L1: "Delete Recording" tıklanınca onay alertdialog'u açılıyor; klavye ile kapanıyor (ONAYLANMAZ) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /voice/recordings 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/recordings doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-regulatory.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| /voice/regulatory rotası oturum korunarak yükleniyor (içerik bozuk olsa da kabuk sağlam) | @smoke | — | listed-only | partial | medium | list-exec |
+| VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı | @i18n @clean @known-bug @clean | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| B10 · /voice/regulatory · Voice alt-navigasyonu (Live Calls) sayfada görünmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| /voice/regulatory doğrudan açılınca oturum korunuyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-sip-settings.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "SIP & phone settings" + SIP extension/Display name alanları ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "SIP extension" alanına değer girilebiliyor ve yansıyor (yalnız localStorage, sunucuya yazmaz) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| /voice/sip-settings doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-sip-trunks.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "SIP Trunks" başlığı + "Add SIP Trunk" ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /voice/sip-trunks çağrılıyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli | @i18n @known-bug | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Add SIP Trunk" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /voice/sip-trunks 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/sip-trunks doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-skills.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Skills-Based Routing" başlığı + alt-başlık + "Select Queue" ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /queues çağrılıyor (kuyruk seçici doldurulur) | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Select Queue" açılıp bir kuyruk seçilebiliyor; sayfa sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/skills doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
 ### `voice-subnav.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1441,6 +1593,23 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 | "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 | "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+
+### `voice-voicemail.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Voicemails" başlığı + alt-başlık ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /voicemails çağrılıyor + tablo render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| L1: "All Status" filtresi açılıp seçim yapılabiliyor; sayfa sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /voicemails 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/voicemail doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `voice.authed.spec.js` — _voice_
 

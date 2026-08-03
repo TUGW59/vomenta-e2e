@@ -8,37 +8,37 @@
     "runtimeGeneratedAt": "2026-08-02T19:46:28.218Z"
   },
   "inventory": {
-    "registeredRoutes": 56,
-    "testedPagesContracts": 39,
+    "registeredRoutes": 65,
+    "testedPagesContracts": 48,
     "knownBugs": {
-      "total": 52,
-      "open": 51,
+      "total": 57,
+      "open": 56,
       "fixedCandidate": 0,
       "closed": 1
     }
   },
   "totals": {
-    "registeredRoutes": 56,
+    "registeredRoutes": 65,
     "l1Proven": 55,
-    "l1NotProven": 1,
-    "l2StyleContractMet": 56,
+    "l1NotProven": 10,
+    "l2StyleContractMet": 65,
     "l2StyleGap": 0,
     "l2Complete": 0,
-    "l2Partial": 56,
+    "l2Partial": 65,
     "l2NotCovered": 0,
-    "interactionUnverifiedRoutes": 56,
-    "l3Blocked": 40,
-    "l3NotApplicable": 16,
-    "l4Blocked": 56,
-    "l5Blocked": 56,
+    "interactionUnverifiedRoutes": 63,
+    "l3Blocked": 46,
+    "l3NotApplicable": 19,
+    "l4Blocked": 65,
+    "l5Blocked": 65,
     "highestLevel": {
-      "L0": 1,
+      "L0": 10,
       "L1": 0,
       "L2_STYLE": 55,
       "L2_DEEP": 0
     },
-    "routesWithFindings": 21,
-    "openFindingsOnRoutes": 37
+    "routesWithFindings": 27,
+    "openFindingsOnRoutes": 46
   },
   "pages": [
     {
@@ -8223,6 +8223,1311 @@
         }
       },
       "findings": []
+    },
+    {
+      "route": "/voice/history",
+      "heading": null,
+      "contracts": [
+        "voice-history"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath"
+            ],
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok (Recordings'te var)."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "VOICE-HISTORY-A11Y-LABEL",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/voicemail",
+      "heading": null,
+      "contracts": [
+        "voice-voicemail"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "errorpath"
+            ],
+            "coveredOrExempt": 6,
+            "requiredCount": 6,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Salt-okunur açılışta diyalog/menü/sekme açılmıyor (satır aksiyonları destructive → staging)."
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Tablo canlı veri (arayan/tarih/durum) + açılış konsol hatası (VOICEMAIL-PAGER-I18N) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (durum filtresi + sesli mesaj tablosu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "B11",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "VOICEMAIL-PAGER-I18N",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/recordings",
+      "heading": null,
+      "contracts": [
+        "voice-recordings"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath",
+              "export"
+            ],
+            "coveredOrExempt": 8,
+            "requiredCount": 8,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Tablo canlı veri (Call ID/tarih/süre/boyut/retention) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (tarih filtreleri + kayıt tablosu + Delete onay dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "COVERED",
+                "required": true
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "VOICE-RECORDINGS-A11Y-LABEL",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/dids",
+      "heading": null,
+      "contracts": [
+        "voice-dids"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath"
+            ],
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": true
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "B14",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/regulatory",
+      "heading": null,
+      "contracts": [
+        "voice-regulatory"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 5,
+            "requiredCount": 5,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Diyalog/menü/sekme güvenilir render etmiyor (sayfa bozuk); KYC akışı staging."
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Sayfa zaten kırık render ediyor (voiceRegulatory namespace eksik) → veri-hata yolu ayırt edilemez; kök neden VOICE-REGULATORY-BROKEN altında."
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Ağır içerik yok (KYC/regulatory içeriği render bile etmiyor)."
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Sayısal KPI yok; içerik güvenilir render etmiyor."
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [],
+            "applicableCount": 0,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "table-list": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "pagination-sort": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "empty-state": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "loading-state": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "B1",
+          "severity": "critical",
+          "status": "open"
+        },
+        {
+          "id": "B10",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "VOICE-REGULATORY-BROKEN",
+          "severity": "high",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/ivr",
+      "heading": null,
+      "contracts": [
+        "voice-ivr"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath"
+            ],
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "IVR tablosu canlı veri (ad/tip/durum/tarih) → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (IVR tablosu + Create IVR dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": true
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/voice/sip-trunks",
+      "heading": null,
+      "contracts": [
+        "voice-sip-trunks"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "keyboard",
+              "errorpath"
+            ],
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "COVERED",
+                "required": true
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (SIP trunk listesi/boş-durum + Add SIP Trunk dialogu)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": [
+        {
+          "id": "VOICE-SIP-TRUNKS-SUBTITLE-I18N",
+          "severity": "low",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/sip-settings",
+      "heading": null,
+      "contracts": [
+        "voice-sip-settings"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 5,
+            "requiredCount": 5,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Diyalog/menü/sekme yok (SIP extension/Display name girdileri + Endpoint mode radio)."
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Sunucu API'si yok; ayarlar tarayıcıda (localStorage) saklanır → yakalanacak veri-hata yolu yok."
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Yerel-config formu; kararlı bölge dar ama snapshot lane bu pakette açılmadı."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (küçük yapılandırma formu)."
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Sunucudan veri çekmiyor; sayısal KPI yok (yerel config)."
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [],
+            "applicableCount": 0,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "table-list": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "pagination-sort": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "empty-state": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "loading-state": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/voice/skills",
+      "heading": null,
+      "contracts": [
+        "voice-skills"
+      ],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "PARTIAL",
+          "style": {
+            "contractMet": true,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink",
+              "errorpath"
+            ],
+            "coveredOrExempt": 6,
+            "requiredCount": 6,
+            "gaps": 0,
+            "dimensions": {
+              "i18n": {
+                "status": "COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Diyalog/menü/ARIA-sekme yok (Select Queue combobox'ı + üye/beceri paneli)."
+              },
+              "errorpath": {
+                "status": "COVERED",
+                "required": true
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Seçilen kuyruğa bağlı üye/beceri listesi canlı → kararlı snapshot bölgesi yok."
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Grafik/ağır içerik yok (kuyruk seçici + üye listesi)."
+              },
+              "data": {
+                "status": "COVERED",
+                "required": false
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "DECLARED_NA",
+                "reason": "Bu sayfada export/indirme kontrolü yok."
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 5,
+            "coveredCount": 0,
+            "surfaceArchetype": true,
+            "dimensions": {
+              "tabs": {
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     }
   ],
   "unmappedTests": [
@@ -8244,30 +9549,6 @@
       "severity": "medium",
       "status": "open",
       "route": "/ai/prompts"
-    },
-    {
-      "id": "B1",
-      "severity": "critical",
-      "status": "open",
-      "route": "/voice/regulatory"
-    },
-    {
-      "id": "B10",
-      "severity": "medium",
-      "status": "open",
-      "route": "/voice/regulatory"
-    },
-    {
-      "id": "B11",
-      "severity": "medium",
-      "status": "open",
-      "route": "/voice/voicemail"
-    },
-    {
-      "id": "B14",
-      "severity": "medium",
-      "status": "open",
-      "route": "/voice/dids"
     },
     {
       "id": "CAMPAIGNS-ICON-A11Y",
