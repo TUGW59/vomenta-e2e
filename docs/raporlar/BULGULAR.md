@@ -5,10 +5,10 @@
 
 ## Özet
 
-- **Toplam bulgu:** 50
-- **Durum:** open 49 · closed 1
-- **Guard:** knownBugGuard 48 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 38 · low 4
+- **Toplam bulgu:** 54
+- **Durum:** open 53 · closed 1
+- **Guard:** knownBugGuard 52 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 8 · medium 40 · low 5
 
 ### Governance işaretleri
 - **Sahipsiz (owner=null):** 35 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
@@ -21,6 +21,10 @@
 |---|---|---|---|---|---|---|
 | B13 | ai | /ai | low | open | knownBugGuard | — |
 | AI-PROMPTS-CONSOLE | ai | /ai/prompts | medium | open | knownBugGuard | — |
+| BOT-BUILDER-TEMPLATE-I18N | ai | /bot-builder | high | open | knownBugGuard | quality-guild |
+| BOT-BUILDER-CLOSE-I18N | ai | /bot-builder | low | open | knownBugGuard | quality-guild |
+| BOT-BUILDER-EDITOR-A11Y | ai | /bot-builder/{id} | medium | open | knownBugGuard | quality-guild |
+| BOT-BUILDER-EDITOR-GATE-I18N | ai | /bot-builder/{id} | medium | open | knownBugGuard | quality-guild |
 | ANALYTICS-A | analytics | /analytics | medium | open | knownBugGuard | — |
 | ANALYTICS-B | analytics | /analytics | medium | open | knownBugGuard | — |
 | B12 | analytics | /analytics | medium | open | knownBugGuard | — |
@@ -97,6 +101,58 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-31 · **expiry:** —
 - **Guard testi:** `tests/known-bugs.authed.spec.js` → AI-PROMPTS-CONSOLE · /ai/prompts · konsolda MALFORMED_ARGUMENT (ICU) hatası olmamalı
+
+### /bot-builder
+
+**[BOT-BUILDER-TEMPLATE-I18N] Bot Oluşturucu şablonları ham i18n anahtarı gösteriyor (MISSING_MESSAGE)** — `high` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Şablon adları/açıklamaları çevrilmiş görünür; konsolda MISSING_MESSAGE yok
+- **Gerçekleşen:** Şablonlar ham anahtar olarak render ediliyor (botBuilder.FAQ Bot, botBuilder.Appointment Scheduler, botBuilder.Order Status, botBuilder.Lead Qualification, botBuilder.AI Voice Inbound/Outbound, botBuilder.Welcome & Greeting, botBuilder.Business Hours Check, botBuilder.Queue Routing, botBuilder.CSAT Survey, botBuilder.Voicemail, botBuilder.Call Transfer + açıklamaları). Şablonlar açılışta önden yüklendiği için liste açılışında bile konsola tekrarlı "MISSING_MESSAGE: botBuilder.<...> (en)" düşüyor. İngilizce dahil tüm dillerde.
+- **Repro:** /bot-builder aç (veya "Create Bot" diyaloğunu aç) → Şablon (Template) listesini / tarayıcı konsolunu izle
+- **Olası nedenler:** Şablon adı/açıklaması sabit string yerine çeviri anahtarı olarak t() ile aranıyor ama botBuilder.<...> mesajları çeviri bundle'ında tanımlı değil (next-intl MISSING_MESSAGE).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: şablon adı/açıklamasını doğrudan sabit metin olarak göster ya da botBuilder.* anahtarlarını tüm dil bundle'larına ekle.
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/bot-builder.authed.spec.js` → BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı
+
+**[BOT-BUILDER-CLOSE-I18N] Bot Oluşturucu diyaloğunun kapat düğmesi çevrilmiyor ("Close")** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Kapat düğmesinin erişilebilir adı aktif dilde (ör. TR "Kapat")
+- **Gerçekleşen:** Erişilebilir ad tüm dillerde İngilizce "Close" olarak kalıyor.
+- **Repro:** /bot-builder aç, dili Türkçe/Fransızca/Arapça yap → "Create Bot" diyaloğunu aç → Kapat (X) düğmesinin erişilebilir adını oku
+- **Olası nedenler:** Diyalog kapat düğmesinin erişilebilir adı sabit "Close" olarak yazılmış (çeviri anahtarı kullanılmıyor).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: diyalog kapat düğmesinin aria-label/sr-only metnini çeviri anahtarına bağla.
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/bot-builder.authed.spec.js` → BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli
+
+### /bot-builder/{id}
+
+**[BOT-BUILDER-EDITOR-A11Y] Bot editöründe ciddi axe ihlalleri (link-name + scrollable-region-focusable)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Ciddi/kritik axe ihlali yok (bilinen borç hariç)
+- **Gerçekleşen:** axe 2 ciddi ihlal raporluyor: "link-name" (geri-dön linki ikon-only, erişilebilir ad yok) ve "scrollable-region-focusable" (React Flow tuvali klavye ile odaklanamıyor).
+- **Repro:** /bot-builder aç, bir bota tıkla (editör) → axe (wcag2a/2aa) ile tara → ciddi ihlalleri oku
+- **Olası nedenler:** Geri-dön <a> yalnız ikon içeriyor (aria-label/sr-only metin yok).; React Flow kaydırılabilir tuval bölgesi tabindex/rol taşımıyor (klavye erişimi yok).
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: geri-dön linkine aria-label ekle.; Tuval kaydırılabilir bölgesine klavye erişimi (tabindex + rol/etiket) ekle.
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/bot-builder-editor.authed.spec.js` → BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard
+
+**[BOT-BUILDER-EDITOR-GATE-I18N] Bot editörü "Desktop Screen Required" kapısı fr/ar'da çevrilmiyor** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Kapı başlığı aktif dilde (TR "Masaüstü ekranı gerekli" gibi)
+- **Gerçekleşen:** fr ve ar'da İngilizce "Desktop Screen Required" olarak kalıyor (tr çevrili).
+- **Repro:** /bot-builder/{id} editörünü dar ekranda (mobil/tablet) aç → Dili Fransızca veya Arapça yap → Kapı (gate) başlığını oku
+- **Olası nedenler:** botBuilder editör dar-ekran kapısı çeviri anahtarı fr/ar bundle'ında eksik.
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: "Desktop Screen Required" kapı metnini fr/ar çeviri bundle'larına ekle.
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/bot-builder-editor.authed.spec.js` → BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli
 
 ## analytics
 

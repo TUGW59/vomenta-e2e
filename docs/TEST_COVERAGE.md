@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 975
-- **Test dosyası:** 67
-- **Etiketler:** `@a11y` 51 · `@clean)` 7 · `@clean` 37 · `@critical` 70 · `@data` 10 · `@deeplink` 36 · `@errorpath` 38 · `@export` 1 · `@i18n` 160 · `@keyboard` 30 · `@known-bug` 61 · `@layout` 42 · `@perf` 1 · `@public` 2 · `@regression` 325 · `@route-baseline` 55 · `@smoke` 143 · `@visual` 21
+- **Test edilen senaryo:** 1032
+- **Test dosyası:** 70
+- **Etiketler:** `@a11y` 55 · `@clean)` 7 · `@clean` 41 · `@critical` 72 · `@data` 13 · `@deeplink` 40 · `@errorpath` 41 · `@export` 1 · `@i18n` 180 · `@keyboard` 32 · `@known-bug` 65 · `@layout` 46 · `@perf` 1 · `@public` 2 · `@regression` 354 · `@route-baseline` 56 · `@smoke` 150 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -103,6 +103,40 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
+
+### `bot-builder-editor.authed.spec.js`
+
+- editör yükleniyor: sekmeler + bot adı + Save Draft/Publish + geri dön  `@smoke` `@critical`
+- editör URL'si doğrudan (tam yükleme) açılıyor  `@deeplink`
+- editör açılışında editöre özgü console/ağ hatası yok  `@clean`
+- BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard  `@a11y` `@known-bug`
+- masaüstü tuval / mobil-tablet "Desktop Screen Required" kapısı; yatay taşma yok  `@layout`
+- İngilizce sekme + üst eylem etiketleri  `@i18n` `@regression`
+- tr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- fr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- ar: sekmeler + Kaydet/Yayınla çevrili + yön (rtl)  `@i18n` `@regression`
+- BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli  `@i18n` `@regression` `@i18n` `@known-bug`
+- L1 tıklama OK: Analytics ↔ Editor sekme takası  `@regression`
+- L3 navigasyon OK: geri dön /bot-builder listesini yüklüyor  `@regression`
+
+### `bot-builder.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical` `@deeplink`
+- "Create Bot" birincil eylemi görünür ve etkin  `@smoke`
+- listedeki botlar /api/v1/bots yanıtıyla tutarlı  `@data` `@regression`
+- BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- ciddi/kritik axe ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatay taşma yok  `@layout`
+- İngilizce başlık/alt başlık/eylem  `@i18n` `@regression`
+- tr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- fr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- ar: başlık/alt başlık/eylem + yön (rtl)  `@i18n` `@regression`
+- Create diyaloğu İngilizce çevrili (başlık/alanlar/eylemler)  `@i18n` `@regression`
+- L1 tıklama OK: "Create Bot" diyaloğu açar  `@regression`
+- klavye: odak tuzağı + Escape ile kapanır  `@regression` `@keyboard`
+- BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli  `@regression` `@i18n` `@known-bug`
+- L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor  `@regression`
+- /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur  `@errorpath`
 
 ### `campaigns-outbound.authed.spec.js`
 
@@ -481,6 +515,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/channels/whatsapp] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/social] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/video] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
 ### `reports-actions.authed.spec.js`
 
@@ -1061,18 +1096,49 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-queues.authed.spec.js`
+
+- sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor  `@smoke`
+- GET /queues çağrılıyor + en az bir kuyruk kartı render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Create Queue" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
+- GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-subnav.authed.spec.js`
 
-- "Queues" alt-navigasyonu /voice/queues ("Queues") panelini açıyor
-- "Call History" alt-navigasyonu /voice/history ("Call History") panelini açıyor
-- "Voicemails" alt-navigasyonu /voice/voicemail ("Voicemails") panelini açıyor
-- "Recordings" alt-navigasyonu /voice/recordings ("Call Recordings") panelini açıyor
+- "Live Calls" → /voice/live ("Live Calls") panelini açıyor  `@regression`
+- "Queues" → /voice/queues ("Queues") panelini açıyor  `@regression`
+- "IVR Builder" → /voice/ivr ("IVR Builder") panelini açıyor  `@regression`
+- "Phone Numbers" → /voice/dids ("Phone Numbers") panelini açıyor  `@regression`
+- "Call History" → /voice/history ("Call History") panelini açıyor  `@regression`
+- "Voicemails" → /voice/voicemail ("Voicemails") panelini açıyor  `@regression`
+- "Recordings" → /voice/recordings ("Call Recordings") panelini açıyor  `@regression`
+- "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor  `@regression`
+- "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
+- "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
 
 ### `voice.authed.spec.js`
 
-- /voice, Live Calls sayfasına açılıyor
-- aktif çağrı yokken boş durum gösteriliyor
-- Voice alt-navigasyon öğeleri görünüyor
+- /voice, "Live Calls" başlığı + alt-başlık + boş durum ile açılıyor  `@smoke`
+- Voice alt-navigasyonunun 10 hedefi görünüyor  `@smoke`
+- canlı istatistik ucu çağrılıyor + "Agents Available" döşemesi DEĞER gösteriyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- canlı çağrı ucu 500 dönse de kabuk + başlık + boş durum sağlam  `@errorpath`
+- "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez)  `@regression`
+- /voice doğrudan açılınca /voice/live yüklüyor  `@deeplink`
 
 ### `workforce-badges.authed.spec.js`
 
