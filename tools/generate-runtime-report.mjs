@@ -123,6 +123,29 @@ function loadListInventory(listInputPath) {
   };
 }
 
+/**
+ * FAZ 1 read-only manifest sayılarını (varsa) okur → §3.2 "production-safe
+ * seçilebilir" / "staging gerektiren" sütunları. Manifest yoksa null (uydurma yok);
+ * bozuksa da sessizce null (runtime raporu manifest'e bağımlı DEĞİL, yalnız zenginleşir).
+ */
+function loadManifestCounts() {
+  const abs = resolve(root, 'docs/raporlar/READONLY-MANIFEST.json');
+  if (!existsSync(abs)) return null;
+  try {
+    const m = JSON.parse(readFileSync(abs, 'utf8'));
+    const c = m && m.counts;
+    if (!c) return null;
+    return {
+      totalSpecs: Number(c.totalSpecs),
+      productionSafeReadOnly: Number(c.productionSafeReadOnly),
+      stagingRequired: Number(c.stagingRequired),
+      externalCostExcluded: Number(c.externalCostExcluded),
+    };
+  } catch {
+    return null;
+  }
+}
+
 /** Run JSON'undan ilk projeyi güvenli türet (yoksa null). */
 function detectProject(report) {
   const walk = (suite) => {
@@ -183,6 +206,7 @@ function main() {
   }
 
   const listInventory = loadListInventory(opts.listInput);
+  const manifestCounts = loadManifestCounts();
   const generatedAt = new Date().toISOString();
   const runProject = detectProject(report);
 
@@ -206,6 +230,7 @@ function main() {
       },
       generatedAt,
       listInventory,
+      manifestCounts,
     });
   } catch (e) {
     fail(e instanceof Error ? e.message : String(e));

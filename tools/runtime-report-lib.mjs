@@ -218,6 +218,9 @@ export function buildRuntimeTotals(tests) {
  * @param {object} opts.source { commitSha, environment, browser, project?, runId?, inputPath?, runStartedAt? }
  * @param {string} opts.generatedAt ISO zaman (deterministik test için dışarıdan)
  * @param {object} [opts.listInventory] { definedLogical, projectExpandedListed, runnableInventory } | null
+ * @param {object} [opts.manifestCounts] FAZ 1 read-only manifest sayıları
+ *   { totalSpecs, productionSafeReadOnly, stagingRequired, externalCostExcluded } | null.
+ *   §3.2 "production-safe seçilebilir" / "staging gerektiren" sütunlarını uydurmadan besler.
  */
 export function buildResultModel(opts) {
   const {
@@ -228,6 +231,7 @@ export function buildResultModel(opts) {
     source,
     generatedAt,
     listInventory = null,
+    manifestCounts = null,
   } = opts;
 
   const warnings = [];
@@ -326,6 +330,11 @@ export function buildResultModel(opts) {
       projectExpandedListed: listInventory && Number.isFinite(listInventory.projectExpandedListed) ? listInventory.projectExpandedListed : null,
       runnableInventory: listInventory && Number.isFinite(listInventory.runnableInventory) ? listInventory.runnableInventory : null,
       listInventorySource: listInventory ? 'provided' : 'not-provided',
+      // FAZ 1 read-only manifest sayıları (§3.2 ayrı sütunlar). Yoksa null (uydurma yok).
+      manifestTotalSpecs: manifestCounts && Number.isFinite(manifestCounts.totalSpecs) ? manifestCounts.totalSpecs : null,
+      productionSafeSelectable: manifestCounts && Number.isFinite(manifestCounts.productionSafeReadOnly) ? manifestCounts.productionSafeReadOnly : null,
+      stagingRequired: manifestCounts && Number.isFinite(manifestCounts.stagingRequired) ? manifestCounts.stagingRequired : null,
+      manifestCountsSource: manifestCounts ? 'provided' : 'not-provided',
     },
     runtime: { ...runtimeTotals, observedAttempts, routeStatusTotals: totals },
     pages,
@@ -389,6 +398,15 @@ export function renderMarkdown(model) {
   L.push(`- **PASS** ${t.PASS} · **FAIL** ${t.FAIL} · **FLAKY** ${t.FLAKY} · **BLOCKED** ${t.BLOCKED} · **NOT_RUN** ${t.NOT_RUN}  _(toplam ${t.PASS + t.FAIL + t.FLAKY + t.BLOCKED + t.NOT_RUN})_`);
   L.push(`- **Koşum:** seçilen ${rt.selectedThisRun} · çalışan ${rt.executedThisRun} · geçen ${rt.passedThisRun} · başarısız ${rt.failedThisRun} · flaky ${rt.flakyThisRun} · atlanan ${rt.skippedThisRun}` +
     `${rt.knownBugExpectedFail ? ` · known-bug-expected-fail ${rt.knownBugExpectedFail}` : ''}`);
+  // §3.2 — birbirine KARIŞTIRILMAYAN sayılar (yoksa "—", uydurma yok).
+  const inv = model.inventory;
+  const nOrDash = (v) => (v == null ? '—' : String(v));
+  L.push(
+    `- **Kapsam hunisi (ayrı semantik):** tanımlı ${nOrDash(inv.definedLogical ?? inv.manifestTotalSpecs)} → ` +
+      `production-safe seçilebilir ${nOrDash(inv.productionSafeSelectable)} → bu koşumda seçilen ${rt.selectedThisRun} → ` +
+      `gerçekten çalışan ${rt.executedThisRun}  ·  staging gerektiren ${nOrDash(inv.stagingRequired)}`
+  );
+  L.push('- ℹ️ **`listed != selected != executed != passed`** — bu sayılar aynı şey DEĞİLDİR; her biri ayrı kapsam katmanıdır.');
   L.push(`- **Bilinen bulgu:** ${model.inventory.knownBugs.total} (open ${model.inventory.knownBugs.open} · fixed-candidate ${model.inventory.knownBugs.fixedCandidate} · closed ${model.inventory.knownBugs.closed})`);
   if (rt.knownBugExpectedFail === 0 && t.NOT_RUN === 0 && rt.selectedThisRun === model.inventory.registeredRoutes) {
     L.push('- ✅ Her kayıtlı rota için tam 1 baseline testi seçildi ve NOT_RUN=0.');

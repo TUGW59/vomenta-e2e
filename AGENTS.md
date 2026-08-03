@@ -426,6 +426,17 @@ sahte PASS üretemez → `unmappedTests`). FAIL olsa bile rapor üretilir + exit
 JSON / 0 seçilen test / sızıntı / stale girdi → non-zero. Sert kapı: `npm run quality:runtime-report`
 (=`tools/self-check-runtime-report.mjs`, tamamen sentetik) `quality:check` zincirindedir. Not: HTML
 `docs/raporlar/*.html` gitignore'lu artifact; MD/JSON teslim snapshot'ı Faz 3 gerçek koşumunda commit edilir.
+Rapor, FAZ 1 manifestinden (varsa) "production-safe seçilebilir" + "staging gerektiren" sayılarını
+okuyup kapsam hunisini (`listed != selected != executed != passed`) açıkça yazar; manifest yoksa uydurma yok (`null`).
+
+**Doğruluk kapısı / audit orchestrator** (WP-FULL-READONLY-AUDIT Faz 2, ADR-0016): `npm run ci:audit`
+(=`tools/run-audit.mjs`) `test && report` zincirini YASAKLAR — temizle → Playwright koş (kırılsa da
+devam) → runtime JSON GERÇEKTEN oluştuysa generator koş → FINAL exit'i saf çekirdek (`tools/audit-orchestrator-lib.mjs::decideFinalExit`)
+belirler: test FAIL → rapor YİNE üretilir ama final non-zero; rapor üretilmedi → test PASS olsa da
+non-zero; runtime JSON yok/stale → hard-fail (stale reuse yasak). Sert kapı: `npm run quality:audit-orchestrator`
+(exit matrisi + errorFingerprint + cross-output tutarlılık + 7 enjekte-komut CLI senaryosu, tamamen sentetik)
+`quality:check` zincirindedir. Runtime raporunun git-diff drift kapısı YOKTUR (canlı koşum ürünü, her koşumda
+meşru değişir); dürüstlük `quality:runtime-provenance` + `quality:runtime-report` + `quality:audit-orchestrator` ile korunur.
 
 **Test stilleri** (bkz. "Zorunlu test stilleri"): `@i18n` `@a11y` `@layout` `@visual`
 `@errorpath` `@clean` `@perf` `@keyboard` `@deeplink` `@data` `@export`.
