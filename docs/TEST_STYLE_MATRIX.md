@@ -39,6 +39,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
+| `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `workforce` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-badges` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
 | `workforce-evaluations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ |
@@ -98,6 +99,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
 - **voice-hub**: `/voice`
+- **voice-queues**: `/voice/queues`
 - **workforce**: `/workforce`
 - **workforce-badges**: `/workforce/badges`
 - **workforce-evaluations**: `/workforce/evaluations`
@@ -211,6 +213,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `voice-hub` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
 - `voice-hub` **@visual**: İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.
 - `voice-hub` **@mutation**: Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation'da (voice-call.mutation.authed.spec.js).
+- `voice-queues` **@perf**: Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu).
+- `voice-queues` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-queues` **@visual**: Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.
 - `workforce` **@perf**: Ağır grafik kütüphanesi yok; Uyum boş-durum/basit görsel, Tahmin tablo.
 - `workforce` **@data**: Tahmin KPI kartları var ama ayrılmış tenant'ta 0 gösteriyor ve sekme-tıklamada AYRI fetch yok (canlı ağ: istek yok) → yakalanacak deterministik JSON ucu yok; @data anlamlı değil.
 - `workforce` **@export**: Bu yüzeyde export/indirme kontrolü yok.

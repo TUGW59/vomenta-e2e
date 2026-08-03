@@ -902,4 +902,27 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation\'da (voice-call.mutation.authed.spec.js).',
     },
   },
+  {
+    id: 'voice-queues',
+    routes: ['/voice/queues'],
+    specFiles: [
+      'voice-queues.authed.spec.js',
+      'voice-queues-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (kuyruk kartları listesi + Create Queue dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.',
+    },
+  },
 ]);

@@ -50,6 +50,7 @@ import { CoachingPage } from './CoachingPage.js';
 import { AiManagementPage } from './AiManagementPage.js';
 import { AiSubPage } from './AiSubPage.js';
 import { VoicePage } from './VoicePage.js';
+import { VoiceSubPage } from './VoiceSubPage.js';
 
 /**
  * Testlerin uygulamadaki ekranlara tek fixture üzerinden erişmesini sağlar.
@@ -123,5 +124,13 @@ export class App {
    */
   aiSub(key) {
     return new AiSubPage(this.page, key);
+  }
+
+  /**
+   * Ortak kabuğu paylaşan bir Voice alt rotası döndürür (parametreli).
+   * @param {keyof typeof import('./VoiceSubPage.js').VoiceSubPage.SECTIONS} key - ör. 'queues'
+   */
+  voiceSub(key) {
+    return new VoiceSubPage(this.page, key);
   }
 }
