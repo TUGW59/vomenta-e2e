@@ -38,6 +38,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
 | `voice-queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
@@ -101,6 +102,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
 - **voice-queues**: `/voice/queues`
@@ -214,6 +216,9 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
+- `voice-dids` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `voice-dids` **@visual**: Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.
 - `voice-history` **@perf**: Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu).
 - `voice-history` **@export**: Bu sayfada export/indirme kontrolü yok (Recordings'te var).
 - `voice-history` **@visual**: Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.

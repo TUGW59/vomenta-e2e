@@ -64,6 +64,18 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'تسجيلات المكالمات', subtitle: 'تصفح وتشغيل وتنزيل المكالمات المسجّلة' },
       },
     },
+    dids: {
+      path: '/voice/dids',
+      api: '/api/v1/dids',
+      consoleClean: true,
+      // Deep-link'te RSC yarışı → open() başlığı 30 sn bekler.
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Phone Numbers', subtitle: 'Manage your DIDs and number assignments' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Telefon Numaraları', subtitle: "DID'lerinizi ve numara atamalarınızı yönetin" },
+        fr: { endonym: 'Français', dir: 'ltr', heading: 'Numéros de téléphone', subtitle: 'Gérez vos DIDs et les affectations de numéros' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'أرقام الهاتف', subtitle: 'إدارة أرقام الهاتف والتخصيصات' },
+      },
+    },
   });
 
   /**

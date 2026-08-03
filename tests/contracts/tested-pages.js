@@ -988,4 +988,27 @@ export const TESTED_PAGES = Object.freeze([
       '@mutation': 'Delete Recording destructive ve UI\'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur. Onay alertdialog\'u @keyboard/@regression\'da açılıp Escape ile kapatılır (ONAYLANMAZ).',
     },
   },
+  {
+    id: 'voice-dids',
+    routes: ['/voice/dids'],
+    specFiles: [
+      'voice-dids.authed.spec.js',
+      'voice-dids-mutations.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok.',
+      '@visual': 'Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.',
+    },
+  },
 ]);
