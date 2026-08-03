@@ -36,6 +36,24 @@ export const ROUTE_STATUS = Object.freeze({
 });
 export const ROUTE_STATUS_ORDER = Object.freeze(['PASS', 'FAIL', 'FLAKY', 'BLOCKED', 'NOT_RUN']);
 
+/**
+ * Kanonik runtime sonuç sözlüğü (HANDOFF §3.3 — 7 durum). İlk 5'i rota-düzeyi
+ * nihai durumdur (toplamı = kayıtlı rota); son 2'si AYRI semantiktir:
+ * EXPECTED_KNOWN_BUG = knownBugGuard beklenen-başarısızlık (normal FAIL DEĞİL),
+ * SKIPPED_BY_POLICY = seçim politikasıyla dışlanan (mutation/external-cost →
+ * koşuma HİÇ girmez, JSON'da görünmez; manifestten türer). Bu sözlük raporun
+ * durum kelime dağarcığının TAM olduğunu belgeler; sahte durum icat edilmez.
+ */
+export const TEST_STATUS = Object.freeze({
+  PASS: 'PASS',
+  FAIL: 'FAIL',
+  FLAKY: 'FLAKY',
+  BLOCKED: 'BLOCKED',
+  NOT_RUN: 'NOT_RUN',
+  EXPECTED_KNOWN_BUG: 'EXPECTED_KNOWN_BUG',
+  SKIPPED_BY_POLICY: 'SKIPPED_BY_POLICY',
+});
+
 /** Güvenli, deterministik hata sınıfı (ham mesaj/stack ASLA emit edilmez). */
 export function safeErrorClass(status) {
   switch (String(status)) {
@@ -218,6 +236,9 @@ export function buildRuntimeTotals(tests) {
  * @param {object} opts.source { commitSha, environment, browser, project?, runId?, inputPath?, runStartedAt? }
  * @param {string} opts.generatedAt ISO zaman (deterministik test için dışarıdan)
  * @param {object} [opts.listInventory] { definedLogical, projectExpandedListed, runnableInventory } | null
+ * @param {object} [opts.manifestCounts] FAZ 1 read-only manifest sayıları
+ *   { totalSpecs, productionSafeReadOnly, stagingRequired, externalCostExcluded } | null.
+ *   §3.2 "production-safe seçilebilir" / "staging gerektiren" sütunlarını uydurmadan besler.
  */
 export function buildResultModel(opts) {
   const {
@@ -228,6 +249,7 @@ export function buildResultModel(opts) {
     source,
     generatedAt,
     listInventory = null,
+    manifestCounts = null,
   } = opts;
 
   const warnings = [];
@@ -297,6 +319,10 @@ export function buildResultModel(opts) {
   // Gözlemlenen yürütme kanıtı: toplam gerçek `results` denemesi. 0 ise girdi
   // yalnız-listelenmiş (`--list`) demektir → provenance runtime sayamaz.
   const observedAttempts = tests.reduce((s, t) => s + (Number(t.attempts) || 0), 0);
+  const skippedByPolicy =
+    manifestCounts && Number.isFinite(manifestCounts.totalSpecs) && Number.isFinite(manifestCounts.productionSafeReadOnly)
+      ? manifestCounts.totalSpecs - manifestCounts.productionSafeReadOnly
+      : null;
 
   const model = {
     schemaVersion: SCHEMA_VERSION,
@@ -326,8 +352,36 @@ export function buildResultModel(opts) {
       projectExpandedListed: listInventory && Number.isFinite(listInventory.projectExpandedListed) ? listInventory.projectExpandedListed : null,
       runnableInventory: listInventory && Number.isFinite(listInventory.runnableInventory) ? listInventory.runnableInventory : null,
       listInventorySource: listInventory ? 'provided' : 'not-provided',
+      // FAZ 1 read-only manifest sayıları (§3.2 ayrı sütunlar). Yoksa null (uydurma yok).
+      manifestTotalSpecs: manifestCounts && Number.isFinite(manifestCounts.totalSpecs) ? manifestCounts.totalSpecs : null,
+      productionSafeSelectable: manifestCounts && Number.isFinite(manifestCounts.productionSafeReadOnly) ? manifestCounts.productionSafeReadOnly : null,
+      stagingRequired: manifestCounts && Number.isFinite(manifestCounts.stagingRequired) ? manifestCounts.stagingRequired : null,
+      // SKIPPED_BY_POLICY (§3.3): seçim politikasıyla dışlanan spec sayısı = tanımlı
+      // − production-safe (mutation/external-cost). Manifest yoksa null (uydurma yok).
+      skippedByPolicy,
+      manifestCountsSource: manifestCounts ? 'provided' : 'not-provided',
     },
-    runtime: { ...runtimeTotals, observedAttempts, routeStatusTotals: totals },
+    runtime: {
+      ...runtimeTotals,
+      observedAttempts,
+      routeStatusTotals: totals,
+      // Kanonik §3.3 sözlüğü tek görünümde: ilk 5 rota-düzeyi, son 2 ayrı semantik.
+      canonical: {
+        PASS: totals.PASS,
+        FAIL: totals.FAIL,
+        FLAKY: totals.FLAKY,
+        BLOCKED: totals.BLOCKED,
+        NOT_RUN: totals.NOT_RUN,
+        EXPECTED_KNOWN_BUG: runtimeTotals.knownBugExpectedFail,
+        SKIPPED_BY_POLICY: skippedByPolicy,
+      },
+    },
+    // Trend/delta için stabil başarısız-test anahtarları (§item12). Sanitize edilmiş
+    // rota + unmapped test kimlikleri; ham içerik yok. report-history bunu tüketir.
+    failingTestKeys: [
+      ...pages.filter((p) => p.baselineStatus === 'FAIL').map((p) => `route:${p.route}`),
+      ...unmappedTests.filter((u) => u.errorClass === 'failed' || u.errorClass === 'timeout').map((u) => `test:${u.file}::${u.title}`),
+    ].sort(),
     pages,
     unmappedTests,
     unmappedFindings: bugIdx.unmappedFindings,
@@ -389,6 +443,16 @@ export function renderMarkdown(model) {
   L.push(`- **PASS** ${t.PASS} · **FAIL** ${t.FAIL} · **FLAKY** ${t.FLAKY} · **BLOCKED** ${t.BLOCKED} · **NOT_RUN** ${t.NOT_RUN}  _(toplam ${t.PASS + t.FAIL + t.FLAKY + t.BLOCKED + t.NOT_RUN})_`);
   L.push(`- **Koşum:** seçilen ${rt.selectedThisRun} · çalışan ${rt.executedThisRun} · geçen ${rt.passedThisRun} · başarısız ${rt.failedThisRun} · flaky ${rt.flakyThisRun} · atlanan ${rt.skippedThisRun}` +
     `${rt.knownBugExpectedFail ? ` · known-bug-expected-fail ${rt.knownBugExpectedFail}` : ''}`);
+  // §3.2 — birbirine KARIŞTIRILMAYAN sayılar (yoksa "—", uydurma yok).
+  const inv = model.inventory;
+  const nOrDash = (v) => (v == null ? '—' : String(v));
+  L.push(
+    `- **Kapsam hunisi (ayrı semantik):** tanımlı ${nOrDash(inv.definedLogical ?? inv.manifestTotalSpecs)} → ` +
+      `production-safe seçilebilir ${nOrDash(inv.productionSafeSelectable)} → bu koşumda seçilen ${rt.selectedThisRun} → ` +
+      `gerçekten çalışan ${rt.executedThisRun}  ·  staging gerektiren ${nOrDash(inv.stagingRequired)}` +
+      `  ·  politikayla dışlanan (SKIPPED_BY_POLICY) ${nOrDash(inv.skippedByPolicy)}  ·  EXPECTED_KNOWN_BUG ${rt.knownBugExpectedFail}`
+  );
+  L.push('- ℹ️ **`listed != selected != executed != passed`** — bu sayılar aynı şey DEĞİLDİR; her biri ayrı kapsam katmanıdır.');
   L.push(`- **Bilinen bulgu:** ${model.inventory.knownBugs.total} (open ${model.inventory.knownBugs.open} · fixed-candidate ${model.inventory.knownBugs.fixedCandidate} · closed ${model.inventory.knownBugs.closed})`);
   if (rt.knownBugExpectedFail === 0 && t.NOT_RUN === 0 && rt.selectedThisRun === model.inventory.registeredRoutes) {
     L.push('- ✅ Her kayıtlı rota için tam 1 baseline testi seçildi ve NOT_RUN=0.');

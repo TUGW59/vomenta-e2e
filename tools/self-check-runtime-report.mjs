@@ -105,6 +105,38 @@ function build(paths, specs, { testedPages, knownBugs } = {}) {
   ok(m.runtime.routeStatusTotals.NOT_RUN === 1, '5: NOT_RUN=1.');
 }
 
+// ── 8b) manifest sayıları verilince inventory zenginleşir; verilmezse null (uydurma yok) ──
+{
+  const withManifest = buildResultModel({
+    registeredRoutes: routes(['/a']),
+    testedPages: [{ id: 'a', routes: ['/a'], specFiles: ['x.spec.js'] }],
+    knownBugs: [], report: reportOf([spec('/a', 'passed')]), source: src, generatedAt: GEN_AT,
+    manifestCounts: { totalSpecs: 119, productionSafeReadOnly: 83, stagingRequired: 36, externalCostExcluded: 0 },
+  });
+  ok(withManifest.inventory.productionSafeSelectable === 83, '8b: productionSafeSelectable manifestten gelmeli.');
+  ok(withManifest.inventory.stagingRequired === 36, '8b: stagingRequired manifestten gelmeli.');
+  ok(withManifest.inventory.manifestCountsSource === 'provided', '8b: manifestCountsSource provided olmalı.');
+  const md = renderMarkdown(withManifest);
+  ok(/listed != selected != executed/.test(md), '8b: §3.2 karıştırma-yasağı ilkesi raporda yazmalı.');
+  ok(/production-safe seçilebilir 83/.test(md), '8b: kapsam hunisi safe-selectable sayısını göstermeli.');
+  // Manifest verilmezse uydurma yok → null + not-provided.
+  const without = build(['/a'], [spec('/a', 'passed')]);
+  ok(without.inventory.productionSafeSelectable === null && without.inventory.manifestCountsSource === 'not-provided', '8b: manifest yoksa null + not-provided (uydurma yok).');
+  // §3.3 kanonik durum sözlüğü + SKIPPED_BY_POLICY (manifestten türer).
+  ok(withManifest.inventory.skippedByPolicy === 119 - 83, '8b: SKIPPED_BY_POLICY = tanımlı − safe (manifest).');
+  ok(withManifest.runtime.canonical && withManifest.runtime.canonical.SKIPPED_BY_POLICY === 36, '8b: canonical.SKIPPED_BY_POLICY manifestten.');
+  ok(without.runtime.canonical.SKIPPED_BY_POLICY === null, '8b: manifest yoksa canonical.SKIPPED_BY_POLICY null (uydurma yok).');
+}
+
+// ── 8c) EXPECTED_KNOWN_BUG canonical + failingTestKeys (delta girdisi) ────────
+{
+  const kb = build(['/a', '/b'], [spec('/a', 'failed', { expectedStatus: 'failed' }), spec('/b', 'failed')]);
+  ok(kb.runtime.canonical.EXPECTED_KNOWN_BUG === 1, '8c: canonical.EXPECTED_KNOWN_BUG=1 (beklenen-fail).');
+  ok(kb.runtime.canonical.FAIL === 1, '8c: canonical.FAIL=1 (/b gerçek fail).');
+  // failingTestKeys: yalnız gerçek FAIL rotası (beklenen-known-bug BLOCKED, FAIL değil → dahil değil).
+  ok(kb.failingTestKeys.includes('route:/b') && !kb.failingTestKeys.includes('route:/a'), '8c: failingTestKeys yalnız gerçek FAIL rotasını içermeli.');
+}
+
 // ── 9) ambiguous/işaretsiz test birden çok rotayı PASS yapamaz ────────────────
 {
   // Bir spec 2 rotaya bağlı; runtime testi İŞARETSİZ → hiçbir rota PASS olmaz.
@@ -279,8 +311,10 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  'Runtime-report self-check geçti: 16 sözleşme (PASS/FAIL/FLAKY/BLOCKED/NOT_RUN, ' +
+  'Runtime-report self-check geçti: 18 sözleşme (PASS/FAIL/FLAKY/BLOCKED/NOT_RUN, ' +
     'source-missing/invalid-JSON/0-selected/stale non-zero, ambiguous→no-fake-PASS, exact bug map, ' +
-    'PII/stack/absolute-path sızıntısı yok, manifest hash, HTML güvenlik, FAIL→rapor+exit0). ' +
+    'PII/stack/absolute-path sızıntısı yok, manifest hash, HTML güvenlik, FAIL→rapor+exit0, ' +
+    'manifest kapsam-hunisi + listed!=selected!=executed ilkesi, §3.3 kanonik durum ' +
+    'sözlüğü (EXPECTED_KNOWN_BUG/SKIPPED_BY_POLICY) + failingTestKeys delta girdisi). ' +
     'Generator exit semantiği: FAIL raporu üretir→exit0; kaynak/şema/0-test/sızıntı/stale→non-zero.'
 );
