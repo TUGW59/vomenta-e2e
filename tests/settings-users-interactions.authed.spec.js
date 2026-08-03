@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
+import { UsersPage } from './pages/UsersPage.js';
 
 /**
  * AYARLAR → KULLANICILAR (`/settings/users`) — L2 ETKİLEŞİM DERİNLİĞİ
@@ -18,7 +19,8 @@ test.describe('Kullanıcılar — tablo etkileşim derinliği', () => {
     const { users } = app;
     await users.open();
     await expect(users.table).toBeVisible();
-    for (const col of ['User', 'Role', 'Status']) {
+    // Kolon adları POM I18N kaynağından (mevcut geçen @critical testiyle aynı; hardcode değil).
+    for (const col of UsersPage.I18N.en.columns) {
       await expect(
         users.page.getByRole('columnheader', { name: col, exact: true })
       ).toBeVisible();
