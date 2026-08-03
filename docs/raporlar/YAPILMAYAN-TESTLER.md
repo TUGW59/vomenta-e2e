@@ -105,7 +105,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/settings-teams.authed.spec.js:155 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-templates-mutations.authed.spec.js:20 | fixme | da boş). |
 | tests/settings-templates.authed.spec.js:174 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
-| tests/settings-users-interactions.authed.spec.js:38 | skip | Örnek isim türetilemedi (veri-bağlı). |
+| tests/settings-users-interactions.authed.spec.js:40 | skip | Örnek isim türetilemedi (veri-bağlı). |
 | tests/settings-users.authed.spec.js:196 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-webhooks-mutations.authed.spec.js:19 | fixme | da boş). |
 | tests/settings-webhooks.authed.spec.js:146 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
