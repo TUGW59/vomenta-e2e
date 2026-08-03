@@ -65,6 +65,38 @@ jobs:
       - name: Bulgu + test raporları güncel mi (drift kontrolü)
         run: npm run report:findings:check
 
+  pr-impact:
+    name: PR change-impact tests / Chromium
+    needs: architecture
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      # Mutation kaçış bayrağı YOK: üst düzey ALLOW_MUTATING_TESTS='false' korunur.
+      # Değişen dosyalardan yalnız ilgili testler seçilir (WP-CI-E2); sabit tek
+      # dosya değil. Runner 0-test/flaky/unexpected/mutation-sızmasında kırmızıdır.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Değişiklik-etkisi diff'i merge-base gerektirir → tüm geçmiş + base ref.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Değişiklik-etkisi planı üret (deterministik seçici)
+        # Base = PR hedef dalı (origin/<base_ref>), Head = PR birleşme SHA'sı.
+        # Planner shallow/eksik base'de non-zero verir (fail-closed) → job kırmızı.
+        run: node tools/plan-pr-impact.mjs --base "origin/${{ github.base_ref }}" --head "${{ github.sha }}"
+      - name: Seçilen testleri koş (gerçek runner; gating adım)
+        # Runner selection.json'u okur, EXACT spec + fallback gruplarını Chromium'da
+        # koşar. continue-on-error / || true YOK: exit-code job'ı gate eder.
+        run: node tools/run-pr-impact.mjs --plan test-results/pr-impact/selection.json
+
   public-smoke:
     name: Public smoke / Chromium
     needs: architecture

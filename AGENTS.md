@@ -351,6 +351,57 @@ YALNIZ önceden hazırlanmış, doğrulanmış bir bundle'a bakar.
   negatif matrisini + workflow statik enforcement'ını kanıtlar. Detay:
   `docs/adr/0009-artifact-allowlist.md`.
 
+## PR değişiklik-etkisi seçici (WP-CI-E1)
+
+Bir PR'da değişen dosyalardan hangi gerçek testlerin koşması gerektiğini
+deterministik ve **fail-closed** çıkaran motor `tools/pr-impact-lib.mjs`'tir;
+CLI `tools/plan-pr-impact.mjs` (`npm run ci:impact:plan`) planı
+`test-results/pr-impact/selection.json`'a yazar. Karar sırası: (1) spec-köklü
+ters import grafiği, (2) yol-tabanlı sınıflandırma, (3) eşlenemeyen runtime
+dosyasında geniş güvenli fallback ya da non-zero. Detay:
+`docs/adr/0010-pr-impact-selection.md`.
+
+Bağlayıcı kurallar:
+
+- Değişen bir spec doğrudan; onu import eden page object/fixture/helper transitif
+  olarak seçilir. `tests/pages/App.js` barrel'ı + ortak fixture yüzünden herhangi
+  bir page object değişikliği neredeyse tüm authed suite'e yayılır (fail-safe:
+  fazla seçer, kaçırmaz).
+- Mutation spec'leri (`*.mutation.*` / `*-mutations.*` / `mutation-orphans`)
+  production seçimine GİRMEZ; `STAGING_BLOCKED` raporlanır. Güvenlik ayrıca
+  `grepInvert: /@mutation/` ile bağımsız garantidir.
+- `selectedRunnableSpecCount=0` durumları ayrılır: docs/ci/visual →
+  `NO_RUNTIME_REQUIRED`; yalnız mutation → `STAGING_BLOCKED`; eşlenemeyen runtime
+  → `UNMAPPED_RUNTIME_CHANGE` (non-zero); eksik/shallow kaynak → `SOURCE_MISSING`
+  (non-zero). Sessiz boş liste yasak.
+- **Sert kapı:** `quality:ci-impact` (`quality:check` zincirinde) 21 sentetik
+  vakayı production çağrısı yapmadan doğrular. Motor değişikliği bu self-check'i
+  düşürmeden yeşil olamaz.
+
+### Runner + workflow enforcement (WP-CI-E2)
+
+Seçici planı gerçek koşuya `tools/run-pr-impact.mjs` (`npm run ci:impact:run`)
+bağlar; kararlar saf `tools/pr-impact-runner-lib.mjs`'tedir. `.github/workflows/
+playwright.yml` içindeki `pr-impact` job'ı planner + runner'ı çağırır ve runner
+exit-code'uyla gate edilir. Detay: `docs/adr/0011-pr-impact-runner-enforcement.md`.
+
+Bağlayıcı kurallar:
+
+- Runner EXACT spec/fallback gruplarını güvenli argument array'iyle (shell
+  interpolation YOK) Chromium'da koşar; setup/dependency testleri hedef sayıdan
+  ayrı sayılır. `sourceMissing`/unmapped/bozuk-plan → REFUSE (non-zero).
+- 0-test (exact grup koşu raporunda hedef projede 0 test), eksik spec dosyası,
+  `unexpected>0`, `flaky>0` veya herhangi bir grubun non-zero'su → genel exit
+  non-zero. Koşu `--reporter=json` ile (config'i override; `--list` JSON yazmaz).
+  `--retries=0`; flaky başarıya çevrilmez. grep-only fallback 0-test'i uyarıdır.
+- Mutation son savunması: her gruba `--grep-invert=@mutation` + seçili dosya
+  mutation spec ise REFUSE. Üç katman (dosya-adı + config `grepInvert` + runner).
+- **Sert kapılar:** `quality:ci-runner` (8 negatif kanıt §2.6 non-zero) +
+  `quality:ci-workflow` (12 yapısal YAML kuralı) `quality:check` zincirindedir.
+  Runner/workflow değişikliği bunları düşürmeden yeşil olamaz.
+- Negatif kanıt PRODUCTION'a karşı kasıtlı hata ÜRETMEZ: saf mantığa sentetik
+  gözlem enjekte edilir. YAML enforcement metin araması değil, yapısal parse'tır.
+
 ## Test sınıfları (kanonik etiket kaydı)
 
 Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/style-coverage.mjs` ile reddedilir.
