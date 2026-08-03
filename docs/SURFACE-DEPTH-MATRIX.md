@@ -13,16 +13,16 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 56 · sözleşme sayfası: 39
-- **L1:** PROVEN 55 · not-proven 1
-- **L2 stil sözleşmesi:** karşılandı 56 · gerçek boşluk 0
-- **L2 durum:** COMPLETE 0 · PARTIAL 56 · NOT_COVERED 0
-- **Etkileşim derinliği bağımsız doğrulanamayan rota:** 56 — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi işaret yok (FAZ 5 / WP-L2-WAVE-1 adayı).
-- **L3:** BLOCKED(staging) 40 · N/A(no-write) 16
-- **L4:** BLOCKED(rol/tenant) 56 · **L5:** BLOCKED(provider) 56
-- **En yüksek seviye dağılımı:** L0 1 · L1 0 · L2·style 55 · L2·deep 0
-- **Bilinen bulgu:** 52 (open 51 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 37 (21 rota)
-- **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 14
+- **Kayıtlı rota:** 59 · sözleşme sayfası: 42
+- **L1:** PROVEN 55 · not-proven 4
+- **L2 stil sözleşmesi:** karşılandı 59 · gerçek boşluk 0
+- **L2 durum:** COMPLETE 0 · PARTIAL 59 · NOT_COVERED 0
+- **Etkileşim derinliği bağımsız doğrulanamayan rota:** 59 — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi işaret yok (FAZ 5 / WP-L2-WAVE-1 adayı).
+- **L3:** BLOCKED(staging) 42 · N/A(no-write) 17
+- **L4:** BLOCKED(rol/tenant) 59 · **L5:** BLOCKED(provider) 59
+- **En yüksek seviye dağılımı:** L0 4 · L1 0 · L2·style 55 · L2·deep 0
+- **Bilinen bulgu:** 55 (open 54 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 41 (24 rota)
+- **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 13
 
 ## Kapsam derinliği — tüm kayıtlı rotalar
 
@@ -84,6 +84,9 @@
 | `/channels/social` | channels-social | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B16(medium/open) B24(medium/open) |
 | `/channels/video` | channels-video | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B25(medium/open) |
 | `/voice/queues` | voice-queues | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/voice/history` | voice-history | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | VOICE-HISTORY-A11Y-LABEL(medium/open) |
+| `/voice/voicemail` | voice-voicemail | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B11(medium/open) VOICEMAIL-PAGER-I18N(medium/open) |
+| `/voice/recordings` | voice-recordings | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-RECORDINGS-A11Y-LABEL(medium/open) |
 
 ## L2 stil boyutu detayı (statik etiket kapsamı)
 
@@ -147,6 +150,9 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/channels/social` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
 | `/channels/video` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✅ | N/A | ✅ | N/A |
 | `/voice/queues` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
+| `/voice/history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
+| `/voice/voicemail` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
+| `/voice/recordings` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | ✅ |
 
 ## L2 etkileşim boyutu detayı (bağımsız doğrulanabilirlik)
 
@@ -210,9 +216,12 @@ Hücreler: 🔎 UNVERIFIED (bileşen var, rota düzeyi makine-okur işaret yok) 
 | `/channels/social` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/channels/video` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/queues` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/history` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/voicemail` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/recordings` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 
-- **L3 (mutation/CRUD):** 40 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 16 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
-- **L4 (rol/permission/tenant):** 56 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
-- **L5 (uçtan-uca provider):** 56 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).
+- **L3 (mutation/CRUD):** 42 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 17 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
+- **L4 (rol/permission/tenant):** 59 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
+- **L5 (uçtan-uca provider):** 59 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).

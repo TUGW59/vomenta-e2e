@@ -1,24 +1,24 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 52,
+  "total": 55,
   "summary": {
     "byStatus": {
-      "open": 51,
+      "open": 54,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 50,
+      "knownBugGuard": 53,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 7,
-      "medium": 39,
+      "medium": 42,
       "low": 5
     },
     "byArea": {
-      "voice": 4,
+      "voice": 7,
       "campaigns": 3,
       "inbox": 2,
       "settings": 6,
@@ -1815,6 +1815,117 @@
       "test": {
         "file": "tests/channels-video.authed.spec.js",
         "title": "B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-HISTORY-A11Y-LABEL",
+      "title": "/voice/history form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)",
+      "area": "voice",
+      "route": "/voice/history",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/history aç",
+        "axe (wcag2a/2aa) ile tara",
+        "label (critical) ihlalini oku"
+      ],
+      "expected": "Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)",
+      "actual": "axe \"label\" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/history axe critical \"label\" ihlali; From/To Date girdileri erişilebilir etiket taşımıyor (kanallar B20–B25 ile aynı sistemik sınıf)."
+      ],
+      "possibleCauses": [
+        "Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: From/To Date ve filtre girdilerine <label htmlFor> veya aria-label ekle"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-history.authed.spec.js",
+        "title": "VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICEMAIL-PAGER-I18N",
+      "title": "/voice/voicemail pagination ham i18n anahtarı (common.previousPage/nextPage MISSING_MESSAGE)",
+      "area": "voice",
+      "route": "/voice/voicemail",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/voicemail aç",
+        "konsolu izle",
+        "MISSING_MESSAGE: common.previousPage/nextPage (en) oku"
+      ],
+      "expected": "Pagination düğmeleri çevrilmiş etiket gösterir; konsolda MISSING_MESSAGE yok.",
+      "actual": "Açılışta konsol `MISSING_MESSAGE: common.previousPage (en)` + `common.nextPage (en)` basıyor; pager düğmeleri ham i18n anahtarını erişilebilir isim olarak taşıyor. B11 (işlem butonu a11y, veri-bağlı) ile ayrı; bu deterministik.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/voicemail açılışında next-intl MISSING_MESSAGE common.previousPage + common.nextPage (chunk 1719...js); veriden bağımsız, her açılışta."
+      ],
+      "possibleCauses": [
+        "Ortak pagination bileşeni `common.previousPage`/`common.nextPage` çeviri anahtarlarını bekliyor ama voice namespace/messages'ta tanımlı değil"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: common.previousPage/common.nextPage çeviri anahtarlarını ekle (4 dil)"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-voicemail.authed.spec.js",
+        "title": "VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "VOICE-RECORDINGS-A11Y-LABEL",
+      "title": "/voice/recordings form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)",
+      "area": "voice",
+      "route": "/voice/recordings",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/voice/recordings aç",
+        "axe (wcag2a/2aa) ile tara",
+        "label (critical) ihlalini oku"
+      ],
+      "expected": "Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)",
+      "actual": "axe 2 adet \"label\" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /voice/recordings axe critical \"label\" (2 düğüm); From/To Date girdileri etiketsiz (VOICE-HISTORY-A11Y-LABEL + kanallar B20–B25 ile aynı sistemik sınıf)."
+      ],
+      "possibleCauses": [
+        "Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: From/To Date girdilerine <label htmlFor> veya aria-label ekle"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/voice-recordings.authed.spec.js",
+        "title": "VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
       "issueRef": null

@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1011
-- **Test dosyası:** 68
-- **Etiketler:** `@a11y` 54 · `@clean)` 7 · `@clean` 40 · `@critical` 70 · `@data` 14 · `@deeplink` 39 · `@errorpath` 41 · `@export` 1 · `@i18n` 172 · `@keyboard` 31 · `@known-bug` 65 · `@layout` 47 · `@perf` 2 · `@public` 2 · `@regression` 358 · `@route-baseline` 56 · `@smoke` 151 · `@visual` 21
+- **Test edilen senaryo:** 1052
+- **Test dosyası:** 71
+- **Etiketler:** `@a11y` 57 · `@clean)` 7 · `@clean` 43 · `@critical` 70 · `@data` 17 · `@deeplink` 42 · `@errorpath` 44 · `@export` 2 · `@i18n` 184 · `@keyboard` 33 · `@known-bug` 68 · `@layout` 50 · `@perf` 2 · `@public` 2 · `@regression` 362 · `@route-baseline` 59 · `@smoke` 157 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -489,6 +489,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/channels/social] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/video] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/history] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/voicemail] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/recordings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
 ### `reports-actions.authed.spec.js`
 
@@ -1069,6 +1072,22 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-history.authed.spec.js`
+
+- sayfa "Call History" başlığı + alt-başlık + yön filtreleri ile açılıyor  `@smoke`
+- GET /voice/calls çağrılıyor + geçmiş tablosu render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- L1: "Details" tıklanınca dialog açılıyor; klavye ile kapanıyor  `@regression` `@keyboard`
+- L1: yön filtresi combobox'u açılıp seçim yapılabiliyor; tablo sağlam  `@regression`
+- GET /voice/calls 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/history doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-queues.authed.spec.js`
 
 - sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor  `@smoke`
@@ -1084,6 +1103,22 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
 
+### `voice-recordings.authed.spec.js`
+
+- sayfa "Call Recordings" başlığı + alt-başlık ile açılıyor  `@smoke`
+- GET /voice/recordings çağrılıyor + tablo render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- "Download" tıklanınca kayıt stream ucu (GET .../recordings/<id>/stream) çağrılıyor  `@export`
+- L1: "Delete Recording" tıklanınca onay alertdialog'u açılıyor; klavye ile kapanıyor (ONAYLANMAZ)  `@regression` `@keyboard`
+- GET /voice/recordings 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/recordings doğrudan açılınca yükleniyor  `@deeplink`
+
 ### `voice-subnav.authed.spec.js`
 
 - "Live Calls" → /voice/live ("Live Calls") panelini açıyor  `@regression`
@@ -1096,6 +1131,21 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor  `@regression`
 - "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
 - "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
+
+### `voice-voicemail.authed.spec.js`
+
+- sayfa "Voicemails" başlığı + alt-başlık ile açılıyor  `@smoke`
+- GET /voicemails çağrılıyor + tablo render ediliyor  `@data`
+- [en] başlık + yön + alt başlık çevrili  `@i18n`
+- [tr] başlık + yön + alt başlık çevrili  `@i18n`
+- [fr] başlık + yön + alt başlık çevrili  `@i18n`
+- [ar] başlık + yön + alt başlık çevrili  `@i18n`
+- ciddi/kritik a11y ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
+- VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- L1: "All Status" filtresi açılıp seçim yapılabiliyor; sayfa sağlam  `@regression`
+- GET /voicemails 500 dönse de kabuk + başlık sağlam  `@errorpath`
+- /voice/voicemail doğrudan açılınca yükleniyor  `@deeplink`
 
 ### `voice.authed.spec.js`
 
