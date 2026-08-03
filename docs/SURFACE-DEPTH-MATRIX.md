@@ -21,8 +21,8 @@
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 19
 - **L4:** BLOCKED(rol/tenant) 65 · **L5:** BLOCKED(provider) 65
 - **En yüksek seviye dağılımı:** L0 10 · L1 0 · L2·style 55 · L2·deep 0
-- **Bilinen bulgu:** 57 (open 56 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 46 (27 rota)
-- **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 10
+- **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 48 (28 rota)
+- **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 12
 
 ## Kapsam derinliği — tüm kayıtlı rotalar
 
@@ -34,7 +34,7 @@
 | `/channels` | channels-hub,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | B5(medium/open) |
 | `/ai` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B13(low/open) B15(medium/open) |
 | `/campaigns` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B2(high/open) |
-| `/bot-builder` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/bot-builder` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | BOT-BUILDER-CLOSE-I18N(low/open) BOT-BUILDER-TEMPLATE-I18N(high/open) |
 | `/contacts` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CONTACTS-F1(medium/open) CONTACTS-F2(medium/open) |
 | `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/analytics` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | ANALYTICS-A(medium/open) ANALYTICS-B(medium/open) B12(medium/open) |
