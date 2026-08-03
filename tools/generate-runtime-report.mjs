@@ -37,6 +37,11 @@ import {
   renderManifestJson,
   scanOutputLeaks,
 } from './runtime-report-lib.mjs';
+import {
+  isListedOnlyReport,
+  verifyRuntimeProvenance,
+  RUNTIME_SOURCE_TYPE,
+} from './runtime-provenance.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_OUT_DIR = 'docs/raporlar';
@@ -158,6 +163,12 @@ function main() {
     fail('runtime JSON beklenen Playwright şemasında değil (suites dizisi yok).');
   }
 
+  // 1b) `playwright test --list` çıktısı runtime sonucu DEĞİLDİR (gözlemlenen
+  //     yürütme yok). Fail-closed: listelenmiş-yalnız veri PASS gibi sunulamaz.
+  if (isListedOnlyReport(report)) {
+    fail('girdi yalnız-listelenmiş (`--list`) görünüyor: hiç yürütme sonucu (results) yok. Runtime raporu üretilmez.');
+  }
+
   // 2) Stale girdi koruması (opsiyonel): stats.startTime < min-start-time → reddet.
   const runStartedAt = report.stats && report.stats.startTime ? String(report.stats.startTime) : null;
   if (opts.minStartTime) {
@@ -184,6 +195,7 @@ function main() {
       knownBugs: KNOWN_BUGS,
       report,
       source: {
+        sourceType: RUNTIME_SOURCE_TYPE,
         commitSha: resolveCommitSha(),
         environment: opts.environment,
         browser: 'chromium',
@@ -198,6 +210,23 @@ function main() {
   } catch (e) {
     fail(e instanceof Error ? e.message : String(e));
   }
+
+  // 3b) Provenance verdict'i modele göm (üretim anında SHA kendisiyle eşleşir,
+  //     taze ve gözlemlenen yürütmeli → VERIFIED). runId yerelde null olabilir;
+  //     doğrulanabilirlik SHA + execution + tazelik üzerinden. Bu blok raporun
+  //     kendini VERIFIED/STALE/UNVERIFIED olarak DÜRÜSTÇE ilan etmesini sağlar.
+  const prov = verifyRuntimeProvenance(model, {
+    expectedSha: model.source.commitSha,
+    nowIso: generatedAt,
+    requireRunId: false,
+  });
+  model.provenance = {
+    verdict: prov.verdict,
+    reasons: prov.reasons,
+    checkedAgainstSha: model.source.commitSha,
+    observedExecution: prov.observedExecution,
+    note: 'Üretim anında kaynak koşuma göre doğrulandı; kommitlenmiş raporu HEAD ile yeniden doğrulamak için quality:runtime-provenance.',
+  };
 
   // 4) Zero-test koruması — 0 seçilen test → başarısız.
   if (model.runtime.selectedThisRun === 0) {

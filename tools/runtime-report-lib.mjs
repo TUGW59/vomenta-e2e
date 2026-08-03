@@ -294,11 +294,15 @@ export function buildResultModel(opts) {
   });
 
   const runtimeTotals = buildRuntimeTotals(tests);
+  // Gözlemlenen yürütme kanıtı: toplam gerçek `results` denemesi. 0 ise girdi
+  // yalnız-listelenmiş (`--list`) demektir → provenance runtime sayamaz.
+  const observedAttempts = tests.reduce((s, t) => s + (Number(t.attempts) || 0), 0);
 
   const model = {
     schemaVersion: SCHEMA_VERSION,
     generatedAt,
     source: {
+      sourceType: source.sourceType ? String(source.sourceType).slice(0, 40) : null,
       commitSha: source.commitSha ? String(source.commitSha).slice(0, 40).replace(/[^a-f0-9]/gi, '') || null : null,
       environment: String(source.environment || 'production-read-only'),
       browser: String(source.browser || 'chromium'),
@@ -323,7 +327,7 @@ export function buildResultModel(opts) {
       runnableInventory: listInventory && Number.isFinite(listInventory.runnableInventory) ? listInventory.runnableInventory : null,
       listInventorySource: listInventory ? 'provided' : 'not-provided',
     },
-    runtime: { ...runtimeTotals, routeStatusTotals: totals },
+    runtime: { ...runtimeTotals, observedAttempts, routeStatusTotals: totals },
     pages,
     unmappedTests,
     unmappedFindings: bugIdx.unmappedFindings,
