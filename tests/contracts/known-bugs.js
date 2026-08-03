@@ -1281,6 +1281,35 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  {
+    id: 'VOICE-RECORDINGS-A11Y-LABEL',
+    title: '/voice/recordings form alanları (tarih filtreleri) erişilebilir etiket taşımıyor (a11y label)',
+    area: 'voice',
+    route: '/voice/recordings',
+    severity: 'medium',
+    status: 'open',
+    guard: 'knownBugGuard',
+    opened: '2026-08-03',
+    lastVerified: '2026-08-03',
+    expiry: null,
+    repro: ['/voice/recordings aç', 'axe (wcag2a/2aa) ile tara', 'label (critical) ihlalini oku'],
+    expected: 'Tüm form alanları (From/To Date filtreleri) erişilebilir etikete sahip (axe label ihlali yok)',
+    actual: 'axe 2 adet "label" (critical) ihlali raporluyor: tarih filtre girdileri <label>/aria-label taşımıyor.',
+    technicalEvidence: [
+      '3 Ağu 2026 canlı (app.vomenta.com): /voice/recordings axe critical "label" (2 düğüm); From/To Date girdileri etiketsiz (VOICE-HISTORY-A11Y-LABEL + kanallar B20–B25 ile aynı sistemik sınıf).',
+    ],
+    possibleCauses: ['Tarih filtre girdileri görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)'],
+    rootCauseCandidate: null,
+    rootCause: null,
+    suggestedFixes: ['Frontend: From/To Date girdilerine <label htmlFor> veya aria-label ekle'],
+    evidence: [],
+    test: {
+      file: 'tests/voice-recordings.authed.spec.js',
+      title: 'VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
 ]);
 
 /**

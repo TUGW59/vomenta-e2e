@@ -53,6 +53,17 @@ export class VoiceSubPage extends BasePage {
         ar: { endonym: 'العربية', dir: 'rtl', heading: 'البريد الصوتي', subtitle: 'استمع إلى رسائل البريد الصوتي وأدرها' },
       },
     },
+    recordings: {
+      path: '/voice/recordings',
+      api: '/api/v1/voice/recordings',
+      consoleClean: true,
+      i18n: {
+        en: { endonym: null, dir: 'ltr', heading: 'Call Recordings', subtitle: 'Browse, play, and download recorded calls' },
+        tr: { endonym: 'Türkçe', dir: 'ltr', heading: 'Arama kayıtları', subtitle: 'Kayıtlı aramaları inceleyin, oynatın ve indirin' },
+        fr: { endonym: 'Français', dir: 'ltr', heading: "Enregistrements d'appels", subtitle: 'Parcourez, écoutez et téléchargez les appels enregistrés' },
+        ar: { endonym: 'العربية', dir: 'rtl', heading: 'تسجيلات المكالمات', subtitle: 'تصفح وتشغيل وتنزيل المكالمات المسجّلة' },
+      },
+    },
   });
 
   /**
