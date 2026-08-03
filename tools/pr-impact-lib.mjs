@@ -377,6 +377,7 @@ export function planImpact(input = {}) {
 
   const explicitExplanation = typeof explanation === 'string' ? explanation.trim() : '';
   const hasOnlyEnvDeletion = details.length > 0 && details.every((f) => f.path === '.env' && f.status === 'D');
+  const hasEnvDeletion = details.some((f) => f.path === '.env' && f.status === 'D');
   const hasEnvPolicyChange = details.some((f) => f.path === '.env' && f.status !== 'D');
   const hasOnlyGeneratedDocs =
     details.length > 0 && details.every((f) => QUALITY_ONLY_ALLOWED_DOCS.includes(f.path));
@@ -498,6 +499,10 @@ export function planImpact(input = {}) {
     };
   }
 
+  if (details.length > 0 && hasEnvDeletion) {
+    reasons.add('SECURITY_REMEDIATION:.env deleted');
+  }
+
   if (details.length > 0 && hasEnvPolicyChange) {
     reasons.add('ENV_POLICY_VIOLATION:.env');
     return {
@@ -605,6 +610,10 @@ export function planImpact(input = {}) {
   for (const f of details) {
     const rel = f.path;
     const cls = classifyFile(rel);
+
+    if (f.path === '.env' && f.status === 'D') {
+      continue;
+    }
 
     // Silinen dosya çalıştırılamaz; yönteme göre ele al.
     if (f.status === 'D') {
