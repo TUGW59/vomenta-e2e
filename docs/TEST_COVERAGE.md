@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1123
-- **Test dosyası:** 77
-- **Etiketler:** `@a11y` 63 · `@clean)` 7 · `@clean` 50 · `@critical` 70 · `@data` 21 · `@deeplink` 48 · `@errorpath` 48 · `@export` 2 · `@i18n` 206 · `@keyboard` 36 · `@known-bug` 71 · `@layout` 56 · `@perf` 2 · `@public` 2 · `@regression` 368 · `@route-baseline` 65 · `@smoke` 169 · `@visual` 21
+- **Test edilen senaryo:** 1151
+- **Test dosyası:** 79
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 65 · `@smoke` 172 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -103,6 +103,40 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU A [fr]: "Deep analytics" bölümü fr arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU A [ar]: "Deep analytics" bölümü ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 - BULGU B: iç terim "ClickHouse" kullanıcıya görünmemeli  `@regression` `@known-bug`
+
+### `bot-builder-editor.authed.spec.js`
+
+- editör yükleniyor: sekmeler + bot adı + Save Draft/Publish + geri dön  `@smoke` `@critical`
+- editör URL'si doğrudan (tam yükleme) açılıyor  `@deeplink`
+- editör açılışında editöre özgü console/ağ hatası yok  `@clean`
+- BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard  `@a11y` `@known-bug`
+- masaüstü tuval / mobil-tablet "Desktop Screen Required" kapısı; yatay taşma yok  `@layout`
+- İngilizce sekme + üst eylem etiketleri  `@i18n` `@regression`
+- tr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- fr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr)  `@i18n` `@regression`
+- ar: sekmeler + Kaydet/Yayınla çevrili + yön (rtl)  `@i18n` `@regression`
+- BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli  `@i18n` `@regression` `@i18n` `@known-bug`
+- L1 tıklama OK: Analytics ↔ Editor sekme takası  `@regression`
+- L3 navigasyon OK: geri dön /bot-builder listesini yüklüyor  `@regression`
+
+### `bot-builder.authed.spec.js`
+
+- başlık ve alt başlık görünüyor  `@smoke` `@critical` `@deeplink`
+- "Create Bot" birincil eylemi görünür ve etkin  `@smoke`
+- listedeki botlar /api/v1/bots yanıtıyla tutarlı  `@data` `@regression`
+- BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- ciddi/kritik axe ihlali yok (bilinen borç hariç)  `@a11y`
+- mobil/tablet/masaüstü + Arapça RTL yatay taşma yok  `@layout`
+- İngilizce başlık/alt başlık/eylem  `@i18n` `@regression`
+- tr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- fr: başlık/alt başlık/eylem + yön (ltr)  `@i18n` `@regression`
+- ar: başlık/alt başlık/eylem + yön (rtl)  `@i18n` `@regression`
+- Create diyaloğu İngilizce çevrili (başlık/alanlar/eylemler)  `@i18n` `@regression`
+- L1 tıklama OK: "Create Bot" diyaloğu açar  `@regression`
+- klavye: odak tuzağı + Escape ile kapanır  `@regression` `@keyboard`
+- BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli  `@regression` `@i18n` `@known-bug`
+- L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor  `@regression`
+- /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur  `@errorpath`
 
 ### `campaigns-outbound.authed.spec.js`
 

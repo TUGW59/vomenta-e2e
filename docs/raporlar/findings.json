@@ -1,21 +1,21 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 57,
+  "total": 61,
   "summary": {
     "byStatus": {
-      "open": 56,
+      "open": 60,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 55,
+      "knownBugGuard": 59,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
-      "high": 8,
-      "medium": 42,
-      "low": 6
+      "high": 9,
+      "medium": 44,
+      "low": 7
     },
     "byArea": {
       "voice": 9,
@@ -24,7 +24,7 @@
       "settings": 6,
       "channels": 12,
       "analytics": 3,
-      "ai": 2,
+      "ai": 6,
       "navigation": 1,
       "dashboard": 2,
       "reports": 4,
@@ -1593,6 +1593,155 @@
       "test": {
         "file": "tests/channels-whatsapp.authed.spec.js",
         "title": "B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "BOT-BUILDER-TEMPLATE-I18N",
+      "title": "Bot Oluşturucu şablonları ham i18n anahtarı gösteriyor (MISSING_MESSAGE)",
+      "area": "ai",
+      "route": "/bot-builder",
+      "severity": "high",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/bot-builder aç (veya \"Create Bot\" diyaloğunu aç)",
+        "Şablon (Template) listesini / tarayıcı konsolunu izle"
+      ],
+      "expected": "Şablon adları/açıklamaları çevrilmiş görünür; konsolda MISSING_MESSAGE yok",
+      "actual": "Şablonlar ham anahtar olarak render ediliyor (botBuilder.FAQ Bot, botBuilder.Appointment Scheduler, botBuilder.Order Status, botBuilder.Lead Qualification, botBuilder.AI Voice Inbound/Outbound, botBuilder.Welcome & Greeting, botBuilder.Business Hours Check, botBuilder.Queue Routing, botBuilder.CSAT Survey, botBuilder.Voicemail, botBuilder.Call Transfer + açıklamaları). Şablonlar açılışta önden yüklendiği için liste açılışında bile konsola tekrarlı \"MISSING_MESSAGE: botBuilder.<...> (en)\" düşüyor. İngilizce dahil tüm dillerde.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /bot-builder açılışında console-error \"MISSING_MESSAGE: botBuilder.FAQ Bot (en)\" (+11 şablon adı ve açıklaması). Kaynak chunk app/(dashboard)/bot-builder/page. Diyalog Template listesinde ham anahtarlar kullanıcıya görünür."
+      ],
+      "possibleCauses": [
+        "Şablon adı/açıklaması sabit string yerine çeviri anahtarı olarak t() ile aranıyor ama botBuilder.<...> mesajları çeviri bundle'ında tanımlı değil (next-intl MISSING_MESSAGE)."
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: şablon adı/açıklamasını doğrudan sabit metin olarak göster ya da botBuilder.* anahtarlarını tüm dil bundle'larına ekle."
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/bot-builder.authed.spec.js",
+        "title": "BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "BOT-BUILDER-CLOSE-I18N",
+      "title": "Bot Oluşturucu diyaloğunun kapat düğmesi çevrilmiyor (\"Close\")",
+      "area": "ai",
+      "route": "/bot-builder",
+      "severity": "low",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/bot-builder aç, dili Türkçe/Fransızca/Arapça yap",
+        "\"Create Bot\" diyaloğunu aç",
+        "Kapat (X) düğmesinin erişilebilir adını oku"
+      ],
+      "expected": "Kapat düğmesinin erişilebilir adı aktif dilde (ör. TR \"Kapat\")",
+      "actual": "Erişilebilir ad tüm dillerde İngilizce \"Close\" olarak kalıyor.",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): \"Create Bot Flow\" diyaloğunun kapat düğmesi tr/fr/ar için \"Close\" olarak kaldı."
+      ],
+      "possibleCauses": [
+        "Diyalog kapat düğmesinin erişilebilir adı sabit \"Close\" olarak yazılmış (çeviri anahtarı kullanılmıyor)."
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: diyalog kapat düğmesinin aria-label/sr-only metnini çeviri anahtarına bağla."
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/bot-builder.authed.spec.js",
+        "title": "BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "BOT-BUILDER-EDITOR-GATE-I18N",
+      "title": "Bot editörü \"Desktop Screen Required\" kapısı fr/ar'da çevrilmiyor",
+      "area": "ai",
+      "route": "/bot-builder/{id}",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/bot-builder/{id} editörünü dar ekranda (mobil/tablet) aç",
+        "Dili Fransızca veya Arapça yap",
+        "Kapı (gate) başlığını oku"
+      ],
+      "expected": "Kapı başlığı aktif dilde (TR \"Masaüstü ekranı gerekli\" gibi)",
+      "actual": "fr ve ar'da İngilizce \"Desktop Screen Required\" olarak kalıyor (tr çevrili).",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): editör dar-ekran kapısı fr/ar için \"Desktop Screen Required\" (İngilizce); tr \"Masaüstü ekranı gerekli\"."
+      ],
+      "possibleCauses": [
+        "botBuilder editör dar-ekran kapısı çeviri anahtarı fr/ar bundle'ında eksik."
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: \"Desktop Screen Required\" kapı metnini fr/ar çeviri bundle'larına ekle."
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/bot-builder-editor.authed.spec.js",
+        "title": "BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "BOT-BUILDER-EDITOR-A11Y",
+      "title": "Bot editöründe ciddi axe ihlalleri (link-name + scrollable-region-focusable)",
+      "area": "ai",
+      "route": "/bot-builder/{id}",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/bot-builder aç, bir bota tıkla (editör)",
+        "axe (wcag2a/2aa) ile tara",
+        "ciddi ihlalleri oku"
+      ],
+      "expected": "Ciddi/kritik axe ihlali yok (bilinen borç hariç)",
+      "actual": "axe 2 ciddi ihlal raporluyor: \"link-name\" (geri-dön linki ikon-only, erişilebilir ad yok) ve \"scrollable-region-focusable\" (React Flow tuvali klavye ile odaklanamıyor).",
+      "technicalEvidence": [
+        "3 Ağu 2026 canlı (app.vomenta.com): /bot-builder/{id} editöründe axe serious \"link-name\" + \"scrollable-region-focusable\" ihlalleri."
+      ],
+      "possibleCauses": [
+        "Geri-dön <a> yalnız ikon içeriyor (aria-label/sr-only metin yok).",
+        "React Flow kaydırılabilir tuval bölgesi tabindex/rol taşımıyor (klavye erişimi yok)."
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: geri-dön linkine aria-label ekle.",
+        "Tuval kaydırılabilir bölgesine klavye erişimi (tabindex + rol/etiket) ekle."
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/bot-builder-editor.authed.spec.js",
+        "title": "BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard"
       },
       "owner": "quality-guild",
       "issueRef": null

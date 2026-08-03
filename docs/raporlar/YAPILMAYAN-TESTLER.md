@@ -54,6 +54,18 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 
 | dosya:satır | tür | gerekçe |
 |---|---|---|
+| tests/bot-builder-editor.authed.spec.js:55 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:71 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:84 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:96 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:107 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:126 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:138 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:155 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:172 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder-editor.authed.spec.js:187 | skip | Hesapta bot yok — editör veri-bağlı. |
+| tests/bot-builder.authed.spec.js:54 | skip | Hesapta bot yok — liste↔API sadakati veri-bağlı. |
+| tests/bot-builder.authed.spec.js:162 | skip | Hesapta bot yok — kart→editör navigasyonu veri-bağlı. |
 | tests/campaigns-outbound.authed.spec.js:419 | skip | Bu tenantta 10+ kampanya yok; sayfalama gerekmiyor. |
 | tests/channels-hub.authed.spec.js:138 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-video.authed.spec.js:105 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |

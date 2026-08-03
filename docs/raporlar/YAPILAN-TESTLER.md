@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1178 / 114 dosya
-- **coverageStatus:** verified 0 · partial 1129 · generic 9 · blocked 40
-- **executionStatus:** executed 0 · listed-only 1138 · skipped 0 · fixme 40
+- **Listelenen test:** 1206 / 116 dosya
+- **coverageStatus:** verified 0 · partial 1157 · generic 9 · blocked 40
+- **executionStatus:** executed 0 · listed-only 1166 · skipped 0 · fixme 40
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,7 +25,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 106 | 97 | 9 | 0 |
+| other | 134 | 125 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
 | settings | 333 | 316 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -513,6 +513,44 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: her sekme kendi panelini gösteriyor (içerik takası) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 navigasyon OK: "Configure" botu /bot-builder editörüne götürüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 navigasyon OK: "Manage Providers" /ai/providers (Provider Settings) sayfasını yüklüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `bot-builder-editor.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| editör yükleniyor: sekmeler + bot adı + Save Draft/Publish + geri dön | @smoke @critical | — | listed-only | partial | medium | list-exec |
+| editör URL'si doğrudan (tam yükleme) açılıyor | @deeplink | — | listed-only | partial | medium | list-exec |
+| editör açılışında editöre özgü console/ağ hatası yok | @clean | — | listed-only | partial | medium | list-exec |
+| BOT-BUILDER-EDITOR-A11Y · /bot-builder/{id} · ciddi axe ihlali (bilinen borç) — düzelene kadar guard | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| masaüstü tuval / mobil-tablet "Desktop Screen Required" kapısı; yatay taşma yok | @layout | — | listed-only | partial | medium | list-exec |
+| İngilizce sekme + üst eylem etiketleri | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| tr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| fr: sekmeler + Kaydet/Yayınla çevrili + yön (ltr) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| ar: sekmeler + Kaydet/Yayınla çevrili + yön (rtl) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| BOT-BUILDER-EDITOR-GATE-I18N · /bot-builder/{id} · dar-ekran kapısı fr'de çevrilmeli | @i18n @regression @i18n @known-bug | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: Analytics ↔ Editor sekme takası | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 navigasyon OK: geri dön /bot-builder listesini yüklüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `bot-builder.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| başlık ve alt başlık görünüyor | @smoke @critical @deeplink | — | listed-only | partial | medium | list-exec |
+| "Create Bot" birincil eylemi görünür ve etkin | @smoke | — | listed-only | partial | medium | list-exec |
+| listedeki botlar /api/v1/bots yanıtıyla tutarlı | @data @regression | — | listed-only | partial | medium | list-exec |
+| BOT-BUILDER-TEMPLATE-I18N · /bot-builder · açılışta ham i18n anahtarı/MISSING_MESSAGE olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik axe ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatay taşma yok | @layout | — | listed-only | partial | medium | list-exec |
+| İngilizce başlık/alt başlık/eylem | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| tr: başlık/alt başlık/eylem + yön (ltr) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| fr: başlık/alt başlık/eylem + yön (ltr) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| ar: başlık/alt başlık/eylem + yön (rtl) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| Create diyaloğu İngilizce çevrili (başlık/alanlar/eylemler) | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: "Create Bot" diyaloğu açar | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| klavye: odak tuzağı + Escape ile kapanır | @regression @keyboard | — | listed-only | partial | medium | list-exec |
+| BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli | @regression @i18n @known-bug | — | listed-only | partial | medium | list-exec |
+| L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `quality-baseline.authed.spec.js` — _other_
 
