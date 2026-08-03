@@ -353,9 +353,14 @@ jobs:
       # Bir tarayıcı/parça kırmızı olunca diğerleri iptal edilmez; her tarayıcının
       # gerçek sonucu ayrı görünür (handoff §7.5: browser bazlı sonuçlar ayrı).
       fail-fast: false
+      # ADR-0017 v2: v1 (K=2) ölçümü iki sorunu ortaya çıkardı — (1) 638 test/shard
+      # 60dk'ya sığmadı → K=4 (~160 test/hücre). (2) 9 hücre tek prod hesabıyla aynı
+      # anda login olunca auth.setup çakışıp bazı hücreler 2dk'da düşüyordu →
+      # max-parallel eşzamanlı login sayısını sınırlar (bu job için en çok 3).
+      max-parallel: 3
       matrix:
         browser: [chromium-authed, firefox-authed, webkit-authed]
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
@@ -374,7 +379,7 @@ jobs:
       - name: Shard koşumu (tarayıcı × parça; kapsam korunur, retry-pass FLAKY kalır)
         # --project=<browser>-authed setup dependency'sini + storageState'i otomatik
         # koşar (playwright.config.js:132-149). --shard testleri parçaya böler.
-        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/2
+        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/4
       - name: Güvenli artifact bundle hazırla (full-regression)
         id: prep_full
         if: ${{ !cancelled() }}
@@ -387,7 +392,7 @@ jobs:
         with:
           # Matris hücresi başına benzersiz ad (v4 aynı-ad çakışmasını önler); path
           # aynı güvenli lane'de kalır → allowlist lane kaydı değişmez.
-          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}
+          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}of4
           path: test-results/secure-upload/full-regression/
           if-no-files-found: error
           retention-days: 30
@@ -405,6 +410,9 @@ jobs:
     timeout-minutes: 30
     strategy:
       fail-fast: false
+      # ADR-0017 v2: görsel hücreleri sırayla (1 login/anda) → full-regression ile
+      # eşzamanlı koşarken tek prod hesabındaki toplam login baskısını azaltır.
+      max-parallel: 1
       matrix:
         browser: [chromium-authed, firefox-authed, webkit-authed]
     env:

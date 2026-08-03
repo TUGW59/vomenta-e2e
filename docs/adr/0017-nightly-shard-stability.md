@@ -43,3 +43,17 @@ GitHub Actions runner-**dakikasıyla** ücretlendirir. Toplam test-dakikası sab
 
 - Artifact allowlist etkisi yok: matris upload **adım** sayısını değiştirmez (statik 9 upload adımı korunur); `name` matris-templatelenir, `path` aynı güvenli lane'de kalır → `LANES` kaydı değişmez. `quality:artifact-allowlist` + `quality:ci-workflow` yeşil.
 - `WP-NIGHT-STABILITY: COMPLETE` ancak **3 ardışık scheduled nightly** yeşil olduktan sonra yazılır; o zamana kadar `STABILITY-PENDING`.
+
+## Güncelleme (v2) — ilk kontrollü koşumdan öğrenilen
+
+v1 (K=2) merge sonrası bir `workflow_dispatch suite=full` koşumu (run 30845051091) matrisin **yapısal olarak çalıştığını** (tarayıcı×shard hücreleri CI'da ayrı) doğruladı, ama iki gerçek sorunu ölçtü:
+
+1. **Chromium shard'ı 60dk'ya sığmadı.** `chromium-authed --shard=x/2` = 638 test → her iki chromium shard'ı 60dk timeout'ta cancelled. webkit-authed/2 de (auth geçtiği hâlde) 60dk'da bitmedi. Yani tek shard başına 638 test canlı prod'da (başarısız/askıda testler 60s timeout×retry bütçesini yiyor) çok fazla.
+2. **Tek prod hesabı 9 eşzamanlı login'i kaldırmıyor.** 6 full + 3 visual hücresi aynı anda tek `VOMENTA_EMAIL` ile `auth.setup.js` login'ini denedi; bazı hücreler (ör. firefox/webkit shard 1) login `toBeVisible()` hatasıyla ~2dk'da düştü. Kanıt: aynı tarayıcının bir shard'ı 2dk'da login'de patlarken diğeri 60dk koştu (deterministik değil = eşzamanlılık çakışması). Auth state'i job'lar arası paylaşmak secret sızıntısı olduğundan (politika yasağı) çözüm eşzamanlılığı sınırlamak.
+
+**v2 değişiklikleri:**
+- `full-regression`: shard 2→**4** (638→~160 test/hücre; 60dk'ya sığar) + `strategy.max-parallel: 3` (bu job'da aynı anda en çok 3 login).
+- `visual-regression`: `strategy.max-parallel: 1` (görsel hücreleri sırayla → full ile eşzamanlı toplam login baskısını azaltır).
+- Net: eşzamanlı login ~9 → ~4. Gece koştuğu için artan cüzdan-saati (12 full hücresi, 3 dalga) önemsiz; runner-dakikası artışı kararlılık için kabul edildi.
+
+Bu best-effort'tır: tek prod hesabıyla tamamen temiz olmayabilir. v2 de yetmezse dürüst sonuç `STABILITY-BLOCKED: tek prod hesabı eşzamanlı-auth tavanı` olur ve ikinci test hesabı/staging (owner işi, EK A) gerekir.
