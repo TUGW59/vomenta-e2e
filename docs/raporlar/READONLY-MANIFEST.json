@@ -1,0 +1,3603 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    "tests/**/*.spec.js (dosya-adı konvansiyonu)",
+    "tests/contracts/mutation-lifecycle.js",
+    "tests/contracts/registered-routes.js",
+    "tests/contracts/tested-pages.js",
+    "config/environment.js",
+    "playwright.config.js (grepInvert:/@mutation/)"
+  ],
+  "counts": {
+    "totalSpecs": 119,
+    "productionSafeReadOnly": 83,
+    "mutationExcluded": 36,
+    "externalCostExcluded": 0,
+    "stagingRequired": 36,
+    "byEffect": {
+      "read-only": 83,
+      "mutation": 36
+    },
+    "byAuth": {
+      "authenticated": 118,
+      "public": 1
+    },
+    "byEnvironment": {
+      "both": 83,
+      "staging": 36
+    }
+  },
+  "profiles": [
+    {
+      "schemaVersion": 1,
+      "profile": "route-baseline-chromium",
+      "description": "Kayıtlı her rota için tek read-only açılış tabanı (Chromium).",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": "@route-baseline",
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 1,
+      "selectedSpecFiles": [
+        "tests/registered-routes-smoke.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "readonly-critical-chromium",
+      "description": "Kritik production-safe read-only authed davranışlar (Chromium).",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": "@critical",
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "readonly-full-chromium",
+      "description": "Tüm production-safe read-only authed spec dosyaları (Chromium).",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": null,
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "known-bug-readonly-chromium",
+      "description": "Bilinen bulgu read-only guard testleri (Chromium).",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": "@known-bug",
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "readonly-cross-browser",
+      "description": "Production-safe read-only authed spec dosyaları (Firefox + WebKit).",
+      "projects": [
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "grep": null,
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "a11y-readonly",
+      "description": "Erişilebilirlik read-only kontrolleri (Chromium).",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": "@a11y",
+      "environment": "production",
+      "policyGated": false,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "profile": "visual-readonly",
+      "description": "Görsel read-only snapshot kontrolleri — YALNIZ artifact/policy uygunsa yürütülür.",
+      "projects": [
+        "chromium-authed"
+      ],
+      "grep": "@visual",
+      "environment": "production",
+      "policyGated": true,
+      "selectedSpecFileCount": 81,
+      "selectedSpecFiles": [
+        "tests/a11y.authed.spec.js",
+        "tests/ai-subroutes.authed.spec.js",
+        "tests/ai.authed.spec.js",
+        "tests/analytics.authed.spec.js",
+        "tests/bot-builder-editor.authed.spec.js",
+        "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound.authed.spec.js",
+        "tests/channels-email.authed.spec.js",
+        "tests/channels-hub.authed.spec.js",
+        "tests/channels-sms.authed.spec.js",
+        "tests/channels-social.authed.spec.js",
+        "tests/channels-video.authed.spec.js",
+        "tests/channels-webchat.authed.spec.js",
+        "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts.authed.spec.js",
+        "tests/dashboard-actions.authed.spec.js",
+        "tests/dashboard.authed.spec.js",
+        "tests/forms.authed.spec.js",
+        "tests/header.authed.spec.js",
+        "tests/inbox.authed.spec.js",
+        "tests/known-bugs.authed.spec.js",
+        "tests/logout.authed.spec.js",
+        "tests/mutation-orphans.authed.spec.js",
+        "tests/navigation.authed.spec.js",
+        "tests/pages.authed.spec.js",
+        "tests/quality-baseline.authed.spec.js",
+        "tests/registered-routes-smoke.authed.spec.js",
+        "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards.authed.spec.js",
+        "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections.authed.spec.js",
+        "tests/reports.authed.spec.js",
+        "tests/responsive.authed.spec.js",
+        "tests/search.authed.spec.js",
+        "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses.authed.spec.js",
+        "tests/settings-compliance.authed.spec.js",
+        "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes.authed.spec.js",
+        "tests/settings-hours.authed.spec.js",
+        "tests/settings-integrations.authed.spec.js",
+        "tests/settings-interactions.authed.spec.js",
+        "tests/settings-notifications.authed.spec.js",
+        "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile.authed.spec.js",
+        "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles.authed.spec.js",
+        "tests/settings-security.authed.spec.js",
+        "tests/settings-sla.authed.spec.js",
+        "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates.authed.spec.js",
+        "tests/settings-users-interactions.authed.spec.js",
+        "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks.authed.spec.js",
+        "tests/settings.authed.spec.js",
+        "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents.authed.spec.js",
+        "tests/supervisor-coaching.authed.spec.js",
+        "tests/supervisor-interactions.authed.spec.js",
+        "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets.authed.spec.js",
+        "tests/voice-dids.authed.spec.js",
+        "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr.authed.spec.js",
+        "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings.authed.spec.js",
+        "tests/voice-regulatory.authed.spec.js",
+        "tests/voice-sip-settings.authed.spec.js",
+        "tests/voice-sip-trunks.authed.spec.js",
+        "tests/voice-skills.authed.spec.js",
+        "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail.authed.spec.js",
+        "tests/voice.authed.spec.js",
+        "tests/workforce-badges.authed.spec.js",
+        "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-schedules.authed.spec.js",
+        "tests/workforce-surveys.authed.spec.js",
+        "tests/workforce-time-off.authed.spec.js",
+        "tests/workforce.authed.spec.js"
+      ]
+    }
+  ],
+  "entries": [
+    {
+      "id": "tests/a11y.authed.spec.js",
+      "pathPattern": "tests/a11y.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "cross-cutting",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/ai-subroutes.authed.spec.js",
+      "pathPattern": "tests/ai-subroutes.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "ai",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/ai.authed.spec.js",
+      "pathPattern": "tests/ai.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "ai",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/analytics.authed.spec.js",
+      "pathPattern": "tests/analytics.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "analytics",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/bot-builder-editor.authed.spec.js",
+      "pathPattern": "tests/bot-builder-editor.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "bot-builder",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/bot-builder.authed.spec.js",
+      "pathPattern": "tests/bot-builder.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "bot-builder",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/campaigns-outbound.authed.spec.js",
+      "pathPattern": "tests/campaigns-outbound.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "campaigns",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/campaigns-outbound.mutation.authed.spec.js",
+      "pathPattern": "tests/campaigns-outbound.mutation.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "campaigns",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: SCHEDULED kampanya için staging DELETE/orphan sayacı kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-email-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-email-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/email"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: e-posta hesabı ekleme gerçek IMAP/SMTP + silme ucu staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-email.authed.spec.js",
+      "pathPattern": "tests/channels-email.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/email"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-hub.authed.spec.js",
+      "pathPattern": "tests/channels-hub.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-sms-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-sms-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/sms"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: gönderici kimliği POST /sender-ids + silme ucu staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-sms.authed.spec.js",
+      "pathPattern": "tests/channels-sms.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/sms"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-social-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-social-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/social"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: Connect harici OAuth akışı otomatikleşemez; bağlama/kaldırma ucu staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-social.authed.spec.js",
+      "pathPattern": "tests/channels-social.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/social"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-video-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-video-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/video"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: video config Save kalıcılık/geri-alma (PUT /channels/video/config) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-video.authed.spec.js",
+      "pathPattern": "tests/channels-video.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/video"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-webchat-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-webchat-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/webchat"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: widget config Save kalıcılık/geri-alma (PUT /channels/webchat/config) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-webchat.authed.spec.js",
+      "pathPattern": "tests/channels-webchat.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/webchat"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/channels-whatsapp-mutations.authed.spec.js",
+      "pathPattern": "tests/channels-whatsapp-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/whatsapp"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: WABA \"Not Configured\"; şablon POST/DELETE templates/whatsapp bağlı tenant'ta kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/channels-whatsapp.authed.spec.js",
+      "pathPattern": "tests/channels-whatsapp.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "channels",
+      "routes": [
+        "/channels/whatsapp"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/contacts-mutations.authed.spec.js",
+      "pathPattern": "tests/contacts-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "contacts",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/contacts.authed.spec.js",
+      "pathPattern": "tests/contacts.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "contacts",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/dashboard-actions.authed.spec.js",
+      "pathPattern": "tests/dashboard-actions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "dashboard",
+      "routes": [
+        "/"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/dashboard.authed.spec.js",
+      "pathPattern": "tests/dashboard.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "dashboard",
+      "routes": [
+        "/"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/discovery/discovery.spec.js",
+      "pathPattern": "tests/discovery/discovery.spec.js",
+      "kind": "discovery",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-discovery"
+      ],
+      "surface": "discovery",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "extended",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/forms.authed.spec.js",
+      "pathPattern": "tests/forms.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/header.authed.spec.js",
+      "pathPattern": "tests/header.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/inbox.authed.spec.js",
+      "pathPattern": "tests/inbox.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "inbox",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/known-bugs-invite.mutation.authed.spec.js",
+      "pathPattern": "tests/known-bugs-invite.mutation.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "cross-cutting",
+      "routes": [
+        "/settings/users"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: davet revoke endpointi ve prefix sayacı staging üzerinde kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/known-bugs.authed.spec.js",
+      "pathPattern": "tests/known-bugs.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "cross-cutting",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/login.spec.js",
+      "pathPattern": "tests/login.spec.js",
+      "kind": "public",
+      "effect": "read-only",
+      "auth": "public",
+      "authRole": "none",
+      "environment": "both",
+      "projects": [
+        "chromium",
+        "firefox",
+        "webkit"
+      ],
+      "surface": "auth",
+      "routes": [],
+      "capabilities": [],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/logout.authed.spec.js",
+      "pathPattern": "tests/logout.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "auth",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/mutation-orphans.authed.spec.js",
+      "pathPattern": "tests/mutation-orphans.authed.spec.js",
+      "kind": "mutation",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "cross-cutting",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "read-only",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/navigation.authed.spec.js",
+      "pathPattern": "tests/navigation.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/pages.authed.spec.js",
+      "pathPattern": "tests/pages.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/quality-baseline.authed.spec.js",
+      "pathPattern": "tests/quality-baseline.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "route-baseline",
+      "routes": [
+        "/",
+        "/ai",
+        "/analytics",
+        "/bot-builder",
+        "/campaigns",
+        "/channels",
+        "/contacts",
+        "/inbox",
+        "/reports",
+        "/settings",
+        "/supervisor",
+        "/tickets",
+        "/voice",
+        "/workforce"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/registered-routes-smoke.authed.spec.js",
+      "pathPattern": "tests/registered-routes-smoke.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "route-baseline",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/reports-actions.authed.spec.js",
+      "pathPattern": "tests/reports-actions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/reports-dashboards-mutations.authed.spec.js",
+      "pathPattern": "tests/reports-dashboards-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/dashboards"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/reports-dashboards.authed.spec.js",
+      "pathPattern": "tests/reports-dashboards.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/dashboards"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/reports-route-sweep.authed.spec.js",
+      "pathPattern": "tests/reports-route-sweep.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/reports-schedule-mutations.authed.spec.js",
+      "pathPattern": "tests/reports-schedule-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/agent",
+        "/reports/ai",
+        "/reports/billing",
+        "/reports/call",
+        "/reports/campaign",
+        "/reports/channel",
+        "/reports/csat",
+        "/reports/quality",
+        "/reports/queue",
+        "/reports/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/reports-sections.authed.spec.js",
+      "pathPattern": "tests/reports-sections.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/agent",
+        "/reports/ai",
+        "/reports/billing",
+        "/reports/call",
+        "/reports/campaign",
+        "/reports/channel",
+        "/reports/csat",
+        "/reports/quality",
+        "/reports/queue",
+        "/reports/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/reports.authed.spec.js",
+      "pathPattern": "tests/reports.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/responsive.authed.spec.js",
+      "pathPattern": "tests/responsive.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/search.authed.spec.js",
+      "pathPattern": "tests/search.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "shell",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-api-keys-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-api-keys-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/api-keys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: anahtar create+revoke (liste prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-api-keys.authed.spec.js",
+      "pathPattern": "tests/settings-api-keys.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/api-keys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-audit.authed.spec.js",
+      "pathPattern": "tests/settings-audit.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/audit"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-automations-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-automations-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/automations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: kural create+delete (tablo prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-automations.authed.spec.js",
+      "pathPattern": "tests/settings-automations.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/automations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-canned-responses-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-canned-responses-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/canned-responses"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: hazır yanıt create+delete (tablo prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-canned-responses.authed.spec.js",
+      "pathPattern": "tests/settings-canned-responses.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/canned-responses"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-compliance-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-compliance-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/compliance"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: consent/GDPR kaydı UI'da hard-delete sunmuyor; purge ucu staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-compliance.authed.spec.js",
+      "pathPattern": "tests/settings-compliance.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/compliance"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-data-retention-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-data-retention-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/data-retention"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: reversible spinbutton düzenle+Save staging'de kanıtlanmadı (Run cleanup asla); spec fixme."
+    },
+    {
+      "id": "tests/settings-data-retention.authed.spec.js",
+      "pathPattern": "tests/settings-data-retention.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/data-retention"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-disposition-codes-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-disposition-codes-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/disposition-codes"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: kod satır silme (aksiyon ikonları aria-label'sız) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-disposition-codes.authed.spec.js",
+      "pathPattern": "tests/settings-disposition-codes.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/disposition-codes"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-hours-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-hours-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/hours"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: haftalık program Save kalıcılık/switch geri-alma staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-hours.authed.spec.js",
+      "pathPattern": "tests/settings-hours.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/hours"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-integrations-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-integrations-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/integrations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: webhook create+delete (tablo prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-integrations.authed.spec.js",
+      "pathPattern": "tests/settings-integrations.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/integrations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-notifications-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-notifications-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/notifications"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: kategori switch toggle+Save preferences staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-notifications.authed.spec.js",
+      "pathPattern": "tests/settings-notifications.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/notifications"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-organization-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-organization-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/organization"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: website PATCH/PUT kalıcılık/geri-alma staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-organization.authed.spec.js",
+      "pathPattern": "tests/settings-organization.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/organization"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-profile-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-profile-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/profile"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: telefon PATCH kalıcılık/geri-alma staging tenant'ında kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-profile.authed.spec.js",
+      "pathPattern": "tests/settings-profile.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/profile"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-roles-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-roles-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/roles"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-roles-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-roles-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/roles"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: custom rol create+delete ve orphan sayacı staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-roles.authed.spec.js",
+      "pathPattern": "tests/settings-roles.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/roles"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-security-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-security-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/security"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: hassas policy switch toggle+Save staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-security.authed.spec.js",
+      "pathPattern": "tests/settings-security.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/security"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-sla-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-sla-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: SLA politikası satır silme (aksiyon ikonları aria-label'sız) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-sla.authed.spec.js",
+      "pathPattern": "tests/settings-sla.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-teams-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-teams-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/teams"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: ekip silme yolu (Edit dialogunda Delete yok) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-teams.authed.spec.js",
+      "pathPattern": "tests/settings-teams.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/teams"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-templates-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-templates-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/templates"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: şablon create+delete (tablo prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-templates.authed.spec.js",
+      "pathPattern": "tests/settings-templates.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/templates"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-users-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-users-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/users"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-users.authed.spec.js",
+      "pathPattern": "tests/settings-users.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/users"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-webhooks-mutations.authed.spec.js",
+      "pathPattern": "tests/settings-webhooks-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/webhooks"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: webhook create+delete (liste prod'da boş) staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-webhooks.authed.spec.js",
+      "pathPattern": "tests/settings-webhooks.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/webhooks"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings.authed.spec.js",
+      "pathPattern": "tests/settings.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/supervisor-agent-live.authed.spec.js",
+      "pathPattern": "tests/supervisor-agent-live.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/supervisor-agents.authed.spec.js",
+      "pathPattern": "tests/supervisor-agents.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/supervisor-coaching.authed.spec.js",
+      "pathPattern": "tests/supervisor-coaching.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/supervisor-interactions.authed.spec.js",
+      "pathPattern": "tests/supervisor-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/supervisor-wallboard.authed.spec.js",
+      "pathPattern": "tests/supervisor-wallboard.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/tickets.authed.spec.js",
+      "pathPattern": "tests/tickets.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "tickets",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-call.mutation.authed.spec.js",
+      "pathPattern": "tests/voice-call.mutation.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "voice",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: çağrı/SMS dışa dönük ve kalıcı kullanıcı-adlı entity değil; güvenli sonuç/teardown yolu kanıtlanana kadar testler fixme."
+    },
+    {
+      "id": "tests/voice-dids-mutations.authed.spec.js",
+      "pathPattern": "tests/voice-dids-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/dids"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/voice-dids.authed.spec.js",
+      "pathPattern": "tests/voice-dids.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/dids"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-history.authed.spec.js",
+      "pathPattern": "tests/voice-history.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/history"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-ivr-mutations.authed.spec.js",
+      "pathPattern": "tests/voice-ivr-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/ivr"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/voice-ivr.authed.spec.js",
+      "pathPattern": "tests/voice-ivr.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/ivr"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-queues-mutations.authed.spec.js",
+      "pathPattern": "tests/voice-queues-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/queues"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/voice-queues.authed.spec.js",
+      "pathPattern": "tests/voice-queues.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/queues"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-recordings.authed.spec.js",
+      "pathPattern": "tests/voice-recordings.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/recordings"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-regulatory.authed.spec.js",
+      "pathPattern": "tests/voice-regulatory.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/regulatory"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-sip-settings.authed.spec.js",
+      "pathPattern": "tests/voice-sip-settings.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/sip-settings"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-sip-trunks.authed.spec.js",
+      "pathPattern": "tests/voice-sip-trunks.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/sip-trunks"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-skills.authed.spec.js",
+      "pathPattern": "tests/voice-skills.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/skills"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-subnav.authed.spec.js",
+      "pathPattern": "tests/voice-subnav.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-voicemail.authed.spec.js",
+      "pathPattern": "tests/voice-voicemail.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/voicemail"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice.authed.spec.js",
+      "pathPattern": "tests/voice.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce-badges-mutations.authed.spec.js",
+      "pathPattern": "tests/workforce-badges-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/badges"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: rozet UI'da yalnız oluşturulur; düzenle/sil yok (WORKFORCE-BADGES-NO-EDIT-DELETE) → güvenli 0→1→0 teardown UI'dan kapatılamaz; spec fixme."
+    },
+    {
+      "id": "tests/workforce-badges.authed.spec.js",
+      "pathPattern": "tests/workforce-badges.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/badges"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce-evaluations-mutations.authed.spec.js",
+      "pathPattern": "tests/workforce-evaluations-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/evaluations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": "fixme",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "N/A: manuel değerlendirme gerçek etkileşim ID + temsilci gerektirir; tablo prod'da boş, silme yolu gözlemlenemedi → güvenli teardown kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/workforce-evaluations.authed.spec.js",
+      "pathPattern": "tests/workforce-evaluations.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/evaluations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce-mutations.authed.spec.js",
+      "pathPattern": "tests/workforce-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/workforce-schedules.authed.spec.js",
+      "pathPattern": "tests/workforce-schedules.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/schedules"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce-surveys-mutations.authed.spec.js",
+      "pathPattern": "tests/workforce-surveys-mutations.authed.spec.js",
+      "kind": "mutation",
+      "effect": "mutation",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "staging",
+      "projects": [
+        "chromium-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/surveys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/workforce-surveys.authed.spec.js",
+      "pathPattern": "tests/workforce-surveys.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/surveys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce-time-off.authed.spec.js",
+      "pathPattern": "tests/workforce-time-off.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/time-off"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/workforce.authed.spec.js",
+      "pathPattern": "tests/workforce.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    }
+  ]
+}
