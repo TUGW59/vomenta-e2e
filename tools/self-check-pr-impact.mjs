@@ -120,6 +120,7 @@ const plan = (changedFiles, extra = {}) =>
   const p = plan([
     { path: 'README.md', status: 'M' },
     { path: 'docs/adr/0010-pr-impact-selection.md', status: 'A' },
+    { path: '.env.example', status: 'M' },
   ]);
   check(
     'docs-only',
@@ -301,6 +302,8 @@ const plan = (changedFiles, extra = {}) =>
     'tools/plan-pr-impact.mjs': 'ci-tooling',
     '.github/workflows/playwright.yml': 'ci-tooling',
     'README.md': 'docs',
+    '.env.example': 'docs',
+    '.env.sample': 'docs',
     'tests/login.spec.js-snapshots/login.png': 'visual-snapshot',
     'Dockerfile': 'unknown-runtime',
   };

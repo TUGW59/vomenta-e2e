@@ -108,6 +108,10 @@ export function classifyFile(rel) {
   if (
     /\.md$/.test(rel) ||
     rel.startsWith('docs/') ||
+    // .env ŞABLONLARI (.env.example/.sample/.template): yalnız dokümantasyon; test
+    // runtime'ı GERÇEK `.env`'i (gitignored) okur, şablonu DEĞİL → runtime gerektirmez.
+    // Çıplak `.env` gitignore'lu olduğundan diff'te asla görünmez; yalnız `.env.<sonek>`.
+    /^\.env\.[\w.-]+$/.test(rel) ||
     /^(LICENSE|\.gitignore|\.editorconfig)$/.test(rel)
   ) {
     return 'docs';
