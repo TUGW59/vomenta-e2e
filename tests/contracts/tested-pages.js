@@ -925,4 +925,25 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.',
     },
   },
+  {
+    id: 'voice-history',
+    routes: ['/voice/history'],
+    specFiles: ['voice-history.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@perf': 'Grafik/ağır içerik yok (filtreler + geçmiş çağrı tablosu + Details dialogu).',
+      '@export': 'Bu sayfada export/indirme kontrolü yok (Recordings\'te var).',
+      '@visual': 'Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Sayfa veri yazmıyor (salt geçmiş görünümü + Details); satır "Call back" gerçek giden çağrı → softphone/staging alanı (voice-call.mutation.authed.spec.js), bu sayfada tetiklenmez.',
+    },
+  },
 ]);
