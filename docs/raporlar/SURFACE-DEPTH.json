@@ -11,8 +11,8 @@
     "registeredRoutes": 65,
     "testedPagesContracts": 48,
     "knownBugs": {
-      "total": 57,
-      "open": 56,
+      "total": 61,
+      "open": 60,
       "fixedCandidate": 0,
       "closed": 1
     }
@@ -37,8 +37,8 @@
       "L2_STYLE": 55,
       "L2_DEEP": 0
     },
-    "routesWithFindings": 27,
-    "openFindingsOnRoutes": 46
+    "routesWithFindings": 28,
+    "openFindingsOnRoutes": 48
   },
   "pages": [
     {
@@ -1064,7 +1064,18 @@
           "reasonCode": "PROVIDER_HARNESS_REQUIRED"
         }
       },
-      "findings": []
+      "findings": [
+        {
+          "id": "BOT-BUILDER-CLOSE-I18N",
+          "severity": "low",
+          "status": "open"
+        },
+        {
+          "id": "BOT-BUILDER-TEMPLATE-I18N",
+          "severity": "high",
+          "status": "open"
+        }
+      ]
     },
     {
       "route": "/contacts",
@@ -9549,6 +9560,18 @@
       "severity": "medium",
       "status": "open",
       "route": "/ai/prompts"
+    },
+    {
+      "id": "BOT-BUILDER-EDITOR-A11Y",
+      "severity": "medium",
+      "status": "open",
+      "route": "/bot-builder/{id}"
+    },
+    {
+      "id": "BOT-BUILDER-EDITOR-GATE-I18N",
+      "severity": "medium",
+      "status": "open",
+      "route": "/bot-builder/{id}"
     },
     {
       "id": "CAMPAIGNS-ICON-A11Y",
