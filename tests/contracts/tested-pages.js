@@ -1011,4 +1011,33 @@ export const TESTED_PAGES = Object.freeze([
       '@visual': 'Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.',
     },
   },
+  {
+    // BOZUK SAYFA: voiceRegulatory i18n namespace eksik → içerik ham anahtar/boş render
+    // (VOICE-REGULATORY-BROKEN) + Voice alt-nav yok (B10). Rota MAIN_NAVIGATION'da ve Voice
+    // alt-nav'ında YOK; baseline stiller çalışan yerlerde normal, i18n/console + bölüm düzeni
+    // known-bug guard'ları ile sabitlenir. Koşullu stiller uygulanamaz (içerik güvenilir render
+    // etmiyor) → arketip minimal.
+    id: 'voice-regulatory',
+    routes: ['/voice/regulatory'],
+    specFiles: ['voice-regulatory.authed.spec.js'],
+    archetype: {
+      hasData: false,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@keyboard': 'Diyalog/menü/sekme güvenilir render etmiyor (sayfa bozuk); KYC akışı staging.',
+      '@errorpath': 'Sayfa zaten kırık render ediyor (voiceRegulatory namespace eksik) → veri-hata yolu ayırt edilemez; kök neden VOICE-REGULATORY-BROKEN altında.',
+      '@perf': 'Ağır içerik yok (KYC/regulatory içeriği render bile etmiyor).',
+      '@data': 'Sayısal KPI yok; içerik güvenilir render etmiyor.',
+      '@export': 'Export/indirme kontrolü yok.',
+      '@visual': 'İçerik kararsız (ham anahtar/boş) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'KYC başlatma (Start KYC) dışa-dönük/staging; sayfa bozuk olduğundan prod salt-okunur.',
+    },
+  },
 ]);
