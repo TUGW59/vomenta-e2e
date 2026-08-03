@@ -5,13 +5,13 @@
 
 ## Özet
 
-- **Toplam bulgu:** 50
-- **Durum:** open 49 · closed 1
-- **Guard:** knownBugGuard 48 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 7 · medium 38 · low 4
+- **Toplam bulgu:** 52
+- **Durum:** open 51 · closed 1
+- **Guard:** knownBugGuard 50 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 7 · medium 39 · low 5
 
 ### Governance işaretleri
-- **Sahipsiz (owner=null):** 35 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
+- **Sahipsiz (owner=null):** 37 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, DASH-CLICKHOUSE, DASH-AI-I18N, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
 - **Doğrulanmamış (lastVerified=null, açık):** 15 — B5, ANALYTICS-A, ANALYTICS-B, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N
 > Not: `expiry` gözden geçirme tarihi tarih-bağımlıdır; süresi-geçmiş uyarıları `quality:findings` (self-check) tarafından koşum anında basılır — rapora gömülmez (determinizm).
 
@@ -41,6 +41,8 @@
 | B23 | channels | /channels/whatsapp | medium | open | knownBugGuard | quality-guild |
 | CONTACTS-F1 | contacts | /contacts | medium | open | knownBugGuard | — |
 | CONTACTS-F2 | contacts | /contacts | medium | open | knownBugGuard | — |
+| DASH-CLICKHOUSE | dashboard | / | medium | open | knownBugGuard | — |
+| DASH-AI-I18N | dashboard | / | low | open | knownBugGuard | — |
 | B3 | inbox | /inbox | high | open | knownBugGuard | — |
 | B8 | inbox | /inbox | high | closed | permanent | — |
 | B15 | navigation | /ai | medium | open | knownBugGuard | — |
@@ -348,6 +350,30 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
 - **Guard testi:** `tests/contacts.authed.spec.js` → BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli
+
+## dashboard
+
+### /
+
+**[DASH-CLICKHOUSE] İç/teknik terim "ClickHouse" Gösterge Paneli'nde kullanıcıya görünüyor** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** İç/teknik terim kullanıcıya görünmez
+- **Gerçekleşen:** "Deep analytics powered by ClickHouse" — 4 dilde de "ClickHouse" sızıyor (ANALYTICS-B ile aynı sınıf, farklı yüzey)
+- **Repro:** / (Dashboard) aç → "Analytics Insights" bölüm alt başlığını oku
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/dashboard.authed.spec.js` → BULGU DASH-CLICKHOUSE: iç terim "ClickHouse" Dashboard'da görünmemeli
+
+**[DASH-AI-I18N] AI Agent Performance metrik etiketleri tr/fr/ar'da çevrilmiyor** — `low` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** AI Interactions / AI Tokens Used / AI Cost etiketleri hedef dilde çevrili
+- **Gerçekleşen:** Üç etiket de tr/fr/ar arayüzde çevrilmeden İngilizce kalıyor (canlı gözlem 3 Ağu 2026)
+- **Repro:** / (Dashboard) aç → dili tr/fr/ar yap → "AI Agent Performance" kart etiketlerini oku
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
+- **Guard testi:** `tests/dashboard.authed.spec.js` → BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı
 
 ## inbox
 

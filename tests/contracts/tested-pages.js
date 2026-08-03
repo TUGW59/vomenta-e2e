@@ -42,6 +42,32 @@ export const TESTED_PAGES = Object.freeze([
     naStyles: {},
   },
   {
+    id: 'dashboard',
+    routes: ['/'],
+    specFiles: [
+      'dashboard.authed.spec.js',
+      'dashboard-actions.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: true,
+      hasNumericKpis: true,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      // @keyboard: sayfaya ait diyalog/sekme yok (tarih butonları düz buton; Start Call
+      //   softphone paneli AppShell'e ait — arketip bayrağı false).
+      // @visual: içerik tamamen canlı/değişken (KPI 0'lar, canlı temsilci kartları,
+      //   "Updated" damgası, oto-yenilenen aktivite akışı, kapatılabilir onboarding %) →
+      //   kararlı snapshot bölgesi yok. hasStableUI=false → @visual zorunlu değil.
+      // @export/@mutation: sayfa salt-okunur, export kontrolü yok → arketip false.
+    },
+  },
+  {
     id: 'reports-dashboards',
     routes: ['/reports/dashboards'],
     specFiles: [

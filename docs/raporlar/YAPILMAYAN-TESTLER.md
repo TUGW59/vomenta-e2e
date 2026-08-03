@@ -119,7 +119,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 ### Yüzey boşluğu (envanter karşılaştırması)
 
 - **Rota-bazlı arketip/derin kapsam yok** (yalnız generic baseline ile örtülü) — sıradaki nav yüzeyleri WP-04/WP-06 bekliyor:
-  `/` · `/inbox` · `/voice` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
+  `/inbox` · `/voice` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   `/campaigns/outbound`
 - Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 55 adet — çoğunlukla `reports` alt rotaları.

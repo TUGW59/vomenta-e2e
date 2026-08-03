@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 975
+- **Test edilen senaryo:** 982
 - **Test dosyası:** 67
-- **Etiketler:** `@a11y` 51 · `@clean)` 7 · `@clean` 37 · `@critical` 70 · `@data` 10 · `@deeplink` 36 · `@errorpath` 38 · `@export` 1 · `@i18n` 160 · `@keyboard` 30 · `@known-bug` 61 · `@layout` 42 · `@perf` 1 · `@public` 2 · `@regression` 325 · `@route-baseline` 55 · `@smoke` 143 · `@visual` 21
+- **Etiketler:** `@a11y` 52 · `@clean)` 7 · `@clean` 38 · `@critical` 70 · `@data` 12 · `@deeplink` 37 · `@errorpath` 39 · `@export` 1 · `@i18n` 164 · `@keyboard` 30 · `@known-bug` 65 · `@layout` 45 · `@perf` 2 · `@public` 2 · `@regression` 346 · `@route-baseline` 55 · `@smoke` 147 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -307,31 +307,38 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ### `dashboard-actions.authed.spec.js`
 
-- "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor
-- "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor
-- "View Reports" /reports ("Reports") sayfasına götürüyor
+- L1+L3: "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor  `@regression`
+- L1+L3: "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor  `@regression`
+- L1+L3: "View Reports" /reports ("Reports") sayfasına götürüyor  `@regression`
 
 ### `dashboard.authed.spec.js`
 
 - oturum geçerli — giriş formu görünmüyor  `@smoke`
-- panel ve kullanıcı menüsü görünüyor  `@smoke` `@critical`
-- kenar menüsü tüm ana bölümleri içeriyor  `@critical`
-- menü linkleri doğru href değerlerine sahip
-- arama kutusu ve tarih filtreleri görünüyor
-- panelde sessiz hata yok (console-error / failed-request / 5xx)  `@smoke`
-- /inbox doğrudan açılıyor ("Inbox")
-- /voice doğrudan açılıyor ("Live Calls")
-- /channels doğrudan açılıyor ("Channels")
-- /ai doğrudan açılıyor ("AI Management")
-- /campaigns doğrudan açılıyor ("Campaigns")
-- /bot-builder doğrudan açılıyor ("Bot Builder")
-- /contacts doğrudan açılıyor ("Contacts")
-- /tickets doğrudan açılıyor ("Tickets")
-- /analytics doğrudan açılıyor ("Analytics")
-- /reports doğrudan açılıyor ("Reports")
-- /supervisor doğrudan açılıyor ("Supervisor")
-- /workforce doğrudan açılıyor ("Workforce Management")
-- /settings doğrudan açılıyor ("Settings")
+- başlık + alt başlık + kullanıcı menüsü görünüyor  `@smoke` `@critical`
+- tarih aralığı + Live toggle görünüyor (Today / 7 Days / 30 Days / Live)  `@smoke`
+- 4 üst KPI döşemesi görünüyor  `@smoke`
+- hızlı eylemler görünüyor (Start Call butonu + 3 gezinme linki)  `@smoke`
+- ana bölüm başlıkları görünüyor (Queue/Agent/Call Volume/Insights/AI/Activity)  `@smoke`
+- kenar menüsü tüm ana bölümleri doğru href ile içeriyor  `@critical`
+- sayfada sessiz hata yok (console-error / failed-request / 5xx)  `@smoke` `@clean`
+- üst KPI döşemeleri değer gösteriyor  `@data` `@regression`
+- "Analytics Insights" KPI döşemeleri değer gösteriyor  `@data` `@regression`
+- "/" doğrudan URL ile açılıyor ve Dashboard render oluyor  `@deeplink` `@regression`
+- [en] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili  `@i18n` `@regression`
+- L1 tıklama OK: "Start Call" softphone dialer'ını açıyor (tuş takımı görünür)  `@regression`
+- ciddi/kritik axe ihlali yok (bilinen borç hariç)  `@a11y` `@regression`
+- [desktop] yatay taşma yok  `@layout` `@regression`
+- [mobile] yatay taşma yok  `@layout` `@regression`
+- [ar/rtl desktop] yatay taşma yok  `@layout` `@regression`
+- içerik (başlık) makul bütçe içinde görünüyor  `@perf` `@regression`
+- canlı veri ucu 500 dönerse sayfa yine de yükleniyor (çökmüyor)  `@errorpath` `@regression`
+- BULGU DASH-CLICKHOUSE: iç terim "ClickHouse" Dashboard'da görünmemeli  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [fr]: AI metrik etiketleri fr arayüzde çevrili olmalı  `@regression` `@known-bug`
+- BULGU DASH-AI-I18N [ar]: AI metrik etiketleri ar arayüzde çevrili olmalı  `@regression` `@known-bug`
 
 ### `discovery/discovery.spec.js`
 
