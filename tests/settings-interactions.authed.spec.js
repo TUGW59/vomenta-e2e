@@ -34,10 +34,13 @@ test.describe('Ayarlar hub — sekme etkileşim derinliği', () => {
     for (const name of SettingsPage.TABS) {
       await settings.selectTab(name); // aria-selected='true' (Radix click-yutma dayanıklı)
 
-      // Dışlayıcılık: YALNIZ seçili sekme aria-selected='true'.
-      const selected = page.getByRole('tab', { selected: true });
-      await expect(selected).toHaveCount(1);
+      // Dışlayıcılık: settings sekme kümesinde YALNIZ seçili sekme aria-selected='true'
+      // (global rol=tab sayımı yerine bilinen küme → sayfadaki başka tablist'lere dayanıklı).
       await expect(settings.tab(name)).toHaveAttribute('aria-selected', 'true');
+      for (const other of SettingsPage.TABS) {
+        if (other === name) continue;
+        await expect(settings.tab(other)).toHaveAttribute('aria-selected', 'false');
+      }
 
       // Panel gerçekten O sekmenin içeriğini render etti mi (görsel seçim ≠ içerik).
       await expect(
