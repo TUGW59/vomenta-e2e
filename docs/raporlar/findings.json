@@ -1,21 +1,21 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 50,
+  "total": 52,
   "summary": {
     "byStatus": {
-      "open": 49,
+      "open": 51,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 48,
+      "knownBugGuard": 50,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 7,
-      "medium": 38,
-      "low": 4
+      "medium": 39,
+      "low": 5
     },
     "byArea": {
       "voice": 4,
@@ -26,6 +26,7 @@
       "analytics": 3,
       "ai": 2,
       "navigation": 1,
+      "dashboard": 2,
       "reports": 4,
       "supervisor": 6,
       "contacts": 2,
@@ -52,6 +53,8 @@
       "B15",
       "ANALYTICS-A",
       "ANALYTICS-B",
+      "DASH-CLICKHOUSE",
+      "DASH-AI-I18N",
       "REPORTS-INTL",
       "REPORTS-AIKEY",
       "REPORTS-SECTIONS-TZ",
@@ -648,6 +651,67 @@
       "test": {
         "file": "tests/analytics.authed.spec.js",
         "title": "BULGU B: iç terim \"ClickHouse\" kullanıcıya görünmemeli"
+      },
+      "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "DASH-CLICKHOUSE",
+      "title": "İç/teknik terim \"ClickHouse\" Gösterge Paneli'nde kullanıcıya görünüyor",
+      "area": "dashboard",
+      "route": "/",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/ (Dashboard) aç",
+        "\"Analytics Insights\" bölüm alt başlığını oku"
+      ],
+      "expected": "İç/teknik terim kullanıcıya görünmez",
+      "actual": "\"Deep analytics powered by ClickHouse\" — 4 dilde de \"ClickHouse\" sızıyor (ANALYTICS-B ile aynı sınıf, farklı yüzey)",
+      "technicalEvidence": [],
+      "possibleCauses": [],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/dashboard.authed.spec.js",
+        "title": "BULGU DASH-CLICKHOUSE: iç terim \"ClickHouse\" Dashboard'da görünmemeli"
+      },
+      "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "DASH-AI-I18N",
+      "title": "AI Agent Performance metrik etiketleri tr/fr/ar'da çevrilmiyor",
+      "area": "dashboard",
+      "route": "/",
+      "severity": "low",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-03",
+      "lastVerified": "2026-08-03",
+      "expiry": null,
+      "repro": [
+        "/ (Dashboard) aç",
+        "dili tr/fr/ar yap",
+        "\"AI Agent Performance\" kart etiketlerini oku"
+      ],
+      "expected": "AI Interactions / AI Tokens Used / AI Cost etiketleri hedef dilde çevrili",
+      "actual": "Üç etiket de tr/fr/ar arayüzde çevrilmeden İngilizce kalıyor (canlı gözlem 3 Ağu 2026)",
+      "technicalEvidence": [],
+      "possibleCauses": [],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [],
+      "evidence": [],
+      "test": {
+        "file": "tests/dashboard.authed.spec.js",
+        "title": "BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı"
       },
       "owner": null,
       "issueRef": null

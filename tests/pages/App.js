@@ -17,6 +17,7 @@ import { ChannelVideoPage } from './ChannelVideoPage.js';
 import { CannedResponsesPage } from './CannedResponsesPage.js';
 import { CompliancePage } from './CompliancePage.js';
 import { ContactsPage } from './ContactsPage.js';
+import { DashboardPage } from './DashboardPage.js';
 import { DashboardsPage } from './DashboardsPage.js';
 import { DataRetentionPage } from './DataRetentionPage.js';
 import { DispositionCodesPage } from './DispositionCodesPage.js';
@@ -60,6 +61,7 @@ export class App {
   constructor(page) {
     this.page = page;
     this.shell = new AppShell(page);
+    this.dashboard = new DashboardPage(page);
     this.analytics = new AnalyticsPage(page);
     this.login = new LoginPage(page);
     this.contacts = new ContactsPage(page);

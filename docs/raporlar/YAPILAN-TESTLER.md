@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1027 / 101 dosya
-- **coverageStatus:** verified 0 · partial 981 · generic 9 · blocked 37
-- **executionStatus:** executed 0 · listed-only 990 · skipped 0 · fixme 37
+- **Listelenen test:** 1064 / 103 dosya
+- **coverageStatus:** verified 0 · partial 1017 · generic 9 · blocked 38
+- **executionStatus:** executed 0 · listed-only 1026 · skipped 0 · fixme 38
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -22,16 +22,16 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | channels | 94 | 88 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
-| dashboard | 22 | 22 | 0 | 0 |
+| dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 96 | 87 | 9 | 0 |
+| other | 97 | 88 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
 | settings | 333 | 316 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
-| voice | 9 | 9 | 0 | 0 |
+| voice | 38 | 37 | 0 | 1 |
 | workforce | 105 | 103 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
@@ -421,33 +421,40 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor |  | — | listed-only | partial | medium | list-exec |
-| "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor |  | — | listed-only | partial | medium | list-exec |
-| "View Reports" /reports ("Reports") sayfasına götürüyor |  | — | listed-only | partial | medium | list-exec |
+| L1+L3: "Send SMS" /channels/sms ("SMS Configuration") sayfasına götürüyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1+L3: "Create Campaign" /campaigns/outbound ("Outbound Campaigns") sayfasına götürüyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1+L3: "View Reports" /reports ("Reports") sayfasına götürüyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 
 ### `dashboard.authed.spec.js` — _dashboard_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | oturum geçerli — giriş formu görünmüyor | @smoke | — | listed-only | partial | medium | list-exec |
-| panel ve kullanıcı menüsü görünüyor | @smoke @critical | — | listed-only | partial | medium | list-exec |
-| kenar menüsü tüm ana bölümleri içeriyor | @critical | — | listed-only | partial | medium | list-exec |
-| menü linkleri doğru href değerlerine sahip |  | — | listed-only | partial | medium | list-exec |
-| arama kutusu ve tarih filtreleri görünüyor |  | — | listed-only | partial | medium | list-exec |
-| panelde sessiz hata yok (console-error / failed-request / 5xx) | @smoke | — | listed-only | partial | medium | list-exec |
-| /inbox doğrudan açılıyor ("Inbox") |  | — | listed-only | partial | medium | list-exec |
-| /voice doğrudan açılıyor ("Live Calls") |  | — | listed-only | partial | medium | list-exec |
-| /channels doğrudan açılıyor ("Channels") |  | — | listed-only | partial | medium | list-exec |
-| /ai doğrudan açılıyor ("AI Management") |  | — | listed-only | partial | medium | list-exec |
-| /campaigns doğrudan açılıyor ("Campaigns") |  | — | listed-only | partial | medium | list-exec |
-| /bot-builder doğrudan açılıyor ("Bot Builder") |  | — | listed-only | partial | medium | list-exec |
-| /contacts doğrudan açılıyor ("Contacts") |  | — | listed-only | partial | medium | list-exec |
-| /tickets doğrudan açılıyor ("Tickets") |  | — | listed-only | partial | medium | list-exec |
-| /analytics doğrudan açılıyor ("Analytics") |  | — | listed-only | partial | medium | list-exec |
-| /reports doğrudan açılıyor ("Reports") |  | — | listed-only | partial | medium | list-exec |
-| /supervisor doğrudan açılıyor ("Supervisor") |  | — | listed-only | partial | medium | list-exec |
-| /workforce doğrudan açılıyor ("Workforce Management") |  | — | listed-only | partial | medium | list-exec |
-| /settings doğrudan açılıyor ("Settings") |  | — | listed-only | partial | medium | list-exec |
+| başlık + alt başlık + kullanıcı menüsü görünüyor | @smoke @critical | — | listed-only | partial | medium | list-exec |
+| tarih aralığı + Live toggle görünüyor (Today / 7 Days / 30 Days / Live) | @smoke | — | listed-only | partial | medium | list-exec |
+| 4 üst KPI döşemesi görünüyor | @smoke | — | listed-only | partial | medium | list-exec |
+| hızlı eylemler görünüyor (Start Call butonu + 3 gezinme linki) | @smoke | — | listed-only | partial | medium | list-exec |
+| ana bölüm başlıkları görünüyor (Queue/Agent/Call Volume/Insights/AI/Activity) | @smoke | — | listed-only | partial | medium | list-exec |
+| kenar menüsü tüm ana bölümleri doğru href ile içeriyor | @critical | — | listed-only | partial | medium | list-exec |
+| sayfada sessiz hata yok (console-error / failed-request / 5xx) | @smoke @clean | — | listed-only | partial | medium | list-exec |
+| üst KPI döşemeleri değer gösteriyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| "Analytics Insights" KPI döşemeleri değer gösteriyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| "/" doğrudan URL ile açılıyor ve Dashboard render oluyor | @deeplink @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık + tarih butonları + Start Call + Insights çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| L1 tıklama OK: "Start Call" softphone dialer'ını açıyor (tuş takımı görünür) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| ciddi/kritik axe ihlali yok (bilinen borç hariç) | @a11y @regression | — | listed-only | partial | medium | list-exec |
+| [desktop] yatay taşma yok | @layout @regression | — | listed-only | partial | medium | list-exec |
+| [mobile] yatay taşma yok | @layout @regression | — | listed-only | partial | medium | list-exec |
+| [ar/rtl desktop] yatay taşma yok | @layout @regression | — | listed-only | partial | medium | list-exec |
+| içerik (başlık) makul bütçe içinde görünüyor | @perf @regression | — | listed-only | partial | medium | list-exec |
+| canlı veri ucu 500 dönerse sayfa yine de yükleniyor (çökmüyor) | @errorpath @regression | — | listed-only | partial | medium | list-exec |
+| BULGU DASH-CLICKHOUSE: iç terim "ClickHouse" Dashboard'da görünmemeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| BULGU DASH-AI-I18N [tr]: AI metrik etiketleri tr arayüzde çevrili olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| BULGU DASH-AI-I18N [fr]: AI metrik etiketleri fr arayüzde çevrili olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| BULGU DASH-AI-I18N [ar]: AI metrik etiketleri ar arayüzde çevrili olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 
 ### `discovery/discovery.spec.js` — _discovery_
 
@@ -580,6 +587,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/channels/whatsapp] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/social] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/video] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/queues] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 
 ### `reports-actions.authed.spec.js` — _reports_
 
@@ -1396,22 +1404,61 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L3: softphone ile test numarası aranıyor ve çağrı kuruluyor | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: test numarasına SMS gönderiliyor (channels.sms.send) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
+### `voice-queues-mutations.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| L3 görev OK: kuyruk oluştur → listede doğrula → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `voice-queues.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| GET /queues çağrılıyor + en az bir kuyruk kartı render ediliyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| L1: "Create Queue" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| /voice/queues doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
 ### `voice-subnav.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| "Queues" alt-navigasyonu /voice/queues ("Queues") panelini açıyor |  | — | listed-only | partial | medium | list-exec |
-| "Call History" alt-navigasyonu /voice/history ("Call History") panelini açıyor |  | — | listed-only | partial | medium | list-exec |
-| "Voicemails" alt-navigasyonu /voice/voicemail ("Voicemails") panelini açıyor |  | — | listed-only | partial | medium | list-exec |
-| "Recordings" alt-navigasyonu /voice/recordings ("Call Recordings") panelini açıyor |  | — | listed-only | partial | medium | list-exec |
+| "Live Calls" → /voice/live ("Live Calls") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Queues" → /voice/queues ("Queues") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "IVR Builder" → /voice/ivr ("IVR Builder") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Phone Numbers" → /voice/dids ("Phone Numbers") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Call History" → /voice/history ("Call History") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Voicemails" → /voice/voicemail ("Voicemails") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Recordings" → /voice/recordings ("Call Recordings") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+| "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 
 ### `voice.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
-| /voice, Live Calls sayfasına açılıyor |  | — | listed-only | partial | medium | list-exec |
-| aktif çağrı yokken boş durum gösteriliyor |  | — | listed-only | partial | medium | list-exec |
-| Voice alt-navigasyon öğeleri görünüyor |  | — | listed-only | partial | medium | list-exec |
+| /voice, "Live Calls" başlığı + alt-başlık + boş durum ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| Voice alt-navigasyonunun 10 hedefi görünüyor | @smoke | — | listed-only | partial | medium | list-exec |
+| canlı istatistik ucu çağrılıyor + "Agents Available" döşemesi DEĞER gösteriyor | @data | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık çevrili | @i18n | — | listed-only | partial | medium | list-exec |
+| ciddi/kritik a11y ihlali yok (bilinen borç hariç) | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| canlı çağrı ucu 500 dönse de kabuk + başlık + boş durum sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
+| "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez) | @regression | — | listed-only | partial | medium | list-exec |
+| /voice doğrudan açılınca /voice/live yüklüyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `workforce-badges-mutations.authed.spec.js` — _workforce_
 
