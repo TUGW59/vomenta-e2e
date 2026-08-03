@@ -51,6 +51,7 @@ const registeredRoutes = [
   { path: '/gamma', heading: null },      // dedicated, yazma yok, statik
   { path: '/delta', heading: null },      // sözleşme yok + runtime yok → L0
   { path: '/epsilon', heading: null },    // dedicated ama zorunlu bir stil eksik → boşluk
+  { path: '/zeta', heading: 'Zeta' },     // dedicated, hasTabs+hasData, TÜM etkileşim @ix-* işaretli → L2·deep (WP-L2-WAVE-1)
 ];
 
 const testedPages = [
@@ -58,6 +59,8 @@ const testedPages = [
   { id: 'alpha', routes: ['/alpha'], specFiles: ['alpha.authed.spec.js'], archetype: { hasData: true, hasWrites: true, hasDialogs: true, hasStableUI: true }, naStyles: {} },
   { id: 'gamma', routes: ['/gamma'], specFiles: ['gamma.authed.spec.js'], archetype: { hasStableUI: true }, naStyles: {} },
   { id: 'epsilon', routes: ['/epsilon'], specFiles: ['epsilon.authed.spec.js'], archetype: {}, naStyles: {} },
+  // pagination-sort yüzeyde yok → naInteraction ile açık N/A; kalan 5 boyut @ix-* işaretli → COMPLETE.
+  { id: 'zeta', routes: ['/zeta'], specFiles: ['zeta.authed.spec.js'], archetype: { hasTabs: true, hasData: true, hasStableUI: true }, naStyles: {}, naInteraction: { 'pagination-sort': 'bu yüzeyde pager yok' } },
 ];
 
 const knownBugs = [
@@ -76,6 +79,7 @@ const runtimeReport = {
     { route: '/gamma', baselineStatus: 'PASS', statusReason: 'passed', specFiles: ['registered-routes-smoke.authed.spec.js'], bugs: [] },
     // /delta runtime'da YOK → L1 NOT_RUN
     { route: '/epsilon', baselineStatus: 'PASS', statusReason: 'passed', specFiles: ['registered-routes-smoke.authed.spec.js'], bugs: [] },
+    { route: '/zeta', baselineStatus: 'PASS', statusReason: 'passed', specFiles: ['registered-routes-smoke.authed.spec.js'], bugs: [] },
   ],
   unmappedTests: [{ file: 'stray.spec.js', title: '[route:/notregistered] x', routeMarker: '/notregistered', status: 'passed' }],
 };
@@ -87,6 +91,8 @@ const tagsByFile = new Map([
   ['gamma.authed.spec.js', new Set([...BASELINE5, 'visual'])],
   ['quality-baseline.authed.spec.js', new Set([...BASELINE5, 'smoke', 'regression', 'route-baseline'])],
   ['epsilon.authed.spec.js', new Set(['i18n', 'a11y', 'layout', 'clean'])], // deeplink EKSİK → boşluk
+  // stil sözleşmesi (BASELINE5 + keyboard[hasTabs] + errorpath[hasData] + visual[hasStableUI]) + 5 etkileşim işareti (pagination hariç, o N/A).
+  ['zeta.authed.spec.js', new Set([...BASELINE5, 'keyboard', 'errorpath', 'visual', 'ix-tabs', 'ix-filter', 'ix-table', 'ix-empty', 'ix-loading'])],
 ]);
 const tagsByRoute = new Map([
   ['/beta', new Set([...BASELINE5, 'smoke', 'regression', 'route-baseline'])],
@@ -118,15 +124,31 @@ ok(byRoute['/epsilon'].levels.L2.style.dimensions.deeplink.status === STATUS.NOT
 ok(byRoute['/epsilon'].levels.L2.status === STATUS.NOT_COVERED, 'epsilon L2 NOT_COVERED olmalı (stil boşluğu).');
 ok(byRoute['/epsilon'].highestProvenLevel === 'L1', 'epsilon highest L1 olmalı (açılış var, stil boşluğu).');
 
-// L2 etkileşim katmanı: hiçbir boyut COVERED üretilmez; dedicated olmayan rotada hepsi UNVERIFIED.
+// L2 etkileşim katmanı: İŞARETSİZ rotalar COVERED üretmez; işaretli dedicated rota COVERED olur.
 for (const p of model.pages) {
+  if (p.route === '/zeta') continue; // zeta @ix-* işaretli (pozitif) — aşağıda ayrı doğrulanır
   for (const [d, s] of Object.entries(p.levels.L2.interaction.dimensions)) {
-    ok(s.status !== STATUS.COVERED, `etkileşim/${d} sahte COVERED üretilmemeli (${p.route}).`);
+    ok(s.status !== STATUS.COVERED, `etkileşim/${d} işaretsiz rotada COVERED olmamalı (${p.route}).`);
   }
 }
 ok(byRoute['/beta'].levels.L2.interaction.surfaceArchetype === false, 'beta dedicated arketip olmamalı.');
 ok(byRoute['/beta'].levels.L2.interaction.applicableCount === INTERACTION_DIMENSIONS.length, 'beta (dedicated değil) tüm etkileşim boyutları UNVERIFIED olmalı.');
 ok(byRoute['/alpha'].levels.L2.interaction.surfaceArchetype === true, 'alpha dedicated arketip olmalı.');
+ok(byRoute['/alpha'].levels.L2.interaction.coveredCount === 0, 'alpha (ix işareti yok) etkileşim coveredCount 0 olmalı.');
+
+// ── WP-L2-WAVE-1 pozitif: /zeta @ix-* işaretli → boyutlar COVERED, pagination N/A, L2·deep ──
+const zIx = byRoute['/zeta'].levels.L2.interaction;
+for (const d of ['tabs', 'search-filter', 'table-list', 'empty-state', 'loading-state']) {
+  ok(zIx.dimensions[d].status === STATUS.COVERED && zIx.dimensions[d].reasonCode === REASON_CODES.IX_SIGNAL_PRESENT,
+    `zeta etkileşim/${d} IX_SIGNAL_PRESENT ile COVERED olmalı.`);
+}
+ok(zIx.dimensions['pagination-sort'].status === STATUS.NOT_APPLICABLE && zIx.dimensions['pagination-sort'].reasonCode === REASON_CODES.DECLARED_NA,
+  'zeta pagination-sort naInteraction ile N/A (DECLARED_NA) olmalı.');
+ok(zIx.applicableCount === 5 && zIx.coveredCount === 5 && zIx.verified === true, 'zeta 5/5 etkileşim doğrulanmış olmalı.');
+ok(zIx.presentSignals.length === 5 && zIx.misdeclaredSignals.length === 0, 'zeta 5 işaret taşımalı, misdeclared olmamalı.');
+ok(byRoute['/zeta'].levels.L2.status === STATUS.COMPLETE, 'zeta L2 COMPLETE olmalı (stil + tüm etkileşim kanıtlı).');
+ok(byRoute['/zeta'].highestProvenLevel === 'L2_DEEP', 'zeta en yüksek L2_DEEP olmalı.');
+ok(model.totals.highestLevel.L2_DEEP >= 1, 'totals L2_DEEP en az 1 olmalı.');
 
 // §4.9-5/6/7: L3/L4/L5.
 ok(byRoute['/alpha'].levels.L3.status === STATUS.BLOCKED && byRoute['/alpha'].levels.L3.reasonCode === REASON_CODES.STAGING_REQUIRED, 'alpha L3 BLOCKED/STAGING olmalı (hasWrites).');
@@ -170,8 +192,10 @@ expectThrows(() => { const m = clone(model); const d = m.pages[0].levels.L2.styl
 // §4.9-9: bilinmeyen status / reasonCode.
 expectThrows(() => { const m = clone(model); m.pages[0].levels.L1.status = 'BOGUS'; validateSurfaceInvariants(m); }, '#9 geçersiz status');
 expectThrows(() => { const m = clone(model); m.pages[0].levels.L3.reasonCode = 'BOGUS'; validateSurfaceInvariants(m); }, '#9 geçersiz reasonCode');
-// Sahte etkileşim COVERED reddedilir.
-expectThrows(() => { const m = clone(model); const ix = m.pages[0].levels.L2.interaction.dimensions; ix[Object.keys(ix)[0]].status = STATUS.COVERED; validateSurfaceInvariants(m); }, 'etkileşim sahte COVERED');
+// Sahte etkileşim COVERED reddedilir (işaretsiz COVERED = IX_SIGNAL_PRESENT değil).
+expectThrows(() => { const m = clone(model); const ix = m.pages[0].levels.L2.interaction.dimensions; ix[Object.keys(ix)[0]].status = STATUS.COVERED; validateSurfaceInvariants(m); }, 'etkileşim işaretsiz COVERED');
+// Uygulanamaz/N-A boyut için beyan edilmiş işaret (misdeclared) reddedilir.
+expectThrows(() => { const m = clone(model); m.pages[0].levels.L2.interaction.misdeclaredSignals = ['ix-tabs']; validateSurfaceInvariants(m); }, 'etkileşim misdeclared işaret');
 // §4.9-1: rota tekrarı.
 expectThrows(() => { const m = clone(model); m.pages.push(clone(m.pages[0])); validateSurfaceInvariants(m); }, '#1 rota tekrarı');
 // §4.9-2: sayı uyuşmazlığı (yeni route eklenip matris güncellenmezse kapı kırılır).

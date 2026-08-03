@@ -31,6 +31,10 @@ const ALLOWED_TAGS = new Set([
   'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public', 'route-baseline',
   // stiller
   'i18n', 'a11y', 'layout', 'visual', 'errorpath', 'clean', 'perf', 'keyboard', 'deeplink', 'data', 'export',
+  // L2 etkileşim derinliği makine-okur işaretleri (WP-L2-WAVE-1 / ADR-0014). Stil kapısını
+  // etkilemez (BASELINE/CONDITIONAL'da değil); yalnız bilinen etiket kaydına eklenir ki
+  // etkileşim spec'leri "geçersiz etiket" (exit 1) tetiklemesin. Surface matrisi tüketir.
+  'ix-tabs', 'ix-filter', 'ix-table', 'ix-pagination', 'ix-empty', 'ix-loading',
 ]);
 
 // Her sayfada zorunlu (N/A OLAMAZ).

@@ -67,6 +67,7 @@ export const REASON_CODES = Object.freeze({
   ARCHETYPE_NOT_DECLARED: 'ARCHETYPE_NOT_DECLARED',
   DECLARED_NA: 'DECLARED_NA',
   NO_MACHINE_SIGNAL: 'NO_MACHINE_SIGNAL',
+  IX_SIGNAL_PRESENT: 'IX_SIGNAL_PRESENT', // etkileşim boyutu için makine-okur işaret (WP-L2-WAVE-1 / ADR-0014)
 });
 const REASON_VALUES = new Set(Object.values(REASON_CODES));
 
@@ -116,11 +117,12 @@ const CONDITIONAL_STYLE = Object.freeze([
 ]);
 
 /**
- * ETKİLEŞİM boyutları = read-only kullanıcı davranışı (§4.3/§4.6). Bu boyutlar için
- * rota düzeyi makine-okur işaret YOKTUR (tag yok) → statik kanıttan COVERED türetilemez.
- * Uygulanabilirlik arketipten okunur; uygulanabilir olan UNVERIFIED (NO_MACHINE_SIGNAL),
- * olmayan NOT_APPLICABLE olur. Böylece "derin etkileşim test edildi mi" sorusu dürüstçe
- * "bağımsız doğrulanamıyor" biçiminde görünür — sahte COVERED üretilmez.
+ * ETKİLEŞİM boyutları = read-only kullanıcı davranışı (§4.3/§4.6). WP-L2-WAVE-1 / ADR-0014
+ * ile her boyutun bir `@ix-*` makine-okur işareti vardır (INTERACTION_TAG): ilgili işareti
+ * taşıyan dedicated etkileşim testi VARSA boyut COVERED (IX_SIGNAL_PRESENT), yoksa dürüstçe
+ * UNVERIFIED (NO_MACHINE_SIGNAL). Uygulanabilirlik arketipten okunur; yüzeyde bulunmayan
+ * boyut `naInteraction` ile açık gerekçeyle NOT_APPLICABLE (DECLARED_NA). Uygulanamaz/N-A
+ * boyut için işaret = sahte kanıt (misdeclared) → invariant hatası. Sahte COVERED üretilmez.
  */
 export const INTERACTION_DIMENSIONS = Object.freeze([
   'tabs', 'search-filter', 'table-list', 'pagination-sort', 'empty-state', 'loading-state',
@@ -133,6 +135,25 @@ const INTERACTION_APPLICABILITY = Object.freeze({
   'empty-state': (a) => Boolean(a.hasData),
   'loading-state': (a) => Boolean(a.hasData),
 });
+
+/**
+ * Her etkileşim boyutunun MAKİNE-OKUR İŞARET etiketi (WP-L2-WAVE-1 / ADR-0014).
+ * FAZ 4'te bu işaret YOKTU → hiçbir boyut COVERED olamıyordu. FAZ 5 bu işareti
+ * ekler: bir dedicated (yüzey-özgü arketip beyanlı) rotanın etkileşim spec'i ilgili
+ * `@ix-*` etiketini taşıyorsa o boyut COVERED olur. Kanıt standardı stil boyutlarıyla
+ * AYNIDIR: etiket = "o boyut için gerçek bir etkileşim testi VAR" (bu koşumda geçti
+ * demek değil). Etiketsiz boyut dürüstçe UNVERIFIED kalır; uygulanamaz boyut için
+ * etiket = yüzeyde olmayan bileşen iddiası (sahte kanıt) → hata.
+ */
+export const INTERACTION_TAG = Object.freeze({
+  'tabs': 'ix-tabs',
+  'search-filter': 'ix-filter',
+  'table-list': 'ix-table',
+  'pagination-sort': 'ix-pagination',
+  'empty-state': 'ix-empty',
+  'loading-state': 'ix-loading',
+});
+export const INTERACTION_TAGS = Object.freeze(Object.values(INTERACTION_TAG));
 
 /**
  * Playwright `--list --reporter=json` çıktısından etiket indekslerini kurar
@@ -178,13 +199,15 @@ function buildRouteMeta(testedPages) {
   for (const p of testedPages) {
     for (const route of p.routes || []) {
       if (!idx.has(route)) {
-        idx.set(route, { pageIds: [], specFiles: new Set(), archetype: {}, naStyles: {}, dedicated: false });
+        idx.set(route, { pageIds: [], specFiles: new Set(), archetype: {}, naStyles: {}, naInteraction: {}, dedicated: false });
       }
       const e = idx.get(route);
       if (!e.pageIds.includes(p.id)) e.pageIds.push(p.id);
       for (const f of p.specFiles || []) e.specFiles.add(basename(String(f)));
       for (const [k, v] of Object.entries(p.archetype || {})) e.archetype[k] = e.archetype[k] || Boolean(v);
       for (const [k, v] of Object.entries(p.naStyles || {})) e.naStyles[normTag(k)] = String(v);
+      // Yüzeyde bulunmayan etkileşim boyutları açık gerekçeyle N/A (naStyles deseni; §5.4).
+      for (const [k, v] of Object.entries(p.naInteraction || {})) e.naInteraction[String(k)] = String(v);
       // Genel `routeLevelBaseline` (main-navigation) sözleşmesi yüzey-özgü arketip TAŞIMAZ;
       // yüzeyin bileşenlerini (tablo/filtre/sekme) ne kanıtlar ne de yok sayar. Bir rotanın
       // arketipine güvenmek için EN AZ BİR dedicated (routeLevelBaseline OLMAYAN) sözleşme gerekir.
@@ -263,22 +286,40 @@ function computeStyleTier(present, archetype, naStyles) {
  * @param {Record<string,boolean>} archetype
  * @param {boolean} dedicated rota en az bir yüzey-özgü (routeLevelBaseline olmayan) sözleşmeye mi ait
  */
-function computeInteractionTier(archetype, dedicated) {
+function computeInteractionTier(archetype, dedicated, presentTags = new Set(), naInteraction = {}) {
   const dimensions = {};
   const applicable = [];
+  const presentSignals = [];
+  const misdeclaredSignals = []; // uygulanamaz/N-A boyut için işaret = sahte kanıt
   for (const dim of INTERACTION_DIMENSIONS) {
-    const applies = dedicated ? INTERACTION_APPLICABILITY[dim](archetype) : true; // dedicated yoksa yokluk kanıtlanamaz
-    if (applies) {
-      dimensions[dim] = { status: STATUS.UNVERIFIED, reasonCode: REASON_CODES.NO_MACHINE_SIGNAL };
+    const hasSignal = presentTags.has(INTERACTION_TAG[dim]);
+    // Açık N/A yalnız dedicated arketipte anlamlı (genel baseline yüzey bileşeni beyan etmez).
+    const declaredNa = dedicated && Object.prototype.hasOwnProperty.call(naInteraction, dim);
+    const archetypeApplies = dedicated ? INTERACTION_APPLICABILITY[dim](archetype) : true; // dedicated yoksa yokluk kanıtlanamaz
+    if (declaredNa) {
+      dimensions[dim] = { status: STATUS.NOT_APPLICABLE, reasonCode: REASON_CODES.DECLARED_NA };
+      if (hasSignal) misdeclaredSignals.push(INTERACTION_TAG[dim]); // N/A boyut için işaret = çelişki
+    } else if (archetypeApplies) {
       applicable.push(dim);
+      // İşaret YALNIZ dedicated (yüzey-özgü arketip beyanlı) rotada COVERED sayılır; aksi
+      // halde uygulanabilirlik bağımsız bilinmediğinden dürüstçe UNVERIFIED kalır.
+      if (dedicated && hasSignal) {
+        dimensions[dim] = { status: STATUS.COVERED, reasonCode: REASON_CODES.IX_SIGNAL_PRESENT, signal: INTERACTION_TAG[dim] };
+        presentSignals.push(INTERACTION_TAG[dim]);
+      } else {
+        dimensions[dim] = { status: STATUS.UNVERIFIED, reasonCode: REASON_CODES.NO_MACHINE_SIGNAL };
+      }
     } else {
       dimensions[dim] = { status: STATUS.NOT_APPLICABLE, reasonCode: REASON_CODES.ARCHETYPE_NOT_DECLARED };
+      if (hasSignal) misdeclaredSignals.push(INTERACTION_TAG[dim]); // yüzeyde olmayan bileşen için işaret
     }
   }
-  // Bu faz makine-okur etkileşim kanıtı üretmez → doğrulanmış boyut olamaz.
   const covered = applicable.filter((d) => dimensions[d].status === STATUS.COVERED).length;
   const verified = applicable.length > 0 && covered === applicable.length;
-  return { dimensions, applicable, applicableCount: applicable.length, coveredCount: covered, verified };
+  return {
+    dimensions, applicable, applicableCount: applicable.length, coveredCount: covered, verified,
+    presentSignals: presentSignals.sort(), misdeclaredSignals: misdeclaredSignals.sort(),
+  };
 }
 
 /**
@@ -307,7 +348,7 @@ export function buildSurfaceModel(opts) {
 
   const pages = [];
   for (const { path: route, heading } of registeredRoutes) {
-    const meta = routeMeta.get(route) || { pageIds: [], specFiles: new Set(), archetype: {}, naStyles: {} };
+    const meta = routeMeta.get(route) || { pageIds: [], specFiles: new Set(), archetype: {}, naStyles: {}, naInteraction: {} };
 
     // ── L1: runtime ──
     const rt = runtimeByRoute.get(route);
@@ -333,7 +374,7 @@ export function buildSurfaceModel(opts) {
       if (set) for (const t of set) present.add(t);
     }
     const style = computeStyleTier(present, meta.archetype, meta.naStyles);
-    const interaction = computeInteractionTier(meta.archetype, meta.dedicated);
+    const interaction = computeInteractionTier(meta.archetype, meta.dedicated, present, meta.naInteraction);
 
     let l2Status;
     if (!style.contractMet) l2Status = STATUS.NOT_COVERED; // gerçek stil boşluğu
@@ -356,6 +397,8 @@ export function buildSurfaceModel(opts) {
         applicableCount: interaction.applicableCount,
         coveredCount: interaction.coveredCount,
         surfaceArchetype: meta.dedicated, // false → uygulanabilirlik bilinmiyor (yalnız genel baseline)
+        presentSignals: interaction.presentSignals, // COVERED'ı destekleyen @ix-* işaretleri
+        misdeclaredSignals: interaction.misdeclaredSignals, // uygulanamaz boyut için işaret (hata sinyali)
         dimensions: interaction.dimensions,
       },
     };
@@ -500,9 +543,16 @@ export function validateSurfaceInvariants(model) {
     if (covered !== L.L2.style.coveredOrExempt) {
       errors.push(`[${p.route}] L2 stil coveredOrExempt (${L.L2.style.coveredOrExempt}) ≠ gerçek (${covered}).`);
     }
-    // Etkileşim: makine-okur kanıt olmadığından hiçbir etkileşim boyutu COVERED olamaz (bu fazda).
+    // Etkileşim: COVERED YALNIZ makine-okur işaretle (IX_SIGNAL_PRESENT) mümkündür;
+    // işaretsiz COVERED = sahte kanıt (WP-L2-WAVE-1 / ADR-0014). Ayrıca uygulanamaz/N-A
+    // boyut için beyan edilmiş işaret (misdeclared) = yüzeyde olmayan bileşen iddiası → sahte kanıt.
     for (const [d, s] of Object.entries(L.L2.interaction.dimensions)) {
-      if (s.status === STATUS.COVERED) errors.push(`[${p.route}] L2 etkileşim/${d} COVERED — bu faz makine-okur işaret üretmez (sahte kanıt).`);
+      if (s.status === STATUS.COVERED && s.reasonCode !== REASON_CODES.IX_SIGNAL_PRESENT) {
+        errors.push(`[${p.route}] L2 etkileşim/${d} COVERED ama IX_SIGNAL_PRESENT değil (sahte kanıt).`);
+      }
+    }
+    if ((L.L2.interaction.misdeclaredSignals || []).length > 0) {
+      errors.push(`[${p.route}] L2 etkileşim işareti uygulanamaz/N-A boyut için beyan edilmiş (sahte kanıt): ${L.L2.interaction.misdeclaredSignals.join(', ')}`);
     }
 
     // #5/#6/#7: L3/L4/L5 asla COMPLETE/PROVEN.
@@ -587,8 +637,8 @@ export function renderSurfaceMarkdown(model) {
   L.push('## Bu rapor neyi kanıtlar / ne kanıtlamaz');
   L.push('');
   L.push('- **L1 (PROVEN):** rotanın GERÇEK read-only runtime açılış sonucu (erişim/URL/temel yüzey). Runtime sonucu olmayan rota L1 PROVEN olamaz.');
-  L.push('- **L2 iki katman:** (a) **Stil sözleşmesi** — a11y/i18n/layout/errorpath/keyboard/clean/deeplink/visual/perf/data/export için STATİK etiket kanıtı (`COVERED` = test VAR; bu koşumda çalıştı demek DEĞİL). (b) **Etkileşim derinliği** — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi makine-okur işaret YOK → dürüstçe `UNVERIFIED`. Bu yüzden bir rota stil kapısı yeşil diye "derin test edildi" sayılmaz.');
-  L.push('- **`L2·style`** = açılış + stil sözleşmesi kapsandı, etkileşim derinliği bağımsız doğrulanamadı. **`L2·deep`** = ayrıca tüm geçerli etkileşim boyutu kanıtlı (bu faz makine-okur etkileşim kanıtı üretmediğinden derin etkileşim kanıtı yalnız etkileşim bileşeni OLMAYAN yüzeylerde oluşur).');
+  L.push('- **L2 iki katman:** (a) **Stil sözleşmesi** — a11y/i18n/layout/errorpath/keyboard/clean/deeplink/visual/perf/data/export için STATİK etiket kanıtı (`COVERED` = test VAR; bu koşumda çalıştı demek DEĞİL). (b) **Etkileşim derinliği** — sekme/filtre/tablo/pagination/boş/loading için, ilgili `@ix-*` makine-okur işaretini taşıyan bir dedicated etkileşim testi VARSA `COVERED`, yoksa dürüstçe `UNVERIFIED` (ADR-0014). Kanıt standardı stil ile AYNI: etiket = o boyut için gerçek test var.');
+  L.push('- **`L2·style`** = açılış + stil sözleşmesi kapsandı, etkileşim derinliği kanıtsız. **`L2·deep`** = ayrıca tüm geçerli etkileşim boyutu `@ix-*` işaretli testle kanıtlı (yüzeyde bulunmayan boyut açık gerekçeyle N/A — `naInteraction`).');
   L.push('- **L3/L4/L5:** production read-only + rol/tenant/provider altyapısı olmadan KANITLANAMAZ → tasarım gereği `BLOCKED`/`NOT_APPLICABLE`. Eksik değil, dürüst sınır beyanı.');
   L.push('');
   L.push('## Özet (türetilmiş — sabit sayı yok)');
@@ -597,7 +647,7 @@ export function renderSurfaceMarkdown(model) {
   L.push(`- **L1:** PROVEN ${t.l1Proven} · not-proven ${t.l1NotProven}`);
   L.push(`- **L2 stil sözleşmesi:** karşılandı ${t.l2StyleContractMet} · gerçek boşluk ${t.l2StyleGap}`);
   L.push(`- **L2 durum:** COMPLETE ${t.l2Complete} · PARTIAL ${t.l2Partial} · NOT_COVERED ${t.l2NotCovered}`);
-  L.push(`- **Etkileşim derinliği bağımsız doğrulanamayan rota:** ${t.interactionUnverifiedRoutes} — sekme/filtre/tablo/pagination/boş/loading için rota düzeyi işaret yok (FAZ 5 / WP-L2-WAVE-1 adayı).`);
+  L.push(`- **Etkileşim derinliği tam doğrulanmayan rota:** ${t.interactionUnverifiedRoutes} — en az bir geçerli boyut hâlâ \`@ix-*\` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.`);
   L.push(`- **L3:** BLOCKED(staging) ${t.l3Blocked} · N/A(no-write) ${t.l3NotApplicable}`);
   L.push(`- **L4:** BLOCKED(rol/tenant) ${t.l4Blocked} · **L5:** BLOCKED(provider) ${t.l5Blocked}`);
   L.push(`- **En yüksek seviye dağılımı:** L0 ${t.highestLevel.L0} · L1 ${t.highestLevel.L1} · L2·style ${t.highestLevel.L2_STYLE} · L2·deep ${t.highestLevel.L2_DEEP}`);
@@ -613,7 +663,7 @@ export function renderSurfaceMarkdown(model) {
     const l1 = L1_BADGE[p.levels.L1.status] || mdCell(p.levels.L1.status);
     const l2 = L2_BADGE[p.levels.L2.status] || mdCell(p.levels.L2.status);
     const st = `${p.levels.L2.style.coveredOrExempt}/${p.levels.L2.style.requiredCount}`;
-    const ix = `0/${p.levels.L2.interaction.applicableCount}`;
+    const ix = `${p.levels.L2.interaction.coveredCount}/${p.levels.L2.interaction.applicableCount}`;
     const l3 = p.levels.L3.status === STATUS.BLOCKED ? '⛔ staging' : 'N/A';
     const bugs = mdCell(p.findings.map((b) => `${b.id}(${b.severity}/${b.status})`).join(' '));
     L.push(`| \`${mdCell(p.route)}\` | ${mdCell(p.contracts.join(','))} | ${HIGHEST_BADGE[p.highestProvenLevel]} | ${l1} | ${l2} | ${st} | ${ix} | ${l3} | ⛔ rol | ⛔ provider | ${bugs} |`);
@@ -638,16 +688,18 @@ export function renderSurfaceMarkdown(model) {
   }
   L.push('');
 
-  L.push('## L2 etkileşim boyutu detayı (bağımsız doğrulanabilirlik)');
+  L.push('## L2 etkileşim boyutu detayı (makine-okur işaret kapsamı)');
   L.push('');
-  L.push('Hücreler: 🔎 UNVERIFIED (bileşen var, rota düzeyi makine-okur işaret yok) · — geçerli değil (arketip beyan etmiyor). Bu faz sahte COVERED üretmez.');
+  L.push('Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var) · 🔎 UNVERIFIED (bileşen geçerli ama işaret yok) · N/A gerekçeli (`naInteraction` — yüzeyde bulunmuyor) · — geçerli değil (arketip beyan etmiyor).');
   L.push('');
   L.push('| rota | ' + INTERACTION_DIMENSIONS.map((d) => d).join(' | ') + ' |');
   L.push('|---|' + INTERACTION_DIMENSIONS.map(() => '---').join('|') + '|');
   for (const p of model.pages) {
     const cells = INTERACTION_DIMENSIONS.map((d) => {
       const s = p.levels.L2.interaction.dimensions[d];
+      if (s.status === STATUS.COVERED) return '✅';
       if (s.status === STATUS.UNVERIFIED) return '🔎';
+      if (s.status === STATUS.NOT_APPLICABLE && s.reasonCode === REASON_CODES.DECLARED_NA) return 'N/A';
       return '—';
     });
     L.push(`| \`${mdCell(p.route)}\` | ` + cells.join(' | ') + ' |');

@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1206 / 116 dosya
-- **coverageStatus:** verified 0 · partial 1157 · generic 9 · blocked 40
-- **executionStatus:** executed 0 · listed-only 1166 · skipped 0 · fixme 40
+- **Listelenen test:** 1212 / 119 dosya
+- **coverageStatus:** verified 0 · partial 1163 · generic 9 · blocked 40
+- **executionStatus:** executed 0 · listed-only 1172 · skipped 0 · fixme 40
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -27,7 +27,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | inbox | 5 | 5 | 0 | 0 |
 | other | 134 | 125 | 9 | 0 |
 | reports | 80 | 80 | 0 | 0 |
-| settings | 333 | 316 | 0 | 17 |
+| settings | 339 | 322 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -981,6 +981,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/integrations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Request Access dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
+### `settings-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sekme seçimi dışlayıcı + panel içeriği değişiyor | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| sekmeler-arası gidiş-dönüşte seçim + içerik tutarlı | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `settings-notifications-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1064,6 +1071,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Language popover Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/profile doğrudan açılınca profil yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Profile sekmesi kişisel-bilgi kartı görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-roles-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `settings-roles-mutations.authed.spec.js` — _settings_
 
@@ -1200,6 +1213,14 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | New Template dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/templates doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | New Template dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-users-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| üye tablosu kolonları + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+| ada göre arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
+| eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
 ### `settings-users.authed.spec.js` — _settings_
 

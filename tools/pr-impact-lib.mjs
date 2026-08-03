@@ -555,7 +555,11 @@ export function planImpact(input = {}) {
     };
   }
 
-  if (details.length > 0 && hasGeneratedDocs && hasUnexpectedQualityOnlyFiles) {
+  // NOT: gerçek runtime değişikliği (spec/kaynak/araç) varsa PR "quality-only" DEĞİLDİR
+  // → quality-only ihlali kategori hatası olur. Bu durumda normal sınıflandırmaya düş
+  // (ilgili spec'ler seçilir; bilinmeyen-runtime dosyası yine fail-closed UNMAPPED olur).
+  // Yalnız SALT doc (runtime değişikliği yok) + beklenmedik doc → gerçek ihlal.
+  if (details.length > 0 && hasGeneratedDocs && hasUnexpectedQualityOnlyFiles && !hasRuntimeChange) {
     reasons.add('QUALITY_ONLY_POLICY_VIOLATION:docs');
     return {
       schemaVersion: 1,

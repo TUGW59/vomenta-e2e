@@ -110,6 +110,25 @@ function runPlaywright(bin, root, baseArgs, jsonOut) {
   return { exitCode, report };
 }
 
+/**
+ * Playwright JSON raporundan başarısız (ok=false) spec'lerin YALNIZ konum+başlığını
+ * çıkarır (secret/PII taşımaz). Teşhis için: hangi test kırmızı yaptı görünsün.
+ */
+function collectFailures(report) {
+  const out = [];
+  const walk = (suite) => {
+    for (const sp of suite.specs || []) {
+      if (sp.ok === false) {
+        const loc = sp.file ? `${path.basename(String(sp.file))}:${sp.line || '?'}` : '?';
+        out.push(`${loc} › ${sp.title || '?'}`);
+      }
+    }
+    for (const child of suite.suites || []) walk(child);
+  };
+  for (const s of report.suites || []) walk(s);
+  return out;
+}
+
 /** Güvenli (secretsiz) step summary yazar. */
 function writeSummary(lines) {
   const body = ['### PR-impact runner', '', '```', ...lines, '```', ''].join('\n');
@@ -168,6 +187,7 @@ function main() {
   }
 
   const interpreted = [];
+  const failureTitles = []; // teşhis: unexpected yapan spec konum+başlıkları (secretsiz)
   const outDir = path.join(opts.root, 'test-results', 'pr-impact');
   const safeKey = (k) => k.replace(/[^\w.-]/g, '_');
   for (const g of decision.groups) {
@@ -199,6 +219,9 @@ function main() {
     const runOut = path.join(outDir, `run-${safeKey(g.key)}.json`);
     const ran = runPlaywright(bin, opts.root, [...common, '--retries=0', '--reporter=json'], runOut);
     const t = tallyReport(ran.report, g.project, g.setup);
+    if (t.unexpected > 0) {
+      for (const f of collectFailures(ran.report)) failureTitles.push(`[${g.key}] ${f}`);
+    }
 
     // listedCount = koşuda hedef projede GÖRÜLEN test sayısı (setup hariç). exact
     // grup 0 test → interpretGroup ZERO_TEST verir → sahte-yeşil engellenir.
@@ -231,6 +254,7 @@ function main() {
   writeSummary([
     `${agg.allGreen ? 'GREEN' : 'RED'} — ${interpreted.length} grup, beklenen exact spec=${decision.expectedRunnableSpecCount}`,
     ...agg.lines,
+    ...(failureTitles.length ? ['', 'UNEXPECTED başarısız test(ler):', ...failureTitles.map((f) => `  ✗ ${f}`)] : []),
   ]);
   process.exit(agg.overallExitCode);
 }

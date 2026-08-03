@@ -259,7 +259,8 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
-// 12) Generated docs + unknown runtime → fail closed.
+// 12) Generated docs + unknown runtime → fail closed (runtime var → quality-only DEĞİL;
+//     bilinmeyen-runtime dosyası UNMAPPED ile fail-closed kalır).
 {
   const p = plan([
     { path: 'docs/TEST_COVERAGE.md', status: 'M' },
@@ -267,8 +268,26 @@ const plan = (changedFiles, extra = {}) =>
   ]);
   check(
     'generated-plus-unknown-fail',
-    p.status === 'QUALITY_ONLY_POLICY_VIOLATION' && p.exitCode === 1,
+    p.status === 'UNMAPPED_RUNTIME_CHANGE' && p.exitCode === 1,
     `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 12b) Üretilen doc + BEKLENMEDİK üretilen doc (surface) + gerçek authed spec →
+//      quality-only DEĞİL; spec seçilir (WP-L2-WAVE-1 senaryosu: spec + doc regen).
+{
+  const p = plan([
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'docs/SURFACE-DEPTH-MATRIX.md', status: 'M' },
+    { path: 'docs/adr/0014-l2-interaction-signal.md', status: 'A' },
+    { path: 'tests/settings-interactions.authed.spec.js', status: 'A' },
+  ]);
+  check(
+    'generated-plus-surface-plus-authed-spec',
+    (p.status === 'RUNTIME_SELECTED' || p.status === 'FALLBACK_SELECTED') &&
+      p.exitCode === 0 &&
+      p.selected.authenticatedSpecs.includes('tests/settings-interactions.authed.spec.js'),
+    `status=${p.status} authed=${JSON.stringify(p.selected.authenticatedSpecs)}`
   );
 }
 
