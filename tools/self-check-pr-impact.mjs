@@ -166,6 +166,75 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
+// 9a) .env deletion + generated docs → explicit quality/security-only plan.
+{
+  const p = plan([
+    { path: '.env', status: 'D' },
+    { path: 'docs/TEST_COVERAGE.md', status: 'M' },
+    { path: 'docs/raporlar/YAPILAN-TESTLER.md', status: 'M' },
+    { path: 'docs/raporlar/YAPILMAYAN-TESTLER.md', status: 'M' },
+  ]);
+  check(
+    'env-delete-plus-generated-docs',
+    p.status === 'QUALITY_ONLY' && p.exitCode === 0 && p.selectedRunnableSpecCount === 0,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 9b) .env deletion + tooling file → no unmapped fallback.
+{
+  const p = plan([{ path: '.env', status: 'D' }, { path: 'tools/pr-impact-lib.mjs', status: 'M' }]);
+  check(
+    'env-delete-plus-tooling-no-unmapped',
+    p.exitCode === 0 && p.status === 'NO_RUNTIME_REQUIRED' && p.unmappedRuntimeFiles.length === 0,
+    `status=${p.status} exit=${p.exitCode} unmapped=${JSON.stringify(p.unmappedRuntimeFiles)}`
+  );
+}
+
+// 9c) .env deletion + PR #75 real scenario → planner should succeed.
+{
+  const p = plan([
+    { path: '.env', status: 'D' },
+    { path: 'tools/pr-impact-lib.mjs', status: 'M' },
+    { path: 'tools/self-check-pr-impact.mjs', status: 'M' },
+  ]);
+  check(
+    'env-delete-pr75-scenario',
+    p.exitCode === 0 && p.status === 'NO_RUNTIME_REQUIRED' && p.unmappedRuntimeFiles.length === 0,
+    `status=${p.status} exit=${p.exitCode} unmapped=${JSON.stringify(p.unmappedRuntimeFiles)}`
+  );
+}
+
+// 9d) .env add/modify/rename + tooling → fail closed.
+{
+  const add = plan([{ path: '.env', status: 'A' }, { path: 'tools/pr-impact-lib.mjs', status: 'M' }]);
+  const mod = plan([{ path: '.env', status: 'M' }, { path: 'tools/pr-impact-lib.mjs', status: 'M' }]);
+  const rename = plan([{ path: '.env', status: 'R', oldPath: 'old.env' }, { path: 'tools/pr-impact-lib.mjs', status: 'M' }]);
+  check('env-add-with-tooling-fail', add.status === 'ENV_POLICY_VIOLATION' && add.exitCode === 1, `status=${add.status} exit=${add.exitCode}`);
+  check('env-modify-with-tooling-fail', mod.status === 'ENV_POLICY_VIOLATION' && mod.exitCode === 1, `status=${mod.status} exit=${mod.exitCode}`);
+  check('env-rename-with-tooling-fail', rename.status === 'ENV_POLICY_VIOLATION' && rename.exitCode === 1, `status=${rename.status} exit=${rename.exitCode}`);
+}
+
+// 9e) .env deletion + unknown runtime → fail closed.
+{
+  const p = plan([{ path: '.env', status: 'D' }, { path: 'Dockerfile', status: 'A' }]);
+  check(
+    'env-delete-plus-unknown-runtime-fail',
+    p.status === 'UNMAPPED_RUNTIME_CHANGE' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 9f) .env deletion + mutation spec → mutation policy preserved.
+{
+  const p = plan([{ path: '.env', status: 'D' }, { path: 'tests/contacts-mutations.authed.spec.js', status: 'M' }]);
+  check(
+    'env-delete-plus-mutation-policy',
+    p.status === 'STAGING_BLOCKED' && p.exitCode === 0 && p.stagingBlockedMutationSpecs.includes('tests/contacts-mutations.authed.spec.js'),
+    `status=${p.status} blocked=${JSON.stringify(p.stagingBlockedMutationSpecs)}`
+  );
+}
+
 // 10) Only explicit generated docs files → explicit quality-only plan.
 {
   const p = plan([
