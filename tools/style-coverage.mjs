@@ -29,6 +29,10 @@ const norm = (t) => String(t).replace(/^@/, '').replace(/[^\w-]+$/, '');
 const ALLOWED_TAGS = new Set([
   // risk / yapı
   'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public', 'route-baseline',
+  // rota baseline runtime-policy türleri (WP-SURFACE-MIGRATION / FAZ 3): koşulamayan
+  // yüzeyler (fixture/blocked/staging) `@route-blocked` ile fixme, redirect yüzeyler
+  // `@route-redirect` ile üretilir. Stil kapısını etkilemez; yalnız bilinen etiket kaydı.
+  'route-blocked', 'route-redirect',
   // stiller
   'i18n', 'a11y', 'layout', 'visual', 'errorpath', 'clean', 'perf', 'keyboard', 'deeplink', 'data', 'export',
   // L2 etkileşim derinliği makine-okur işaretleri (WP-L2-WAVE-1 / ADR-0014). Stil kapısını

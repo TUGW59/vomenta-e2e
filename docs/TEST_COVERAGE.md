@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1157
+- **Test edilen senaryo:** 1161
 - **Test dosyası:** 82
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 65 · `@smoke` 172 · `@visual` 21
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 69 · `@smoke` 176 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -468,70 +468,74 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `registered-routes-smoke.authed.spec.js`
 
 - [route:/] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/inbox] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/channels] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/ai] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/campaigns] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/bot-builder] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/contacts] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/tickets] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/prompts] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/analytics] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/supervisor] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/dashboards] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/call] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/agent] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/queue] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/campaign] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/channel] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/ai] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/quality] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/csat] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/billing] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/reports/sla] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/profile] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/organization] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/users] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/roles] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/compliance] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/teams] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/hours] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/automations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/sla] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/templates] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/disposition-codes] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/canned-responses] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/integrations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/security] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/data-retention] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/notifications] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/api-keys] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/webhooks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/settings/audit] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce/schedules] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce/time-off] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce/surveys] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce/badges] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/workforce/evaluations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/channels/webchat] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/bot-builder] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/campaigns] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/campaigns/outbound] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/channels] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/email] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/sms] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/channels/whatsapp] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/social] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/video] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/history] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/voicemail] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/recordings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/channels/webchat] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/channels/whatsapp] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/contacts] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/inbox] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/agent] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/ai] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/billing] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/call] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/campaign] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/channel] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/csat] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/dashboards] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/quality] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/queue] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/reports/sla] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/api-keys] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/audit] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/automations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/canned-responses] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/compliance] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/data-retention] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/disposition-codes] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/hours] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/integrations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/notifications] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/organization] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/profile] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/roles] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/security] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/sla] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/teams] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/templates] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/users] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/settings/webhooks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor/agents] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor/wallboard] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/tickets] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/dids] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/regulatory] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/history] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/ivr] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
-- [route:/voice/sip-trunks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/queues] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/recordings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/regulatory] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/sip-settings] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/sip-trunks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/skills] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/voicemail] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce/badges] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce/evaluations] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce/schedules] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce/surveys] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/workforce/time-off] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
 ### `reports-actions.authed.spec.js`
 

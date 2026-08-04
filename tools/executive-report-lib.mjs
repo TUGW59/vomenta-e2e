@@ -10,10 +10,10 @@
  *
  * DÜRÜSTLÜK ÇEKİRDEĞİ (HANDOFF §6.2–§6.7):
  * - "Tanımlanan test" ≠ "bu koşumda çalışan test"; ayrı sayılar ayrı gösterilir.
- * - "55/55 L1 PASS" ASLA "L2 tamamlandı" gibi sunulmaz: L1-proven ile L2-complete
+ * - "N/N L1 PASS" ASLA "L2 tamamlandı" gibi sunulmaz: L1-proven ile L2-complete
  *   AYRI sayılardır ve rapor bunu açıkça ayırır.
  * - FAIL/FLAKY/BLOCKED/NOT_RUN gizlenmez; hepsi ayrı gösterilir.
- * - Üç kaynak arasındaki uyumsuzluk (ör. kayıtlı rota 55 vs 65) sessizce
+ * - Üç kaynak arasındaki uyumsuzluk (ör. runtime rota sayısı vs envanter rota sayısı) sessizce
  *   "birinden birini seç" ile örtülmez → consistency paneli DRIFT olarak raporlar.
  * - Her kaynağın kendi provenance'ı taşınır; en kötü verdict manşete çıkar.
  * - Trend YALNIZ ≥2 güvenilir, aynı schemaVersion + commit/run kimlikli snapshot

@@ -77,6 +77,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/known-bugs.authed.spec.js:309 | skip | Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli. |
 | tests/known-bugs.authed.spec.js:332 | skip |  |
 | tests/login.spec.js:79 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
+| tests/registered-routes-smoke.authed.spec.js:75 | fixme |  |
 | tests/reports-dashboards.authed.spec.js:175 | skip | da güvenilir. |
 | tests/reports-dashboards.authed.spec.js:324 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/reports-sections.authed.spec.js:250 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
@@ -143,5 +144,5 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 - **Rota-bazlı arketip/derin kapsam yok** (yalnız generic baseline ile örtülü) — sıradaki nav yüzeyleri WP-04/WP-06 bekliyor:
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
-  `/campaigns/outbound`
+  _yok — tüm keşif rotaları kayıtlı._
 - Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 65 adet — çoğunlukla `reports` alt rotaları.

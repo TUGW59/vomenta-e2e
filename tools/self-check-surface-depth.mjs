@@ -221,7 +221,7 @@ try {
   ok(rc.status === 0, `CLI --check exit 0 olmalı (görülen ${rc.status}). ${rc.stderr || ''}`);
   ok(!existsSync(join(dir, 'docs/raporlar/SURFACE-DEPTH.json')), 'CLI --check dosya YAZMAMALI.');
 
-  // Gerçek yazım: exit 0 + iki çıktı + geçerli JSON + envanter 55 + sızıntı yok.
+  // Gerçek yazım: exit 0 + iki çıktı + geçerli JSON + envanter (türetilmiş) + sızıntı yok.
   const r1 = run(['--runtime', runtimePath, '--list-json', listPath, '--out-dir', dir]);
   ok(r1.status === 0, `CLI exit 0 olmalı (görülen ${r1.status}). ${r1.stderr || ''}`);
   const jsonOut = join(dir, 'docs/raporlar/SURFACE-DEPTH.json');
