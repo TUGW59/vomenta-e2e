@@ -21,6 +21,11 @@ import {
   FALLBACK_SUITES,
   PROJECTS,
 } from './pr-impact-lib.mjs';
+import {
+  isGatewayStatus,
+  pickGatewayStatus,
+  gatewayStatusFromBodyText,
+} from '../tests/support/gateway-retry.js';
 
 export const RUNNER_SCHEMA_VERSION = 1;
 
@@ -279,4 +284,165 @@ export function aggregate(interpreted) {
     );
   }
   return { overallExitCode: allGreen ? 0 : 1, allGreen, lines };
+}
+
+// ─────────────────────────────── Sharding (saf) ───────────────────────────────
+
+/**
+ * PR-impact koşumunu deterministik olarak N parçaya (shard) böler.
+ *
+ * SÖZLEŞME (kapsam koruması):
+ *   - Tüm exact spec dosyalarının BİRLEŞİMİ = tüm shard'ların birleşimi (kayıp yok).
+ *   - Hiçbir exact dosya iki shard'a birden gitmez (çakışma yok → gereksiz yük yok).
+ *   - Atama girdi sırasından bağımsız, tamamen deterministiktir (dosya adına göre
+ *     kararlı sıralama → pozisyon % total). Aynı plan hep aynı bölünmeyi verir.
+ *   - grep-only fallback (dosyasız güvenlik ağı) YALNIZ shard 1'de koşar (bölünemez;
+ *     tekrarı gereksiz canlı yüktür). Bir shard'a hiç iş düşmezse boş grup listesi
+ *     döner → çağıran bunu meşru SHARD_NOOP (exit 0) olarak ele alır; kapsam
+ *     birleşimde ve aggregate gate'te korunur.
+ *
+ * @param {ReturnType<typeof buildRunGroups>} groups
+ * @param {number} shardIndex 1-tabanlı (1..shardTotal)
+ * @param {number} shardTotal ≥1
+ * @returns {ReturnType<typeof buildRunGroups>}
+ */
+export function shardGroups(groups, shardIndex, shardTotal) {
+  const idx = Number(shardIndex);
+  const total = Number(shardTotal);
+  if (
+    !Number.isInteger(idx) ||
+    !Number.isInteger(total) ||
+    total < 1 ||
+    idx < 1 ||
+    idx > total
+  ) {
+    throw new Error(`Geçersiz shard parametresi: ${shardIndex}/${shardTotal}`);
+  }
+
+  // Global, deterministik (groupKey, file) sıralaması → pozisyon % total ile atama.
+  const pairs = [];
+  for (const g of groups) {
+    for (const f of g.files || []) pairs.push({ key: g.key, file: f });
+  }
+  pairs.sort((a, b) =>
+    a.file === b.file ? a.key.localeCompare(b.key) : a.file.localeCompare(b.file)
+  );
+
+  const assigned = new Map(); // groupKey -> Set(files)
+  pairs.forEach((p, i) => {
+    if ((i % total) + 1 !== idx) return;
+    if (!assigned.has(p.key)) assigned.set(p.key, new Set());
+    assigned.get(p.key).add(p.file);
+  });
+
+  const out = [];
+  for (const g of groups) {
+    const isGrepOnly = (g.files || []).length === 0 && g.grep;
+    if (isGrepOnly) {
+      if (idx === 1) out.push({ ...g });
+      continue;
+    }
+    const files = assigned.get(g.key);
+    if (files && files.size > 0) {
+      const list = [...files].sort();
+      out.push({ ...g, files: list, expected: list.length });
+    }
+  }
+  return out;
+}
+
+// ────────────────────── Kontrollü altyapı-retry sınıflandırması (saf) ──────────────────────
+
+/**
+ * Bir test başarısızlığında EN FAZLA kaç deneme yapılır (1 kontrollü retry).
+ * Genel Playwright `--retries` 0'da kalır; bu, yalnız yapılandırılmış altyapı
+ * (gateway/network) hatalarında runner'ın kendi tek kontrollü yeniden koşumudur.
+ */
+export const MAX_ATTEMPTS_PER_TEST = 2;
+
+/**
+ * Retry edilebilir sayılan ağ (network) hata imzaları — yapılandırılmış allowlist.
+ * Yalnız açıkça geçici bağlantı/DNS hataları. Genişletmek bilinçli bir karardır.
+ */
+export const RETRYABLE_NETWORK_PATTERNS = Object.freeze([
+  /ECONNRESET/,
+  /ECONNREFUSED/,
+  /ETIMEDOUT/,
+  /EAI_AGAIN/,
+  /ENOTFOUND/,
+  /EPIPE/,
+  /socket hang up/i,
+  /net::ERR_(?:CONNECTION_(?:RESET|REFUSED|CLOSED|TIMED_OUT|ABORTED)|NETWORK_CHANGED|TIMED_OUT|EMPTY_RESPONSE|ADDRESS_UNREACHABLE|NAME_NOT_RESOLVED)/,
+]);
+
+/**
+ * Assertion / selector / visibility (yani GERÇEK test) başarısızlık imzaları.
+ * Bu imzalardan biri görülürse hata KESİNLİKLE test hatasıdır → retry YOK; metinde
+ * tesadüfen bir ağ ifadesi bulunsa bile bu deny kazanır (fail-closed, plan gereği).
+ */
+export const TEST_FAILURE_SIGNATURES = Object.freeze([
+  /expect\(/,
+  /toBe(?:Visible|Hidden|Checked|Enabled|Disabled|Focused|InViewport|Attached|Empty|Truthy|Falsy)\b/,
+  /toHave(?:Text|Value|Count|Class|Attribute|Title|URL|CSS|Id|Screenshot|JSProperty)\b/,
+  /toContainText\b/,
+  /toMatch(?:Snapshot|AriaSnapshot)?\b/,
+  /strict mode violation/i,
+  /waiting for (?:locator|element|selector|expect)/i,
+  /locator\.[a-zA-Z]+:/,
+  /getBy(?:Role|Text|Label|TestId|Placeholder|Title|AltText)\(/,
+]);
+
+/**
+ * Bir başarısızlığı 'infra' (kontrollü retry uygundur) veya 'test' (retry YOK)
+ * olarak sınıflandırır. FAIL-CLOSED: pozitif altyapı kanıtı yoksa 'test' döner.
+ *
+ * Kanıt sırası:
+ *   0) Assertion/selector/visibility imzası → 'test' (deny kazanır).
+ *   1) Render edilmiş nginx 5xx sayfası (gatewayStatusFromBodyText) → 'infra'.
+ *   2) Gözlemlenen ağ yanıtında 502/503/504 (pickGatewayStatus) → 'infra'.
+ *   3) Yapılandırılmış network hata imzası → 'infra'.
+ *   4) Aksi halde → 'test'.
+ *
+ * @param {string} errorText test hata mesajı + stack (güvenli metin)
+ * @param {ReadonlyArray<unknown>} [observedStatuses] gözlemlenen HTTP kodları
+ * @returns {{ class: 'infra'|'test', reason: string }}
+ */
+export function classifyFailure(errorText, observedStatuses = []) {
+  const text = String(errorText || '');
+
+  if (TEST_FAILURE_SIGNATURES.some((re) => re.test(text))) {
+    return { class: 'test', reason: 'ASSERTION_SELECTOR_VISIBILITY' };
+  }
+
+  const bodyGw = gatewayStatusFromBodyText(text);
+  if (isGatewayStatus(bodyGw)) return { class: 'infra', reason: `GATEWAY_BODY_${bodyGw}` };
+
+  const obsGw = pickGatewayStatus(observedStatuses);
+  if (isGatewayStatus(obsGw)) return { class: 'infra', reason: `GATEWAY_OBSERVED_${obsGw}` };
+
+  if (RETRYABLE_NETWORK_PATTERNS.some((re) => re.test(text))) {
+    return { class: 'infra', reason: 'NETWORK' };
+  }
+
+  return { class: 'test', reason: 'NO_INFRA_EVIDENCE' };
+}
+
+/**
+ * Başarısızlık listesini kontrollü-retry planına böler. Yalnız 'infra' sınıfı
+ * yeniden koşulur (kesin kimliğiyle); 'test' sınıfı doğrudan kırmızı kalır.
+ *
+ * @param {Array<{ id?: string, file?: string, line?: number, title?: string,
+ *   errorText?: string, observedStatuses?: ReadonlyArray<unknown> }>} failures
+ * @returns {{ retry: Array<object>, keepRed: Array<object> }}
+ */
+export function planRetry(failures) {
+  const retry = [];
+  const keepRed = [];
+  for (const f of failures || []) {
+    const c = classifyFailure(f.errorText, f.observedStatuses);
+    const tagged = { ...f, classification: c };
+    if (c.class === 'infra') retry.push(tagged);
+    else keepRed.push(tagged);
+  }
+  return { retry, keepRed };
 }
