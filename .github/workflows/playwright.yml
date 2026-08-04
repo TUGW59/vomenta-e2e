@@ -386,9 +386,20 @@ jobs:
   full-regression:
     name: Full cross-browser regression
     needs: architecture
-    if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    # FAZ 1 CONTAINMENT (run 30890308492): `schedule` tetikleyicisinden ÇIKARILDI.
+    # Gecelik cron artık 6 hücreli (3 tarayıcı × 2 shard) full authenticated matrisi
+    # otomatik başlatamaz. Yalnız manuel `workflow_dispatch` + suite=full ile koşar.
+    # Kalıcı ayrım (nightly-functional.yml) Faz 2'de yapılacak.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
+    # Ortak production authenticated kilidi — aynı anda tek ağır authenticated job.
+    # NOT: GitHub Actions concurrency native olarak YALNIZ `group` + `cancel-in-progress`
+    # destekler; handoff'taki `queue: max` GEÇERSİZ anahtardır (workflow parse hatası
+    # verir). `cancel-in-progress: false` = koşan iş iptal edilmez, yeni gelen pending
+    # bekler (istenen "iptal etme, sıraya al" semantiği). Tam FIFO Faz 2'de her lane
+    # ayrı workflow olunca temiz serialize olur.
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     # WP-NIGHT-STABILITY (ADR-0017): 3854 test (authed 1275 × 3 tarayıcı) tek
     # runner + 45dk kutuya sığmıyordu → her gece timeout'ta cancelled. Çözüm:
@@ -441,9 +452,15 @@ jobs:
   visual-regression:
     name: Visual regression / macOS
     needs: architecture
-    if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    # FAZ 1 CONTAINMENT: `schedule`'dan çıkarıldı; gecelik cron 3 tarayıcı visual
+    # matrisini otomatik başlatamaz. Yalnız manuel workflow_dispatch + suite=full.
+    # Kalıcı haftalık ayrım (weekly-visual.yml) Faz 6'da.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
+    # Ortak production authenticated kilidi (bkz. full-regression notu — queue:max
+    # geçersiz; cancel-in-progress:false ile pending-bekleme semantiği).
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      cancel-in-progress: false
     runs-on: macos-14
     # WP-NIGHT-STABILITY (ADR-0017): 64 @visual test tek koşumda 30dk kutuya
     # sığmayıp cancelled oluyordu. Tarayıcı bazlı ayrılınca her hücre küçülür ve
@@ -488,9 +505,17 @@ jobs:
   read-only-discovery:
     name: Read-only route discovery
     needs: architecture
+    # FAZ 1: Discovery TEK authenticated lane olarak schedule'da KALABİLİR (handoff
+    # §Faz 1). Böylece gecelik cron = architecture + public-smoke + tek discovery job;
+    # 11'li fırtına yok. Ancak ortak production kilidine alınır (aşağıda). Circuit
+    # breaker stabilizasyonu Faz 4'te.
     if: >-
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    # Ortak production authenticated kilidi (bkz. full-regression notu).
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -525,9 +550,15 @@ jobs:
   nightly-known-bug-reconcile:
     name: Nightly known-bug reconcile (fixed-candidate önerisi)
     needs: architecture
-    if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    # FAZ 1 CONTAINMENT: `schedule`'dan çıkarıldı. Bu job tüm chromium-authed suite'i
+    # (`--project=chromium-authed --reporter=json`) yeniden koştuğu için en ağır
+    # yüklerden biriydi. Yalnız manuel workflow_dispatch + suite=full. Hedefli seçim
+    # (yalnız known-bug testleri) Faz 5'te; kalıcı ayrım (nightly-known-bugs.yml) Faz 2.
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
+    # Ortak production authenticated kilidi (bkz. full-regression notu).
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
