@@ -35,8 +35,9 @@ Diyalog açıkken de çağır. Bilinen borç: `A11Y_KNOWN_DEBT` (helpers.js).
 import { expectNoOverflowAtViewports } from './helpers.js';
 await expectNoOverflowAtViewports(page, '/reports/agent'); // mobil/tablet/masaüstü, yatay-taşma yok
 ```
-Açılan diyalog için: `findOverflowingChildren(dialog)` / `dialog.scrollWidth ≤ clientWidth` (yöne
-duyarsız — RTL'de sağ-kenar kontrolü taşmayı kaçırır). Strateji: `docs/manuel-test-raporu/KATMAN-TASMA-STRATEJISI.md`.
+Açılan diyalog için: `dialog.scrollWidth ≤ clientWidth` (yöne duyarsız — RTL'de sağ-kenar
+kontrolü taşmayı kaçırır). Diyalog-içi çocukları saran `findOverflowingChildren(dialog)`
+yardımcısı henüz **önerilmiş** durumda (`helpers.js`'te yok). Strateji: `docs/manuel-test-raporu/KATMAN-TASMA-STRATEJISI.md`.
 
 ### `@clean` — Console/ağ temizliği
 ```js
