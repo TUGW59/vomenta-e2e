@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve, basename } from 'node:path';
 import { TESTED_PAGES } from '../tests/contracts/tested-pages.js';
 import { MAIN_NAVIGATION } from '../tests/contracts/navigation.js';
+import { PRODUCT_SURFACES } from '../tests/contracts/product-surfaces.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 // Baş '@' ve sondaki noktalama (ör. parantez içi başlıktan gelen "@mutation)") temizlenir;
@@ -207,6 +208,72 @@ for (const { page, na } of rows) {
   }
 }
 if (!anyNa) L.push('_(yok)_');
+L.push('');
+
+// ── Kanonik yüzey kapsaması (WP-SURFACE-UNIFIED / FAZ 5 / ADR-0022) ──────────────
+// Yukarıdaki matris YALNIZ kapsam sözleşmesi olan sayfaları listeler. Bu ek, kanonik
+// `product-surfaces.js`'teki HER yüzeyi (dedicated sözleşmesi olsun olmasın) TAM BİR KEZ
+// gösterir: sözleşmesi olan yüzey stil hücrelerini devralır, olmayan yüzey dürüstçe
+// `NO_COVERAGE_CONTRACT` görünür (stil sütunları — ). Böylece stil matrisi de envanter /
+// surface-depth / project-status ile AYNI kanonik yüzey kümesini kapsar (her raporda
+// her yüzey tam bir kez). Dedicated eşleme = routeLevelBaseline OLMAYAN sözleşme (envanter
+// ile senkron). Hücre birleşimi önceliği: ✅ > N/A > ❌ > —.
+const CELL_RANK = { '✅': 3, 'N/A': 2, '❌': 1, '—': 0 };
+const routeCells = new Map();
+const routePageIds = new Map();
+for (const { page, cells } of rows) {
+  if (page.routeLevelBaseline) continue; // main-navigation dedicated SAYILMAZ (envanter ile senkron)
+  for (const route of page.routes) {
+    const prev = routeCells.get(route) || {};
+    const merged = { ...prev };
+    for (const style of STYLE_COLUMNS) {
+      const a = prev[style] ?? '—';
+      const b = cells[style] ?? '—';
+      merged[style] = (CELL_RANK[b] ?? 0) >= (CELL_RANK[a] ?? 0) ? b : a;
+    }
+    routeCells.set(route, merged);
+    const ids = routePageIds.get(route) || [];
+    if (!ids.includes(page.id)) ids.push(page.id);
+    routePageIds.set(route, ids);
+  }
+}
+
+const canonicalRows = [...PRODUCT_SURFACES]
+  .sort((a, b) => a.id.localeCompare(b.id))
+  .map((s) => {
+    const hasContract = routeCells.has(s.route);
+    return {
+      id: s.id,
+      route: s.route,
+      area: s.area,
+      hasContract,
+      cells: hasContract ? routeCells.get(s.route) : null,
+    };
+  });
+
+// Değişmez: kanonik ek TAM olarak PRODUCT_SURFACES kadar satır taşır (her yüzey tam bir kez).
+if (canonicalRows.length !== PRODUCT_SURFACES.length) {
+  errors.push(`Kanonik yüzey eki satır sayısı (${canonicalRows.length}) ≠ PRODUCT_SURFACES (${PRODUCT_SURFACES.length}).`);
+}
+const seenCanon = new Set();
+for (const cr of canonicalRows) {
+  if (seenCanon.has(cr.id)) errors.push(`Kanonik yüzey eki yinelenen id: ${cr.id}`);
+  seenCanon.add(cr.id);
+}
+
+L.push('## Kanonik yüzey kapsaması (tüm ' + PRODUCT_SURFACES.length + ' yüzey — her yüzey tam bir kez)');
+L.push('');
+L.push('Kanonik `product-surfaces.js`\'teki HER yüzey burada listelenir. `NO_COVERAGE_CONTRACT` =');
+L.push('dedicated stil kapsam sözleşmesi yok (baseline smoke alır; matris üstünde görünmez). Bu ek,');
+L.push('stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme üzerinde tutar.');
+L.push('');
+L.push('| id | route | area | ' + STYLE_COLUMNS.map((s) => `@${s}`).join(' | ') + ' | sözleşme |');
+L.push('|---|---|---|' + STYLE_COLUMNS.map(() => '---').join('|') + '|---|');
+for (const cr of canonicalRows) {
+  const styleCells = STYLE_COLUMNS.map((s) => (cr.cells ? cr.cells[s] : '—')).join(' | ');
+  const label = cr.hasContract ? '✔' : 'NO_COVERAGE_CONTRACT';
+  L.push(`| \`${cr.id}\` | \`${cr.route}\` | ${cr.area} | ${styleCells} | ${label} |`);
+}
 L.push('');
 
 const outPath = resolve(root, 'docs/TEST_STYLE_MATRIX.md');

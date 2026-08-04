@@ -85,6 +85,9 @@ jobs:
       - name: Yüzey envanteri güncel mi (drift kontrolü)
         if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:surface-inventory:check
+      - name: Proje durumu (birleşik rapor) güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: npm run report:project-status:check
 
   pr-impact:
     name: PR change-impact tests / Chromium
