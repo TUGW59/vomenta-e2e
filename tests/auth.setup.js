@@ -32,6 +32,9 @@ setup('kimlik doğrula', async ({ page }, testInfo) => {
 
   await runAuthWithGatewayRetry(
     async () => {
+      // Bu denemenin gateway kanıtını sıfırla (önceki denemeden taşınmasın).
+      loginPage.beginAttempt();
+
       // Bayat storage-state'i HER denemeden ÖNCE kaldır; state yalnız login
       // TAM başarılı olunca yazılır (yarım/başarısız denemeden state kalmaz).
       if (existsSync(statePath)) rmSync(statePath, { force: true });

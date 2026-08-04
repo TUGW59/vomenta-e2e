@@ -20,6 +20,7 @@ import {
   MAX_AUTH_ATTEMPTS,
   isGatewayStatus,
   shouldRetryAuth,
+  pickGatewayStatus,
   gatewayStatusFromBodyText,
   GatewayUnavailableError,
   runAuthWithGatewayRetry,
@@ -45,6 +46,18 @@ async function main() {
     ok(shouldRetryAuth({ gatewayStatus: 401 }) === false, 'birim: 401 kanıtı → retry değil.');
     ok(shouldRetryAuth({ gatewayStatus: null }) === false, 'birim: kanıt yok → retry değil.');
     ok(shouldRetryAuth(null) === false, 'birim: evidence null → retry değil.');
+  }
+
+  // ── Birim: ağ üzerinde gözlemlenen 5xx yanıt tespiti (pickGatewayStatus) ──
+  // Sayfa 200 dönüp içerik render edemediğinde (arka plan API 503) gateway kanıtı
+  // YALNIZ gözlemlenen yanıt kodlarında görünür; body metni 5xx içermez.
+  {
+    ok(pickGatewayStatus([200, 204, 503]) === 503, 'birim: gözlemlenen 503 yanıtı seçilmeli.');
+    ok(pickGatewayStatus([200, 502, 200, 504]) === 504, 'birim: en SON gateway yanıtı seçilmeli.');
+    ok(pickGatewayStatus([200, 301, 401, 403, 404, 500]) === null,
+      'birim: 5xx-gateway olmayan yanıtlar (401/403/500 dahil) seçilmemeli.');
+    ok(pickGatewayStatus([]) === null && pickGatewayStatus(null) === null,
+      'birim: boş/null gözlem → null.');
   }
 
   // ── Birim: nginx 5xx body-text tespiti (login formu yanlış-pozitif vermez) ─
@@ -153,6 +166,23 @@ async function main() {
       ok(calls === 2 && r === 'ok', `6: ${code} de retry edilmeli.`);
     }
   }
+
+  // ── 7) CI'da gözlenen mod: sayfa 200 döner ama arka plan API 503'ü içeriği
+  //      bloke eder → gateway kanıtı YALNIZ gözlemlenen ağ yanıtında görünür
+  //      (body 5xx metni yok). LoginPage'in `pickGatewayStatus(observed)` yolu
+  //      bunu yakalayıp retry etmeli; aksi halde ilk-run'daki gibi erken FAIL.
+  {
+    const observedPerAttempt = [[503], [200, 503], [200]]; // 1: net 503, 2: 200+API503, 3: temiz
+    let i = 0;
+    let passed = false;
+    await runAuthWithGatewayRetry(async () => {
+      const gw = pickGatewayStatus(observedPerAttempt[i++]);
+      if (isGatewayStatus(gw)) throw new GatewayUnavailableError(gw, 'sentetik-ağ');
+      passed = true;
+    }, { sleep: async () => {} });
+    ok(passed && i === 3,
+      '7: sayfa-200-ama-API-503 denemesi ağ kanıtıyla retry edilip 3. denemede PASS olmalı.');
+  }
 }
 
 await main();
@@ -164,7 +194,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  'Auth-retry self-check geçti: 6 sözleşme (503→retry, 503→success→PASS, ' +
-    `3×503→FAIL, 401/403→retry-yok, locator→retry-yok, 502/504→retry) + status/body-text ` +
+  'Auth-retry self-check geçti: 7 sözleşme (503→retry, 503→success→PASS, ' +
+    `3×503→FAIL, 401/403→retry-yok, locator→retry-yok, 502/504→retry, ` +
+    `sayfa-200-ama-API-503→ağ-kanıtıyla-retry) + status/pickGatewayStatus/body-text ` +
     `birim kontrolleri. Sınırlı retry (≤${MAX_AUTH_ATTEMPTS}); yalnız gerçek gateway kanıtında.`
 );

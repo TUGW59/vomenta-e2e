@@ -44,6 +44,22 @@ export function shouldRetryAuth(evidence) {
 }
 
 /**
+ * Bir deneme sırasında gözlemlenen HTTP durum kodları listesinden (navigasyon +
+ * API/XHR yanıtları) en SON gateway kodunu (502/504/503) seçer. Sayfa 200 dönüp
+ * içerik render EDEMEDİĞİNDE (arka plandaki API 503'ü login formunu bloke ettiğinde)
+ * gateway kanıtı yalnız burada görünür — nginx 5xx sayfa METNİ hiç oluşmaz.
+ * @param {ReadonlyArray<unknown>|null|undefined} observedStatuses
+ * @returns {number|null}
+ */
+export function pickGatewayStatus(observedStatuses) {
+  if (!Array.isArray(observedStatuses)) return null;
+  for (let i = observedStatuses.length - 1; i >= 0; i--) {
+    if (isGatewayStatus(observedStatuses[i])) return Number(observedStatuses[i]);
+  }
+  return null;
+}
+
+/**
  * Render edilmiş bir hata sayfasının metninden gateway durum kodunu çıkarır
  * (nginx 5xx sayfası: "503 Service Temporarily Unavailable" vb.). Eşleşme yoksa
  * `null` döner — böylece login formu / normal içerik yanlışlıkla gateway sayılmaz.

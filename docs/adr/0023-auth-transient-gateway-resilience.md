@@ -35,10 +35,15 @@ raporlanıyor (yanıltıcı; kırmızı ama yanlış nedenle).
    sürebilir.
 
 2. **Kanıt-temelli sınıflandırma (LoginPage)** — `login()` yalnız GERÇEK gateway
-   kanıtını (`page.goto` yanıt kodu 5xx, veya render edilen nginx 5xx sayfası)
-   `GatewayUnavailableError`'a çevirir. **Retry EDİLMEZ:** yanlış credential,
-   401/403, locator hatası, assertion hatası, gateway kanıtı olmayan nav/heading
-   hatası — bunlar aynen yükselir (retry maskeleme olurdu).
+   kanıtını `GatewayUnavailableError`'a çevirir. Kanıt üç kaynaktan gelir:
+   (a) `page.goto` yanıt kodu 5xx, (b) ağ üzerinde gözlemlenen 5xx yanıt
+   (navigasyon + API/XHR; `page.on('response')` ile toplanır, `pickGatewayStatus`
+   ile seçilir), (c) render edilen nginx 5xx sayfa metni. **(b) kritik:** CI'da
+   gözlendiği gibi sayfa 200 dönüp arka plan API 503'ü içeriği bloke ettiğinde
+   ("Welcome back" render olmaz) kanıt YALNIZ gözlemlenen yanıtta görünür; body
+   5xx metni oluşmaz. Kanıt her denemede `beginAttempt()` ile sıfırlanır (denemeye
+   özgü). **Retry EDİLMEZ:** yanlış credential, 401/403, locator hatası, assertion
+   hatası, gateway kanıtı olmayan nav/heading hatası — aynen yükselir.
 
 3. **Stale storage-state hijyeni** — her denemeden ÖNCE bayat state silinir; state
    YALNIZ login TAM başarılı olunca yazılır. Yarım/başarısız denemeden oturum kalmaz.
