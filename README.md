@@ -1,15 +1,37 @@
-# Vomenta Playwright testleri
+# Vomenta Playwright Test Platformu
+
+[![Playwright CI](https://github.com/TUGW59/vomenta-e2e/actions/workflows/playwright.yml/badge.svg)](https://github.com/TUGW59/vomenta-e2e/actions/workflows/playwright.yml)
 
 Bu depo, Vomenta web uygulamasının kritik kullanıcı akışlarını gerçek bir
-tarayıcıda otomatik olarak kontrol eder. Testler şu anda canlı ortamı hedefler;
-`BASE_URL` ile farklı bir test ortamına yönlendirilebilir.
+tarayıcıda uçtan uca (E2E) doğrular. Amaç yalnızca çok test yazmak değil; bir
+değişikliğin oluşturduğu hatayı **en ucuz katmanda yakalayan ve sonucunu
+güvenilir biçimde açıklayan** bir kalite sistemi kurmaktır.
 
-Detaylı tasarım, katman sorumlulukları ve yeni test standardı:
-[docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md).
-90 günlük uygulama planı ve ölçülebilir kalite hedefleri:
-[docs/QUALITY_ROADMAP.md](docs/QUALITY_ROADMAP.md).
-Depoda çalışan herkes için bağlayıcı kurallar:
-[AGENTS.md](AGENTS.md) ve [CONTRIBUTING.md](CONTRIBUTING.md).
+Testler varsayılan olarak canlı ortamı (`app.vomenta.com`) hedefler ve
+**salt-okunur** kalır; `BASE_URL` ile farklı bir ortama yönlendirilebilir. Veri
+değiştiren (`@mutation`) senaryolar yalnızca ayrılmış bir staging tenant'ında
+çalışır — production'da kaçış yolu yoktur.
+
+## İçindekiler
+
+- [Belgeler](#belgeler)
+- [İlk kurulum](#ilk-kurulum)
+- [Günlük kullanım](#günlük-kullanım)
+- [Proje yapısı](#proje-yapısı)
+- [Ekip standardı](#ekip-standardı)
+- [Test kanıtları](#test-kanıtları)
+
+## Belgeler
+
+| Belge | İçerik |
+|-------|--------|
+| [docs/README.md](docs/README.md) | **Tüm dokümantasyonun haritası** — buradan başlayın |
+| [AGENTS.md](AGENTS.md) | Depoda çalışan herkes için bağlayıcı test kuralları ve standartları |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Definition of Done, PR akışı, inceleme kontrol listesi |
+| [docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md) | Katman sorumlulukları ve yeni test tasarım standardı |
+| [docs/TEST_STYLES.md](docs/TEST_STYLES.md) | Zorunlu test stilleri el kitabı |
+| [docs/QUALITY_ROADMAP.md](docs/QUALITY_ROADMAP.md) | 90 günlük uygulama planı ve ölçülebilir kalite hedefleri |
+| [docs/adr/](docs/adr/README.md) | Mimari Karar Kayıtları (ADR) dizini |
 
 ## İlk kurulum
 
@@ -27,6 +49,8 @@ oturum dosyaları Git'e eklenmez.
 
 ## Günlük kullanım
 
+**Testleri çalıştırma:**
+
 ```bash
 # Hızlı başlangıç: Chromium'da giriş ekranı kontrolleri
 npm test
@@ -42,17 +66,18 @@ npm run test:auth
 
 # Chromium, Firefox ve WebKit'te tüm test paketi
 npm run test:e2e
+```
 
-# Veri-değiştiren (@mutation) testler — yalnızca ayrılmış staging tenant.
-# .env: TEST_ENV=staging, production dışı BASE_URL + MUTATION_API_ORIGIN,
-# MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur.
-npm run test:mutation
+Tek bir dosya veya test:
 
-# Mutation koşularından önce/sonra ayrılmış staging tenant'ta salt-okunur
-# otomasyon kalıntısı denetimi (dashboard, schedule, contact, WFM vardiya).
-# Aynı staging/tenant değişkenleri zorunludur; production'da çalışmaz.
-npm run report:orphans
+```bash
+npx playwright test tests/tickets.authed.spec.js --project=chromium-authed
+npx playwright test -g "komut paleti" --project=chromium-authed
+```
 
+**Geliştirme ve hata ayıklama:**
+
+```bash
 # Testleri görsel arayüzden seçerek çalıştırma
 npm run test:ui
 
@@ -61,8 +86,12 @@ npm run test:debug
 
 # Son HTML raporunu açma
 npm run test:report
+```
 
-# Mimari kurallar + tüm testlerin yüklenmesi
+**Kalite kapıları ve keşif:**
+
+```bash
+# Mimari kurallar + tüm testlerin yüklenmesi (CI'ın ilk kapısı)
 npm run quality:check
 
 # Salt-okunur otomatik rota ön-taraması + kapsam radarı
@@ -72,14 +101,20 @@ npm run test:discovery
 npm run test:discovery:update-baseline
 ```
 
-Tek bir dosya veya test de çalıştırılabilir:
+**Veri değiştiren (`@mutation`) testler — yalnızca staging:**
 
 ```bash
-npx playwright test tests/tickets.authed.spec.js --project=chromium-authed
-npx playwright test -g "komut paleti" --project=chromium-authed
+# .env: TEST_ENV=staging, production dışı BASE_URL + MUTATION_API_ORIGIN,
+# MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur.
+npm run test:mutation
+
+# Mutation koşularından önce/sonra ayrılmış staging tenant'ta salt-okunur
+# otomasyon kalıntısı denetimi (dashboard, schedule, contact, WFM vardiya).
+# Aynı staging/tenant değişkenleri zorunludur; production'da çalışmaz.
+npm run report:orphans
 ```
 
-## Mimari
+## Proje yapısı
 
 - `config/environment.js`: ortam, rol, timeout ve production güvenlik politikası.
 - `tests/fixtures/test.js`: uygulama, API ve güvenlik fixture'larının tek giriş noktası.
@@ -91,6 +126,8 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 - `tests/*.spec.js`: yalnızca kullanıcı davranışını anlatan senaryolar.
 - `.github/workflows/playwright.yml`: PR smoke, main critical ve gece regresyonu.
 
+Katman sorumlulukları ve bağımlılık yönü: [docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md).
+
 ## Ekip standardı
 
 1. Her test tek bir davranışı doğrulamalı ve sonucunu kendi üretmelidir.
@@ -101,8 +138,9 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 4. Canlı ortam testleri varsayılan olarak salt-okunur kalmalıdır. Veri oluşturan,
    değiştiren veya silen senaryolar ayrı bir test ortamında çalıştırılmalıdır.
 5. Kimlik bilgileri ve `playwright/.auth/` içeriği commit edilmemelidir.
-6. Bir özellik tamamlanmış sayılmadan önce en az `npm test`, kritik akışlarda
-   ayrıca `npm run test:auth` çalıştırılmalıdır.
+6. Bir özellik tamamlanmış sayılmadan önce en az `npm test`; girişli veya kritik
+   akışlarda ayrıca `npm run test:smoke:auth` ve `npm run test:critical`
+   çalıştırılmalıdır (bkz. AGENTS.md → "Zorunlu doğrulama").
 7. Yeni testler `test` ve `expect` değerlerini `tests/fixtures/test.js` üzerinden
    almalıdır.
 8. Veri değiştiren testler `@mutation`, `await mutationGuard(...)` ve
@@ -112,6 +150,11 @@ npx playwright test -g "komut paleti" --project=chromium-authed
 9. `quality:architecture` yeni spec'lerde ortak fixture, sabit bekleme, doğrudan
    ortam değişkeni ve eksik ESM uzantısı gibi mimari ihlalleri CI'da engeller.
 
-Başarısız testlerde ekran görüntüsü ve video, `test-results/` altında; HTML raporu
+Tam "tamamlandı" tanımı ve inceleme kontrol listesi: [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Test kanıtları
+
+Başarısız testlerde ekran görüntüsü ve video `test-results/` altında, HTML raporu
 ise `playwright-report/` altında oluşturulur. CI raporu GitHub Actions artifact'i
-olarak 30 gün saklanır.
+olarak 30 gün saklanır. Trace başarısızlıkta otomatik kaydedilir
+(`trace: retain-on-failure`); kök-neden analizi Trace Viewer ile yapılır.
