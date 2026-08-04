@@ -391,15 +391,16 @@ jobs:
     # otomatik başlatamaz. Yalnız manuel `workflow_dispatch` + suite=full ile koşar.
     # Kalıcı ayrım (nightly-functional.yml) Faz 2'de yapılacak.
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
-    # Ortak production authenticated kilidi — aynı anda tek ağır authenticated job.
-    # NOT: GitHub Actions concurrency native olarak YALNIZ `group` + `cancel-in-progress`
-    # destekler; handoff'taki `queue: max` GEÇERSİZ anahtardır (workflow parse hatası
-    # verir). `cancel-in-progress: false` = koşan iş iptal edilmez, yeni gelen pending
-    # bekler (istenen "iptal etme, sıraya al" semantiği). Tam FIFO Faz 2'de her lane
-    # ayrı workflow olunca temiz serialize olur.
+    # Ortak production authenticated kilidi — aynı anda YALNIZ tek ağır authenticated
+    # job koşar; kalanlar iptal edilmeden bu grupta SIRAYA girer.
+    # `queue: max` (GitHub Actions concurrency): grupta 100'e kadar pending iş bekletir;
+    # `single` (varsayılan) olsaydı yalnız 1 pending tutulur, sonraki gelen öncekini
+    # iptal ederdi → manuel suite=full'daki 11 job garanti sırayla koşmazdı. `queue: max`
+    # ile hepsi sırayla koşar. `cancel-in-progress: true` bu değerle BİRLİKTE KULLANILAMAZ
+    # (validation hatası); burada belirtilmez (koşan iş iptal edilmez).
     concurrency:
       group: vomenta-production-authenticated-e2e
-      cancel-in-progress: false
+      queue: max
     runs-on: ubuntu-latest
     # WP-NIGHT-STABILITY (ADR-0017): 3854 test (authed 1275 × 3 tarayıcı) tek
     # runner + 45dk kutuya sığmıyordu → her gece timeout'ta cancelled. Çözüm:
@@ -456,11 +457,11 @@ jobs:
     # matrisini otomatik başlatamaz. Yalnız manuel workflow_dispatch + suite=full.
     # Kalıcı haftalık ayrım (weekly-visual.yml) Faz 6'da.
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
-    # Ortak production authenticated kilidi (bkz. full-regression notu — queue:max
-    # geçersiz; cancel-in-progress:false ile pending-bekleme semantiği).
+    # Ortak production authenticated kilidi (bkz. full-regression notu — queue:max ile
+    # grupta sıraya girer, koşan iş iptal edilmez).
     concurrency:
       group: vomenta-production-authenticated-e2e
-      cancel-in-progress: false
+      queue: max
     runs-on: macos-14
     # WP-NIGHT-STABILITY (ADR-0017): 64 @visual test tek koşumda 30dk kutuya
     # sığmayıp cancelled oluyordu. Tarayıcı bazlı ayrılınca her hücre küçülür ve
@@ -512,10 +513,11 @@ jobs:
     if: >-
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
-    # Ortak production authenticated kilidi (bkz. full-regression notu).
+    # Ortak production authenticated kilidi (bkz. full-regression notu — queue:max ile
+    # grupta sıraya girer, koşan iş iptal edilmez).
     concurrency:
       group: vomenta-production-authenticated-e2e
-      cancel-in-progress: false
+      queue: max
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -555,10 +557,11 @@ jobs:
     # yüklerden biriydi. Yalnız manuel workflow_dispatch + suite=full. Hedefli seçim
     # (yalnız known-bug testleri) Faz 5'te; kalıcı ayrım (nightly-known-bugs.yml) Faz 2.
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.suite == 'full' }}
-    # Ortak production authenticated kilidi (bkz. full-regression notu).
+    # Ortak production authenticated kilidi (bkz. full-regression notu — queue:max ile
+    # grupta sıraya girer, koşan iş iptal edilmez).
     concurrency:
       group: vomenta-production-authenticated-e2e
-      cancel-in-progress: false
+      queue: max
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
