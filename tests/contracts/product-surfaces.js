@@ -41,6 +41,10 @@ export const EVIDENCE_TYPES = Object.freeze([
   'known-bug',             // bir bulgu bu rotayı referanslıyor (yüzey var demektir)
   'live-observation',      // canlı read-only gözlem
   'runtime-observation',   // runtime raporunda pages[].route
+  // FAZ 4 / WP-SURFACE-RECONCILE: bir Page Object rota tablosu ve/veya dedicated spec bu
+  // rotayı + (gözlenen) başlığı DOĞRULUYOR. ÜRÜN-VARLIK kanıtıdır (bir spec o rotaya gidip
+  // beklenen başlığı görüyorsa yüzey ÜRÜNDE VARDIR); kapsam/`✅` iddiası DEĞİLDİR.
+  'page-object',
 ]);
 /** İzinli blocked/fixture reason code'ları (bilinmeyen kod fail-closed reddedilir). */
 export const BLOCKED_REASON_CODES = Object.freeze([
@@ -213,12 +217,29 @@ export function assertValidRegistry(surfaces) {
 }
 
 /**
- * KANONİK ÜRÜN YÜZEYLERİ. Statik literal (üretim: Faz 0 doğrulanmış kanıt kaynakları).
- * Ürün-varlık kanıtı olmayan (yalnız spec/page-object kodunda geçen) alt yüzeyler
- * (ör. /ai/voice, /supervisor/coaching, /voice/live, /contacts/* alt sayfaları,
- * PR#42'ye özel /campaigns/{sender-ids,dnc,templates}) BİLİNÇLİ olarak dışarıda
- * bırakıldı: canlı read-only doğrulama (Faz 4) öncesi kayda alınmaz. Faz 2 completeness
- * motoru bunları UNREGISTERED_OBSERVED olarak dürüstçe raporlar; kaybolmazlar.
+ * KANONİK ÜRÜN YÜZEYLERİ. Statik literal (üretim: Faz 0 doğrulanmış kanıt kaynakları +
+ * Faz 4 uzlaştırma).
+ *
+ * FAZ 4 / WP-SURFACE-RECONCILE (ADR-0021): Faz 1'de canlı doğrulama beklediği için BİLİNÇLİ
+ * dışarıda bırakılan alt yüzeyler artık GÜNCEL main repo kaynaklarıyla (Page Object rota
+ * tabloları + dedicated spec'ler + known-bug'lar) çapraz kanıtlanıp registry'ye alındı:
+ *   - AI alt yüzeyleri (AiSubPage.SECTIONS): /ai/{voice,chatbot,copilot,sentiment,
+ *     knowledge-base,usage,providers} — her biri path+başlık tablosu + spec ile kanıtlı.
+ *   - Supervisor alt yüzeyleri (dedicated Page Object + spec): /supervisor/{calls,
+ *     interactions,coaching}.
+ *   - Voice canlı yüzeyi (VoicePage.SUBNAV + redirect spec): /voice/live (/voice buraya
+ *     istemci tarafında yönlenir — rapor "redirect/alias" bölümünde belirtilir).
+ *   - Contacts alt yüzeyleri (contacts.authed.spec navigasyon + başlık iddiaları):
+ *     /contacts/{import,segments} ve dinamik detay /contacts/:id (fixture-required).
+ *   - Campaigns Yeni Kampanya sihirbazı (CampaignCreatePage): /campaigns/create.
+ *   - Settings Modules/marketplace (SettingsPage nav + known-bug 403): /settings/billing/
+ *     marketplace (billing gibi rol-koşullu → readonly-blocked).
+ *
+ * KANITSIZ BIRAKILANLAR (kör eklenmez — HANDOFF FAZ 4 §6/§task-6): PR #42'ye özgü
+ * /campaigns/{sender-ids,dnc,templates} GÜNCEL main'de HİÇBİR kaynakta (spec/page-object/
+ * discovery/known-bug) gözlenmiyor; yalnız açık PR #42 kodunda var. "Var olmayan eski
+ * route'u sırf PR'da yazıyor diye active ekleme" kuralı gereği REGISTRY'YE ALINMADI; envanter
+ * raporunda "PR-only / unverified (FAZ 6A)" olarak dürüstçe listelenir.
  */
 export const PRODUCT_SURFACES = Object.freeze([
   {
@@ -237,7 +258,49 @@ export const PRODUCT_SURFACES = Object.freeze([
     id: 'ai-prompts', area: 'ai',
     route: '/ai/prompts', routeKind: 'static', lifecycle: 'active',
     parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
-    evidence: [ { type: 'known-bug' } ],
+    evidence: [ { type: 'known-bug' }, { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-chatbot', area: 'ai',
+    route: '/ai/chatbot', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-copilot', area: 'ai',
+    route: '/ai/copilot', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-knowledge-base', area: 'ai',
+    route: '/ai/knowledge-base', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-providers', area: 'ai',
+    route: '/ai/providers', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-sentiment', area: 'ai',
+    route: '/ai/sentiment', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-usage', area: 'ai',
+    route: '/ai/usage', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    id: 'ai-voice', area: 'ai',
+    route: '/ai/voice', routeKind: 'static', lifecycle: 'active',
+    parentId: 'ai', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
   },
   {
     id: 'analytics', area: 'analytics',
@@ -270,6 +333,15 @@ export const PRODUCT_SURFACES = Object.freeze([
     route: '/campaigns/outbound', routeKind: 'static', lifecycle: 'active',
     parentId: 'campaigns', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
     evidence: [ { type: 'known-bug' }, { type: 'discovery-observation', observedAt: '2026-07-30' } ],
+  },
+  {
+    // Yeni Kampanya sihirbazı (CampaignCreatePage `super(page,'/campaigns/create')`).
+    // "New" butonuyla açılır → navigation:'contextual'. Salt açılış GET (form) güvenli;
+    // mutasyon YALNIZ submit'te → readonly-baseline (baseline yalnız navigasyon + görünürlük).
+    id: 'campaigns-create', area: 'campaigns',
+    route: '/campaigns/create', routeKind: 'static', lifecycle: 'active',
+    parentId: 'campaigns', navigation: 'contextual', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
   },
   {
     id: 'channels', area: 'channels',
@@ -318,6 +390,33 @@ export const PRODUCT_SURFACES = Object.freeze([
     route: '/contacts', routeKind: 'static', lifecycle: 'active',
     parentId: null, navigation: 'main', runtimePolicy: 'readonly-baseline',
     evidence: [ { type: 'known-bug' }, { type: 'discovery-observation', observedAt: '2026-07-30' }, { type: 'navigation-contract' }, { type: 'route-inventory' } ],
+  },
+  {
+    // Import Contacts sayfası (contacts.authed.spec: Import butonu → /contacts/import,
+    // "Import Contacts" başlığı + file input). Salt açılış GET güvenli (upload YOK).
+    id: 'contacts-import', area: 'contacts',
+    route: '/contacts/import', routeKind: 'static', lifecycle: 'active',
+    parentId: 'contacts', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    // Segments sayfası (contacts.authed.spec: Segments butonu → /contacts/segments,
+    // "Segments" başlığı).
+    id: 'contacts-segments', area: 'contacts',
+    route: '/contacts/segments', routeKind: 'static', lifecycle: 'active',
+    parentId: 'contacts', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    // Kişi detay sayfası — satıra tıklayınca /contacts/{uuid} (contacts.authed.spec
+    // waitForURL /\/contacts\/[0-9a-f-]{36}/). Dinamik: güvenli gerçek entity ID yok →
+    // fixture-required + BLOCKED (bot-builder-detail ile aynı politika; sahte URL üretilmez).
+    id: 'contacts-detail', area: 'contacts',
+    route: '/contacts/:id', routeKind: 'dynamic', lifecycle: 'active',
+    parentId: 'contacts', navigation: 'contextual', runtimePolicy: 'fixture-required',
+    fixtureRef: null,
+    blockedReason: 'READONLY_FIXTURE_ID_REQUIRED',
+    evidence: [ { type: 'page-object' } ],
   },
   {
     id: 'inbox', area: 'inbox',
@@ -430,6 +529,16 @@ export const PRODUCT_SURFACES = Object.freeze([
     evidence: [ { type: 'known-bug' } ],
   },
   {
+    // Modules / marketplace (SettingsPage: "Manage Modules" → /settings/billing/marketplace,
+    // broken:true → known-bugs). billing gibi rol-koşullu; standart rol 403 → readonly-blocked.
+    id: 'settings-billing-marketplace', area: 'settings',
+    route: '/settings/billing/marketplace', routeKind: 'static', lifecycle: 'conditional',
+    parentId: 'settings-billing', navigation: 'secondary', runtimePolicy: 'readonly-blocked',
+    condition: 'Requires billing-admin/modules permission; standard roles receive 403 and are redirected to /',
+    blockedReason: 'READONLY_403_FORBIDDEN',
+    evidence: [ { type: 'known-bug' }, { type: 'page-object' } ],
+  },
+  {
     id: 'settings-canned-responses', area: 'settings',
     route: '/settings/canned-responses', routeKind: 'static', lifecycle: 'active',
     parentId: 'settings', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
@@ -535,7 +644,29 @@ export const PRODUCT_SURFACES = Object.freeze([
     id: 'supervisor-agents', area: 'supervisor',
     route: '/supervisor/agents', routeKind: 'static', lifecycle: 'active',
     parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
-    evidence: [ { type: 'known-bug' } ],
+    evidence: [ { type: 'known-bug' }, { type: 'page-object' } ],
+  },
+  {
+    // Agent Live / Canlı Aracı (AgentLivePage `super(page,'/supervisor/calls')` + spec).
+    id: 'supervisor-calls', area: 'supervisor',
+    route: '/supervisor/calls', routeKind: 'static', lifecycle: 'active',
+    parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    // Koçluk / Quality Coaching (CoachingPage `super(page,'/supervisor/coaching')` + spec).
+    id: 'supervisor-coaching', area: 'supervisor',
+    route: '/supervisor/coaching', routeKind: 'static', lifecycle: 'active',
+    parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
+  },
+  {
+    // Canlı Etkileşimler / Live Interactions (InteractionsPage
+    // `super(page,'/supervisor/interactions')` + spec).
+    id: 'supervisor-interactions', area: 'supervisor',
+    route: '/supervisor/interactions', routeKind: 'static', lifecycle: 'active',
+    parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
   },
   {
     id: 'supervisor-wallboard', area: 'supervisor',
@@ -554,6 +685,16 @@ export const PRODUCT_SURFACES = Object.freeze([
     route: '/voice', routeKind: 'static', lifecycle: 'active',
     parentId: null, navigation: 'main', runtimePolicy: 'readonly-baseline',
     evidence: [ { type: 'discovery-observation', observedAt: '2026-07-30' }, { type: 'navigation-contract' }, { type: 'route-inventory' } ],
+  },
+  {
+    // Canlı Aramalar / Live Calls (VoicePage.SUBNAV ilk hedef + voice.authed.spec:
+    // "/voice doğrudan açılınca /voice/live yüklüyor"). /voice bu rotaya istemci tarafında
+    // yönlenir (redirect/alias — envanter raporunda ayrıca belirtilir); /voice/live gerçek
+    // içerik yüzeyidir (heading "Live Calls").
+    id: 'voice-live', area: 'voice',
+    route: '/voice/live', routeKind: 'static', lifecycle: 'active',
+    parentId: 'voice', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
+    evidence: [ { type: 'page-object' } ],
   },
   {
     id: 'voice-dids', area: 'voice',

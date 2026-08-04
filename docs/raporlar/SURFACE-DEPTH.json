@@ -8,7 +8,7 @@
     "runtimeGeneratedAt": "2026-08-02T19:46:28.218Z"
   },
   "inventory": {
-    "registeredRoutes": 71,
+    "registeredRoutes": 87,
     "testedPagesContracts": 48,
     "knownBugs": {
       "total": 61,
@@ -18,21 +18,21 @@
     }
   },
   "totals": {
-    "registeredRoutes": 71,
+    "registeredRoutes": 87,
     "l1Proven": 55,
-    "l1NotProven": 16,
+    "l1NotProven": 32,
     "l2StyleContractMet": 65,
-    "l2StyleGap": 6,
+    "l2StyleGap": 22,
     "l2Complete": 3,
     "l2Partial": 62,
-    "l2NotCovered": 6,
-    "interactionUnverifiedRoutes": 66,
+    "l2NotCovered": 22,
+    "interactionUnverifiedRoutes": 82,
     "l3Blocked": 46,
-    "l3NotApplicable": 25,
-    "l4Blocked": 71,
-    "l5Blocked": 71,
+    "l3NotApplicable": 41,
+    "l4Blocked": 87,
+    "l5Blocked": 87,
     "highestLevel": {
-      "L0": 16,
+      "L0": 32,
       "L1": 0,
       "L2_STYLE": 52,
       "L2_DEEP": 3
@@ -487,6 +487,965 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/ai/chatbot",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/copilot",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/knowledge-base",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/providers",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/sentiment",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/usage",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/ai/voice",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     },
     {
       "route": "/analytics",
@@ -1228,6 +2187,143 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/campaigns/create",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     },
     {
       "route": "/channels",
@@ -2457,6 +3553,417 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/contacts/import",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/contacts/segments",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/contacts/:id",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     },
     {
       "route": "/inbox",
@@ -5119,6 +6626,143 @@
       ]
     },
     {
+      "route": "/settings/billing/marketplace",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
       "route": "/settings/canned-responses",
       "heading": null,
       "contracts": [
@@ -7732,6 +9376,417 @@
       ]
     },
     {
+      "route": "/supervisor/calls",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/supervisor/coaching",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/supervisor/interactions",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
       "route": "/supervisor/wallboard",
       "heading": null,
       "contracts": [],
@@ -8141,6 +10196,143 @@
               "tabs": {
                 "status": "NOT_APPLICABLE",
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/voice/live",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
               },
               "search-filter": {
                 "status": "UNVERIFIED",
