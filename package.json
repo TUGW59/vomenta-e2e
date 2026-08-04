@@ -54,8 +54,6 @@
     "quality:ci-impact": "node tools/self-check-pr-impact.mjs",
     "quality:ci-runner": "node tools/self-check-pr-impact-runner.mjs",
     "quality:ci-workflow": "node tools/self-check-ci-workflow.mjs",
-    "quality:audit-workflow": "node tools/self-check-audit-workflow.mjs",
-    "quality:audit-ci": "node tools/self-check-audit-ci.mjs",
     "ci:impact:plan": "node tools/plan-pr-impact.mjs",
     "ci:impact:run": "node tools/run-pr-impact.mjs",
     "quality:runtime-report": "node tools/self-check-runtime-report.mjs",
