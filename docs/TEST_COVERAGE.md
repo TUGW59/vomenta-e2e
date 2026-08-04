@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1161
+- **Test edilen senaryo:** 1175
 - **Test dosyası:** 82
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 69 · `@smoke` 176 · `@visual` 21
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -470,10 +470,18 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/ai] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/ai/prompts] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/chatbot] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/copilot] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/knowledge-base] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/providers] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/sentiment] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/usage] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/ai/voice] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/analytics] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/bot-builder] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/campaigns] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/campaigns/outbound] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/campaigns/create] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/email] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/sms] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
@@ -482,6 +490,8 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/channels/webchat] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/channels/whatsapp] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/contacts] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/contacts/import] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/contacts/segments] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/inbox] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/reports] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/reports/agent] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
@@ -517,9 +527,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/settings/webhooks] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/supervisor] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/supervisor/agents] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor/calls] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor/coaching] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/supervisor/interactions] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/supervisor/wallboard] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/tickets] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
+- [route:/voice/live] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/dids] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/history] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/voice/ivr] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`

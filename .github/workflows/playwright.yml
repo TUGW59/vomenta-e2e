@@ -82,6 +82,9 @@ jobs:
       - name: Rota kapsam derinliği matrisi güncel mi (drift kontrolü)
         if: ${{ github.event_name == 'pull_request' }}
         run: npm run report:surface:check
+      - name: Yüzey envanteri güncel mi (drift kontrolü)
+        if: ${{ github.event_name == 'pull_request' }}
+        run: npm run report:surface-inventory:check
 
   pr-impact:
     name: PR change-impact tests / Chromium

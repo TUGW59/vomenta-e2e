@@ -13,14 +13,14 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 71 · sözleşme sayfası: 48
-- **L1:** PROVEN 55 · not-proven 16
-- **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 6
-- **L2 durum:** COMPLETE 3 · PARTIAL 62 · NOT_COVERED 6
-- **Etkileşim derinliği tam doğrulanmayan rota:** 66 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
-- **L3:** BLOCKED(staging) 46 · N/A(no-write) 25
-- **L4:** BLOCKED(rol/tenant) 71 · **L5:** BLOCKED(provider) 71
-- **En yüksek seviye dağılımı:** L0 16 · L1 0 · L2·style 52 · L2·deep 3
+- **Kayıtlı rota:** 87 · sözleşme sayfası: 48
+- **L1:** PROVEN 55 · not-proven 32
+- **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
+- **L2 durum:** COMPLETE 3 · PARTIAL 62 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 82 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
+- **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 52 · L2·deep 3
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -31,11 +31,19 @@
 | `/` | dashboard,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | N/A | ⛔ rol | ⛔ provider | DASH-AI-I18N(low/open) DASH-CLICKHOUSE(medium/open) |
 | `/ai` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B13(low/open) B15(medium/open) |
 | `/ai/prompts` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | AI-PROMPTS-CONSOLE(medium/open) |
+| `/ai/chatbot` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/copilot` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/knowledge-base` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/providers` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/sentiment` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/usage` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/voice` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/analytics` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | ANALYTICS-A(medium/open) ANALYTICS-B(medium/open) B12(medium/open) |
 | `/bot-builder` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | BOT-BUILDER-CLOSE-I18N(low/open) BOT-BUILDER-TEMPLATE-I18N(high/open) |
 | `/bot-builder/:id` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/campaigns` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B2(high/open) |
 | `/campaigns/outbound` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CAMPAIGNS-ICON-A11Y(medium/open) CAMPAIGNS-PAGER(medium/open) |
+| `/campaigns/create` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/channels` | channels-hub,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | B5(medium/open) |
 | `/channels/email` | channels-email | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B17(medium/open) B21(medium/open) B9(medium/open) |
 | `/channels/sms` | channels-sms | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B18(medium/open) B22(medium/open) |
@@ -44,6 +52,9 @@
 | `/channels/webchat` | channels-webchat | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | B20(medium/open) |
 | `/channels/whatsapp` | channels-whatsapp | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B19(medium/open) B23(medium/open) |
 | `/contacts` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CONTACTS-F1(medium/open) CONTACTS-F2(medium/open) |
+| `/contacts/import` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/contacts/segments` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/contacts/:id` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/inbox` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B3(high/open) B8(high/closed) |
 | `/reports` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | REPORTS-AIKEY(medium/open) REPORTS-INTL(medium/open) |
 | `/reports/agent` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -62,6 +73,7 @@
 | `/settings/audit` | settings-audit | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | N/A | ⛔ rol | ⛔ provider |  |
 | `/settings/automations` | settings-automations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/billing` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | SETTINGS-BILLING-REDIRECT(high/open) |
+| `/settings/billing/marketplace` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/settings/canned-responses` | settings-canned-responses | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/compliance` | settings-compliance | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/data-retention` | settings-data-retention | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -80,9 +92,13 @@
 | `/settings/webhooks` | settings-webhooks | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/agents` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | AGENTS-TZ(medium/open) |
+| `/supervisor/calls` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/supervisor/coaching` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/supervisor/interactions` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/wallboard` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
 | `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider |  |
+| `/voice/live` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/dids` | voice-dids | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B14(medium/open) |
 | `/voice/history` | voice-history | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | VOICE-HISTORY-A11Y-LABEL(medium/open) |
 | `/voice/ivr` | voice-ivr | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -109,11 +125,19 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✅ | — |
 | `/ai` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/ai/prompts` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/chatbot` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/copilot` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/knowledge-base` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/providers` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/sentiment` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/usage` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/voice` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/analytics` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/bot-builder` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/bot-builder/:id` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/campaigns` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/campaigns/outbound` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/campaigns/create` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/channels` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✅ | N/A | ✅ | N/A |
 | `/channels/email` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
 | `/channels/sms` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
@@ -122,6 +146,9 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/channels/webchat` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A |
 | `/channels/whatsapp` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
 | `/contacts` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
+| `/contacts/import` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/contacts/segments` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/contacts/:id` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/inbox` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/reports` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/reports/agent` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A |
@@ -140,6 +167,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/settings/audit` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A | ✅ |
 | `/settings/automations` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A |
 | `/settings/billing` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/settings/billing/marketplace` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/settings/canned-responses` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A |
 | `/settings/compliance` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A | N/A |
 | `/settings/data-retention` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✅ | N/A | N/A | N/A |
@@ -158,9 +186,13 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/settings/webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A |
 | `/supervisor` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/supervisor/agents` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/calls` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/coaching` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/interactions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/supervisor/wallboard` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/voice` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
+| `/voice/live` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/voice/dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
 | `/voice/history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
 | `/voice/ivr` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
@@ -187,11 +219,19 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai/prompts` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/chatbot` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/copilot` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/knowledge-base` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/providers` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/sentiment` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/usage` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/voice` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/analytics` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/bot-builder` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/bot-builder/:id` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/campaigns` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/campaigns/outbound` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/campaigns/create` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/channels` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/channels/email` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/channels/sms` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -200,6 +240,9 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/channels/webchat` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/channels/whatsapp` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/contacts/import` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/contacts/segments` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/contacts/:id` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/inbox` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports/agent` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -218,6 +261,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/settings/audit` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/automations` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/billing` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/billing/marketplace` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/canned-responses` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/compliance` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/data-retention` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -236,9 +280,13 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/settings/webhooks` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/agents` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/calls` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/coaching` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/interactions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/tickets` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/dids` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/history` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/ivr` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -258,6 +306,6 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 
-- **L3 (mutation/CRUD):** 46 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 25 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
-- **L4 (rol/permission/tenant):** 71 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
-- **L5 (uçtan-uca provider):** 71 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).
+- **L3 (mutation/CRUD):** 46 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 41 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
+- **L4 (rol/permission/tenant):** 87 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
+- **L5 (uçtan-uca provider):** 87 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).

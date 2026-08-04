@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1218 / 119 dosya
-- **coverageStatus:** verified 0 · partial 1167 · generic 9 · blocked 42
-- **executionStatus:** executed 0 · listed-only 1176 · skipped 0 · fixme 42
+- **Listelenen test:** 1234 / 119 dosya
+- **coverageStatus:** verified 0 · partial 1181 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1190 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,7 +25,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 140 | 129 | 9 | 2 |
+| other | 156 | 143 | 9 | 4 |
 | reports | 80 | 80 | 0 | 0 |
 | settings | 339 | 322 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -573,10 +573,18 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/ai] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/ai/prompts] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/chatbot] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/copilot] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/knowledge-base] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/providers] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/sentiment] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/usage] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/ai/voice] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/analytics] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/bot-builder] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/campaigns] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/campaigns/outbound] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/campaigns/create] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/email] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/sms] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
@@ -585,6 +593,8 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/channels/webchat] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/channels/whatsapp] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/contacts] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/contacts/import] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/contacts/segments] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/inbox] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/reports] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/reports/agent] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
@@ -620,9 +630,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/settings/webhooks] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/supervisor] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/supervisor/agents] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/supervisor/calls] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/supervisor/coaching] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/supervisor/interactions] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/supervisor/wallboard] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/tickets] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/voice] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
+| [route:/voice/live] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/voice/dids] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/voice/history] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/voice/ivr] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
@@ -640,7 +654,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/workforce/surveys] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/workforce/time-off] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/bot-builder/:id] kayıtlı rota blocked (READONLY_FIXTURE_ID_REQUIRED) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/contacts/:id] kayıtlı rota blocked (READONLY_FIXTURE_ID_REQUIRED) | @route-blocked | — | fixme | blocked | low | list-exec |
 | [route:/settings/billing] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/settings/billing/marketplace] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
 
 ### `reports-actions.authed.spec.js` — _reports_
 

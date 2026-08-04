@@ -1,0 +1,2204 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "provenance": {
+    "derivedFrom": "PRODUCT_SURFACES + COVERAGE_CONTRACTS (static sources) + surface-completeness reconcile",
+    "reconcileSources": [
+      "navigation",
+      "coverage-contract",
+      "coverage-baseline",
+      "route-marker",
+      "known-bug",
+      "runtime",
+      "discovery",
+      "pr-impact"
+    ],
+    "reconcileObservations": 398
+  },
+  "totals": {
+    "surfaces": 87,
+    "coveredContract": 56,
+    "noCoverageContract": 27,
+    "blocked": 4,
+    "redirect": 0,
+    "deprecated": 0,
+    "dynamic": 2,
+    "observedButUnregistered": 0,
+    "ambiguous": 0,
+    "heldCandidates": 3,
+    "byStatus": {
+      "BLOCKED": 4,
+      "COVERED_CONTRACT": 56,
+      "NO_COVERAGE_CONTRACT": 27
+    },
+    "byArea": {
+      "ai": 9,
+      "analytics": 1,
+      "bot-builder": 2,
+      "campaigns": 3,
+      "channels": 7,
+      "contacts": 4,
+      "dashboard": 1,
+      "inbox": 1,
+      "reports": 12,
+      "settings": 22,
+      "supervisor": 6,
+      "tickets": 1,
+      "voice": 12,
+      "workforce": 6
+    },
+    "byRuntimePolicy": {
+      "fixture-required": 2,
+      "readonly-baseline": 83,
+      "readonly-blocked": 2
+    },
+    "byBaseline": {
+      "blocked": 4,
+      "runnable": 83
+    }
+  },
+  "sections": {
+    "registeredSurfaces": [
+      {
+        "id": "ai",
+        "route": "/ai",
+        "area": "ai",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-chatbot",
+        "route": "/ai/chatbot",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-copilot",
+        "route": "/ai/copilot",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-knowledge-base",
+        "route": "/ai/knowledge-base",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-prompts",
+        "route": "/ai/prompts",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug",
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-providers",
+        "route": "/ai/providers",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-sentiment",
+        "route": "/ai/sentiment",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-usage",
+        "route": "/ai/usage",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "ai-voice",
+        "route": "/ai/voice",
+        "area": "ai",
+        "parentId": "ai",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "analytics",
+        "route": "/analytics",
+        "area": "analytics",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "bot-builder",
+        "route": "/bot-builder",
+        "area": "bot-builder",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "bot-builder-detail",
+        "route": "/bot-builder/:id",
+        "area": "bot-builder",
+        "parentId": "bot-builder",
+        "routeKind": "dynamic",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "fixture-required",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FIXTURE_ID_REQUIRED",
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "campaigns",
+        "route": "/campaigns",
+        "area": "campaigns",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "campaigns-create",
+        "route": "/campaigns/create",
+        "area": "campaigns",
+        "parentId": "campaigns",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "contextual",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "campaigns-outbound",
+        "route": "/campaigns/outbound",
+        "area": "campaigns",
+        "parentId": "campaigns",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "channels",
+        "route": "/channels",
+        "area": "channels",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-hub"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-email",
+        "route": "/channels/email",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-email"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-sms",
+        "route": "/channels/sms",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-sms"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-social",
+        "route": "/channels/social",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-social"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-video",
+        "route": "/channels/video",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-video"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-webchat",
+        "route": "/channels/webchat",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-webchat"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "channels-whatsapp",
+        "route": "/channels/whatsapp",
+        "area": "channels",
+        "parentId": "channels",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "channels-whatsapp"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "contacts",
+        "route": "/contacts",
+        "area": "contacts",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "contacts-detail",
+        "route": "/contacts/:id",
+        "area": "contacts",
+        "parentId": "contacts",
+        "routeKind": "dynamic",
+        "lifecycle": "active",
+        "navigation": "contextual",
+        "runtimePolicy": "fixture-required",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FIXTURE_ID_REQUIRED",
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "contacts-import",
+        "route": "/contacts/import",
+        "area": "contacts",
+        "parentId": "contacts",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "contacts-segments",
+        "route": "/contacts/segments",
+        "area": "contacts",
+        "parentId": "contacts",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "dashboard",
+        "route": "/",
+        "area": "dashboard",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "dashboard"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "inbox",
+        "route": "/inbox",
+        "area": "inbox",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "reports",
+        "route": "/reports",
+        "area": "reports",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "reports-agent",
+        "route": "/reports/agent",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-ai",
+        "route": "/reports/ai",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-billing",
+        "route": "/reports/billing",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-call",
+        "route": "/reports/call",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-campaign",
+        "route": "/reports/campaign",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-channel",
+        "route": "/reports/channel",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-csat",
+        "route": "/reports/csat",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-dashboards",
+        "route": "/reports/dashboards",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-dashboards"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-quality",
+        "route": "/reports/quality",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-queue",
+        "route": "/reports/queue",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "reports-sla",
+        "route": "/reports/sla",
+        "area": "reports",
+        "parentId": "reports",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "reports-sections"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings",
+        "route": "/settings",
+        "area": "settings",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-hub"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-api-keys",
+        "route": "/settings/api-keys",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-api-keys"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-audit",
+        "route": "/settings/audit",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-audit"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-automations",
+        "route": "/settings/automations",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-automations"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-billing",
+        "route": "/settings/billing",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_403_FORBIDDEN",
+        "redirectTarget": null,
+        "condition": "Requires billing-admin permission; standard roles receive 403 and are redirected to /",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "settings-billing-marketplace",
+        "route": "/settings/billing/marketplace",
+        "area": "settings",
+        "parentId": "settings-billing",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_403_FORBIDDEN",
+        "redirectTarget": null,
+        "condition": "Requires billing-admin/modules permission; standard roles receive 403 and are redirected to /",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug",
+          "page-object"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "settings-canned-responses",
+        "route": "/settings/canned-responses",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-canned-responses"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-compliance",
+        "route": "/settings/compliance",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-compliance"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-data-retention",
+        "route": "/settings/data-retention",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-data-retention"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-disposition-codes",
+        "route": "/settings/disposition-codes",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-disposition-codes"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-hours",
+        "route": "/settings/hours",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-hours"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-integrations",
+        "route": "/settings/integrations",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-integrations"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-notifications",
+        "route": "/settings/notifications",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-notifications"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-organization",
+        "route": "/settings/organization",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-organization"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-profile",
+        "route": "/settings/profile",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-profile"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-roles",
+        "route": "/settings/roles",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-roles"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-security",
+        "route": "/settings/security",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-security"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-sla",
+        "route": "/settings/sla",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-sla"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-teams",
+        "route": "/settings/teams",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-teams"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-templates",
+        "route": "/settings/templates",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-templates"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-users",
+        "route": "/settings/users",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-users"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "settings-webhooks",
+        "route": "/settings/webhooks",
+        "area": "settings",
+        "parentId": "settings",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "settings-webhooks"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "supervisor",
+        "route": "/supervisor",
+        "area": "supervisor",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "supervisor-agents",
+        "route": "/supervisor/agents",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug",
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "supervisor-calls",
+        "route": "/supervisor/calls",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "supervisor-coaching",
+        "route": "/supervisor/coaching",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "supervisor-interactions",
+        "route": "/supervisor/interactions",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "supervisor-wallboard",
+        "route": "/supervisor/wallboard",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "known-bug"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "tickets",
+        "route": "/tickets",
+        "area": "tickets",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "discovery-observation",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "voice",
+        "route": "/voice",
+        "area": "voice",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-hub"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-dids",
+        "route": "/voice/dids",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-dids"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-history",
+        "route": "/voice/history",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-history"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-ivr",
+        "route": "/voice/ivr",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-ivr"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-live",
+        "route": "/voice/live",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "page-object"
+        ],
+        "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "voice-queues",
+        "route": "/voice/queues",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-queues"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-recordings",
+        "route": "/voice/recordings",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-recordings"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-regulatory",
+        "route": "/voice/regulatory",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-regulatory"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-sip-settings",
+        "route": "/voice/sip-settings",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-sip-settings"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-sip-trunks",
+        "route": "/voice/sip-trunks",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-sip-trunks"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-skills",
+        "route": "/voice/skills",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-skills"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "voice-voicemail",
+        "route": "/voice/voicemail",
+        "area": "voice",
+        "parentId": "voice",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "voice-voicemail"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce",
+        "route": "/workforce",
+        "area": "workforce",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "main",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce"
+        ],
+        "evidenceTypes": [
+          "discovery-observation",
+          "known-bug",
+          "navigation-contract",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce-badges",
+        "route": "/workforce/badges",
+        "area": "workforce",
+        "parentId": "workforce",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce-badges"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce-evaluations",
+        "route": "/workforce/evaluations",
+        "area": "workforce",
+        "parentId": "workforce",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce-evaluations"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce-schedules",
+        "route": "/workforce/schedules",
+        "area": "workforce",
+        "parentId": "workforce",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce-schedules"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce-surveys",
+        "route": "/workforce/surveys",
+        "area": "workforce",
+        "parentId": "workforce",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce-surveys"
+        ],
+        "evidenceTypes": [
+          "known-bug",
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      },
+      {
+        "id": "workforce-time-off",
+        "route": "/workforce/time-off",
+        "area": "workforce",
+        "parentId": "workforce",
+        "routeKind": "static",
+        "lifecycle": "active",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-baseline",
+        "baseline": "runnable",
+        "blockedReason": null,
+        "redirectTarget": null,
+        "condition": null,
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "workforce-time-off"
+        ],
+        "evidenceTypes": [
+          "route-inventory"
+        ],
+        "status": "COVERED_CONTRACT"
+      }
+    ],
+    "observedButUnregistered": [],
+    "ambiguous": [],
+    "registeredNoCoverageContract": [
+      {
+        "id": "ai",
+        "route": "/ai",
+        "area": "ai"
+      },
+      {
+        "id": "ai-chatbot",
+        "route": "/ai/chatbot",
+        "area": "ai"
+      },
+      {
+        "id": "ai-copilot",
+        "route": "/ai/copilot",
+        "area": "ai"
+      },
+      {
+        "id": "ai-knowledge-base",
+        "route": "/ai/knowledge-base",
+        "area": "ai"
+      },
+      {
+        "id": "ai-prompts",
+        "route": "/ai/prompts",
+        "area": "ai"
+      },
+      {
+        "id": "ai-providers",
+        "route": "/ai/providers",
+        "area": "ai"
+      },
+      {
+        "id": "ai-sentiment",
+        "route": "/ai/sentiment",
+        "area": "ai"
+      },
+      {
+        "id": "ai-usage",
+        "route": "/ai/usage",
+        "area": "ai"
+      },
+      {
+        "id": "ai-voice",
+        "route": "/ai/voice",
+        "area": "ai"
+      },
+      {
+        "id": "analytics",
+        "route": "/analytics",
+        "area": "analytics"
+      },
+      {
+        "id": "bot-builder",
+        "route": "/bot-builder",
+        "area": "bot-builder"
+      },
+      {
+        "id": "campaigns",
+        "route": "/campaigns",
+        "area": "campaigns"
+      },
+      {
+        "id": "campaigns-create",
+        "route": "/campaigns/create",
+        "area": "campaigns"
+      },
+      {
+        "id": "campaigns-outbound",
+        "route": "/campaigns/outbound",
+        "area": "campaigns"
+      },
+      {
+        "id": "contacts",
+        "route": "/contacts",
+        "area": "contacts"
+      },
+      {
+        "id": "contacts-import",
+        "route": "/contacts/import",
+        "area": "contacts"
+      },
+      {
+        "id": "contacts-segments",
+        "route": "/contacts/segments",
+        "area": "contacts"
+      },
+      {
+        "id": "inbox",
+        "route": "/inbox",
+        "area": "inbox"
+      },
+      {
+        "id": "reports",
+        "route": "/reports",
+        "area": "reports"
+      },
+      {
+        "id": "supervisor",
+        "route": "/supervisor",
+        "area": "supervisor"
+      },
+      {
+        "id": "supervisor-agents",
+        "route": "/supervisor/agents",
+        "area": "supervisor"
+      },
+      {
+        "id": "supervisor-calls",
+        "route": "/supervisor/calls",
+        "area": "supervisor"
+      },
+      {
+        "id": "supervisor-coaching",
+        "route": "/supervisor/coaching",
+        "area": "supervisor"
+      },
+      {
+        "id": "supervisor-interactions",
+        "route": "/supervisor/interactions",
+        "area": "supervisor"
+      },
+      {
+        "id": "supervisor-wallboard",
+        "route": "/supervisor/wallboard",
+        "area": "supervisor"
+      },
+      {
+        "id": "tickets",
+        "route": "/tickets",
+        "area": "tickets"
+      },
+      {
+        "id": "voice-live",
+        "route": "/voice/live",
+        "area": "voice"
+      }
+    ],
+    "dynamicOrBlocked": [
+      {
+        "id": "bot-builder-detail",
+        "route": "/bot-builder/:id",
+        "baseline": "blocked",
+        "routeKind": "dynamic",
+        "blockedReason": "READONLY_FIXTURE_ID_REQUIRED"
+      },
+      {
+        "id": "contacts-detail",
+        "route": "/contacts/:id",
+        "baseline": "blocked",
+        "routeKind": "dynamic",
+        "blockedReason": "READONLY_FIXTURE_ID_REQUIRED"
+      },
+      {
+        "id": "settings-billing",
+        "route": "/settings/billing",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_403_FORBIDDEN"
+      },
+      {
+        "id": "settings-billing-marketplace",
+        "route": "/settings/billing/marketplace",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_403_FORBIDDEN"
+      }
+    ],
+    "deprecatedOrRedirect": [],
+    "evidenceRollup": {
+      "discovery-observation": 46,
+      "known-bug": 35,
+      "navigation-contract": 14,
+      "page-object": 18,
+      "route-inventory": 65
+    },
+    "heldCandidates": [
+      {
+        "route": "/campaigns/dnc",
+        "area": "campaigns",
+        "reason": "PR-only (#42); güncel main'de kanıt yok",
+        "evidenceRef": "PR #42"
+      },
+      {
+        "route": "/campaigns/sender-ids",
+        "area": "campaigns",
+        "reason": "PR-only (#42); güncel main'de kanıt yok (0 spec/page-object/discovery/known-bug)",
+        "evidenceRef": "PR #42"
+      },
+      {
+        "route": "/campaigns/templates",
+        "area": "campaigns",
+        "reason": "PR-only (#42); güncel main'de kanıt yok",
+        "evidenceRef": "PR #42"
+      }
+    ]
+  }
+}
