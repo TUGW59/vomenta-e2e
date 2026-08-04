@@ -16,6 +16,10 @@ import {
   aggregate,
   validateSelection,
   buildRunGroups,
+  shardGroups,
+  classifyFailure,
+  planRetry,
+  MAX_ATTEMPTS_PER_TEST,
 } from './pr-impact-runner-lib.mjs';
 
 const root = process.cwd();
@@ -257,6 +261,130 @@ const validAuthedPlan = plan([{ path: 'tests/contacts.authed.spec.js', status: '
   const a = JSON.stringify(planRun(validAuthedPlan).groups);
   const b = JSON.stringify(planRun(validAuthedPlan).groups);
   check('deterministic-decision', a === b, 'iki koşum farklı grup üretti');
+}
+
+// ───────────── WP-CI-SHARD (ADR-0025) sharding — SAF kapsam kanıtı ─────────────
+
+// S1) Bölme deterministik + kapsam korunur: tüm shard'ların birleşimi = tüm exact
+//     dosyalar, ve hiçbir dosya iki shard'a birden gitmez (çakışma yok).
+{
+  const groups = [
+    { key: 'authed', kind: 'exact', project: 'chromium-authed', setup: 'setup', grep: null,
+      files: ['tests/a.authed.spec.js', 'tests/b.authed.spec.js', 'tests/c.authed.spec.js', 'tests/d.authed.spec.js'] },
+    { key: 'public', kind: 'exact', project: 'chromium', setup: null, grep: null,
+      files: ['tests/x.spec.js', 'tests/y.spec.js'] },
+  ];
+  const total = 3;
+  const seen = new Map(); // file -> shard indeks sayısı
+  let all = [];
+  for (let i = 1; i <= total; i++) {
+    for (const g of shardGroups(groups, i, total)) {
+      for (const f of g.files) {
+        seen.set(f, (seen.get(f) || 0) + 1);
+        all.push(f);
+      }
+    }
+  }
+  const expected = ['tests/a.authed.spec.js','tests/b.authed.spec.js','tests/c.authed.spec.js','tests/d.authed.spec.js','tests/x.spec.js','tests/y.spec.js'];
+  const noDup = [...seen.values()].every((n) => n === 1);
+  const complete = expected.every((f) => seen.has(f)) && seen.size === expected.length;
+  check('shard-union-complete-disjoint', noDup && complete, `union=${all.sort().join(',')} dupOrMissing`);
+}
+
+// S2) Determinizm: aynı girdi + shard → aynı çıktı; girdi sırası bağımsız.
+{
+  const g1 = [{ key: 'authed', kind: 'exact', project: 'chromium-authed', setup: 'setup', grep: null,
+    files: ['tests/b.authed.spec.js', 'tests/a.authed.spec.js'] }];
+  const g2 = [{ key: 'authed', kind: 'exact', project: 'chromium-authed', setup: 'setup', grep: null,
+    files: ['tests/a.authed.spec.js', 'tests/b.authed.spec.js'] }];
+  const s1 = JSON.stringify(shardGroups(g1, 1, 2));
+  const s2 = JSON.stringify(shardGroups(g2, 1, 2));
+  check('shard-deterministic-order-independent', s1 === s2, `s1=${s1} s2=${s2}`);
+}
+
+// S3) grep-only fallback YALNIZ shard 1'de koşar (bölünemez; tekrar gereksiz yük).
+{
+  const groups = [{ key: 'fallback:authed-critical', kind: 'fallback', project: 'chromium-authed', setup: 'setup', grep: '@critical', files: [] }];
+  const onS1 = shardGroups(groups, 1, 3).some((g) => g.key === 'fallback:authed-critical');
+  const onS2 = shardGroups(groups, 2, 3).some((g) => g.key === 'fallback:authed-critical');
+  const onS3 = shardGroups(groups, 3, 3).some((g) => g.key === 'fallback:authed-critical');
+  check('grep-fallback-shard1-only', onS1 && !onS2 && !onS3, `s1=${onS1} s2=${onS2} s3=${onS3}`);
+}
+
+// S4) Boş shard meşrudur (shard sayısı > dosya sayısı): grup listesi boş → SHARD_NOOP.
+{
+  const groups = [{ key: 'authed', kind: 'exact', project: 'chromium-authed', setup: 'setup', grep: null, files: ['tests/only.authed.spec.js'] }];
+  const emptyOnes = [2, 3].every((i) => shardGroups(groups, i, 3).length === 0);
+  const oneHasIt = shardGroups(groups, 1, 3).length + shardGroups(groups, 2, 3).length + shardGroups(groups, 3, 3).length === 1;
+  check('shard-empty-is-legal', emptyOnes && oneHasIt, `emptyOnes=${emptyOnes} total=${oneHasIt}`);
+}
+
+// S5) Geçersiz shard parametresi fail-closed (throw).
+{
+  let threw = 0;
+  for (const [i, t] of [[0, 3], [4, 3], [1, 0], [2, 1]]) {
+    try { shardGroups([], i, t); } catch { threw++; }
+  }
+  check('shard-invalid-throws', threw === 4, `throws=${threw}/4`);
+}
+
+// ─────── WP-CI-SHARD (ADR-0025) kontrollü altyapı-retry — SAF sınıflandırma ───────
+
+// R1) 502/503/504 gateway kanıtı → 'infra' (retry uygun).
+{
+  const a = classifyFailure('503 Service Temporarily Unavailable\nnginx');
+  const b = classifyFailure('502 Bad Gateway');
+  const c = classifyFailure('', [200, 504]); // gözlemlenen ağ yanıtı
+  check('retry-gateway-infra', a.class === 'infra' && b.class === 'infra' && c.class === 'infra', `${a.reason}/${b.reason}/${c.reason}`);
+}
+
+// R2) İzin verilen network hatası → 'infra'.
+{
+  const a = classifyFailure('Error: socket hang up');
+  const b = classifyFailure('page.goto: net::ERR_CONNECTION_RESET at https://app...');
+  const c = classifyFailure('getaddrinfo EAI_AGAIN app.vomenta.com');
+  check('retry-network-infra', a.class === 'infra' && b.class === 'infra' && c.class === 'infra', `${a.reason}/${b.reason}/${c.reason}`);
+}
+
+// R3) Assertion/selector/visibility → 'test' (retry YOK); ağ ifadesi geçse bile deny kazanır.
+{
+  const assertion = classifyFailure('Error: expect(received).toBeVisible()\nlocator resolved to hidden');
+  const selector = classifyFailure("locator.click: Timed out 15000ms waiting for locator('nav')");
+  const mixed = classifyFailure('expect(locator).toBeVisible() failed; also saw ECONNRESET in logs');
+  check(
+    'retry-assertion-selector-no-retry',
+    assertion.class === 'test' && selector.class === 'test' && mixed.class === 'test',
+    `${assertion.class}/${selector.class}/${mixed.class}`
+  );
+}
+
+// R4) Kanıt yok → fail-closed 'test' (retry YOK).
+{
+  const a = classifyFailure('Some unexpected error with no infra evidence');
+  const b = classifyFailure('');
+  const auth = classifyFailure('Login failed: 401 Unauthorized'); // yetki hatası infra DEĞİL
+  check('retry-failclosed-test', a.class === 'test' && b.class === 'test' && auth.class === 'test', `${a.reason}/${b.reason}/${auth.reason}`);
+}
+
+// R5) planRetry yalnız infra'yı retry kovasına koyar; test'i kırmızı tutar.
+{
+  const { retry, keepRed } = planRetry([
+    { file: 'tests/a.authed.spec.js', line: 10, title: 'gw', errorText: '503 Service Unavailable' },
+    { file: 'tests/b.authed.spec.js', line: 20, title: 'assert', errorText: 'expect(x).toBe(1)' },
+    { file: 'tests/c.authed.spec.js', line: 30, title: 'net', errorText: 'socket hang up' },
+  ]);
+  check(
+    'planRetry-splits-infra-vs-test',
+    retry.length === 2 && keepRed.length === 1 &&
+      retry.every((f) => f.classification.class === 'infra') &&
+      keepRed[0].classification.class === 'test',
+    `retry=${retry.length} keepRed=${keepRed.length}`
+  );
+}
+
+// R6) Kontrollü retry bütçesi = EN FAZLA 1 (MAX_ATTEMPTS_PER_TEST = 2).
+{
+  check('retry-budget-one', MAX_ATTEMPTS_PER_TEST === 2, `MAX_ATTEMPTS_PER_TEST=${MAX_ATTEMPTS_PER_TEST}`);
 }
 
 // ─────────────────────────────── Sonuç ───────────────────────────────

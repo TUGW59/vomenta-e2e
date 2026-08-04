@@ -67,7 +67,13 @@ export const environment = Object.freeze({
 });
 
 export function authStatePath(role = 'default') {
-  return `playwright/.auth/${role}.json`;
+  // WP-CI-SHARD: paralel shard + kontrollü retry (attempt) izolasyonu için auth
+  // dizini env ile geçersiz kılınabilir. Böylece aynı makinede eşzamanlı shard'lar
+  // ve bir shard'ın attempt-1/attempt-2 koşumları AYRI storageState kullanır →
+  // paylaşılan `playwright/.auth/default.json` üzerinde yarış (ENOENT) olmaz ve
+  // kontrollü retry TAZE bağımsız login üretir. Boşsa varsayılan davranış korunur.
+  const base = (process.env.PW_AUTH_DIR || 'playwright/.auth').replace(/\/+$/, '');
+  return `${base}/${role}.json`;
 }
 
 export function hasRoleCredentials(role) {

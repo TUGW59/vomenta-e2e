@@ -94,10 +94,28 @@ jobs:
     needs: architecture
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    # WP-CI-SHARD (ADR-0025): PR change-impact lane'i 3 parçaya (shard) bölünür.
+    # Geniş-etkili PR'larda (config/contract/auth-setup → bounded fallback) tek
+    # runner + 45-dk kutu canlı 503 dalgasında timeout'a düşüyordu. Her shard kendi
+    # kutusunda BİTER; kapsam birleşimde korunur (shardGroups saf bölme + aggregate
+    # gate). Kutu 75-dk: shard başına düşen yükün taze-login + kontrollü retry ile
+    # güvenli tamamlanması için.
+    timeout-minutes: 75
+    strategy:
+      # Bir shard kırmızı olunca diğerleri iptal edilmez; her parçanın gerçek sonucu
+      # ayrı görünür. Aggregate gate (pr-impact-gate) hepsini tek sabit kapıda toplar.
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        shard: [1, 2, 3]
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      # Genel retry YOK: kontrollü altyapı-retry runner içinde, yalnız yapılandırılmış
+      # 502/503/504 + izin verilen network hatalarında ve EN FAZLA 1 kez yapılır.
+      PLAYWRIGHT_RETRIES: 0
+      # Shard başına tek worker: canlı sunucu yükü + determinizm.
+      PLAYWRIGHT_WORKERS: 1
       # Mutation kaçış bayrağı YOK: üst düzey ALLOW_MUTATING_TESTS='false' korunur.
       # Değişen dosyalardan yalnız ilgili testler seçilir (WP-CI-E2); sabit tek
       # dosya değil. Runner 0-test/flaky/unexpected/mutation-sızmasında kırmızıdır.
@@ -117,9 +135,31 @@ jobs:
         # Planner shallow/eksik base'de non-zero verir (fail-closed) → job kırmızı.
         run: node tools/plan-pr-impact.mjs --base "origin/${{ github.base_ref }}" --head "${{ github.sha }}"
       - name: Seçilen testleri koş (gerçek runner; gating adım)
-        # Runner selection.json'u okur, EXACT spec + fallback gruplarını Chromium'da
-        # koşar. continue-on-error / || true YOK: exit-code job'ı gate eder.
-        run: node tools/run-pr-impact.mjs --plan test-results/pr-impact/selection.json
+        # Runner selection.json'u okur, EXACT spec + fallback gruplarını bu shard için
+        # (--shard N/3) Chromium'da koşar. continue-on-error / || true YOK: exit-code
+        # job'ı gate eder. Boş shard meşru SHARD_NOOP'tur (exit 0); kapsam birleşimde.
+        run: node tools/run-pr-impact.mjs --plan test-results/pr-impact/selection.json --shard ${{ matrix.shard }}/3
+
+  pr-impact-gate:
+    # WP-CI-SHARD (ADR-0025): SABİT İSİMLİ aggregate gate. Shard sayısı değişse bile
+    # branch protection tek bu kapıyı zorunlu kılar. Tüm pr-impact matris hücreleri
+    # yeşil değilse (failure/cancelled/skipped) bu job KIRMIZI olur → merge engellenir.
+    name: PR change-impact gate
+    needs: pr-impact
+    if: ${{ always() && github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Tüm change-impact shard'ları yeşil mi (sabit aggregate kapı)
+        env:
+          IMPACT_RESULT: ${{ needs.pr-impact.result }}
+        run: |
+          echo "pr-impact matris sonucu: ${IMPACT_RESULT}"
+          if [ "${IMPACT_RESULT}" != "success" ]; then
+            echo "::error::PR change-impact shard'ları yeşil değil (${IMPACT_RESULT}); merge engellendi."
+            exit 1
+          fi
+          echo "Tüm change-impact shard'ları başarılı."
 
   public-smoke:
     name: Public smoke / Chromium

@@ -152,6 +152,102 @@ const joinedRuns = runStrings.join('\n');
   check('runner-gates-job', runnerGates && !afterMasks, `gates=${runnerGates} afterMasks=${afterMasks}`);
 }
 
+// ─────────────────── WP-CI-SHARD (ADR-0025) shard + gate sözleşmesi ───────────────────
+
+/** Akış (flow) dizi string'ini (`[1, 2, 3]`) elemanlara böler; blok dizisi ise aynen. */
+function flowList(value) {
+  if (Array.isArray(value)) return value.map((v) => String(v).trim()).filter((v) => v !== '');
+  if (typeof value !== 'string') return [];
+  const m = value.trim().match(/^\[(.*)\]$/s);
+  if (!m) return value.trim() === '' ? [] : [value.trim()];
+  return m[1]
+    .split(',')
+    .map((s) => stripQ(s))
+    .filter((s) => s !== '');
+}
+function stripQ(s) {
+  const t = String(s).trim();
+  if ((t.startsWith('"') && t.endsWith('"')) || (t.startsWith("'") && t.endsWith("'"))) {
+    return t.slice(1, -1).trim();
+  }
+  return t;
+}
+
+const strategy = job.strategy && typeof job.strategy === 'object' ? job.strategy : {};
+const matrix = strategy.matrix && typeof strategy.matrix === 'object' ? strategy.matrix : {};
+const shardList = flowList(matrix.shard);
+const jobEnv = job.env && typeof job.env === 'object' ? job.env : {};
+
+// 11) Matris tam 3 shard tanımlar (kapsam 3 parçaya bölünür).
+check(
+  'matrix-3-shards',
+  shardList.length === 3,
+  `shard=${JSON.stringify(matrix.shard)} → ${shardList.length} eleman`
+);
+
+// 12) max-parallel = 3.
+check(
+  'max-parallel-3',
+  String(strategy['max-parallel']) === '3',
+  `max-parallel=${strategy['max-parallel']}`
+);
+
+// 13) timeout-minutes = 75.
+check(
+  'timeout-75',
+  String(job['timeout-minutes']) === '75',
+  `timeout-minutes=${job['timeout-minutes']}`
+);
+
+// 14) Shard başına tek worker (PLAYWRIGHT_WORKERS=1).
+check(
+  'workers-1',
+  String(jobEnv.PLAYWRIGHT_WORKERS) === '1',
+  `PLAYWRIGHT_WORKERS=${jobEnv.PLAYWRIGHT_WORKERS}`
+);
+
+// 15) Genel retry 0 (PLAYWRIGHT_RETRIES=0). Kontrollü retry runner içindedir.
+check(
+  'global-retries-0',
+  String(jobEnv.PLAYWRIGHT_RETRIES) === '0',
+  `PLAYWRIGHT_RETRIES=${jobEnv.PLAYWRIGHT_RETRIES}`
+);
+
+// 16) Runner adımı shard parametresiyle çağrılır (--shard).
+check('runner-uses-shard', /--shard\b/.test(joinedRuns), 'runner --shard ile çağrılmıyor');
+
+// 17) Sabit isimli aggregate gate job mevcut ve pr-impact'e bağımlı.
+const GATE = 'pr-impact-gate';
+const gate = jobs[GATE];
+check('gate-job-exists', !!gate && typeof gate === 'object', `jobs.${GATE} yok`);
+if (gate && typeof gate === 'object') {
+  const gNeeds =
+    gate.needs === JOB ||
+    (Array.isArray(gate.needs) && gate.needs.includes(JOB)) ||
+    flowList(gate.needs).includes(JOB);
+  check('gate-needs-pr-impact', gNeeds, `gate.needs=${JSON.stringify(gate.needs)}`);
+
+  const gSteps = Array.isArray(gate.steps) ? gate.steps : [];
+  const gRuns = gSteps
+    .filter((s) => s && typeof s === 'object')
+    .map((s) => `${typeof s.run === 'string' ? s.run : ''}\n${s.env ? JSON.stringify(s.env) : ''}`)
+    .join('\n');
+  // Gate, pr-impact matris SONUCUNU okuyup yeşil değilse kırmızı olmalı.
+  const readsResult = /needs\.pr-impact\.result/.test(gRuns);
+  const failsOnNonSuccess = /!=\s*["']?success|exit 1/.test(gRuns);
+  check('gate-checks-result', readsResult && failsOnNonSuccess, `readsResult=${readsResult} fails=${failsOnNonSuccess}`);
+
+  // Gate hiçbir adımı exit-code'u yutmamalı (continue-on-error / || true YOK).
+  const gateMasks =
+    gSteps.some((s) => s && String(s['continue-on-error']).toLowerCase() === 'true') ||
+    /\|\|\s*true\b/.test(gRuns);
+  check('gate-no-mask', !gateMasks, `gateMasks=${gateMasks}`);
+
+  // Gate yalnız pull_request olayında koşmalı (PR-koşullu).
+  const gIf = typeof gate.if === 'string' ? gate.if : '';
+  check('gate-pr-conditioned', /pull_request/.test(gIf), `gate.if="${gIf}"`);
+}
+
 // ─────────────────────────────── Sonuç ───────────────────────────────
 if (failures.length > 0) {
   for (const f of failures) console.error('  ✗ ' + f);
