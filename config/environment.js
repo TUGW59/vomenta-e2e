@@ -85,9 +85,13 @@ export function credentialsFor(role = 'default') {
   const password = process.env[`${prefix}_PASSWORD`];
 
   if (!email || !password) {
+    // Ön-koşul (preflight) hatası: kimlik bilgisi yokken login DENENMEZ.
+    // Böylece kök .env eksikliği, login sonrası anlamsız bir "sayfa gelmedi"
+    // hatası yerine burada açık ve uygulanabilir bir mesajla erken durur.
     throw new Error(
-      `${prefix}_EMAIL ve ${prefix}_PASSWORD tanımlı olmalı. ` +
-        'Yerelde .env, CI ortamında secret kullanın.'
+      `Kimlik doğrulama ön-koşulu eksik: ${prefix}_EMAIL ve ${prefix}_PASSWORD tanımlı değil ` +
+        `(rol: ${role}). Girişli testler başlayamaz. Yerelde kök .env dosyası oluşturup ` +
+        'bu değişkenleri tanımlayın (bkz. .env.example); CI ortamında repo secret olarak sağlayın.'
     );
   }
 
