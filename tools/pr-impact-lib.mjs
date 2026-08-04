@@ -126,6 +126,26 @@ const DOCS_ONLY_ALLOWED_PATHS = Object.freeze([
   'docs/raporlar/YAPILAN-TESTLER.md',
   'docs/raporlar/YAPILMAYAN-TESTLER.md',
 ]);
+// Saf-doküman PR olarak izinli ek yollar (kontrollü — genel `docs/**` DEĞİL):
+//  - `docs/EVIDENCE-PIPELINE-PLAN.md` tam yolu (kanıt hattı fazlı planı),
+//  - `docs/adr/<4-rakam>-<kebab-case>.md` deseni (numaralı mimari kararlar).
+// Numarasız/kontrolsüz `docs/adr/*` (ör. `docs/adr/notes.md`) veya rastgele
+// `docs/*.md` HÂLÂ QUALITY_ONLY_POLICY_VIOLATION üretir (fail-closed korunur).
+const EVIDENCE_PIPELINE_PLAN_PATH = 'docs/EVIDENCE-PIPELINE-PLAN.md';
+const NUMBERED_ADR_RE = /^docs\/adr\/\d{4}-[a-z0-9]+(?:-[a-z0-9]+)*\.md$/;
+
+/**
+ * Bir dosya, TEK BAŞINA saf-doküman PR'da izinli bir doküman yolu mu?
+ * @param {string} rel repo-göreli, normalize edilmiş yol
+ * @returns {boolean}
+ */
+export function isAllowedDocsOnlyPath(rel) {
+  return (
+    DOCS_ONLY_ALLOWED_PATHS.includes(rel) ||
+    rel === EVIDENCE_PIPELINE_PLAN_PATH ||
+    NUMBERED_ADR_RE.test(rel)
+  );
+}
 
 // ─────────────────────────── Sınıflandırma (yol) ───────────────────────────
 
@@ -402,7 +422,7 @@ export function planImpact(input = {}) {
   const hasOnlyGeneratedDocs =
     details.length > 0 && details.every((f) => QUALITY_ONLY_ALLOWED_DOCS.includes(f.path));
   const hasOnlyDocsAllowedPaths =
-    details.length > 0 && details.every((f) => DOCS_ONLY_ALLOWED_PATHS.includes(f.path));
+    details.length > 0 && details.every((f) => isAllowedDocsOnlyPath(f.path));
   const hasRuntimeChange = details.some((f) => f.path !== '.env' && !f.path.startsWith('docs/'));
   const hasDocsOnlyChange = details.length > 0 && details.every((f) => f.path.startsWith('docs/') || f.path === 'README.md');
   const hasGeneratedDocs = details.some((f) => QUALITY_ONLY_ALLOWED_DOCS.includes(f.path));
