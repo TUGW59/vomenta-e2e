@@ -1,16 +1,20 @@
-# WP-FULL-READONLY-AUDIT FAZ 3 — Kalıcı GitHub full read-only audit lane'i (ADR-0020).
+# WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — SHARDED full read-only audit lane (ADR-0022).
 #
-# Raporlamayı tek makineden çıkarıp GitHub'da tekrar çalıştırılabilir hâle getirir.
-# FAZ 1 güvenli seçicisi (select-readonly-tests) + FAZ 2 doğruluk-kapısı orchestrator'ı
-# (run-audit) + WP-SEC-B güvenli artifact preparer'ı tek lane'de birleşir.
+# `readonly-full-chromium` (1281 read-only test) tek 45dk job'a sığmaz (~88dk gerekir).
+# Çözüm: Playwright `--shard=i/N` ile 4 PARÇA (matrix, max-parallel 3). Her parça KENDİ
+# güvenli artifact'ini üretir; ardından `readonly-audit-merge` job'ı N shard'ın SANİTİZE
+# payload'unu TEK deterministik birleşik rapora (HTML/JSON/MD) indirger.
 #
-# GÜVENLİK DEĞİŞMEZLERİ:
+# GÜVENLİK DEĞİŞMEZLERİ (FAZ 3 sözleşmesi korunur):
 #   - Yalnız production-safe read-only Chromium profilleri (cross-browser/visual FAZ 6).
 #   - Mutation/external-cost seçime sızarsa koşum BAŞLAMADAN hard fail (audit-ci assert-safe
-#     + selectör fail-closed + playwright.config grepInvert:/@mutation/ + ALLOW_MUTATING_TESTS=false).
-#   - Test kırmızı olsa DA güvenli rapor/bundle üretilir; ama job KIRMIZI kalır (run-audit
-#     doğruluk kapısı: false-green yok).
-#   - YALNIZ sanitize edilmiş secure-upload bundle'ı yüklenir (ham report/test-results ASLA).
+#     + selectör fail-closed + config grepInvert:/@mutation/ + shard runner --grep-invert
+#     "@mutation|@external-cost" + ALLOW_MUTATING_TESTS=false).
+#   - Test kırmızı olsa DA güvenli rapor/bundle üretilir; ama job KIRMIZI kalır (shard
+#     orchestrator + merge orchestrator doğruluk kapısı: false-green yok).
+#   - YALNIZ sanitize edilmiş secure-upload bundle'ları yüklenir (ham report/test-results ASLA).
+#     Ham report.json artifact sınırından GEÇMEZ; shard'lar arası veri yalnız sanitize
+#     shard-results.json (flattenRuntimeTests düz kayıtları) ile taşınır.
 #   - Scheduled run main'e commit/push YAPMAZ; repo snapshot yalnız kontrollü PR ile güncellenir.
 name: Read-only Audit
 
@@ -46,12 +50,20 @@ env:
   ALLOW_MUTATING_TESTS: 'false'
   # dispatch input'u yoksa (schedule) hafif deterministik taban.
   AUDIT_PROFILE: ${{ github.event.inputs.profile || 'route-baseline-chromium' }}
+  # Shard sayısı (matrix ile birebir; merge job da bunu bekler).
+  SHARD_TOTAL: '4'
 
 jobs:
+  # ── PARÇA (matrix): her shard read-only Chromium'un 1/N'ini koşar + kendi bundle'ı ──
   readonly-audit:
-    name: Full read-only audit / Chromium
+    name: Read-only audit shard ${{ matrix.shard }}/4 / Chromium
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        shard: [1, 2, 3, 4]
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
@@ -66,56 +78,112 @@ jobs:
       - name: Security + architecture preflight (quality:check)
         run: npm run quality:check
       - run: npx playwright install --with-deps chromium
-      # 1) Güvenli seçici (FAZ 1) — profil → seçilen spec dosyaları. Seçime mutation/
-      #    external-cost girerse veya 0 seçim olursa NON-ZERO (fail-closed). Seçim ayrıca
-      #    job summary'ye yazılır (selected spec listesi; executed DEĞİL).
+      # 1) Güvenli seçici (FAZ 1) — profil → seçilen spec dosyaları (fail-closed).
       - name: Read-only seçici (fail-closed) + seçim özeti
         run: |
           node tools/select-readonly-tests.mjs --profile="$AUDIT_PROFILE" --format=json > readonly-audit-selection.json
           {
-            echo "## Seçim (FAZ 1 selector — spec dosyası, executed değil)";
+            echo "## Seçim (FAZ 1 selector — spec dosyası, executed değil) — shard ${{ matrix.shard }}/$SHARD_TOTAL";
             node tools/select-readonly-tests.mjs --profile="$AUDIT_PROFILE" --format=md;
           } >> "$GITHUB_STEP_SUMMARY"
-      # 2) Mutation/external-cost sıfır — açık ikinci kapı (her spec manifest effect=read-only).
+      # 2) Mutation/external-cost sıfır — açık ikinci kapı.
       - name: Mutation/external-cost sıfır doğrulaması
         run: node tools/audit-ci.mjs assert-safe --selection readonly-audit-selection.json
       # 3) Koşum planı — seçimden güvenli project + grep (serbest shell argümanı yok).
       - name: Koşum planı üret (project + grep)
         id: plan
         run: node tools/audit-ci.mjs plan --selection readonly-audit-selection.json >> "$GITHUB_OUTPUT"
-      # 4) Doğruluk-kapısı orchestrator (FAZ 2) — GATING adım. Eski JSON'u temizler,
-      #    Playwright'ı koşar (config CI json reporter → test-results/report.json), her
-      #    durumda raporu üretir, final exit'i belirler: test FAIL → rapor olsa da non-zero;
-      #    rapor üretilemedi/stale → non-zero. Bu adımın exit'i job'ı gate eder.
-      - name: Audit orchestrator (test → rapor → doğruluk kapısı)
+      # 4) SHARD orchestrator (FAZ 2 doğruluk kapısı, parça düzeyi) — GATING adım.
+      #    Bu parçayı koşar (--shard=i/N), SANİTİZE shard-results.json üretir; test FAIL →
+      #    payload üretilse DE non-zero (payload testExitCode taşır → merge bağımsız gate eder).
+      - name: Shard orchestrator (test → sanitize payload → doğruluk kapısı)
         env:
           PLAN_PROJECT: ${{ steps.plan.outputs.project }}
           PLAN_GREP: ${{ steps.plan.outputs.grep }}
         run: |
           GREP_FLAG=""
           if [ -n "$PLAN_GREP" ]; then GREP_FLAG="--grep=$PLAN_GREP"; fi
-          node tools/run-audit.mjs \
-            --environment production-read-only \
-            --test-cmd "npx playwright test --project=$PLAN_PROJECT $GREP_FLAG"
-      # 5) Güvenli artifact bundle — test kırmızı olsa DA üretilir (kanıt korunur).
-      #    prepare-ci-artifact yalnız ready=true üretirse upload çalışır.
-      - name: Güvenli artifact bundle hazırla (readonly-audit)
+          node tools/audit-shard-run.mjs \
+            --shard-index ${{ matrix.shard }} \
+            --shard-total "$SHARD_TOTAL" \
+            --project "$PLAN_PROJECT" \
+            $GREP_FLAG
+      # 5) Güvenli PARÇA bundle — test kırmızı olsa DA üretilir (kanıt + merge carrier korunur).
+      - name: Güvenli shard bundle hazırla (readonly-audit-shard)
         id: prep
         if: ${{ !cancelled() }}
         run: |
-          npm run report:artifact:prepare -- --lane readonly-audit
+          npm run report:artifact:prepare -- --lane readonly-audit-shard
           echo "ready=true" >> "$GITHUB_OUTPUT"
-      # 6) GitHub job summary — sanitize sayılar (seçim + güvenli bundle özeti + manifest
-      #    kapsam hunisi + known findings). Ham değer yok; bundle zaten sanitize.
-      - name: GitHub job summary (sanitize sayılar)
-        if: ${{ !cancelled() }}
-        run: node tools/audit-ci.mjs summary --selection readonly-audit-selection.json --bundle test-results/secure-upload/readonly-audit/summary.json >> "$GITHUB_STEP_SUMMARY"
-      # 7) YALNIZ prepared secure bundle upload edilir (ham report/test-results ASLA).
-      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+      # 6) YALNIZ prepared secure shard bundle upload edilir (ham report/test-results ASLA).
+      - name: Güvenli shard artifact yükle (YALNIZ prepared bundle)
         if: ${{ !cancelled() && steps.prep.outputs.ready == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: readonly-audit-secure
-          path: test-results/secure-upload/readonly-audit/
+          name: readonly-audit-shard-${{ matrix.shard }}-secure
+          path: test-results/secure-upload/readonly-audit-shard/
+          if-no-files-found: error
+          retention-days: 30
+
+  # ── MERGE: N shard payload'undan TEK deterministik birleşik rapor + secure bundle ──
+  readonly-audit-merge:
+    name: Read-only audit merge / Chromium
+    needs: readonly-audit
+    # Bir shard kırmızı olsa DA birleşik raporu üret (dürüst rapor §3.8); merge orchestrator
+    # yine de KIRMIZI döner. Yalnız iptal (cancelled) durumunda çalışmaz.
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Preflight (git-diff YOK) — merge job da yapısal kapılardan geçer.
+      - name: Security + architecture preflight (quality:check)
+        run: npm run quality:check
+      # 1) Tüm shard secure bundle'larını indir (her artifact kendi alt-dizinine; MERGE-MULTIPLE
+      #    YOK → shard-results.json'lar çakışmaz). merge tool özyinelemeli toplar.
+      - name: Shard bundle'larını indir
+        uses: actions/download-artifact@v4
+        with:
+          pattern: readonly-audit-shard-*-secure
+          path: test-results/audit-shards
+      # 2) Seçim (summary + assert-safe re-guard için; diskten deterministik türetilir).
+      - name: Read-only seçici (fail-closed)
+        run: node tools/select-readonly-tests.mjs --profile="$AUDIT_PROFILE" --format=json > readonly-audit-selection.json
+      - name: Mutation/external-cost sıfır doğrulaması (merge re-guard)
+        run: node tools/audit-ci.mjs assert-safe --selection readonly-audit-selection.json
+      # 3) MERGE orchestrator (FAZ 2 doğruluk kapısı, birleşim düzeyi) — GATING adım.
+      #    Eksik shard / karışık commit / şema hatası → hard fail; herhangi bir shard testi
+      #    kırmızı → birleşik rapor üretilse DE non-zero. Ham report.json OKUNMAZ.
+      - name: Merge orchestrator (shard payload'ları → tek birleşik rapor → doğruluk kapısı)
+        run: |
+          node tools/merge-audit-shards.mjs \
+            --shards-dir test-results/audit-shards \
+            --shard-total "$SHARD_TOTAL" \
+            --out-dir docs/raporlar \
+            --flat-out test-results/audit-shards/merged-flat.json \
+            --environment production-read-only
+      # 4) Güvenli BİRLEŞİK bundle — test kırmızı olsa DA üretilir (yönetici HTML/JSON/MD + summary).
+      - name: Güvenli birleşik bundle hazırla (readonly-audit-merged)
+        id: prepmerged
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane readonly-audit-merged
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      # 5) GitHub job summary — birleşik sanitize sayılar (selection + merged bundle summary.json).
+      - name: GitHub job summary (birleşik sanitize sayılar)
+        if: ${{ !cancelled() }}
+        run: node tools/audit-ci.mjs summary --selection readonly-audit-selection.json --bundle test-results/secure-upload/readonly-audit-merged/summary.json >> "$GITHUB_STEP_SUMMARY"
+      # 6) YALNIZ prepared secure BİRLEŞİK bundle upload edilir.
+      - name: Güvenli birleşik artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prepmerged.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: readonly-audit-merged-secure
+          path: test-results/secure-upload/readonly-audit-merged/
           if-no-files-found: error
           retention-days: 30

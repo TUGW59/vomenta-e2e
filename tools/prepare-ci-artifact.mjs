@@ -44,12 +44,21 @@ function fail(msg, ruleId) {
 }
 
 function parseArgs(argv) {
-  let lane = null;
+  const o = {
+    lane: null,
+    shardResults: 'test-results/audit-shards/shard-results.json',
+    mergedFlat: 'test-results/audit-shards/merged-flat.json',
+    reportDir: 'docs/raporlar',
+  };
   for (let i = 0; i < argv.length; i++) {
-    if (argv[i] === '--lane') lane = argv[i + 1];
-    else if (argv[i].startsWith('--lane=')) lane = argv[i].slice('--lane='.length);
+    const a = argv[i];
+    const kv = (k) => (a === `--${k}` ? argv[++i] : a.startsWith(`--${k}=`) ? a.slice(k.length + 3) : undefined);
+    for (const k of ['lane', 'shard-results', 'merged-flat', 'report-dir']) {
+      const v = kv(k);
+      if (v !== undefined) o[k.replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = v;
+    }
   }
-  return { lane };
+  return o;
 }
 
 /** Güvenli sınırlı metadata (query/token yok). */
@@ -136,8 +145,112 @@ function prepareReconcileLane(lane) {
   });
 }
 
+/** flattenRuntimeTests kaydını buildCanonicalModel'in beklediği düz şekle indirger. */
+function flatToCanonicalInput(rec) {
+  return {
+    file: rec.file,
+    title: rec.title,
+    project: rec.project,
+    status: rec.finalStatus,
+    firstStatus: rec.firstStatus,
+    expectedStatus: rec.expectedStatus,
+    attempts: rec.attempts,
+    durationMs: rec.durationMs,
+  };
+}
+
+/**
+ * Sharded audit PARÇA adapter'ı: bu shard'ın report.json'undan safe-summary trio +
+ * merge carrier'ı (shard-results.json — audit-shard-run'ın SANİTİZE düz payload'u)
+ * tek güvenli bundle'da toplar. Carrier yoksa hata (merge girdisi eksik kalmasın).
+ */
+function prepareShardLane(lane, opts) {
+  const carrierAbs = resolve(root, opts.shardResults);
+  if (!existsSync(carrierAbs)) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, opts.shardResults, 'shard payload (shard-results.json) yok — merge carrier eksik');
+  }
+  const carrierText = readFileSync(carrierAbs, 'utf8');
+  try {
+    JSON.parse(carrierText);
+  } catch {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'shard-results.json', 'geçersiz JSON');
+  }
+  const reportPath = resolve(root, 'test-results', 'report.json');
+  const meta = safeMeta();
+  let flat = [];
+  let sourceMissing = false;
+  if (existsSync(reportPath)) {
+    let report = null;
+    try {
+      report = JSON.parse(readFileSync(reportPath, 'utf8'));
+    } catch {
+      sourceMissing = true;
+    }
+    if (report) flat = flattenPlaywrightReport(report);
+  } else {
+    sourceMissing = true;
+  }
+  const model = buildCanonicalModel(flat, { lane, commit: meta.commit, runId: meta.runId });
+  if (sourceMissing) model.sourceMissing = true;
+  return finalizeBundle({
+    lane,
+    files: {
+      'summary.json': renderSummaryJson(model),
+      'junit.xml': renderJunitXml(model),
+      'summary.html': renderSummaryHtml(model),
+      'shard-results.json': carrierText,
+    },
+    excludedLocalOnly: ['raw-playwright-report', 'raw-test-results', 'trace-zip', 'video', 'screenshots'],
+  });
+}
+
+/**
+ * Birleştirilmiş (merge job) adapter'ı: birleşik flat payload'dan safe-summary trio +
+ * generate-runtime-report'ın ürettiği yönetici HTML/JSON/MD teslimleri tek bundle'da.
+ * Yönetici dosyaları ZATEN sanitize'dir; finalize ikinci kez secret/PII + şema denetler.
+ */
+function prepareMergedLane(lane, opts) {
+  const flatAbs = resolve(root, opts.mergedFlat);
+  if (!existsSync(flatAbs)) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, opts.mergedFlat, 'birleşik flat payload yok (merge çalışmadı mı?)');
+  }
+  let payload;
+  try {
+    payload = JSON.parse(readFileSync(flatAbs, 'utf8'));
+  } catch {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, opts.mergedFlat, 'geçersiz JSON');
+  }
+  if (!payload || !Array.isArray(payload.tests)) {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, opts.mergedFlat, 'tests dizisi yok');
+  }
+  const meta = safeMeta();
+  const model = buildCanonicalModel(payload.tests.map(flatToCanonicalInput), { lane, commit: meta.commit, runId: meta.runId });
+  const files = {
+    'summary.json': renderSummaryJson(model),
+    'junit.xml': renderJunitXml(model),
+    'summary.html': renderSummaryHtml(model),
+  };
+  // Yönetici teslimleri (varsa) ekle — merge job bunları out-dir'e üretmiş olmalı.
+  const execFiles = ['SABAH-KALITE-OZETI.html', 'TEST-SONUCLARI.json', 'SAYFA-TEST-SONUCLARI.md'];
+  const missing = [];
+  for (const name of execFiles) {
+    const abs = resolve(root, opts.reportDir, name);
+    if (existsSync(abs)) files[name] = readFileSync(abs, 'utf8');
+    else missing.push(name);
+  }
+  if (missing.length) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, opts.reportDir, `yönetici teslimi eksik: ${missing.join(', ')}`);
+  }
+  return finalizeBundle({
+    lane,
+    files,
+    excludedLocalOnly: ['raw-playwright-report', 'raw-test-results', 'trace-zip', 'video', 'screenshots'],
+  });
+}
+
 function main() {
-  const { lane } = parseArgs(process.argv.slice(2));
+  const opts = parseArgs(process.argv.slice(2));
+  const { lane } = opts;
   if (!lane) fail('--lane <lane> zorunlu. Geçerli: ' + LANES.join(', '));
   if (!LANES.includes(lane)) fail(`kayıt dışı lane "${lane}". Geçerli: ${LANES.join(', ')}`, RULES.ART_WORKFLOW_UNKNOWN_LANE);
 
@@ -152,6 +265,8 @@ function main() {
   let result;
   try {
     if (lane === 'nightly-known-bug-reconcile') result = prepareReconcileLane(lane);
+    else if (lane === 'readonly-audit-shard') result = prepareShardLane(lane, opts);
+    else if (lane === 'readonly-audit-merged') result = prepareMergedLane(lane, opts);
     else result = prepareSummaryLane(lane);
   } catch (error) {
     if (error instanceof ArtifactPolicyError) fail(error.detail, error.ruleId);
