@@ -333,7 +333,7 @@ düzeldiğini KANITA DAYALI, çok-koşulu, insan-onaylı biçimde doğrulayan sa
 Hiçbir CI job'ı ham çıktı yükleyemez. Bütün `actions/upload-artifact` adımları
 YALNIZ önceden hazırlanmış, doğrulanmış bir bundle'a bakar.
 
-- **Tek politika:** `tools/artifact-policy.mjs` (9-lane enum + exact output allowlist
+- **Tek politika:** `tools/artifact-policy.mjs` (10-lane enum + exact output allowlist
   + limitler + fail-closed FS + atomik `finalizeBundle` + manifest + stabil rule ID).
   forensic/verification allowlist'leri `forensic-lib.mjs`'den import edilir (tek kaynak).
 - **Preparer:** `npm run report:artifact:prepare -- --lane <lane>` özet lane'leri için
@@ -350,6 +350,30 @@ YALNIZ önceden hazırlanmış, doğrulanmış bir bundle'a bakar.
 - **Sert kapı:** `quality:artifact-allowlist` (`quality:check` zincirinde) politika
   negatif matrisini + workflow statik enforcement'ını kanıtlar. Detay:
   `docs/adr/0009-artifact-allowlist.md`.
+
+## Kalıcı full read-only audit lane'i (WP-FULL-READONLY-AUDIT / FAZ 3)
+
+Full read-only audit + raporlama GitHub'da tekrar çalıştırılabilir: ayrı workflow
+`.github/workflows/readonly-audit.yml` (`Read-only Audit`), `workflow_dispatch`
+(profil enum) + `schedule` (haftalık, Pazartesi 02:30 UTC). Tek `readonly-audit` job'ı
+FAZ 1 seçicisini + FAZ 2 doğruluk-kapısı orchestrator'ını + WP-SEC-B güvenli preparer'ını
+zincirler:
+
+- **Yalnız Chromium read-only.** İzinli profil enum'u `AUDIT_PROFILES` (`tools/audit-ci.mjs`)
+  `PROFILES`'tan TÜRETİLİR: tek projesi `chromium-authed`, policy-gated olmayan production
+  profiller. Cross-browser/visual **FAZ 6** → enum'a giremez.
+- **İki mutation kapısı:** selectör fail-closed (effect≠read-only seçilmez) + `audit-ci.mjs
+  assert-safe` seçilen her spec'in MANİFEST effect'inin `read-only` olduğunu diskten
+  yeniden kurar (dosya-adı sanısı değil; `mutation-orphans` gibi lifecycle-read-only
+  spec'ler doğru geçer). Üstüne `ALLOW_MUTATING_TESTS=false` + config `grepInvert:/@mutation/`.
+- **GATING adım** `run-audit.mjs` (ADR-0016): test FAIL → rapor üretilir ama job non-zero;
+  rapor üretilemedi/stale → non-zero. **Yalnız** `test-results/secure-upload/readonly-audit/`
+  sanitize bundle'ı upload edilir. Scheduled run `main`'e commit/push YAPMAZ
+  (`permissions: contents: read`); snapshot yalnız kontrollü PR ile güncellenir.
+- **Sert kapılar (`quality:check`):** `quality:audit-workflow` (13 yapısal YAML kuralı +
+  6 sentetik negatif) + `quality:audit-ci` (saf fonksiyon negatif matrisi + PII-safe job
+  summary). Ayrıca `quality:artifact-allowlist` yeni workflow'u tarar (10 upload adımı).
+  Detay: `docs/adr/0020-readonly-audit-lane.md`.
 
 ## PR değişiklik-etkisi seçici (WP-CI-E1)
 

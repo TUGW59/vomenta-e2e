@@ -51,6 +51,7 @@ export const LANES = Object.freeze([
   'full-regression',
   'visual-regression',
   'read-only-discovery',
+  'readonly-audit',
   'nightly-known-bug-reconcile',
   'known-bug-forensic',
   'known-bug-verification',
@@ -122,6 +123,11 @@ export const LANE_POLICY = Object.freeze({
   'full-regression': summaryLane('full-regression'),
   'visual-regression': summaryLane('visual-regression'),
   'read-only-discovery': summaryLane('read-only-discovery'),
+  // WP-FULL-READONLY-AUDIT FAZ 3 — kalıcı GitHub full read-only audit lane'i
+  // (workflow_dispatch + schedule). Diğer özet lane'leriyle aynı safe-summary@1
+  // sözleşmesi: Playwright JSON -> sanitize kanonik model -> summary.json/junit.xml/
+  // summary.html/manifest.json. Ham upload YOK; secret/PII + şema + FS denetimi.
+  'readonly-audit': summaryLane('readonly-audit'),
   'nightly-known-bug-reconcile': Object.freeze({
     lane: 'nightly-known-bug-reconcile',
     // NEDEN: nightly reconcile YALNIZ fixed-candidate önerisi üretir (registry değişmez).
