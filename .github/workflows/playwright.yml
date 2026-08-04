@@ -390,18 +390,36 @@ jobs:
       github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
     runs-on: ubuntu-latest
-    # WP-NIGHT-STABILITY (ADR-0017): 3854 test (authed 1275 × 3 tarayıcı) tek
-    # runner + 45dk kutuya sığmıyordu → her gece timeout'ta cancelled. Çözüm:
-    # tarayıcı × parça (shard) matrisi. Her hücre kendi kutusunda BİTER; kapsam
-    # korunur. Kutu 45→60: shard başına düşen yükün güvenli tamamlanması için.
+    # WP-NIGHT-STABILITY (ADR-0017 v1): 3854 test (authed 1275 × 3 tarayıcı) tek
+    # runner + 45dk kutuya sığmıyordu → tarayıcı × parça (shard) matrisi, kutu 60dk.
+    # v4: dispatch (run 30868877612) ölçtü ki BASKIN blocker shard boyutu DEĞİL,
+    # TEK prod hesabına EŞZAMANLI login → bozuk/yarı-authed oturum (auth.setup fail
+    # ya da `nav` render olmadan her sayfa testi yavaşça düşer). Çözüm: eşzamanlı
+    # login'i gerçekten sınırla. `max-parallel` bu matrisin hücrelerini 2'ye kısıtlar;
+    # diğer authed JOB'lar (visual/discovery/reconcile) `needs` ile bu job'dan SONRAYA
+    # sıralanır → tepe eşzamanlı login ~2. Shard sayıları (browser başına 3) yalnız
+    # hücrelerin BİTİP gerçek süre verisi üretmesi için; nihai kalibrasyon oturum
+    # sağlıklı olunca ölçülen sürelere göre yapılacak (v4 notu).
     timeout-minutes: 60
     strategy:
       # Bir tarayıcı/parça kırmızı olunca diğerleri iptal edilmez; her tarayıcının
       # gerçek sonucu ayrı görünür (handoff §7.5: browser bazlı sonuçlar ayrı).
       fail-fast: false
+      # max-parallel YALNIZCA bu (full-regression) matrisinin hücrelerini kısıtlar;
+      # farklı job'ların eşzamanlılığını ETKİLEMEZ (GitHub Actions semantiği) →
+      # cross-job login çakışması ayrıca `needs` sıralamasıyla sınırlanır (ADR-0017 v4).
+      max-parallel: 2
       matrix:
-        browser: [chromium-authed, firefox-authed, webkit-authed]
-        shard: [1, 2]
+        include:
+          - { browser: chromium-authed, shard: 1, shardTotal: 3 }
+          - { browser: chromium-authed, shard: 2, shardTotal: 3 }
+          - { browser: chromium-authed, shard: 3, shardTotal: 3 }
+          - { browser: firefox-authed, shard: 1, shardTotal: 3 }
+          - { browser: firefox-authed, shard: 2, shardTotal: 3 }
+          - { browser: firefox-authed, shard: 3, shardTotal: 3 }
+          - { browser: webkit-authed, shard: 1, shardTotal: 3 }
+          - { browser: webkit-authed, shard: 2, shardTotal: 3 }
+          - { browser: webkit-authed, shard: 3, shardTotal: 3 }
     env:
       VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
       VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
@@ -420,7 +438,7 @@ jobs:
       - name: Shard koşumu (tarayıcı × parça; kapsam korunur, retry-pass FLAKY kalır)
         # --project=<browser>-authed setup dependency'sini + storageState'i otomatik
         # koşar (playwright.config.js:132-149). --shard testleri parçaya böler.
-        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/2
+        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/${{ matrix.shardTotal }}
       - name: Güvenli artifact bundle hazırla (full-regression)
         id: prep_full
         if: ${{ !cancelled() }}
@@ -433,17 +451,21 @@ jobs:
         with:
           # Matris hücresi başına benzersiz ad (v4 aynı-ad çakışmasını önler); path
           # aynı güvenli lane'de kalır → allowlist lane kaydı değişmez.
-          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}
+          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}of${{ matrix.shardTotal }}
           path: test-results/secure-upload/full-regression/
           if-no-files-found: error
           retention-days: 30
 
   visual-regression:
     name: Visual regression / macOS
-    needs: architecture
+    # ADR-0017 v4: full-regression'dan SONRAYA sıralanır (cross-job login çakışmasını
+    # sınırlar). Decoupled if: full başarısız/cancelled olsa da (yalnız `!cancelled()`
+    # + architecture success) koşar; kapsam düşmez.
+    needs: [architecture, full-regression]
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      ${{ !cancelled() && needs.architecture.result == 'success' &&
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) }}
     runs-on: macos-14
     # WP-NIGHT-STABILITY (ADR-0017): 64 @visual test tek koşumda 30dk kutuya
     # sığmayıp cancelled oluyordu. Tarayıcı bazlı ayrılınca her hücre küçülür ve
@@ -451,6 +473,8 @@ jobs:
     timeout-minutes: 30
     strategy:
       fail-fast: false
+      # v4: eşzamanlı login'i düşük tutmak için macOS görsel hücreleri sırayla (1).
+      max-parallel: 1
       matrix:
         browser: [chromium-authed, firefox-authed, webkit-authed]
     env:
@@ -487,10 +511,12 @@ jobs:
 
   read-only-discovery:
     name: Read-only route discovery
-    needs: architecture
+    # ADR-0017 v4: full-regression'dan sonraya sıralanır (login çakışmasını sınırlar).
+    needs: [architecture, full-regression]
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      ${{ !cancelled() && needs.architecture.result == 'success' &&
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -524,10 +550,12 @@ jobs:
 
   nightly-known-bug-reconcile:
     name: Nightly known-bug reconcile (fixed-candidate önerisi)
-    needs: architecture
+    # ADR-0017 v4: visual-regression'dan sonraya zincirlenir → tepe eşzamanlı login ~2.
+    needs: [architecture, visual-regression]
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      ${{ !cancelled() && needs.architecture.result == 'success' &&
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
