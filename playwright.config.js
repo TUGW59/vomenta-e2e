@@ -32,6 +32,13 @@ const optionalRoleProjects = configuredRoles()
 export default defineConfig({
   testDir: './tests',
   outputDir: `test-results/${environment.name}`,
+  /* WP-RUNGUARD: aynı çalışma dizininde paralel `playwright test` koşumları
+     paylaşılan playwright/.auth ve test-results/ dizinlerinde yarışır (ENOENT
+     default.json). globalSetup koşum başında exclusive kilit alır, canlı eşzaman
+     koşumda fail-fast durur; globalTeardown kilidi bırakır. `--list` bu hook'ları
+     çalıştırmaz (rapor üretimi etkilenmez). */
+  globalSetup: './tools/global-setup.mjs',
+  globalTeardown: './tools/global-teardown.mjs',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
