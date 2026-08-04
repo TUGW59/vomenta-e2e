@@ -1,0 +1,121 @@
+# WP-FULL-READONLY-AUDIT FAZ 3 — Kalıcı GitHub full read-only audit lane'i (ADR-0020).
+#
+# Raporlamayı tek makineden çıkarıp GitHub'da tekrar çalıştırılabilir hâle getirir.
+# FAZ 1 güvenli seçicisi (select-readonly-tests) + FAZ 2 doğruluk-kapısı orchestrator'ı
+# (run-audit) + WP-SEC-B güvenli artifact preparer'ı tek lane'de birleşir.
+#
+# GÜVENLİK DEĞİŞMEZLERİ:
+#   - Yalnız production-safe read-only Chromium profilleri (cross-browser/visual FAZ 6).
+#   - Mutation/external-cost seçime sızarsa koşum BAŞLAMADAN hard fail (audit-ci assert-safe
+#     + selectör fail-closed + playwright.config grepInvert:/@mutation/ + ALLOW_MUTATING_TESTS=false).
+#   - Test kırmızı olsa DA güvenli rapor/bundle üretilir; ama job KIRMIZI kalır (run-audit
+#     doğruluk kapısı: false-green yok).
+#   - YALNIZ sanitize edilmiş secure-upload bundle'ı yüklenir (ham report/test-results ASLA).
+#   - Scheduled run main'e commit/push YAPMAZ; repo snapshot yalnız kontrollü PR ile güncellenir.
+name: Read-only Audit
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Production-safe read-only seçim profili (Chromium)
+        required: true
+        default: route-baseline-chromium
+        type: choice
+        options:
+          - route-baseline-chromium
+          - readonly-critical-chromium
+          - readonly-full-chromium
+          - known-bug-readonly-chromium
+          - a11y-readonly
+  schedule:
+    # Haftalık kontrollü audit (Pazartesi 02:30 UTC) — mevcut nightly (01:00) ile çakışmaz.
+    # Deterministik/hafif taban (route-baseline) tekrarlanabilirlik kanıtı içindir (FAZ 8).
+    - cron: '30 2 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: readonly-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
+  # dispatch input'u yoksa (schedule) hafif deterministik taban.
+  AUDIT_PROFILE: ${{ github.event.inputs.profile || 'route-baseline-chromium' }}
+
+jobs:
+  readonly-audit:
+    name: Full read-only audit / Chromium
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Preflight: architecture + security + tüm yapısal self-check'ler (git-diff YOK).
+      - name: Security + architecture preflight (quality:check)
+        run: npm run quality:check
+      - run: npx playwright install --with-deps chromium
+      # 1) Güvenli seçici (FAZ 1) — profil → seçilen spec dosyaları. Seçime mutation/
+      #    external-cost girerse veya 0 seçim olursa NON-ZERO (fail-closed). Seçim ayrıca
+      #    job summary'ye yazılır (selected spec listesi; executed DEĞİL).
+      - name: Read-only seçici (fail-closed) + seçim özeti
+        run: |
+          node tools/select-readonly-tests.mjs --profile="$AUDIT_PROFILE" --format=json > readonly-audit-selection.json
+          {
+            echo "## Seçim (FAZ 1 selector — spec dosyası, executed değil)";
+            node tools/select-readonly-tests.mjs --profile="$AUDIT_PROFILE" --format=md;
+          } >> "$GITHUB_STEP_SUMMARY"
+      # 2) Mutation/external-cost sıfır — açık ikinci kapı (her spec manifest effect=read-only).
+      - name: Mutation/external-cost sıfır doğrulaması
+        run: node tools/audit-ci.mjs assert-safe --selection readonly-audit-selection.json
+      # 3) Koşum planı — seçimden güvenli project + grep (serbest shell argümanı yok).
+      - name: Koşum planı üret (project + grep)
+        id: plan
+        run: node tools/audit-ci.mjs plan --selection readonly-audit-selection.json >> "$GITHUB_OUTPUT"
+      # 4) Doğruluk-kapısı orchestrator (FAZ 2) — GATING adım. Eski JSON'u temizler,
+      #    Playwright'ı koşar (config CI json reporter → test-results/report.json), her
+      #    durumda raporu üretir, final exit'i belirler: test FAIL → rapor olsa da non-zero;
+      #    rapor üretilemedi/stale → non-zero. Bu adımın exit'i job'ı gate eder.
+      - name: Audit orchestrator (test → rapor → doğruluk kapısı)
+        env:
+          PLAN_PROJECT: ${{ steps.plan.outputs.project }}
+          PLAN_GREP: ${{ steps.plan.outputs.grep }}
+        run: |
+          GREP_FLAG=""
+          if [ -n "$PLAN_GREP" ]; then GREP_FLAG="--grep=$PLAN_GREP"; fi
+          node tools/run-audit.mjs \
+            --environment production-read-only \
+            --test-cmd "npx playwright test --project=$PLAN_PROJECT $GREP_FLAG"
+      # 5) Güvenli artifact bundle — test kırmızı olsa DA üretilir (kanıt korunur).
+      #    prepare-ci-artifact yalnız ready=true üretirse upload çalışır.
+      - name: Güvenli artifact bundle hazırla (readonly-audit)
+        id: prep
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane readonly-audit
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      # 6) GitHub job summary — sanitize sayılar (seçim + güvenli bundle özeti + manifest
+      #    kapsam hunisi + known findings). Ham değer yok; bundle zaten sanitize.
+      - name: GitHub job summary (sanitize sayılar)
+        if: ${{ !cancelled() }}
+        run: node tools/audit-ci.mjs summary --selection readonly-audit-selection.json --bundle test-results/secure-upload/readonly-audit/summary.json >> "$GITHUB_STEP_SUMMARY"
+      # 7) YALNIZ prepared secure bundle upload edilir (ham report/test-results ASLA).
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: readonly-audit-secure
+          path: test-results/secure-upload/readonly-audit/
+          if-no-files-found: error
+          retention-days: 30
