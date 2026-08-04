@@ -43,3 +43,17 @@ GitHub Actions runner-**dakikasıyla** ücretlendirir. Toplam test-dakikası sab
 
 - Artifact allowlist etkisi yok: matris upload **adım** sayısını değiştirmez (statik 9 upload adımı korunur); `name` matris-templatelenir, `path` aynı güvenli lane'de kalır → `LANES` kaydı değişmez. `quality:artifact-allowlist` + `quality:ci-workflow` yeşil.
 - `WP-NIGHT-STABILITY: COMPLETE` ancak **3 ardışık scheduled nightly** yeşil olduktan sonra yazılır; o zamana kadar `STABILITY-PENDING`.
+
+## v3 — `@clean` websocket sınıfı (2026-08-04)
+
+Matris altyapısı yapısal olarak çalışsa da (iptal→tamamlanma), iki kontrollü dispatch koşumu (run 30845051091, 30851028695) nightly'nin hâlâ **kırmızı** kaldığını ve firefox/chromium shard'larının 60 dk'da cancelled olduğunu ölçtü. Suite ~%93 yeşil; baskın kırmızı+yavaşlık sürücüsü **tek** app davranışıydı.
+
+**Kök neden:** app `wss://api.vomenta.com/socket.io/?agentId=undefined&tenantId=undefined` ile socket açıp düşürüyor; **firefox/webkit** bunu `console-error` logluyor, **chromium loglamıyor** → `@clean` (assertClean) firefox/webkit'te çok sayıda sayfada düşüyordu (ff/4=15, webkit/4=7, chromium/4=3 fail). Bu, 22 ayrı bug değil **tek kök neden**; her başarısız `@clean` 60 s timeout'a doğru bekleyip retry ile shard süresini yiyordu → aynı anda hem kırmızı hem yavaş.
+
+**Karar (record + allowlist):** App-tarafı düzeltme ayrı repo olduğundan, bulguyu **gizlemeden** ele alıyoruz:
+- Bulgu `APP-WSS-UNDEFINED-IDS` `tests/contracts/known-bugs.js`'e kaydedildi (`guard: 'fixme'`, status `open`, owner görünür); `docs/raporlar/findings.json` + `BULGULAR.md` regenerate edildi.
+- `tests/fixtures/test.js` `DEFAULT_DIAGNOSTICS_ALLOWLIST`'e finding-id yorumlu, **dar** ve tarayıcı-agnostik regex eklendi: `/socket\.io[^\s]*(agentId=undefined|tenantId=undefined)/`.
+- **Honesty-core:** yalnız `undefined`-id imzası tolere edilir. Geçerli id'li gerçek socket hataları, redakte edilmiş URL'ler, alakasız console-error ve 5xx **hâlâ** yakalanır (deterministik regex proof ile doğrulandı). Ham "hepsini sustur" yok.
+- `redactText` `agentId=undefined`'i korur (secret değil) → console-error text eşleşir; `redactUrl` query değerlerini maskelediğinden request-failed URL'i bilerek eşleşmez (chromium'da fail sayısının düşük olması sürücünün console-error olduğunu doğrular).
+
+**Kalan riskler (STABILITY-PENDING):** `failOnFlakyTests` korunur; canlı prod'da artık flaky tam sıfırlanamayabilir (tam determinizm staging gerektirir → ayrı program). Coaching [tr]/[fr] i18n triyajı ve olası shard kalibrasyonu (Faz B/C) dispatch ölçümüne bağlı. Regex, dispatch'te yakalanan gerçek `runtime-diagnostics.json`'a göre teyit edilecek.

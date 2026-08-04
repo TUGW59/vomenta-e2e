@@ -76,6 +76,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/known-bugs.authed.spec.js:289 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
 | tests/known-bugs.authed.spec.js:309 | skip | Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli. |
 | tests/known-bugs.authed.spec.js:332 | skip |  |
+| tests/known-bugs.authed.spec.js:429 | fixme |  |
 | tests/login.spec.js:79 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/registered-routes-smoke.authed.spec.js:75 | fixme |  |
 | tests/reports-dashboards.authed.spec.js:175 | skip | da güvenilir. |

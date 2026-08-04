@@ -5,10 +5,10 @@
 
 ## Özet
 
-- **Toplam bulgu:** 61
-- **Durum:** open 60 · closed 1
-- **Guard:** knownBugGuard 59 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 9 · medium 44 · low 7
+- **Toplam bulgu:** 62
+- **Durum:** open 61 · closed 1
+- **Guard:** knownBugGuard 59 · fixme 2 · permanent 1
+- **Ciddiyet:** critical 1 · high 9 · medium 45 · low 7
 
 ### Governance işaretleri
 - **Sahipsiz (owner=null):** 37 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, DASH-CLICKHOUSE, DASH-AI-I18N, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
@@ -66,6 +66,7 @@
 | WALLBOARD-LIVE-TZ | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-THEME | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-RESUME-I18N | supervisor | /supervisor/wallboard | low | open | knownBugGuard | — |
+| APP-WSS-UNDEFINED-IDS | voice | /voice | medium | open | fixme | quality-guild |
 | B14 | voice | /voice/dids | medium | open | knownBugGuard | — |
 | VOICE-HISTORY-A11Y-LABEL | voice | /voice/history | medium | open | knownBugGuard | quality-guild |
 | VOICE-RECORDINGS-A11Y-LABEL | voice | /voice/recordings | medium | open | knownBugGuard | quality-guild |
@@ -666,6 +667,21 @@
 - **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → BULGU 5: "Resume queue" Türkçe menüde çevrilmeli
 
 ## voice
+
+### /voice
+
+**[APP-WSS-UNDEFINED-IDS] Socket.io undefined agentId/tenantId ile açılıp düşüyor (ff/webkit console-error)** — `medium` · `open` · guard `fixme`
+
+- **Beklenen:** Socket geçerli agentId/tenantId ile açılır; console-error üretmez.
+- **Gerçekleşen:** wss://api.vomenta.com/socket.io agentId=undefined&tenantId=undefined ile açılıp bağlantı düşüyor; firefox/webkit bunu console-error olarak logluyor (chromium loglamıyor). Global app davranışı olduğu için firefox/webkit @clean (assertClean) testlerini çok sayıda sayfada düşürüyordu — tek kök neden, 22 ayrı bug değil.
+- **Repro:** Firefox/WebKit authed oturumda /voice (veya çoğu authed rota) aç → Ağ/konsolu izle → wss://api.vomenta.com/socket.io bağlantısının agentId=undefined&tenantId=undefined ile açılıp düştüğünü gör
+- **Olası nedenler:** Socket, auth/tenant context (agentId/tenantId) hazır olmadan başlatılıyor
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Kök-neden adayı (forensik):** Socket init, geçerli agentId/tenantId set edilmeden önce çalışıyor
+- **Olası çözümler:** App-tarafı: socket init tenant/agent context hazır olana kadar ertelensin veya bağlantı stringine geçerli id geçilsin.; Test-tarafı (kapsam): kayıtlı undefined-id imzası DEFAULT_DIAGNOSTICS_ALLOWLIST ile tolere edilir; geçerli id ile gerçek socket hataları hâlâ yakalanır.
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-04 · **lastVerified:** 2026-08-04 · **expiry:** —
+- **Guard testi:** `tests/known-bugs.authed.spec.js` → APP-WSS-UNDEFINED-IDS · socket.io undefined id davranışı (app-tarafı; suite içinde diagnostics allowlist ile tolere ediliyor)
 
 ### /voice/dids
 

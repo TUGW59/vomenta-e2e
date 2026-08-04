@@ -418,4 +418,18 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
       .catch(() => false);
     expect(bounced, '"Billing history" kök route (/) sayfasına düşüyor').toBe(false);
   });
+
+  // ── APP-WSS-UNDEFINED-IDS · socket.io undefined agentId/tenantId (app-tarafı) ──
+  // Bu bir app-tarafı bulgu (ayrı repo): app, socket.io'yu agentId/tenantId=undefined
+  // ile açıp düşürüyor; ff/webkit bunu console-error logluyor. Suite içinde tek kök neden
+  // olarak DEFAULT_DIAGNOSTICS_ALLOWLIST (tests/fixtures/test.js) ile tolere ediliyor —
+  // knownBugGuard/test.fail ile SÜRÜLMÜYOR (tarayıcı-diferansiyel; chromium loglamıyor).
+  // Bu yer tutucu bulgunun test.file yuvasıdır; skip'li → koşmaz/flake etmez. Kayıt:
+  // tests/contracts/known-bugs.js (guard: 'fixme'). Düzeltmesi app-tarafı.
+  test.fixme(
+    'APP-WSS-UNDEFINED-IDS · socket.io undefined id davranışı (app-tarafı; suite içinde diagnostics allowlist ile tolere ediliyor)',
+    async () => {
+      // App-tarafı düzeltme bekliyor; suite tarafında diagnostics allowlist ile ele alınıyor.
+    }
+  );
 });

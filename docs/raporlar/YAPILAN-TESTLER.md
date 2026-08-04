@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1234 / 119 dosya
-- **coverageStatus:** verified 0 · partial 1181 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1190 · skipped 0 · fixme 44
+- **Listelenen test:** 1235 / 119 dosya
+- **coverageStatus:** verified 0 · partial 1181 · generic 9 · blocked 45
+- **executionStatus:** executed 0 · listed-only 1190 · skipped 0 · fixme 45
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -21,7 +21,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | campaigns | 40 | 39 | 0 | 1 |
 | channels | 94 | 88 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
-| cross-cutting | 35 | 34 | 0 | 1 |
+| cross-cutting | 36 | 34 | 0 | 2 |
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
@@ -407,6 +407,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | SETTINGS-BILLING-REDIRECT · /settings/billing deep-link kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | SETTINGS-BILLING-CHANGEPLAN · Ayarlar "Change plan" kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | SETTINGS-BILLING-HISTORY · Ayarlar "Billing history" kök sayfaya atmamalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| APP-WSS-UNDEFINED-IDS · socket.io undefined id davranışı (app-tarafı; suite içinde diagnostics allowlist ile tolere ediliyor) | @regression @known-bug | — | fixme | blocked | low | list-exec |
 
 ### `mutation-orphans.authed.spec.js` — _cross-cutting_
 

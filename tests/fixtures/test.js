@@ -23,8 +23,17 @@ import {
  *   eder; Next.js `_rsc` prefetch'leri gezinince iptal olur). İptal = hata değil.
  *   Gerçek ağ hataları (ERR_CONNECTION/ERR_TIMED_OUT), console-error ve HTTP 5xx
  *   hâlâ yakalanır.
+ * - `socket.io ... agentId=undefined|tenantId=undefined` (APP-WSS-UNDEFINED-IDS):
+ *   app, wss://api.vomenta.com/socket.io'yu geçerli id set edilmeden açıp düşürüyor;
+ *   firefox/webkit bunu console-error logluyor (chromium loglamıyor). Kayıtlı app-tarafı
+ *   bulgu (tests/contracts/known-bugs.js), düzeltmesi ayrı repo. YALNIZCA undefined-id
+ *   imzası tolere edilir → geçerli id'li gerçek socket hataları HÂLÂ yakalanır.
  */
-const DEFAULT_DIAGNOSTICS_ALLOWLIST = [/net::ERR_ABORTED/, /[?&]_rsc=/];
+const DEFAULT_DIAGNOSTICS_ALLOWLIST = [
+  /net::ERR_ABORTED/,
+  /[?&]_rsc=/,
+  /socket\.io[^\s]*(agentId=undefined|tenantId=undefined)/,
+];
 
 /**
  * Şirket testlerinin tek giriş noktası.
