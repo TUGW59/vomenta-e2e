@@ -54,12 +54,32 @@ export const FALLBACK_SUITES = Object.freeze({
   },
 });
 
-/** Contract/config değişikliğinde kullanılan geniş-güvenli fallback kümesi. */
+/**
+ * Contract/config/broad-impact değişikliğinde kullanılan geniş-güvenli fallback.
+ *
+ * NOT: `route-quality` (quality-baseline.authed.spec.js) BİLEREK dışarıda: bu suite
+ * zaten her PR'da ayrı `authenticated-quality` job'ında (`test:quality:pr`) koşuluyor
+ * → burada tekrarı hem gereksiz hem de PR lane'ini 45-dk kutusuna sokan ~28-dk'lık
+ * fazladan canlı yük (503 dalgasına maruziyeti artırır). route-baseline (her rotayı
+ * authed açar) + authed-critical (kritik akışlar) hızlı temsili kapsam verir.
+ */
 const BROAD_FALLBACK = Object.freeze([
   'route-baseline',
-  'route-quality',
   'authed-critical',
 ]);
+
+/**
+ * PR lane'inde doğrudan koşulacak authed spec üst sınırı (ADR-0024).
+ *
+ * Bu repoda paylaşılan altyapı (helpers/App/page-object/fixture/support) grafik
+ * yoğunluğu nedeniyle ~tüm authed suite'e (117 spec) fan-out eder. Böyle geniş
+ * -etkili bir değişikliği PR lane'inde (45-dk kutu) TAM koşmak mümkün değildir;
+ * bu, exhaustive kapsamın koşulduğu nightly full-regression'ın (shard'lı) işidir.
+ * Seçilen authed spec sayısı bu bütçeyi aşarsa PR lane temsili bounded fallback'e
+ * (route-baseline + authed-critical) iner ve TAM authed suite nightly'ye ERTELENİR
+ * (sessiz kırpma YOK: `authedDeferredToNightly` + reason).
+ */
+export const AUTHED_PR_BUDGET = 12;
 
 /** Grafik taramasına dahil edilen repo-içi kaynak kökleri (spec + modüller). */
 export const GRAPH_ROOTS = Object.freeze(['tests', 'config']);
@@ -695,8 +715,25 @@ export function planImpact(input = {}) {
   }
 
   const selPublic = uniqSort([...publicSpecs]);
-  const selAuthed = uniqSort([...authenticatedSpecs]);
+  let selAuthed = uniqSort([...authenticatedSpecs]);
   const selDiscovery = uniqSort([...discoverySpecs]);
+
+  // ── Broad-impact cap (ADR-0024): seçilen authed spec sayısı PR-lane bütçesini
+  //    aşarsa (paylaşılan altyapı → ~tüm authed suite'e fan-out), TAM expansion
+  //    yerine temsili bounded fallback koş ve tam kapsamı nightly'ye ERTELE.
+  //    Sessiz kırpma YOK: ertelenen liste + reason kaydedilir.
+  let authedDeferredToNightly = [];
+  if (selAuthed.length > AUTHED_PR_BUDGET) {
+    authedDeferredToNightly = selAuthed;
+    selAuthed = [];
+    for (const id of BROAD_FALLBACK) fallback.add(id);
+    reasons.add(
+      `BROAD_IMPACT_CAP:authed=${authedDeferredToNightly.length}>budget=${AUTHED_PR_BUDGET}; ` +
+        'PR lane bounded fallback (route-baseline+authed-critical), ' +
+        'full authed suite deferred to nightly full-regression'
+    );
+  }
+
   const fallbackSuites = uniqSort([...fallback]);
   const selectedRunnableSpecCount =
     selPublic.length + selAuthed.length + selDiscovery.length;
@@ -740,6 +777,7 @@ export function planImpact(input = {}) {
       authenticatedSpecs: selAuthed,
       discoverySpecs: selDiscovery,
     },
+    authedDeferredToNightly: uniqSort([...authedDeferredToNightly]),
     fallbackSuites,
     stagingBlockedMutationSpecs: uniqSort([...stagingBlocked]),
     visualPolicyFiles: uniqSort([...visualPolicyFiles]),
