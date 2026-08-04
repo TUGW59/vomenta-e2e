@@ -1,11 +1,18 @@
 // @ts-check
-import { MAIN_NAVIGATION } from './navigation.js';
+import { SURFACE_BY_ID } from './product-surfaces.js';
 /**
- * TEST EDİLEN SAYFALARIN STİL-KAPSAMA KAYDI (sözleşme).
+ * TEST EDİLEN SAYFALARIN STİL-KAPSAMA KAYDI (KAPSAM SÖZLEŞMESİ).
  *
- * Bir sayfa "tam stil muamelesi" alınca buraya eklenir. `tools/style-coverage.mjs` her sayfa için
- * arketipinden ZORUNLU stilleri türetir ve etiket var mı / N/A beyanlı mı / EKSİK mi hesaplar.
- * EKSİK → sert kapı (exit 1). Böylece gelecekteki her yeni sayfa aynı standardı otomatik dayatır.
+ * Bu dosya ÜRÜN ENVANTERİ DEĞİLDİR (o kanonik `product-surfaces.js`'tir). "Bu yüzey(ler)
+ * için şu spec dosyaları ve şu arketip iddia ediliyor" sözleşmesidir. FAZ 3 /
+ * WP-SURFACE-MIGRATION ile her sözleşme, kopyalanmış rota dizgeleri yerine kanonik
+ * `surfaceIds` REFERANSLARI taşır; `routes` alanı bu ID'lerden registry üzerinden
+ * TÜRETİLİR (fail-closed: bilinmeyen surfaceId import anında patlar). Böylece rota
+ * dizgesi tek bir yerde (registry) yaşar; kapsam sözleşmesi ürün envanterine ROTA
+ * KOPYALAMAZ, ona İŞARET EDER.
+ *
+ * `tools/style-coverage.mjs` her sayfa için arketipinden ZORUNLU stilleri türetir ve
+ * etiket var mı / N/A beyanlı mı / EKSİK mi hesaplar. EKSİK → sert kapı (exit 1).
  *
  * Kurallar: AGENTS.md → "Zorunlu test stilleri". Stil el kitabı: docs/TEST_STYLES.md.
  *
@@ -23,10 +30,30 @@ import { MAIN_NAVIGATION } from './navigation.js';
  *
  * naStyles: koşullu bir stil uygulanmıyorsa AÇIK gerekçeyle beyan edilir (sessiz atlama yasak).
  */
-export const TESTED_PAGES = Object.freeze([
+
+/**
+ * Bir kapsam sözleşmesinin `surfaceIds`'ini kanonik registry üzerinden rota dizgelerine
+ * çözer (fail-closed). Bilinmeyen surfaceId → import anında fırlatır.
+ * @param {ReadonlyArray<string>} surfaceIds
+ * @param {string} contractId
+ * @returns {ReadonlyArray<string>}
+ */
+function resolveContractRoutes(surfaceIds, contractId) {
+  if (!Array.isArray(surfaceIds) || surfaceIds.length === 0) {
+    throw new Error(`Kapsam sözleşmesi '${contractId}' en az bir surfaceId taşımalı.`);
+  }
+  return Object.freeze(surfaceIds.map((id) => {
+    const s = SURFACE_BY_ID.get(id);
+    if (!s) throw new Error(`Kapsam sözleşmesi '${contractId}' bilinmeyen surfaceId referanslıyor: ${id}`);
+    return s.route;
+  }));
+}
+
+/** Ham kapsam sözleşmeleri (surfaceIds referanslı). `routes` bunlardan TÜRETİLİR. */
+const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'main-navigation',
-    routes: MAIN_NAVIGATION.map(({ path }) => path),
+    surfaceIds: ['dashboard', 'inbox', 'voice', 'channels', 'ai', 'campaigns', 'bot-builder', 'contacts', 'tickets', 'analytics', 'reports', 'supervisor', 'workforce', 'settings'],
     specFiles: ['quality-baseline.authed.spec.js'],
     routeLevelBaseline: true,
     archetype: {
@@ -43,7 +70,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'dashboard',
-    routes: ['/'],
+    surfaceIds: ['dashboard'],
     specFiles: [
       'dashboard.authed.spec.js',
       'dashboard-actions.authed.spec.js',
@@ -69,7 +96,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'reports-dashboards',
-    routes: ['/reports/dashboards'],
+    surfaceIds: ['reports-dashboards'],
     specFiles: [
       'reports-dashboards.authed.spec.js',
       'reports-dashboards-mutations.authed.spec.js',
@@ -92,10 +119,8 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'reports-sections',
-    routes: [
-      '/reports/call', '/reports/agent', '/reports/queue', '/reports/campaign',
-      '/reports/channel', '/reports/ai', '/reports/quality', '/reports/csat',
-      '/reports/billing', '/reports/sla',
+    surfaceIds: [
+      'reports-call', 'reports-agent', 'reports-queue', 'reports-campaign', 'reports-channel', 'reports-ai', 'reports-quality', 'reports-csat', 'reports-billing', 'reports-sla',
     ],
     specFiles: [
       'reports-sections.authed.spec.js',
@@ -117,7 +142,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-hub',
-    routes: ['/settings'],
+    surfaceIds: ['settings'],
     specFiles: ['settings.authed.spec.js', 'settings-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -149,7 +174,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-profile',
-    routes: ['/settings/profile'],
+    surfaceIds: ['settings-profile'],
     specFiles: [
       'settings-profile.authed.spec.js',
       'settings-profile-mutations.authed.spec.js',
@@ -172,7 +197,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-organization',
-    routes: ['/settings/organization'],
+    surfaceIds: ['settings-organization'],
     specFiles: [
       'settings-organization.authed.spec.js',
       'settings-organization-mutations.authed.spec.js',
@@ -195,7 +220,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-users',
-    routes: ['/settings/users'],
+    surfaceIds: ['settings-users'],
     specFiles: [
       'settings-users.authed.spec.js',
       'settings-users-interactions.authed.spec.js',
@@ -227,7 +252,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-roles',
-    routes: ['/settings/roles'],
+    surfaceIds: ['settings-roles'],
     specFiles: [
       'settings-roles.authed.spec.js',
       'settings-roles-interactions.authed.spec.js',
@@ -259,7 +284,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-compliance',
-    routes: ['/settings/compliance'],
+    surfaceIds: ['settings-compliance'],
     specFiles: [
       'settings-compliance.authed.spec.js',
       'settings-compliance-mutations.authed.spec.js',
@@ -283,7 +308,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-teams',
-    routes: ['/settings/teams'],
+    surfaceIds: ['settings-teams'],
     specFiles: [
       'settings-teams.authed.spec.js',
       'settings-teams-mutations.authed.spec.js',
@@ -306,7 +331,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-hours',
-    routes: ['/settings/hours'],
+    surfaceIds: ['settings-hours'],
     specFiles: [
       'settings-hours.authed.spec.js',
       'settings-hours-mutations.authed.spec.js',
@@ -329,7 +354,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-automations',
-    routes: ['/settings/automations'],
+    surfaceIds: ['settings-automations'],
     specFiles: [
       'settings-automations.authed.spec.js',
       'settings-automations-mutations.authed.spec.js',
@@ -352,7 +377,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-sla',
-    routes: ['/settings/sla'],
+    surfaceIds: ['settings-sla'],
     specFiles: [
       'settings-sla.authed.spec.js',
       'settings-sla-mutations.authed.spec.js',
@@ -374,7 +399,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-templates',
-    routes: ['/settings/templates'],
+    surfaceIds: ['settings-templates'],
     specFiles: [
       'settings-templates.authed.spec.js',
       'settings-templates-mutations.authed.spec.js',
@@ -397,7 +422,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-disposition-codes',
-    routes: ['/settings/disposition-codes'],
+    surfaceIds: ['settings-disposition-codes'],
     specFiles: [
       'settings-disposition-codes.authed.spec.js',
       'settings-disposition-codes-mutations.authed.spec.js',
@@ -420,7 +445,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-canned-responses',
-    routes: ['/settings/canned-responses'],
+    surfaceIds: ['settings-canned-responses'],
     specFiles: [
       'settings-canned-responses.authed.spec.js',
       'settings-canned-responses-mutations.authed.spec.js',
@@ -443,7 +468,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-integrations',
-    routes: ['/settings/integrations'],
+    surfaceIds: ['settings-integrations'],
     specFiles: [
       'settings-integrations.authed.spec.js',
       'settings-integrations-mutations.authed.spec.js',
@@ -466,7 +491,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-security',
-    routes: ['/settings/security'],
+    surfaceIds: ['settings-security'],
     specFiles: [
       'settings-security.authed.spec.js',
       'settings-security-mutations.authed.spec.js',
@@ -489,7 +514,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-data-retention',
-    routes: ['/settings/data-retention'],
+    surfaceIds: ['settings-data-retention'],
     specFiles: [
       'settings-data-retention.authed.spec.js',
       'settings-data-retention-mutations.authed.spec.js',
@@ -513,7 +538,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-notifications',
-    routes: ['/settings/notifications'],
+    surfaceIds: ['settings-notifications'],
     specFiles: [
       'settings-notifications.authed.spec.js',
       'settings-notifications-mutations.authed.spec.js',
@@ -538,7 +563,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-api-keys',
-    routes: ['/settings/api-keys'],
+    surfaceIds: ['settings-api-keys'],
     specFiles: [
       'settings-api-keys.authed.spec.js',
       'settings-api-keys-mutations.authed.spec.js',
@@ -561,7 +586,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-webhooks',
-    routes: ['/settings/webhooks'],
+    surfaceIds: ['settings-webhooks'],
     specFiles: [
       'settings-webhooks.authed.spec.js',
       'settings-webhooks-mutations.authed.spec.js',
@@ -584,7 +609,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'settings-audit',
-    routes: ['/settings/audit'],
+    surfaceIds: ['settings-audit'],
     specFiles: ['settings-audit.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -611,7 +636,7 @@ export const TESTED_PAGES = Object.freeze([
   //   özelliklerini sahiplenir, /workforce ile gereksiz derin tekrar yapılmaz.
   {
     id: 'workforce',
-    routes: ['/workforce'],
+    surfaceIds: ['workforce'],
     specFiles: [
       'workforce.authed.spec.js',
       'workforce-mutations.authed.spec.js',
@@ -635,7 +660,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'workforce-schedules',
-    routes: ['/workforce/schedules'],
+    surfaceIds: ['workforce-schedules'],
     specFiles: ['workforce-schedules.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -658,7 +683,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'workforce-time-off',
-    routes: ['/workforce/time-off'],
+    surfaceIds: ['workforce-time-off'],
     specFiles: ['workforce-time-off.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -680,7 +705,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'workforce-surveys',
-    routes: ['/workforce/surveys'],
+    surfaceIds: ['workforce-surveys'],
     specFiles: [
       'workforce-surveys.authed.spec.js',
       'workforce-surveys-mutations.authed.spec.js',
@@ -704,7 +729,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'workforce-badges',
-    routes: ['/workforce/badges'],
+    surfaceIds: ['workforce-badges'],
     specFiles: [
       'workforce-badges.authed.spec.js',
       'workforce-badges-mutations.authed.spec.js',
@@ -728,7 +753,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'workforce-evaluations',
-    routes: ['/workforce/evaluations'],
+    surfaceIds: ['workforce-evaluations'],
     specFiles: [
       'workforce-evaluations.authed.spec.js',
       'workforce-evaluations-mutations.authed.spec.js',
@@ -759,7 +784,7 @@ export const TESTED_PAGES = Object.freeze([
   //   sayfalarda knownBugGuard altında.
   {
     id: 'channels-hub',
-    routes: ['/channels'],
+    surfaceIds: ['channels'],
     specFiles: ['channels-hub.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -781,7 +806,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-webchat',
-    routes: ['/channels/webchat'],
+    surfaceIds: ['channels-webchat'],
     specFiles: [
       'channels-webchat.authed.spec.js',
       'channels-webchat-mutations.authed.spec.js',
@@ -804,7 +829,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-email',
-    routes: ['/channels/email'],
+    surfaceIds: ['channels-email'],
     specFiles: [
       'channels-email.authed.spec.js',
       'channels-email-mutations.authed.spec.js',
@@ -828,7 +853,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-sms',
-    routes: ['/channels/sms'],
+    surfaceIds: ['channels-sms'],
     specFiles: [
       'channels-sms.authed.spec.js',
       'channels-sms-mutations.authed.spec.js',
@@ -852,7 +877,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-whatsapp',
-    routes: ['/channels/whatsapp'],
+    surfaceIds: ['channels-whatsapp'],
     specFiles: [
       'channels-whatsapp.authed.spec.js',
       'channels-whatsapp-mutations.authed.spec.js',
@@ -877,7 +902,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-social',
-    routes: ['/channels/social'],
+    surfaceIds: ['channels-social'],
     specFiles: [
       'channels-social.authed.spec.js',
       'channels-social-mutations.authed.spec.js',
@@ -902,7 +927,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'channels-video',
-    routes: ['/channels/video'],
+    surfaceIds: ['channels-video'],
     specFiles: [
       'channels-video.authed.spec.js',
       'channels-video-mutations.authed.spec.js',
@@ -932,7 +957,7 @@ export const TESTED_PAGES = Object.freeze([
   //   Softphone (gerçek çağrı) = staging mutation (voice-call.mutation.authed.spec.js).
   {
     id: 'voice-hub',
-    routes: ['/voice'],
+    surfaceIds: ['voice'],
     specFiles: [
       'voice.authed.spec.js',
       'voice-subnav.authed.spec.js',
@@ -957,7 +982,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-queues',
-    routes: ['/voice/queues'],
+    surfaceIds: ['voice-queues'],
     specFiles: [
       'voice-queues.authed.spec.js',
       'voice-queues-mutations.authed.spec.js',
@@ -980,7 +1005,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-history',
-    routes: ['/voice/history'],
+    surfaceIds: ['voice-history'],
     specFiles: ['voice-history.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -1001,7 +1026,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-voicemail',
-    routes: ['/voice/voicemail'],
+    surfaceIds: ['voice-voicemail'],
     specFiles: ['voice-voicemail.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -1023,7 +1048,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-recordings',
-    routes: ['/voice/recordings'],
+    surfaceIds: ['voice-recordings'],
     specFiles: ['voice-recordings.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -1043,7 +1068,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-dids',
-    routes: ['/voice/dids'],
+    surfaceIds: ['voice-dids'],
     specFiles: [
       'voice-dids.authed.spec.js',
       'voice-dids-mutations.authed.spec.js',
@@ -1071,7 +1096,7 @@ export const TESTED_PAGES = Object.freeze([
     // known-bug guard'ları ile sabitlenir. Koşullu stiller uygulanamaz (içerik güvenilir render
     // etmiyor) → arketip minimal.
     id: 'voice-regulatory',
-    routes: ['/voice/regulatory'],
+    surfaceIds: ['voice-regulatory'],
     specFiles: ['voice-regulatory.authed.spec.js'],
     archetype: {
       hasData: false,
@@ -1095,7 +1120,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-ivr',
-    routes: ['/voice/ivr'],
+    surfaceIds: ['voice-ivr'],
     specFiles: [
       'voice-ivr.authed.spec.js',
       'voice-ivr-mutations.authed.spec.js',
@@ -1118,7 +1143,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-sip-trunks',
-    routes: ['/voice/sip-trunks'],
+    surfaceIds: ['voice-sip-trunks'],
     specFiles: ['voice-sip-trunks.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -1139,7 +1164,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-sip-settings',
-    routes: ['/voice/sip-settings'],
+    surfaceIds: ['voice-sip-settings'],
     specFiles: ['voice-sip-settings.authed.spec.js'],
     archetype: {
       hasData: false,
@@ -1163,7 +1188,7 @@ export const TESTED_PAGES = Object.freeze([
   },
   {
     id: 'voice-skills',
-    routes: ['/voice/skills'],
+    surfaceIds: ['voice-skills'],
     specFiles: ['voice-skills.authed.spec.js'],
     archetype: {
       hasData: true,
@@ -1184,3 +1209,16 @@ export const TESTED_PAGES = Object.freeze([
     },
   },
 ]);
+
+/**
+ * TEST_EDİLEN SAYFALAR. Her sözleşmeye kanonik `surfaceIds`'ten TÜRETİLMİŞ `routes` alanı
+ * (geriye-dönük uyum + tüketici kolaylığı) eklenir. `routes` artık elle KOPYALANMAZ; kaynak
+ * registry'dir. `main-navigation` sözleşmesi hâlâ MAIN_NAVIGATION ile aynı 14 yüzeyi kapsar
+ * (nav = registry'nin doğrulanan alt kümesi; bkz. navigation.js).
+ */
+export const TESTED_PAGES = Object.freeze(
+  COVERAGE_CONTRACTS.map((c) => Object.freeze({
+    ...c,
+    routes: resolveContractRoutes(c.surfaceIds, c.id),
+  }))
+);

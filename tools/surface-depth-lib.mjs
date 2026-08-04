@@ -19,7 +19,7 @@
  *       makine-okur işaret YOKTUR → asla "COVERED" iddia edilmez. Arketip bileşeni
  *       ima ediyorsa `UNVERIFIED` (reason NO_MACHINE_SIGNAL); etmiyorsa NOT_APPLICABLE.
  *   Böylece bir rota "L2 DEEP" (tam etkileşim derinliği kanıtlı) OLMADAN yeşile
- *   boyanamaz; style-coverage kapısı yeşil diye 55/55 "tamam" YAZILMAZ. Bir zorunlu
+ *   boyanamaz; style-coverage kapısı yeşil diye envanter "tamam" YAZILMAZ. Bir zorunlu
  *   boyut eksikken/UNVERIFIED iken L2 COMPLETE olamaz (§4.9-4).
  * - Bir boyut sayfada geçerli değilse `NOT_APPLICABLE` + gerekçe/reasonCode; sessiz
  *   N/A yoktur (§4.6). Bilinmeyen status/reasonCode reddedilir (§4.9-9).

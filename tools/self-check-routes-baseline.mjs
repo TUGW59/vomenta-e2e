@@ -1,16 +1,17 @@
 // @ts-check
 /**
- * ROTA-BASELINE SELF-CHECK — SERT KAPI (WP-MORNING Faz 1).
+ * ROTA-BASELINE SELF-CHECK — SERT KAPI (WP-MORNING Faz 1 + WP-SURFACE-MIGRATION / FAZ 3).
  *
- * `tests/contracts/registered-routes.js` envanteri ile
- * `tests/registered-routes-smoke.authed.spec.js`'in GERÇEKTEN ürettiği
- * `[route:...] @route-baseline` testleri arasında birebirliği zorlar:
- *   - her kayıtlı rota için TAM 1 baseline testi (eksik yok)
- *   - kayıtsız rota için baseline işareti YOK (fazla yok)
- *   - yinelenen rota işareti yok
+ * `tests/contracts/registered-routes.js` envanteri (artık kanonik `PRODUCT_SURFACES`'ten
+ * türetilir) ile `tests/registered-routes-smoke.authed.spec.js`'in GERÇEKTEN ürettiği
+ * runtime-policy'ye göre AYRIK baseline testleri arasında birebirliği zorlar:
+ *   - RUNNABLE (readonly-baseline) yüzey → TAM 1 `@route-baseline` testi
+ *   - BLOCKED (fixture-required/readonly-blocked/staging-only) → TAM 1 `@route-blocked` testi
+ *   - REDIRECT (routeKind=redirect) → TAM 1 `@route-redirect` testi
+ *   - kayıtsız rota için işaret YOK (fazla yok); yinelenen yok
+ *   - baseline test SAYISI runtime-policy ile açıklanabilir (runnable=#readonly-baseline)
  *   - 0 kayıtlı rota veya 0 seçilen test → non-zero
- * Ayrıca envanter üreticisi + işaret çözümleyicinin sentetik negatif vakalarını
- * (dedupe, geçersiz sözleşme reddi, deep-path/kök '/' ayrıştırma) doğrular.
+ * Ayrıca envanter üreticisi + işaret çözümleyicinin sentetik negatif vakalarını doğrular.
  *
  * Çalıştır:  node tools/self-check-routes-baseline.mjs   (veya: npm run quality:routes-baseline)
  */
@@ -20,10 +21,16 @@ import { dirname, resolve } from 'node:path';
 import {
   REGISTERED_ROUTES,
   REGISTERED_ROUTE_PATHS,
+  RUNNABLE_ROUTES,
+  BLOCKED_ROUTES,
+  REDIRECT_ROUTES,
   buildRegisteredRoutes,
   assertValidRoutePath,
+  baselineKindForSurface,
   parseRouteMarker,
   routeBaselineTitle,
+  routeBlockedTitle,
+  routeRedirectTitle,
 } from '../tests/contracts/registered-routes.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -46,11 +53,39 @@ for (const p of REGISTERED_ROUTE_PATHS) {
   }
 }
 
+// Baseline partisyonu tam örtüşmeli (her rota tam bir baseline türü).
+if (RUNNABLE_ROUTES.length + BLOCKED_ROUTES.length + REDIRECT_ROUTES.length !== REGISTERED_ROUTES.length) {
+  fail(
+    `Baseline partisyonu envanteri kapsamıyor: runnable ${RUNNABLE_ROUTES.length} + blocked ` +
+      `${BLOCKED_ROUTES.length} + redirect ${REDIRECT_ROUTES.length} ≠ ${REGISTERED_ROUTES.length}.`
+  );
+}
+
 // ──────────────────── 2) Sentetik negatifler (üretici + parser) ────────────────────
+/** Sentetik yüzey fabrikası (buildRegisteredRoutes yüzey nesnesi bekler). */
+const surf = (route, over = {}) => ({
+  id: `s${route.replace(/[^a-z0-9]+/gi, '-')}`, area: 'x', route,
+  routeKind: 'static', lifecycle: 'active', navigation: 'hidden',
+  runtimePolicy: 'readonly-baseline', ...over,
+});
+
 // Yinelenen rota tek kayda iner.
-const syntheticDupe = buildRegisteredRoutes([{ routes: ['/a', '/a', '/b'] }, { routes: ['/b'] }]);
+const syntheticDupe = buildRegisteredRoutes([surf('/a'), surf('/a', { id: 'sa2' }), surf('/b')]);
 if (syntheticDupe.length !== 2) {
-  fail(`Sentetik dedupe başarısız: /a,/a,/b,/b → ${syntheticDupe.length} kayıt (2 beklenir).`);
+  fail(`Sentetik dedupe başarısız: /a,/a,/b → ${syntheticDupe.length} kayıt (2 beklenir).`);
+}
+
+// runtime-policy → baseline türü doğru türetilir.
+if (baselineKindForSurface({ routeKind: 'static', runtimePolicy: 'readonly-baseline' }) !== 'runnable') {
+  fail('baselineKindForSurface: readonly-baseline → runnable değil.');
+}
+for (const pol of ['fixture-required', 'readonly-blocked', 'staging-only']) {
+  if (baselineKindForSurface({ routeKind: 'static', runtimePolicy: pol }) !== 'blocked') {
+    fail(`baselineKindForSurface: ${pol} → blocked değil.`);
+  }
+}
+if (baselineKindForSurface({ routeKind: 'redirect', runtimePolicy: 'readonly-baseline' }) !== 'redirect') {
+  fail('baselineKindForSurface: routeKind=redirect → redirect değil.');
 }
 
 // Geçersiz rota sözleşmesi reddedilir.
@@ -64,12 +99,18 @@ for (const bad of ['', '   ', 'contacts', 'https://app.vomenta.com/x', '/x?y=1',
   if (!threw) fail(`Sentetik: geçersiz rota reddedilmedi: ${JSON.stringify(bad)}`);
 }
 
-// İşaret çözümleyici deep-path ve kök '/' ile başlığı doğru ayrıştırır.
+// İşaret çözümleyici deep-path, kök '/', blocked ve redirect başlıklarını doğru ayrıştırır.
 if (parseRouteMarker(routeBaselineTitle('/settings/profile')) !== '/settings/profile') {
   fail('Parser: deep path işareti çözülemedi.');
 }
 if (parseRouteMarker(routeBaselineTitle('/')) !== '/') {
   fail("Parser: kök '/' işareti çözülemedi.");
+}
+if (parseRouteMarker(routeBlockedTitle('/bot-builder/:id', 'READONLY_FIXTURE_ID_REQUIRED')) !== '/bot-builder/:id') {
+  fail('Parser: blocked işareti (dinamik) çözülemedi.');
+}
+if (parseRouteMarker(routeRedirectTitle('/old', '/new')) !== '/old') {
+  fail('Parser: redirect işareti çözülemedi.');
 }
 if (parseRouteMarker('işaretsiz başlık') !== null) {
   fail('Parser: işaretsiz başlık null dönmedi.');
@@ -88,14 +129,17 @@ try {
 }
 
 if (report) {
-  const markers = [];
+  // Etikete göre işaret kümeleri: her baseline türü ayrı toplanır.
+  const byTag = { 'route-baseline': [], 'route-blocked': [], 'route-redirect': [] };
   const walk = (suite) => {
     for (const sp of suite.specs || []) {
       const tags = (sp.tags || []).map((t) => String(t).replace(/^@/, ''));
       const marker = parseRouteMarker(`${suite.title || ''} ${sp.title || ''}`);
-      if (tags.includes('route-baseline')) {
-        if (!marker) fail(`@route-baseline testinde [route:] işareti yok: ${sp.title}`);
-        else markers.push(marker);
+      const kinds = Object.keys(byTag).filter((k) => tags.includes(k));
+      if (kinds.length > 1) fail(`Bir testte birden çok baseline etiketi: ${sp.title}`);
+      if (kinds.length === 1) {
+        if (!marker) fail(`@${kinds[0]} testinde [route:] işareti yok: ${sp.title}`);
+        else byTag[kinds[0]].push(marker);
       } else if (marker) {
         fail(`Baseline spec'te etiketsiz [route:] işareti: ${sp.title}`);
       }
@@ -104,25 +148,40 @@ if (report) {
   };
   for (const s of report.suites || []) walk(s);
 
-  if (markers.length === 0) {
-    fail('0 route-baseline testi seçildi (spec işareti/etiketi eksik olabilir).');
+  const allMarkers = [...byTag['route-baseline'], ...byTag['route-blocked'], ...byTag['route-redirect']];
+  if (allMarkers.length === 0) {
+    fail('0 route-* baseline testi seçildi (spec işareti/etiketi eksik olabilir).');
   }
 
-  const seen = new Set();
-  for (const m of markers) {
-    if (seen.has(m)) fail(`Bir rota için birden çok baseline testi: ${m}`);
-    seen.add(m);
-  }
+  // Türe göre birebir eşleşme: markers[kind] == beklenen rota kümesi.
+  const check = (label, markers, expectedPaths) => {
+    const seen = new Set();
+    for (const m of markers) {
+      if (seen.has(m)) fail(`[${label}] bir rota için birden çok test: ${m}`);
+      seen.add(m);
+    }
+    const expected = new Set(expectedPaths);
+    for (const r of expected) if (!seen.has(r)) fail(`[${label}] rota için test EKSİK: ${r}`);
+    for (const m of seen) if (!expected.has(m)) fail(`[${label}] beklenmeyen rota işareti (FAZLA): ${m}`);
+    if (markers.length !== expected.size) {
+      fail(`[${label}] test sayısı (${markers.length}) ≠ beklenen rota sayısı (${expected.size}).`);
+    }
+  };
+  check('route-baseline', byTag['route-baseline'], RUNNABLE_ROUTES.map((r) => r.path));
+  check('route-blocked', byTag['route-blocked'], BLOCKED_ROUTES.map((r) => r.path));
+  check('route-redirect', byTag['route-redirect'], REDIRECT_ROUTES.map((r) => r.path));
 
+  // Birleşik: tüm işaretler tam olarak kayıtlı envanteri kapsar (eksik/fazla/yinelenen yok).
   const registered = new Set(REGISTERED_ROUTE_PATHS);
-  for (const r of registered) {
-    if (!seen.has(r)) fail(`Kayıtlı rota için baseline testi EKSİK: ${r}`);
+  const seenAll = new Set();
+  for (const m of allMarkers) {
+    if (seenAll.has(m)) fail(`Bir rota birden çok baseline türünde: ${m}`);
+    seenAll.add(m);
   }
-  for (const m of seen) {
-    if (!registered.has(m)) fail(`Kayıtsız rota için baseline işareti (FAZLA): ${m}`);
-  }
-  if (markers.length !== registered.size) {
-    fail(`Baseline test sayısı (${markers.length}) ≠ kayıtlı rota sayısı (${registered.size}).`);
+  for (const r of registered) if (!seenAll.has(r)) fail(`Kayıtlı rota için baseline testi EKSİK: ${r}`);
+  for (const m of seenAll) if (!registered.has(m)) fail(`Kayıtsız rota için baseline işareti (FAZLA): ${m}`);
+  if (allMarkers.length !== registered.size) {
+    fail(`Toplam baseline test (${allMarkers.length}) ≠ kayıtlı rota (${registered.size}).`);
   }
 }
 
@@ -133,6 +192,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `Rota-baseline self-check geçti: ${REGISTERED_ROUTES.length} kayıtlı rota = ` +
-    `${REGISTERED_ROUTES.length} read-only baseline testi (eksik/fazla/yinelenen yok).`
+  `Rota-baseline self-check geçti: ${REGISTERED_ROUTES.length} kayıtlı yüzey = ` +
+    `${RUNNABLE_ROUTES.length} runnable (@route-baseline) + ${BLOCKED_ROUTES.length} blocked ` +
+    `(@route-blocked) + ${REDIRECT_ROUTES.length} redirect (@route-redirect); ` +
+    `runtime-policy ile birebir açıklanır (eksik/fazla/yinelenen yok).`
 );
