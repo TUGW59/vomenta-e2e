@@ -304,3 +304,99 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `workforce-time-off` **@export**: Export/indirme kontrolü yok.
 - `workforce-time-off` **@visual**: İzin tablosu canlı veri → kararlı snapshot yok.
 - `workforce-time-off` **@mutation**: İzin talebi UI'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).
+
+## Kanonik yüzey kapsaması (tüm 87 yüzey — her yüzey tam bir kez)
+
+Kanonik `product-surfaces.js`'teki HER yüzey burada listelenir. `NO_COVERAGE_CONTRACT` =
+dedicated stil kapsam sözleşmesi yok (baseline smoke alır; matris üstünde görünmez). Bu ek,
+stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme üzerinde tutar.
+
+| id | route | area | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression | @keyboard | @errorpath | @visual | @perf | @data | @export | @mutation | sözleşme |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ai` | `/ai` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-chatbot` | `/ai/chatbot` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-copilot` | `/ai/copilot` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-knowledge-base` | `/ai/knowledge-base` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-prompts` | `/ai/prompts` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-providers` | `/ai/providers` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-sentiment` | `/ai/sentiment` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-usage` | `/ai/usage` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-voice` | `/ai/voice` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `analytics` | `/analytics` | analytics | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `bot-builder` | `/bot-builder` | bot-builder | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `bot-builder-detail` | `/bot-builder/:id` | bot-builder | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `campaigns` | `/campaigns` | campaigns | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `campaigns-create` | `/campaigns/create` | campaigns | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `campaigns-outbound` | `/campaigns/outbound` | campaigns | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `channels` | `/channels` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | — | ✔ |
+| `channels-email` | `/channels/email` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `channels-sms` | `/channels/sms` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `channels-social` | `/channels/social` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `channels-video` | `/channels/video` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | ✅ | ✔ |
+| `channels-webchat` | `/channels/webchat` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✔ |
+| `channels-whatsapp` | `/channels/whatsapp` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `contacts` | `/contacts` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `contacts-detail` | `/contacts/:id` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `contacts-import` | `/contacts/import` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `contacts-segments` | `/contacts/segments` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `dashboard` | `/` | dashboard | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✅ | — | — | ✔ |
+| `inbox` | `/inbox` | inbox | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `reports` | `/reports` | reports | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `reports-agent` | `/reports/agent` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-ai` | `/reports/ai` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-billing` | `/reports/billing` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-call` | `/reports/call` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-campaign` | `/reports/campaign` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-channel` | `/reports/channel` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-csat` | `/reports/csat` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-dashboards` | `/reports/dashboards` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `reports-quality` | `/reports/quality` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-queue` | `/reports/queue` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `reports-sla` | `/reports/sla` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
+| `settings` | `/settings` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | ✔ |
+| `settings-api-keys` | `/settings/api-keys` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-audit` | `/settings/audit` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | — | ✔ |
+| `settings-automations` | `/settings/automations` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-billing` | `/settings/billing` | settings | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `settings-billing-marketplace` | `/settings/billing/marketplace` | settings | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `settings-canned-responses` | `/settings/canned-responses` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-compliance` | `/settings/compliance` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✔ |
+| `settings-data-retention` | `/settings/data-retention` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-disposition-codes` | `/settings/disposition-codes` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-hours` | `/settings/hours` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-integrations` | `/settings/integrations` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-notifications` | `/settings/notifications` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | ✅ | ✔ |
+| `settings-organization` | `/settings/organization` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-profile` | `/settings/profile` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-roles` | `/settings/roles` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `settings-security` | `/settings/security` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-sla` | `/settings/sla` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✔ |
+| `settings-teams` | `/settings/teams` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-templates` | `/settings/templates` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-users` | `/settings/users` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `settings-webhooks` | `/settings/webhooks` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
+| `supervisor` | `/supervisor` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-agents` | `/supervisor/agents` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-calls` | `/supervisor/calls` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-coaching` | `/supervisor/coaching` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-interactions` | `/supervisor/interactions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `tickets` | `/tickets` | tickets | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `voice` | `/voice` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — | ✔ |
+| `voice-dids` | `/voice/dids` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `voice-history` | `/voice/history` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — | ✔ |
+| `voice-ivr` | `/voice/ivr` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `voice-live` | `/voice/live` | voice | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `voice-queues` | `/voice/queues` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
+| `voice-recordings` | `/voice/recordings` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | ✅ | N/A | ✔ |
+| `voice-regulatory` | `/voice/regulatory` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — | ✔ |
+| `voice-sip-settings` | `/voice/sip-settings` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — | ✔ |
+| `voice-sip-trunks` | `/voice/sip-trunks` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
+| `voice-skills` | `/voice/skills` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A | ✔ |
+| `voice-voicemail` | `/voice/voicemail` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | N/A | ✔ |
+| `workforce` | `/workforce` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✔ |
+| `workforce-badges` | `/workforce/badges` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✔ |
+| `workforce-evaluations` | `/workforce/evaluations` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✔ |
+| `workforce-schedules` | `/workforce/schedules` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | ✔ |
+| `workforce-surveys` | `/workforce/surveys` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | ✅ | ✔ |
+| `workforce-time-off` | `/workforce/time-off` | workforce | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | ✔ |

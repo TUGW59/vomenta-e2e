@@ -1,0 +1,3393 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "source": {
+    "sourceCommit": "88033f03ef638c926243e66ae525c66805bfd0a1",
+    "environment": "production-read-only",
+    "browser": "chromium",
+    "runtimeGeneratedAt": "2026-08-02T19:46:28.218Z",
+    "inventorySchemaVersion": 1,
+    "depthSchemaVersion": 1
+  },
+  "reconciliation": {
+    "inventorySurfaces": 87,
+    "depthPages": 87,
+    "onlyInInventory": [],
+    "onlyInDepth": []
+  },
+  "totals": {
+    "surfaces": 87,
+    "byRollup": {
+      "BLOCKED": 4,
+      "L2_DEEP": 3,
+      "L2_STYLE": 43,
+      "NO_CONTRACT": 9,
+      "NOT_RUN": 28
+    },
+    "deprecated": 0,
+    "redirect": 0,
+    "blocked": 4,
+    "fail": 0,
+    "notRun": 28,
+    "noContract": 9,
+    "l1StyleGap": 0,
+    "l2Style": 43,
+    "l2Deep": 3,
+    "interactionUnverified": 82,
+    "surfacesWithOpenFindings": 33,
+    "openFindingsTotal": 58,
+    "byArea": {
+      "ai": 9,
+      "analytics": 1,
+      "bot-builder": 2,
+      "campaigns": 3,
+      "channels": 7,
+      "contacts": 4,
+      "dashboard": 1,
+      "inbox": 1,
+      "reports": 12,
+      "settings": 22,
+      "supervisor": 6,
+      "tickets": 1,
+      "voice": 12,
+      "workforce": 6
+    }
+  },
+  "surfaces": [
+    {
+      "id": "ai",
+      "route": "/ai",
+      "area": "ai",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "B13",
+          "B15"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "ai-chatbot",
+      "route": "/ai/chatbot",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-copilot",
+      "route": "/ai/copilot",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-knowledge-base",
+      "route": "/ai/knowledge-base",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-prompts",
+      "route": "/ai/prompts",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "AI-PROMPTS-CONSOLE"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-providers",
+      "route": "/ai/providers",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-sentiment",
+      "route": "/ai/sentiment",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-usage",
+      "route": "/ai/usage",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "ai-voice",
+      "route": "/ai/voice",
+      "area": "ai",
+      "parentId": "ai",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "analytics",
+      "route": "/analytics",
+      "area": "analytics",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 3,
+        "open": 3,
+        "ids": [
+          "ANALYTICS-A",
+          "ANALYTICS-B",
+          "B12"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "bot-builder",
+      "route": "/bot-builder",
+      "area": "bot-builder",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "BOT-BUILDER-CLOSE-I18N",
+          "BOT-BUILDER-TEMPLATE-I18N"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "bot-builder-detail",
+      "route": "/bot-builder/:id",
+      "area": "bot-builder",
+      "parentId": "bot-builder",
+      "routeKind": "dynamic",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "fixture-required",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "campaigns",
+      "route": "/campaigns",
+      "area": "campaigns",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "B2"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "campaigns-create",
+      "route": "/campaigns/create",
+      "area": "campaigns",
+      "parentId": "campaigns",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "contextual",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "campaigns-outbound",
+      "route": "/campaigns/outbound",
+      "area": "campaigns",
+      "parentId": "campaigns",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "CAMPAIGNS-ICON-A11Y",
+          "CAMPAIGNS-PAGER"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "channels",
+      "route": "/channels",
+      "area": "channels",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-hub"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "B5"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-email",
+      "route": "/channels/email",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-email"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 3,
+        "open": 3,
+        "ids": [
+          "B17",
+          "B21",
+          "B9"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-sms",
+      "route": "/channels/sms",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-sms"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "B18",
+          "B22"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-social",
+      "route": "/channels/social",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-social"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "B16",
+          "B24"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-video",
+      "route": "/channels/video",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-video"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "B25"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-webchat",
+      "route": "/channels/webchat",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-webchat"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "B20"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "channels-whatsapp",
+      "route": "/channels/whatsapp",
+      "area": "channels",
+      "parentId": "channels",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "channels-whatsapp"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "B19",
+          "B23"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "contacts",
+      "route": "/contacts",
+      "area": "contacts",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "CONTACTS-F1",
+          "CONTACTS-F2"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "contacts-detail",
+      "route": "/contacts/:id",
+      "area": "contacts",
+      "parentId": "contacts",
+      "routeKind": "dynamic",
+      "lifecycle": "active",
+      "navigation": "contextual",
+      "runtimePolicy": "fixture-required",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "contacts-import",
+      "route": "/contacts/import",
+      "area": "contacts",
+      "parentId": "contacts",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "contacts-segments",
+      "route": "/contacts/segments",
+      "area": "contacts",
+      "parentId": "contacts",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "dashboard",
+      "route": "/",
+      "area": "dashboard",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "dashboard"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "DASH-AI-I18N",
+          "DASH-CLICKHOUSE"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "inbox",
+      "route": "/inbox",
+      "area": "inbox",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 1,
+        "ids": [
+          "B3"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "reports",
+      "route": "/reports",
+      "area": "reports",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "REPORTS-AIKEY",
+          "REPORTS-INTL"
+        ]
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "reports-agent",
+      "route": "/reports/agent",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-ai",
+      "route": "/reports/ai",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-billing",
+      "route": "/reports/billing",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-call",
+      "route": "/reports/call",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "REPORTS-SECTIONS-TZ"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-campaign",
+      "route": "/reports/campaign",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-channel",
+      "route": "/reports/channel",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-csat",
+      "route": "/reports/csat",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-dashboards",
+      "route": "/reports/dashboards",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-dashboards"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "DASHBOARDS-SHARE-OVERFLOW"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-quality",
+      "route": "/reports/quality",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-queue",
+      "route": "/reports/queue",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "reports-sla",
+      "route": "/reports/sla",
+      "area": "reports",
+      "parentId": "reports",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "reports-sections"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 11,
+        "styleRequiredCount": 11,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings",
+      "route": "/settings",
+      "area": "settings",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-hub"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
+      },
+      "findings": {
+        "total": 5,
+        "open": 5,
+        "ids": [
+          "B4",
+          "B6",
+          "B7",
+          "SETTINGS-BILLING-CHANGEPLAN",
+          "SETTINGS-BILLING-HISTORY"
+        ]
+      },
+      "rollup": "L2_DEEP"
+    },
+    {
+      "id": "settings-api-keys",
+      "route": "/settings/api-keys",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-api-keys"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-audit",
+      "route": "/settings/audit",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-audit"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-automations",
+      "route": "/settings/automations",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-automations"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-billing",
+      "route": "/settings/billing",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "SETTINGS-BILLING-REDIRECT"
+        ]
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "settings-billing-marketplace",
+      "route": "/settings/billing/marketplace",
+      "area": "settings",
+      "parentId": "settings-billing",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "settings-canned-responses",
+      "route": "/settings/canned-responses",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-canned-responses"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-compliance",
+      "route": "/settings/compliance",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-compliance"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-data-retention",
+      "route": "/settings/data-retention",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-data-retention"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-disposition-codes",
+      "route": "/settings/disposition-codes",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-disposition-codes"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-hours",
+      "route": "/settings/hours",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-hours"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-integrations",
+      "route": "/settings/integrations",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-integrations"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-notifications",
+      "route": "/settings/notifications",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-notifications"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-organization",
+      "route": "/settings/organization",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-organization"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-profile",
+      "route": "/settings/profile",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-profile"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-roles",
+      "route": "/settings/roles",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-roles"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_DEEP"
+    },
+    {
+      "id": "settings-security",
+      "route": "/settings/security",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-security"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-sla",
+      "route": "/settings/sla",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-sla"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 9,
+        "styleRequiredCount": 9,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-teams",
+      "route": "/settings/teams",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-teams"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-templates",
+      "route": "/settings/templates",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-templates"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "settings-users",
+      "route": "/settings/users",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-users"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": true,
+        "interactionApplicableCount": 3,
+        "interactionCoveredCount": 3
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_DEEP"
+    },
+    {
+      "id": "settings-webhooks",
+      "route": "/settings/webhooks",
+      "area": "settings",
+      "parentId": "settings",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "settings-webhooks"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "supervisor",
+      "route": "/supervisor",
+      "area": "supervisor",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "supervisor-agents",
+      "route": "/supervisor/agents",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "AGENTS-TZ"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "supervisor-calls",
+      "route": "/supervisor/calls",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "supervisor-coaching",
+      "route": "/supervisor/coaching",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "supervisor-interactions",
+      "route": "/supervisor/interactions",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "supervisor-wallboard",
+      "route": "/supervisor/wallboard",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 5,
+        "open": 5,
+        "ids": [
+          "WALLBOARD-AUTOSCROLL",
+          "WALLBOARD-I18N",
+          "WALLBOARD-LIVE-TZ",
+          "WALLBOARD-RESUME-I18N",
+          "WALLBOARD-THEME"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "tickets",
+      "route": "/tickets",
+      "area": "tickets",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "voice",
+      "route": "/voice",
+      "area": "voice",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-hub"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "voice-dids",
+      "route": "/voice/dids",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-dids"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "B14"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-history",
+      "route": "/voice/history",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-history"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "VOICE-HISTORY-A11Y-LABEL"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-ivr",
+      "route": "/voice/ivr",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-ivr"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-live",
+      "route": "/voice/live",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "NO_COVERAGE_CONTRACT",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-queues",
+      "route": "/voice/queues",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-queues"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-recordings",
+      "route": "/voice/recordings",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-recordings"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 8,
+        "styleRequiredCount": 8,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "VOICE-RECORDINGS-A11Y-LABEL"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-regulatory",
+      "route": "/voice/regulatory",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-regulatory"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 0,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 3,
+        "open": 3,
+        "ids": [
+          "B1",
+          "B10",
+          "VOICE-REGULATORY-BROKEN"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-sip-settings",
+      "route": "/voice/sip-settings",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-sip-settings"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 0,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-sip-trunks",
+      "route": "/voice/sip-trunks",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-sip-trunks"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "VOICE-SIP-TRUNKS-SUBTITLE-I18N"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-skills",
+      "route": "/voice/skills",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-skills"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "voice-voicemail",
+      "route": "/voice/voicemail",
+      "area": "voice",
+      "parentId": "voice",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "voice-voicemail"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L0",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "B11",
+          "VOICEMAIL-PAGER-I18N"
+        ]
+      },
+      "rollup": "NOT_RUN"
+    },
+    {
+      "id": "workforce",
+      "route": "/workforce",
+      "area": "workforce",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "main",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 2,
+        "open": 2,
+        "ids": [
+          "WORKFORCE-ADHERENCE-I18N",
+          "WORKFORCE-ADHERENCE-RANGE-STATE"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "workforce-badges",
+      "route": "/workforce/badges",
+      "area": "workforce",
+      "parentId": "workforce",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce-badges"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "WORKFORCE-BADGES-NO-EDIT-DELETE"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "workforce-evaluations",
+      "route": "/workforce/evaluations",
+      "area": "workforce",
+      "parentId": "workforce",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce-evaluations"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "workforce-schedules",
+      "route": "/workforce/schedules",
+      "area": "workforce",
+      "parentId": "workforce",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce-schedules"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "WORKFORCE-SCHEDULE-CELL-A11Y"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "workforce-surveys",
+      "route": "/workforce/surveys",
+      "area": "workforce",
+      "parentId": "workforce",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce-surveys"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 1,
+        "open": 1,
+        "ids": [
+          "WORKFORCE-SURVEYS-ICON-A11Y"
+        ]
+      },
+      "rollup": "L2_STYLE"
+    },
+    {
+      "id": "workforce-time-off",
+      "route": "/workforce/time-off",
+      "area": "workforce",
+      "parentId": "workforce",
+      "routeKind": "static",
+      "lifecycle": "active",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-baseline",
+      "baseline": "runnable",
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "workforce-time-off"
+      ],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "PROVEN",
+        "runtimeStatus": "PASS",
+        "reasonCode": null
+      },
+      "depth": {
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": false,
+        "interactionApplicableCount": 5,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "L2_STYLE"
+    }
+  ]
+}
