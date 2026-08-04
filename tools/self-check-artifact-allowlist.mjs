@@ -538,10 +538,18 @@ for (const f of workflowFiles) {
     );
   });
 }
-check('gerçek workflow toplam upload adım sayısı = 10 (envanter sabiti)', () => {
-  // 9 (playwright.yml: public-smoke/auth-quality/auth-critical/full×?/visual/discovery/
-  // forensic/verify/reconcile) + 1 (readonly-audit.yml: readonly-audit-secure) = 10.
-  assert.equal(realUploadTotal, 10, `beklenen 10 upload adımı, bulunan ${realUploadTotal}`);
+check('gerçek workflow toplam upload adım sayısı = 11 (envanter sabiti)', () => {
+  // FAZ 2 workflow split sonrası envanter (upload adımı = ayrı workflow dosyalarına dağıldı):
+  //   playwright.yml         : public-smoke + auth-quality + auth-critical + forensic + verify = 5
+  //   nightly-functional.yml : full-regression (chromium)                                      = 1
+  //   weekly-cross-browser.yml: full-regression (firefox/webkit)                               = 1
+  //   nightly-discovery.yml  : read-only-discovery                                             = 1
+  //   nightly-known-bugs.yml : nightly-known-bug-reconcile                                     = 1
+  //   weekly-visual.yml      : visual-regression                                               = 1
+  //   readonly-audit.yml     : readonly-audit                                                  = 1
+  // Toplam = 11. (Faz 1 öncesi tek playwright.yml'de 9 + readonly-audit 1 = 10 idi; split'te
+  // full-regression'ın tek upload adımı chromium/cross-browser olarak İKİYE ayrıldı → +1.)
+  assert.equal(realUploadTotal, 11, `beklenen 11 upload adımı, bulunan ${realUploadTotal}`);
 });
 
 // ── B2. Sentetik kötü snippet'ler REDDEDİLMELİ ───────────────────────────────
