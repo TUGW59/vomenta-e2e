@@ -105,6 +105,31 @@ function build(paths, specs, { testedPages, knownBugs } = {}) {
   ok(m.runtime.routeStatusTotals.NOT_RUN === 1, '5: NOT_RUN=1.');
 }
 
+// ── 5b) auth bağımlılığı başarısız → test HİÇ çalışmadı (results boş) = NOT_RUN,
+//        SAHTE FAIL DEĞİL. Playwright, setup dependency düşünce dependent testleri
+//        boş `results:[]` (attempts 0, finalStatus 'unknown') ile işaretler. Bu
+//        gerçek rota FAIL'i sayılmamalı; rota NOT_RUN, failedThisRun 0 olmalı. ──
+{
+  const didNotRun = { title: title('/a'), file: 'registered-routes-smoke.authed.spec.js',
+    tags: ['@smoke', '@route-baseline'],
+    tests: [{ projectName: 'chromium-authed', expectedStatus: 'passed', annotations: [], results: [] }] };
+  ok(classifyTest({ finalStatus: 'unknown', expectedStatus: 'passed', attempts: 0, firstStatus: 'unknown' }) === 'notrun',
+    '5b: attempts 0 + unknown → notrun lensi (hiç çalışmadı).');
+  const m = build(['/a', '/b'], [didNotRun]); // /a boş-results, /b hiç yok
+  ok(m.pages.find((p) => p.route === '/a').baselineStatus === ROUTE_STATUS.NOT_RUN,
+    '5b: bağımlılık düşünce çalışmayan rota NOT_RUN olmalı (FAIL DEĞİL).');
+  ok(m.runtime.routeStatusTotals.FAIL === 0,
+    '5b: hiç çalışmayan rotalar sahte FAIL üretmemeli (FAIL=0).');
+  ok(m.runtime.routeStatusTotals.NOT_RUN === 2 && m.runtime.notRunThisRun === 1,
+    '5b: NOT_RUN=2 (biri boş-results biri hiç-yok), notRunThisRun=1, executed 0.');
+  ok(m.runtime.executedThisRun === 0, '5b: hiç çalışmayan test executed sayılmaz.');
+  ok(!m.failingTestKeys.includes('route:/a'),
+    '5b: hiç çalışmayan rota failingTestKeys\'e (delta) girmemeli.');
+  // KRİTİK: gerçekten çalışıp bilinmeyen kalan test (attempts ≥ 1) YİNE FAIL kalır.
+  ok(classifyTest({ finalStatus: 'unknown', expectedStatus: 'passed', attempts: 1, firstStatus: 'unknown' }) === 'failed',
+    '5b: attempts ≥ 1 + unknown → güvenli-taraf FAIL korunur (zayıflatma yok).');
+}
+
 // ── 8b) manifest sayıları verilince inventory zenginleşir; verilmezse null (uydurma yok) ──
 {
   const withManifest = buildResultModel({
@@ -311,7 +336,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  'Runtime-report self-check geçti: 18 sözleşme (PASS/FAIL/FLAKY/BLOCKED/NOT_RUN, ' +
+  'Runtime-report self-check geçti: 19 sözleşme (PASS/FAIL/FLAKY/BLOCKED/NOT_RUN, ' +
+    'auth-bağımlılığı-düştü→NOT_RUN-sahte-FAIL-değil, ' +
     'source-missing/invalid-JSON/0-selected/stale non-zero, ambiguous→no-fake-PASS, exact bug map, ' +
     'PII/stack/absolute-path sızıntısı yok, manifest hash, HTML güvenlik, FAIL→rapor+exit0, ' +
     'manifest kapsam-hunisi + listed!=selected!=executed ilkesi, §3.3 kanonik durum ' +

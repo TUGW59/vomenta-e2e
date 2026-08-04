@@ -18,6 +18,7 @@ import {
   buildImportGraph,
   buildImportGraphFromSources,
   classifyFile,
+  AUTHED_PR_BUDGET,
 } from './pr-impact-lib.mjs';
 
 const root = process.cwd();
@@ -63,14 +64,22 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
-// 3) İki spec değişikliği duplicate üretmez.
+// 3) İki spec değişikliği duplicate üretmez (bütçe-altı sentetik grafik → cap YOK).
 {
-  const p = plan([
-    { path: 'tests/contacts.authed.spec.js', status: 'M' },
-    { path: 'tests/pages/ContactsPage.js', status: 'M' },
-  ]);
+  const sources = {
+    'tests/x.authed.spec.js': "import './pages/XPage.js';",
+    'tests/pages/XPage.js': 'export class X {}',
+  };
+  const g = buildImportGraphFromSources(sources);
+  const p = planImpact({
+    changedFiles: [
+      { path: 'tests/x.authed.spec.js', status: 'M' },
+      { path: 'tests/pages/XPage.js', status: 'M' },
+    ],
+    graph: g,
+  });
   const arr = p.selected.authenticatedSpecs;
-  const occurrences = arr.filter((s) => s === 'tests/contacts.authed.spec.js').length;
+  const occurrences = arr.filter((s) => s === 'tests/x.authed.spec.js').length;
   check(
     'no-duplicate',
     occurrences === 1 && arr.length === new Set(arr).size,
@@ -78,41 +87,95 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
-// 4) Page Object doğrudan + transitif kullanan spec'leri bulur.
+// 4) Page Object doğrudan + transitif kullanan spec'leri bulur (bütçe-altı grafik).
 {
-  const leaf = plan([{ path: 'tests/pages/ContactsPage.js', status: 'M' }]);
-  const base = plan([{ path: 'tests/pages/BasePage.js', status: 'M' }]);
+  const sources = {
+    'tests/a.authed.spec.js': "import './pages/APage.js';",
+    'tests/b.authed.spec.js': "import './pages/APage.js';",
+    'tests/pages/APage.js': "import './Base.js';\nexport class A {}",
+    'tests/pages/Base.js': 'export class Base {}',
+  };
+  const g = buildImportGraphFromSources(sources);
+  const direct = planImpact({ changedFiles: [{ path: 'tests/pages/APage.js', status: 'M' }], graph: g });
+  const trans = planImpact({ changedFiles: [{ path: 'tests/pages/Base.js', status: 'M' }], graph: g });
   check(
     'page-object-direct',
-    leaf.selected.authenticatedSpecs.includes('tests/contacts.authed.spec.js'),
-    `direct=${JSON.stringify(leaf.selected.authenticatedSpecs)}`
+    direct.selected.authenticatedSpecs.includes('tests/a.authed.spec.js') &&
+      direct.selected.authenticatedSpecs.includes('tests/b.authed.spec.js'),
+    `direct=${JSON.stringify(direct.selected.authenticatedSpecs)}`
   );
   check(
     'page-object-transitive',
-    base.selected.authenticatedSpecs.length >= 5 &&
-      base.selected.authenticatedSpecs.includes('tests/contacts.authed.spec.js'),
-    `transitive count=${base.selected.authenticatedSpecs.length}`
+    trans.selected.authenticatedSpecs.length === 2 &&
+      trans.selected.authenticatedSpecs.includes('tests/a.authed.spec.js'),
+    `transitive=${JSON.stringify(trans.selected.authenticatedSpecs)}`
   );
 }
 
-// 5) Shared fixture: geniş bağımlı kümesi + kritik fallback.
+// 5) Broad-impact cap (ADR-0024): bütçeyi aşan authed fan-out → PR lane bounded
+//    fallback + tam suite nightly'ye ERTELENİR (authed=0, deferred kaydedilir).
 {
-  const p = plan([{ path: 'tests/fixtures/test.js', status: 'M' }]);
+  // Sentetik: 1 paylaşılan modül + (bütçe+1) authed spec → cap tetiklenir.
+  const sources = {};
+  const overBudget = AUTHED_PR_BUDGET + 1;
+  for (let i = 0; i < overBudget; i++) {
+    sources[`tests/s${i}.authed.spec.js`] = "import './pages/Hub.js';";
+  }
+  sources['tests/pages/Hub.js'] = 'export class Hub {}';
+  const g = buildImportGraphFromSources(sources);
+  const capped = planImpact({ changedFiles: [{ path: 'tests/pages/Hub.js', status: 'M' }], graph: g });
   check(
-    'shared-fixture-fallback',
-    p.selected.authenticatedSpecs.length >= 10 &&
-      p.fallbackSuites.includes('authed-critical'),
-    `authed=${p.selected.authenticatedSpecs.length} fallback=${JSON.stringify(p.fallbackSuites)}`
+    'broad-impact-cap',
+    capped.selected.authenticatedSpecs.length === 0 &&
+      capped.authedDeferredToNightly.length === overBudget &&
+      ['route-baseline', 'authed-critical'].every((s) => capped.fallbackSuites.includes(s)) &&
+      !capped.fallbackSuites.includes('route-quality') &&
+      capped.reasons.some((r) => r.startsWith('BROAD_IMPACT_CAP:')) &&
+      capped.exitCode === 0,
+    `authed=${capped.selected.authenticatedSpecs.length} deferred=${capped.authedDeferredToNightly.length} fallback=${JSON.stringify(capped.fallbackSuites)}`
+  );
+
+  // Sınır: TAM bütçe kadar authed spec → cap YOK (doğrudan hedefli koşum).
+  const atBudget = {};
+  for (let i = 0; i < AUTHED_PR_BUDGET; i++) {
+    atBudget[`tests/t${i}.authed.spec.js`] = "import './pages/Hub2.js';";
+  }
+  atBudget['tests/pages/Hub2.js'] = 'export class Hub2 {}';
+  const g2 = buildImportGraphFromSources(atBudget);
+  const notCapped = planImpact({ changedFiles: [{ path: 'tests/pages/Hub2.js', status: 'M' }], graph: g2 });
+  check(
+    'cap-boundary-not-capped',
+    notCapped.selected.authenticatedSpecs.length === AUTHED_PR_BUDGET &&
+      notCapped.authedDeferredToNightly.length === 0 &&
+      !notCapped.reasons.some((r) => r.startsWith('BROAD_IMPACT_CAP:')),
+    `authed=${notCapped.selected.authenticatedSpecs.length} deferred=${notCapped.authedDeferredToNightly.length}`
   );
 }
 
-// 6) Contract/config → geniş güvenli fallback.
+// 5b) Gerçek repo paylaşılan modülü (BasePage ~tüm authed suite'e fan-out) → cap.
+{
+  const p = plan([{ path: 'tests/pages/BasePage.js', status: 'M' }]);
+  check(
+    'real-shared-module-capped',
+    p.selected.authenticatedSpecs.length === 0 &&
+      p.authedDeferredToNightly.length > AUTHED_PR_BUDGET &&
+      p.fallbackSuites.includes('authed-critical') &&
+      p.reasons.some((r) => r.startsWith('BROAD_IMPACT_CAP:')) &&
+      p.exitCode === 0,
+    `authed=${p.selected.authenticatedSpecs.length} deferred=${p.authedDeferredToNightly.length} fallback=${JSON.stringify(p.fallbackSuites)}`
+  );
+}
+
+// 6) Contract/config → geniş güvenli fallback (route-quality HARİÇ: ayrı
+//    authenticated-quality job'ında zaten koşulur → PR lane'de tekrar edilmez).
 {
   const p = plan([{ path: 'playwright.config.js', status: 'M' }]);
-  const has = ['route-baseline', 'route-quality', 'authed-critical'].every((s) =>
-    p.fallbackSuites.includes(s)
+  const has = ['route-baseline', 'authed-critical'].every((s) => p.fallbackSuites.includes(s));
+  check(
+    'config-broad-fallback',
+    has && !p.fallbackSuites.includes('route-quality') && p.exitCode === 0,
+    `fallback=${JSON.stringify(p.fallbackSuites)}`
   );
-  check('config-broad-fallback', has && p.exitCode === 0, `fallback=${JSON.stringify(p.fallbackSuites)}`);
 }
 
 // 7) Docs-only → exit 0, NO_RUNTIME_REQUIRED.

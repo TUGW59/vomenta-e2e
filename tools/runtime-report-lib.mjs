@@ -121,6 +121,14 @@ export function flattenRuntimeTests(report) {
 export function classifyTest(rec) {
   const s = rec.finalStatus;
   if (s === 'skipped') return 'skipped';
+  // HİÇ ÇALIŞMADI: sonuç denemesi yok (results boş → attempts 0, finalStatus
+  // 'unknown'). Playwright, bir testi bağımlılığı (auth setup) başarısız olunca
+  // böyle işaretler — test HİÇ başlamaz. Bu GERÇEK bir rota FAIL'i değildir
+  // (koşum yine de Playwright exit-code + orchestrator ile non-zero döner), ama
+  // rota NOT_RUN sayılır: auth kesintisi 87 rotayı sahte FAIL'e boyayamaz.
+  // "Güvenli-taraf FAIL" YALNIZ gerçekten çalışıp (attempts ≥ 1) bilinmeyen/
+  // yarıda-kesilen testler içindir (aşağıdaki son fallthrough).
+  if ((rec.attempts || 0) === 0 && (s === 'unknown' || s === '')) return 'notrun';
   const expectedFail = rec.expectedStatus === 'failed';
   const failed = s === 'failed' || s === 'timedOut' || s === 'interrupted';
   if (expectedFail && failed) return 'knownbug'; // knownBugGuard: beklenen başarısızlık
@@ -129,7 +137,7 @@ export function classifyTest(rec) {
     if (rec.attempts > 1 && rec.firstStatus !== 'passed') return 'flaky';
     return 'passed';
   }
-  return 'failed'; // bilinmeyen/interrupted güvenli tarafta FAIL
+  return 'failed'; // çalıştı ama bilinmeyen (attempts ≥ 1) → güvenli tarafta FAIL
 }
 
 /**
@@ -146,11 +154,16 @@ export function classifyRouteStatus(tests) {
   if (lenses.includes('failed')) return { status: ROUTE_STATUS.FAIL, reason: 'unexpected-failure' };
   if (lenses.includes('flaky')) return { status: ROUTE_STATUS.FLAKY, reason: 'retry-pass' };
   if (lenses.includes('passed')) return { status: ROUTE_STATUS.PASS, reason: 'passed' };
-  // Kalan: yalnız skipped ve/veya knownbug.
+  // Kalan: yalnız skipped ve/veya knownbug ve/veya notrun.
   if (lenses.includes('knownbug')) {
     return { status: ROUTE_STATUS.BLOCKED, reason: 'known-bug-expected-failure' };
   }
-  return { status: ROUTE_STATUS.BLOCKED, reason: 'skipped-or-fixme' };
+  // Politika-skip (fixme/skip) BLOCKED baskındır. Geriye YALNIZ notrun kalıyorsa
+  // (bağımlılık başarısız → test hiç çalışmadı) rota NOT_RUN'dır: sahte FAIL yok.
+  if (lenses.includes('skipped')) {
+    return { status: ROUTE_STATUS.BLOCKED, reason: 'skipped-or-fixme' };
+  }
+  return { status: ROUTE_STATUS.NOT_RUN, reason: 'dependency-not-run' };
 }
 
 /**
@@ -209,15 +222,18 @@ export function buildRuntimeTotals(tests) {
     failedThisRun: 0,
     flakyThisRun: 0,
     skippedThisRun: 0,
+    notRunThisRun: 0,
     knownBugExpectedFail: 0,
   };
   for (const rec of tests) {
     const lens = classifyTest(rec);
-    if (lens !== 'skipped') t.executedThisRun++;
+    // skipped (politika) ve notrun (hiç çalışmadı) yürütme sayılmaz.
+    if (lens !== 'skipped' && lens !== 'notrun') t.executedThisRun++;
     if (lens === 'passed') t.passedThisRun++;
     else if (lens === 'failed') t.failedThisRun++;
     else if (lens === 'flaky') t.flakyThisRun++;
     else if (lens === 'skipped') t.skippedThisRun++;
+    else if (lens === 'notrun') t.notRunThisRun++;
     else if (lens === 'knownbug') t.knownBugExpectedFail++;
   }
   return t;
@@ -293,7 +309,7 @@ export function buildResultModel(opts) {
       warnings.push(`Rota ${route.path}: route-baseline testi knownBugGuard beklenen-başarısızlık taşıyor → BLOCKED.`);
     }
     // Sayfa-içi test sayaçları (lens bazlı).
-    const lensCounts = { passed: 0, failed: 0, flaky: 0, skipped: 0, knownbug: 0 };
+    const lensCounts = { passed: 0, failed: 0, flaky: 0, skipped: 0, knownbug: 0, notrun: 0 };
     for (const rt of routeTests) lensCounts[classifyTest(rt)]++;
     const contract = contractIdx.get(route.path) || { pageIds: [], specFiles: new Set() };
     return {
@@ -303,11 +319,15 @@ export function buildResultModel(opts) {
       baselineStatus: status,
       statusReason: reason,
       selected: routeTests.length,
-      executed: routeTests.filter((r) => classifyTest(r) !== 'skipped').length,
+      executed: routeTests.filter((r) => {
+        const l = classifyTest(r);
+        return l !== 'skipped' && l !== 'notrun';
+      }).length,
       passed: lensCounts.passed,
       failed: lensCounts.failed,
       flaky: lensCounts.flaky,
       skipped: lensCounts.skipped,
+      notRun: lensCounts.notrun,
       knownBugExpectedFail: lensCounts.knownbug,
       durationMs: routeTests.reduce((s, r) => s + (r.durationMs || 0), 0) || null,
       specFiles: [...contract.specFiles].sort(),

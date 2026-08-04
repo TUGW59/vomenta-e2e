@@ -9,7 +9,7 @@
  *
  * Çalıştır:  node tools/self-check-pr-impact-runner.mjs  (npm run quality:ci-runner)
  */
-import { planImpact, buildImportGraph } from './pr-impact-lib.mjs';
+import { planImpact, buildImportGraph, buildImportGraphFromSources } from './pr-impact-lib.mjs';
 import {
   planRun,
   interpretGroup,
@@ -76,15 +76,38 @@ const validAuthedPlan = plan([{ path: 'tests/contacts.authed.spec.js', status: '
   );
 }
 
-// P4) Page Object → bağlı spec grubu (handoff §2.6.4 pozitif tarafı).
+// P4) Page Object → bağlı spec grubu (bütçe-altı sentetik grafik → cap YOK).
 {
-  const po = plan([{ path: 'tests/pages/ContactsPage.js', status: 'M' }]);
+  const g = buildImportGraphFromSources({
+    'tests/c.authed.spec.js': "import './pages/CPage.js';",
+    'tests/pages/CPage.js': 'export class C {}',
+  });
+  const po = planImpact({ changedFiles: [{ path: 'tests/pages/CPage.js', status: 'M' }], root, graph: g });
   const d = planRun(po);
-  const authed = d.groups.find((g) => g.key === 'authed');
+  const authed = d.groups.find((gr) => gr.key === 'authed');
   check(
     'page-object-maps-to-spec',
-    d.decision === 'RUN' && !!authed && authed.files.includes('tests/contacts.authed.spec.js'),
-    `groups=${d.groups.map((g) => g.key).join(',')}`
+    d.decision === 'RUN' && !!authed && authed.files.includes('tests/c.authed.spec.js'),
+    `groups=${d.groups.map((gr) => gr.key).join(',')}`
+  );
+}
+
+// P4b) Broad-impact capped plan (ADR-0024) → runner bounded fallback GRUPLARINI
+//      koşar; authed exact grubu OLMAZ (tam suite nightly'ye ertelendi).
+{
+  const po = plan([{ path: 'tests/pages/BasePage.js', status: 'M' }]); // gerçek grafik → cap
+  const d = planRun(po);
+  const groupKeys = d.groups.map((gr) => gr.key);
+  const hasFallbacks = ['fallback:route-baseline', 'fallback:authed-critical']
+    .every((k) => groupKeys.includes(k)) && !groupKeys.includes('fallback:route-quality');
+  check(
+    'capped-plan-runs-bounded-fallback',
+    d.decision === 'RUN' &&
+      po.selected.authenticatedSpecs.length === 0 &&
+      po.authedDeferredToNightly.length > 0 &&
+      hasFallbacks &&
+      !groupKeys.includes('authed'),
+    `groups=${groupKeys.join(',')}`
   );
 }
 
