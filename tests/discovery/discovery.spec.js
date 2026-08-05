@@ -24,9 +24,6 @@ test('salt-okunur uygulama keşfi rapor ve kapsam radarı üretir', async ({
     report,
     await loadDiscoveryBaseline()
   );
-  if (environment.discovery.updateBaseline) {
-    await writeDiscoveryBaseline(report);
-  }
   const outputDirectory = testInfo.outputPath('discovery');
   const paths = await writeDiscoveryReports(report, outputDirectory);
 
@@ -45,4 +42,10 @@ test('salt-okunur uygulama keşfi rapor ve kapsam radarı üretir', async ({
     report.hardFailures,
     'Keşif sırasında oturum/origin kaybı, document 5xx veya engellenen non-GET istek olmamalı'
   ).toEqual([]);
+
+  // Baseline yalnızca koşum güvenliği doğrulandıktan (hardFailures boş) SONRA
+  // güncellenir; böylece bozuk bir keşif sonucu referans olarak yazılmaz.
+  if (environment.discovery.updateBaseline) {
+    await writeDiscoveryBaseline(report);
+  }
 });
