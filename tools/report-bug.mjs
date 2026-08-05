@@ -179,7 +179,7 @@ const metadata = {
 };
 
 // Attachment envanterini candidate'a işle (yalnız güvenli olanlar).
-for (const name of ['network-summary.json', 'safe-final-state.png']) {
+for (const name of ['network-summary.json', 'safe-final-state.png', 'location.png']) {
   if (existsSync(join(dirAbs, name))) candidate.attachments.push(name);
 }
 

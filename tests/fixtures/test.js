@@ -14,6 +14,8 @@ import {
   writeForensicEvidence,
   createProfileCapture,
   writeCapturedProfile,
+  getForensicTarget,
+  resetForensicTarget,
 } from './forensic.js';
 
 /**
@@ -108,18 +110,21 @@ export const test = base.extend({
         await use(null);
         return;
       }
+      resetForensicTarget(); // her forensik test kendi hedefini işaretler (markForensicTarget)
       const recorder = createForensicRecorder(page);
       const profileCapture = createProfileCapture(page, id); // WP-R4: yalnız VERIFY_PROFILE=1 iken aktif
       await use(recorder);
       await recorder.stop();
       await profileCapture.stop();
       const shell = new AppShell(page);
-      // Header kimlik yüzeyleri (kullanıcı adı/menüsü) capture anında maskelenir.
+      // Header kimlik yüzeyleri (kullanıcı adı/menüsü) capture anında maskelenir;
+      // location.png de AYNI maskelerle alınır. Hedef işaretlenmemişse SKIPPED.
       await writeForensicEvidence({
         page,
         id,
         records: recorder.records,
         masks: [shell.userMenu, shell.presenceMenu],
+        target: getForensicTarget(),
       });
       if (profileCapture.active) writeCapturedProfile(id, profileCapture.keys);
     },
@@ -164,3 +169,5 @@ export const test = base.extend({
 });
 
 export { expect };
+// FAZ 2 — forensik konum kanıtı: spec'ler bulgunun hatalı elemanını buradan işaretler.
+export { markForensicTarget } from './forensic.js';
