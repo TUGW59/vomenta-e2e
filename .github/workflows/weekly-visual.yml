@@ -1,0 +1,82 @@
+# FAZ 2 (workflow split) — Haftalık visual regression.
+# playwright.yml'den ayrıldı; visual günlük functional'dan izole (aynı anda production'a
+# yük bindirmez). Chromium-only stabil profil + environment preflight Faz 6'da. Bu fazda
+# mevcut 3-tarayıcı visual matrisi KORUNUR; yalnız taşıma + izolasyon + production kilidi.
+name: Weekly Visual
+
+on:
+  schedule:
+    # Haftada bir, Pazar 02:00 UTC. weekly-cross-browser (Cumartesi) ve nightly-* ile çakışmaz.
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-visual-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
+
+jobs:
+  architecture:
+    name: Architecture and test discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run quality:check
+
+  visual-regression:
+    name: Visual regression / macOS
+    needs: architecture
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      queue: max
+    runs-on: macos-14
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # FAZ 2: mevcut 3-tarayıcı matris korunur. Faz 6'da Chromium-only stabil profile çekilecek.
+        browser: [chromium-authed, firefox-authed, webkit-authed]
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      RUN_VISUAL_TESTS: 'true'
+      PLAYWRIGHT_RETRIES: 0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install chromium firefox webkit
+      - name: Görsel koşum (tarayıcı bazlı ayrı)
+        run: npm run test:visual -- --project=${{ matrix.browser }}
+      - name: Güvenli artifact bundle hazırla (visual-regression)
+        id: prep_visual
+        # Görsel diff PNG'leri canlı müşteri verisi taşıyabilir → raw upload DENY.
+        # Yalnız güvenli sayısal/test özeti + manifest yüklenir.
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane visual-regression
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_visual.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-secure-${{ matrix.browser }}
+          path: test-results/secure-upload/visual-regression/
+          if-no-files-found: error
+          retention-days: 30

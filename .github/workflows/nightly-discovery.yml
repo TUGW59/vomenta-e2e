@@ -1,0 +1,75 @@
+# FAZ 2 (workflow split) — Günlük read-only route discovery.
+# playwright.yml'den ayrıldı; discovery functional regression'dan izole. Circuit
+# breaker + video-off + 5xx sınıflandırma stabilizasyonu Faz 4'te. Bu fazda yalnız
+# taşıma + sorumluluk sınırı + production kilidi.
+name: Nightly Discovery
+
+on:
+  schedule:
+    # Gecelik discovery (03:30 UTC) — nightly-functional (01:00) ve known-bugs (05:00)
+    # ile çakışmaz; ortak production kilidiyle zaten seri.
+    - cron: '30 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-discovery-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
+
+jobs:
+  architecture:
+    name: Architecture and test discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run quality:check
+
+  read-only-discovery:
+    name: Read-only route discovery
+    needs: architecture
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      queue: max
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      DISCOVERY_MAX_PAGES: 80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:discovery
+      - name: Güvenli artifact bundle hazırla (read-only-discovery)
+        id: prep_discovery
+        # Ham discovery/test-results yüklenmez; güvenli sayısal/test özeti + manifest.
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane read-only-discovery
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_discovery.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: read-only-discovery-secure
+          path: test-results/secure-upload/read-only-discovery/
+          if-no-files-found: error
+          retention-days: 30

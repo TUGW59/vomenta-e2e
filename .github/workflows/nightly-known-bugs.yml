@@ -1,0 +1,84 @@
+# FAZ 2 (workflow split) — Günlük known-bug reconcile (fixed-candidate önerisi).
+# playwright.yml'den ayrıldı. Bu job şu an tüm chromium-authed suite'i koşuyor;
+# HEDEFLİ seçim (yalnız known-bug testleri) Faz 5'te yapılacak. Bu fazda yalnız
+# taşıma + sorumluluk sınırı + production kilidi; komut ve `|| true` davranışı korunur.
+name: Nightly Known Bugs
+
+on:
+  schedule:
+    # Gecelik reconcile (05:00 UTC) — nightly-functional/discovery ile çakışmaz.
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nightly-known-bugs-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
+
+jobs:
+  architecture:
+    name: Architecture and test discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run quality:check
+
+  nightly-known-bug-reconcile:
+    name: Nightly known-bug reconcile (fixed-candidate önerisi)
+    needs: architecture
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      queue: max
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      ALLOW_MUTATING_TESTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Authed suite (JSON rapor) — known-bug sonuçlarını topla
+        # `|| true`: beklenen-başarısızlıklar geçer (exit 0); beklenmedik GEÇİŞ ise
+        # koşuyu kırar (exit != 0) — reconcile'ın yakalaması gerektiği için devam et.
+        # (Hedefli seçim Faz 5; bu fazda mevcut davranış KORUNUR.)
+        run: |
+          mkdir -p test-results
+          npx playwright test --project=chromium-authed --reporter=json > test-results/results.json || true
+      - name: Reconcile — YALNIZ fixed-candidate önerisi (registry değişmez)
+        run: npm run report:reconcile -- test-results/results.json
+      - name: Registry değişmedi mi (nightly registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Güvenli artifact bundle hazırla (nightly-known-bug-reconcile)
+        id: prep_reconcile
+        # fixed-candidates.json ortak politikadan geçer: şema + secret/PII taraması + manifest.
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane nightly-known-bug-reconcile
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Öneri raporunu yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_reconcile.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: known-bug-fixed-candidates-${{ github.run_id }}
+          path: test-results/secure-upload/nightly-known-bug-reconcile/
+          if-no-files-found: error
+          retention-days: 14

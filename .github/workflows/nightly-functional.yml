@@ -1,0 +1,93 @@
+# FAZ 2 (workflow split) — Günlük Chromium authenticated functional regression.
+# playwright.yml'den ayrıldı; sorumluluk: yalnız Chromium authed regression.
+# Bu fazda job İÇİ optimizasyon YAPILMAZ (workers=1 / shard kaldırma / preflight
+# Faz 3'te). Yalnız taşıma + sorumluluk sınırı + production kilidi.
+name: Nightly Functional
+
+on:
+  schedule:
+    # Gecelik ana regression (01:00 UTC). Diğer lane'lerle çakışmaz (stagger).
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Aynı workflow'un iki koşusu üst üste binmesin (koşan iptal edilmez).
+concurrency:
+  group: nightly-functional-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  TEST_ENV: ${{ vars.E2E_ENV || 'production' }}
+  BASE_URL: ${{ vars.E2E_BASE_URL || 'https://app.vomenta.com' }}
+  ALLOW_MUTATING_TESTS: 'false'
+
+jobs:
+  architecture:
+    name: Architecture and test discovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # Evrensel yapısal kapı (git-diff YOK). Ağır production job'ı bundan sonra koşar.
+      - run: npm run quality:check
+
+  full-regression:
+    name: Full cross-browser regression
+    needs: architecture
+    # Ortak production authenticated kilidi — aynı anda YALNIZ tek ağır authenticated
+    # job koşar; kalanlar iptal edilmeden bu grupta SIRAYA girer (queue: max, 100'e
+    # kadar pending). `cancel-in-progress: true` bu değerle KULLANILAMAZ (validation).
+    concurrency:
+      group: vomenta-production-authenticated-e2e
+      queue: max
+    runs-on: ubuntu-latest
+    # WP-NIGHT-STABILITY (ADR-0017): shard başına düşen yükün güvenli tamamlanması için 60dk.
+    # (Faz 3'te tek-worker/shard-yok profiline çekilecek.)
+    timeout-minutes: 60
+    strategy:
+      # Bir shard kırmızı olunca diğeri iptal edilmez; gerçek sonuç ayrı görünür.
+      fail-fast: false
+      matrix:
+        # FAZ 2: yalnız Chromium günlük koşar. Firefox/WebKit → weekly-cross-browser.yml.
+        browser: [chromium-authed]
+        shard: [1, 2]
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      PLAYWRIGHT_WORKERS: 2
+      # retries 2→1: failOnFlakyTests korunur → retry'da geçen test FLAKY olarak run'ı kırar.
+      PLAYWRIGHT_RETRIES: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # FAZ 2: install komutu korunur (tüm tarayıcı). Faz 3'te yalnız-Chromium'a çekilecek.
+      - run: npx playwright install --with-deps
+      - name: Shard koşumu (tarayıcı × parça; kapsam korunur, retry-pass FLAKY kalır)
+        # --project=<browser>-authed setup dependency'sini + storageState'i otomatik koşar.
+        run: npm run test:e2e -- --project=${{ matrix.browser }} --shard=${{ matrix.shard }}/2
+      - name: Güvenli artifact bundle hazırla (full-regression)
+        id: prep_full
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane full-regression
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Güvenli artifact yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_full.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          # Matris hücresi başına benzersiz ad; path aynı güvenli lane'de kalır.
+          name: full-regression-secure-${{ matrix.browser }}-shard${{ matrix.shard }}
+          path: test-results/secure-upload/full-regression/
+          if-no-files-found: error
+          retention-days: 30
