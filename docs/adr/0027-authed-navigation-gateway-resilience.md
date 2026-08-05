@@ -34,40 +34,74 @@ denemeyi kendi içinde tekrarlamalı.
 1. **Paylaşımlı, saf glue modülü** — `tests/support/gateway-navigation.js`
    Playwright import ETMEZ; yalnız saf `gateway-retry.js` politikasını `page` ile
    birleştirir. Üç dışa-açılan primitif:
-   - `getGatewayObserver(page)` — page'e per-deneme 5xx gözlemcisi kurar
-     (idempotent, `WeakMap` ile page başına TEK dinleyici). `page.on('response')`
-     artık authed context'te de kurulur.
-   - `assertOrGateway(observer, fn, where)` — `fn` patlarsa YALNIZ gerçek gateway
-     kanıtı varsa `GatewayUnavailableError`'a çevirir; yoksa orijinal hatayı AYNEN
-     fırlatır (fail-closed).
+   - `getGatewayObserver(page)` — page'e per-deneme, KAPSAMLANMIŞ 5xx gözlemcisi
+     kurar (idempotent, `WeakMap` ile page başına TEK response listener). Her
+     kanıt `{status, url, resourceType, source, epoch}` taşır.
+   - `assertOrGateway(observer, fn, where)` — `fn` patlarsa YALNIZ kapsamlı gerçek
+     gateway kanıtı varsa `GatewayUnavailableError`'a çevirir; yoksa orijinal
+     hatayı AYNEN fırlatır (fail-closed).
    - `navigateWithGatewayRetry(page, {doGoto, ready, where, afterCommit})` — her
-     denemede `beginAttempt() → doGoto()` (nav status 5xx doğrudan kanıt) →
-     `afterCommit()` → `assertOrGateway(ready)`. YALNIZ gateway kanıtında
+     denemede `beginAttempt() → doGoto()` → (nav status 5xx doğrudan kanıt) →
+     `afterCommit()` → `assertOrGateway(ready)`. YALNIZ kapsamlı gateway kanıtında
      ≤`MAX_AUTH_ATTEMPTS` (3) retry.
 
-2. **Çağrı noktaları** — `BasePage.open()` (53 page object) ve `helpers.gotoApp()`
-   (~112 spec) `navigateWithGatewayRetry` ile sarıldı. `assertDestinationLoaded()`
-   tıklama-sonrası olduğundan (goto yok, tıklama retry edilemez) yalnız içerik
-   assertion'ları `assertOrGateway` ile sarıldı: gerçek gateway kanıtı dürüst
-   `GatewayUnavailableError` olarak yüzeye çıkar, retry döngüsüne ALINMAZ.
+2. **Kanıt kapsamı (evidence scope) — güvenlik sözleşmesi.** Her ağ `502/503/504`'ü
+   gateway kanıtı DEĞİLDİR. Yalnız sayfanın hazır olmasını GERÇEKTEN etkileyen,
+   GÜVENİLİR first-party yanıtlar sayılır:
+   - mevcut ana document (top-frame) navigasyonu, VEYA
+   - first-party origin'e ait `xhr`/`fetch`.
 
-3. **DRY: LoginPage delegasyonu** — LoginPage'in constructor'daki
+   "First-party", baseURL host'u ile **aynı registrable domain** (same-site)
+   demektir; origin/apex `environment.baseURL`'den türetilir, hard-code YOKTUR
+   (ör. `app.vomenta.com` ve `api.vomenta.com` → kabul). Third-party / analytics /
+   image / font / favicon / stylesheet / script yanıtları ve alt-frame document'ler
+   `5xx` OLSA BİLE kanıt SAYILMAZ → bunlar bir retry tetikleyemez. Böylece ilgisiz
+   bir arka plan 503'ü gerçek bir locator/assertion hatasını maskeleyemez.
+
+3. **Stale-evidence politikası.** Her kanıt bir `epoch` (attempt) ile etiketlenir;
+   `beginAttempt()` epoch'u ilerletir ve önceki denemenin kanıtını temizler →
+   bir denemenin 5xx'i başka bir denemenin assertion hatasına sızamaz.
+   **Sonuç (kapsam dışı):** `helpers.assertDestinationLoaded()` tıklama-SONRASI
+   çalışır; navigasyonu tetikleyen tıklama assertion'dan ÖNCE olduğundan temiz bir
+   kanıt penceresi açılamaz. Fail-closed garanti edilemediği için bu helper ağ
+   kanıtı KULLANMAZ ve bu PR'da DEĞİŞTİRİLMEZ — gerçek hataları aynen yükseltir.
+   Tıklama-tetikli navigasyonun gateway dayanıklılığı ayrı bir çalışmaya bırakılır.
+
+4. **`doGoto()` exception sözleşmesi.** `navigateWithGatewayRetry` `doGoto()`'yu
+   `try/catch` ile sarar:
+   - exception + AYNI attempt'te kapsamlı gateway kanıtı → `GatewayUnavailableError`
+     + sınırlı retry.
+   - exception + kanıt yok → orijinal error nesnesi AYNEN yükselir. Generic nav
+     timeout / locator / assertion hatası gateway'e ÇEVRİLMEZ.
+
+5. **Retry gözlemlenebilirliği (secretsiz).** Retry gerçekleştiğinde tek satır,
+   sınırlı bir log üretilir:
+   `[authed-nav] transient gateway 503; retrying 2/3; where="gotoApp: /reports"; source="first-party-xhr"`.
+   Yalnız `status` / `attempt` / `where` (rota etiketi) / `source` (kaynak sınıfı)
+   yazılır. Email, token, cookie, password, storageState, response body veya URL
+   ASLA loglanmaz.
+
+6. **DRY: LoginPage delegasyonu** — LoginPage'in constructor'daki
    `page.on('response')` + `_gatewayStatuses` + `_detectGatewayEvidence()` mantığı
-   paylaşımlı observer'a taşındı; `_assertOrGateway` import edilen fonksiyona
-   delege eder. Login davranışı ve `auth.setup.js` DEĞİŞMEDİ.
+   paylaşımlı, kapsamlanmış observer'a taşındı; `_assertOrGateway` import edilen
+   fonksiyona delege eder. Login akış davranışı ve `auth.setup.js` DEĞİŞMEDİ (login
+   API çağrısı first-party xhr olduğundan gerçek gateway blip'i hâlâ retry edilir).
 
-4. **Kritik "sayfa 200 ama arka plan API 503" yolu** — CI'daki asıl senaryo:
-   navigasyon 200 döner ama arka plandaki API 503'ü içeriği bloke eder;
-   `expectReady()` patlar ama render edilen sayfada 5xx METNİ oluşmaz. Kanıt
-   YALNIZ gözlemlenen ağ yanıtında görünür (`page.on('response')` → observer →
-   `pickGatewayStatus`). Bu yol açıkça belgelenip self-check'te #2 sözleşmesiyle
-   kilitlenir.
+7. **Kritik "sayfa 200 ama arka plan API 503" yolu** — CI'daki asıl senaryo:
+   navigasyon 200 döner ama arka plandaki **first-party** API 503'ü içeriği bloke
+   eder; `expectReady()` patlar ama render edilen sayfada 5xx METNİ oluşmaz. Kanıt
+   YALNIZ gözlemlenen first-party ağ yanıtında görünür. Bu yol self-check'te C2
+   sözleşmesiyle kilitlenir.
 
-5. **Sert kapı** — yeni `quality:authed-nav` (7 sözleşme: nav-503→retry,
-   sayfa-200-ama-API-503→ağ-kanıtıyla-retry, kanıt-yok→retry-yok, 401→retry-yok,
-   3×503→FAIL, 502/504→retry, body-text→retry + `assertOrGateway` iki-dal birim)
-   `quality:check` zincirine `quality:auth-retry` yanına eklendi. Modül Playwright
-   import etmediği için sahte page ile tarayıcısız sürülür.
+8. **Sert kapı** — yeni `quality:authed-nav` **20 sözleşme** (11 navigasyon:
+   nav-503→retry, sayfa-200-ama-first-party-API-503→retry, kanıt-yok→retry-yok,
+   401→retry-yok, 3×503→FAIL, 502/504→retry, body-text→retry, third-party-503→
+   retry-yok, stale-evidence-reddi, doGoto-exception+503→retry, doGoto-exception+
+   kanıtsız→orijinal; + 9 birim: first-party-doc/xhr/fetch kabul, third-party/
+   image/font/alt-frame red, observer idempotent+tek-listener, `assertOrGateway`
+   iki-dal, secretsiz retry-log formatı) `quality:check` zincirine `quality:auth-retry`
+   yanına eklendi. Modül Playwright import etmediği için sahte page ile tarayıcısız
+   sürülür.
 
 ## Neden sabit bekleme (waitForTimeout) yok
 
@@ -78,15 +112,21 @@ yeniden yoklar.
 
 ## Kapsam dışı
 
+- `helpers.assertDestinationLoaded()` — tıklama-sonrası, temiz kanıt penceresi
+  açılamadığından ağ kanıtı KULLANMAZ (bkz. Karar §3, stale-evidence). Bu PR'da
+  değiştirilmez.
 - `helpers.expectContentWithin()` (@perf süre ölçümü) DOKUNULMAZ: retry süreyi
   bozar, ölçümü geçersiz kılar. @perf navigasyonu gateway dalgasında hâlâ düşebilir.
 - `playwright.config.js` `retries` / `failOnFlakyTests` DEĞİŞMEZ (ADR-0025).
 
 ## Sonuç
 
-Authed navigasyon, gerçek gateway kanıtında en fazla 3 denemeyle kendini
-toparlar; gateway dalgası geçince test PASS olur. Gerçek locator/assertion/401/403
-hataları hiçbir yolda `GatewayUnavailableError`'a çevrilmez — anında ve maskesiz
-kırmızı kalır (fail-closed). Nightly `full-regression` + `visual-regression`
-lane'leri artık geçici 503'lerden kırmızıya dönmez. Tüm yeni davranış sentetik,
-production'a bağlanmayan self-check ile doğrulanır.
+Authed navigasyon, YALNIZ kapsamlı gerçek gateway kanıtında (first-party ana
+document veya first-party xhr/fetch 5xx) en fazla 3 denemeyle kendini toparlar;
+gateway dalgası geçince test PASS olur. Gerçek locator/assertion/401/403 hataları
+ve ilgisiz third-party/asset 5xx'leri hiçbir yolda `GatewayUnavailableError`'a
+çevrilmez — anında ve maskesiz kırmızı kalır (fail-closed). Bu iddia, negatif
+sözleşmelerle (third-party-503→retry-yok, stale-evidence-reddi, doGoto-exception+
+kanıtsız→orijinal, kanıt-yok→retry-yok) sentetik olarak kanıtlanır. Nightly
+`full-regression` + `visual-regression` lane'leri artık geçici 503'lerden kırmızıya
+dönmez. Tüm yeni davranış production'a bağlanmayan self-check ile doğrulanır.

@@ -3,11 +3,7 @@ import { expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 import { AppShell } from './pages/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
-import {
-  navigateWithGatewayRetry,
-  getGatewayObserver,
-  assertOrGateway,
-} from './support/gateway-navigation.js';
+import { navigateWithGatewayRetry } from './support/gateway-navigation.js';
 import { KNOWN_BUGS } from './contracts/known-bugs.js';
 import { forensicModeActive } from './fixtures/forensic.js';
 
@@ -136,24 +132,19 @@ export async function gotoApp(page, path) {
  *   heading: hedef sayfada görünmesi beklenen başlık (herhangi seviye h1..h6).
  */
 export async function assertDestinationLoaded(page, { path, heading, exact = true, timeout = 15000 }) {
-  // Navigasyon tıklama sonrası olduğundan `goto` yok → tıklamayı retry edemeyiz.
-  // Yalnız içerik assertion'larını `assertOrGateway` ile sararız: gerçek gateway
-  // kanıtı (arka plan 5xx) varsa dürüst GatewayUnavailableError yüzeye çıkar
-  // (retry döngüsüne ALINMAZ, maskelenmez); yoksa orijinal hata aynen yükselir.
-  const observer = getGatewayObserver(page);
-  await assertOrGateway(
-    observer,
-    async () => {
-      if (path) {
-        await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
-      }
-      // Oturum korunuyor — login sayfasına atılmadık.
-      await expect(new AppShell(page).loginHeading).toBeHidden();
-      // Hedef içeriği gerçekten render oldu.
-      await expect(page.getByRole('heading', { name: heading, exact }).first()).toBeVisible({ timeout });
-    },
-    `assertDestinationLoaded: ${path ?? heading}`
-  );
+  // KAPSAM DIŞI (ADR-0027): Bu yol tıklama-SONRASI çalışır; navigasyonu tetikleyen
+  // tıklama zaten olmuştur, dolayısıyla assertion'dan ÖNCE temiz bir kanıt penceresi
+  // (observer.beginAttempt / epoch) açılamaz. Ağ kanıtı kullanılsaydı önceki bir
+  // navigasyonun 5xx'i, buradaki gerçek bir assertion hatasını yanlışlıkla gateway
+  // hatasına çevirebilirdi (stale-evidence). Fail-closed garanti edilemediği için
+  // bu helper ağ kanıtı KULLANMAZ — gerçek hatalar aynen yükselir.
+  if (path) {
+    await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
+  }
+  // Oturum korunuyor — login sayfasına atılmadık.
+  await expect(new AppShell(page).loginHeading).toBeHidden();
+  // Hedef içeriği gerçekten render oldu.
+  await expect(page.getByRole('heading', { name: heading, exact }).first()).toBeVisible({ timeout });
 }
 
 /**
