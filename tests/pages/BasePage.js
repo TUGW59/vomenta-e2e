@@ -18,7 +18,7 @@ export class BasePage {
 
   async open() {
     // Authed navigasyon, canlı sunucunun aralıklı 502/503/504 blip'lerine karşı
-    // SINIRLI in-process retry ile korunur (bkz. ADR-0027). YALNIZ gerçek gateway
+    // SINIRLI in-process retry ile korunur (bkz. ADR-0028). YALNIZ gerçek gateway
     // kanıtında retry; gerçek locator/assertion hataları anında yükselir.
     await navigateWithGatewayRetry(this.page, {
       doGoto: () => this.page.goto(this.path, { waitUntil: 'commit' }),

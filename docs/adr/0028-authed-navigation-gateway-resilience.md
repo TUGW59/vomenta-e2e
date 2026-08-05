@@ -1,4 +1,4 @@
-# ADR-0027: Authed navigasyon için sınırlı geçici-gateway retry
+# ADR-0028: Authed navigasyon için sınırlı geçici-gateway retry
 
 - Durum: Kabul edildi
 - Tarih: 2026-08-05

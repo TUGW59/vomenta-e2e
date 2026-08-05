@@ -111,7 +111,7 @@ export async function waitForUiToSettle(page) {
 export async function gotoApp(page, path) {
   // BasePage'i bypass eden ~112 spec bu tek yoldan geçer. Authed navigasyon,
   // canlı sunucunun aralıklı 502/503/504 blip'lerine karşı SINIRLI in-process
-  // retry ile korunur (bkz. ADR-0027). YALNIZ gerçek gateway kanıtında retry.
+  // retry ile korunur (bkz. ADR-0028). YALNIZ gerçek gateway kanıtında retry.
   await navigateWithGatewayRetry(page, {
     doGoto: () => page.goto(path, { waitUntil: 'commit' }),
     afterCommit: () => page.waitForLoadState('domcontentloaded').catch(() => {}),
@@ -132,7 +132,7 @@ export async function gotoApp(page, path) {
  *   heading: hedef sayfada görünmesi beklenen başlık (herhangi seviye h1..h6).
  */
 export async function assertDestinationLoaded(page, { path, heading, exact = true, timeout = 15000 }) {
-  // KAPSAM DIŞI (ADR-0027): Bu yol tıklama-SONRASI çalışır; navigasyonu tetikleyen
+  // KAPSAM DIŞI (ADR-0028): Bu yol tıklama-SONRASI çalışır; navigasyonu tetikleyen
   // tıklama zaten olmuştur, dolayısıyla assertion'dan ÖNCE temiz bir kanıt penceresi
   // (observer.beginAttempt / epoch) açılamaz. Ağ kanıtı kullanılsaydı önceki bir
   // navigasyonun 5xx'i, buradaki gerçek bir assertion hatasını yanlışlıkla gateway

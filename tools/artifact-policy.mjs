@@ -52,6 +52,8 @@ export const LANES = Object.freeze([
   'visual-regression',
   'read-only-discovery',
   'readonly-audit',
+  'readonly-audit-shard',
+  'readonly-audit-merged',
   'nightly-known-bug-reconcile',
   'known-bug-forensic',
   'known-bug-verification',
@@ -128,6 +130,50 @@ export const LANE_POLICY = Object.freeze({
   // sözleşmesi: Playwright JSON -> sanitize kanonik model -> summary.json/junit.xml/
   // summary.html/manifest.json. Ham upload YOK; secret/PII + şema + FS denetimi.
   'readonly-audit': summaryLane('readonly-audit'),
+  // WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE, ADR-0027) — sharded audit.
+  // readonly-full-chromium (1281 test) tek 45dk job'a sığmaz → matrix `--shard=i/N`.
+  // Her PARÇA kendi güvenli bundle'ını üretir: safe-summary trio + `shard-results.json`
+  // (flattenRuntimeTests SANİTİZE düz kayıtları; merge job'ının TEK girdisi — ham
+  // report.json ASLA artifact sınırından geçmez). shard-results.json da secret/PII +
+  // şema (JSON parse) + boyut denetiminden finalize'da geçer.
+  'readonly-audit-shard': Object.freeze({
+    lane: 'readonly-audit-shard',
+    sourceKinds: Object.freeze(['playwright-json', 'shard-carrier']),
+    allowedOutputs: Object.freeze(['summary.json', 'junit.xml', 'summary.html', 'shard-results.json', 'manifest.json']),
+    screenshotPolicy: 'deny',
+    localOnlyPatterns: LOCAL_ONLY_PATTERNS,
+    maxFiles: 6,
+    maxBytesPerFile: 6 * MB, // shard-results.json 1281/N kayıt taşıyabilir
+    maxBundleBytes: 16 * MB,
+    validatorId: 'safe-summary@1',
+    mode: 'prepared',
+    secureRoot: join(SECURE_UPLOAD_ROOT, 'readonly-audit-shard'),
+  }),
+  // Birleştirilmiş (merge job) bundle: N shard payload'undan TEK deterministik rapor.
+  // safe-summary trio (birleşik) + yönetici HTML/JSON/MD teslimleri + manifest. Tüm
+  // dosyalar generate-runtime-report'ın kendi sızıntı kapısından geçmiş, sanitize'dir;
+  // finalize burada ikinci kez secret/PII + şema + FS denetler.
+  'readonly-audit-merged': Object.freeze({
+    lane: 'readonly-audit-merged',
+    sourceKinds: Object.freeze(['merged-flat']),
+    allowedOutputs: Object.freeze([
+      'summary.json',
+      'junit.xml',
+      'summary.html',
+      'SABAH-KALITE-OZETI.html',
+      'TEST-SONUCLARI.json',
+      'SAYFA-TEST-SONUCLARI.md',
+      'manifest.json',
+    ]),
+    screenshotPolicy: 'deny',
+    localOnlyPatterns: LOCAL_ONLY_PATTERNS,
+    maxFiles: 8,
+    maxBytesPerFile: 8 * MB,
+    maxBundleBytes: 24 * MB,
+    validatorId: 'safe-summary@1',
+    mode: 'prepared',
+    secureRoot: join(SECURE_UPLOAD_ROOT, 'readonly-audit-merged'),
+  }),
   'nightly-known-bug-reconcile': Object.freeze({
     lane: 'nightly-known-bug-reconcile',
     // NEDEN: nightly reconcile YALNIZ fixed-candidate önerisi üretir (registry değişmez).

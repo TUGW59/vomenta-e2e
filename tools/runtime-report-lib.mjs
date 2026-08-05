@@ -248,7 +248,12 @@ export function buildRuntimeTotals(tests) {
  * @param {ReadonlyArray<{path:string,heading:string|null}>} opts.registeredRoutes
  * @param {ReadonlyArray<{id:string,routes?:ReadonlyArray<string>,specFiles?:ReadonlyArray<string>}>} opts.testedPages
  * @param {ReadonlyArray<{id:string,route?:string|null,severity:string,status:string}>} opts.knownBugs
- * @param {any} opts.report Playwright run JSON
+ * @param {any} [opts.report] Playwright run JSON (tek koşum). flatTests verilmezse zorunlu.
+ * @param {ReturnType<typeof flattenRuntimeTests>} [opts.flatTests] Önceden düzleştirilmiş,
+ *   ZATEN sanitize edilmiş test kayıtları (sharded audit merge yolu). Verilirse `report`
+ *   yok sayılır ve düzleştirme atlanır; kayıtlar flattenRuntimeTests ile BİREBİR aynı
+ *   şemadadır (file/title/routeMarker/project/expectedStatus/finalStatus/firstStatus/
+ *   attempts/durationMs/skipReason/tags). Böylece N shard'ın sonucu tek modelde birleşir.
  * @param {object} opts.source { commitSha, environment, browser, project?, runId?, inputPath?, runStartedAt? }
  * @param {string} opts.generatedAt ISO zaman (deterministik test için dışarıdan)
  * @param {object} [opts.listInventory] { definedLogical, projectExpandedListed, runnableInventory } | null
@@ -262,6 +267,7 @@ export function buildResultModel(opts) {
     testedPages,
     knownBugs,
     report,
+    flatTests = null,
     source,
     generatedAt,
     listInventory = null,
@@ -270,7 +276,9 @@ export function buildResultModel(opts) {
 
   const warnings = [];
   const registeredPaths = registeredRoutes.map((r) => r.path);
-  const tests = flattenRuntimeTests(report);
+  // Sharded merge yolu: önceden düzleştirilmiş kayıtlar verilirse (ZATEN sanitize)
+  // yeniden düzleştirme yapma; aksi halde tek koşum Playwright JSON'unu düzleştir.
+  const tests = Array.isArray(flatTests) ? flatTests : flattenRuntimeTests(report);
 
   // İşarete göre grupla. Kayıtsız rota işareti = uyarı; hiçbir sayfayı etkilemez.
   const registeredSet = new Set(registeredPaths);

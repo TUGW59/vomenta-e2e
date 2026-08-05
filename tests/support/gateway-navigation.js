@@ -6,7 +6,7 @@
  * `gateway-retry.js` login akışını korur; bu ince glue AYNI kanıt makinesini
  * authed test GÖVDELERİNİN navigasyonuna (page.goto + expectReady) taşır.
  * Canlı sunucu aralıklı 502/503/504 (nginx gateway) döndüğünde, korumasız
- * authed navigasyon düz kırmızıya boyanıyordu (bkz. ADR-0027).
+ * authed navigasyon düz kırmızıya boyanıyordu (bkz. ADR-0028).
  *
  * KANIT KAPSAMI (evidence scope) — kritik güvenlik sözleşmesi:
  *   Her ağ 502/503/504'ü gateway kanıtı DEĞİLDİR. Yalnız sayfanın hazır
@@ -214,7 +214,7 @@ function makeGatewayError(evidence, where) {
  * DİKKAT: Bu fonksiyon ağ kanıtına güvenir. Çağıran, kanıt penceresini yeni bir
  * `observer.beginAttempt()` ile açmalıdır; aksi halde önceki bir denemenin 5xx'i
  * stale kanıt olarak sızabilir. (Bu yüzden `assertDestinationLoaded` gibi
- * tıklama-sonrası, epoch açamayan yollar bu helper'ı KULLANMAZ — bkz. ADR-0027.)
+ * tıklama-sonrası, epoch açamayan yollar bu helper'ı KULLANMAZ — bkz. ADR-0028.)
  * @param {{detectEvidence: () => Promise<{status:number, source:string}|null>}} observer
  * @param {() => Promise<unknown>} assertionFn
  * @param {string} where

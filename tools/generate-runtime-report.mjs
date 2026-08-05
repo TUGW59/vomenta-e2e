@@ -66,12 +66,14 @@ function fail(msg) {
 }
 
 function parseArgs(argv) {
-  const opts = { input: null, listInput: null, environment: 'production-read-only', minStartTime: null, outDir: null };
+  const opts = { input: null, flatInput: null, listInput: null, environment: 'production-read-only', minStartTime: null, outDir: null };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = () => argv[++i];
     if (a === '--input') opts.input = val();
     else if (a.startsWith('--input=')) opts.input = a.slice('--input='.length);
+    else if (a === '--flat-input') opts.flatInput = val();
+    else if (a.startsWith('--flat-input=')) opts.flatInput = a.slice('--flat-input='.length);
     else if (a === '--list-input') opts.listInput = val();
     else if (a.startsWith('--list-input=')) opts.listInput = a.slice('--list-input='.length);
     else if (a === '--environment') opts.environment = val();
@@ -168,37 +170,86 @@ function detectProject(report) {
   return null;
 }
 
+/**
+ * Sharded audit merge yolu: önceden düzleştirilmiş, ZATEN sanitize edilmiş kayıt
+ * payload'ını yükler. Şema: { schemaVersion, tests:[...flattenRuntimeTests], source? }.
+ * `report` yerine geçer; tek koşum JSON'undaki suites/stats gerektirmez.
+ */
+function loadFlatPayload(flatInputPath) {
+  const abs = resolve(root, flatInputPath);
+  if (!existsSync(abs)) {
+    fail(`flat-input kaynağı yok: ${relative(root, abs)} (merge girdisi üretilmedi mi?). Stale rapor kullanılmaz.`);
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(abs, 'utf8'));
+  } catch {
+    fail(`flat-input parse edilemedi (bozuk/boş): ${relative(root, abs)}`);
+  }
+  if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.tests)) {
+    fail('flat-input beklenen şemada değil (tests dizisi yok).');
+  }
+  // Gözlemlenen yürütme kanıtı: en az bir kaydın denemesi olmalı (aksi hâlde
+  // yalnız-listelenmiş gibi davranır → runtime raporu üretilmez).
+  const observed = parsed.tests.reduce((s, t) => s + (Number(t && t.attempts) || 0), 0);
+  if (parsed.tests.length > 0 && observed === 0) {
+    fail('flat-input yalnız-listelenmiş görünüyor: hiç yürütme denemesi (attempts) yok. Runtime raporu üretilmez.');
+  }
+  return { tests: parsed.tests, source: parsed.source && typeof parsed.source === 'object' ? parsed.source : {}, abs };
+}
+
 function main() {
   const opts = parseArgs(process.argv.slice(2));
-  const inputPath = opts.input ? resolve(root, opts.input) : DEFAULT_INPUT;
+  const useFlat = Boolean(opts.flatInput);
+  const inputPath = useFlat
+    ? resolve(root, opts.flatInput)
+    : opts.input
+    ? resolve(root, opts.input)
+    : DEFAULT_INPUT;
 
-  // 1) Kaynak zorunlu — yoksa ESKİ rapor kullanılmaz.
-  if (!existsSync(inputPath)) {
-    fail(`runtime JSON kaynağı yok: ${relative(root, inputPath)} (koşum rapor üretmedi mi?). Stale rapor kullanılmaz.`);
-  }
-  let report;
-  try {
-    report = JSON.parse(readFileSync(inputPath, 'utf8'));
-  } catch {
-    fail(`runtime JSON parse edilemedi (bozuk/boş): ${relative(root, inputPath)}`);
-  }
-  if (!report || typeof report !== 'object' || !Array.isArray(report.suites)) {
-    fail('runtime JSON beklenen Playwright şemasında değil (suites dizisi yok).');
+  /** @type {any} */
+  let report = null;
+  /** @type {any[]|null} */
+  let flatTests = null;
+  let runStartedAt = null;
+  let runProject = null;
+  let flatSource = {};
+
+  if (useFlat) {
+    const payload = loadFlatPayload(opts.flatInput);
+    flatTests = payload.tests;
+    flatSource = payload.source;
+    runStartedAt = flatSource.runStartedAt ? String(flatSource.runStartedAt) : null;
+    runProject = flatSource.project ? String(flatSource.project) : null;
+  } else {
+    // 1) Kaynak zorunlu — yoksa ESKİ rapor kullanılmaz.
+    if (!existsSync(inputPath)) {
+      fail(`runtime JSON kaynağı yok: ${relative(root, inputPath)} (koşum rapor üretmedi mi?). Stale rapor kullanılmaz.`);
+    }
+    try {
+      report = JSON.parse(readFileSync(inputPath, 'utf8'));
+    } catch {
+      fail(`runtime JSON parse edilemedi (bozuk/boş): ${relative(root, inputPath)}`);
+    }
+    if (!report || typeof report !== 'object' || !Array.isArray(report.suites)) {
+      fail('runtime JSON beklenen Playwright şemasında değil (suites dizisi yok).');
+    }
+    // 1b) `playwright test --list` çıktısı runtime sonucu DEĞİLDİR (gözlemlenen
+    //     yürütme yok). Fail-closed: listelenmiş-yalnız veri PASS gibi sunulamaz.
+    if (isListedOnlyReport(report)) {
+      fail('girdi yalnız-listelenmiş (`--list`) görünüyor: hiç yürütme sonucu (results) yok. Runtime raporu üretilmez.');
+    }
+    runStartedAt = report.stats && report.stats.startTime ? String(report.stats.startTime) : null;
+    runProject = detectProject(report);
   }
 
-  // 1b) `playwright test --list` çıktısı runtime sonucu DEĞİLDİR (gözlemlenen
-  //     yürütme yok). Fail-closed: listelenmiş-yalnız veri PASS gibi sunulamaz.
-  if (isListedOnlyReport(report)) {
-    fail('girdi yalnız-listelenmiş (`--list`) görünüyor: hiç yürütme sonucu (results) yok. Runtime raporu üretilmez.');
-  }
-
-  // 2) Stale girdi koruması (opsiyonel): stats.startTime < min-start-time → reddet.
-  const runStartedAt = report.stats && report.stats.startTime ? String(report.stats.startTime) : null;
+  // 2) Stale girdi koruması (opsiyonel): startTime < min-start-time → reddet.
+  //    Hem tek koşum (stats.startTime) hem merge (source.runStartedAt) için geçerli.
   if (opts.minStartTime) {
     const min = Date.parse(opts.minStartTime);
     const started = runStartedAt ? Date.parse(runStartedAt) : NaN;
     if (!Number.isFinite(started)) {
-      fail(`stale koruması: girdide stats.startTime yok, --min-start-time ile doğrulanamıyor.`);
+      fail(`stale koruması: girdide başlangıç zamanı yok, --min-start-time ile doğrulanamıyor.`);
     }
     if (started < min) {
       fail(`stale girdi: koşum ${runStartedAt} < min ${opts.minStartTime}. Önceki koşumdan kalmış olabilir.`);
@@ -208,9 +259,8 @@ function main() {
   const listInventory = loadListInventory(opts.listInput);
   const manifestCounts = loadManifestCounts();
   const generatedAt = new Date().toISOString();
-  const runProject = detectProject(report);
 
-  // 3) Modeli kur (invariant içeride doğrulanır).
+  // 3) Modeli kur (invariant içeride doğrulanır). flatTests verilirse merge yolu.
   let model;
   try {
     model = buildResultModel({
@@ -218,13 +268,14 @@ function main() {
       testedPages: TESTED_PAGES,
       knownBugs: KNOWN_BUGS,
       report,
+      flatTests,
       source: {
         sourceType: RUNTIME_SOURCE_TYPE,
-        commitSha: resolveCommitSha(),
+        commitSha: (useFlat && flatSource.commitSha) ? String(flatSource.commitSha) : resolveCommitSha(),
         environment: opts.environment,
         browser: 'chromium',
         project: runProject,
-        runId: process.env.GITHUB_RUN_ID || null,
+        runId: process.env.GITHUB_RUN_ID || (useFlat && flatSource.runId ? String(flatSource.runId) : null),
         inputPath,
         runStartedAt,
       },
