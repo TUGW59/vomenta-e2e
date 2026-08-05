@@ -54,6 +54,66 @@ export function findingDirRel(id) {
   return join('test-results', 'findings', String(id));
 }
 
+// ── FAZ 2 — Konum kanıtı (opt-in hedef locator) ──────────────────────────────
+/**
+ * Test-başına forensik "hedef" locator tutucusu (opt-in). Bir spec, bulgunun
+ * hatalı/ilgili elemanını `markForensicTarget(locator)` ile işaretler; forensik
+ * fixture teardown'da bu hedef `location.png` için kutulanır. İşaretlenmezse
+ * `location.png` yerine açık `location.SKIPPED.txt` bırakılır (sahte konum ÜRETİLMEZ).
+ * Forensik koşu `--workers=1` + tek test grep'idir; fixture setup'ında sıfırlanır.
+ * @type {{ locator: import('@playwright/test').Locator, label: string|null }|null}
+ */
+let forensicTarget = null;
+
+/**
+ * Forensik konum kanıtı için hedef elemanı işaretler. Yalnız capture katmanınca okunur;
+ * ürüne/registry'ye dokunmaz, mutation yapmaz. Normal koşuda zararsızdır (forensik
+ * fixture yalnız `FORENSIC_BUG` set iken okur ve her test başında sıfırlar).
+ * @param {import('@playwright/test').Locator} locator
+ * @param {{ label?: string }} [opts]  label yalnız meta amaçlı; görüntüye BASILMAZ.
+ */
+export function markForensicTarget(locator, opts = {}) {
+  if (!locator) return;
+  forensicTarget = { locator, label: opts.label ? String(opts.label) : null };
+}
+
+/** İşaretli forensik hedefi döndürür (yoksa null). */
+export function getForensicTarget() {
+  return forensicTarget;
+}
+
+/** Hedef tutucusunu sıfırlar (fixture setup'ında her test başında çağrılır). */
+export function resetForensicTarget() {
+  forensicTarget = null;
+}
+
+/**
+ * SAF geometri: element boundingBox'ını viewport'a clamp'ler; görünür kesişim yoksa null.
+ * Tarayıcıya bağımlı DEĞİL, deterministik (birim-test edilebilir).
+ * @param {{x:number,y:number,width:number,height:number}|null|undefined} box
+ * @param {{width:number,height:number}|null|undefined} viewport
+ * @returns {{x:number,y:number,width:number,height:number}|null}
+ */
+export function computeLocationOverlay(box, viewport) {
+  if (!box || !viewport) return null;
+  const vw = Number(viewport.width);
+  const vh = Number(viewport.height);
+  if (!(vw > 0) || !(vh > 0)) return null;
+  const bx = Number(box.x);
+  const by = Number(box.y);
+  const bw = Number(box.width);
+  const bh = Number(box.height);
+  if ([bx, by, bw, bh].some((n) => Number.isNaN(n))) return null;
+  const x1 = Math.max(0, bx);
+  const y1 = Math.max(0, by);
+  const x2 = Math.min(vw, bx + bw);
+  const y2 = Math.min(vh, by + bh);
+  const width = x2 - x1;
+  const height = y2 - y1;
+  if (!(width > 0) || !(height > 0)) return null; // viewport ile kesişmiyor
+  return { x: x1, y: y1, width, height };
+}
+
 /**
  * URL path'ini normalize eder: query TAMAMEN düşürülür, sayısal/uuid/hex segmentleri
  * `:id`'ye indirgenir (belirli kayıt kimliği/PII segmenti sızmasın). Salt path.
@@ -216,15 +276,87 @@ export function writeCapturedProfile(id, rawKeys) {
 }
 
 /**
- * Forensik kanıtı diske yazar: `network-summary.json` (maskeli) + `safe-final-state.png`
- * (header kimlik yüzeyleri capture anında maskeli). Sanitizer başarısızsa dosya yazılmaz.
- * @param {{ page: import('@playwright/test').Page, id: string, records: Record<string, unknown>[], masks?: import('@playwright/test').Locator[] }} args
- * @returns {Promise<{ networkSummary: boolean, screenshot: boolean }>}
+ * Kimlik(overlay) çizgisi maskeli görüntüye eklenir: hedef locator'ın viewport'a
+ * clamp'lenmiş kutusunu, `safe-final-state.png` ile AYNI PII maskeleriyle işaretli
+ * `location.png` olarak yazar. Hedef yok / eşleşmiyor / görünmez / maskeleme hatası →
+ * görsel YAZILMAZ; açık `location.SKIPPED.txt` bırakılır (sahte konum ÜRETİLMEZ).
+ * Enjekte edilen overlay yalnız istemci-tarafı geçici bir DOM kutusudur (ürün/ağ
+ * mutasyonu değil) ve capture'dan hemen sonra kaldırılır.
+ * @param {{ page: import('@playwright/test').Page, dir: string, masks: import('@playwright/test').Locator[], target: { locator: import('@playwright/test').Locator, label: string|null }|null }} args
+ * @returns {Promise<boolean>} location.png yazıldıysa true
  */
-export async function writeForensicEvidence({ page, id, records, masks = [] }) {
+async function captureLocationEvidence({ page, dir, masks, target }) {
+  const skip = (reason) => {
+    writeFileSync(join(dir, 'location.SKIPPED.txt'), `location.png YAZILMADI: ${reason}\n`);
+    return false;
+  };
+  if (!target || !target.locator) {
+    return skip('hedef locator işaretlenmedi (markForensicTarget çağrılmadı)');
+  }
+  const OVERLAY_ID = '__forensic_location_box__';
+  try {
+    const el = target.locator.first();
+    if ((await el.count()) === 0) {
+      return skip('hedef locator eşleşmedi (eleman final state\'te yok)');
+    }
+    try {
+      await el.scrollIntoViewIfNeeded({ timeout: 2000 });
+    } catch {
+      /* kaydırma zorunlu değil — boundingBox yine denenir */
+    }
+    const box = await el.boundingBox();
+    const viewport = page.viewportSize() || { width: 1280, height: 720 };
+    const overlay = computeLocationOverlay(box, viewport);
+    if (!overlay) {
+      return skip('hedef görünür değil / boundingBox alınamadı (viewport ile kesişim yok)');
+    }
+    await page.evaluate(
+      ({ id, rect }) => {
+        document.getElementById(id)?.remove();
+        const d = document.createElement('div');
+        d.id = id;
+        Object.assign(d.style, {
+          position: 'fixed',
+          left: `${rect.x}px`,
+          top: `${rect.y}px`,
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+          border: '3px solid #e11d48',
+          boxShadow: '0 0 0 3px rgba(225,29,72,0.35)',
+          borderRadius: '2px',
+          zIndex: '2147483647',
+          pointerEvents: 'none',
+          boxSizing: 'border-box',
+        });
+        document.body.appendChild(d);
+      },
+      { id: OVERLAY_ID, rect: overlay }
+    );
+    let buf;
+    try {
+      buf = await page.screenshot({ mask: masks, animations: 'disabled', fullPage: false });
+    } finally {
+      await page.evaluate((id) => document.getElementById(id)?.remove(), OVERLAY_ID).catch(() => {});
+    }
+    writeFileSync(join(dir, 'location.png'), buf);
+    return true;
+  } catch (error) {
+    const msg = String((error && error.message) || error).split('\n')[0];
+    return skip(`maskeli konum görüntüsü alınamadı (${msg})`);
+  }
+}
+
+/**
+ * Forensik kanıtı diske yazar: `network-summary.json` (maskeli) + `safe-final-state.png`
+ * (header kimlik yüzeyleri capture anında maskeli) + `location.png` (hedef işaretliyse;
+ * aynı maskelerle, kutulu). Sanitizer/maskeleme başarısızsa ilgili dosya YAZILMAZ.
+ * @param {{ page: import('@playwright/test').Page, id: string, records: Record<string, unknown>[], masks?: import('@playwright/test').Locator[], target?: { locator: import('@playwright/test').Locator, label: string|null }|null }} args
+ * @returns {Promise<{ networkSummary: boolean, screenshot: boolean, location: boolean }>}
+ */
+export async function writeForensicEvidence({ page, id, records, masks = [], target = null }) {
   const dir = findingDirRel(id);
   mkdirSync(dir, { recursive: true });
-  const result = { networkSummary: false, screenshot: false };
+  const result = { networkSummary: false, screenshot: false, location: false };
 
   // ── network-summary.json (maskeli, sanitizer kapısı) ──
   const summary = {
@@ -257,6 +389,9 @@ export async function writeForensicEvidence({ page, id, records, masks = [] }) {
       'safe-final-state.png YAZILMADI: maskeli ekran görüntüsü alınamadı (sayfa kapanmış olabilir).\n'
     );
   }
+
+  // ── location.png (hedef locator kutulu; aynı maskeler; hata/hedefsiz → SKIPPED) ──
+  result.location = await captureLocationEvidence({ page, dir, masks, target });
 
   return result;
 }

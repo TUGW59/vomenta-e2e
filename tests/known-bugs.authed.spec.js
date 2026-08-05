@@ -1,5 +1,5 @@
 // @ts-check
-import { test, expect } from './fixtures/test.js';
+import { test, expect, markForensicTarget } from './fixtures/test.js';
 import { gotoApp, knownBugGuard, waitForUiToSettle } from './helpers.js';
 
 /**
@@ -237,7 +237,11 @@ test.describe('Vomenta - Bilinen hatalar (regresyon) @regression @known-bug', ()
     knownBugGuard(test, 'B9');
     await gotoApp(page, '/channels/email');
     // İmza alanı (textarea/contenteditable) render olana kadar bekle.
-    await expect(page.locator('textarea, [contenteditable]').first()).toBeVisible({ timeout: 20000 });
+    const signature = page.locator('textarea, [contenteditable]').first();
+    await expect(signature).toBeVisible({ timeout: 20000 });
+    // FAZ 2 — forensik konum kanıtı: imza alanı bulgunun (ham i18n anahtarı) göründüğü
+    // yer; final state'te kalıcı → forensik modda maskeli+kutulu `location.png` üretir.
+    markForensicTarget(signature, { label: 'E-posta imza alanı' });
     expect(
       await rawKeyVisible(page, 'channels.emailPage.defaultSignatureText'),
       'ham anahtar görünüyor'
