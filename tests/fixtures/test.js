@@ -23,8 +23,22 @@ import {
  *   eder; Next.js `_rsc` prefetch'leri gezinince iptal olur). İptal = hata değil.
  *   Gerçek ağ hataları (ERR_CONNECTION/ERR_TIMED_OUT), console-error ve HTTP 5xx
  *   hâlâ yakalanır.
+ * - `wss://…socket.io … agentId=undefined … tenantId=undefined` (APP-WSS-UNDEFINED-IDS):
+ *   app, wss://api.vomenta.com/socket.io'yu geçerli id set edilmeden açıp düşürüyor;
+ *   firefox/webkit bunu console-error logluyor (chromium loglamıyor). Kayıtlı app-tarafı
+ *   bulgu (tests/contracts/known-bugs.js), düzeltmesi ayrı repo. Desen KASITLI olarak dar:
+ *   `wss://…socket.io` + **HEM** `agentId=undefined` **HEM** `tenantId=undefined` (sıra
+ *   bağımsız, ikisi de şart) → yalnız bu doğrulanmış imza tolere edilir. Geçerli id'li
+ *   gerçek socket hataları, tek-id anomалileri, alakasız console-error ve HTTP 5xx HÂLÂ
+ *   yakalanır. NOT: fixture allowlist'i tarayıcı/route-scope alan taşımaz (düz desen
+ *   dizisi); scope yerine imzayı daraltmak dürüst eşdeğerdir. Gerçek maskeli metne göre
+ *   nihai teyit: dispatch'te yakalanan runtime-diagnostics.json (ADR-0017 v4).
  */
-const DEFAULT_DIAGNOSTICS_ALLOWLIST = [/net::ERR_ABORTED/, /[?&]_rsc=/];
+const DEFAULT_DIAGNOSTICS_ALLOWLIST = [
+  /net::ERR_ABORTED/,
+  /[?&]_rsc=/,
+  /wss:\/\/[^\s]*socket\.io(?=[^\s]*agentId=undefined)(?=[^\s]*tenantId=undefined)/,
+];
 
 /**
  * Şirket testlerinin tek giriş noktası.

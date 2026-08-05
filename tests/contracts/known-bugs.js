@@ -1555,6 +1555,48 @@ export const KNOWN_BUGS = Object.freeze([
     owner: 'quality-guild',
     issueRef: null,
   },
+  // ── APP-WSS-UNDEFINED-IDS · socket.io undefined agentId/tenantId (app-tarafı) ──
+  {
+    id: 'APP-WSS-UNDEFINED-IDS',
+    title: 'Socket.io undefined agentId/tenantId ile açılıp düşüyor (ff/webkit console-error)',
+    area: 'voice',
+    route: '/voice',
+    severity: 'medium',
+    status: 'open',
+    guard: 'fixme',
+    opened: '2026-08-04',
+    lastVerified: '2026-08-04',
+    expiry: null,
+    repro: [
+      'Firefox/WebKit authed oturumda /voice (veya çoğu authed rota) aç',
+      'Ağ/konsolu izle',
+      'wss://api.vomenta.com/socket.io bağlantısının agentId=undefined&tenantId=undefined ile açılıp düştüğünü gör',
+    ],
+    expected: 'Socket geçerli agentId/tenantId ile açılır; console-error üretmez.',
+    actual:
+      'wss://api.vomenta.com/socket.io agentId=undefined&tenantId=undefined ile açılıp bağlantı düşüyor; ' +
+      'firefox/webkit bunu console-error olarak logluyor (chromium loglamıyor). Global app davranışı olduğu için ' +
+      'firefox/webkit @clean (assertClean) testlerini çok sayıda sayfada düşürüyordu — tek kök neden, 22 ayrı bug değil.',
+    technicalEvidence: [
+      'Firefox log: "can not establish a connection to wss://api.vomenta.com/socket.io/?agentId=undefined&tenantId=undefined ... was interrupted while the page was loading".',
+      'Kontrollü nightly dispatch koşumları (run 30845051091, 30851028695): @clean firefox/4=15 fail, webkit/4=7 fail, chromium/4=3 fail; kalan suite ~%93 pass. Chromium bu console-error olayını üretmiyor.',
+    ],
+    possibleCauses: ['Socket, auth/tenant context (agentId/tenantId) hazır olmadan başlatılıyor'],
+    rootCauseCandidate: 'Socket init, geçerli agentId/tenantId set edilmeden önce çalışıyor',
+    rootCause: null,
+    suggestedFixes: [
+      'App-tarafı: socket init tenant/agent context hazır olana kadar ertelensin veya bağlantı stringine geçerli id geçilsin.',
+      'Test-tarafı (kapsam): kayıtlı undefined-id imzası DEFAULT_DIAGNOSTICS_ALLOWLIST ile tolere edilir; geçerli id ile gerçek socket hataları hâlâ yakalanır.',
+    ],
+    evidence: [],
+    test: {
+      file: 'tests/known-bugs.authed.spec.js',
+      title:
+        'APP-WSS-UNDEFINED-IDS · socket.io undefined id davranışı (app-tarafı; suite içinde diagnostics allowlist ile tolere ediliyor)',
+    },
+    owner: 'quality-guild',
+    issueRef: null,
+  },
 ]);
 
 /**
