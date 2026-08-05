@@ -19,8 +19,8 @@
     "surfaces": 87,
     "byRollup": {
       "BLOCKED": 4,
-      "L2_DEEP": 13,
-      "L2_STYLE": 33,
+      "L2_DEEP": 24,
+      "L2_STYLE": 22,
       "NO_CONTRACT": 9,
       "NOT_RUN": 28
     },
@@ -31,9 +31,9 @@
     "notRun": 28,
     "noContract": 9,
     "l1StyleGap": 0,
-    "l2Style": 33,
-    "l2Deep": 13,
-    "interactionUnverified": 58,
+    "l2Style": 22,
+    "l2Deep": 24,
+    "interactionUnverified": 47,
     "surfacesWithOpenFindings": 33,
     "openFindingsTotal": 58,
     "byArea": {
@@ -1183,21 +1183,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-ai",
@@ -1221,21 +1221,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-billing",
@@ -1259,21 +1259,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-call",
@@ -1297,14 +1297,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 1,
@@ -1313,7 +1313,7 @@
           "REPORTS-SECTIONS-TZ"
         ]
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-campaign",
@@ -1337,21 +1337,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-channel",
@@ -1375,21 +1375,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-csat",
@@ -1413,21 +1413,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-dashboards",
@@ -1451,14 +1451,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 8,
         "styleRequiredCount": 8,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 1,
@@ -1467,7 +1467,7 @@
           "DASHBOARDS-SHARE-OVERFLOW"
         ]
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-quality",
@@ -1491,21 +1491,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-queue",
@@ -1529,21 +1529,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "reports-sla",
@@ -1567,21 +1567,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 11,
         "styleRequiredCount": 11,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "settings",

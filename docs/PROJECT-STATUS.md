@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 13 · **L2·style (unverified):** 33 · **L1·style-gap:** 0
+- **L2·deep:** 24 · **L2·style (unverified):** 22 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 58
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 47
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 4 |
-| ✅ L2·deep | 13 |
-| 🟡 L2·style (unverified) | 33 |
+| ✅ L2·deep | 24 |
+| 🟡 L2·style (unverified) | 22 |
 | 🟠 NO_CONTRACT | 9 |
 | ⚪ NOT_RUN | 28 |
 
@@ -85,17 +85,17 @@
 | dashboard | / | dashboard | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
 | inbox | /inbox | inbox | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
 | reports | /reports | reports | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
-| reports-agent | /reports/agent | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-ai | /reports/ai | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-billing | /reports/billing | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-call | /reports/call | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| reports-campaign | /reports/campaign | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-channel | /reports/channel | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-csat | /reports/csat | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-dashboards | /reports/dashboards | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| reports-quality | /reports/quality | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-queue | /reports/queue | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| reports-sla | /reports/sla | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| reports-agent | /reports/agent | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-ai | /reports/ai | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-billing | /reports/billing | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-call | /reports/call | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| reports-campaign | /reports/campaign | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-channel | /reports/channel | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-csat | /reports/csat | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-dashboards | /reports/dashboards | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| reports-quality | /reports/quality | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-queue | /reports/queue | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| reports-sla | /reports/sla | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings | /settings | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 5 | ✅ L2·deep |
 | settings-api-keys | /settings/api-keys | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings-audit | /settings/audit | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |

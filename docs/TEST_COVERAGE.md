@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1185
-- **Test dosyası:** 92
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 5 · `@ix-tabs` 6 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1196
+- **Test dosyası:** 94
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 5 · `@ix-tabs` 17 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -561,6 +561,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor
 - "Schedule a Report" formu açılıyor ve iptal edilebiliyor
 
+### `reports-dashboards-interactions.authed.spec.js`
+
+- All Dashboards / Default / Custom Dashboards sekmeleri dışlayıcı seçilir  `@ix-tabs`
+
 ### `reports-dashboards.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
@@ -595,6 +599,19 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `reports-route-sweep.authed.spec.js`
 
 - kenar menüsündeki her /reports/* rotası baseline geçiyor  `@regression` `@clean`
+
+### `reports-sections-interactions.authed.spec.js`
+
+- [call] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [agent] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [queue] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [campaign] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [channel] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [ai] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [quality] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [csat] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [billing] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
+- [sla] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
 ### `reports-sections.authed.spec.js`
 

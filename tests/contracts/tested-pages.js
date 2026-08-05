@@ -99,6 +99,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     surfaceIds: ['reports-dashboards'],
     specFiles: [
       'reports-dashboards.authed.spec.js',
+      'reports-dashboards-interactions.authed.spec.js',
       'reports-dashboards-mutations.authed.spec.js',
     ],
     archetype: {
@@ -116,6 +117,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI göstermiyor (pano kartları listeler).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: All/Default/Custom
+    // salt-istemci filtresi). Diğer 5 veri boyutu fiziksel olarak yok (kart ızgarası):
+    naInteraction: {
+      'search-filter': 'Pano kartları yüzeyinde arama/filtre kutusu yok (sekme istemci filtresidir → @ix-tabs).',
+      'table-list': 'Etkileşimli tablo yok; panolar kart ızgarası olarak listelenir (role=table değil).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok (kart listesi).',
+      'empty-state': 'Default bölümü boş (sayaç 0) olsa da arama/filtre ile üretilen read-only boş durum yok; boşluk sekme filtresiyle (@ix-tabs) kapsanır.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti için kararlı semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'reports-sections',
@@ -124,6 +134,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     ],
     specFiles: [
       'reports-sections.authed.spec.js',
+      'reports-sections-interactions.authed.spec.js',
       'reports-schedule-mutations.authed.spec.js',
     ],
     archetype: {
@@ -138,6 +149,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
     },
     naStyles: {
       '@export': 'Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): 10 bölümün ortak kabuğunda tek veri-
+    // bağımsız etkileşim SEKMELER'dir (@ix-tabs: Charts ↔ Table). Diğer 5 veri boyutu N/A:
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok; yalnız Date Range presetleri + bölüme-özgü açılır seçiciler (Group By/All Directions…). Serbest-metin narrowing yüzeyi yok.',
+      'table-list': 'Table sekmesi içeriği seçili-dönem-veri-bağlı; 3 bölüm (campaign/channel/billing) yapısal boş ("No data available") → dolu read-only satır garanti değil (anti-loop #3).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi (grafik/tablo dönem verisiyle sınırlı).',
+      'empty-state': 'Boş-durum ("No data available for the selected period") dönem-veri-bağlı; arama/filtre ile deterministik üretilemez (anti-loop #3).',
+      'loading-state': 'Açılış skeleton\'ı var ancak kararlı semantik locator/testid yok (keşifte data-testid talep edildi) → deterministik iskelet assertion\'ı yazılamıyor.',
     },
   },
   {

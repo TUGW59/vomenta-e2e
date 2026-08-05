@@ -96,10 +96,10 @@
     "l1Proven": 55,
     "l1NotProven": 32,
     "l2StyleContractMet": 65,
-    "l2Complete": 13,
-    "l2Partial": 52,
+    "l2Complete": 24,
+    "l2Partial": 41,
     "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 58,
+    "interactionUnverifiedRoutes": 47,
     "l3Blocked": 46,
     "l3NotApplicable": 41,
     "l3Proven": 0,
@@ -110,8 +110,8 @@
     "highestLevel": {
       "L0": 32,
       "L1": 0,
-      "L2_STYLE": 42,
-      "L2_DEEP": 13
+      "L2_STYLE": 31,
+      "L2_DEEP": 24
     },
     "routesWithFindings": 33,
     "openFindingsOnRoutes": 58,
@@ -525,20 +525,6 @@
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
       "route": "/reports",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/reports/call",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/reports/dashboards",
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L2_STYLE"

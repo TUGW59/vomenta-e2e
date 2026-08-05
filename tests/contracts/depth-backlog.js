@@ -16,18 +16,9 @@ export const DEPTH_BACKLOG = Object.freeze({
   //    data-retention/hours/integrations/notifications/organization/security/teams/webhooks) ──
   // ── FAZ 2: channels/* — TAMAMLANDI (1 deep: webchat @ix-tabs · 6 resolved-exempt:
   //    channels(hub)/email/sms/social/video/whatsapp — kart-ızgarası/config-form yüzeyleri) ──
-  // ── FAZ 3: reports/* (11) ──
-  '/reports/agent': 'FAZ3-reports',
-  '/reports/ai': 'FAZ3-reports',
-  '/reports/billing': 'FAZ3-reports',
-  '/reports/call': 'FAZ3-reports',
-  '/reports/campaign': 'FAZ3-reports',
-  '/reports/channel': 'FAZ3-reports',
-  '/reports/csat': 'FAZ3-reports',
-  '/reports/dashboards': 'FAZ3-reports',
-  '/reports/quality': 'FAZ3-reports',
-  '/reports/queue': 'FAZ3-reports',
-  '/reports/sla': 'FAZ3-reports',
+  // ── FAZ 3: reports/* — TAMAMLANDI (11 deep, hepsi @ix-tabs: 10 ortak-kabuk bölümü
+  //    Charts↔Table + /reports/dashboards All/Default/Custom). Ortak kabukta metin-arama/
+  //    pager yok, tablo+boş-durum dönem-veri-bağlı → 5 veri boyutu naInteraction. ──
   // ── FAZ 4: workforce/* (6) ──
   '/workforce': 'FAZ4-workforce',
   '/workforce/badges': 'FAZ4-workforce',
