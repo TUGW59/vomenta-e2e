@@ -1,6 +1,5 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { CompliancePage } from './pages/CompliancePage.js';
 
 /**
  * AYARLAR › UYUMLULUK — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)
