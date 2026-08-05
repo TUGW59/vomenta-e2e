@@ -4,7 +4,6 @@ import {
   AUTOMATION_ENTITY_PREFIXES,
   testEntityName,
 } from './data/factories.js';
-import { DashboardsPage } from './pages/DashboardsPage.js';
 
 /**
  * RAPORLAR › PANOLAR — VERİ-DEĞİŞTİREN AKIŞLAR (opt-in)
