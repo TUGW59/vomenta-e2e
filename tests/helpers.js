@@ -3,6 +3,7 @@ import { expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 import { AppShell } from './pages/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
+import { navigateWithGatewayRetry } from './support/gateway-navigation.js';
 import { KNOWN_BUGS } from './contracts/known-bugs.js';
 import { forensicModeActive } from './fixtures/forensic.js';
 
@@ -108,9 +109,15 @@ export async function waitForUiToSettle(page) {
  * @param {string} path - Örn. '/contacts'
  */
 export async function gotoApp(page, path) {
-  await page.goto(path, { waitUntil: 'commit' });
-  await page.waitForLoadState('domcontentloaded').catch(() => {});
-  await new AppShell(page).expectReady();
+  // BasePage'i bypass eden ~112 spec bu tek yoldan geçer. Authed navigasyon,
+  // canlı sunucunun aralıklı 502/503/504 blip'lerine karşı SINIRLI in-process
+  // retry ile korunur (bkz. ADR-0028). YALNIZ gerçek gateway kanıtında retry.
+  await navigateWithGatewayRetry(page, {
+    doGoto: () => page.goto(path, { waitUntil: 'commit' }),
+    afterCommit: () => page.waitForLoadState('domcontentloaded').catch(() => {}),
+    ready: () => new AppShell(page).expectReady(),
+    where: `gotoApp: ${path}`,
+  });
 }
 
 /**
@@ -125,6 +132,12 @@ export async function gotoApp(page, path) {
  *   heading: hedef sayfada görünmesi beklenen başlık (herhangi seviye h1..h6).
  */
 export async function assertDestinationLoaded(page, { path, heading, exact = true, timeout = 15000 }) {
+  // KAPSAM DIŞI (ADR-0028): Bu yol tıklama-SONRASI çalışır; navigasyonu tetikleyen
+  // tıklama zaten olmuştur, dolayısıyla assertion'dan ÖNCE temiz bir kanıt penceresi
+  // (observer.beginAttempt / epoch) açılamaz. Ağ kanıtı kullanılsaydı önceki bir
+  // navigasyonun 5xx'i, buradaki gerçek bir assertion hatasını yanlışlıkla gateway
+  // hatasına çevirebilirdi (stale-evidence). Fail-closed garanti edilemediği için
+  // bu helper ağ kanıtı KULLANMAZ — gerçek hatalar aynen yükselir.
   if (path) {
     await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
   }
