@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1234 / 119 dosya
-- **coverageStatus:** verified 0 · partial 1181 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1190 · skipped 0 · fixme 44
+- **Listelenen test:** 1235 / 120 dosya
+- **coverageStatus:** verified 0 · partial 1182 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1191 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -27,7 +27,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
 | reports | 80 | 80 | 0 | 0 |
-| settings | 339 | 322 | 0 | 17 |
+| settings | 340 | 323 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -797,6 +797,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Create Key dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create Key dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-audit-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| log tablosu kolonları + en az bir dolu satır görünüyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `settings-audit.authed.spec.js` — _settings_
 

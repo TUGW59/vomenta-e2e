@@ -17,11 +17,11 @@
 
 | Kontrol | Değerler | Uyumlu | Not |
 |---|---|---|---|
-| Kayıtlı rota sayısı | runtime=55, depth=65 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
+| Kayıtlı rota sayısı | runtime=55, depth=87 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
 | Bilinen bulgu toplamı | runtimeSnapshot=50, findingsRegistry=61 | ❌ | Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır. |
 | Açık bulgu | runtimeSnapshot=49, findingsRegistry=60 | ❌ | Açık bulgu sayısı kaynaklar arası farklı. |
 
-- ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=65). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
+- ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=87). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
 - ⚠️ Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.
 - ⚠️ Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.
 - ⚠️ Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
@@ -38,14 +38,14 @@
 
 ## 2) Her sayfanın otomasyon derinliği nedir? (kapsam)
 
-- **Kayıtlı rota (depth):** 65
-- **L1 (açılış) proven:** 55 · **L1 kanıtlanmamış:** 10
-- **L2 complete:** 3 · **L2 partial:** 62 · **L2 not-covered:** 0 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 60)_
-- **L3:** proven 0 · blocked 46 · N/A 19
-- **L4:** proven 0 · blocked 65  ·  **L5:** proven 0 · blocked 65
-- **En yüksek kanıt seviyesi dağılımı:** L0 10 · L1 0 · L2-stil 52 · L2-deep 3
+- **Kayıtlı rota (depth):** 87
+- **L1 (açılış) proven:** 55 · **L1 kanıtlanmamış:** 32
+- **L2 complete:** 4 · **L2 partial:** 61 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 81)_
+- **L3:** proven 0 · blocked 46 · N/A 41
+- **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
+- **En yüksek kanıt seviyesi dağılımı:** L0 32 · L1 0 · L2-stil 51 · L2-deep 4
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "55/65 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **3**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "55/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **4**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
@@ -74,28 +74,28 @@
 
 | öncelik | tür | rota | en yüksek kanıt | açıklama |
 |---|---|---|---|---|
-| 0 | L1_NOT_PROVEN | /voice/dids | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/history | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/ivr | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/queues | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/recordings | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/regulatory | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/sip-settings | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/sip-trunks | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/skills | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /voice/voicemail | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /bot-builder | L2_STYLE | Açık yüksek-önem bulgu: BOT-BUILDER-TEMPLATE-I18N(high). |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /campaigns | L2_STYLE | Açık yüksek-önem bulgu: B2(high). |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /inbox | L2_STYLE | Açık yüksek-önem bulgu: B3(high). |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /settings | L2_DEEP | Açık yüksek-önem bulgu: B4(high), SETTINGS-BILLING-CHANGEPLAN(high), SETTINGS-BILLING-HISTORY(high). |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /settings/billing | — | Açık yüksek-önem bulgu: SETTINGS-BILLING-REDIRECT(high). |
-| 1 | OPEN_CRITICAL_HIGH_FINDING | /voice/regulatory | L0 | Açık yüksek-önem bulgu: B1(critical), VOICE-REGULATORY-BROKEN(high). |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | / | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /ai | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /analytics | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /bot-builder | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 0 | L1_NOT_PROVEN | /ai/chatbot | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/copilot | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/knowledge-base | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/prompts | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/providers | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/sentiment | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/usage | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /ai/voice | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /bot-builder/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /campaigns/create | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /campaigns/outbound | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /contacts/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /contacts/import | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /contacts/segments | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /settings/billing | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /settings/billing/marketplace | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /supervisor/agents | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /supervisor/calls | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /supervisor/coaching | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /supervisor/interactions | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 
-_(+23 boşluk daha — tam liste JSON'da.)_
+_(+50 boşluk daha — tam liste JSON'da.)_
 
 ## Flaky testler
 
@@ -122,8 +122,8 @@ _(+23 boşluk daha — tam liste JSON'da.)_
 
 **Derinlik blok sebepleri (L3–L5):**
 - L3: STAGING_REQUIRED×46
-- L4: ROLE_ACCOUNTS_REQUIRED×65
-- L5: PROVIDER_HARNESS_REQUIRED×65
+- L4: ROLE_ACCOUNTS_REQUIRED×87
+- L5: PROVIDER_HARNESS_REQUIRED×87
 
 ## Trend / geçmiş karşılaştırma
 

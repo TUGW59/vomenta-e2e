@@ -610,7 +610,10 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'settings-audit',
     surfaceIds: ['settings-audit'],
-    specFiles: ['settings-audit.authed.spec.js'],
+    specFiles: [
+      'settings-audit.authed.spec.js',
+      'settings-audit-interactions.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -625,6 +628,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (log tablosu + detay dialog).',
       '@data': 'Sayısal KPI tile yok (log listesi).',
       '@visual': 'Tablo canlı log verisi (timestamp/UUID/IP) içerir → kararlı snapshot bölgesi yok.',
+    },
+    // L2 etkileşim derinliği (WP-L2-WAVE-1 / ADR-0014, FAZ 0 pilotu): deterministik boyut
+    // LİSTE (@ix-table — settings-audit-interactions.authed.spec.js). Diğerleri açık N/A:
+    naInteraction: {
+      'search-filter':
+        'Arama kutusu VAR ancak canlı log satırlarından (UUID/zaman damgası/IP) deterministik salt-okuma daraltma örneği türetmek güvenilir değil → anti-loop #3 gereği N/A (kapsam @ix-table ile kanıtlı).',
+      'pagination-sort': 'Read-only: pager/sıralama kontrolü POM/DOM gözleminde doğrulanmadı; sayfa boyutu veri-bağlı.',
+      'empty-state':
+        'Deterministik boş-duruma yalnız (veri-bağlı, güvenilmez) arama daraltmasıyla ulaşılır → anti-loop #3 gereği N/A.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
     },
   },
 

@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 3 · **L2·style (unverified):** 43 · **L1·style-gap:** 0
+- **L2·deep:** 4 · **L2·style (unverified):** 42 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 82
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 81
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 4 |
-| ✅ L2·deep | 3 |
-| 🟡 L2·style (unverified) | 43 |
+| ✅ L2·deep | 4 |
+| 🟡 L2·style (unverified) | 42 |
 | 🟠 NO_CONTRACT | 9 |
 | ⚪ NOT_RUN | 28 |
 
@@ -98,7 +98,7 @@
 | reports-sla | /reports/sla | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | settings | /settings | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 5 | ✅ L2·deep |
 | settings-api-keys | /settings/api-keys | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-audit | /settings/audit | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-audit | /settings/audit | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings-automations | /settings/automations | settings | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | settings-billing | /settings/billing | settings | — | ⚪ | NOT_COVERED | 0/6 | L0 | 1 | ⛔ BLOCKED |
 | settings-billing-marketplace | /settings/billing/marketplace | settings | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |

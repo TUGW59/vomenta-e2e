@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 119,
-    "productionSafeReadOnly": 83,
+    "totalSpecs": 120,
+    "productionSafeReadOnly": 84,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 83,
+      "read-only": 84,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 118,
+      "authenticated": 119,
       "public": 1
     },
     "byEnvironment": {
-      "both": 83,
+      "both": 84,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -90,6 +90,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -148,7 +149,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -185,6 +186,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -243,7 +245,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -280,6 +282,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -339,7 +342,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -376,6 +379,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -434,7 +438,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -471,6 +475,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -529,7 +534,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 81,
+      "selectedSpecFileCount": 82,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -566,6 +571,7 @@
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
+        "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
@@ -1831,6 +1837,32 @@
       "surface": "settings",
       "routes": [
         "/settings/api-keys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-audit-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-audit-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/audit"
       ],
       "capabilities": [
         "auth:default"

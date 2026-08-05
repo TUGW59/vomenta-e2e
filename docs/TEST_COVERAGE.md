@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1175
-- **Test dosyası:** 82
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 2 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1176
+- **Test dosyası:** 83
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 1 · `@ix-filter` 1 · `@ix-table` 3 · `@ix-tabs` 2 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -668,6 +668,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Create Key dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Create Key dialogu görünümü değişmedi  `@visual`
+
+### `settings-audit-interactions.authed.spec.js`
+
+- log tablosu kolonları + en az bir dolu satır görünüyor  `@ix-table`
 
 ### `settings-audit.authed.spec.js`
 

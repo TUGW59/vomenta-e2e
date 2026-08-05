@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 87 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 3 · PARTIAL 62 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 82 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 4 · PARTIAL 61 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 81 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 52 · L2·deep 3
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 51 · L2·deep 4
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -70,7 +70,7 @@
 | `/reports/sla` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings` | main-navigation,settings-hub | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider | B4(high/open) B6(medium/open) B7(medium/open) SETTINGS-BILLING-CHANGEPLAN(high/open) SETTINGS-BILLING-HISTORY(high/open) |
 | `/settings/api-keys` | settings-api-keys | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/audit` | settings-audit | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | N/A | ⛔ rol | ⛔ provider |  |
+| `/settings/audit` | settings-audit | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | N/A | ⛔ rol | ⛔ provider |  |
 | `/settings/automations` | settings-automations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/billing` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | SETTINGS-BILLING-REDIRECT(high/open) |
 | `/settings/billing/marketplace` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -258,7 +258,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/reports/sla` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings/api-keys` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/audit` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/audit` | — | N/A | ✅ | N/A | N/A | N/A |
 | `/settings/automations` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/billing` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/billing/marketplace` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
