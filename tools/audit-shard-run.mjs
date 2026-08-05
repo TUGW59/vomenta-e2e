@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 /**
- * WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — TEK SHARD ORCHESTRATOR'ı (CLI) — ADR-0022.
+ * WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — TEK SHARD ORCHESTRATOR'ı (CLI) — ADR-0027.
  *
  * Sharded read-only audit lane'inin matrix parçasıdır. run-audit.mjs'in doğruluk-kapısı
  * semantiğini (false-green yasağı, §3.8) TEK SHARD düzeyinde uygular:

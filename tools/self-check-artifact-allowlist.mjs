@@ -541,7 +541,7 @@ for (const f of workflowFiles) {
 check('gerçek workflow toplam upload adım sayısı = 11 (envanter sabiti)', () => {
   // 9 (playwright.yml: public-smoke/auth-quality/auth-critical/full×?/visual/discovery/
   // forensic/verify/reconcile) + 2 (readonly-audit.yml SHARDED: readonly-audit-shard +
-  // readonly-audit-merged) = 11. (ADR-0022: audit lane tek-job'dan shard-matrix+merge'e geçti.)
+  // readonly-audit-merged) = 11. (ADR-0027: audit lane tek-job'dan shard-matrix+merge'e geçti.)
   assert.equal(realUploadTotal, 11, `beklenen 11 upload adımı, bulunan ${realUploadTotal}`);
 });
 

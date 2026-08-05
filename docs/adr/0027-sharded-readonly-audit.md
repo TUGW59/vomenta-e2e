@@ -1,4 +1,4 @@
-# ADR-0022: Sharded read-only audit lane (4 parça + deterministik birleştirme)
+# ADR-0027: Sharded read-only audit lane (4 parça + deterministik birleştirme)
 
 - Durum: Kabul edildi (WP-FULL-READONLY-AUDIT / FAZ 3 kabul işi)
 - Tarih: 2026-08-04

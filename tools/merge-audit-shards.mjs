@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 /**
- * WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — SHARD MERGE ORCHESTRATOR'ı (CLI) — ADR-0022.
+ * WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — SHARD MERGE ORCHESTRATOR'ı (CLI) — ADR-0027.
  *
  * N shard'ın SANİTİZE payload'unu (shard-results.json) TEK deterministik birleşik
  * rapora indirger. run-audit.mjs'in doğruluk-kapısı semantiğini (false-green yasağı,

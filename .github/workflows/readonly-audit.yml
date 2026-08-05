@@ -1,4 +1,4 @@
-# WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — SHARDED full read-only audit lane (ADR-0022).
+# WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE) — SHARDED full read-only audit lane (ADR-0027).
 #
 # `readonly-full-chromium` (1281 read-only test) tek 45dk job'a sığmaz (~88dk gerekir).
 # Çözüm: Playwright `--shard=i/N` ile 4 PARÇA (matrix, max-parallel 3). Her parça KENDİ

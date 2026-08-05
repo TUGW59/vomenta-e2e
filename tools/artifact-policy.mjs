@@ -130,7 +130,7 @@ export const LANE_POLICY = Object.freeze({
   // sözleşmesi: Playwright JSON -> sanitize kanonik model -> summary.json/junit.xml/
   // summary.html/manifest.json. Ham upload YOK; secret/PII + şema + FS denetimi.
   'readonly-audit': summaryLane('readonly-audit'),
-  // WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE, ADR-0022) — sharded audit.
+  // WP-FULL-READONLY-AUDIT FAZ 3 (ACCEPTANCE, ADR-0027) — sharded audit.
   // readonly-full-chromium (1281 test) tek 45dk job'a sığmaz → matrix `--shard=i/N`.
   // Her PARÇA kendi güvenli bundle'ını üretir: safe-summary trio + `shard-results.json`
   // (flattenRuntimeTests SANİTİZE düz kayıtları; merge job'ının TEK girdisi — ham

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 /**
- * SHARDED AUDIT MERGE ÇEKİRDEĞİ SELF-CHECK — SERT KAPI (FAZ 3 ACCEPTANCE, ADR-0022).
+ * SHARDED AUDIT MERGE ÇEKİRDEĞİ SELF-CHECK — SERT KAPI (FAZ 3 ACCEPTANCE, ADR-0027).
  *
  * tools/audit-shard-lib.mjs saf fonksiyonlarını TAMAMEN SENTETİK doğrular (diske/prod'a
  * dokunmadan): validateShardPayload + mergeShardPayloads fail-closed davranır (eksik

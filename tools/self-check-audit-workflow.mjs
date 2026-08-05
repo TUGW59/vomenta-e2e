@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // @ts-check
 /**
- * SHARDED READ-ONLY AUDIT WORKFLOW STATİK ENFORCEMENT — SERT KAPI (FAZ 3 ACCEPTANCE, ADR-0022).
+ * SHARDED READ-ONLY AUDIT WORKFLOW STATİK ENFORCEMENT — SERT KAPI (FAZ 3 ACCEPTANCE, ADR-0027).
  *
  * `.github/workflows/readonly-audit.yml` YAML'ını YAPISAL parse ederek (metin araması
  * değil) SHARDED audit lane'inin handoff §FAZ3 + kabul sözleşmesine uyduğunu kanıtlar.
