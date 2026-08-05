@@ -1,6 +1,5 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { CannedResponsesPage } from './pages/CannedResponsesPage.js';
 
 /**
  * AYARLAR › HAZIR YANITLAR — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)

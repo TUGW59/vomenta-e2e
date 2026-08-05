@@ -31,10 +31,10 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/channels-webchat-mutations.authed.spec.js:17 | fixme | Staging teyidi bekliyor: widget ayarı geri-alma ucu (PUT /channels/webchat/config). |
 | tests/channels-whatsapp-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: bağlı WABA + şablon POST/DELETE ucu. |
 | tests/known-bugs.authed.spec.js:175 | skip | satırı yok; bulgu reproduce edilemiyor. |
-| tests/known-bugs.authed.spec.js:279 | skip | Sesli mesaj / işlem butonu yok; bulgu reproduce edilemiyor. |
-| tests/known-bugs.authed.spec.js:345 | skip | Reddedilmiş talep yok; bulgu reproduce edilemiyor. |
+| tests/known-bugs.authed.spec.js:283 | skip | Sesli mesaj / işlem butonu yok; bulgu reproduce edilemiyor. |
+| tests/known-bugs.authed.spec.js:349 | skip | Reddedilmiş talep yok; bulgu reproduce edilemiyor. |
 | tests/settings-data-retention-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: reversible spinbutton düzenle+Save+geri al; Run cleanup ASLA. |
-| tests/settings-disposition-codes-mutations.authed.spec.js:20 | fixme | Staging teyidi bekliyor: satır silme yolu (aksiyon ikonları aria-label\ |
+| tests/settings-disposition-codes-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: satır silme yolu (aksiyon ikonları aria-label\ |
 | tests/settings-notifications-mutations.authed.spec.js:18 | fixme | Staging teyidi bekliyor: kategori switch toggle + Save preferences + geri al. |
 | tests/settings-security-mutations.authed.spec.js:20 | fixme | Staging teyidi bekliyor: hassas config; policy switch toggle+revert + save endpoint. |
 | tests/settings-sla-mutations.authed.spec.js:20 | fixme | Staging teyidi bekliyor: satır silme yolu (aksiyon ikonları aria-label\ |
@@ -73,21 +73,21 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/contacts-mutations.authed.spec.js:39 | skip | VOMENTA_TEST_CONTACT_PHONE eksik |
 | tests/known-bugs-invite.mutation.authed.spec.js:25 | fixme |  |
 | tests/known-bugs.authed.spec.js:157 | fixme |  |
-| tests/known-bugs.authed.spec.js:289 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
-| tests/known-bugs.authed.spec.js:309 | skip | Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli. |
-| tests/known-bugs.authed.spec.js:332 | skip |  |
+| tests/known-bugs.authed.spec.js:293 | skip | Arayüz Türkçe değil; yerelleştirme sızıntısı yalnızca TR arayüzde geçerli. |
+| tests/known-bugs.authed.spec.js:313 | skip | Arayüz Türkçe değil; bitişik yazım hatası yalnızca TR arayüzde geçerli. |
+| tests/known-bugs.authed.spec.js:336 | skip |  |
 | tests/login.spec.js:79 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/registered-routes-smoke.authed.spec.js:75 | fixme |  |
 | tests/reports-dashboards.authed.spec.js:175 | skip | da güvenilir. |
 | tests/reports-dashboards.authed.spec.js:324 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/reports-sections.authed.spec.js:250 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
-| tests/settings-api-keys-mutations.authed.spec.js:20 | fixme | da boş). |
+| tests/settings-api-keys-mutations.authed.spec.js:19 | fixme | da boş). |
 | tests/settings-api-keys.authed.spec.js:143 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
-| tests/settings-automations-mutations.authed.spec.js:21 | fixme | da boş). |
+| tests/settings-automations-mutations.authed.spec.js:20 | fixme | da boş). |
 | tests/settings-automations.authed.spec.js:163 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
-| tests/settings-canned-responses-mutations.authed.spec.js:19 | fixme | da boş). |
+| tests/settings-canned-responses-mutations.authed.spec.js:18 | fixme | da boş). |
 | tests/settings-canned-responses.authed.spec.js:152 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
-| tests/settings-compliance-mutations.authed.spec.js:20 | fixme |  |
+| tests/settings-compliance-mutations.authed.spec.js:19 | fixme |  |
 | tests/settings-data-retention.authed.spec.js:129 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-disposition-codes.authed.spec.js:155 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-hours-mutations.authed.spec.js:18 | fixme | ında doğrulanmadı. |

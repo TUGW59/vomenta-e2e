@@ -88,18 +88,37 @@ for (const area of areas) {
       L.push('');
       if (b.expected) L.push(`- **Beklenen:** ${mdCell(b.expected)}`);
       if (b.actual) L.push(`- **Gerçekleşen:** ${mdCell(b.actual)}`);
-      if (b.repro?.length) L.push(`- **Repro:** ${b.repro.map(mdCell).join(' → ')}`);
+      // FAZ 1 additive alanlar (ADR-0026 §3) — yalnız VARSA basılır.
+      if (b.precondition) L.push(`- **Ön koşul:** ${mdCell(b.precondition)}`);
+      if (b.env && Object.keys(b.env).length) {
+        const envParts = ['browser', 'envName', 'role', 'locale', 'commit']
+          .filter((k) => b.env[k]).map((k) => `${k}=${mdCell(b.env[k])}`);
+        if (envParts.length) L.push(`- **Ortam:** ${envParts.join(' · ')}`);
+      }
+      if (b.repro?.length) {
+        // repro: string[] (legacy) VEYA [{ step, selector }] (yapısal) — her ikisini de işle.
+        const steps = b.repro.map((r) =>
+          typeof r === 'string' ? mdCell(r)
+            : (r.selector ? `${mdCell(r.step)} (\`${mdCell(r.selector)}\`)` : mdCell(r.step)));
+        L.push(`- **Repro:** ${steps.join(' → ')}`);
+      }
+      if (b.firstFailingStep !== undefined && b.firstFailingStep !== null) {
+        L.push(`- **İlk kırılan adım:** ${mdCell(String(b.firstFailingStep))}`);
+      }
       if (b.possibleCauses?.length) L.push(`- **Olası nedenler:** ${b.possibleCauses.map(mdCell).join('; ')}`);
       L.push(`- **Kök neden (kanıtlanmış):** ${b.rootCause ? mdCell(b.rootCause) : '_araştırılmadı / kanıtlanmadı_'}`);
       if (b.rootCauseCandidate) L.push(`- **Kök-neden adayı (forensik):** ${mdCell(b.rootCauseCandidate)}`);
       if (b.suggestedFixes?.length) L.push(`- **Olası çözümler:** ${b.suggestedFixes.map(mdCell).join('; ')}`);
       // piiReviewed KAPISI: yalnız piiReviewed:true kanıt gömülebilir; diğerleri yol + uyarı.
+      // FAZ 1: kind/runUrl VARSA minimal (düz-metin) gösterilir; zengin gömme/link FAZ 4'e ait.
       if (b.evidence?.length) {
-        const parts = b.evidence.map((e) =>
-          e.piiReviewed === true
-            ? `${mdCell(e.path)} (${mdCell(e.source)})`
-            : `${mdCell(e.path)} (${mdCell(e.source)} — ⚠ PII incelemesi bekliyor, gömülmez)`
-        );
+        const parts = b.evidence.map((e) => {
+          const label = e.kind ? `${mdCell(e.kind)}: ${mdCell(e.path)}` : mdCell(e.path);
+          const src = e.runUrl ? `${mdCell(e.source)}, ${mdCell(e.runUrl)}` : mdCell(e.source);
+          return e.piiReviewed === true
+            ? `${label} (${src})`
+            : `${label} (${src} — ⚠ PII incelemesi bekliyor, gömülmez)`;
+        });
         L.push(`- **Kanıt:** ${parts.join(' · ')}`);
       } else {
         L.push('- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_');

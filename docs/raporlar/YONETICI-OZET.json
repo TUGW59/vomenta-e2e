@@ -16,7 +16,7 @@
         "name": "Kayıtlı rota sayısı",
         "values": {
           "runtime": 55,
-          "depth": 65
+          "depth": 87
         },
         "agree": false,
         "note": "İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır."
@@ -41,7 +41,7 @@
       }
     ],
     "warnings": [
-      "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=65). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+      "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=87). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
       "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
       "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.",
       "Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
@@ -92,38 +92,38 @@
       "browser": "chromium"
     },
     "generatedAt": "2026-08-02T19:46:28.218Z",
-    "registeredRoutes": 65,
+    "registeredRoutes": 87,
     "l1Proven": 55,
-    "l1NotProven": 10,
+    "l1NotProven": 32,
     "l2StyleContractMet": 65,
-    "l2Complete": 3,
-    "l2Partial": 62,
-    "l2NotCovered": 0,
-    "interactionUnverifiedRoutes": 60,
+    "l2Complete": 13,
+    "l2Partial": 52,
+    "l2NotCovered": 22,
+    "interactionUnverifiedRoutes": 58,
     "l3Blocked": 46,
-    "l3NotApplicable": 19,
+    "l3NotApplicable": 41,
     "l3Proven": 0,
-    "l4Blocked": 65,
+    "l4Blocked": 87,
     "l4Proven": 0,
-    "l5Blocked": 65,
+    "l5Blocked": 87,
     "l5Proven": 0,
     "highestLevel": {
-      "L0": 10,
+      "L0": 32,
       "L1": 0,
-      "L2_STYLE": 52,
-      "L2_DEEP": 3
+      "L2_STYLE": 42,
+      "L2_DEEP": 13
     },
-    "routesWithFindings": 28,
-    "openFindingsOnRoutes": 48,
+    "routesWithFindings": 33,
+    "openFindingsOnRoutes": 58,
     "blockReasons": {
       "L3": {
         "STAGING_REQUIRED": 46
       },
       "L4": {
-        "ROLE_ACCOUNTS_REQUIRED": 65
+        "ROLE_ACCOUNTS_REQUIRED": 87
       },
       "L5": {
-        "PROVIDER_HARNESS_REQUIRED": 65
+        "PROVIDER_HARNESS_REQUIRED": 87
       }
     }
   },
@@ -153,6 +153,153 @@
   "riskGaps": [
     {
       "kind": "L1_NOT_PROVEN",
+      "route": "/ai/chatbot",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/copilot",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/knowledge-base",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/prompts",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/providers",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/sentiment",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/usage",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/ai/voice",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/bot-builder/:id",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/campaigns/create",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/campaigns/outbound",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/contacts/:id",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/contacts/import",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/contacts/segments",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/settings/billing",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/settings/billing/marketplace",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/supervisor/agents",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/supervisor/calls",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/supervisor/coaching",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/supervisor/interactions",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/supervisor/wallboard",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
       "route": "/voice/dids",
       "rank": 0,
       "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
@@ -168,6 +315,13 @@
     {
       "kind": "L1_NOT_PROVEN",
       "route": "/voice/ivr",
+      "rank": 0,
+      "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "L1_NOT_PROVEN",
+      "route": "/voice/live",
       "rank": 0,
       "detail": "Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil.",
       "highestProvenLevel": "L0"
@@ -254,7 +408,7 @@
       "route": "/settings/billing",
       "rank": 1,
       "detail": "Açık yüksek-önem bulgu: SETTINGS-BILLING-REDIRECT(high).",
-      "highestProvenLevel": null
+      "highestProvenLevel": "L0"
     },
     {
       "kind": "OPEN_CRITICAL_HIGH_FINDING",
@@ -279,6 +433,13 @@
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/ai/prompts",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
       "route": "/analytics",
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
@@ -297,6 +458,13 @@
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/campaigns/outbound",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
@@ -329,13 +497,6 @@
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
       "route": "/channels/video",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/channels/webchat",
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L2_STYLE"
@@ -381,6 +542,27 @@
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L2_STYLE"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/settings/billing",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/supervisor/agents",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
+    },
+    {
+      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
+      "route": "/supervisor/wallboard",
+      "rank": 2,
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L0"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
@@ -785,7 +967,7 @@
     "warnings": []
   },
   "warnings": [
-    "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=65). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+    "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=87). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
     "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
     "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.",
     "Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."

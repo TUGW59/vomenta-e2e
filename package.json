@@ -64,6 +64,7 @@
     "quality:runtime-provenance": "node tools/self-check-runtime-provenance.mjs",
     "quality:delivery": "node tools/self-check-morning-delivery.mjs",
     "quality:surface": "node tools/self-check-surface-depth.mjs",
+    "quality:depth": "node tools/depth-ratchet.mjs",
     "quality:executive": "node tools/self-check-executive-report.mjs",
     "quality:readonly-manifest": "node tools/self-check-readonly-manifest.mjs",
     "quality:surface-registry": "node tools/self-check-surface-registry.mjs",

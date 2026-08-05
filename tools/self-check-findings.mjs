@@ -108,6 +108,39 @@ function validateFindings(findings, callSites, opts = {}) {
       for (const e of b.evidence) {
         if (!e || !isStr(e.path) || !isStr(e.source) || typeof e.piiReviewed !== 'boolean') {
           errors.push(`${where}: evidence girdisi {path, source, piiReviewed:boolean} olmalı`);
+          continue;
+        }
+        // FAZ 1 additive alt-alanlar (ADR-0026 §3): VARSA string olmalı, zorunlu değil.
+        for (const k of ['kind', 'runUrl', 'artifactPath']) {
+          if (e[k] !== undefined && !isStr(e[k])) errors.push(`${where}: evidence.${k} string olmalı`);
+        }
+      }
+    }
+
+    // ── FAZ 1 additive alanlar (ADR-0026 §3): VARSA doğrula, YOKSA zorunlu değil ──
+    if (b.env !== undefined) {
+      if (b.env === null || typeof b.env !== 'object' || Array.isArray(b.env)) {
+        errors.push(`${where}: env bir nesne olmalı {browser,envName,role,locale,commit} (hepsi opsiyonel)`);
+      } else {
+        for (const k of ['browser', 'envName', 'role', 'locale', 'commit']) {
+          if (b.env[k] !== undefined && !isStr(b.env[k])) errors.push(`${where}: env.${k} string olmalı`);
+        }
+      }
+    }
+    if (b.precondition !== undefined && !isStrOrNull(b.precondition)) {
+      errors.push(`${where}: precondition string veya null olmalı`);
+    }
+    if (b.firstFailingStep !== undefined &&
+        !(b.firstFailingStep === null || typeof b.firstFailingStep === 'number' || typeof b.firstFailingStep === 'string')) {
+      errors.push(`${where}: firstFailingStep number | string | null olmalı`);
+    }
+    // repro eleman-tipi: string (legacy) VEYA { step:string, selector?:string|null } (yapısal)
+    if (isArr(b.repro)) {
+      for (const r of b.repro) {
+        const structural = r && typeof r === 'object' && !Array.isArray(r) &&
+          isStr(r.step) && (r.selector === undefined || r.selector === null || typeof r.selector === 'string');
+        if (typeof r !== 'string' && !structural) {
+          errors.push(`${where}: repro adımı string veya { step, selector? } olmalı`);
         }
       }
     }
@@ -206,6 +239,37 @@ const NEGATIVE_CASES = [
     callSites: new Map(),
     expect: /guard 'permanent' ise status 'closed'/,
   },
+  // ── FAZ 1 additive alanlar (ADR-0026 §3) ──
+  {
+    name: 'env nesne değil',
+    findings: [M({ id: 'BADENV', env: 'x' })],
+    callSites: siteFor('BADENV'),
+    expect: /env bir nesne olmalı/,
+  },
+  {
+    name: 'env alt-alan tipi',
+    findings: [M({ id: 'BADENVK', env: { role: 5 } })],
+    callSites: siteFor('BADENVK'),
+    expect: /env\.role string olmalı/,
+  },
+  {
+    name: 'yapısal repro adımı bozuk (step yok)',
+    findings: [M({ id: 'BADREPRO', repro: [{ selector: '.x' }] })],
+    callSites: siteFor('BADREPRO'),
+    expect: /repro adımı string veya/,
+  },
+  {
+    name: 'firstFailingStep geçersiz tip',
+    findings: [M({ id: 'BADFFS', firstFailingStep: true })],
+    callSites: siteFor('BADFFS'),
+    expect: /firstFailingStep number \| string \| null/,
+  },
+  {
+    name: 'evidence.kind string değil',
+    findings: [M({ id: 'BADEK', evidence: [{ path: 'p', source: 's', piiReviewed: false, kind: 9 }] })],
+    callSites: siteFor('BADEK'),
+    expect: /evidence\.kind string olmalı/,
+  },
 ];
 
 function runNegativeSelfChecks() {
@@ -219,10 +283,29 @@ function runNegativeSelfChecks() {
   return failures;
 }
 
+/**
+ * POZİTİF meta-test (FAZ 1): tüm additive opsiyonel alanlar geçerli değerlerle DOLUYken
+ * hiçbir hata üretmemeli → "doğrula ama ZORUNLU KILMA" sözleşmesini ispatlar.
+ */
+function runPositiveSelfChecks() {
+  const good = M({
+    id: 'POSNEW',
+    env: { browser: 'chromium', envName: 'production', role: 'authed', locale: 'tr', commit: 'abc123' },
+    precondition: 'oturum açık',
+    firstFailingStep: 2,
+    repro: [{ step: 'sayfayı aç', selector: '#root' }, 'düz string adım (legacy)'],
+    evidence: [{ path: 'p.png', source: 'forensic', piiReviewed: true, kind: 'final-state', runUrl: 'https://ci/run/1', artifactPath: 'a/b.png' }],
+  });
+  const { errors } = validateFindings([good], siteFor('POSNEW'), { checkFileExists: false });
+  return errors.length
+    ? [`pozitif senaryo BAŞARISIZ: geçerli additive alanlar hata üretti: ${errors.join('; ')}`]
+    : [];
+}
+
 // ── Çalıştır ─────────────────────────────────────────────────────────────────
-const metaFailures = runNegativeSelfChecks();
+const metaFailures = [...runNegativeSelfChecks(), ...runPositiveSelfChecks()];
 if (metaFailures.length) {
-  console.error(`Validator negatif self-check BAŞARISIZ (${metaFailures.length}) — doğrulayıcı bozuk girdiyi yakalamıyor:`);
+  console.error(`Validator self-check BAŞARISIZ (${metaFailures.length}) — doğrulayıcı bozuk/geçerli girdiyi ayırt edemiyor:`);
   for (const f of metaFailures) console.error(`  ✗ ${f}`);
   process.exit(1);
 }

@@ -56,6 +56,32 @@ export function safeInternalPath(rawHref, baseURL) {
 }
 
 /**
+ * Navigasyon SONRASI landing URL'ini oturum-kaybı tespiti için sınıflandırır.
+ *
+ * `safeInternalPath`'ten AYRIDIR: o fonksiyon BFS kuyruğuna yalnız tertemiz
+ * (query/hash'siz) rota almak için tasarlandı ve query/hash içeren HER URL'de
+ * `null` döner. Landing doğrulamasında o davranış YANLIŞTIR: uygulama bir rotaya
+ * gidince meşru şekilde `?tab=..` / `#..` ekleyebilir; bu oturum kaybı DEĞİLDİR.
+ * Burada yalnız origin (kayıp origin) ve pathname'i döndürürüz; query/hash yok
+ * sayılır. Login/auth yönlendirmesi çağıran tarafça pathname üzerinden denetlenir.
+ *
+ * @param {string} rawUrl `page.url()`
+ * @param {string} baseURL
+ * @returns {{ path: string|null, originLost: boolean }}
+ */
+export function classifyLanding(rawUrl, baseURL) {
+  try {
+    const url = new URL(rawUrl, baseURL);
+    if (url.origin !== new URL(baseURL).origin) {
+      return { path: null, originLost: true };
+    }
+    return { path: url.pathname.replace(/\/+$/, '') || '/', originLost: false };
+  } catch {
+    return { path: null, originLost: true };
+  }
+}
+
+/**
  * Genel keşif koşusunda GET/HEAD/OPTIONS dışındaki tüm istekleri sunucuya
  * ulaşmadan keser. Böylece bilinmeyen bir SPA davranışı production verisine yazamaz.
  * @param {import('@playwright/test').Page} page

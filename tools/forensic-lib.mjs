@@ -24,12 +24,21 @@ import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
 import { findSecrets } from '../tests/fixtures/sanitize.js';
 import { isValidScope } from '../tests/fixtures/scope-extract.js';
 
-/** CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi). */
+/**
+ * CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi).
+ *
+ * `location.png` (FAZ 2 / ADR-0026 §1): bulgunun hatalı locator'ının boundingBox'ı
+ * kutuyla işaretlenmiş, geri kalanı `safe-final-state.png` ile AYNI PII maskeleriyle
+ * alınmış maskeli görsel. Kontrollü eklenir; sanitize/PNG-imza kapısı (prepareUploadBundle)
+ * bu dosyaya da uygulanır. Hedef yoksa/maskeleme başarısızsa `location.png` üretilmez
+ * (`location.SKIPPED.txt` bırakılır → LOCAL_ONLY_PATTERNS, upload dışı).
+ */
 export const UPLOAD_ALLOWLIST = Object.freeze([
   'candidate-update.json',
   'network-summary.json',
   'metadata.json',
   'safe-final-state.png',
+  'location.png',
 ]);
 
 /**
