@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 3 · **L2·style (unverified):** 43 · **L1·style-gap:** 0
+- **L2·deep:** 13 · **L2·style (unverified):** 33 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 82
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 58
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 4 |
-| ✅ L2·deep | 3 |
-| 🟡 L2·style (unverified) | 43 |
+| ✅ L2·deep | 13 |
+| 🟡 L2·style (unverified) | 33 |
 | 🟠 NO_CONTRACT | 9 |
 | ⚪ NOT_RUN | 28 |
 
@@ -71,13 +71,13 @@
 | campaigns | /campaigns | campaigns | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
 | campaigns-create | /campaigns/create | campaigns | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
 | campaigns-outbound | /campaigns/outbound | campaigns | — | ⚪ | NOT_COVERED | 0/6 | L0 | 2 | ⚪ NOT_RUN |
-| channels | /channels | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-email | /channels/email | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
-| channels-sms | /channels/sms | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| channels-social | /channels/social | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| channels-video | /channels/video | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-webchat | /channels/webchat | channels | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-whatsapp | /channels/whatsapp | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels | /channels | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| channels-email | /channels/email | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
+| channels-sms | /channels/sms | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels-social | /channels/social | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels-video | /channels/video | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| channels-webchat | /channels/webchat | channels | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| channels-whatsapp | /channels/whatsapp | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
 | contacts | /contacts | contacts | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
 | contacts-detail | /contacts/:id | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | contacts-import | /contacts/import | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
@@ -97,27 +97,27 @@
 | reports-queue | /reports/queue | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | reports-sla | /reports/sla | reports | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | settings | /settings | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 5 | ✅ L2·deep |
-| settings-api-keys | /settings/api-keys | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-audit | /settings/audit | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-automations | /settings/automations | settings | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-api-keys | /settings/api-keys | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| settings-audit | /settings/audit | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| settings-automations | /settings/automations | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings-billing | /settings/billing | settings | — | ⚪ | NOT_COVERED | 0/6 | L0 | 1 | ⛔ BLOCKED |
 | settings-billing-marketplace | /settings/billing/marketplace | settings | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
-| settings-canned-responses | /settings/canned-responses | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-compliance | /settings/compliance | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-data-retention | /settings/data-retention | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-disposition-codes | /settings/disposition-codes | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-hours | /settings/hours | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-integrations | /settings/integrations | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-notifications | /settings/notifications | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-organization | /settings/organization | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-profile | /settings/profile | settings | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-canned-responses | /settings/canned-responses | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| settings-compliance | /settings/compliance | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-data-retention | /settings/data-retention | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-disposition-codes | /settings/disposition-codes | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| settings-hours | /settings/hours | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-integrations | /settings/integrations | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-notifications | /settings/notifications | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-organization | /settings/organization | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-profile | /settings/profile | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings-roles | /settings/roles | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
-| settings-security | /settings/security | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-sla | /settings/sla | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-teams | /settings/teams | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| settings-templates | /settings/templates | settings | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-security | /settings/security | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-sla | /settings/sla | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
+| settings-teams | /settings/teams | settings | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-templates | /settings/templates | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | settings-users | /settings/users | settings | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | — | ✅ L2·deep |
-| settings-webhooks | /settings/webhooks | settings | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| settings-webhooks | /settings/webhooks | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | supervisor | /supervisor | supervisor | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
 | supervisor-agents | /supervisor/agents | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | 1 | ⚪ NOT_RUN |
 | supervisor-calls | /supervisor/calls | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |

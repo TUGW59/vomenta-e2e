@@ -129,6 +129,37 @@ kilidini taşır; normal/prod lane'lerinde seçilmez ve hiçbir write yapmaz.
 
 ---
 
+## Etkileşim derinliği — `@ix-*` (L2·deep, ADR-0014/ADR-0029)
+
+Stil boyutlarının yanında, dedicated bir rotanın **etkileşim boyutları** ayrı bir makine-okur
+işaretle (`@ix-*`) derinleştirilir. Yardımcılar `tests/support/interactions.js`'te
+(locator-tabanlı, SALT-OKUNUR); `@ix-*` etiketi **yardımcıda değil, çağıran `test()`
+başlığındadır** (report:surface etiketi başlıktan toplar):
+
+| boyut | işaret | yardımcı |
+|---|---|---|
+| tablo/liste | `@ix-table` | `assertTableStructure` (+ mümkünse `assertTableFidelity`) |
+| arama/filtre | `@ix-filter` | `assertFilterNarrows` |
+| boş-durum | `@ix-empty` | `assertEmptyState` |
+| sekmeler | `@ix-tabs` | `assertTabsExclusive` |
+| sayfalama/sıralama | `@ix-pagination` | `assertPagination` |
+| yükleme | `@ix-loading` | `assertListLoading` |
+
+```js
+import { assertTableStructure } from './support/interactions.js';
+test('tablo kolonları + dolu satır @ix-table', async ({ app }) => {
+  await app.foo.open();
+  await assertTableStructure(app.foo.table, app.foo.rows, COLUMNS);
+});
+```
+
+Kural: geçerli her etkileşim boyutu ya `@ix-*` işaretli gerçek testle kanıtlı, ya
+`tested-pages.js naInteraction` ile **açık gerekçeyle** N/A olmalı (`test.skip` yasak;
+yüzeyde olmayan/N/A boyuta `@ix-*` = misdeclared, invariant hatası). Kapı: `quality:depth`
+(`tools/depth-ratchet.mjs`) — güncel JSON ister → önce `npm run report:surface`. Altın
+şablonlar: `tests/settings-{roles,users}-interactions.authed.spec.js`,
+`tests/settings-audit-interactions.authed.spec.js`.
+
 ## Lane ve enforcement özeti
 
 | | PR | Gece |
