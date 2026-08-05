@@ -713,7 +713,10 @@
 
 - **Beklenen:** Çevrilmiş etiketler görünür (ör. "Start KYC")
 - **Gerçekleşen:** 9 ham i18n anahtarı görünüyor (voiceRegulatory.title, .startKyc, …)
+- **Ön koşul:** Kimliği doğrulanmış oturum açık; /voice/regulatory erişilebilir.
+- **Ortam:** envName=production · role=authed
 - **Repro:** /voice/regulatory aç → KYC içeriği yüklensin → sayfa metnini oku
+- **İlk kırılan adım:** 3
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-28 · **expiry:** —
