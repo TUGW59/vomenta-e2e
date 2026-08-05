@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1244 / 129 dosya
-- **coverageStatus:** verified 0 · partial 1191 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1200 · skipped 0 · fixme 44
+- **Listelenen test:** 1255 / 131 dosya
+- **coverageStatus:** verified 0 · partial 1202 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1211 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -26,7 +26,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
-| reports | 80 | 80 | 0 | 0 |
+| reports | 91 | 91 | 0 | 0 |
 | settings | 348 | 331 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
@@ -672,6 +672,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor |  | — | listed-only | partial | medium | list-exec |
 | "Schedule a Report" formu açılıyor ve iptal edilebiliyor |  | — | listed-only | partial | medium | list-exec |
 
+### `reports-dashboards-interactions.authed.spec.js` — _reports_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| All Dashboards / Default / Custom Dashboards sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `reports-dashboards-mutations.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -725,6 +731,21 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | L2+L3: schedule oluşturuluyor, listeleniyor ve hemen siliniyor | @regression @mutation | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | güvenlik: tenantta geçici e2e schedule kalıntısı yok | @regression @mutation | — | listed-only | partial | medium | list-exec |
+
+### `reports-sections-interactions.authed.spec.js` — _reports_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| [call] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [agent] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [queue] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [campaign] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [channel] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [ai] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [quality] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [csat] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [billing] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [sla] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
 ### `reports-sections.authed.spec.js` — _reports_
 

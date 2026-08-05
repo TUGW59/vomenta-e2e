@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 87 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 13 · PARTIAL 52 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 58 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 24 · PARTIAL 41 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 47 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 42 · L2·deep 13
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 31 · L2·deep 24
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -57,17 +57,17 @@
 | `/contacts/:id` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/inbox` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B3(high/open) B8(high/closed) |
 | `/reports` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | REPORTS-AIKEY(medium/open) REPORTS-INTL(medium/open) |
-| `/reports/agent` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/ai` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/billing` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/call` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | REPORTS-SECTIONS-TZ(medium/open) |
-| `/reports/campaign` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/channel` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/csat` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/dashboards` | reports-dashboards | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | DASHBOARDS-SHARE-OVERFLOW(medium/open) |
-| `/reports/quality` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/queue` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/reports/sla` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/agent` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/ai` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/billing` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/call` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | REPORTS-SECTIONS-TZ(medium/open) |
+| `/reports/campaign` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/channel` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/csat` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/dashboards` | reports-dashboards | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | DASHBOARDS-SHARE-OVERFLOW(medium/open) |
+| `/reports/quality` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/queue` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/reports/sla` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings` | main-navigation,settings-hub | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider | B4(high/open) B6(medium/open) B7(medium/open) SETTINGS-BILLING-CHANGEPLAN(high/open) SETTINGS-BILLING-HISTORY(high/open) |
 | `/settings/api-keys` | settings-api-keys | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/audit` | settings-audit | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | N/A | ⛔ rol | ⛔ provider |  |
@@ -245,17 +245,17 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/contacts/:id` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/inbox` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/agent` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/ai` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/billing` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/call` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/campaign` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/channel` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/csat` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/dashboards` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/quality` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/queue` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/reports/sla` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/reports/agent` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/ai` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/billing` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/call` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/campaign` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/channel` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/csat` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/dashboards` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/quality` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/queue` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/reports/sla` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings/api-keys` | — | N/A | N/A | N/A | ✅ | N/A |
 | `/settings/audit` | — | N/A | ✅ | N/A | N/A | N/A |

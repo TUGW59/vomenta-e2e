@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 129,
-    "productionSafeReadOnly": 93,
+    "totalSpecs": 131,
+    "productionSafeReadOnly": 95,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 93,
+      "read-only": 95,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 128,
+      "authenticated": 130,
       "public": 1
     },
     "byEnvironment": {
-      "both": 93,
+      "both": 95,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -84,8 +84,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -158,7 +160,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -189,8 +191,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -263,7 +267,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -294,8 +298,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -369,7 +375,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -400,8 +406,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -474,7 +482,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -505,8 +513,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -579,7 +589,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 91,
+      "selectedSpecFileCount": 93,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -610,8 +620,10 @@
         "tests/quality-baseline.authed.spec.js",
         "tests/registered-routes-smoke.authed.spec.js",
         "tests/reports-actions.authed.spec.js",
+        "tests/reports-dashboards-interactions.authed.spec.js",
         "tests/reports-dashboards.authed.spec.js",
         "tests/reports-route-sweep.authed.spec.js",
+        "tests/reports-sections-interactions.authed.spec.js",
         "tests/reports-sections.authed.spec.js",
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
@@ -1664,6 +1676,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/reports-dashboards-interactions.authed.spec.js",
+      "pathPattern": "tests/reports-dashboards-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/dashboards"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/reports-dashboards-mutations.authed.spec.js",
       "pathPattern": "tests/reports-dashboards-mutations.authed.spec.js",
       "kind": "mutation",
@@ -1769,6 +1807,41 @@
       "lifecycleMode": null,
       "owningPackage": "vomenta-e2e",
       "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/reports-sections-interactions.authed.spec.js",
+      "pathPattern": "tests/reports-sections-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "reports",
+      "routes": [
+        "/reports/agent",
+        "/reports/ai",
+        "/reports/billing",
+        "/reports/call",
+        "/reports/campaign",
+        "/reports/channel",
+        "/reports/csat",
+        "/reports/quality",
+        "/reports/queue",
+        "/reports/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
     },
     {
       "id": "tests/reports-sections.authed.spec.js",
