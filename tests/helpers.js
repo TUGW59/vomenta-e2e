@@ -3,6 +3,11 @@ import { expect } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 import { AppShell } from './pages/AppShell.js';
 import { LoginPage } from './pages/LoginPage.js';
+import {
+  navigateWithGatewayRetry,
+  getGatewayObserver,
+  assertOrGateway,
+} from './support/gateway-navigation.js';
 import { KNOWN_BUGS } from './contracts/known-bugs.js';
 import { forensicModeActive } from './fixtures/forensic.js';
 
@@ -108,9 +113,15 @@ export async function waitForUiToSettle(page) {
  * @param {string} path - Örn. '/contacts'
  */
 export async function gotoApp(page, path) {
-  await page.goto(path, { waitUntil: 'commit' });
-  await page.waitForLoadState('domcontentloaded').catch(() => {});
-  await new AppShell(page).expectReady();
+  // BasePage'i bypass eden ~112 spec bu tek yoldan geçer. Authed navigasyon,
+  // canlı sunucunun aralıklı 502/503/504 blip'lerine karşı SINIRLI in-process
+  // retry ile korunur (bkz. ADR-0027). YALNIZ gerçek gateway kanıtında retry.
+  await navigateWithGatewayRetry(page, {
+    doGoto: () => page.goto(path, { waitUntil: 'commit' }),
+    afterCommit: () => page.waitForLoadState('domcontentloaded').catch(() => {}),
+    ready: () => new AppShell(page).expectReady(),
+    where: `gotoApp: ${path}`,
+  });
 }
 
 /**
@@ -125,13 +136,24 @@ export async function gotoApp(page, path) {
  *   heading: hedef sayfada görünmesi beklenen başlık (herhangi seviye h1..h6).
  */
 export async function assertDestinationLoaded(page, { path, heading, exact = true, timeout = 15000 }) {
-  if (path) {
-    await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
-  }
-  // Oturum korunuyor — login sayfasına atılmadık.
-  await expect(new AppShell(page).loginHeading).toBeHidden();
-  // Hedef içeriği gerçekten render oldu.
-  await expect(page.getByRole('heading', { name: heading, exact }).first()).toBeVisible({ timeout });
+  // Navigasyon tıklama sonrası olduğundan `goto` yok → tıklamayı retry edemeyiz.
+  // Yalnız içerik assertion'larını `assertOrGateway` ile sararız: gerçek gateway
+  // kanıtı (arka plan 5xx) varsa dürüst GatewayUnavailableError yüzeye çıkar
+  // (retry döngüsüne ALINMAZ, maskelenmez); yoksa orijinal hata aynen yükselir.
+  const observer = getGatewayObserver(page);
+  await assertOrGateway(
+    observer,
+    async () => {
+      if (path) {
+        await page.waitForURL((url) => url.pathname.startsWith(path), { timeout });
+      }
+      // Oturum korunuyor — login sayfasına atılmadık.
+      await expect(new AppShell(page).loginHeading).toBeHidden();
+      // Hedef içeriği gerçekten render oldu.
+      await expect(page.getByRole('heading', { name: heading, exact }).first()).toBeVisible({ timeout });
+    },
+    `assertDestinationLoaded: ${path ?? heading}`
+  );
 }
 
 /**
