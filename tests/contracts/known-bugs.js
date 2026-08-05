@@ -29,7 +29,7 @@
  *   opened        açılış tarihi (ISO) | null
  *   lastVerified  son canlı doğrulama (ISO) | null
  *   expiry        gözden geçirme/son kullanma (ISO) | null
- *   repro         yeniden üretme adımları (kısa) | []
+ *   repro         yeniden üretme adımları — string[] (legacy) VEYA [{ step, selector }] (yapısal) | []
  *   expected      beklenen davranış | null
  *   actual        gözlenen davranış | null
  *   technicalEvidence  forensik teknik kanıt (WP-R3 doldurur) | []
@@ -37,15 +37,26 @@
  *   rootCauseCandidate forensik kök-neden adayı (WP-R3) | null
  *   rootCause          KANITLANMIŞ kök-neden | null
  *   suggestedFixes     önerilen düzeltmeler | []
- *   evidence           [{ path, source, piiReviewed }]
+ *   evidence           [{ path, source, piiReviewed, kind?, runUrl?, artifactPath? }]
  *   test               { file, title }  guard testinin yeri
  *   owner              sorumlu | null
  *   issueRef           harici ticket referansı (ileride Jira/Zoho/Qntrl) | null
+ *
+ * FAZ 1 EK ALANLAR (opsiyonel, additive — ADR-0026 §3). Yoksa atlanır; ASLA uydurulmaz.
+ * Validator doğrular ama zorunlu KILMAZ; renderer yalnız VARSA basar. Mevcut kayıtlar bit-aynı geçer.
+ *   env                { browser?, envName?, role?, locale?, commit? } koşum bağlamı (hepsi opsiyonel)
+ *   precondition       ön koşul (kısa) | null
+ *   firstFailingStep   repro'daki ilk kırılan adım (1-tabanlı indeks veya metin) | number | string | null
+ *   evidence[].kind         kanıt türü (ör. final-state | location | network)
+ *   evidence[].runUrl       CI koşum linki (provenance; FAZ 3 doldurur)
+ *   evidence[].artifactPath güvenli bundle'daki maskeli görsel/JSON yolu (relative; FAZ 3 doldurur)
  */
 
 /** @typedef {'critical'|'high'|'medium'|'low'} Severity */
 /** @typedef {'open'|'fixed-candidate'|'closed'} Status */
 /** @typedef {'knownBugGuard'|'fixme'|'permanent'} Guard */
+/** @typedef {{ browser?: string, envName?: string, role?: string, locale?: string, commit?: string }} BugEnv */
+/** @typedef {{ step: string, selector?: string|null }} ReproStep */
 
 export const SEVERITIES = Object.freeze(['critical', 'high', 'medium', 'low']);
 export const STATUSES = Object.freeze(['open', 'fixed-candidate', 'closed']);
@@ -63,7 +74,15 @@ export const KNOWN_BUGS = Object.freeze([
     opened: null,
     lastVerified: '2026-07-28',
     expiry: null,
-    repro: ['/voice/regulatory aç', 'KYC içeriği yüklensin', 'sayfa metnini oku'],
+    // FAZ 1 additive alanlar (ADR-0026 §3) — yalnız dürüst/türetilebilir değerler; kanıt FAZ 3'te dolar.
+    env: { role: 'authed', envName: 'production' },
+    precondition: 'Kimliği doğrulanmış oturum açık; /voice/regulatory erişilebilir.',
+    firstFailingStep: 3,
+    repro: [
+      { step: '/voice/regulatory aç', selector: null },
+      { step: 'KYC içeriği yüklensin', selector: null },
+      { step: 'sayfa metnini oku', selector: null },
+    ],
     expected: 'Çevrilmiş etiketler görünür (ör. "Start KYC")',
     actual: '9 ham i18n anahtarı görünüyor (voiceRegulatory.title, .startKyc, …)',
     technicalEvidence: [],
