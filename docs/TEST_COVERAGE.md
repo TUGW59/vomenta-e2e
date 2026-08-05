@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1196
-- **Test dosyası:** 94
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 5 · `@ix-tabs` 17 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1200
+- **Test dosyası:** 97
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1376,6 +1376,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez)  `@regression`
 - /voice doğrudan açılınca /voice/live yüklüyor  `@deeplink`
 
+### `workforce-badges-interactions.authed.spec.js`
+
+- Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir  `@ix-tabs`
+
 ### `workforce-badges.authed.spec.js`
 
 - L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları  `@smoke` `@regression`
@@ -1409,6 +1413,15 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - değerlendirme listesi ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
 - Değerlendirme Oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
 - /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
+
+### `workforce-interactions.authed.spec.js`
+
+- 7 üst sekme dışlayıcı seçilir  `@ix-tabs`
+- Haftalık çizelge tablosu ajan satırlarıyla render olur  `@ix-table`
+
+### `workforce-schedules-interactions.authed.spec.js`
+
+- Haftalık çizelge tablosu ajan satırlarıyla render olur  `@ix-table`
 
 ### `workforce-schedules.authed.spec.js`
 

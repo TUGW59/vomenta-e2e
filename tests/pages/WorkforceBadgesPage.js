@@ -63,6 +63,15 @@ export class WorkforceBadgesPage extends BasePage {
     return this.page.getByRole('tab', { name: WorkforceBadgesPage.L.tabLeaderboard });
   }
 
+  /**
+   * Ada göre sekme — ANA (ilk) tablist'e sabitlenir. Rozetler yüzeyinde de ikinci
+   * (aynı) tab bar mount olabildiği için (bkz. WorkforcePage notu) `.first()` şart.
+   * Read-only.
+   */
+  tab(name) {
+    return this.page.getByRole('tablist').first().getByRole('tab', { name, exact: true });
+  }
+
   rowByName(name) {
     return this.page.getByRole('row', { hasText: name });
   }

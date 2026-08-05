@@ -803,6 +803,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     surfaceIds: ['workforce'],
     specFiles: [
       'workforce.authed.spec.js',
+      'workforce-interactions.authed.spec.js',
       'workforce-mutations.authed.spec.js',
     ],
     archetype: {
@@ -821,11 +822,22 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu yüzeyde export/indirme kontrolü yok.',
       '@visual': 'İçerik tarih/haftaya bağlı (çizelge grid) → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: 7 sekme) + TABLO
+    // (@ix-table: haftalık çizelge, ajan satırları). Diğer 4 veri boyutu N/A:
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok (yalnız hafta ok\'ları Previous/Next Week + Adherence aralık düğmeleri).',
+      'pagination-sort': 'Pager/sütun-sıralama yok; hafta navigasyonu tarih-aralığı ok\'udur, liste sayfalama değil.',
+      'empty-state': 'Boş-durum (geçmiş hafta/boş sekmeler) arama/filtre ile deterministik üretilmez.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'workforce-schedules',
     surfaceIds: ['workforce-schedules'],
-    specFiles: ['workforce-schedules.authed.spec.js'],
+    specFiles: [
+      'workforce-schedules.authed.spec.js',
+      'workforce-schedules-interactions.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -843,6 +855,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'İçerik tarih/haftaya bağlı → kararlı snapshot yok.',
       '@mutation': 'Vardiya create/publish yaşam döngüsü /workforce yüzeyinde (workforce-mutations) sahiplenilir; ayrı rotada tekrar edilmez (uzlaştırma).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): TABLO (@ix-table: haftalık çizelge,
+    // ajan satırları). Diğer 4 veri boyutu N/A (sekmesiz standalone çizelge):
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok (yalnız hafta ok\'ları Previous/Next Week).',
+      'pagination-sort': 'Pager/sütun-sıralama yok; hafta ok\'u tarih-aralığı navigasyonudur.',
+      'empty-state': 'Boş-durum (geçmiş hafta) arama/filtre ile deterministik üretilmez.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -865,6 +885,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'İzin tablosu canlı veri → kararlı snapshot yok.',
       '@mutation': 'İzin talebi UI\'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. İzin tablosu test
+    // tenant'ında BOŞ ("No time off requests") + arama/pager/sekme yok → hiçbir veri
+    // boyutu fiziksel olarak yok. Salt "Request Time Off" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'İzin tablosu test tenant\'ında boş ("No time off requests") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -890,12 +920,23 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Anket tablosu canlı veri → kararlı snapshot yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. Anket listesi test
+    // tenant'ında BOŞ ("No CSAT surveys") + arama/pager/sekme yok → hiçbir veri boyutu
+    // fiziksel olarak yok. Salt "Create survey" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'Anket tablosu test tenant\'ında boş ("No CSAT surveys") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'workforce-badges',
     surfaceIds: ['workforce-badges'],
     specFiles: [
       'workforce-badges.authed.spec.js',
+      'workforce-badges-interactions.authed.spec.js',
       'workforce-badges-mutations.authed.spec.js',
     ],
     archetype: {
@@ -913,6 +954,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (rozet/lider listesi).',
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Rozet/lider tablosu canlı veri → kararlı snapshot yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: Badges ↔ Leaderboard).
+    // Diğer 5 veri boyutu N/A (rozet listesi test tenant'ında boş):
+    naInteraction: {
+      'table-list': 'Rozet listesi test tenant\'ında boş ("No badges yet") → dolu read-only tablo satırı garanti değil (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -937,6 +987,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (puan sütunu tablo verisi).',
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Değerlendirme tablosu canlı veri → kararlı snapshot yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. Değerlendirme listesi
+    // test tenant'ında BOŞ ("No evaluations yet") + arama/pager/sekme yok → hiçbir veri
+    // boyutu fiziksel olarak yok. Salt "Create Evaluation" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'Değerlendirme tablosu test tenant\'ında boş ("No evaluations yet") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
 

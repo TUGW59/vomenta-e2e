@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 131,
-    "productionSafeReadOnly": 95,
+    "totalSpecs": 134,
+    "productionSafeReadOnly": 98,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 95,
+      "read-only": 98,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 130,
+      "authenticated": 133,
       "public": 1
     },
     "byEnvironment": {
-      "both": 95,
+      "both": 98,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -142,8 +142,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -160,7 +163,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -249,8 +252,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -267,7 +273,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -356,8 +362,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -375,7 +384,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -464,8 +473,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -482,7 +494,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -571,8 +583,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -589,7 +604,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 93,
+      "selectedSpecFileCount": 96,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -678,8 +693,11 @@
         "tests/voice-subnav.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
+        "tests/workforce-badges-interactions.authed.spec.js",
         "tests/workforce-badges.authed.spec.js",
         "tests/workforce-evaluations.authed.spec.js",
+        "tests/workforce-interactions.authed.spec.js",
+        "tests/workforce-schedules-interactions.authed.spec.js",
         "tests/workforce-schedules.authed.spec.js",
         "tests/workforce-surveys.authed.spec.js",
         "tests/workforce-time-off.authed.spec.js",
@@ -3741,6 +3759,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/workforce-badges-interactions.authed.spec.js",
+      "pathPattern": "tests/workforce-badges-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/badges"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/workforce-badges-mutations.authed.spec.js",
       "pathPattern": "tests/workforce-badges-mutations.authed.spec.js",
       "kind": "mutation",
@@ -3841,6 +3885,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/workforce-interactions.authed.spec.js",
+      "pathPattern": "tests/workforce-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/workforce-mutations.authed.spec.js",
       "pathPattern": "tests/workforce-mutations.authed.spec.js",
       "kind": "mutation",
@@ -3863,6 +3933,32 @@
       "lifecycleMode": null,
       "owningPackage": "vomenta-e2e",
       "exclusionReason": "MUTATION_FILENAME_CONVENTION: veri değiştirir → production seçiminden çıkarıldı (staging-only + @mutation grepInvert)."
+    },
+    {
+      "id": "tests/workforce-schedules-interactions.authed.spec.js",
+      "pathPattern": "tests/workforce-schedules-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "workforce",
+      "routes": [
+        "/workforce/schedules"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
     },
     {
       "id": "tests/workforce-schedules.authed.spec.js",

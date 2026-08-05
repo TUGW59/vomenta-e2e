@@ -102,6 +102,16 @@ export class WorkforcePage extends BasePage {
     return this.page.locator('main table tbody tr').first().locator('td').nth(1);
   }
 
+  /** Haftalık çizelge tablosu (Schedules sekmesi varsayılan görünümü). Read-only. */
+  scheduleTable() {
+    return this.page.locator('main table').first();
+  }
+
+  /** Ajan/takım satırları (tenant baseline ajanları → güncel haftada dolu). Read-only. */
+  scheduleRows() {
+    return this.page.locator('main table tbody tr');
+  }
+
   /** İlk boş hücreye varsayılan (09:00–17:00) vardiya oluşturur — GERÇEK POST (yalnızca mutation testi). */
   async createDefaultShift() {
     await this.firstScheduleCell().click();

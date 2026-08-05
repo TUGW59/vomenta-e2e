@@ -19,13 +19,10 @@ export const DEPTH_BACKLOG = Object.freeze({
   // ── FAZ 3: reports/* — TAMAMLANDI (11 deep, hepsi @ix-tabs: 10 ortak-kabuk bölümü
   //    Charts↔Table + /reports/dashboards All/Default/Custom). Ortak kabukta metin-arama/
   //    pager yok, tablo+boş-durum dönem-veri-bağlı → 5 veri boyutu naInteraction. ──
-  // ── FAZ 4: workforce/* (6) ──
-  '/workforce': 'FAZ4-workforce',
-  '/workforce/badges': 'FAZ4-workforce',
-  '/workforce/evaluations': 'FAZ4-workforce',
-  '/workforce/schedules': 'FAZ4-workforce',
-  '/workforce/surveys': 'FAZ4-workforce',
-  '/workforce/time-off': 'FAZ4-workforce',
+  // ── FAZ 4: workforce/* — TAMAMLANDI. Deep: /workforce (@ix-tabs 7 sekme + @ix-table
+  //    çizelge), /workforce/schedules (@ix-table çizelge), /workforce/badges (@ix-tabs
+  //    Badges↔Leaderboard). Resolved-exempt (test tenant'ında boş liste, etkileşim yüzeyi
+  //    yok): /workforce/time-off, /workforce/surveys, /workforce/evaluations. ──
   // ── FAZ 5: kalan (2) ──
   '/': 'FAZ5-misc (dashboard)',
   '/voice': 'FAZ5-misc (voice hub)',

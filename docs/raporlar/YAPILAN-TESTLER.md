@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1255 / 131 dosya
-- **coverageStatus:** verified 0 · partial 1202 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1211 · skipped 0 · fixme 44
+- **Listelenen test:** 1259 / 134 dosya
+- **coverageStatus:** verified 0 · partial 1206 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1215 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -32,7 +32,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 143 | 140 | 0 | 3 |
-| workforce | 105 | 103 | 0 | 2 |
+| workforce | 109 | 107 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
 
@@ -1791,6 +1791,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez) | @regression | — | listed-only | partial | medium | list-exec |
 | /voice doğrudan açılınca /voice/live yüklüyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `workforce-badges-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `workforce-badges-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1841,12 +1847,25 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Değerlendirme Oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `workforce-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| 7 üst sekme dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
+
 ### `workforce-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Add Shift kalıcı vardiya oluşturuyor (POST /wfm/schedules) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: Publish Schedule taslağı yayınlıyor ("Draft" kalkıyor) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `workforce-schedules-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `workforce-schedules.authed.spec.js` — _workforce_
 
