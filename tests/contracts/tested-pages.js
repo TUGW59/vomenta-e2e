@@ -947,12 +947,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@mutation': 'Hub salt gezinme; create/edit/delete/save yok (yazma alt sayfalarda).',
     },
+    // L2 etkileşim (ADR-0029): 7 kanal kartlı statik hub → resolved-exempt (etkileşim yüzeyi yok).
+    naInteraction: {
+      'search-filter': 'Kart ızgarasında arama/filtre kontrolü yok (yalnız Configure bağlantıları).',
+      'table-list': 'Etkileşimli liste/tablo yok (7 kanal kartlı statik ızgara; her kart durum rozeti + Configure).',
+      'pagination-sort': 'Sabit 7 kart; pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Kartlar daima render edilir; read-only boş duruma ulaştıracak arama/filtre yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (kartlar config isteğinden bağımsız statik).',
+    },
   },
   {
     id: 'channels-webchat',
     surfaceIds: ['channels-webchat'],
     specFiles: [
       'channels-webchat.authed.spec.js',
+      'channels-webchat-interactions.authed.spec.js',
       'channels-webchat-mutations.authed.spec.js',
     ],
     archetype: {
@@ -969,6 +978,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (yapılandırma formu + iki sekme).',
       '@data': 'Sayısal KPI tile yok (widget ayar alanları).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): ÜST SEKME (@ix-tabs: Configuration ↔ Integration).
+    // Diğer 5 veri boyutu fiziksel olarak yok (form yüzeyi):
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (renk/metin girdileri + switch/textarea formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (iki sekmeli yapılandırma formu).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Boş-duruma ulaştıracak arama/filtre yok (read-only form).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -994,6 +1012,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B17 format hatası + imza içeriği canlı → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim (ADR-0029): imza/yönlendirme formu + hesap boş-durumu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (imza/yönlendirme formu + Add Account dialogu).',
+      'table-list': 'Etkileşimli liste/tablo yok; hesap alanı boş-durumda ("No email account connected").',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Hesap boş-durumu statik metindir; arama/filtre ile ulaşılan read-only boş durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-sms',
@@ -1017,6 +1043,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (liste + config alanları).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B18 konsol hatası + canlı listeler → kararlı snapshot bölgesi yok.',
+    },
+    // L2 etkileşim (ADR-0029): durum/yön açılır filtreleri boş mesaj günlüğü üzerinde,
+    // metin arama kutusu yok → veri-bağlı/güvenilmez (anti-loop #3) → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok; yalnız durum/yön açılır seçicileri (All Statuses/Directions) mesaj günlüğü üzerinde. Canlı durum "Not configured" → günlük boş, filtre narrowing veri-bağlı/güvenilmez (anti-loop #3).',
+      'table-list': 'Mesaj günlüğü ("Not configured" tenant) boş → dolu read-only satır garanti değil.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi (boş günlük).',
+      'empty-state': 'Boş-durum tenant-veri-bağlı ("Not configured") → deterministik read-only kanıtlanamaz (anti-loop #3).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -1043,6 +1078,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B19 konsol hatası + bağlantı durumu canlı → kararlı snapshot yok.',
     },
+    // L2 etkileşim (ADR-0029): "API Not Configured" + "No templates yet" boş-durumu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (bağlantı boş-durumu + şablon formu).',
+      'table-list': 'Şablon listesi boş-durumda ("No templates yet"; API Not Configured) → dolu read-only satır yok.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok (boş şablon listesi).',
+      'empty-state': 'Boş-durum ("API Not Configured") statik/tenant-bağlı; arama/filtre ile üretilen read-only boş durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-social',
@@ -1068,6 +1111,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B16 eksik-çeviri konsol hatası → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim (ADR-0029): sabit platform kartları ızgarası + Connect → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (6 platform kartı + Connect + ayar formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (sabit platform kartları ızgarası).',
+      'pagination-sort': 'Sabit platform seti; pager/sütun-sıralama yok.',
+      'empty-state': 'Kartlar daima render edilir; read-only boş duruma ulaştıracak arama/filtre yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-video',
@@ -1091,6 +1142,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (ayar seçicileri formu).',
       '@data': 'Sayısal KPI tile yok (kalite/fps config değerleri).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): kalite/fps seçicileri formu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (kalite/fps seçicileri formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (ayar seçicileri formu).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Boş-duruma ulaştıracak arama/filtre yok (read-only form).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
 

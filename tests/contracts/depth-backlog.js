@@ -14,14 +14,8 @@ export const DEPTH_BACKLOG = Object.freeze({
   // ── FAZ 1: settings/* kalanı — TAMAMLANDI (5 deep: automations/templates/profile/
   //    disposition-codes/sla · 11 resolved-exempt: api-keys/canned-responses/compliance/
   //    data-retention/hours/integrations/notifications/organization/security/teams/webhooks) ──
-  // ── FAZ 2: channels/* (7) ──
-  '/channels': 'FAZ2-channels',
-  '/channels/email': 'FAZ2-channels',
-  '/channels/sms': 'FAZ2-channels',
-  '/channels/social': 'FAZ2-channels',
-  '/channels/video': 'FAZ2-channels',
-  '/channels/webchat': 'FAZ2-channels',
-  '/channels/whatsapp': 'FAZ2-channels',
+  // ── FAZ 2: channels/* — TAMAMLANDI (1 deep: webchat @ix-tabs · 6 resolved-exempt:
+  //    channels(hub)/email/sms/social/video/whatsapp — kart-ızgarası/config-form yüzeyleri) ──
   // ── FAZ 3: reports/* (11) ──
   '/reports/agent': 'FAZ3-reports',
   '/reports/ai': 'FAZ3-reports',

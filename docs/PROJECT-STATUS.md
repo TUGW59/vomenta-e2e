@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 12 · **L2·style (unverified):** 34 · **L1·style-gap:** 0
+- **L2·deep:** 13 · **L2·style (unverified):** 33 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 65
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 58
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 4 |
-| ✅ L2·deep | 12 |
-| 🟡 L2·style (unverified) | 34 |
+| ✅ L2·deep | 13 |
+| 🟡 L2·style (unverified) | 33 |
 | 🟠 NO_CONTRACT | 9 |
 | ⚪ NOT_RUN | 28 |
 
@@ -71,13 +71,13 @@
 | campaigns | /campaigns | campaigns | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
 | campaigns-create | /campaigns/create | campaigns | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
 | campaigns-outbound | /campaigns/outbound | campaigns | — | ⚪ | NOT_COVERED | 0/6 | L0 | 2 | ⚪ NOT_RUN |
-| channels | /channels | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-email | /channels/email | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
-| channels-sms | /channels/sms | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| channels-social | /channels/social | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| channels-video | /channels/video | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-webchat | /channels/webchat | channels | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| channels-whatsapp | /channels/whatsapp | channels | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels | /channels | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| channels-email | /channels/email | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
+| channels-sms | /channels/sms | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels-social | /channels/social | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| channels-video | /channels/video | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| channels-webchat | /channels/webchat | channels | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| channels-whatsapp | /channels/whatsapp | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
 | contacts | /contacts | contacts | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
 | contacts-detail | /contacts/:id | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | contacts-import | /contacts/import | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
