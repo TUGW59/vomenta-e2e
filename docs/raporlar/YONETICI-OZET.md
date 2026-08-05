@@ -40,12 +40,12 @@
 
 - **Kayıtlı rota (depth):** 87
 - **L1 (açılış) proven:** 55 · **L1 kanıtlanmamış:** 32
-- **L2 complete:** 4 · **L2 partial:** 61 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 81)_
+- **L2 complete:** 12 · **L2 partial:** 53 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 65)_
 - **L3:** proven 0 · blocked 46 · N/A 41
 - **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
-- **En yüksek kanıt seviyesi dağılımı:** L0 32 · L1 0 · L2-stil 51 · L2-deep 4
+- **En yüksek kanıt seviyesi dağılımı:** L0 32 · L1 0 · L2-stil 43 · L2-deep 12
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "55/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **4**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "55/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **12**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 

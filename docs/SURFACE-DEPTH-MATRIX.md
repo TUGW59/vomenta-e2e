@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 87 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 4 · PARTIAL 61 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 81 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 12 · PARTIAL 53 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 65 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 51 · L2·deep 4
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 43 · L2·deep 12
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -69,27 +69,27 @@
 | `/reports/queue` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/reports/sla` | reports-sections | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 11/11 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings` | main-navigation,settings-hub | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider | B4(high/open) B6(medium/open) B7(medium/open) SETTINGS-BILLING-CHANGEPLAN(high/open) SETTINGS-BILLING-HISTORY(high/open) |
-| `/settings/api-keys` | settings-api-keys | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/api-keys` | settings-api-keys | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/audit` | settings-audit | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | N/A | ⛔ rol | ⛔ provider |  |
-| `/settings/automations` | settings-automations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/automations` | settings-automations | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/billing` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | SETTINGS-BILLING-REDIRECT(high/open) |
 | `/settings/billing/marketplace` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/settings/canned-responses` | settings-canned-responses | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/compliance` | settings-compliance | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/data-retention` | settings-data-retention | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/disposition-codes` | settings-disposition-codes | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/hours` | settings-hours | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/integrations` | settings-integrations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/notifications` | settings-notifications | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/organization` | settings-organization | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/profile` | settings-profile | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/canned-responses` | settings-canned-responses | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/compliance` | settings-compliance | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/data-retention` | settings-data-retention | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/disposition-codes` | settings-disposition-codes | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/hours` | settings-hours | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/integrations` | settings-integrations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/notifications` | settings-notifications | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/organization` | settings-organization | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/profile` | settings-profile | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/roles` | settings-roles | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/security` | settings-security | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/sla` | settings-sla | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 9/9 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/teams` | settings-teams | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/templates` | settings-templates | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/security` | settings-security | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/sla` | settings-sla | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 9/9 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/teams` | settings-teams | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/templates` | settings-templates | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/users` | settings-users | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/settings/webhooks` | settings-webhooks | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/settings/webhooks` | settings-webhooks | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/agents` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | AGENTS-TZ(medium/open) |
 | `/supervisor/calls` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -257,27 +257,27 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/reports/queue` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports/sla` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings` | ✅ | N/A | N/A | N/A | N/A | N/A |
-| `/settings/api-keys` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/api-keys` | — | N/A | N/A | N/A | ✅ | N/A |
 | `/settings/audit` | — | N/A | ✅ | N/A | N/A | N/A |
-| `/settings/automations` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/automations` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings/billing` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/settings/billing/marketplace` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/canned-responses` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/compliance` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/data-retention` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/disposition-codes` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/hours` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/integrations` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/notifications` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/organization` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/profile` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/canned-responses` | — | N/A | N/A | N/A | ✅ | N/A |
+| `/settings/compliance` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/data-retention` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/disposition-codes` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/settings/hours` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/integrations` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/notifications` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/organization` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/profile` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings/roles` | — | N/A | ✅ | N/A | N/A | N/A |
-| `/settings/security` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/sla` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/teams` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/settings/templates` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/security` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/sla` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/settings/teams` | — | N/A | N/A | N/A | N/A | N/A |
+| `/settings/templates` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/settings/users` | — | ✅ | ✅ | N/A | ✅ | N/A |
-| `/settings/webhooks` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/settings/webhooks` | — | N/A | N/A | N/A | ✅ | N/A |
 | `/supervisor` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/agents` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/calls` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |

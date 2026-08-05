@@ -96,10 +96,10 @@
     "l1Proven": 55,
     "l1NotProven": 32,
     "l2StyleContractMet": 65,
-    "l2Complete": 4,
-    "l2Partial": 61,
+    "l2Complete": 12,
+    "l2Partial": 53,
     "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 81,
+    "interactionUnverifiedRoutes": 65,
     "l3Blocked": 46,
     "l3NotApplicable": 41,
     "l3Proven": 0,
@@ -110,8 +110,8 @@
     "highestLevel": {
       "L0": 32,
       "L1": 0,
-      "L2_STYLE": 51,
-      "L2_DEEP": 4
+      "L2_STYLE": 43,
+      "L2_DEEP": 12
     },
     "routesWithFindings": 33,
     "openFindingsOnRoutes": 58,

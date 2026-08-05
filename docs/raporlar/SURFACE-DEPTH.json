@@ -23,10 +23,10 @@
     "l1NotProven": 32,
     "l2StyleContractMet": 65,
     "l2StyleGap": 22,
-    "l2Complete": 4,
-    "l2Partial": 61,
+    "l2Complete": 12,
+    "l2Partial": 53,
     "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 81,
+    "interactionUnverifiedRoutes": 65,
     "l3Blocked": 46,
     "l3NotApplicable": 41,
     "l4Blocked": 87,
@@ -34,8 +34,8 @@
     "highestLevel": {
       "L0": 32,
       "L1": 0,
-      "L2_STYLE": 51,
-      "L2_DEEP": 4
+      "L2_STYLE": 43,
+      "L2_DEEP": 12
     },
     "routesWithFindings": 33,
     "openFindingsOnRoutes": 58
@@ -6054,7 +6054,7 @@
       "contracts": [
         "settings-api-keys"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -6066,7 +6066,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -6136,18 +6136,16 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "empty-state"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-empty"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
@@ -6155,24 +6153,25 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-empty"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -6341,7 +6340,7 @@
       "contracts": [
         "settings-automations"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -6353,7 +6352,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -6423,44 +6422,42 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "tabs"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-tabs"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -6767,7 +6764,7 @@
       "contracts": [
         "settings-canned-responses"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -6779,7 +6776,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -6849,18 +6846,16 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "empty-state"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-empty"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
@@ -6868,24 +6863,25 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-empty"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -6996,14 +6992,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7014,24 +7004,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7142,14 +7132,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7160,24 +7144,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7204,7 +7188,7 @@
       "contracts": [
         "settings-disposition-codes"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -7216,7 +7200,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -7286,18 +7270,16 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "table-list"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-table"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
@@ -7305,24 +7287,25 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-table"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7432,14 +7415,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7450,24 +7427,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7577,14 +7554,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7595,24 +7566,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7724,14 +7695,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7742,24 +7707,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7869,14 +7834,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -7887,24 +7846,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -7931,7 +7890,7 @@
       "contracts": [
         "settings-profile"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -7943,7 +7902,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -8013,44 +7972,42 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "tabs"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-tabs"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -8304,14 +8261,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -8322,24 +8273,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -8366,7 +8317,7 @@
       "contracts": [
         "settings-sla"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -8378,7 +8329,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -8447,18 +8398,16 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "table-list"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-table"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
@@ -8466,24 +8415,25 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-table"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -8593,14 +8543,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -8611,24 +8555,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -8655,7 +8599,7 @@
       "contracts": [
         "settings-templates"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -8667,7 +8611,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -8737,44 +8681,42 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "tabs"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-tabs"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -8951,7 +8893,7 @@
       "contracts": [
         "settings-webhooks"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -8963,7 +8905,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -9033,18 +8975,16 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "empty-state"
             ],
-            "applicableCount": 5,
-            "coveredCount": 0,
+            "applicableCount": 1,
+            "coveredCount": 1,
             "surfaceArchetype": true,
-            "presentSignals": [],
+            "presentSignals": [
+              "ix-empty"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
@@ -9052,24 +8992,25 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-empty"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }

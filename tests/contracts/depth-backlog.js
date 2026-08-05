@@ -11,23 +11,9 @@
  * NOT: FAZ 0 pilotu `/settings/audit` bu listede DEĞİLDİR — pilotta doğrudan L2·deep yapılır.
  */
 export const DEPTH_BACKLOG = Object.freeze({
-  // ── FAZ 1: settings/* kalanı (16) ──
-  '/settings/api-keys': 'FAZ1-settings',
-  '/settings/automations': 'FAZ1-settings',
-  '/settings/canned-responses': 'FAZ1-settings',
-  '/settings/compliance': 'FAZ1-settings',
-  '/settings/data-retention': 'FAZ1-settings',
-  '/settings/disposition-codes': 'FAZ1-settings',
-  '/settings/hours': 'FAZ1-settings',
-  '/settings/integrations': 'FAZ1-settings',
-  '/settings/notifications': 'FAZ1-settings',
-  '/settings/organization': 'FAZ1-settings',
-  '/settings/profile': 'FAZ1-settings',
-  '/settings/security': 'FAZ1-settings',
-  '/settings/sla': 'FAZ1-settings',
-  '/settings/teams': 'FAZ1-settings',
-  '/settings/templates': 'FAZ1-settings',
-  '/settings/webhooks': 'FAZ1-settings',
+  // ── FAZ 1: settings/* kalanı — TAMAMLANDI (5 deep: automations/templates/profile/
+  //    disposition-codes/sla · 11 resolved-exempt: api-keys/canned-responses/compliance/
+  //    data-retention/hours/integrations/notifications/organization/security/teams/webhooks) ──
   // ── FAZ 2: channels/* (7) ──
   '/channels': 'FAZ2-channels',
   '/channels/email': 'FAZ2-channels',

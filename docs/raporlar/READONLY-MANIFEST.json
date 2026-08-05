@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 120,
-    "productionSafeReadOnly": 84,
+    "totalSpecs": 128,
+    "productionSafeReadOnly": 92,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 84,
+      "read-only": 92,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 119,
+      "authenticated": 127,
       "public": 1
     },
     "byEnvironment": {
-      "both": 84,
+      "both": 92,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -89,28 +89,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -149,7 +157,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -185,28 +193,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -245,7 +261,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -281,28 +297,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -342,7 +366,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -378,28 +402,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -438,7 +470,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -474,28 +506,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -534,7 +574,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 82,
+      "selectedSpecFileCount": 90,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -570,28 +610,36 @@
         "tests/reports.authed.spec.js",
         "tests/responsive.authed.spec.js",
         "tests/search.authed.spec.js",
+        "tests/settings-api-keys-interactions.authed.spec.js",
         "tests/settings-api-keys.authed.spec.js",
         "tests/settings-audit-interactions.authed.spec.js",
         "tests/settings-audit.authed.spec.js",
+        "tests/settings-automations-interactions.authed.spec.js",
         "tests/settings-automations.authed.spec.js",
+        "tests/settings-canned-responses-interactions.authed.spec.js",
         "tests/settings-canned-responses.authed.spec.js",
         "tests/settings-compliance.authed.spec.js",
         "tests/settings-data-retention.authed.spec.js",
+        "tests/settings-disposition-codes-interactions.authed.spec.js",
         "tests/settings-disposition-codes.authed.spec.js",
         "tests/settings-hours.authed.spec.js",
         "tests/settings-integrations.authed.spec.js",
         "tests/settings-interactions.authed.spec.js",
         "tests/settings-notifications.authed.spec.js",
         "tests/settings-organization.authed.spec.js",
+        "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
+        "tests/settings-sla-interactions.authed.spec.js",
         "tests/settings-sla.authed.spec.js",
         "tests/settings-teams.authed.spec.js",
+        "tests/settings-templates-interactions.authed.spec.js",
         "tests/settings-templates.authed.spec.js",
         "tests/settings-users-interactions.authed.spec.js",
         "tests/settings-users.authed.spec.js",
+        "tests/settings-webhooks-interactions.authed.spec.js",
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
@@ -1798,6 +1846,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/settings-api-keys-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-api-keys-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/api-keys"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/settings-api-keys-mutations.authed.spec.js",
       "pathPattern": "tests/settings-api-keys-mutations.authed.spec.js",
       "kind": "mutation",
@@ -1900,6 +1974,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/settings-automations-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-automations-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/automations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/settings-automations-mutations.authed.spec.js",
       "pathPattern": "tests/settings-automations-mutations.authed.spec.js",
       "kind": "mutation",
@@ -1939,6 +2039,32 @@
       "surface": "settings",
       "routes": [
         "/settings/automations"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-canned-responses-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-canned-responses-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/canned-responses"
       ],
       "capabilities": [
         "auth:default"
@@ -2089,6 +2215,32 @@
       "surface": "settings",
       "routes": [
         "/settings/data-retention"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-disposition-codes-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-disposition-codes-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/disposition-codes"
       ],
       "capabilities": [
         "auth:default"
@@ -2376,6 +2528,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/settings-profile-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-profile-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/profile"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/settings-profile-mutations.authed.spec.js",
       "pathPattern": "tests/settings-profile-mutations.authed.spec.js",
       "kind": "mutation",
@@ -2552,6 +2730,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/settings-sla-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-sla-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/sla"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/settings-sla-mutations.authed.spec.js",
       "pathPattern": "tests/settings-sla-mutations.authed.spec.js",
       "kind": "mutation",
@@ -2641,6 +2845,32 @@
       "surface": "settings",
       "routes": [
         "/settings/teams"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-templates-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-templates-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/templates"
       ],
       "capabilities": [
         "auth:default"
@@ -2743,6 +2973,32 @@
       "surface": "settings",
       "routes": [
         "/settings/users"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/settings-webhooks-interactions.authed.spec.js",
+      "pathPattern": "tests/settings-webhooks-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/webhooks"
       ],
       "capabilities": [
         "auth:default"
