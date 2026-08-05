@@ -1,6 +1,6 @@
 // @ts-check
-import { test } from './fixtures/test.js';
-import { assertTabsExclusive, assertTableStructure } from './support/interactions.js';
+import { test, expect } from './fixtures/test.js';
+import { assertTableStructure } from './support/interactions.js';
 import { WorkforcePage } from './pages/WorkforcePage.js';
 
 /**
@@ -25,7 +25,16 @@ test.describe('İş Gücü hub — sekme + çizelge tablosu etkileşim derinliğ
   test('7 üst sekme dışlayıcı seçilir @ix-tabs', async ({ app }) => {
     const w = app.workforce;
     await w.open();
-    await assertTabsExclusive(w.page, (name) => w.tab(name), TABS);
+    // NOT: generic assertTabsExclusive yerine POM.selectTab (retry'lı) kullanılır —
+    // bu yüzeyde "Badges"e girince ikinci tab bar mount ediyor (NOTLAR) → tek tık
+    // düşebilir. selectTab seçili duruma geçişi garanti eder; sonra dışlayıcılık:
+    for (const name of TABS) {
+      await w.selectTab(name);
+      for (const other of TABS) {
+        if (other === name) continue;
+        await expect(w.tab(other)).toHaveAttribute('aria-selected', 'false');
+      }
+    }
   });
 
   test('Haftalık çizelge tablosu ajan satırlarıyla render olur @ix-table', async ({ app }) => {

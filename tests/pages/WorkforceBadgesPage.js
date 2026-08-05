@@ -72,6 +72,19 @@ export class WorkforceBadgesPage extends BasePage {
     return this.page.getByRole('tablist').first().getByRole('tab', { name, exact: true });
   }
 
+  /**
+   * Radix sekmesine güvenli (retry'lı) tıklama; seçili duruma geçtiğini doğrular.
+   * Rozetler yüzeyinde de ikinci tab bar mount edebildiğinden tek tık düşebilir →
+   * WorkforcePage.selectTab ile aynı toPass sarmalı. Read-only.
+   */
+  async selectTab(name) {
+    const t = this.tab(name);
+    await expect(async () => {
+      await t.click();
+      await expect(t).toHaveAttribute('aria-selected', 'true', { timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+  }
+
   rowByName(name) {
     return this.page.getByRole('row', { hasText: name });
   }

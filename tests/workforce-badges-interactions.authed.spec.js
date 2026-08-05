@@ -1,6 +1,5 @@
 // @ts-check
-import { test } from './fixtures/test.js';
-import { assertTabsExclusive } from './support/interactions.js';
+import { test, expect } from './fixtures/test.js';
 
 /**
  * İŞ GÜCÜ › ROZETLER (`/workforce/badges`) — L2 ETKİLEŞİM DERİNLİĞİ
@@ -23,6 +22,13 @@ test.describe('İş Gücü Rozetler — sekme etkileşim derinliği', () => {
   test('Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir @ix-tabs', async ({ app }) => {
     const b = app.workforceBadges;
     await b.open();
-    await assertTabsExclusive(b.page, (name) => b.tab(name), TABS);
+    // POM.selectTab (retry'lı) — bu yüzeyde de ikinci tab bar mount edebilir (NOTLAR).
+    for (const name of TABS) {
+      await b.selectTab(name);
+      for (const other of TABS) {
+        if (other === name) continue;
+        await expect(b.tab(other)).toHaveAttribute('aria-selected', 'false');
+      }
+    }
   });
 });
