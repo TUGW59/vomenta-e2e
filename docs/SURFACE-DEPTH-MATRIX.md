@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 87 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 12 · PARTIAL 53 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 65 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 13 · PARTIAL 52 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 58 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 43 · L2·deep 12
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 42 · L2·deep 13
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -44,13 +44,13 @@
 | `/campaigns` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B2(high/open) |
 | `/campaigns/outbound` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CAMPAIGNS-ICON-A11Y(medium/open) CAMPAIGNS-PAGER(medium/open) |
 | `/campaigns/create` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/channels` | channels-hub,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | B5(medium/open) |
-| `/channels/email` | channels-email | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B17(medium/open) B21(medium/open) B9(medium/open) |
-| `/channels/sms` | channels-sms | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B18(medium/open) B22(medium/open) |
-| `/channels/social` | channels-social | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B16(medium/open) B24(medium/open) |
-| `/channels/video` | channels-video | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B25(medium/open) |
-| `/channels/webchat` | channels-webchat | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | B20(medium/open) |
-| `/channels/whatsapp` | channels-whatsapp | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B19(medium/open) B23(medium/open) |
+| `/channels` | channels-hub,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider | B5(medium/open) |
+| `/channels/email` | channels-email | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B17(medium/open) B21(medium/open) B9(medium/open) |
+| `/channels/sms` | channels-sms | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B18(medium/open) B22(medium/open) |
+| `/channels/social` | channels-social | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B16(medium/open) B24(medium/open) |
+| `/channels/video` | channels-video | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B25(medium/open) |
+| `/channels/webchat` | channels-webchat | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | B20(medium/open) |
+| `/channels/whatsapp` | channels-whatsapp | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B19(medium/open) B23(medium/open) |
 | `/contacts` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CONTACTS-F1(medium/open) CONTACTS-F2(medium/open) |
 | `/contacts/import` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/contacts/segments` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -232,13 +232,13 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/campaigns` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/campaigns/outbound` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/campaigns/create` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/email` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/sms` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/social` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/video` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/webchat` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/channels/whatsapp` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/channels` | — | N/A | N/A | N/A | N/A | N/A |
+| `/channels/email` | — | N/A | N/A | N/A | N/A | N/A |
+| `/channels/sms` | — | N/A | N/A | N/A | N/A | N/A |
+| `/channels/social` | — | N/A | N/A | N/A | N/A | N/A |
+| `/channels/video` | — | N/A | N/A | N/A | N/A | N/A |
+| `/channels/webchat` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/channels/whatsapp` | — | N/A | N/A | N/A | N/A | N/A |
 | `/contacts` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts/import` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts/segments` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |

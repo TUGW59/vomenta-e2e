@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1243 / 128 dosya
-- **coverageStatus:** verified 0 · partial 1190 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1199 · skipped 0 · fixme 44
+- **Listelenen test:** 1244 / 129 dosya
+- **coverageStatus:** verified 0 · partial 1191 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1200 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -19,7 +19,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | analytics | 33 | 33 | 0 | 0 |
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
-| channels | 94 | 88 | 0 | 6 |
+| channels | 95 | 89 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 29 | 29 | 0 | 0 |
@@ -256,6 +256,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/video doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 | yapılandırma formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `channels-webchat-interactions.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Configuration ↔ Integration üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
 ### `channels-webchat-mutations.authed.spec.js` — _channels_
 
