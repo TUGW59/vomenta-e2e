@@ -46,6 +46,7 @@ export class RolesPage extends BasePage {
   static API = {
     roles: '/api/v1/roles', // GET (liste) + POST (Create) + DELETE /{id}
     catalog: '/api/v1/roles/permissions/catalog',
+    mePermissions: '/api/v1/roles/me/permissions', // GET — oturumun efektif izinleri
   };
 
   /** @param {import('@playwright/test').Page} page */
@@ -75,6 +76,42 @@ export class RolesPage extends BasePage {
   /** Belirli bir rolün satırı (ada göre, tam iş kimliği). */
   roleRow(name) {
     return this.rows.filter({ hasText: name }).first();
+  }
+
+  /**
+   * Salt-okunur: `/settings/roles` açılınca uygulamanın KENDİ yaptığı GET yanıtını
+   * yakalar (cross-origin `api.vomenta.com` çağrısı, oturumun kimliğiyle). Uç doğrudan
+   * `page.request` ile çağrılmaz — auth token'ı uygulama JS'i enjekte ettiğinden, canlı
+   * app trafiğini gözlemlemek repo'nun UI↔API idiomudur (bkz. settings-roles.authed.spec.js).
+   * @param {string} urlIncludes - eşleşecek uç (RolesPage.API.*)
+   * @returns {Promise<any>} yanıt gövdesi (JSON)
+   */
+  async _captureOnOpen(urlIncludes) {
+    const waiter = this.page.waitForResponse(
+      (r) => r.url().includes(urlIncludes) && r.request().method() === 'GET' && r.ok(),
+      { timeout: 20000 }
+    );
+    await this.open();
+    const res = await waiter;
+    return res.json();
+  }
+
+  /**
+   * 113 izinlik kataloğu döndürür (GET /api/v1/roles/permissions/catalog).
+   * Salt-okunur; hiçbir mutasyon yapmaz.
+   * @returns {Promise<any>}
+   */
+  async permissionsCatalog() {
+    return this._captureOnOpen(RolesPage.API.catalog);
+  }
+
+  /**
+   * Oturumun (admin) efektif izin anahtarlarını döndürür
+   * (GET /api/v1/roles/me/permissions). Salt-okunur.
+   * @returns {Promise<any>}
+   */
+  async mePermissions() {
+    return this._captureOnOpen(RolesPage.API.mePermissions);
   }
 
   /**
