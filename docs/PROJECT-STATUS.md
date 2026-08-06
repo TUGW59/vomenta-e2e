@@ -18,8 +18,8 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 27 · **L2·style (unverified):** 29 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 27 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **L2·deep:** 27 · **L2·style (unverified):** 30 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 26 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 39
 - **Açık bulgu:** 58 (33 yüzeyde)
 
@@ -29,8 +29,8 @@
 |---|--:|
 | ⛔ BLOCKED | 4 |
 | ✅ L2·deep | 27 |
-| 🟡 L2·style (unverified) | 29 |
-| 🟠 NO_CONTRACT | 27 |
+| 🟡 L2·style (unverified) | 30 |
+| 🟠 NO_CONTRACT | 26 |
 
 ### Alan (area) dağılımı
 
@@ -118,7 +118,7 @@
 | settings-users | /settings/users | settings | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | — | ✅ L2·deep |
 | settings-webhooks | /settings/webhooks | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | supervisor | /supervisor | supervisor | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
-| supervisor-agents | /supervisor/agents | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | 1 | 🟠 NO_CONTRACT |
+| supervisor-agents | /supervisor/agents | supervisor | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
 | supervisor-calls | /supervisor/calls | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |

@@ -1,6 +1,15 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { assertLocalClock, knownBugGuard } from './helpers.js';
+import {
+  assertLocalClock,
+  knownBugGuard,
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+  expectDialogKeyboard,
+  expectMetricHasValue,
+} from './helpers.js';
 import { environment } from '../config/environment.js';
 import { AgentMonitorPage } from './pages/AgentMonitorPage.js';
 
@@ -53,7 +62,7 @@ test.describe('Temsilci İzleme — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL i18n GUARD'LARI ────────────────────────
-test.describe('Temsilci İzleme — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Temsilci İzleme — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + kontrol etiketleri çevrili`, async ({ app }) => {
       const am = app.agentMonitor;
@@ -343,3 +352,77 @@ test.describe('Temsilci İzleme — zaman damgası (timezone) @regression @known
     await assertLocalClock(page, (await am.lastRefreshed.innerText()).trim()); // ortak timezone guard'ı
   });
 });
+
+// ═══════════════ STİL: ERİŞİLEBİLİRLİK (@a11y) ═══════════════
+test.describe('Temsilci İzleme — erişilebilirlik @a11y', () => {
+  test('sayfada ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await expectNoSevereA11y(am.page);
+  });
+});
+
+// ═══════════════ STİL: DÜZEN/TAŞMA (@layout) ═══════════════
+test.describe('Temsilci İzleme — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/supervisor/agents');
+  });
+});
+
+// ═══════════════ STİL: CONSOLE/AĞ TEMİZLİĞİ (@clean) ═══════════════
+test.describe('Temsilci İzleme — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await waitForUiToSettle(am.page);
+    diagnostics.assertClean();
+  });
+});
+
+// ═══════════════ STİL: HATA-YOLU (@errorpath) ═══════════════
+test.describe('Temsilci İzleme — hata-yolu @errorpath', () => {
+  test('agents ucu 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${AgentMonitorPage.API.agents}**`, { status: 500 });
+    const am = app.agentMonitor;
+    await page.goto('/supervisor/agents', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(am.shell.loginHeading).toBeHidden();
+    await expect(am.heading).toHaveText(AgentMonitorPage.I18N.en.heading);
+  });
+});
+
+// ═══════════════ STİL: SAYISAL DÖŞEME DEĞERİ (@data) ═══════════════
+test.describe('Temsilci İzleme — sayısal döşeme değeri @data', () => {
+  test('istatistik döşemesi (Total) yalnız etiket değil bir DEĞER de gösteriyor', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    await expectMetricHasValue(am.page, 'Total');
+  });
+});
+
+// ═══════════════ STİL: KLAVYE/ODAK (@keyboard) ═══════════════
+// Ajan satırına tıklayınca açılan detay çekmecesi (role=dialog) — SALT-OKUNUR görüntüleme.
+test.describe('Temsilci İzleme — klavye/odak @keyboard', () => {
+  test('ajan detay çekmecesi odak tuzağı + Escape ile kapanma', async ({ app }) => {
+    const am = app.agentMonitor;
+    await am.open();
+    const dialog = await am.openDetailDrawer('Account Agent');
+    await expectDialogKeyboard(am.page, dialog);
+  });
+});
+
+// ═══════════════ STİL: DEEP-LINK (@deeplink) ═══════════════
+test.describe('Temsilci İzleme — deep-link @deeplink', () => {
+  test('/supervisor/agents doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const am = app.agentMonitor;
+    await page.goto('/supervisor/agents', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(am.shell.loginHeading).toBeHidden();
+    await expect(am.heading).toHaveText(AgentMonitorPage.I18N.en.heading);
+  });
+});
+
+// GÖRSEL REGRESYON — N/A (tested-pages naStyles): içerik canlı (durum/AHT/CSAT/
+//   "Last refreshed" damgası) → kararlı snapshot bölgesi yok (hasStableUI=false).
+// MUTATION — N/A (naStyles): Force durum değişikliği staging mutation; prod read-only'de
+//   L1 (menü + onay-dialog iptali) @regression'da test edilir, gerçek mutasyon staging fixme'de.

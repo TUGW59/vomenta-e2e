@@ -26,6 +26,9 @@ export const DEPTH_BACKLOG = Object.freeze({
   // ── FAZ 5: kalan (2) — TAMAMLANDI (ikisi de resolved-exempt: / = KPI/grafik/kart
   //    özeti; /voice = canlı-çağrı hub'ı, test tenant'ında boş. Kapsanabilir sekme/tablo/
   //    filtre etkileşimi yok → tüm geçerli boyut naInteraction). ──
+  // ── supervisor/agents: WAVE-STYLE-1'de L1→L2·style oldu (dedicated kayıt) → artık
+  //    L2·deep adayı (tablo/filtre/arama etkileşimi @ix-* ile kanıtlanabilir; koşum-döngüsü bekliyor).
+  '/supervisor/agents': 'PENDING:supervisor (L2·style; L2·deep adayı — tablo/@ix-filter, koşum-döngüsü bekliyor)',
   // ── voice/* alt-rotaları: PR #122 (L0 runtime-yakalama) bunları L2·style'a çıkardı
   //    (artık L1 proven + stil sözleşmeli) → ARTIK L2·deep ADAYI (defer:L0 değil).
   //    Her biri koşum-döngüsü gelince deep-veya-exempt olarak çözülecek (bkz. [[l0-runtime-capture]]).

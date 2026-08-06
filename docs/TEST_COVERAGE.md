@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1205
+- **Test edilen senaryo:** 1212
 - **Test dosyası:** 98
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 27 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 390 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 390 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1123,10 +1123,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - istatistik döşemeleri görünüyor (Total/Available/Offline/Calls Today/Avg AHT)
 - temsilci tablosu beklenen kolonları gösteriyor  `@critical`
 - kontroller mevcut (durum filtresi / arama / Analyze)
-- [en] başlık + yön + kontrol etiketleri çevrili  `@regression`
-- [tr] başlık + yön + kontrol etiketleri çevrili  `@regression`
-- [fr] başlık + yön + kontrol etiketleri çevrili  `@regression`
-- [ar] başlık + yön + kontrol etiketleri çevrili  `@regression`
+- [en] başlık + yön + kontrol etiketleri çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + kontrol etiketleri çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + kontrol etiketleri çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + kontrol etiketleri çevrili  `@i18n` `@regression`
 - L1 tıklama OK: menü açılıyor ve durum seçenekleri görünüyor  `@regression`
 - L2 arka plan OK: durum seçince agents API'sini status parametresiyle çağırıyor  `@regression` `@critical`
 - L3 görev OK: seçilen duruma göre tablo filreleniyor  `@regression`
@@ -1144,6 +1144,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı  `@regression`
 - L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor  `@regression`
 - BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- agents ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- istatistik döşemesi (Total) yalnız etiket değil bir DEĞER de gösteriyor  `@data`
+- ajan detay çekmecesi odak tuzağı + Escape ile kapanma  `@keyboard`
+- /supervisor/agents doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `supervisor-coaching.authed.spec.js`
 

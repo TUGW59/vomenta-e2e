@@ -90,13 +90,13 @@
     "registeredRoutes": 87,
     "l1Proven": 83,
     "l1NotProven": 4,
-    "l2StyleContractMet": 65,
+    "l2StyleContractMet": 66,
     "l2Complete": 27,
-    "l2Partial": 38,
-    "l2NotCovered": 22,
+    "l2Partial": 39,
+    "l2NotCovered": 21,
     "interactionUnverifiedRoutes": 39,
-    "l3Blocked": 46,
-    "l3NotApplicable": 41,
+    "l3Blocked": 47,
+    "l3NotApplicable": 40,
     "l3Proven": 0,
     "l4Blocked": 87,
     "l4Proven": 0,
@@ -104,15 +104,15 @@
     "l5Proven": 0,
     "highestLevel": {
       "L0": 4,
-      "L1": 18,
-      "L2_STYLE": 38,
+      "L1": 17,
+      "L2_STYLE": 39,
       "L2_DEEP": 27
     },
     "routesWithFindings": 33,
     "openFindingsOnRoutes": 58,
     "blockReasons": {
       "L3": {
-        "STAGING_REQUIRED": 46
+        "STAGING_REQUIRED": 47
       },
       "L4": {
         "ROLE_ACCOUNTS_REQUIRED": 87
@@ -339,8 +339,8 @@
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
       "route": "/supervisor/agents",
       "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L1"
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
