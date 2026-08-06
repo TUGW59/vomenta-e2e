@@ -248,6 +248,56 @@ function prepareMergedLane(lane, opts) {
   });
 }
 
+/**
+ * Kanıt indexi adapter'ı (FAZ 3): committed `docs/raporlar/evidence-index.json`'u
+ * şema doğrular ve kanonik yeniden-emit eder (ham kopya değil). Şema: üst düzey
+ * bulgu haritası; her kayıt {artifactPath, runUrl, expiry, capturedAt} (ADR §4).
+ * artifactPath güvensiz (traversal/absolute) olamaz. secret/PII finalize'da.
+ */
+function prepareEvidenceLane(lane, opts) {
+  const src = resolve(root, opts.reportDir, 'evidence-index.json');
+  if (!existsSync(src)) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, 'evidence-index.json', 'kaynak index yok (önce generate-evidence-index)');
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(src, 'utf8'));
+  } catch {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'evidence-index.json', 'geçersiz JSON');
+  }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'evidence-index.json', 'üst düzey bulgu haritası olmalı');
+  }
+  const safe = {};
+  for (const id of Object.keys(parsed).sort()) {
+    const r = parsed[id];
+    if (!r || typeof r !== 'object') {
+      throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'evidence-index.json', `${id}: kayıt nesnesi değil`);
+    }
+    const artifactPath = String(r.artifactPath || '');
+    if (!artifactPath || artifactPath.includes('\0') || artifactPath.startsWith('/') || artifactPath.split('/').includes('..')) {
+      throw new ArtifactPolicyError(RULES.ART_TRAVERSAL, 'evidence-index.json', `${id}: güvensiz/eksik artifactPath`);
+    }
+    // Registry root-cause alanları index'e sızmamalı (ADR §4 değişmez).
+    for (const forbidden of ['rootCause', 'possibleCauses', 'rootCauseCandidate']) {
+      if (forbidden in r) {
+        throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'evidence-index.json', `${id}: yasak alan ${forbidden}`);
+      }
+    }
+    safe[id] = {
+      artifactPath: artifactPath.slice(0, 256),
+      runUrl: String(r.runUrl || '').slice(0, 512),
+      expiry: String(r.expiry || '').slice(0, 40),
+      capturedAt: String(r.capturedAt || '').slice(0, 40),
+    };
+  }
+  return finalizeBundle({
+    lane,
+    files: { 'evidence-index.json': JSON.stringify(safe, null, 2) + '\n' },
+    excludedLocalOnly: ['raw-forensic-bundles', 'trace-zip', 'video', 'screenshots'],
+  });
+}
+
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   const { lane } = opts;
@@ -265,6 +315,7 @@ function main() {
   let result;
   try {
     if (lane === 'nightly-known-bug-reconcile') result = prepareReconcileLane(lane);
+    else if (lane === 'known-bug-evidence') result = prepareEvidenceLane(lane, opts);
     else if (lane === 'readonly-audit-shard') result = prepareShardLane(lane, opts);
     else if (lane === 'readonly-audit-merged') result = prepareMergedLane(lane, opts);
     else result = prepareSummaryLane(lane);

@@ -57,6 +57,7 @@ export const LANES = Object.freeze([
   'nightly-known-bug-reconcile',
   'known-bug-forensic',
   'known-bug-verification',
+  'known-bug-evidence',
 ]);
 
 /** Stabil rule ID kaydı — ihlaller bu id'lerle raporlanır (hassas değer ASLA loglanmaz). */
@@ -205,6 +206,26 @@ export const LANE_POLICY = Object.freeze({
     validatorId: 'forensic-lib@upload',
     mode: 'legacy-prepared', // findings/<id>/upload/ (kendi gated preparer'ı)
     preparedPathPattern: /^test-results\/findings\/[^/]+\/upload\/?$/,
+  }),
+  'known-bug-evidence': Object.freeze({
+    lane: 'known-bug-evidence',
+    // NEDEN: otomatik kanıt lane'inin ürettiği `evidence-index.json` köprü dosyası
+    // (ADR-0026 §4) — registry ↔ maskeli kanıt bundle'ı arasındaki link kaynağı.
+    // Maskeli görsel/JSON bundle'ları AYRI (forensic prepared) artifact'ler olarak
+    // yüklenir; bu secure lane YALNIZ committed index'in CI kopyasını taşır.
+    // PRODUCER: tools/prepare-ci-artifact.mjs (docs/raporlar/evidence-index.json'u
+    //   şema + secret-scan ile kanonik yeniden-emit eder; ham kopya değil).
+    // VALIDATOR: safe-summary@1 (finalizeBundle: JSON parse + secret/PII + FS).
+    sourceKinds: Object.freeze(['evidence-index-json']),
+    allowedOutputs: Object.freeze(['evidence-index.json', 'manifest.json']),
+    screenshotPolicy: 'deny', // görsel bu lane'e değil, forensic bundle'a gider
+    localOnlyPatterns: LOCAL_ONLY_PATTERNS,
+    maxFiles: 4,
+    maxBytesPerFile: 4 * MB,
+    maxBundleBytes: 8 * MB,
+    validatorId: 'safe-summary@1',
+    mode: 'prepared',
+    secureRoot: join(SECURE_UPLOAD_ROOT, 'known-bug-evidence'),
   }),
   'known-bug-verification': Object.freeze({
     lane: 'known-bug-verification',
