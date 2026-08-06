@@ -26,15 +26,17 @@ export const DEPTH_BACKLOG = Object.freeze({
   // ── FAZ 5: kalan (2) — TAMAMLANDI (ikisi de resolved-exempt: / = KPI/grafik/kart
   //    özeti; /voice = canlı-çağrı hub'ı, test tenant'ında boş. Kapsanabilir sekme/tablo/
   //    filtre etkileşimi yok → tüm geçerli boyut naInteraction). ──
-  // ── DEFER: L0 voice alt-rotaları (runtime yok → deep olamaz; kapsam-dışı) ──
-  '/voice/dids': 'defer:L0',
-  '/voice/history': 'defer:L0',
-  '/voice/ivr': 'defer:L0',
-  '/voice/queues': 'defer:L0',
-  '/voice/recordings': 'defer:L0',
-  '/voice/regulatory': 'defer:L0',
-  '/voice/sip-settings': 'defer:L0',
-  '/voice/sip-trunks': 'defer:L0',
-  '/voice/skills': 'defer:L0',
-  '/voice/voicemail': 'defer:L0',
+  // ── voice/* alt-rotaları: PR #122 (L0 runtime-yakalama) bunları L2·style'a çıkardı
+  //    (artık L1 proven + stil sözleşmeli) → ARTIK L2·deep ADAYI (defer:L0 değil).
+  //    Her biri koşum-döngüsü gelince deep-veya-exempt olarak çözülecek (bkz. [[l0-runtime-capture]]).
+  '/voice/dids': 'PENDING:voice (post-#122 L2·style; koşum-döngüsü bekliyor)',
+  '/voice/history': 'PENDING:voice',
+  '/voice/ivr': 'PENDING:voice',
+  '/voice/queues': 'PENDING:voice',
+  '/voice/recordings': 'PENDING:voice',
+  // /voice/regulatory + /voice/sip-settings: post-#122 L2·style AMA applicable=0
+  //   (etkileşim yüzeyi yok: salt-config/özet) → resolved-exempt → backlog'da YOK.
+  '/voice/sip-trunks': 'PENDING:voice',
+  '/voice/skills': 'PENDING:voice',
+  '/voice/voicemail': 'PENDING:voice',
 });
