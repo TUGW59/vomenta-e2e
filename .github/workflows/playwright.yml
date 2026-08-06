@@ -32,6 +32,21 @@ on:
           KAPANMAZ (yalnız öneri). Boş bırakılırsa doğrulama job atlanır.
         required: false
         type: string
+      collect_evidence:
+        description: >-
+          (WP-EVIDENCE FAZ 3) Açık knownBugGuard bulguları için OTOMATİK kanıt
+          lane'ini elle tetikler. Bounded/serileştirilmiş forensik koşum → maskeli
+          bundle'lar + docs/raporlar/evidence-index.json (COMMIT önerisi artifact
+          olarak yüklenir; registry DEĞİŞMEZ). Nightly (schedule) zaten koşar.
+        required: false
+        default: false
+        type: boolean
+      evidence_max_findings:
+        description: >-
+          (WP-EVIDENCE FAZ 3) Kanıt lane'inin işleyeceği açık bulgu üst sınırı
+          (bounded; tek prod hesabı yükü). Boş → varsayılan (12).
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -295,7 +310,8 @@ jobs:
           name: known-bug-forensic-${{ inputs.finding_id }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
           path: test-results/findings/${{ inputs.finding_id }}/upload/
           if-no-files-found: error
-          retention-days: 14
+          # ADR-0026 §5: kanıt artifact'i ≥30 gün (evidence-index.json expiry ile hizalı).
+          retention-days: 30
 
   known-bug-verify:
     name: Known-bug fix verification (manual)
@@ -568,3 +584,138 @@ jobs:
           path: test-results/secure-upload/nightly-known-bug-reconcile/
           if-no-files-found: error
           retention-days: 14
+
+  # ════════════════════════════════════════════════════════════════════════════
+  # WP-EVIDENCE FAZ 3 (ADR-0026) — Otomatik kanıt lane'i.
+  # Açık knownBugGuard bulguları için forensik modda BOUNDED (bulgu başına tek test,
+  # retry storm yok, max-parallel:1 = serileştir → tek prod hesabı yükü) koşar; maskeli
+  # güvenli bundle'ları yükler ve docs/raporlar/evidence-index.json köprü dosyasını
+  # üretir. Tetik: nightly (schedule) + manuel (collect_evidence). PR başına DEĞİL.
+  # Registry root-cause'una DOKUNMAZ; trace LOCAL-ONLY; production read-only.
+  # ════════════════════════════════════════════════════════════════════════════
+  evidence-plan:
+    name: Evidence plan (açık knownBugGuard bulguları)
+    needs: architecture
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.collect_evidence)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      findings: ${{ steps.list.outputs.findings }}
+      count: ${{ steps.list.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Açık bulgu listesini üret (bounded matrix kaynağı)
+        id: list
+        env:
+          # Boş (schedule) → varsayılan sınır (12). Manuel dispatch override edebilir.
+          EVIDENCE_MAX_FINDINGS: ${{ inputs.evidence_max_findings }}
+        run: |
+          FINDINGS="$(node tools/list-open-findings.mjs --json)"
+          COUNT="$(node -e 'process.stdout.write(String(JSON.parse(process.argv[1]).length))' "${FINDINGS}")"
+          echo "findings=${FINDINGS}" >> "$GITHUB_OUTPUT"
+          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+          echo "Kanıt lane'i işlenecek açık bulgu sayısı: ${COUNT} → ${FINDINGS}"
+
+  known-bug-evidence:
+    name: Known-bug evidence (bounded/serileştirilmiş forensik)
+    needs: evidence-plan
+    if: ${{ needs.evidence-plan.outputs.count != '0' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      # Bir bulgu kırmızı olsa (flaky/infra) diğerleri iptal edilmez; index kalan
+      # gerçek kanıtlardan dürüstçe üretilir.
+      fail-fast: false
+      # Tek prod hesabı → SERİLEŞTİR (eşzamanlı login/oturum yok). ADR-0026 §risk.
+      max-parallel: 1
+      matrix:
+        finding: ${{ fromJSON(needs.evidence-plan.outputs.findings) }}
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      # Production read-only. Mutation kaçış bayrağı YOK.
+      ALLOW_MUTATING_TESTS: 'false'
+      # Bounded: bulgu başına tek worker + retry storm YOK (report:bug zaten böyle koşar;
+      # burada job düzeyinde de sabitlenir).
+      PLAYWRIGHT_WORKERS: 1
+      PLAYWRIGHT_RETRIES: 0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Kısa SHA
+        id: vars
+        run: echo "short=$(echo "${GITHUB_SHA}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+      - name: Forensik koşu + güvenli kanıt paketi (tek bulgu)
+        # report:bug forensik modda tek testi koşar, YALNIZ güvenli upload bundle üretir.
+        # Test kırmızı olsa da araç exit 0; yalnız güvensiz/beklenmeyen dosyada exit 1.
+        run: npm run report:bug -- "${{ matrix.finding }}"
+      - name: Registry değişmedi mi (forensik registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Güvenli kanıt bundle'ı yükle (YALNIZ upload/ allowlist bundlei)
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-bundle-${{ matrix.finding }}-${{ steps.vars.outputs.short }}-${{ github.run_id }}
+          path: test-results/findings/${{ matrix.finding }}/upload/
+          if-no-files-found: error
+          # ADR-0026 §5: kanıt artifact'i ≥30 gün; evidence-index.json expiry ile hizalı.
+          retention-days: 30
+
+  known-bug-evidence-index:
+    name: Evidence index (evidence-index.json üret + yükle)
+    needs: [evidence-plan, known-bug-evidence]
+    # Matris hücreleri kısmen kırmızı olsa da (flaky/infra) index kalan kanıtlardan
+    # üretilir; bu yüzden always(). Hiç bulgu yoksa atlanır.
+    if: ${{ always() && needs.evidence-plan.outputs.count != '0' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Kanıt bundle'larını indir (aynı koşum artifact'leri)
+        uses: actions/download-artifact@v4
+        with:
+          pattern: evidence-bundle-*
+          path: test-results/evidence-download
+      - name: Yakalama anı (provenance enjeksiyonu — üreteç Date.now KULLANMAZ)
+        id: cap
+        run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+      - name: evidence-index.json üret (runUrl/capturedAt/expiry CI'dan enjekte)
+        env:
+          EVIDENCE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EVIDENCE_COMMIT: ${{ github.sha }}
+          EVIDENCE_CAPTURED_AT: ${{ steps.cap.outputs.at }}
+          # Artifact retention (30g) ile hizalı expiry (ADR-0026 §5).
+          EVIDENCE_RETENTION_DAYS: '30'
+        run: node tools/generate-evidence-index.mjs --bundles test-results/evidence-download
+      - name: Kanıt index güvenli bundle hazırla (known-bug-evidence lane)
+        id: prep_evidence
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane known-bug-evidence
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Kanıt index'i yükle (COMMIT önerisi; YALNIZ prepared bundle)
+        # evidence-index.json COMMIT'lenir (ADR §4); bu artifact maintainer'ın commit'i
+        # için güvenli kopyayı taşır (schedule → main'e otomatik push YOK; read-only ethos).
+        if: ${{ !cancelled() && steps.prep_evidence.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: known-bug-evidence-index-${{ github.run_id }}
+          path: test-results/secure-upload/known-bug-evidence/
+          if-no-files-found: error
+          retention-days: 30

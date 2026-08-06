@@ -59,6 +59,28 @@ export const LOCAL_ONLY_PATTERNS = Object.freeze([
   /\.SKIPPED\.txt$/i,
 ]);
 
+/**
+ * (FAZ 3 / ADR-0026 §4) Kanıt indexi için bir bulgu bundle'ından TEK temsili güvenli
+ * artifact seçer. Tercih sırası: işaretli konum > tam-sayfa durum > ağ özeti. Yalnız
+ * GERÇEK yakalanmış maskeli kanıt sayılır; `metadata.json`/`candidate-update.json` tek
+ * başına kanıt DEĞİLDİR (dürüstlük: kanıtı olmayan bulgu index'e girmez → raporda
+ * "Kanıt: yok" kalır). Deterministik: aynı dosya kümesi → aynı seçim.
+ * @param {readonly string[]} fileNames  bundle içindeki (düz) dosya adları
+ * @returns {string|null}  seçilen dosya adı ya da (kanıt yoksa) null
+ */
+export const EVIDENCE_ARTIFACT_PREFERENCE = Object.freeze([
+  'location.png',
+  'safe-final-state.png',
+  'network-summary.json',
+]);
+export function pickEvidenceArtifact(fileNames) {
+  const set = new Set((Array.isArray(fileNames) ? fileNames : []).map(String));
+  for (const name of EVIDENCE_ARTIFACT_PREFERENCE) {
+    if (set.has(name)) return name;
+  }
+  return null;
+}
+
 /** Registry'den bulgu çözer; yoksa açık hata (CLI non-zero exit için). */
 export function resolveFinding(id) {
   const finding = KNOWN_BUGS.find((b) => b.id === id);
