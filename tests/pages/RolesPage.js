@@ -115,6 +115,40 @@ export class RolesPage extends BasePage {
   }
 
   /**
+   * Bir rol satırından "Edit role" dialogunu açar (SALT-OKUNUR: hiçbir izin
+   * değiştirilmez; çağıran Cancel/Escape ile kapatır). İzin kategorileri rolün MEVCUT
+   * seçimleriyle "x/y" sayaçlı gelir (Create dialogunda tümü 0/y'dir).
+   * @param {string} roleName
+   * @returns {Promise<import('@playwright/test').Locator>} açık dialog
+   */
+  async openEditDialog(roleName) {
+    const dialog = this.page.getByRole('dialog');
+    const editBtn = this.roleRow(roleName).getByRole('button', { name: 'Edit role', exact: true });
+    await expect(async () => {
+      await editBtn.click();
+      await expect(dialog).toBeVisible({ timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+    return dialog;
+  }
+
+  /**
+   * Açık izin dialogundaki (Create/Edit) bir kategori düğmesinin "x/y" sayacını okur.
+   * Kategori düğmesinin erişilebilir ismi örn. "Voice 5/19" / "CRM & Contacts 3/14".
+   * @param {import('@playwright/test').Locator} dialog
+   * @param {string} catName
+   * @returns {Promise<{ checked: number, total: number }>}
+   */
+  async categoryCounter(dialog, catName) {
+    const esc = catName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const btn = dialog.getByRole('button', { name: new RegExp(`^${esc}\\s*\\d+\\s*/\\s*\\d+`) }).first();
+    await expect(btn).toBeVisible({ timeout: 10000 });
+    const label = (await btn.textContent()) || '';
+    const m = label.match(/(\d+)\s*\/\s*(\d+)/);
+    if (!m) throw new Error(`Kategori "${catName}" sayacı okunamadı: "${label}"`);
+    return { checked: Number(m[1]), total: Number(m[2]) };
+  }
+
+  /**
    * Create Role dialogunu doldurup kaydeder ve POST /roles 2xx döndüğünü doğrular.
    * YALNIZ staging mutation spec'inde çağrılır (production'da tıklanmaz).
    * @param {{ name: string, description?: string }} data

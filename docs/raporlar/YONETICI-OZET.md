@@ -129,7 +129,7 @@ _(+16 boşluk daha — tam liste JSON'da.)_
 
 ## Trend / geçmiş karşılaştırma
 
-- ⚠️ **INSUFFICIENT_HISTORY** — Trend için ≥2 uygun snapshot gerekir; 1 bulundu. Sahte yüzde/eğilim üretilmez.
+- ⚠️ **INSUFFICIENT_HISTORY** — Trend için ≥2 uygun snapshot gerekir; 0 bulundu. Sahte yüzde/eğilim üretilmez.
 - Sahte yüzde/eğilim üretilmez. Trend için ≥2 güvenilir, aynı schemaVersion + commit/run kimlikli snapshot gerekir.
 
 ## Bu rapor neyi kanıtlar / ne kanıtlamaz

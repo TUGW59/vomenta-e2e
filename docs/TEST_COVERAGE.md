@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1200
-- **Test dosyası:** 97
-- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 22 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 385 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1205
+- **Test dosyası:** 98
+- **Etiketler:** `@a11y` 65 · `@clean)` 7 · `@clean` 52 · `@critical` 72 · `@data` 27 · `@deeplink` 50 · `@errorpath` 49 · `@export` 2 · `@i18n` 218 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 37 · `@known-bug` 75 · `@layout` 58 · `@perf` 2 · `@public` 2 · `@regression` 390 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -929,6 +929,14 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `settings-roles-interactions.authed.spec.js`
 
 - rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor  `@ix-table`
+
+### `settings-roles-rbac.authed.spec.js`
+
+- izin kataloğu 113 anahtar + 14 kategori; contract ile birebir (eksik/fazla yok)  `@data` `@regression`
+- her rolün /roles izin kümesi contract ile birebir + sayım eşit  `@data` `@regression`
+- Create Role dialogu 14 kategori + her kategori toplamı contract ile eşleşiyor  `@data` `@regression`
+- AGENT Edit dialogu kategori sayaçları contract ile eşleşiyor  `@data` `@regression`
+- VIEWER Edit dialogu kategori sayaçları contract ile eşleşiyor  `@data` `@regression`
 
 ### `settings-roles.authed.spec.js`
 
