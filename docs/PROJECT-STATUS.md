@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 87
-- **L2·deep:** 24 · **L2·style (unverified):** 22 · **L1·style-gap:** 0
+- **L2·deep:** 27 · **L2·style (unverified):** 19 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 47
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 41
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 4 |
-| ✅ L2·deep | 24 |
-| 🟡 L2·style (unverified) | 22 |
+| ✅ L2·deep | 27 |
+| 🟡 L2·style (unverified) | 19 |
 | 🟠 NO_CONTRACT | 9 |
 | ⚪ NOT_RUN | 28 |
 
@@ -137,10 +137,10 @@
 | voice-sip-trunks | /voice/sip-trunks | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | 1 | ⚪ NOT_RUN |
 | voice-skills | /voice/skills | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | — | ⚪ NOT_RUN |
 | voice-voicemail | /voice/voicemail | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | 2 | ⚪ NOT_RUN |
-| workforce | /workforce | workforce | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| workforce-badges | /workforce/badges | workforce | ✔ | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| workforce-evaluations | /workforce/evaluations | workforce | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| workforce-schedules | /workforce/schedules | workforce | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| workforce-surveys | /workforce/surveys | workforce | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| workforce-time-off | /workforce/time-off | workforce | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| workforce | /workforce | workforce | ✔ | ✅ | COMPLETE | 2/2 | L2_DEEP | 2 | ✅ L2·deep |
+| workforce-badges | /workforce/badges | workforce | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| workforce-evaluations | /workforce/evaluations | workforce | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| workforce-schedules | /workforce/schedules | workforce | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| workforce-surveys | /workforce/surveys | workforce | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| workforce-time-off | /workforce/time-off | workforce | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
 

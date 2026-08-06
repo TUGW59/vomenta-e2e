@@ -96,10 +96,10 @@
     "l1Proven": 55,
     "l1NotProven": 32,
     "l2StyleContractMet": 65,
-    "l2Complete": 24,
-    "l2Partial": 41,
+    "l2Complete": 27,
+    "l2Partial": 38,
     "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 47,
+    "interactionUnverifiedRoutes": 41,
     "l3Blocked": 46,
     "l3NotApplicable": 41,
     "l3Proven": 0,
@@ -110,8 +110,8 @@
     "highestLevel": {
       "L0": 32,
       "L1": 0,
-      "L2_STYLE": 31,
-      "L2_DEEP": 24
+      "L2_STYLE": 28,
+      "L2_DEEP": 27
     },
     "routesWithFindings": 33,
     "openFindingsOnRoutes": 58,
@@ -591,27 +591,6 @@
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L0 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L0"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/workforce",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/workforce/badges",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/workforce/schedules",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L2_STYLE"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",

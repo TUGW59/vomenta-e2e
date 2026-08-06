@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 87 · sözleşme sayfası: 48
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 24 · PARTIAL 41 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 47 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 27 · PARTIAL 38 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 41 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 31 · L2·deep 24
+- **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 28 · L2·deep 27
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 1 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -109,12 +109,12 @@
 | `/voice/sip-trunks` | voice-sip-trunks | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-SIP-TRUNKS-SUBTITLE-I18N(low/open) |
 | `/voice/skills` | voice-skills | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/voice/voicemail` | voice-voicemail | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B11(medium/open) VOICEMAIL-PAGER-I18N(medium/open) |
-| `/workforce` | main-navigation,workforce | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-ADHERENCE-I18N(low/open) WORKFORCE-ADHERENCE-RANGE-STATE(low/open) |
-| `/workforce/badges` | workforce-badges | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/6 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-BADGES-NO-EDIT-DELETE(medium/open) |
-| `/workforce/evaluations` | workforce-evaluations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/workforce/schedules` | workforce-schedules | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | N/A | ⛔ rol | ⛔ provider | WORKFORCE-SCHEDULE-CELL-A11Y(medium/open) |
-| `/workforce/surveys` | workforce-surveys | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-SURVEYS-ICON-A11Y(medium/open) |
-| `/workforce/time-off` | workforce-time-off | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider |  |
+| `/workforce` | main-navigation,workforce | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 2/2 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-ADHERENCE-I18N(low/open) WORKFORCE-ADHERENCE-RANGE-STATE(low/open) |
+| `/workforce/badges` | workforce-badges | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-BADGES-NO-EDIT-DELETE(medium/open) |
+| `/workforce/evaluations` | workforce-evaluations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/workforce/schedules` | workforce-schedules | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 6/6 | 1/1 | N/A | ⛔ rol | ⛔ provider | WORKFORCE-SCHEDULE-CELL-A11Y(medium/open) |
+| `/workforce/surveys` | workforce-surveys | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-SURVEYS-ICON-A11Y(medium/open) |
+| `/workforce/time-off` | workforce-time-off | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 
 ## L2 stil boyutu detayı (statik etiket kapsamı)
 
@@ -297,12 +297,12 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/voice/sip-trunks` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/skills` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/voicemail` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce/badges` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce/evaluations` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce/schedules` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce/surveys` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/workforce/time-off` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/workforce` | ✅ | N/A | ✅ | N/A | N/A | N/A |
+| `/workforce/badges` | ✅ | N/A | N/A | N/A | N/A | N/A |
+| `/workforce/evaluations` | — | N/A | N/A | N/A | N/A | N/A |
+| `/workforce/schedules` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/workforce/surveys` | — | N/A | N/A | N/A | N/A | N/A |
+| `/workforce/time-off` | — | N/A | N/A | N/A | N/A | N/A |
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 

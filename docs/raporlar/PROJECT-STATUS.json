@@ -19,8 +19,8 @@
     "surfaces": 87,
     "byRollup": {
       "BLOCKED": 4,
-      "L2_DEEP": 24,
-      "L2_STYLE": 22,
+      "L2_DEEP": 27,
+      "L2_STYLE": 19,
       "NO_CONTRACT": 9,
       "NOT_RUN": 28
     },
@@ -31,9 +31,9 @@
     "notRun": 28,
     "noContract": 9,
     "l1StyleGap": 0,
-    "l2Style": 22,
-    "l2Deep": 24,
-    "interactionUnverified": 47,
+    "l2Style": 19,
+    "l2Deep": 27,
+    "interactionUnverified": 41,
     "surfacesWithOpenFindings": 33,
     "openFindingsTotal": 58,
     "byArea": {
@@ -3174,14 +3174,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 2,
+        "interactionCoveredCount": 2
       },
       "findings": {
         "total": 2,
@@ -3191,7 +3191,7 @@
           "WORKFORCE-ADHERENCE-RANGE-STATE"
         ]
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "workforce-badges",
@@ -3215,14 +3215,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 1,
@@ -3231,7 +3231,7 @@
           "WORKFORCE-BADGES-NO-EDIT-DELETE"
         ]
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "workforce-evaluations",
@@ -3261,7 +3261,7 @@
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
         "interactionVerified": false,
-        "interactionApplicableCount": 5,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
@@ -3293,14 +3293,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "PARTIAL",
-        "highest": "L2_STYLE",
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
         "styleContractMet": true,
         "styleCoveredOrExempt": 6,
         "styleRequiredCount": 6,
-        "interactionVerified": false,
-        "interactionApplicableCount": 5,
-        "interactionCoveredCount": 0
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 1,
@@ -3309,7 +3309,7 @@
           "WORKFORCE-SCHEDULE-CELL-A11Y"
         ]
       },
-      "rollup": "L2_STYLE"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "workforce-surveys",
@@ -3339,7 +3339,7 @@
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
         "interactionVerified": false,
-        "interactionApplicableCount": 5,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
@@ -3379,7 +3379,7 @@
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
         "interactionVerified": false,
-        "interactionApplicableCount": 5,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
