@@ -758,7 +758,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/reports.authed.spec.js",
+        "file": "tests/reports/reports.authed.spec.js",
         "title": "sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli @known-bug"
       },
       "owner": null,
@@ -789,7 +789,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/reports.authed.spec.js",
+        "file": "tests/reports/reports.authed.spec.js",
         "title": "AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) @known-bug"
       },
       "owner": null,
@@ -828,7 +828,7 @@
         }
       ],
       "test": {
-        "file": "tests/reports-sections.authed.spec.js",
+        "file": "tests/reports/reports-sections.authed.spec.js",
         "title": "L3: \"Today\" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]"
       },
       "owner": null,
@@ -869,7 +869,7 @@
         }
       ],
       "test": {
-        "file": "tests/reports-dashboards.authed.spec.js",
+        "file": "tests/reports/reports-dashboards.authed.spec.js",
         "title": "L3 görev OK: [en] paylaş diyaloğu yatayda taşmamalı [BULGU 1] @layout @known-bug"
       },
       "owner": null,
@@ -961,7 +961,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-agents.authed.spec.js",
+        "file": "tests/supervisor/supervisor-agents.authed.spec.js",
         "title": "BULGU: \"Last refreshed\" saati yerel saat olmalı (UTC değil)"
       },
       "owner": null,
@@ -992,7 +992,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "file": "tests/supervisor/supervisor-wallboard.authed.spec.js",
         "title": "BULGU 2: \"Refresh All\"/\"Auto-scroll\" Türkçe arayüzde çevrilmeli"
       },
       "owner": null,
@@ -1085,7 +1085,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "file": "tests/supervisor/supervisor-wallboard.authed.spec.js",
         "title": "L3 görev OK: \"Dark\" seçilince koyu tema uygulanmalı [BULGU 1]"
       },
       "owner": null,
@@ -1117,7 +1117,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "file": "tests/supervisor/supervisor-wallboard.authed.spec.js",
         "title": "L3 görev OK: içerik taşınca otomatik kaydırmalı [BULGU 3]"
       },
       "owner": null,
@@ -1149,7 +1149,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "file": "tests/supervisor/supervisor-wallboard.authed.spec.js",
         "title": "L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]"
       },
       "owner": null,
@@ -1181,7 +1181,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "file": "tests/supervisor/supervisor-wallboard.authed.spec.js",
         "title": "BULGU 5: \"Resume queue\" Türkçe menüde çevrilmeli"
       },
       "owner": null,
@@ -1323,7 +1323,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/workforce-surveys.authed.spec.js",
+        "file": "tests/workforce/workforce-surveys.authed.spec.js",
         "title": "satır aksiyon ikonları erişilebilir ad taşımalı"
       },
       "owner": "quality-guild",
@@ -1357,7 +1357,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/workforce-badges.authed.spec.js",
+        "file": "tests/workforce/workforce-badges.authed.spec.js",
         "title": "bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı"
       },
       "owner": "quality-guild",
@@ -1392,7 +1392,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/workforce.authed.spec.js",
+        "file": "tests/workforce/workforce.authed.spec.js",
         "title": "Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli"
       },
       "owner": "quality-guild",
@@ -1427,7 +1427,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/workforce-schedules.authed.spec.js",
+        "file": "tests/workforce/workforce-schedules.authed.spec.js",
         "title": "boş vardiya \"+\" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı"
       },
       "owner": "quality-guild",
@@ -1462,7 +1462,7 @@
       "suggestedFixes": [],
       "evidence": [],
       "test": {
-        "file": "tests/workforce.authed.spec.js",
+        "file": "tests/workforce/workforce.authed.spec.js",
         "title": "aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı"
       },
       "owner": "quality-guild",
@@ -1498,7 +1498,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-social.authed.spec.js",
+        "file": "tests/channels/channels-social.authed.spec.js",
         "title": "B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı"
       },
       "owner": "quality-guild",
@@ -1534,7 +1534,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-email.authed.spec.js",
+        "file": "tests/channels/channels-email.authed.spec.js",
         "title": "B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı"
       },
       "owner": "quality-guild",
@@ -1570,7 +1570,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-sms.authed.spec.js",
+        "file": "tests/channels/channels-sms.authed.spec.js",
         "title": "B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı"
       },
       "owner": "quality-guild",
@@ -1606,7 +1606,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-whatsapp.authed.spec.js",
+        "file": "tests/channels/channels-whatsapp.authed.spec.js",
         "title": "B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı"
       },
       "owner": "quality-guild",
@@ -1792,7 +1792,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-webchat.authed.spec.js",
+        "file": "tests/channels/channels-webchat.authed.spec.js",
         "title": "B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -1829,7 +1829,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-email.authed.spec.js",
+        "file": "tests/channels/channels-email.authed.spec.js",
         "title": "B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -1866,7 +1866,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-sms.authed.spec.js",
+        "file": "tests/channels/channels-sms.authed.spec.js",
         "title": "B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -1903,7 +1903,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-whatsapp.authed.spec.js",
+        "file": "tests/channels/channels-whatsapp.authed.spec.js",
         "title": "B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -1940,7 +1940,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-social.authed.spec.js",
+        "file": "tests/channels/channels-social.authed.spec.js",
         "title": "B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -1977,7 +1977,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/channels-video.authed.spec.js",
+        "file": "tests/channels/channels-video.authed.spec.js",
         "title": "B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -2014,7 +2014,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/voice-history.authed.spec.js",
+        "file": "tests/voice/voice-history.authed.spec.js",
         "title": "VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -2051,7 +2051,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/voice-voicemail.authed.spec.js",
+        "file": "tests/voice/voice-voicemail.authed.spec.js",
         "title": "VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı"
       },
       "owner": "quality-guild",
@@ -2088,7 +2088,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/voice-recordings.authed.spec.js",
+        "file": "tests/voice/voice-recordings.authed.spec.js",
         "title": "VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)"
       },
       "owner": "quality-guild",
@@ -2125,7 +2125,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/voice-regulatory.authed.spec.js",
+        "file": "tests/voice/voice-regulatory.authed.spec.js",
         "title": "VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean"
       },
       "owner": "quality-guild",
@@ -2162,7 +2162,7 @@
       ],
       "evidence": [],
       "test": {
-        "file": "tests/voice-sip-trunks.authed.spec.js",
+        "file": "tests/voice/voice-sip-trunks.authed.spec.js",
         "title": "VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli"
       },
       "owner": "quality-guild",

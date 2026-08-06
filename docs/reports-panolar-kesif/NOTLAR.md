@@ -6,7 +6,7 @@
 
 Ekran görüntüleri: [`screenshots/`](screenshots/)
 
-İlgili testler: [`tests/reports-dashboards.authed.spec.js`](../../tests/reports-dashboards.authed.spec.js) · Page Object: [`tests/pages/DashboardsPage.js`](../../tests/pages/DashboardsPage.js)
+İlgili testler: [`tests/reports/reports-dashboards.authed.spec.js`](../../tests/reports/reports-dashboards.authed.spec.js) · Page Object: [`tests/pages/DashboardsPage.js`](../../tests/pages/DashboardsPage.js)
 İlgili bulgu (manuel rapor): [`docs/manuel-test-raporu/01-panolar-paylas-tasma.md`](../manuel-test-raporu/01-panolar-paylas-tasma.md)
 
 ---
@@ -118,7 +118,7 @@ Her kontrol **L1** (tıklama/tepki) · **L2** (arka plan/network) · **L3** (gö
 | **Çoğalt** (kart) | (mutation) → **gated** | POST | yeni "(Copy)" kartı (mutation) → **@mutation fixme** |
 | **Sil** (kart) | (mutation) → **gated** | DELETE | kart kaldırılır (mutation) → **@mutation fixme** |
 
-**Test karşılığı:** `tests/reports-dashboards.authed.spec.js` — yapı (@smoke), 4 dil çeviri guard'ları (@regression), her kontrol için L1/L2/L3 başlıklı test'ler, BULGU 1 için `test.fail` (bilinen hata). Mutation yaşam döngüsü (create/duplicate/delete) `tests/reports-dashboards-mutations.authed.spec.js` içinde `@mutation` + `test.fixme` iskeleti (prod'da engelli).
+**Test karşılığı:** `tests/reports/reports-dashboards.authed.spec.js` — yapı (@smoke), 4 dil çeviri guard'ları (@regression), her kontrol için L1/L2/L3 başlıklı test'ler, BULGU 1 için `test.fail` (bilinen hata). Mutation yaşam döngüsü (create/duplicate/delete) `tests/reports/reports-dashboards-mutations.authed.spec.js` içinde `@mutation` + `test.fixme` iskeleti (prod'da engelli).
 
 ---
 

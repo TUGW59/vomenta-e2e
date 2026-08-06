@@ -362,7 +362,7 @@ Canlı gözlem `app.vomenta.com`, default otomasyon hesabı. Hesap izinleri (`GE
   `SETTINGS-BILLING-REDIRECT`, `SETTINGS-BILLING-CHANGEPLAN`, `SETTINGS-BILLING-HISTORY` (yeni) + `B4` (kök-neden genişletildi). Guard'lar: `tests/known-bugs.authed.spec.js`.
 - **B7 yeniden açıldı:** Modüller açıklaması iki görünür öğede tekrar ediyor — bir `<div class="text-sm text-muted-foreground">` ve bir `<p class="…mb-4">`. Eski guard yalnız `main p` karşılaştırdığı için div+p tekrarını kaçırıyordu (false-green). Guard artık panelin tüm görünür leaf öğelerinde tekrar arıyor.
 
-## `/settings` hub — 4 dil (tam stil paketi, `tests/settings.authed.spec.js`)
+## `/settings` hub — 4 dil (tam stil paketi, `tests/settings/settings.authed.spec.js`)
 | Alan | en | tr | fr | ar (RTL) |
 |---|---|---|---|---|
 | Başlık (H1) | Settings | Ayarlar | Paramètres | الإعدادات |

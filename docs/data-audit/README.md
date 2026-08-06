@@ -3,7 +3,7 @@
 Rapor sayfalarındaki sayıların doğruluğunu iki katmanda ele alıyoruz:
 
 - **A — UI ↔ API sadakati (otomatik, testte):** Tarayıcının `api.vomenta.com`'dan aldığı JSON'daki değer
-  ile ekranda gösterilen değer birebir mi? `@data` etiketli testlerde (`tests/reports-sections.authed.spec.js`)
+  ile ekranda gösterilen değer birebir mi? `@data` etiketli testlerde (`tests/reports/reports-sections.authed.spec.js`)
   `captureJson` + karşılaştırma ile yapılır. Deterministik, her gece koşar. **"UI, API'yi sadık yansıtıyor mu."**
 - **B — Kaynak ↔ API doğruluğu (denetim, test dışı):** Sayının *gerçekten doğru* olup olmadığını, kaynak
   sistemle karşılaştırarak ölçmek. Aşağıdaki fizibilite notuna bakın.

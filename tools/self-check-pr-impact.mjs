@@ -403,13 +403,13 @@ const plan = (changedFiles, extra = {}) =>
     { path: 'docs/TEST_COVERAGE.md', status: 'M' },
     { path: 'docs/SURFACE-DEPTH-MATRIX.md', status: 'M' },
     { path: 'docs/adr/0014-l2-interaction-signal.md', status: 'A' },
-    { path: 'tests/settings-interactions.authed.spec.js', status: 'A' },
+    { path: 'tests/settings/settings-interactions.authed.spec.js', status: 'A' },
   ]);
   check(
     'generated-plus-surface-plus-authed-spec',
     (p.status === 'RUNTIME_SELECTED' || p.status === 'FALLBACK_SELECTED') &&
       p.exitCode === 0 &&
-      p.selected.authenticatedSpecs.includes('tests/settings-interactions.authed.spec.js'),
+      p.selected.authenticatedSpecs.includes('tests/settings/settings-interactions.authed.spec.js'),
     `status=${p.status} authed=${JSON.stringify(p.selected.authenticatedSpecs)}`
   );
 }
@@ -610,7 +610,7 @@ const plan = (changedFiles, extra = {}) =>
     'tests/login.spec.js': 'public-spec',
     'tests/contacts.authed.spec.js': 'authed-spec',
     'tests/contacts-mutations.authed.spec.js': 'mutation-spec',
-    'tests/voice-call.mutation.authed.spec.js': 'mutation-spec',
+    'tests/voice/voice-call.mutation.authed.spec.js': 'mutation-spec',
     'tests/mutation-orphans.authed.spec.js': 'mutation-spec',
     'tests/discovery/discovery.spec.js': 'discovery-spec',
     'tests/pages/ContactsPage.js': 'graph-module',

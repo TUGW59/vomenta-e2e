@@ -84,11 +84,11 @@ network incelemesiyle yeniden test edildi.
 
 ## Yazılan testler
 
-`tests/workforce.authed.spec.js` (salt-okunur, 3 katman + yapı + 4 dil):
+`tests/workforce/workforce.authed.spec.js` (salt-okunur, 3 katman + yapı + 4 dil):
 - Yapı (@smoke/@critical), 4 dil çeviri guard'ı (RTL dahil).
 - Her kontrol için L1/L2/L3: Sekme navigasyonu, Tarih navigasyonu, Adherence aralığı, Add Shift, Publish. L2 mutasyonları `page.route` ile yakalanır (prod'a yazılmaz). L3 kalıcı-kayıt N/A'ları açıkça belgeli.
 
-`tests/workforce-mutations.authed.spec.js` (`@mutation`, L3 görev — opt-in çift kilit):
+`tests/workforce/workforce-mutations.authed.spec.js` (`@mutation`, L3 görev — opt-in çift kilit):
 - Add Shift kalıcı vardiya oluşturur (POST) + cleanup siler.
 - Publish "Draft"ı yayınlar + cleanup siler. Yalnızca kimliği doğrulanan staging
   tenant'ında `npm run test:mutation` (bkz. docs/adr/0004).

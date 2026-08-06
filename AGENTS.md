@@ -149,9 +149,9 @@ Kurallar:
   görünümün / satır→detay geçişinin verisi, **kaynak satır/kartın** gösterdiğiyle **tutarlı**
   olmalı (ad, durum, sayaç, kuyruk vb. eşleşir). Aynı veriyi iki yerde farklı göstermek bulgudur.
 
-Referans uygulama: `tests/supervisor-wallboard.authed.spec.js`
+Referans uygulama: `tests/supervisor/supervisor-wallboard.authed.spec.js`
 (+ `docs/supervizor-panosu-kesif/NOTLAR.md` — 3 katmanlı kontrol matrisi),
-`tests/supervisor-agents.authed.spec.js` (satır→detay tutarlılığı + filtre doğruluğu).
+`tests/supervisor/supervisor-agents.authed.spec.js` (satır→detay tutarlılığı + filtre doğruluğu).
 
 ## İçerik ve değer derinliği standardı
 
@@ -161,8 +161,8 @@ için" yeşil kalır.
 
 - **Sekme (tab) testi:** `aria-selected='true'` + o sekmeye **özgü panel içerik
   imzası** (bir başlık/etiket/buton) görünür olmalı. Yalnız "sekme görünüyor" veya
-  yalnız `aria-selected` yeterli değildir. Referans: `tests/workforce.authed.spec.js`
-  (sekme içerik imzaları), `tests/settings.authed.spec.js`, `tests/reports.authed.spec.js`.
+  yalnız `aria-selected` yeterli değildir. Referans: `tests/workforce/workforce.authed.spec.js`
+  (sekme içerik imzaları), `tests/settings/settings.authed.spec.js`, `tests/reports/reports.authed.spec.js`.
 - **KPI / metrik / grafik:** etiketin yanında **bir değer** (sayı, %, tutar, saat
   veya açık boş-durum işareti) doğrulanır. Ortak yardımcı: `helpers.js` →
   `expectMetricHasValue(page, label)`. Mümkünse **boş-durum ile veri-durumu**
@@ -192,7 +192,7 @@ bozduğunda testin kırmızıya dönmesi ve **hangi dilde** koptuğunun görünm
   **tek switch** ile değiştirilir (ardışık switch güvenilmez). Yalnızca gerçekten
   gözlemlenen çeviriler assert edilir — doğrulanmamış çeviri uydurulmaz.
 
-Referans uygulama: `tests/workforce.authed.spec.js`,
+Referans uygulama: `tests/workforce/workforce.authed.spec.js`,
 `tests/analytics.authed.spec.js` (+ `docs/analitik-kesif/NOTLAR.md` — 4 dil i18n
 tablosu ve çeviri bulguları).
 
@@ -547,7 +547,7 @@ sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipelin
   değildir. Görsel testler macOS nightly lane'inde `RUN_VISUAL_TESTS=true` ile
   gerçekten koşar; CI olduğu için sessizce skip edilemez.
 
-Referans uygulama: `tests/reports-dashboards.authed.spec.js`, `tests/reports-sections.authed.spec.js`
+Referans uygulama: `tests/reports/reports-dashboards.authed.spec.js`, `tests/reports/reports-sections.authed.spec.js`
 (+ matris: `docs/TEST_STYLE_MATRIX.md`). Karar: `docs/adr/0002-mandatory-test-styles.md`.
 
 ## Yeni feature ekleme sırası

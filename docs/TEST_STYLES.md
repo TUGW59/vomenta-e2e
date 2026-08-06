@@ -9,7 +9,7 @@ Her stil `tests/helpers.js`'teki bir yardımcı ile ~1 satırda uygulanır. Yeni
 2. Arketipe bağlı koşullu stilleri ekle (veya gerekçeli N/A).
 3. Sayfayı `tested-pages.js`'e tescil et; `npm run quality:styles` yeşil olsun.
 
-Örnek referans: `tests/reports-dashboards.authed.spec.js`, `tests/reports-sections.authed.spec.js`.
+Örnek referans: `tests/reports/reports-dashboards.authed.spec.js`, `tests/reports/reports-sections.authed.spec.js`.
 
 ---
 
@@ -158,7 +158,7 @@ Kural: geçerli her etkileşim boyutu ya `@ix-*` işaretli gerçek testle kanıt
 yüzeyde olmayan/N/A boyuta `@ix-*` = misdeclared, invariant hatası). Kapı: `quality:depth`
 (`tools/depth-ratchet.mjs`) — güncel JSON ister → önce `npm run report:surface`. Altın
 şablonlar: `tests/settings-{roles,users}-interactions.authed.spec.js`,
-`tests/settings-audit-interactions.authed.spec.js`.
+`tests/settings/settings-audit-interactions.authed.spec.js`.
 
 ## Lane ve enforcement özeti
 

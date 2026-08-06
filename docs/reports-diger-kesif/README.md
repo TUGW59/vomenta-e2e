@@ -9,6 +9,6 @@ Bu klasör, **Raporlar › Diğer Rapor Bölümleri (10 alt sayfa)** bölümün�
 
 ## İlgili testler
 
-- `tests/reports-sections.authed.spec.js`
+- `tests/reports/reports-sections.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

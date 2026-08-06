@@ -9,6 +9,6 @@ Bu klasör, **Süpervizör → Koçluk / Quality Coaching** (`/supervisor/coachi
 
 ## İlgili testler
 
-- `tests/supervisor-coaching.authed.spec.js`
+- `tests/supervisor/supervisor-coaching.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

@@ -9,6 +9,6 @@ Bu klasör, **Süpervizör Duvar Panosu / Wallboard** (`/supervisor/wallboard`) 
 
 ## İlgili testler
 
-- `tests/supervisor-wallboard.authed.spec.js`
+- `tests/supervisor/supervisor-wallboard.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

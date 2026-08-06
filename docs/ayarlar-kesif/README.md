@@ -10,7 +10,7 @@ Bu klasör, **Ayarlar (Settings)** bölümünün test edilmeden önceki **keşif
 
 ## İlgili testler
 
-- `tests/settings.authed.spec.js`
+- `tests/settings/settings.authed.spec.js`
 - `tests/known-bugs.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

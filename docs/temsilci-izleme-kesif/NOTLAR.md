@@ -100,5 +100,5 @@ Kullanıcı canlıda gözlemledi. **Kök neden (kanıtlı):**
 
 ## Test karşılığı
 
-`tests/supervisor-agents.authed.spec.js` (+ `tests/pages/AgentMonitorPage.js`, `app.agentMonitor`).
+`tests/supervisor/supervisor-agents.authed.spec.js` (+ `tests/pages/AgentMonitorPage.js`, `app.agentMonitor`).
 Yapı @smoke/@critical, 4 dil guard'ları @regression, her kontrol için L1/L2/L3 (Durum filtresi ve Arama tam yeşil), Force/Analyze L1 + staging fixme, timezone `test.fail`. **19/19 yeşil** (chromium-authed). Dil değiştirici artık `BasePage.switchLanguage`.

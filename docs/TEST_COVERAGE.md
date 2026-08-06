@@ -180,7 +180,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı  `@regression` `@known-bug`
 - BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı  `@regression` `@known-bug`
 
-### `channels-email.authed.spec.js`
+### `channels/channels-email.authed.spec.js`
 
 - sayfa "Email Channel" + Add Account + Save Changes ile açılıyor  `@smoke`
 - GET /channels/email/config çağrılıyor  `@data`
@@ -196,7 +196,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - config 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /channels/email doğrudan açılınca yükleniyor  `@deeplink`
 
-### `channels-hub.authed.spec.js`
+### `channels/channels-hub.authed.spec.js`
 
 - sayfa "Channels" başlığı + 7 kanal kartı + Configure bağlantıları ile açılıyor  `@smoke`
 - her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor  `@critical`
@@ -213,7 +213,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /channels doğrudan açılınca hub yükleniyor (login'e düşmüyor)  `@deeplink`
 - kanal kartları ızgarası görünümü değişmedi  `@visual`
 
-### `channels-sms.authed.spec.js`
+### `channels/channels-sms.authed.spec.js`
 
 - sayfa "SMS Configuration" + Send SMS + Add Sender + Save Changes ile açılıyor  `@smoke`
 - GET /channels/sms/config çağrılıyor  `@data`
@@ -229,7 +229,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - config 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /channels/sms doğrudan açılınca yükleniyor  `@deeplink`
 
-### `channels-social.authed.spec.js`
+### `channels/channels-social.authed.spec.js`
 
 - sayfa "Social Media Channels" + Connect + Save Changes ile açılıyor  `@smoke`
 - GET /channels/social/config çağrılıyor  `@data`
@@ -243,7 +243,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - config 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /channels/social doğrudan açılınca yükleniyor  `@deeplink`
 
-### `channels-video.authed.spec.js`
+### `channels/channels-video.authed.spec.js`
 
 - sayfa "Video Call Configuration" + Save Changes ile açılıyor  `@smoke`
 - GET /channels/video/config çağrılıyor  `@data`
@@ -258,11 +258,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /channels/video doğrudan açılınca yükleniyor  `@deeplink`
 - yapılandırma formu görünümü değişmedi  `@visual`
 
-### `channels-webchat-interactions.authed.spec.js`
+### `channels/channels-webchat-interactions.authed.spec.js`
 
 - Configuration ↔ Integration üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
-### `channels-webchat.authed.spec.js`
+### `channels/channels-webchat.authed.spec.js`
 
 - sayfa "Web Chat Configuration" + sekmeler + Save Changes ile açılıyor  `@smoke`
 - GET /channels/webchat/config çağrılıyor  `@data`
@@ -279,7 +279,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /channels/webchat doğrudan açılınca yükleniyor  `@deeplink`
 - yapılandırma sekmesi görünümü değişmedi  `@visual`
 
-### `channels-whatsapp.authed.spec.js`
+### `channels/channels-whatsapp.authed.spec.js`
 
 - sayfa "WhatsApp Business" + Save Changes ile açılıyor  `@smoke`
 - GET /channels/whatsapp/config çağrılıyor  `@data`
@@ -555,17 +555,17 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [route:/workforce/surveys] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 - [route:/workforce/time-off] kayıtlı rota read-only baseline  `@smoke` `@route-baseline`
 
-### `reports-actions.authed.spec.js`
+### `reports/reports-actions.authed.spec.js`
 
 - "New Dashboard" pano sayfasına ("Dashboards") götürüyor
 - "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor
 - "Schedule a Report" formu açılıyor ve iptal edilebiliyor
 
-### `reports-dashboards-interactions.authed.spec.js`
+### `reports/reports-dashboards-interactions.authed.spec.js`
 
 - All Dashboards / Default / Custom Dashboards sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
-### `reports-dashboards.authed.spec.js`
+### `reports/reports-dashboards.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - üç sekme görünüyor (Tümü / Varsayılan / Özel)  `@smoke`
@@ -596,11 +596,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - paylaşım bağlantısı doğrudan açılınca pano görünümü yükleniyor (login'e düşmüyor)  `@deeplink`
 - paylaş diyaloğu görünümü değişmedi (URL maskeli)  `@visual`
 
-### `reports-route-sweep.authed.spec.js`
+### `reports/reports-route-sweep.authed.spec.js`
 
 - kenar menüsündeki her /reports/* rotası baseline geçiyor  `@regression` `@clean`
 
-### `reports-sections-interactions.authed.spec.js`
+### `reports/reports-sections-interactions.authed.spec.js`
 
 - [call] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 - [agent] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
@@ -613,7 +613,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [billing] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 - [sla] Charts ↔ Table üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
-### `reports-sections.authed.spec.js`
+### `reports/reports-sections.authed.spec.js`
 
 - [call] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
 - [agent] başlık + Charts/Table sekmeleri + Date Range + Export/Schedule  `@smoke`
@@ -653,7 +653,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Tablo sekmesinde başlık + veri satırları + sayfa boyutu kontrolü var  `@regression`
 - L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]  `@regression` `@known-bug`
 
-### `reports.authed.spec.js`
+### `reports/reports.authed.spec.js`
 
 - sayfa başlığı ve tarih aralığı seçici görünüyor
 - sekmeler tıklanınca seçili oluyor VE paneli o içeriği gösteriyor
@@ -673,11 +673,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - komut paleti klavye kısayolu (⌘K / Ctrl+K) ile açılıyor
 - arama kutusuna yazılabiliyor ve Escape ile kapanıyor
 
-### `settings-api-keys-interactions.authed.spec.js`
+### `settings/settings-api-keys-interactions.authed.spec.js`
 
 - boş-durum mesajı render ediliyor ("No API keys")  `@ix-empty`
 
-### `settings-api-keys.authed.spec.js`
+### `settings/settings-api-keys.authed.spec.js`
 
 - sayfa başlığı + Create Key + boş-durum ile açılıyor  `@smoke`
 - L1 tıklama OK: dialog açılıyor (Key name/Permissions + Create Key disabled)  `@regression`
@@ -694,11 +694,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Create Key dialogu görünümü değişmedi  `@visual`
 
-### `settings-audit-interactions.authed.spec.js`
+### `settings/settings-audit-interactions.authed.spec.js`
 
 - log tablosu kolonları + en az bir dolu satır görünüyor  `@ix-table`
 
-### `settings-audit.authed.spec.js`
+### `settings/settings-audit.authed.spec.js`
 
 - sayfa başlığı + Export + tablo ile açılıyor  `@smoke`
 - tablo kolonları + en az bir log satırı görünüyor  `@critical`
@@ -717,11 +717,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - View dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/audit doğrudan açılınca log yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `settings-automations-interactions.authed.spec.js`
+### `settings/settings-automations-interactions.authed.spec.js`
 
 - Rules ↔ SLA Policies sekmeleri dışlayıcı seçilir + panel değişir  `@ix-tabs`
 
-### `settings-automations.authed.spec.js`
+### `settings/settings-automations.authed.spec.js`
 
 - sayfa başlığı + 2 sekme + New Rule ile açılıyor  `@smoke`
 - Rules sekmesi boş-durum, SLA Policies sekmesi tabloyu gösteriyor  `@critical`
@@ -740,11 +740,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/automations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Rules boş-durumu görünümü değişmedi  `@visual`
 
-### `settings-canned-responses-interactions.authed.spec.js`
+### `settings/settings-canned-responses-interactions.authed.spec.js`
 
 - boş-durum mesajı render ediliyor ("No canned responses yet")  `@ix-empty`
 
-### `settings-canned-responses.authed.spec.js`
+### `settings/settings-canned-responses.authed.spec.js`
 
 - sayfa başlığı + New canned response + tablo/boş-durum ile açılıyor  `@smoke`
 - tablo kolonları görünüyor  `@critical`
@@ -762,7 +762,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/canned-responses doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - Create dialogu görünümü değişmedi  `@visual`
 
-### `settings-compliance.authed.spec.js`
+### `settings/settings-compliance.authed.spec.js`
 
 - sayfa başlığı + tüm bölümler render ediliyor  `@smoke`
 - bölüm eylem butonları görünüyor (Log Consent / Create Request)  `@critical`
@@ -783,7 +783,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Log Consent dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/compliance doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `settings-data-retention.authed.spec.js`
+### `settings/settings-data-retention.authed.spec.js`
 
 - sayfa başlığı + saklama süreleri + Save changes ile açılıyor  `@smoke`
 - 5 saklama-süresi spinbutton'u değerleriyle görünüyor + Run cleanup mevcut  `@critical`
@@ -799,11 +799,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/data-retention doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
 - saklama-süresi formu görünümü değişmedi  `@visual`
 
-### `settings-disposition-codes-interactions.authed.spec.js`
+### `settings/settings-disposition-codes-interactions.authed.spec.js`
 
 - kod tablosu kolonları + en az bir dolu satır  `@ix-table`
 
-### `settings-disposition-codes.authed.spec.js`
+### `settings/settings-disposition-codes.authed.spec.js`
 
 - sayfa başlığı + Add Code + tablo ile açılıyor  `@smoke`
 - tablo kolonları + bilinen kodlar (SALE/NO_ANSWER) görünüyor  `@critical`
@@ -821,7 +821,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/disposition-codes doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - Add Code dialogu görünümü değişmedi  `@visual`
 
-### `settings-hours.authed.spec.js`
+### `settings/settings-hours.authed.spec.js`
 
 - sayfa başlığı + haftalık program + Save changes ile açılıyor  `@smoke`
 - 7 günlük Open switch'i var; Pzt-Cum açık, Cmt/Paz kapalı  `@critical`
@@ -838,7 +838,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/hours doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
 - haftalık program görünümü değişmedi  `@visual`
 
-### `settings-integrations.authed.spec.js`
+### `settings/settings-integrations.authed.spec.js`
 
 - sayfa başlığı + entegrasyon kartları + Webhook bölümü ile açılıyor  `@smoke`
 - Webhook tablosu kolonları + boş-durum  `@critical`
@@ -857,12 +857,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/integrations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Request Access dialogu görünümü değişmedi  `@visual`
 
-### `settings-interactions.authed.spec.js`
+### `settings/settings-interactions.authed.spec.js`
 
 - sekme seçimi dışlayıcı + panel içeriği değişiyor  `@ix-tabs`
 - sekmeler-arası gidiş-dönüşte seçim + içerik tutarlı  `@ix-tabs`
 
-### `settings-notifications.authed.spec.js`
+### `settings/settings-notifications.authed.spec.js`
 
 - sayfa başlığı + Email Category Preferences + Save ile açılıyor  `@smoke`
 - kategori switch'leri + Delivery Channels bölümü görünüyor  `@critical`
@@ -877,7 +877,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - tercihler ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 - /settings/notifications doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `settings-organization.authed.spec.js`
+### `settings/settings-organization.authed.spec.js`
 
 - sayfa "Organization" başlığı + Company Information formu ile açılıyor  `@smoke`
 - form alanları render ediliyor (Company name/Website/Domain + Save)  `@critical`
@@ -896,11 +896,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/organization doğrudan açılınca form yükleniyor (login'e düşmüyor)  `@deeplink`
 - Company Information formu görünümü değişmedi  `@visual`
 
-### `settings-profile-interactions.authed.spec.js`
+### `settings/settings-profile-interactions.authed.spec.js`
 
 - 4 sekme dışlayıcı seçilir + panel içerik imzası değişir  `@ix-tabs`
 
-### `settings-profile.authed.spec.js`
+### `settings/settings-profile.authed.spec.js`
 
 - sayfa "Profile" başlığı + 4 alt sekme ile açılıyor  `@smoke`
 - User menu → Profile navigasyonu sayfayı yüklüyor  `@smoke`
@@ -926,11 +926,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/profile doğrudan açılınca profil yükleniyor (login'e düşmüyor)  `@deeplink`
 - Profile sekmesi kişisel-bilgi kartı görünümü değişmedi  `@visual`
 
-### `settings-roles-interactions.authed.spec.js`
+### `settings/settings-roles-interactions.authed.spec.js`
 
 - rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor  `@ix-table`
 
-### `settings-roles.authed.spec.js`
+### `settings/settings-roles.authed.spec.js`
 
 - sayfa "Role Management" başlığı + rol tablosu ile açılıyor  `@smoke`
 - tablo kolonları + sistem rolleri (ADMIN/AGENT/OWNER…) görünüyor  `@critical`
@@ -949,7 +949,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Create Role dialogu odak tuzağı ve Escape ile kapanma  `@keyboard`
 - /settings/roles doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `settings-security.authed.spec.js`
+### `settings/settings-security.authed.spec.js`
 
 - sayfa başlığı + Password Policies + Save (disabled) ile açılıyor  `@smoke`
 - bölümler: Session Management / IP Whitelist / API Keys görünüyor  `@critical`
@@ -968,11 +968,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/security doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Add IP dialogu görünümü değişmedi  `@visual`
 
-### `settings-sla-interactions.authed.spec.js`
+### `settings/settings-sla-interactions.authed.spec.js`
 
 - politika tablosu kolonları + en az bir dolu satır  `@ix-table`
 
-### `settings-sla.authed.spec.js`
+### `settings/settings-sla.authed.spec.js`
 
 - sayfa "SLA Policies" başlığı + New Policy + tablo ile açılıyor  `@smoke`
 - tablo beklenen kolonları + en az bir politika satırı  `@critical`
@@ -992,7 +992,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/sla doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - New Policy dialogu görünümü değişmedi  `@visual`
 
-### `settings-teams.authed.spec.js`
+### `settings/settings-teams.authed.spec.js`
 
 - sayfa "Teams" başlığı + Create Team + ekip kartı ile açılıyor  `@smoke`
 - en az bir ekip kartı üye sayısıyla görünüyor  `@critical`
@@ -1010,11 +1010,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/teams doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - Create Team dialogu görünümü değişmedi  `@visual`
 
-### `settings-templates-interactions.authed.spec.js`
+### `settings/settings-templates-interactions.authed.spec.js`
 
 - Message templates ↔ Canned Responses üst sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
-### `settings-templates.authed.spec.js`
+### `settings/settings-templates.authed.spec.js`
 
 - sayfa başlığı + üst sekmeler + New Template ile açılıyor  `@smoke`
 - şablon tablosu kolonları + boş-durum  `@critical`
@@ -1034,13 +1034,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/templates doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - New Template dialogu görünümü değişmedi  `@visual`
 
-### `settings-users-interactions.authed.spec.js`
+### `settings/settings-users-interactions.authed.spec.js`
 
 - üye tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
 - ada göre arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
 - eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı")  `@ix-empty`
 
-### `settings-users.authed.spec.js`
+### `settings/settings-users.authed.spec.js`
 
 - sayfa "Users & Roles" başlığı + üye tablosu ile açılıyor  `@smoke`
 - tablo beklenen kolonları gösteriyor + en az bir üye satırı  `@critical`
@@ -1060,11 +1060,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/users doğrudan açılınca liste yükleniyor (login'e düşmüyor)  `@deeplink`
 - davet dialogu görünümü değişmedi  `@visual`
 
-### `settings-webhooks-interactions.authed.spec.js`
+### `settings/settings-webhooks-interactions.authed.spec.js`
 
 - boş-durum mesajı render ediliyor ("No webhooks configured")  `@ix-empty`
 
-### `settings-webhooks.authed.spec.js`
+### `settings/settings-webhooks.authed.spec.js`
 
 - sayfa başlığı + Add Webhook + boş-durum ile açılıyor  `@smoke`
 - L1 tıklama OK: dialog açılıyor (URL + Events + Create webhook disabled)  `@regression`
@@ -1081,7 +1081,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - /settings/webhooks doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 - Add Webhook dialogu görünümü değişmedi  `@visual`
 
-### `settings.authed.spec.js`
+### `settings/settings.authed.spec.js`
 
 - sayfa "Settings" başlığıyla açılıyor  `@smoke`
 - tüm sekmeler görünüyor  `@critical`
@@ -1100,7 +1100,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekmelerde ok tuşu odağı taşıyor ve seçimi değiştiriyor (aria-selected)  `@keyboard`
 - /settings doğrudan açılınca hub yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `supervisor-agent-live.authed.spec.js`
+### `supervisor/supervisor-agent-live.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - canlı AI çağrısı yokken boş-durum gösteriliyor
@@ -1109,7 +1109,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [fr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 - [ar] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 
-### `supervisor-agents.authed.spec.js`
+### `supervisor/supervisor-agents.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - istatistik döşemeleri görünüyor (Total/Available/Offline/Calls Today/Avg AHT)
@@ -1137,7 +1137,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor  `@regression`
 - BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)  `@regression` `@known-bug`
 
-### `supervisor-coaching.authed.spec.js`
+### `supervisor/supervisor-coaching.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - istatistik döşemeleri görünüyor
@@ -1153,7 +1153,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L3 görev OK: kriter puanları Overall Score'u yükseltiyor  `@regression`
 - L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor  `@regression`
 
-### `supervisor-interactions.authed.spec.js`
+### `supervisor/supervisor-interactions.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - tablo beklenen kolonları gösteriyor  `@critical`
@@ -1167,7 +1167,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L2 arka plan OK: kanal seçince interactions API'sini channel parametresiyle çağırıyor  `@regression` `@critical`
 - L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
 
-### `supervisor-wallboard.authed.spec.js`
+### `supervisor/supervisor-wallboard.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - kontrol çubuğu düğmeleri mevcut (Refresh All / Auto-scroll / Save layout / TV mode / tema)
@@ -1202,7 +1202,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
-### `voice-dids.authed.spec.js`
+### `voice/voice-dids.authed.spec.js`
 
 - sayfa "Phone Numbers" + "Pending Requests" ile açılıyor  `@smoke`
 - GET /dids çağrılıyor + numara tablosu render ediliyor  `@data`
@@ -1217,7 +1217,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /dids 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı)  `@deeplink`
 
-### `voice-history.authed.spec.js`
+### `voice/voice-history.authed.spec.js`
 
 - sayfa "Call History" başlığı + alt-başlık + yön filtreleri ile açılıyor  `@smoke`
 - GET /voice/calls çağrılıyor + geçmiş tablosu render ediliyor  `@data`
@@ -1233,7 +1233,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /voice/calls 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/history doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-ivr.authed.spec.js`
+### `voice/voice-ivr.authed.spec.js`
 
 - sayfa "IVR Builder" başlığı + alt-başlık + "Create IVR" ile açılıyor  `@smoke`
 - GET /ivr çağrılıyor + IVR tablosu render ediliyor  `@data`
@@ -1248,7 +1248,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /ivr 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/ivr doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-queues.authed.spec.js`
+### `voice/voice-queues.authed.spec.js`
 
 - sayfa "Queues" başlığı + alt-başlık + "Create Queue" ile açılıyor  `@smoke`
 - GET /queues çağrılıyor + en az bir kuyruk kartı render ediliyor  `@data`
@@ -1263,7 +1263,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-recordings.authed.spec.js`
+### `voice/voice-recordings.authed.spec.js`
 
 - sayfa "Call Recordings" başlığı + alt-başlık ile açılıyor  `@smoke`
 - GET /voice/recordings çağrılıyor + tablo render ediliyor  `@data`
@@ -1279,7 +1279,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /voice/recordings 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/recordings doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-regulatory.authed.spec.js`
+### `voice/voice-regulatory.authed.spec.js`
 
 - /voice/regulatory rotası oturum korunarak yükleniyor (içerik bozuk olsa da kabuk sağlam)  `@smoke`
 - VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı  `@i18n` `@clean` `@known-bug` `@clean`
@@ -1288,7 +1288,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - B10 · /voice/regulatory · Voice alt-navigasyonu (Live Calls) sayfada görünmeli  `@regression` `@known-bug`
 - /voice/regulatory doğrudan açılınca oturum korunuyor  `@deeplink`
 
-### `voice-sip-settings.authed.spec.js`
+### `voice/voice-sip-settings.authed.spec.js`
 
 - sayfa "SIP & phone settings" + SIP extension/Display name alanları ile açılıyor  `@smoke`
 - [en] başlık + yön çevrili  `@i18n`
@@ -1301,7 +1301,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: "SIP extension" alanına değer girilebiliyor ve yansıyor (yalnız localStorage, sunucuya yazmaz)  `@regression`
 - /voice/sip-settings doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-sip-trunks.authed.spec.js`
+### `voice/voice-sip-trunks.authed.spec.js`
 
 - sayfa "SIP Trunks" başlığı + "Add SIP Trunk" ile açılıyor  `@smoke`
 - GET /voice/sip-trunks çağrılıyor  `@data`
@@ -1317,7 +1317,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /voice/sip-trunks 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/sip-trunks doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-skills.authed.spec.js`
+### `voice/voice-skills.authed.spec.js`
 
 - sayfa "Skills-Based Routing" başlığı + alt-başlık + "Select Queue" ile açılıyor  `@smoke`
 - GET /queues çağrılıyor (kuyruk seçici doldurulur)  `@data`
@@ -1332,7 +1332,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/skills doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice-subnav.authed.spec.js`
+### `voice/voice-subnav.authed.spec.js`
 
 - "Live Calls" → /voice/live ("Live Calls") panelini açıyor  `@regression`
 - "Queues" → /voice/queues ("Queues") panelini açıyor  `@regression`
@@ -1345,7 +1345,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
 - "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
 
-### `voice-voicemail.authed.spec.js`
+### `voice/voice-voicemail.authed.spec.js`
 
 - sayfa "Voicemails" başlığı + alt-başlık ile açılıyor  `@smoke`
 - GET /voicemails çağrılıyor + tablo render ediliyor  `@data`
@@ -1360,7 +1360,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - GET /voicemails 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/voicemail doğrudan açılınca yükleniyor  `@deeplink`
 
-### `voice.authed.spec.js`
+### `voice/voice.authed.spec.js`
 
 - /voice, "Live Calls" başlığı + alt-başlık + boş durum ile açılıyor  `@smoke`
 - Voice alt-navigasyonunun 10 hedefi görünüyor  `@smoke`
@@ -1376,11 +1376,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez)  `@regression`
 - /voice doğrudan açılınca /voice/live yüklüyor  `@deeplink`
 
-### `workforce-badges-interactions.authed.spec.js`
+### `workforce/workforce-badges-interactions.authed.spec.js`
 
 - Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir  `@ix-tabs`
 
-### `workforce-badges.authed.spec.js`
+### `workforce/workforce-badges.authed.spec.js`
 
 - L1: sayfa + iki sekme (Rozetler/Sıralama) + oluştur/ver butonları  `@smoke` `@regression`
 - L1: "Rozet oluştur" formu açılıyor (Ad + Kategori + Puan)  `@smoke` `@regression`
@@ -1398,7 +1398,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Rozet oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
 - /workforce/badges doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `workforce-evaluations.authed.spec.js`
+### `workforce/workforce-evaluations.authed.spec.js`
 
 - L1: sayfa + "Değerlendirme Oluştur" + "YZ Değerlendirmesi Başlat"  `@smoke` `@regression`
 - L1: "Kalite Değerlendirmesi Oluştur" formu açılıyor (Interaction ID + Agent + Puan)  `@smoke` `@regression`
@@ -1414,16 +1414,16 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Değerlendirme Oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
 - /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `workforce-interactions.authed.spec.js`
+### `workforce/workforce-interactions.authed.spec.js`
 
 - 7 üst sekme dışlayıcı seçilir  `@ix-tabs`
 - Haftalık çizelge tablosu ajan satırlarıyla render olur  `@ix-table`
 
-### `workforce-schedules-interactions.authed.spec.js`
+### `workforce/workforce-schedules-interactions.authed.spec.js`
 
 - Haftalık çizelge tablosu ajan satırlarıyla render olur  `@ix-table`
 
-### `workforce-schedules.authed.spec.js`
+### `workforce/workforce-schedules.authed.spec.js`
 
 - L1: standalone sayfa yükleniyor + hafta nav + Programı Yayınla görünür  `@smoke` `@regression`
 - L2 arka plan OK: sayfa açılışında haftalık çizelge API'den çekiliyor  `@smoke` `@regression` `@critical`
@@ -1438,7 +1438,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - çizelge ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor)  `@errorpath`
 - /workforce/schedules doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `workforce-surveys.authed.spec.js`
+### `workforce/workforce-surveys.authed.spec.js`
 
 - L1: sayfa yükleniyor ve "Anket oluştur" formu açılıyor (Ad + Gönder)  `@smoke` `@regression`
 - L2 arka plan OK: sayfa açılışında anket listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
@@ -1454,7 +1454,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Anket oluştur diyaloğu Escape ile kapanıyor  `@keyboard`
 - /workforce/surveys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `workforce-time-off.authed.spec.js`
+### `workforce/workforce-time-off.authed.spec.js`
 
 - L1: standalone sayfa + "İzin talep et" formu açılıyor  `@smoke` `@regression`
 - L2 arka plan OK: sayfa açılışında izin listesi API'den çekiliyor  `@smoke` `@regression` `@critical`
@@ -1469,7 +1469,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - İzin talep et diyaloğu Escape ile kapanıyor  `@keyboard`
 - /workforce/time-off doğrudan açılınca sayfa yükleniyor (login'e düşmüyor)  `@deeplink`
 
-### `workforce.authed.spec.js`
+### `workforce/workforce.authed.spec.js`
 
 - başlık ve 7 sekme görünüyor  `@smoke`
 - Schedules çizelgesi ve Publish butonu mevcut  `@critical`

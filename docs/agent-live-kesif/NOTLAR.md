@@ -28,5 +28,5 @@ Sayfada interaktif kontrol yok. Tek etkileşim: **canlı AI çağrısı satırı
 - **Bug bulunmadı.** i18n sağlam, boş-durum doğru + çevrili, timezone gösterimi yok.
 
 ## Test karşılığı
-`tests/supervisor-agent-live.authed.spec.js` (+ `tests/pages/AgentLivePage.js`, `app.agentLive`).
+`tests/supervisor/supervisor-agent-live.authed.spec.js` (+ `tests/pages/AgentLivePage.js`, `app.agentLive`).
 Yapı @smoke/@critical + 4 dil guard'ları @regression + cockpit staging-fixme. **7/7 yeşil** (chromium-authed).

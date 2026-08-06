@@ -31,8 +31,18 @@ tests/
   data/                 Benzersiz test verisi fabrikaları
   fixtures/             Bütün testlerin ortak giriş noktası
   pages/                Ekran davranışları ve seçiciler
-  *.spec.js             Kullanıcının gördüğü iş davranışları
+  settings/             Ayarlar domain spec'leri (+ görsel snapshot'lar)
+  voice/                Sesli domain spec'leri
+  channels/             Kanallar domain spec'leri (+ görsel snapshot'lar)
+  workforce/            İş gücü domain spec'leri
+  reports/              Raporlar domain spec'leri (+ görsel snapshot'lar)
+  supervisor/           Süpervizör domain spec'leri
+  *.spec.js             Domaine girmeyen / çapraz-kesen davranışlar (kökte)
 ```
+
+Domaine ait spec'ler ilgili alt klasörde toplanır; login, navigasyon, a11y,
+responsive gibi çapraz-kesen spec'ler kökte kalır. Alt klasördeki spec fixture'a
+göreli yolu (`../fixtures/…`, `../../config/…`) ayarlar.
 
 Yeni testlerde `@playwright/test` yerine aşağıdaki import kullanılmalıdır:
 

@@ -9,6 +9,6 @@ Bu klasör, **Süpervizör → Temsilci İzleme / Agent Monitor** (`/supervisor/
 
 ## İlgili testler
 
-- `tests/supervisor-agents.authed.spec.js`
+- `tests/supervisor/supervisor-agents.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

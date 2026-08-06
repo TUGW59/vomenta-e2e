@@ -108,9 +108,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'reports-dashboards',
     surfaceIds: ['reports-dashboards'],
     specFiles: [
-      'reports-dashboards.authed.spec.js',
-      'reports-dashboards-interactions.authed.spec.js',
-      'reports-dashboards-mutations.authed.spec.js',
+      'reports/reports-dashboards.authed.spec.js',
+      'reports/reports-dashboards-interactions.authed.spec.js',
+      'reports/reports-dashboards-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -143,9 +143,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'reports-call', 'reports-agent', 'reports-queue', 'reports-campaign', 'reports-channel', 'reports-ai', 'reports-quality', 'reports-csat', 'reports-billing', 'reports-sla',
     ],
     specFiles: [
-      'reports-sections.authed.spec.js',
-      'reports-sections-interactions.authed.spec.js',
-      'reports-schedule-mutations.authed.spec.js',
+      'reports/reports-sections.authed.spec.js',
+      'reports/reports-sections-interactions.authed.spec.js',
+      'reports/reports-schedule-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -173,7 +173,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'settings-hub',
     surfaceIds: ['settings'],
-    specFiles: ['settings.authed.spec.js', 'settings-interactions.authed.spec.js'],
+    specFiles: ['settings/settings.authed.spec.js', 'settings/settings-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -206,9 +206,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-profile',
     surfaceIds: ['settings-profile'],
     specFiles: [
-      'settings-profile.authed.spec.js',
-      'settings-profile-interactions.authed.spec.js',
-      'settings-profile-mutations.authed.spec.js',
+      'settings/settings-profile.authed.spec.js',
+      'settings/settings-profile-interactions.authed.spec.js',
+      'settings/settings-profile-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -238,8 +238,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-organization',
     surfaceIds: ['settings-organization'],
     specFiles: [
-      'settings-organization.authed.spec.js',
-      'settings-organization-mutations.authed.spec.js',
+      'settings/settings-organization.authed.spec.js',
+      'settings/settings-organization-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -269,8 +269,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-users',
     surfaceIds: ['settings-users'],
     specFiles: [
-      'settings-users.authed.spec.js',
-      'settings-users-interactions.authed.spec.js',
+      'settings/settings-users.authed.spec.js',
+      'settings/settings-users-interactions.authed.spec.js',
       // Invite (davet) L3 mutasyonu = aynı davet akışı; staging revoke ucu teyidi bekliyor.
       'known-bugs-invite.mutation.authed.spec.js',
     ],
@@ -301,9 +301,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-roles',
     surfaceIds: ['settings-roles'],
     specFiles: [
-      'settings-roles.authed.spec.js',
-      'settings-roles-interactions.authed.spec.js',
-      'settings-roles-mutations.authed.spec.js',
+      'settings/settings-roles.authed.spec.js',
+      'settings/settings-roles-interactions.authed.spec.js',
+      'settings/settings-roles-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -333,8 +333,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-compliance',
     surfaceIds: ['settings-compliance'],
     specFiles: [
-      'settings-compliance.authed.spec.js',
-      'settings-compliance-mutations.authed.spec.js',
+      'settings/settings-compliance.authed.spec.js',
+      'settings/settings-compliance-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -365,8 +365,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-teams',
     surfaceIds: ['settings-teams'],
     specFiles: [
-      'settings-teams.authed.spec.js',
-      'settings-teams-mutations.authed.spec.js',
+      'settings/settings-teams.authed.spec.js',
+      'settings/settings-teams-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -396,8 +396,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-hours',
     surfaceIds: ['settings-hours'],
     specFiles: [
-      'settings-hours.authed.spec.js',
-      'settings-hours-mutations.authed.spec.js',
+      'settings/settings-hours.authed.spec.js',
+      'settings/settings-hours-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -427,9 +427,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-automations',
     surfaceIds: ['settings-automations'],
     specFiles: [
-      'settings-automations.authed.spec.js',
-      'settings-automations-interactions.authed.spec.js',
-      'settings-automations-mutations.authed.spec.js',
+      'settings/settings-automations.authed.spec.js',
+      'settings/settings-automations-interactions.authed.spec.js',
+      'settings/settings-automations-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -459,9 +459,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-sla',
     surfaceIds: ['settings-sla'],
     specFiles: [
-      'settings-sla.authed.spec.js',
-      'settings-sla-interactions.authed.spec.js',
-      'settings-sla-mutations.authed.spec.js',
+      'settings/settings-sla.authed.spec.js',
+      'settings/settings-sla-interactions.authed.spec.js',
+      'settings/settings-sla-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -489,9 +489,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-templates',
     surfaceIds: ['settings-templates'],
     specFiles: [
-      'settings-templates.authed.spec.js',
-      'settings-templates-interactions.authed.spec.js',
-      'settings-templates-mutations.authed.spec.js',
+      'settings/settings-templates.authed.spec.js',
+      'settings/settings-templates-interactions.authed.spec.js',
+      'settings/settings-templates-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -521,9 +521,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-disposition-codes',
     surfaceIds: ['settings-disposition-codes'],
     specFiles: [
-      'settings-disposition-codes.authed.spec.js',
-      'settings-disposition-codes-interactions.authed.spec.js',
-      'settings-disposition-codes-mutations.authed.spec.js',
+      'settings/settings-disposition-codes.authed.spec.js',
+      'settings/settings-disposition-codes-interactions.authed.spec.js',
+      'settings/settings-disposition-codes-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -552,9 +552,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-canned-responses',
     surfaceIds: ['settings-canned-responses'],
     specFiles: [
-      'settings-canned-responses.authed.spec.js',
-      'settings-canned-responses-interactions.authed.spec.js',
-      'settings-canned-responses-mutations.authed.spec.js',
+      'settings/settings-canned-responses.authed.spec.js',
+      'settings/settings-canned-responses-interactions.authed.spec.js',
+      'settings/settings-canned-responses-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -583,8 +583,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-integrations',
     surfaceIds: ['settings-integrations'],
     specFiles: [
-      'settings-integrations.authed.spec.js',
-      'settings-integrations-mutations.authed.spec.js',
+      'settings/settings-integrations.authed.spec.js',
+      'settings/settings-integrations-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -614,8 +614,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-security',
     surfaceIds: ['settings-security'],
     specFiles: [
-      'settings-security.authed.spec.js',
-      'settings-security-mutations.authed.spec.js',
+      'settings/settings-security.authed.spec.js',
+      'settings/settings-security-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -645,8 +645,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-data-retention',
     surfaceIds: ['settings-data-retention'],
     specFiles: [
-      'settings-data-retention.authed.spec.js',
-      'settings-data-retention-mutations.authed.spec.js',
+      'settings/settings-data-retention.authed.spec.js',
+      'settings/settings-data-retention-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -677,8 +677,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-notifications',
     surfaceIds: ['settings-notifications'],
     specFiles: [
-      'settings-notifications.authed.spec.js',
-      'settings-notifications-mutations.authed.spec.js',
+      'settings/settings-notifications.authed.spec.js',
+      'settings/settings-notifications-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -710,9 +710,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-api-keys',
     surfaceIds: ['settings-api-keys'],
     specFiles: [
-      'settings-api-keys.authed.spec.js',
-      'settings-api-keys-interactions.authed.spec.js',
-      'settings-api-keys-mutations.authed.spec.js',
+      'settings/settings-api-keys.authed.spec.js',
+      'settings/settings-api-keys-interactions.authed.spec.js',
+      'settings/settings-api-keys-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -741,9 +741,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-webhooks',
     surfaceIds: ['settings-webhooks'],
     specFiles: [
-      'settings-webhooks.authed.spec.js',
-      'settings-webhooks-interactions.authed.spec.js',
-      'settings-webhooks-mutations.authed.spec.js',
+      'settings/settings-webhooks.authed.spec.js',
+      'settings/settings-webhooks-interactions.authed.spec.js',
+      'settings/settings-webhooks-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -772,8 +772,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'settings-audit',
     surfaceIds: ['settings-audit'],
     specFiles: [
-      'settings-audit.authed.spec.js',
-      'settings-audit-interactions.authed.spec.js',
+      'settings/settings-audit.authed.spec.js',
+      'settings/settings-audit-interactions.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -812,9 +812,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'workforce',
     surfaceIds: ['workforce'],
     specFiles: [
-      'workforce.authed.spec.js',
-      'workforce-interactions.authed.spec.js',
-      'workforce-mutations.authed.spec.js',
+      'workforce/workforce.authed.spec.js',
+      'workforce/workforce-interactions.authed.spec.js',
+      'workforce/workforce-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -845,8 +845,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'workforce-schedules',
     surfaceIds: ['workforce-schedules'],
     specFiles: [
-      'workforce-schedules.authed.spec.js',
-      'workforce-schedules-interactions.authed.spec.js',
+      'workforce/workforce-schedules.authed.spec.js',
+      'workforce/workforce-schedules-interactions.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -878,7 +878,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'workforce-time-off',
     surfaceIds: ['workforce-time-off'],
-    specFiles: ['workforce-time-off.authed.spec.js'],
+    specFiles: ['workforce/workforce-time-off.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -911,8 +911,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'workforce-surveys',
     surfaceIds: ['workforce-surveys'],
     specFiles: [
-      'workforce-surveys.authed.spec.js',
-      'workforce-surveys-mutations.authed.spec.js',
+      'workforce/workforce-surveys.authed.spec.js',
+      'workforce/workforce-surveys-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -945,9 +945,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'workforce-badges',
     surfaceIds: ['workforce-badges'],
     specFiles: [
-      'workforce-badges.authed.spec.js',
-      'workforce-badges-interactions.authed.spec.js',
-      'workforce-badges-mutations.authed.spec.js',
+      'workforce/workforce-badges.authed.spec.js',
+      'workforce/workforce-badges-interactions.authed.spec.js',
+      'workforce/workforce-badges-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -979,8 +979,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'workforce-evaluations',
     surfaceIds: ['workforce-evaluations'],
     specFiles: [
-      'workforce-evaluations.authed.spec.js',
-      'workforce-evaluations-mutations.authed.spec.js',
+      'workforce/workforce-evaluations.authed.spec.js',
+      'workforce/workforce-evaluations-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1019,7 +1019,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'channels-hub',
     surfaceIds: ['channels'],
-    specFiles: ['channels-hub.authed.spec.js'],
+    specFiles: ['channels/channels-hub.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1050,9 +1050,9 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-webchat',
     surfaceIds: ['channels-webchat'],
     specFiles: [
-      'channels-webchat.authed.spec.js',
-      'channels-webchat-interactions.authed.spec.js',
-      'channels-webchat-mutations.authed.spec.js',
+      'channels/channels-webchat.authed.spec.js',
+      'channels/channels-webchat-interactions.authed.spec.js',
+      'channels/channels-webchat-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1083,8 +1083,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-email',
     surfaceIds: ['channels-email'],
     specFiles: [
-      'channels-email.authed.spec.js',
-      'channels-email-mutations.authed.spec.js',
+      'channels/channels-email.authed.spec.js',
+      'channels/channels-email-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1115,8 +1115,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-sms',
     surfaceIds: ['channels-sms'],
     specFiles: [
-      'channels-sms.authed.spec.js',
-      'channels-sms-mutations.authed.spec.js',
+      'channels/channels-sms.authed.spec.js',
+      'channels/channels-sms-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1148,8 +1148,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-whatsapp',
     surfaceIds: ['channels-whatsapp'],
     specFiles: [
-      'channels-whatsapp.authed.spec.js',
-      'channels-whatsapp-mutations.authed.spec.js',
+      'channels/channels-whatsapp.authed.spec.js',
+      'channels/channels-whatsapp-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1181,8 +1181,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-social',
     surfaceIds: ['channels-social'],
     specFiles: [
-      'channels-social.authed.spec.js',
-      'channels-social-mutations.authed.spec.js',
+      'channels/channels-social.authed.spec.js',
+      'channels/channels-social-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1214,8 +1214,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'channels-video',
     surfaceIds: ['channels-video'],
     specFiles: [
-      'channels-video.authed.spec.js',
-      'channels-video-mutations.authed.spec.js',
+      'channels/channels-video.authed.spec.js',
+      'channels/channels-video-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1252,8 +1252,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'voice-hub',
     surfaceIds: ['voice'],
     specFiles: [
-      'voice.authed.spec.js',
-      'voice-subnav.authed.spec.js',
+      'voice/voice.authed.spec.js',
+      'voice/voice-subnav.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1288,8 +1288,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'voice-queues',
     surfaceIds: ['voice-queues'],
     specFiles: [
-      'voice-queues.authed.spec.js',
-      'voice-queues-mutations.authed.spec.js',
+      'voice/voice-queues.authed.spec.js',
+      'voice/voice-queues-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1310,7 +1310,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-history',
     surfaceIds: ['voice-history'],
-    specFiles: ['voice-history.authed.spec.js'],
+    specFiles: ['voice/voice-history.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1331,7 +1331,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-voicemail',
     surfaceIds: ['voice-voicemail'],
-    specFiles: ['voice-voicemail.authed.spec.js'],
+    specFiles: ['voice/voice-voicemail.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1353,7 +1353,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-recordings',
     surfaceIds: ['voice-recordings'],
-    specFiles: ['voice-recordings.authed.spec.js'],
+    specFiles: ['voice/voice-recordings.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1374,8 +1374,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'voice-dids',
     surfaceIds: ['voice-dids'],
     specFiles: [
-      'voice-dids.authed.spec.js',
-      'voice-dids-mutations.authed.spec.js',
+      'voice/voice-dids.authed.spec.js',
+      'voice/voice-dids-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1401,7 +1401,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     // etmiyor) → arketip minimal.
     id: 'voice-regulatory',
     surfaceIds: ['voice-regulatory'],
-    specFiles: ['voice-regulatory.authed.spec.js'],
+    specFiles: ['voice/voice-regulatory.authed.spec.js'],
     archetype: {
       hasData: false,
       hasCharts: false,
@@ -1426,8 +1426,8 @@ const COVERAGE_CONTRACTS = Object.freeze([
     id: 'voice-ivr',
     surfaceIds: ['voice-ivr'],
     specFiles: [
-      'voice-ivr.authed.spec.js',
-      'voice-ivr-mutations.authed.spec.js',
+      'voice/voice-ivr.authed.spec.js',
+      'voice/voice-ivr-mutations.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1448,7 +1448,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-sip-trunks',
     surfaceIds: ['voice-sip-trunks'],
-    specFiles: ['voice-sip-trunks.authed.spec.js'],
+    specFiles: ['voice/voice-sip-trunks.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1469,7 +1469,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-sip-settings',
     surfaceIds: ['voice-sip-settings'],
-    specFiles: ['voice-sip-settings.authed.spec.js'],
+    specFiles: ['voice/voice-sip-settings.authed.spec.js'],
     archetype: {
       hasData: false,
       hasCharts: false,
@@ -1493,7 +1493,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
   {
     id: 'voice-skills',
     surfaceIds: ['voice-skills'],
-    specFiles: ['voice-skills.authed.spec.js'],
+    specFiles: ['voice/voice-skills.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
