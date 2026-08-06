@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1259 / 134 dosya
-- **coverageStatus:** verified 0 · partial 1206 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1215 · skipped 0 · fixme 44
+- **Listelenen test:** 1264 / 135 dosya
+- **coverageStatus:** verified 0 · partial 1211 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1220 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -27,7 +27,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
 | reports | 91 | 91 | 0 | 0 |
-| settings | 348 | 331 | 0 | 17 |
+| settings | 353 | 336 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -1168,6 +1168,16 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: custom rol oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `settings-roles-rbac.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| izin kataloğu 113 anahtar + 14 kategori; contract ile birebir (eksik/fazla yok) | @data @regression | — | listed-only | partial | medium | list-exec |
+| her rolün /roles izin kümesi contract ile birebir + sayım eşit | @data @regression | — | listed-only | partial | medium | list-exec |
+| Create Role dialogu 14 kategori + her kategori toplamı contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| AGENT Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| VIEWER Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
 
 ### `settings-roles.authed.spec.js` — _settings_
 

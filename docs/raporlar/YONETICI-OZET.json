@@ -747,8 +747,8 @@
   ],
   "trend": {
     "status": "INSUFFICIENT_HISTORY",
-    "reason": "Trend için ≥2 uygun snapshot gerekir; 1 bulundu. Sahte yüzde/eğilim üretilmez.",
-    "eligibleSnapshots": 1,
+    "reason": "Trend için ≥2 uygun snapshot gerekir; 0 bulundu. Sahte yüzde/eğilim üretilmez.",
+    "eligibleSnapshots": 0,
     "warnings": []
   },
   "warnings": [
