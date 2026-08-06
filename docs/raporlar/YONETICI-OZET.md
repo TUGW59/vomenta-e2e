@@ -1,51 +1,48 @@
 # Vomenta — Yönetici Kalite Özeti (Tek Gerçeklik)
 
 > ⚙️ **Otomatik üretilir** (`npm run report:executive`). Üç AYRI gerçekliği — **koşum sonucu**, **kapsam derinliği**, **açık bulgular** — tek görünümde ama **semantiklerini karıştırmadan** birleştirir.
-> **Üretim:** `2026-08-02T19:46:28.218Z` · **Manşet provenance:** ⛔ UNVERIFIED
+> **Üretim:** `2026-08-06T11:16:12.542Z` · **Manşet provenance:** 🟠 STALE
 
-> ⚠️ **DİKKAT:** Runtime sonuçları **UNVERIFIED** — TAZE, doğrulanmış bir Playwright koşumunu kanıtlamaz. Sayılar son *kaydedilmiş* snapshot'tandır; güncel koşum için `npm run report:runtime`.
+> ⚠️ **DİKKAT:** Runtime sonuçları **STALE** — TAZE, doğrulanmış bir Playwright koşumunu kanıtlamaz. Sayılar son *kaydedilmiş* snapshot'tandır; güncel koşum için `npm run report:runtime`.
 
 ## Kaynak künyesi
 
 | Kaynak | Var mı | Commit | Ortam | Tarayıcı | Run ID | Üretim | Provenance |
 |---|---|---|---|---|---|---|---|
-| Runtime | ✅ | 88033f03ef638c926243e66ae525c66805bfd0a1 | production-read-only | chromium | — | 2026-08-02T19:46:28.218Z | ⛔ UNVERIFIED |
-| Depth | ✅ | 88033f03ef638c926243e66ae525c66805bfd0a1 | production-read-only | chromium | — | 2026-08-02T19:46:28.218Z | — |
+| Runtime | ✅ | 0707f82699d7cf6847719034d830e5c50d360f63 | production-read-only | chromium | 31096164216 | 2026-08-06T11:16:12.542Z | 🟠 STALE |
+| Depth | ✅ | 0707f82699d7cf6847719034d830e5c50d360f63 | production-read-only | chromium | — | 2026-08-06T11:16:12.542Z | — |
 | Findings | ✅ | — | — | — | — | — | — |
 
 ## Kaynaklar arası tutarlılık: ⚠️ DRIFT
 
 | Kontrol | Değerler | Uyumlu | Not |
 |---|---|---|---|
-| Kayıtlı rota sayısı | runtime=55, depth=87 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
-| Bilinen bulgu toplamı | runtimeSnapshot=50, findingsRegistry=61 | ❌ | Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır. |
-| Açık bulgu | runtimeSnapshot=49, findingsRegistry=60 | ❌ | Açık bulgu sayısı kaynaklar arası farklı. |
+| Kayıtlı rota sayısı | runtime=87, depth=87 | ✅ |  |
+| Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=61 | ✅ |  |
+| Açık bulgu | runtimeSnapshot=60, findingsRegistry=60 | ✅ |  |
 
-- ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=55, depth=87). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
-- ⚠️ Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=50, findingsRegistry=61). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.
-- ⚠️ Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=49, findingsRegistry=60). Açık bulgu sayısı kaynaklar arası farklı.
-- ⚠️ Runtime snapshot provenance = UNVERIFIED (sourcetype-missing-or-not-runtime, runid-missing, sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
+- ⚠️ Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
 
 ## 1) Son koşumda ne çalıştı ve ne geçti? (runtime)
 
-- **Kayıtlı rota (runtime snapshot):** 55
-- **Tanımlanan test:** 1028 · **Güvenli/çalıştırılabilir test:** _ölçülmedi_ · **Bu koşumda seçilen:** 56 · **Bu koşumda çalışan:** 56
-- **Rota durumu:** ✅ PASS 55 · ❌ FAIL 0 · 🟡 FLAKY 0 · ⛔ BLOCKED 0 · ⚪ NOT_RUN 0
-- **Koşum lensi:** geçen 56 · başarısız 0 · flaky 0 · atlanan 0
-- **Rotaya eşlenmeyen test:** 1 (sayfa durumuna sayılmaz — sahte PASS engeli).
+- **Kayıtlı rota (runtime snapshot):** 87
+- **Tanımlanan test:** — · **Güvenli/çalıştırılabilir test:** _ölçülmedi_ · **Bu koşumda seçilen:** 87 · **Bu koşumda çalışan:** 87
+- **Rota durumu:** ✅ PASS 83 · ❌ FAIL 0 · 🟡 FLAKY 0 · ⛔ BLOCKED 0 · ⚪ NOT_RUN 4
+- **Koşum lensi:** geçen 87 · başarısız 0 · flaky 0 · atlanan 0
+- **Rotaya eşlenmeyen test:** 4 (sayfa durumuna sayılmaz — sahte PASS engeli).
 
 > ℹ️ "Tanımlanan test" ile "bu koşumda çalışan test" **aynı sayı değildir**. Bir rotanın PASS olması yalnız read-only açılışını kanıtlar.
 
 ## 2) Her sayfanın otomasyon derinliği nedir? (kapsam)
 
 - **Kayıtlı rota (depth):** 87
-- **L1 (açılış) proven:** 55 · **L1 kanıtlanmamış:** 32
+- **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 4
 - **L2 complete:** 27 · **L2 partial:** 38 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 39)_
 - **L3:** proven 0 · blocked 46 · N/A 41
 - **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
-- **En yüksek kanıt seviyesi dağılımı:** L0 32 · L1 0 · L2-stil 28 · L2-deep 27
+- **En yüksek kanıt seviyesi dağılımı:** L0 4 · L1 18 · L2-stil 38 · L2-deep 27
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "55/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **27**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "83/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **27**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
@@ -74,28 +71,28 @@
 
 | öncelik | tür | rota | en yüksek kanıt | açıklama |
 |---|---|---|---|---|
-| 0 | L1_NOT_PROVEN | /ai/chatbot | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/copilot | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/knowledge-base | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/prompts | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/providers | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/sentiment | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/usage | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /ai/voice | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /bot-builder/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /campaigns/create | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /campaigns/outbound | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /contacts/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /contacts/import | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /contacts/segments | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /settings/billing | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /settings/billing/marketplace | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /supervisor/agents | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /supervisor/calls | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /supervisor/coaching | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
-| 0 | L1_NOT_PROVEN | /supervisor/interactions | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /bot-builder | L2_STYLE | Açık yüksek-önem bulgu: BOT-BUILDER-TEMPLATE-I18N(high). |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /campaigns | L2_STYLE | Açık yüksek-önem bulgu: B2(high). |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /inbox | L2_STYLE | Açık yüksek-önem bulgu: B3(high). |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /settings | L2_DEEP | Açık yüksek-önem bulgu: B4(high), SETTINGS-BILLING-CHANGEPLAN(high), SETTINGS-BILLING-HISTORY(high). |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /settings/billing | L0 | Açık yüksek-önem bulgu: SETTINGS-BILLING-REDIRECT(high). |
+| 1 | OPEN_CRITICAL_HIGH_FINDING | /voice/regulatory | L2_STYLE | Açık yüksek-önem bulgu: B1(critical), VOICE-REGULATORY-BROKEN(high). |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | / | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /ai | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /ai/prompts | L1 | Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /analytics | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /bot-builder | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /campaigns | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /campaigns/outbound | L1 | Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels/email | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
+| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels/sms | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 
-_(+44 boşluk daha — tam liste JSON'da.)_
+_(+16 boşluk daha — tam liste JSON'da.)_
 
 ## Flaky testler
 
@@ -105,20 +102,25 @@ _(+44 boşluk daha — tam liste JSON'da.)_
 
 | rota | süre (ms) |
 |---|---|
-| /reports/quality | 8502 |
-| /channels | 8210 |
-| /ai | 8119 |
-| /reports/sla | 8048 |
-| /reports/dashboards | 7895 |
-| /settings/hours | 7755 |
-| /voice | 7707 |
-| /workforce/surveys | 7619 |
-| /workforce/schedules | 7188 |
-| /campaigns | 7158 |
+| /voice/regulatory | 16995 |
+| /settings/profile | 14765 |
+| /supervisor/agents | 14543 |
+| /ai/sentiment | 13989 |
+| /voice/recordings | 13977 |
+| /contacts/import | 13799 |
+| /campaigns/outbound | 13703 |
+| /reports/campaign | 13700 |
+| /analytics | 13663 |
+| /reports/agent | 13623 |
 
 ## Staging / rol / provider nedeniyle bloklu (ve dikkat gerektiren) testler
 
-- Runtime tarafında FAIL/FLAKY/BLOCKED/NOT_RUN rota yok.
+| rota | durum | neden |
+|---|---|---|
+| /bot-builder/:id | NOT_RUN | inventory-only |
+| /contacts/:id | NOT_RUN | inventory-only |
+| /settings/billing | NOT_RUN | inventory-only |
+| /settings/billing/marketplace | NOT_RUN | inventory-only |
 
 **Derinlik blok sebepleri (L3–L5):**
 - L3: STAGING_REQUIRED×46
@@ -127,7 +129,7 @@ _(+44 boşluk daha — tam liste JSON'da.)_
 
 ## Trend / geçmiş karşılaştırma
 
-- ⚠️ **INSUFFICIENT_HISTORY** — Trend için ≥2 uygun snapshot gerekir; 0 bulundu. Sahte yüzde/eğilim üretilmez.
+- ⚠️ **INSUFFICIENT_HISTORY** — Trend için ≥2 uygun snapshot gerekir; 1 bulundu. Sahte yüzde/eğilim üretilmez.
 - Sahte yüzde/eğilim üretilmez. Trend için ≥2 güvenilir, aynı schemaVersion + commit/run kimlikli snapshot gerekir.
 
 ## Bu rapor neyi kanıtlar / ne kanıtlamaz

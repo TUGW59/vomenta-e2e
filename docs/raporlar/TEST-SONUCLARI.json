@@ -1,60 +1,70 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T19:46:28.218Z",
-  "provenance": {
-    "verdict": "UNVERIFIED",
-    "reasons": [
-      "sourcetype-missing-or-not-runtime",
-      "runid-missing",
-      "sha-mismatch"
-    ],
-    "note": "Bu snapshot HEAD ile doğrulanamıyor (kaynak türü ve run ID yok, commitSha güncel HEAD ile eşleşmiyor). Gerçek bir Playwright koşumu yapılmadan güncel PASS gibi kullanılmamalıdır; tazelemek için: npm run report:runtime (gerçek test-results/report.json ile)."
-  },
+  "generatedAt": "2026-08-06T11:16:12.542Z",
   "source": {
-    "commitSha": "88033f03ef638c926243e66ae525c66805bfd0a1",
+    "sourceType": "playwright-json-run",
+    "commitSha": "0707f82699d7cf6847719034d830e5c50d360f63",
     "environment": "production-read-only",
     "browser": "chromium",
-    "project": "setup",
-    "runId": null,
-    "inputPath": "report.json",
-    "runStartedAt": "2026-08-02T19:41:20.208Z"
+    "project": "chromium-authed",
+    "runId": "31096164216",
+    "inputPath": "merged-flat.json",
+    "runStartedAt": "2026-08-06T11:11:05.301Z"
   },
   "inventory": {
-    "registeredRoutes": 55,
-    "testedPagesContracts": 36,
+    "registeredRoutes": 87,
+    "testedPagesContracts": 48,
     "knownBugs": {
-      "total": 50,
-      "open": 49,
+      "total": 61,
+      "open": 60,
       "fixedCandidate": 0,
       "closed": 1,
-      "unmappedFindings": 14
+      "unmappedFindings": 2
     },
-    "definedLogical": 1028,
-    "projectExpandedListed": 3434,
+    "definedLogical": null,
+    "projectExpandedListed": null,
     "runnableInventory": null,
-    "listInventorySource": "provided"
+    "listInventorySource": "not-provided",
+    "manifestTotalSpecs": 134,
+    "productionSafeSelectable": 98,
+    "stagingRequired": 36,
+    "skippedByPolicy": 36,
+    "manifestCountsSource": "provided"
   },
   "runtime": {
-    "selectedThisRun": 56,
-    "executedThisRun": 56,
-    "passedThisRun": 56,
+    "selectedThisRun": 87,
+    "executedThisRun": 87,
+    "passedThisRun": 87,
     "failedThisRun": 0,
     "flakyThisRun": 0,
     "skippedThisRun": 0,
+    "notRunThisRun": 0,
     "knownBugExpectedFail": 0,
+    "observedAttempts": 87,
     "routeStatusTotals": {
-      "PASS": 55,
+      "PASS": 83,
       "FAIL": 0,
       "FLAKY": 0,
       "BLOCKED": 0,
-      "NOT_RUN": 0
+      "NOT_RUN": 4
+    },
+    "canonical": {
+      "PASS": 83,
+      "FAIL": 0,
+      "FLAKY": 0,
+      "BLOCKED": 0,
+      "NOT_RUN": 4,
+      "EXPECTED_KNOWN_BUG": 0,
+      "SKIPPED_BY_POLICY": 36
     }
   },
+  "failingTestKeys": [],
   "pages": [
     {
       "route": "/",
       "heading": "Dashboard",
       "pageIds": [
+        "dashboard",
         "main-navigation"
       ],
       "baselineStatus": "PASS",
@@ -65,90 +75,22 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5423,
+      "durationMs": 9317,
       "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/inbox",
-      "heading": "Inbox",
-      "pageIds": [
-        "main-navigation"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6108,
-      "specFiles": [
+        "dashboard-actions.authed.spec.js",
+        "dashboard.authed.spec.js",
         "quality-baseline.authed.spec.js"
       ],
       "bugs": [
         {
-          "id": "B3",
-          "severity": "high",
+          "id": "DASH-AI-I18N",
+          "severity": "low",
           "status": "open"
         },
         {
-          "id": "B8",
-          "severity": "high",
-          "status": "closed"
-        }
-      ]
-    },
-    {
-      "route": "/voice",
-      "heading": "Live Calls",
-      "pageIds": [
-        "main-navigation"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 7707,
-      "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/channels",
-      "heading": "Channels",
-      "pageIds": [
-        "channels-hub",
-        "main-navigation"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 8210,
-      "specFiles": [
-        "channels-hub.authed.spec.js",
-        "quality-baseline.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "B5",
+          "id": "DASH-CLICKHOUSE",
           "severity": "medium",
           "status": "open"
         }
@@ -168,8 +110,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 8119,
+      "durationMs": 10513,
       "specFiles": [
         "quality-baseline.authed.spec.js"
       ],
@@ -187,11 +130,9 @@
       ]
     },
     {
-      "route": "/campaigns",
-      "heading": "Campaigns",
-      "pageIds": [
-        "main-navigation"
-      ],
+      "route": "/ai/prompts",
+      "heading": null,
+      "pageIds": [],
       "baselineStatus": "PASS",
       "statusReason": "passed",
       "selected": 1,
@@ -200,25 +141,22 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 7158,
-      "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
+      "durationMs": 12886,
+      "specFiles": [],
       "bugs": [
         {
-          "id": "B2",
-          "severity": "high",
+          "id": "AI-PROMPTS-CONSOLE",
+          "severity": "medium",
           "status": "open"
         }
       ]
     },
     {
-      "route": "/bot-builder",
-      "heading": "Bot Builder",
-      "pageIds": [
-        "main-navigation"
-      ],
+      "route": "/ai/chatbot",
+      "heading": null,
+      "pageIds": [],
       "baselineStatus": "PASS",
       "statusReason": "passed",
       "selected": 1,
@@ -227,19 +165,16 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5246,
-      "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
+      "durationMs": 12144,
+      "specFiles": [],
       "bugs": []
     },
     {
-      "route": "/contacts",
-      "heading": "Contacts",
-      "pageIds": [
-        "main-navigation"
-      ],
+      "route": "/ai/copilot",
+      "heading": null,
+      "pageIds": [],
       "baselineStatus": "PASS",
       "statusReason": "passed",
       "selected": 1,
@@ -248,30 +183,16 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 6946,
-      "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "CONTACTS-F1",
-          "severity": "medium",
-          "status": "open"
-        },
-        {
-          "id": "CONTACTS-F2",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
+      "durationMs": 13517,
+      "specFiles": [],
+      "bugs": []
     },
     {
-      "route": "/tickets",
-      "heading": "Tickets",
-      "pageIds": [
-        "main-navigation"
-      ],
+      "route": "/ai/knowledge-base",
+      "heading": null,
+      "pageIds": [],
       "baselineStatus": "PASS",
       "statusReason": "passed",
       "selected": 1,
@@ -280,11 +201,82 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 6016,
-      "specFiles": [
-        "quality-baseline.authed.spec.js"
-      ],
+      "durationMs": 12982,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/ai/providers",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13485,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/ai/sentiment",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13989,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/ai/usage",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12827,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/ai/voice",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12583,
+      "specFiles": [],
       "bugs": []
     },
     {
@@ -301,8 +293,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5458,
+      "durationMs": 13663,
       "specFiles": [
         "quality-baseline.authed.spec.js"
       ],
@@ -325,8 +318,8 @@
       ]
     },
     {
-      "route": "/reports",
-      "heading": "Reports",
+      "route": "/bot-builder",
+      "heading": "Bot Builder",
       "pageIds": [
         "main-navigation"
       ],
@@ -338,27 +331,46 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5576,
+      "durationMs": 12616,
       "specFiles": [
         "quality-baseline.authed.spec.js"
       ],
       "bugs": [
         {
-          "id": "REPORTS-AIKEY",
-          "severity": "medium",
+          "id": "BOT-BUILDER-CLOSE-I18N",
+          "severity": "low",
           "status": "open"
         },
         {
-          "id": "REPORTS-INTL",
-          "severity": "medium",
+          "id": "BOT-BUILDER-TEMPLATE-I18N",
+          "severity": "high",
           "status": "open"
         }
       ]
     },
     {
-      "route": "/supervisor",
-      "heading": "Supervisor",
+      "route": "/bot-builder/:id",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "NOT_RUN",
+      "statusReason": "inventory-only",
+      "selected": 0,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": null,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/campaigns",
+      "heading": "Campaigns",
       "pageIds": [
         "main-navigation"
       ],
@@ -370,103 +382,24 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 7099,
+      "durationMs": 13020,
       "specFiles": [
         "quality-baseline.authed.spec.js"
       ],
-      "bugs": []
-    },
-    {
-      "route": "/workforce",
-      "heading": "Workforce Management",
-      "pageIds": [
-        "main-navigation",
-        "workforce"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4567,
-      "specFiles": [
-        "quality-baseline.authed.spec.js",
-        "workforce-mutations.authed.spec.js",
-        "workforce.authed.spec.js"
-      ],
       "bugs": [
         {
-          "id": "WORKFORCE-ADHERENCE-I18N",
-          "severity": "low",
-          "status": "open"
-        },
-        {
-          "id": "WORKFORCE-ADHERENCE-RANGE-STATE",
-          "severity": "low",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/settings",
-      "heading": "Settings",
-      "pageIds": [
-        "main-navigation",
-        "settings-hub"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4849,
-      "specFiles": [
-        "quality-baseline.authed.spec.js",
-        "settings.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "B4",
-          "severity": "high",
-          "status": "open"
-        },
-        {
-          "id": "B6",
-          "severity": "medium",
-          "status": "open"
-        },
-        {
-          "id": "B7",
-          "severity": "medium",
-          "status": "open"
-        },
-        {
-          "id": "SETTINGS-BILLING-CHANGEPLAN",
-          "severity": "high",
-          "status": "open"
-        },
-        {
-          "id": "SETTINGS-BILLING-HISTORY",
+          "id": "B2",
           "severity": "high",
           "status": "open"
         }
       ]
     },
     {
-      "route": "/reports/dashboards",
+      "route": "/campaigns/outbound",
       "heading": null,
-      "pageIds": [
-        "reports-dashboards"
-      ],
+      "pageIds": [],
       "baselineStatus": "PASS",
       "statusReason": "passed",
       "selected": 1,
@@ -475,25 +408,47 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 7895,
-      "specFiles": [
-        "reports-dashboards-mutations.authed.spec.js",
-        "reports-dashboards.authed.spec.js"
-      ],
+      "durationMs": 13703,
+      "specFiles": [],
       "bugs": [
         {
-          "id": "DASHBOARDS-SHARE-OVERFLOW",
+          "id": "CAMPAIGNS-ICON-A11Y",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "CAMPAIGNS-PAGER",
           "severity": "medium",
           "status": "open"
         }
       ]
     },
     {
-      "route": "/reports/call",
+      "route": "/campaigns/create",
       "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11919,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/channels",
+      "heading": "Channels",
       "pageIds": [
-        "reports-sections"
+        "channels-hub",
+        "main-navigation"
       ],
       "baselineStatus": "PASS",
       "statusReason": "passed",
@@ -503,784 +458,16 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5441,
+      "durationMs": 10286,
       "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
+        "channels-hub.authed.spec.js",
+        "quality-baseline.authed.spec.js"
       ],
       "bugs": [
         {
-          "id": "REPORTS-SECTIONS-TZ",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/reports/agent",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6143,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/queue",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6505,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/campaign",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5780,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/channel",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5084,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/ai",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5925,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/quality",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 8502,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/csat",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 7056,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/billing",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5191,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/reports/sla",
-      "heading": null,
-      "pageIds": [
-        "reports-sections"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 8048,
-      "specFiles": [
-        "reports-schedule-mutations.authed.spec.js",
-        "reports-sections.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/profile",
-      "heading": null,
-      "pageIds": [
-        "settings-profile"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6772,
-      "specFiles": [
-        "settings-profile-mutations.authed.spec.js",
-        "settings-profile.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/organization",
-      "heading": null,
-      "pageIds": [
-        "settings-organization"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5100,
-      "specFiles": [
-        "settings-organization-mutations.authed.spec.js",
-        "settings-organization.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/users",
-      "heading": null,
-      "pageIds": [
-        "settings-users"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5573,
-      "specFiles": [
-        "known-bugs-invite.mutation.authed.spec.js",
-        "settings-users.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/roles",
-      "heading": null,
-      "pageIds": [
-        "settings-roles"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5584,
-      "specFiles": [
-        "settings-roles-mutations.authed.spec.js",
-        "settings-roles.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/compliance",
-      "heading": null,
-      "pageIds": [
-        "settings-compliance"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4286,
-      "specFiles": [
-        "settings-compliance-mutations.authed.spec.js",
-        "settings-compliance.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/teams",
-      "heading": null,
-      "pageIds": [
-        "settings-teams"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4051,
-      "specFiles": [
-        "settings-teams-mutations.authed.spec.js",
-        "settings-teams.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/hours",
-      "heading": null,
-      "pageIds": [
-        "settings-hours"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 7755,
-      "specFiles": [
-        "settings-hours-mutations.authed.spec.js",
-        "settings-hours.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/automations",
-      "heading": null,
-      "pageIds": [
-        "settings-automations"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4384,
-      "specFiles": [
-        "settings-automations-mutations.authed.spec.js",
-        "settings-automations.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/sla",
-      "heading": null,
-      "pageIds": [
-        "settings-sla"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6618,
-      "specFiles": [
-        "settings-sla-mutations.authed.spec.js",
-        "settings-sla.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/templates",
-      "heading": null,
-      "pageIds": [
-        "settings-templates"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6518,
-      "specFiles": [
-        "settings-templates-mutations.authed.spec.js",
-        "settings-templates.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/disposition-codes",
-      "heading": null,
-      "pageIds": [
-        "settings-disposition-codes"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5223,
-      "specFiles": [
-        "settings-disposition-codes-mutations.authed.spec.js",
-        "settings-disposition-codes.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/canned-responses",
-      "heading": null,
-      "pageIds": [
-        "settings-canned-responses"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5709,
-      "specFiles": [
-        "settings-canned-responses-mutations.authed.spec.js",
-        "settings-canned-responses.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/integrations",
-      "heading": null,
-      "pageIds": [
-        "settings-integrations"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5701,
-      "specFiles": [
-        "settings-integrations-mutations.authed.spec.js",
-        "settings-integrations.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/security",
-      "heading": null,
-      "pageIds": [
-        "settings-security"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5731,
-      "specFiles": [
-        "settings-security-mutations.authed.spec.js",
-        "settings-security.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/data-retention",
-      "heading": null,
-      "pageIds": [
-        "settings-data-retention"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5380,
-      "specFiles": [
-        "settings-data-retention-mutations.authed.spec.js",
-        "settings-data-retention.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/notifications",
-      "heading": null,
-      "pageIds": [
-        "settings-notifications"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4469,
-      "specFiles": [
-        "settings-notifications-mutations.authed.spec.js",
-        "settings-notifications.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/api-keys",
-      "heading": null,
-      "pageIds": [
-        "settings-api-keys"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5236,
-      "specFiles": [
-        "settings-api-keys-mutations.authed.spec.js",
-        "settings-api-keys.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/webhooks",
-      "heading": null,
-      "pageIds": [
-        "settings-webhooks"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5494,
-      "specFiles": [
-        "settings-webhooks-mutations.authed.spec.js",
-        "settings-webhooks.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/settings/audit",
-      "heading": null,
-      "pageIds": [
-        "settings-audit"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6580,
-      "specFiles": [
-        "settings-audit.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/workforce/schedules",
-      "heading": null,
-      "pageIds": [
-        "workforce-schedules"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 7188,
-      "specFiles": [
-        "workforce-schedules.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "WORKFORCE-SCHEDULE-CELL-A11Y",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/workforce/time-off",
-      "heading": null,
-      "pageIds": [
-        "workforce-time-off"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 5057,
-      "specFiles": [
-        "workforce-time-off.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/workforce/surveys",
-      "heading": null,
-      "pageIds": [
-        "workforce-surveys"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 7619,
-      "specFiles": [
-        "workforce-surveys-mutations.authed.spec.js",
-        "workforce-surveys.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "WORKFORCE-SURVEYS-ICON-A11Y",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/workforce/badges",
-      "heading": null,
-      "pageIds": [
-        "workforce-badges"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 4667,
-      "specFiles": [
-        "workforce-badges-mutations.authed.spec.js",
-        "workforce-badges.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "WORKFORCE-BADGES-NO-EDIT-DELETE",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/workforce/evaluations",
-      "heading": null,
-      "pageIds": [
-        "workforce-evaluations"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6912,
-      "specFiles": [
-        "workforce-evaluations-mutations.authed.spec.js",
-        "workforce-evaluations.authed.spec.js"
-      ],
-      "bugs": []
-    },
-    {
-      "route": "/channels/webchat",
-      "heading": null,
-      "pageIds": [
-        "channels-webchat"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6559,
-      "specFiles": [
-        "channels-webchat-mutations.authed.spec.js",
-        "channels-webchat.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "B20",
+          "id": "B5",
           "severity": "medium",
           "status": "open"
         }
@@ -1300,8 +487,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 6970,
+      "durationMs": 11470,
       "specFiles": [
         "channels-email-mutations.authed.spec.js",
         "channels-email.authed.spec.js"
@@ -1338,8 +526,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 7113,
+      "durationMs": 10720,
       "specFiles": [
         "channels-sms-mutations.authed.spec.js",
         "channels-sms.authed.spec.js"
@@ -1352,39 +541,6 @@
         },
         {
           "id": "B22",
-          "severity": "medium",
-          "status": "open"
-        }
-      ]
-    },
-    {
-      "route": "/channels/whatsapp",
-      "heading": null,
-      "pageIds": [
-        "channels-whatsapp"
-      ],
-      "baselineStatus": "PASS",
-      "statusReason": "passed",
-      "selected": 1,
-      "executed": 1,
-      "passed": 1,
-      "failed": 0,
-      "flaky": 0,
-      "skipped": 0,
-      "knownBugExpectedFail": 0,
-      "durationMs": 6074,
-      "specFiles": [
-        "channels-whatsapp-mutations.authed.spec.js",
-        "channels-whatsapp.authed.spec.js"
-      ],
-      "bugs": [
-        {
-          "id": "B19",
-          "severity": "medium",
-          "status": "open"
-        },
-        {
-          "id": "B23",
           "severity": "medium",
           "status": "open"
         }
@@ -1404,8 +560,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 5290,
+      "durationMs": 9683,
       "specFiles": [
         "channels-social-mutations.authed.spec.js",
         "channels-social.authed.spec.js"
@@ -1437,8 +594,9 @@
       "failed": 0,
       "flaky": 0,
       "skipped": 0,
+      "notRun": 0,
       "knownBugExpectedFail": 0,
-      "durationMs": 4254,
+      "durationMs": 9245,
       "specFiles": [
         "channels-video-mutations.authed.spec.js",
         "channels-video.authed.spec.js"
@@ -1450,9 +608,1719 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/channels/webchat",
+      "heading": null,
+      "pageIds": [
+        "channels-webchat"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 7678,
+      "specFiles": [
+        "channels-webchat-interactions.authed.spec.js",
+        "channels-webchat-mutations.authed.spec.js",
+        "channels-webchat.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B20",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/channels/whatsapp",
+      "heading": null,
+      "pageIds": [
+        "channels-whatsapp"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11873,
+      "specFiles": [
+        "channels-whatsapp-mutations.authed.spec.js",
+        "channels-whatsapp.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B19",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "B23",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/contacts",
+      "heading": "Contacts",
+      "pageIds": [
+        "main-navigation"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12066,
+      "specFiles": [
+        "quality-baseline.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "CONTACTS-F1",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "CONTACTS-F2",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/contacts/import",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13799,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/contacts/segments",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13547,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/contacts/:id",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "NOT_RUN",
+      "statusReason": "inventory-only",
+      "selected": 0,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": null,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/inbox",
+      "heading": "Inbox",
+      "pageIds": [
+        "main-navigation"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13107,
+      "specFiles": [
+        "quality-baseline.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B3",
+          "severity": "high",
+          "status": "open"
+        },
+        {
+          "id": "B8",
+          "severity": "high",
+          "status": "closed"
+        }
+      ]
+    },
+    {
+      "route": "/reports",
+      "heading": "Reports",
+      "pageIds": [
+        "main-navigation"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12979,
+      "specFiles": [
+        "quality-baseline.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "REPORTS-AIKEY",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "REPORTS-INTL",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/reports/agent",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13623,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/ai",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12905,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/billing",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12901,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/call",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12090,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "REPORTS-SECTIONS-TZ",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/reports/campaign",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13700,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/channel",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12994,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/csat",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11055,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/dashboards",
+      "heading": null,
+      "pageIds": [
+        "reports-dashboards"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10496,
+      "specFiles": [
+        "reports-dashboards-interactions.authed.spec.js",
+        "reports-dashboards-mutations.authed.spec.js",
+        "reports-dashboards.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "DASHBOARDS-SHARE-OVERFLOW",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/reports/quality",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10583,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/queue",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10463,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/reports/sla",
+      "heading": null,
+      "pageIds": [
+        "reports-sections"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 9831,
+      "specFiles": [
+        "reports-schedule-mutations.authed.spec.js",
+        "reports-sections-interactions.authed.spec.js",
+        "reports-sections.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings",
+      "heading": "Settings",
+      "pageIds": [
+        "main-navigation",
+        "settings-hub"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8175,
+      "specFiles": [
+        "quality-baseline.authed.spec.js",
+        "settings-interactions.authed.spec.js",
+        "settings.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B4",
+          "severity": "high",
+          "status": "open"
+        },
+        {
+          "id": "B6",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "B7",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "SETTINGS-BILLING-CHANGEPLAN",
+          "severity": "high",
+          "status": "open"
+        },
+        {
+          "id": "SETTINGS-BILLING-HISTORY",
+          "severity": "high",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/settings/api-keys",
+      "heading": null,
+      "pageIds": [
+        "settings-api-keys"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 6685,
+      "specFiles": [
+        "settings-api-keys-interactions.authed.spec.js",
+        "settings-api-keys-mutations.authed.spec.js",
+        "settings-api-keys.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/audit",
+      "heading": null,
+      "pageIds": [
+        "settings-audit"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 5622,
+      "specFiles": [
+        "settings-audit-interactions.authed.spec.js",
+        "settings-audit.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/automations",
+      "heading": null,
+      "pageIds": [
+        "settings-automations"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 4851,
+      "specFiles": [
+        "settings-automations-interactions.authed.spec.js",
+        "settings-automations-mutations.authed.spec.js",
+        "settings-automations.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/billing",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "NOT_RUN",
+      "statusReason": "inventory-only",
+      "selected": 0,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": null,
+      "specFiles": [],
+      "bugs": [
+        {
+          "id": "SETTINGS-BILLING-REDIRECT",
+          "severity": "high",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/settings/billing/marketplace",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "NOT_RUN",
+      "statusReason": "inventory-only",
+      "selected": 0,
+      "executed": 0,
+      "passed": 0,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": null,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/settings/canned-responses",
+      "heading": null,
+      "pageIds": [
+        "settings-canned-responses"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 7247,
+      "specFiles": [
+        "settings-canned-responses-interactions.authed.spec.js",
+        "settings-canned-responses-mutations.authed.spec.js",
+        "settings-canned-responses.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/compliance",
+      "heading": null,
+      "pageIds": [
+        "settings-compliance"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 5948,
+      "specFiles": [
+        "settings-compliance-mutations.authed.spec.js",
+        "settings-compliance.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/data-retention",
+      "heading": null,
+      "pageIds": [
+        "settings-data-retention"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10613,
+      "specFiles": [
+        "settings-data-retention-mutations.authed.spec.js",
+        "settings-data-retention.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/disposition-codes",
+      "heading": null,
+      "pageIds": [
+        "settings-disposition-codes"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11991,
+      "specFiles": [
+        "settings-disposition-codes-interactions.authed.spec.js",
+        "settings-disposition-codes-mutations.authed.spec.js",
+        "settings-disposition-codes.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/hours",
+      "heading": null,
+      "pageIds": [
+        "settings-hours"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 9593,
+      "specFiles": [
+        "settings-hours-mutations.authed.spec.js",
+        "settings-hours.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/integrations",
+      "heading": null,
+      "pageIds": [
+        "settings-integrations"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10280,
+      "specFiles": [
+        "settings-integrations-mutations.authed.spec.js",
+        "settings-integrations.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/notifications",
+      "heading": null,
+      "pageIds": [
+        "settings-notifications"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10078,
+      "specFiles": [
+        "settings-notifications-mutations.authed.spec.js",
+        "settings-notifications.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/organization",
+      "heading": null,
+      "pageIds": [
+        "settings-organization"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13073,
+      "specFiles": [
+        "settings-organization-mutations.authed.spec.js",
+        "settings-organization.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/profile",
+      "heading": null,
+      "pageIds": [
+        "settings-profile"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 14765,
+      "specFiles": [
+        "settings-profile-interactions.authed.spec.js",
+        "settings-profile-mutations.authed.spec.js",
+        "settings-profile.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/roles",
+      "heading": null,
+      "pageIds": [
+        "settings-roles"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12907,
+      "specFiles": [
+        "settings-roles-interactions.authed.spec.js",
+        "settings-roles-mutations.authed.spec.js",
+        "settings-roles.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/security",
+      "heading": null,
+      "pageIds": [
+        "settings-security"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 7724,
+      "specFiles": [
+        "settings-security-mutations.authed.spec.js",
+        "settings-security.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/sla",
+      "heading": null,
+      "pageIds": [
+        "settings-sla"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 10573,
+      "specFiles": [
+        "settings-sla-interactions.authed.spec.js",
+        "settings-sla-mutations.authed.spec.js",
+        "settings-sla.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/teams",
+      "heading": null,
+      "pageIds": [
+        "settings-teams"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12166,
+      "specFiles": [
+        "settings-teams-mutations.authed.spec.js",
+        "settings-teams.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/templates",
+      "heading": null,
+      "pageIds": [
+        "settings-templates"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13338,
+      "specFiles": [
+        "settings-templates-interactions.authed.spec.js",
+        "settings-templates-mutations.authed.spec.js",
+        "settings-templates.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/users",
+      "heading": null,
+      "pageIds": [
+        "settings-users"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11859,
+      "specFiles": [
+        "known-bugs-invite.mutation.authed.spec.js",
+        "settings-users-interactions.authed.spec.js",
+        "settings-users.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/settings/webhooks",
+      "heading": null,
+      "pageIds": [
+        "settings-webhooks"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11843,
+      "specFiles": [
+        "settings-webhooks-interactions.authed.spec.js",
+        "settings-webhooks-mutations.authed.spec.js",
+        "settings-webhooks.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/supervisor",
+      "heading": "Supervisor",
+      "pageIds": [
+        "main-navigation"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13024,
+      "specFiles": [
+        "quality-baseline.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/supervisor/agents",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 14543,
+      "specFiles": [],
+      "bugs": [
+        {
+          "id": "AGENTS-TZ",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/supervisor/calls",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 11435,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/supervisor/coaching",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13212,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/supervisor/interactions",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 12107,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/supervisor/wallboard",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 6966,
+      "specFiles": [],
+      "bugs": [
+        {
+          "id": "WALLBOARD-AUTOSCROLL",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "WALLBOARD-I18N",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "WALLBOARD-LIVE-TZ",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "WALLBOARD-RESUME-I18N",
+          "severity": "low",
+          "status": "open"
+        },
+        {
+          "id": "WALLBOARD-THEME",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/tickets",
+      "heading": "Tickets",
+      "pageIds": [
+        "main-navigation"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 6677,
+      "specFiles": [
+        "quality-baseline.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice",
+      "heading": "Live Calls",
+      "pageIds": [
+        "main-navigation",
+        "voice-hub"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8553,
+      "specFiles": [
+        "quality-baseline.authed.spec.js",
+        "voice-subnav.authed.spec.js",
+        "voice.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice/live",
+      "heading": null,
+      "pageIds": [],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 7078,
+      "specFiles": [],
+      "bugs": []
+    },
+    {
+      "route": "/voice/dids",
+      "heading": null,
+      "pageIds": [
+        "voice-dids"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 5911,
+      "specFiles": [
+        "voice-dids-mutations.authed.spec.js",
+        "voice-dids.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B14",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/history",
+      "heading": null,
+      "pageIds": [
+        "voice-history"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 9869,
+      "specFiles": [
+        "voice-history.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "VOICE-HISTORY-A11Y-LABEL",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/ivr",
+      "heading": null,
+      "pageIds": [
+        "voice-ivr"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8797,
+      "specFiles": [
+        "voice-ivr-mutations.authed.spec.js",
+        "voice-ivr.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice/queues",
+      "heading": null,
+      "pageIds": [
+        "voice-queues"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 7149,
+      "specFiles": [
+        "voice-queues-mutations.authed.spec.js",
+        "voice-queues.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice/recordings",
+      "heading": null,
+      "pageIds": [
+        "voice-recordings"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 13977,
+      "specFiles": [
+        "voice-recordings.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "VOICE-RECORDINGS-A11Y-LABEL",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/regulatory",
+      "heading": null,
+      "pageIds": [
+        "voice-regulatory"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 16995,
+      "specFiles": [
+        "voice-regulatory.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B1",
+          "severity": "critical",
+          "status": "open"
+        },
+        {
+          "id": "B10",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "VOICE-REGULATORY-BROKEN",
+          "severity": "high",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/sip-settings",
+      "heading": null,
+      "pageIds": [
+        "voice-sip-settings"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 9631,
+      "specFiles": [
+        "voice-sip-settings.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice/sip-trunks",
+      "heading": null,
+      "pageIds": [
+        "voice-sip-trunks"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 9766,
+      "specFiles": [
+        "voice-sip-trunks.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "VOICE-SIP-TRUNKS-SUBTITLE-I18N",
+          "severity": "low",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/voice/skills",
+      "heading": null,
+      "pageIds": [
+        "voice-skills"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8436,
+      "specFiles": [
+        "voice-skills.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/voice/voicemail",
+      "heading": null,
+      "pageIds": [
+        "voice-voicemail"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8421,
+      "specFiles": [
+        "voice-voicemail.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "B11",
+          "severity": "medium",
+          "status": "open"
+        },
+        {
+          "id": "VOICEMAIL-PAGER-I18N",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/workforce",
+      "heading": "Workforce Management",
+      "pageIds": [
+        "main-navigation",
+        "workforce"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 6473,
+      "specFiles": [
+        "quality-baseline.authed.spec.js",
+        "workforce-interactions.authed.spec.js",
+        "workforce-mutations.authed.spec.js",
+        "workforce.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "WORKFORCE-ADHERENCE-I18N",
+          "severity": "low",
+          "status": "open"
+        },
+        {
+          "id": "WORKFORCE-ADHERENCE-RANGE-STATE",
+          "severity": "low",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/workforce/badges",
+      "heading": null,
+      "pageIds": [
+        "workforce-badges"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 5937,
+      "specFiles": [
+        "workforce-badges-interactions.authed.spec.js",
+        "workforce-badges-mutations.authed.spec.js",
+        "workforce-badges.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "WORKFORCE-BADGES-NO-EDIT-DELETE",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/workforce/evaluations",
+      "heading": null,
+      "pageIds": [
+        "workforce-evaluations"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8106,
+      "specFiles": [
+        "workforce-evaluations-mutations.authed.spec.js",
+        "workforce-evaluations.authed.spec.js"
+      ],
+      "bugs": []
+    },
+    {
+      "route": "/workforce/schedules",
+      "heading": null,
+      "pageIds": [
+        "workforce-schedules"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 8534,
+      "specFiles": [
+        "workforce-schedules-interactions.authed.spec.js",
+        "workforce-schedules.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "WORKFORCE-SCHEDULE-CELL-A11Y",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/workforce/surveys",
+      "heading": null,
+      "pageIds": [
+        "workforce-surveys"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 5452,
+      "specFiles": [
+        "workforce-surveys-mutations.authed.spec.js",
+        "workforce-surveys.authed.spec.js"
+      ],
+      "bugs": [
+        {
+          "id": "WORKFORCE-SURVEYS-ICON-A11Y",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "route": "/workforce/time-off",
+      "heading": null,
+      "pageIds": [
+        "workforce-time-off"
+      ],
+      "baselineStatus": "PASS",
+      "statusReason": "passed",
+      "selected": 1,
+      "executed": 1,
+      "passed": 1,
+      "failed": 0,
+      "flaky": 0,
+      "skipped": 0,
+      "notRun": 0,
+      "knownBugExpectedFail": 0,
+      "durationMs": 6957,
+      "specFiles": [
+        "workforce-time-off.authed.spec.js"
+      ],
+      "bugs": []
     }
   ],
   "unmappedTests": [
+    {
+      "file": "auth.setup.js",
+      "title": "kimlik doğrula",
+      "project": "setup",
+      "status": "passed",
+      "errorClass": "passed",
+      "routeMarker": null
+    },
+    {
+      "file": "auth.setup.js",
+      "title": "kimlik doğrula",
+      "project": "setup",
+      "status": "passed",
+      "errorClass": "passed",
+      "routeMarker": null
+    },
+    {
+      "file": "auth.setup.js",
+      "title": "kimlik doğrula",
+      "project": "setup",
+      "status": "passed",
+      "errorClass": "passed",
+      "routeMarker": null
+    },
     {
       "file": "auth.setup.js",
       "title": "kimlik doğrula",
@@ -1464,89 +2332,26 @@
   ],
   "unmappedFindings": [
     {
-      "id": "B1",
-      "severity": "critical",
-      "status": "open",
-      "route": "/voice/regulatory"
-    },
-    {
-      "id": "B10",
+      "id": "BOT-BUILDER-EDITOR-GATE-I18N",
       "severity": "medium",
       "status": "open",
-      "route": "/voice/regulatory"
+      "route": "/bot-builder/{id}"
     },
     {
-      "id": "B11",
+      "id": "BOT-BUILDER-EDITOR-A11Y",
       "severity": "medium",
       "status": "open",
-      "route": "/voice/voicemail"
-    },
-    {
-      "id": "AI-PROMPTS-CONSOLE",
-      "severity": "medium",
-      "status": "open",
-      "route": "/ai/prompts"
-    },
-    {
-      "id": "B14",
-      "severity": "medium",
-      "status": "open",
-      "route": "/voice/dids"
-    },
-    {
-      "id": "CAMPAIGNS-PAGER",
-      "severity": "medium",
-      "status": "open",
-      "route": "/campaigns/outbound"
-    },
-    {
-      "id": "CAMPAIGNS-ICON-A11Y",
-      "severity": "medium",
-      "status": "open",
-      "route": "/campaigns/outbound"
-    },
-    {
-      "id": "AGENTS-TZ",
-      "severity": "medium",
-      "status": "open",
-      "route": "/supervisor/agents"
-    },
-    {
-      "id": "WALLBOARD-I18N",
-      "severity": "medium",
-      "status": "open",
-      "route": "/supervisor/wallboard"
-    },
-    {
-      "id": "WALLBOARD-THEME",
-      "severity": "medium",
-      "status": "open",
-      "route": "/supervisor/wallboard"
-    },
-    {
-      "id": "WALLBOARD-AUTOSCROLL",
-      "severity": "medium",
-      "status": "open",
-      "route": "/supervisor/wallboard"
-    },
-    {
-      "id": "WALLBOARD-LIVE-TZ",
-      "severity": "medium",
-      "status": "open",
-      "route": "/supervisor/wallboard"
-    },
-    {
-      "id": "WALLBOARD-RESUME-I18N",
-      "severity": "low",
-      "status": "open",
-      "route": "/supervisor/wallboard"
-    },
-    {
-      "id": "SETTINGS-BILLING-REDIRECT",
-      "severity": "high",
-      "status": "open",
-      "route": "/settings/billing"
+      "route": "/bot-builder/{id}"
     }
   ],
-  "warnings": []
+  "warnings": [],
+  "provenance": {
+    "verdict": "STALE",
+    "reasons": [
+      "sha-mismatch"
+    ],
+    "checkedAgainstSha": "39068b88b765ce3bfaf4f78ccf26a49a04998aad",
+    "observedExecution": true,
+    "note": "Kaynak koşum commit 0707f82 (readonly-audit run 31096164216) karşı doğrulandı; kommitlenmiş rapor HEAD ile yeniden doğrulandı → STALE. PR yalnız rapor/doküman değiştirir (spec/rota yok), runtime verisi içerik olarak geçerli."
+  }
 }
