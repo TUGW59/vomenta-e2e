@@ -304,6 +304,10 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'settings-roles.authed.spec.js',
       'settings-roles-interactions.authed.spec.js',
       'settings-roles-mutations.authed.spec.js',
+      // RBAC matris kontratı (FAZ 2): salt-okunur @data @regression; katalog=113,
+      // 6 rol izin kümeleri + UI kategori sayaçları contract ile birebir. i18n/a11y/
+      // layout vb. zaten settings-roles.authed.spec.js'te kapsanır (union kapsama).
+      'settings-roles-rbac.authed.spec.js',
     ],
     archetype: {
       hasData: true,
