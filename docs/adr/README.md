@@ -36,8 +36,15 @@ sınırı ihlali gibi kararlar bu klasöre bir ADR gerektirir (bkz. [CONTRIBUTIN
 | [0020](0020-route-inventory-from-product-surfaces.md) | Rota envanterini kanonik ürün yüzeyinden türet (FAZ 3) | Kabul edildi |
 | [0021](0021-canonical-surface-reconciliation.md) | Tüm bilinen yüzeylerin uzlaştırılması ve ilk dürüst yüzey envanteri | Kabul edildi |
 | [0022](0022-unified-report-engine.md) | Birleşik rapor motoru ve matrislerin tek kanonik yüzey modelinden üretimi | Kabul edildi |
+| [0023](0023-auth-transient-gateway-resilience.md) | Auth setup için sınırlı geçici-gateway retry + "hiç çalışmadı" = NOT_RUN | Kabul edildi |
+| [0024](0024-pr-impact-broad-change-cap.md) | PR-impact broad-change cap — geniş authed fan-out'u nightly'ye ertele | Kabul edildi |
+| [0025](0025-pr-impact-shard-controlled-retry.md) | PR change-impact lane — shard + kontrollü altyapı-retry + aggregate gate | Kabul edildi |
+| [0026](0026-evidence-pipeline.md) | Kanıt hattı (evidence pipeline) mimari sözleşmesi | Kabul edildi |
+| [0027](0027-sharded-readonly-audit.md) | Sharded read-only audit lane (4 parça + deterministik birleştirme) | Kabul edildi |
+| [0028](0028-authed-navigation-gateway-resilience.md) | Authed navigasyon için sınırlı geçici-gateway retry | Kabul edildi |
+| [0029](0029-l2-deep-ratchet.md) | L2·deep etkileşim-derinliği ratchet'i (backlog + kapı + iki muafiyet) | Kabul edildi |
+| [0030](0030-rbac-capability-testing.md) | Rol-izin (RBAC) yetenek testi — kontrat-güdümlü, tek-hesap kapsamı | Kabul edildi |
 
 ## Sonraki numara
 
-Kullanılan en yüksek numara **0022**'dir. Aktif çalışmada **0023** (kanıt hattı /
-evidence-pipeline, bkz. açık PR) ayrılmıştır. Yeni ADR bir sonraki boş numarayı alır.
+Kullanılan en yüksek numara **0030**'dur. Yeni ADR bir sonraki boş numarayı (**0031**) alır.
