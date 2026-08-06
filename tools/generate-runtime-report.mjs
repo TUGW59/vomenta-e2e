@@ -95,6 +95,19 @@ function resolveCommitSha() {
   }
 }
 
+/**
+ * FAZ 5 provenance (ADR-0026 §5) — CI koşum linkini SADECE env'den türet (kanonik
+ * GitHub Actions run URL). Yerelde env yoksa null → rapor honest'ça runUrl basmaz.
+ * Değer commit'li source'a yazılır; render anında yeniden hesaplanmaz (determinizm).
+ */
+function resolveRunUrl() {
+  const server = process.env.GITHUB_SERVER_URL;
+  const repo = process.env.GITHUB_REPOSITORY;
+  const runId = process.env.GITHUB_RUN_ID;
+  if (!server || !repo || !runId) return null;
+  return `${server}/${repo}/actions/runs/${runId}`;
+}
+
 /** Opsiyonel statik `--list` JSON'undan envanter sayıları (yoksa null). */
 function loadListInventory(listInputPath) {
   if (!listInputPath) return null;
@@ -276,6 +289,7 @@ function main() {
         browser: 'chromium',
         project: runProject,
         runId: process.env.GITHUB_RUN_ID || (useFlat && flatSource.runId ? String(flatSource.runId) : null),
+        runUrl: resolveRunUrl() || (useFlat && flatSource.runUrl ? String(flatSource.runUrl) : null),
         inputPath,
         runStartedAt,
       },

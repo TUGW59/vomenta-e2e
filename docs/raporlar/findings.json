@@ -33,6 +33,11 @@
       "workforce": 5
     }
   },
+  "classification": {
+    "product": 61,
+    "infra": 0,
+    "infraIds": []
+  },
   "governanceFlags": {
     "ownerless": [
       "B1",

@@ -43,11 +43,17 @@ const by = (k) => KNOWN_BUGS.reduce((a, b) => ((a[b[k]] = (a[b[k]] || 0) + 1), a
 const ownerless = KNOWN_BUGS.filter((b) => b.owner === null).map((b) => b.id);
 const unverified = KNOWN_BUGS.filter((b) => b.status !== 'closed' && b.lastVerified === null).map((b) => b.id);
 
+// ── FAZ 5: Altyapı (infra) vs ürün buggı sınıflandırması (ADR-0026 §5) ──
+// infra:true → 5xx/ağ geçidi/auth-cascade arızası; GERÇEK ürün buggı DEĞİL → ayrı sayılır.
+const infraIds = KNOWN_BUGS.filter((b) => b.infra === true).map((b) => b.id);
+const productCount = KNOWN_BUGS.length - infraIds.length;
+
 // ── findings.json (makine-okur) ──
 const json = {
   note: 'OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.',
   total: KNOWN_BUGS.length,
   summary: { byStatus: by('status'), byGuard: by('guard'), bySeverity: by('severity'), byArea: by('area') },
+  classification: { product: productCount, infra: infraIds.length, infraIds },
   governanceFlags: { ownerless, unverified },
   findings: KNOWN_BUGS,
 };
@@ -66,6 +72,8 @@ L.push(`- **Toplam bulgu:** ${KNOWN_BUGS.length}`);
 L.push(`- **Durum:** ${Object.entries(by('status')).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
 L.push(`- **Guard:** ${Object.entries(by('guard')).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
 L.push(`- **Ciddiyet:** ${Object.entries(by('severity')).sort((a, b) => SEV_ORDER[a[0]] - SEV_ORDER[b[0]]).map(([k, n]) => `${k} ${n}`).join(' · ')}`);
+L.push(`- **Sınıf:** ürün ${productCount} · altyapı ${infraIds.length}${infraIds.length ? ` — ${infraIds.join(', ')}` : ''}`);
+L.push('> Not: `infra` bulgular 5xx/ağ geçidi/auth-cascade arızalarıdır (gerçek ürün buggı ile karışmaz).');
 L.push('');
 L.push('### Governance işaretleri');
 L.push(`- **Sahipsiz (owner=null):** ${ownerless.length}${ownerless.length ? ` — ${ownerless.join(', ')}` : ''}`);
@@ -99,7 +107,7 @@ for (const area of areas) {
     L.push(`### ${mdCell(route)}`);
     L.push('');
     for (const b of inArea.filter((x) => x.route === route)) {
-      L.push(`**[${b.id}] ${mdCell(b.title)}** — \`${b.severity}\` · \`${b.status}\` · guard \`${b.guard}\``);
+      L.push(`**[${b.id}] ${mdCell(b.title)}** — \`${b.severity}\` · \`${b.status}\` · guard \`${b.guard}\`${b.infra === true ? ' · `altyapı`' : ''}`);
       L.push('');
       if (b.expected) L.push(`- **Beklenen:** ${mdCell(b.expected)}`);
       if (b.actual) L.push(`- **Gerçekleşen:** ${mdCell(b.actual)}`);

@@ -9,6 +9,8 @@
 - **Durum:** open 60 · closed 1
 - **Guard:** knownBugGuard 59 · fixme 1 · permanent 1
 - **Ciddiyet:** critical 1 · high 9 · medium 44 · low 7
+- **Sınıf:** ürün 61 · altyapı 0
+> Not: `infra` bulgular 5xx/ağ geçidi/auth-cascade arızalarıdır (gerçek ürün buggı ile karışmaz).
 
 ### Governance işaretleri
 - **Sahipsiz (owner=null):** 37 — B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, AI-PROMPTS-CONSOLE, B14, B15, ANALYTICS-A, ANALYTICS-B, DASH-CLICKHOUSE, DASH-AI-I18N, REPORTS-INTL, REPORTS-AIKEY, REPORTS-SECTIONS-TZ, DASHBOARDS-SHARE-OVERFLOW, CAMPAIGNS-PAGER, CAMPAIGNS-ICON-A11Y, AGENTS-TZ, WALLBOARD-I18N, CONTACTS-F1, CONTACTS-F2, WALLBOARD-THEME, WALLBOARD-AUTOSCROLL, WALLBOARD-LIVE-TZ, WALLBOARD-RESUME-I18N, SETTINGS-BILLING-REDIRECT, SETTINGS-BILLING-CHANGEPLAN, SETTINGS-BILLING-HISTORY
