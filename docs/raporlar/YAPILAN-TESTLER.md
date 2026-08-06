@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1259 / 134 dosya
-- **coverageStatus:** verified 0 · partial 1206 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1215 · skipped 0 · fixme 44
+- **Listelenen test:** 1274 / 135 dosya
+- **coverageStatus:** verified 0 · partial 1221 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1230 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,7 +25,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 156 | 143 | 9 | 4 |
+| other | 171 | 158 | 9 | 4 |
 | reports | 91 | 91 | 0 | 0 |
 | settings | 348 | 331 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -557,6 +557,26 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | BOT-BUILDER-CLOSE-I18N · /bot-builder · diyalog kapat düğmesi çevrilmeli | @regression @i18n @known-bug | — | listed-only | partial | medium | list-exec |
 | L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur | @errorpath | — | listed-only | partial | medium | list-exec |
+
+### `nav-reachability.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| "Dashboard" (/): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Inbox" (/inbox): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Voice" (/voice): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Channels" (/channels): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "AI" (/ai): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Campaigns" (/campaigns): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Bot Builder" (/bot-builder): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Contacts" (/contacts): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Tickets" (/tickets): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Analytics" (/analytics): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Reports" (/reports): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Supervisor" (/supervisor): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Workforce" (/workforce): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| "Settings" (/settings): doğrudan URL ile açılıyor |  | — | listed-only | partial | medium | list-exec |
+| kenar menüsü 10000ms içinde tüm MAIN_NAVIGATION öğelerini tıklanabilir sunmalı |  | — | listed-only | partial | medium | list-exec |
 
 ### `quality-baseline.authed.spec.js` — _other_
 
