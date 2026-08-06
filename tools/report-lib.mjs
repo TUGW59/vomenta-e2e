@@ -117,10 +117,28 @@ export function scanSkipsAndFixmes(testsDir, rel) {
 function esc(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-function inline(s) {
+function fmtInline(s) {
   return esc(s)
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+}
+
+function inline(s) {
+  // Markdown link desteği (FAZ 4): [metin](http(s)://url) → tıklanabilir <a>.
+  // Yalnız http/https (javascript:/data: reddedilir). Link YOKSA çıktı fmtInline ile
+  // birebir eskisi gibidir (drift-nötr). href esc'lenir; " ayrıca kaçırılır.
+  const RE = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  let out = '';
+  let last = 0;
+  let m;
+  while ((m = RE.exec(s)) !== null) {
+    out += fmtInline(s.slice(last, m.index));
+    const href = esc(m[2]).replace(/"/g, '&quot;');
+    out += `<a href="${href}">${fmtInline(m[1])}</a>`;
+    last = m.index + m[0].length;
+  }
+  out += fmtInline(s.slice(last));
+  return out;
 }
 
 /** @param {string} md */
@@ -173,6 +191,7 @@ export function htmlDoc(title, bodyHtml) {
   h3{font-size:1.02rem;margin:1.1rem 0 .35rem;color:var(--accent)}
   p{margin:.4rem 0;color:var(--muted)} code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:var(--panel);padding:.05rem .3rem;border-radius:4px;color:var(--ink)}
   strong{color:var(--ink)} hr{border:0;border-top:1px solid var(--line);margin:1.4rem 0}
+  a{color:var(--accent);text-decoration:underline} a:hover{text-decoration:none}
   ul{margin:.4rem 0 .4rem 1.1rem;color:var(--muted)} li{margin:.15rem 0}
   table{border-collapse:collapse;width:100%;margin:.6rem 0;font-size:.82rem}
   th,td{border:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}

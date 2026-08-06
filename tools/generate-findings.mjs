@@ -11,7 +11,7 @@
  *
  * Çalıştır: npm run report:findings
  */
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
@@ -20,6 +20,21 @@ import { mdCell } from './report-lib.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = resolve(root, 'docs/raporlar');
 mkdirSync(outDir, { recursive: true });
+
+// ── evidence-index.json (FAZ 4, ADR-0026 §4-§6) ──
+// CI kanıt lane'i (FAZ 3) doldurur; commit'li. Yok/boş/geçersizse {} → dürüst "Kanıt: yok".
+// Yalnız LINK KAYNAĞI: registry root-cause'a DOKUNMAZ. capturedAt/expiry buradan OKUNUR
+// (render anında HESAPLANMAZ) → deterministik; index değişmedikçe çıktı değişmez.
+let evidenceIndex = {};
+{
+  const idxPath = resolve(outDir, 'evidence-index.json');
+  if (existsSync(idxPath)) {
+    try {
+      const parsed = JSON.parse(readFileSync(idxPath, 'utf8'));
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) evidenceIndex = parsed;
+    } catch { /* geçersiz JSON → boş index (sessiz; dürüstlük korunur) */ }
+  }
+}
 
 const SEV_ORDER = { critical: 0, high: 1, medium: 2, low: 3 };
 const by = (k) => KNOWN_BUGS.reduce((a, b) => ((a[b[k]] = (a[b[k]] || 0) + 1), a), {});
@@ -109,17 +124,37 @@ for (const area of areas) {
       L.push(`- **Kök neden (kanıtlanmış):** ${b.rootCause ? mdCell(b.rootCause) : '_araştırılmadı / kanıtlanmadı_'}`);
       if (b.rootCauseCandidate) L.push(`- **Kök-neden adayı (forensik):** ${mdCell(b.rootCauseCandidate)}`);
       if (b.suggestedFixes?.length) L.push(`- **Olası çözümler:** ${b.suggestedFixes.map(mdCell).join('; ')}`);
-      // piiReviewed KAPISI: yalnız piiReviewed:true kanıt gömülebilir; diğerleri yol + uyarı.
-      // FAZ 1: kind/runUrl VARSA minimal (düz-metin) gösterilir; zengin gömme/link FAZ 4'e ait.
+      // Kanıt (FAZ 1 registry evidence[] + FAZ 4 evidence-index.json join).
+      // Dürüstlük: registry VE index'te kanıt YOKSA "Kanıt: yok" (uydurma yok).
+      // piiReviewed KAPISI korunur; ADR §6: trace GÖMÜLMEZ (yalnız local ipucu).
+      const evParts = [];
       if (b.evidence?.length) {
-        const parts = b.evidence.map((e) => {
+        for (const e of b.evidence) {
           const label = e.kind ? `${mdCell(e.kind)}: ${mdCell(e.path)}` : mdCell(e.path);
-          const src = e.runUrl ? `${mdCell(e.source)}, ${mdCell(e.runUrl)}` : mdCell(e.source);
-          return e.piiReviewed === true
+          // FAZ 4: runUrl VARSA tıklanabilir link olarak göster.
+          const src = e.runUrl ? `${mdCell(e.source)}, [koşum](${mdCell(e.runUrl)})` : mdCell(e.source);
+          let part = e.piiReviewed === true
             ? `${label} (${src})`
             : `${label} (${src} — ⚠ PII incelemesi bekliyor, gömülmez)`;
-        });
-        L.push(`- **Kanıt:** ${parts.join(' · ')}`);
+          if (e.kind === 'trace' && e.artifactPath) {
+            part += ` — local: \`npx playwright show-trace ${mdCell(e.artifactPath)}\``;
+          }
+          evParts.push(part);
+        }
+      }
+      // FAZ 4: evidence-index.json[findingId] → tıklanabilir CI koşum linki + provenance.
+      // artifactPath CI artifact yolu (repoda DEĞİL) → GÖMÜLMEZ; ad + link gösterilir (Option A).
+      const idxRec = evidenceIndex[b.id];
+      if (idxRec && idxRec.artifactPath) {
+        const link = idxRec.runUrl ? `[CI koşumu](${mdCell(idxRec.runUrl)})` : '_koşum linki yok_';
+        const meta = [];
+        if (idxRec.capturedAt) meta.push(`yakalandı ${mdCell(idxRec.capturedAt)}`);
+        if (idxRec.expiry) meta.push(`geçerlilik ${mdCell(idxRec.expiry)}`);
+        const metaStr = meta.length ? ` · ${meta.join(' · ')}` : '';
+        evParts.push(`maskeli kanıt \`${mdCell(idxRec.artifactPath)}\` (${link}${metaStr})`);
+      }
+      if (evParts.length) {
+        L.push(`- **Kanıt:** ${evParts.join(' · ')}`);
       } else {
         L.push('- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_');
       }
