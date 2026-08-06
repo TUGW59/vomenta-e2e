@@ -54,6 +54,18 @@ export const TEST_STATUS = Object.freeze({
   SKIPPED_BY_POLICY: 'SKIPPED_BY_POLICY',
 });
 
+/**
+ * FAZ 5 provenance (ADR-0026 §5) — CI koşum linkini güvenli/deterministik doğrular.
+ * YALNIZ kanonik GitHub Actions run URL kabul edilir: `https://host/owner/repo/actions/runs/<digits>`.
+ * Başka şema/host/serbest metin → null (enjeksiyon/PII güvenliği; ham URL basılmaz).
+ * @param {any} u
+ * @returns {string|null}
+ */
+export function sanitizeRunUrl(u) {
+  if (typeof u !== 'string' || u.length > 300) return null;
+  return /^https:\/\/[A-Za-z0-9.-]+\/[A-Za-z0-9._-]+\/[A-Za-z0-9._-]+\/actions\/runs\/\d+$/.test(u) ? u : null;
+}
+
 /** Güvenli, deterministik hata sınıfı (ham mesaj/stack ASLA emit edilmez). */
 export function safeErrorClass(status) {
   switch (String(status)) {
@@ -362,6 +374,8 @@ export function buildResultModel(opts) {
       browser: String(source.browser || 'chromium'),
       project: source.project ? String(source.project).slice(0, 60) : null,
       runId: source.runId ? String(source.runId).slice(0, 32).replace(/[^0-9]/g, '') || null : null,
+      // FAZ 5 provenance: tıklanabilir CI koşum linki (kanonik run URL; değilse null).
+      runUrl: sanitizeRunUrl(source.runUrl),
       inputPath: source.inputPath ? basename(String(source.inputPath)) : null,
       runStartedAt: source.runStartedAt || null,
     },
@@ -463,7 +477,10 @@ export function renderMarkdown(model) {
   L.push('');
   L.push('> ⚙️ **Otomatik üretilir** (`npm run report:runtime`). Kaynak: Playwright **gerçek koşum** JSON raporu (statik `--list` DEĞİL).');
   L.push(`> **Kanıt:** commit \`${model.source.commitSha || '—'}\` · ortam \`${model.source.environment}\` · tarayıcı \`${model.source.browser}\`` +
-    `${model.source.project ? ` · proje \`${model.source.project}\`` : ''}${model.source.runId ? ` · run \`${model.source.runId}\`` : ''} · üretim \`${model.generatedAt}\``);
+    `${model.source.project ? ` · proje \`${model.source.project}\`` : ''}` +
+    // FAZ 5 provenance: runUrl VARSA tıklanabilir CI koşum linki; yoksa düz run id; yoksa hiç.
+    `${model.source.runUrl ? ` · run [${model.source.runId || 'koşum'}](${model.source.runUrl})`
+      : (model.source.runId ? ` · run \`${model.source.runId}\`` : '')} · üretim \`${model.generatedAt}\``);
   L.push('');
   L.push('## Rota durum özeti');
   L.push('');

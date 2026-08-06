@@ -50,6 +50,11 @@
  *   evidence[].kind         kanıt türü (ör. final-state | location | network)
  *   evidence[].runUrl       CI koşum linki (provenance; FAZ 3 doldurur)
  *   evidence[].artifactPath güvenli bundle'daki maskeli görsel/JSON yolu (relative; FAZ 3 doldurur)
+ *
+ * FAZ 5 EK ALAN (opsiyonel, additive — ADR-0026 §5). Altyapı sınıflandırması:
+ *   infra              true → bu bulgu bir ALTYAPI arızasıdır (5xx/502/503/504 ağ geçidi
+ *                      veya auth-cascade), GERÇEK ürün buggı DEĞİL. Rapor bunları ayrı
+ *                      sayar/etiketler (product bug ile karışmasın). Yoksa/false = ürün buggı.
  */
 
 /** @typedef {'critical'|'high'|'medium'|'low'} Severity */
