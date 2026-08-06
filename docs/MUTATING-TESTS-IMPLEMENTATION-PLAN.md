@@ -354,16 +354,100 @@ yalnız gerçekten boşluk varsa (opsiyonel `report:mutation-inventory`) değerl
 
 Sıra ve bağımlılık §19'da. Faz 1 diğerlerinin girdisidir (tekrar tarama yok).
 
-## 18. Sonraki günlere bırakılacak işler
+## 18. Sonraki günlere bırakılacak işler (Faz 7/8/9 — tam tasarım)
 
-- **Faz 7 — Staging ortamı provizyonu.** Ayrılmış staging tenant + secret'lar (altyapı;
-  kod değil). **Tüm gerçek koşumun ön koşulu.**
-- **Faz 8 — Fixme → yeşil dönüşümü.** Önce 9A'daki 5 dosyayı staging'de doğrula; sonra
-  9B/9C'yi **dosya başına bir PR** ile `testEntity.create` 0→1→0'a çevir. `expiry`
-  taşıyanlar (workforce-*) önceliklendirilir.
-- **Faz 9 — İsim/klasör standardizasyonu (opsiyonel, düşük öncelik).** 3 `.mutation.` →
-  `-mutations.` rename (+ `mutation-lifecycle.js` anahtar güncelle); istenirse
-  `tests/mutation/` klasörü + `chromium-mutation` project değerlendirmesi.
+> Repo tarafı hazır: `mutation.yml`, `mutation:preflight`, guard, komutlar, `.env.example`
+> staging bloğu ve [staging runbook](MUTATION-STAGING-SETUP.md) commit'lendi. Aşağıdaki
+> üç faz bu altyapının üstünde çalışır.
+
+### FAZ 7 — Staging ortamı provizyonu
+
+- **Amaç:** Mutation testlerinin fiilen koşabileceği ayrılmış staging tenant'ı + GitHub
+  `staging` Environment secret/vars'ını hazırlamak.
+- **Neden gerekli:** Guard, staging bağlamı olmadan fail-closed'dur; 9A dahil hiçbir test
+  koşamaz. Bu, "gerçek mutation hattı"nın ön koşuludur.
+- **Girdi dosyaları:** [docs/MUTATION-STAGING-SETUP.md](MUTATION-STAGING-SETUP.md) (adım-adım),
+  `.github/workflows/mutation.yml` (beklenen secret/var adları), `tools/mutation-preflight.mjs`.
+- **Değiştirilecek dosyalar:** KOD YOK. Yalnız infra: staging tenant + GitHub Environment.
+  (Opsiyonel lokal `.env` — commit edilmez.)
+- **Yapılacak işler:** Runbook §1–§3 (tenant provizyon, `staging` Environment + reviewer,
+  secret/vars girişi). Adlar `mutation.yml` ile birebir.
+- **Yapılmayacak işler:** Kod değişikliği, self-check dokunuşu, `.env` commit'i, production
+  tenant kullanımı.
+- **Teknik karar:** Secret'lar yalnız `staging` Environment'ında; guard prod origin'lerini
+  reddeder (defense-in-depth).
+- **Uygulama sırası:** tenant → Environment → reviewer → vars → secrets → doğrulama.
+- **Çalıştırılacak komutlar:** `npm run mutation:preflight` (lokal), sonra Actions →
+  *Mutation Tests* → Run workflow.
+- **Beklenen çıktılar:** `mutation:preflight` TÜM kapılar ✓; manuel workflow onaydan geçip
+  guard'ı aşıyor.
+- **Kabul kriterleri:** preflight yeşil **ve** `mutation.yml` staging'de en az 9A testlerini
+  yürütüyor **ve** `report:orphans` = 0.
+- **Hata durumunda:** preflight hangi kapının ✗ olduğunu gösterir → ilgili secret/var'ı düzelt.
+  Guard reddi = staging bağlamı hâlâ eksik (asla production'a geçme).
+- **Commit kapsamı:** Yok (infra). İstenirse runbook'a "provisioned" notu düşülebilir.
+- **Sonraki faza geçiş şartı:** preflight + ilk gerçek koşum yeşil → Faz 8 açılır.
+
+### FAZ 8 — Fixme → yeşil dönüşümü (dosya başına 1 PR)
+
+- **Amaç:** Parked (`test.fixme`) mutation testlerini gerçek `testEntity.create` 0→1→0
+  yaşam döngüsüne çevirmek; her birinin orphan=0 kanıtını üretmek.
+- **Neden gerekli:** Envanterdeki 31 fixme, staging kanıtı gelene kadar sinyal üretmiyor.
+- **Girdi dosyaları:** [docs/raporlar/MUTATION-INVENTORY.md](raporlar/MUTATION-INVENTORY.md)
+  (9A/9B/9C sınıfları + dönüşüm önceliği), `tests/contracts/mutation-lifecycle.js` (fixme
+  gerekçeleri), `docs/examples/mutation.example.spec.js` (şablon), `docs/MUTATION-TESTS-GUIDE.md`.
+- **Değiştirilecek dosyalar:** PR başına **tek** `tests/<alan>-mutations.authed.spec.js` +
+  `tests/contracts/mutation-lifecycle.js` (o dosyanın istisnasını kaldır) + gerekiyorsa ilgili
+  Page Object (`tests/pages/...`). Başka dosyaya dokunma.
+- **Yapılacak işler (sıra):**
+  1. **Adım 0 — 9A doğrulaması (ayrı, ilk PR değil):** 5 aktif dosyayı staging'de koştur;
+     yeşilse DOKUNMA, yalnız kanıtı raporla.
+  2. Öncelik sırasıyla (envanter §"Dönüşüm önceliği") bir fixme dosya seç.
+  3. `test.fixme` kaldır; `action`/`baseline`/`cleanup`'ı gerçek staging uçlarıyla doldur
+     (şablonu izle); silme yolu gerçekten var mı doğrula.
+  4. `mutation-lifecycle.js`'den o dosyanın istisnasını kaldır.
+  5. Staging'de koştur: 0→1→0 + orphan=0 kanıtla.
+- **Yapılmayacak işler:** Birden çok dosyayı tek PR'da; güvenli silme yolu YOKKEN fixme
+  kaldırmak; guard/cleanup zayıflatmak; `retries` açmak.
+- **Teknik karar:** Silme/geri-alma yolu staging'de kanıtlanamıyorsa dosya fixme kalır ve
+  `mutation-lifecycle.js` gerekçesi güncellenir (dönüştürme). "Yeşil ama kirli" yasak.
+- **Çalıştırılacak komutlar:**
+  `ALLOW_MUTATING_TESTS=true npx playwright test tests/<dosya> --project=chromium-authed --retries=0 --workers=1`
+  → `npm run report:orphans` → `npm run quality:check`.
+- **Beklenen çıktılar:** Seçilen dosya yeşil, orphan=0, `quality:check` yeşil.
+- **Kabul kriterleri:** 0→1→0 kanıtlandı; `mutation-lifecycle.js` istisnası kalktı;
+  `quality:mutation-safety` + `quality:check` yeşil.
+- **Hata durumunda:** create baseline≠0 → önce orphan temizle; silme yolu yok → dönüştürme
+  (fixme + gerekçe), PR'ı "blocked" olarak kapat.
+- **Commit kapsamı:** Tek dosya + kontrat satırı (+ ops. tek Page Object). Bir PR = bir alan.
+- **Sonraki faza geçiş şartı:** Yok — Faz 8 uzun kuyruktur; öncelik bittikçe ilerler,
+  Faz 9'a paralel yürüyebilir.
+
+### FAZ 9 — İsim standardizasyonu (OPSİYONEL, düşük öncelik)
+
+- **Amaç:** Kalan 3 `*.mutation.authed.spec.js`'i tek konvansiyona (`*-mutations.*`) taşımak.
+- **Neden gerekli (zayıf):** Tamamen kozmetik — tooling her iki deseni de tanıyor; işlevsel
+  kazanç yok. Yalnız keşif netliği.
+- **Girdi dosyaları:** 3 dosya (`campaigns-outbound.mutation`, `known-bugs-invite.mutation`,
+  `voice-call.mutation`), `tests/contracts/mutation-lifecycle.js`, `tests/contracts/tested-pages.js`,
+  `tools/self-check-pr-impact.mjs`.
+- **Değiştirilecek dosyalar (blast radius geniş — dikkat):** 3 spec (git mv) + `mutation-lifecycle.js`
+  anahtarları + `tested-pages.js` + `self-check-pr-impact.mjs` + ~13 otomatik rapor
+  (READONLY-MANIFEST, SURFACE-DEPTH, TEST-SONUCLARI, YAPILAN/YAPILMAYAN-TESTLER,
+  TEST_STYLE_MATRIX) → **generatörlerle yeniden üretilmeli**, elle düzenlenmez.
+- **Yapılacak işler (sıra):** `git mv` 3 dosya → tüm referansları güncelle → `npm run report:all`
+  + ilgili generatörler → `git diff --exit-code` ile drift kontrol → `quality:check`.
+- **Yapılmayacak işler:** Otomatik raporları elle düzenlemek; Faz 8 ile aynı PR'a karıştırmak.
+- **Teknik karar:** Değeri düşük + riski (path-coupling) yüksek olduğundan **Faz 7/8 bittikten
+  sonra** ve yalnız açık istekle yapılır. Klasör (`tests/mutation/`) + `chromium-mutation`
+  project'i de burada opsiyonel değerlendirilir (önerilmez).
+- **Çalıştırılacak komutlar:** `npm run report:all` (+ `report:surface`, `report:style-matrix`),
+  sonra `npm run quality:check` ve drift `:check` scriptleri.
+- **Kabul kriterleri:** `*.mutation.*` deseni kalmadı; tüm generatör drift'leri temiz;
+  `quality:check` yeşil; `test:mutation:list` sayısı değişmedi.
+- **Hata durumunda:** Referans kaçağı → grep ile bul; rapor drift → generatörü yeniden koş.
+- **Commit kapsamı:** Rename + referans + regenerate, tek PR (Faz 8'den ayrı).
+- **Sonraki faza geçiş şartı:** Son faz; yok.
 
 ## 19. Faz bağımlılıkları
 
@@ -431,9 +515,38 @@ docs/MUTATION-TESTS-GUIDE.md'ye "Sonuçlar nerede görülür" bölümü ekle: HT
 JSON/JUnit, report:orphans, cleanup-errors.json, test:mutation:list, mutation-lifecycle.js.
 Yeni raporlama sistemi kurma. Kabul: rehber §9'daki görünürlük sorularını yanıtlıyor.
 ```
-**Faz 7/8/9:** staging'e bağlı — başlangıç promptları Faz 7 tamamlanınca netleştirilir
-(§18). Faz 8 şablonu: "9A'daki `<dosya>`'yı staging'de koştur; yeşilse dokun ma; 9B/9C'den
-`<dosya>`'yı testEntity.create 0→1→0'a çevir, tek PR, orphan=0 kanıtla."
+**Faz 7:**
+```
+docs/MUTATION-STAGING-SETUP.md runbook'unu uygula/doğrula. Ben (kullanıcı) staging tenant'ı
+provisionladım ve GitHub `staging` Environment secret/vars'ını girdim (ya da girmek üzereyim).
+Sen: `npm run mutation:preflight` çıktısını yorumla, eksik/yanlış kapıları söyle, düzeltme
+adımını ver. KOD DEĞİŞTİRME. Kabul: preflight TÜM kapılar ✓; `mutation.yml` manuel koşumu
+staging'de guard'ı geçiyor ve 9A testlerini yürütüyor; `report:orphans` = 0.
+```
+**Faz 8 (dosya başına bir PR, staging gerekir):**
+```
+Girdi: docs/raporlar/MUTATION-INVENTORY.md + docs/MUTATION-TESTS-GUIDE.md +
+docs/examples/mutation.example.spec.js. Staging bağlı (Faz 7 bitti).
+1) Önce 9A'daki 5 aktif dosyayı staging'de koştur; yeşilse DOKUNMA, kanıtı raporla.
+2) Envanterdeki "Dönüşüm önceliği"nden TEK fixme dosya seç: <dosya>.
+3) test.fixme kaldır; action/baseline/cleanup'ı gerçek staging uçlarıyla doldur (şablonu izle);
+   güvenli silme yolu yoksa fixme+gerekçe olarak BIRAK (dönüştürme).
+4) tests/contracts/mutation-lifecycle.js'den o dosyanın istisnasını kaldır.
+5) Koştur: ALLOW_MUTATING_TESTS=true npx playwright test tests/<dosya> --project=chromium-authed
+   --retries=0 --workers=1 → npm run report:orphans → npm run quality:check.
+Kabul: 0→1→0 + orphan=0 kanıtlandı; quality:check yeşil. Commit: tek dosya + kontrat satırı.
+Birden fazla dosyayı tek PR'a KOYMA.
+```
+**Faz 9 (opsiyonel, Faz 7/8 sonrası, açık istekle):**
+```
+3 dosyayı git mv ile yeniden adlandır: campaigns-outbound.mutation / known-bugs-invite.mutation /
+voice-call.mutation → *-mutations.authed.spec.js. Sonra TÜM referansları güncelle
+(tests/contracts/mutation-lifecycle.js anahtarları, tests/contracts/tested-pages.js,
+tools/self-check-pr-impact.mjs) ve otomatik raporları generatörlerle YENİDEN ÜRET
+(npm run report:all + report:surface + report:style-matrix — elle düzenleme YOK).
+Kabul: `*.mutation.*` deseni kalmadı; drift :check'leri temiz; quality:check yeşil;
+test:mutation:list sayısı değişmedi. Faz 8'den AYRI PR.
+```
 
 ## 21. Kabul kriterleri
 
@@ -474,8 +587,9 @@ Her komut çıktısı **gizlenmeden** raporlanır; başarısızsa "başarılı" 
 
 ## 24. Değiştirilecek dosyalar
 
-- `package.json` (Faz 2 — scriptler; **`test:mutation` değişmez**)
+- `package.json` (Faz 2 — `test:mutation:*` scriptleri; Faz 7 — `mutation:preflight`; **`test:mutation` değişmez**)
 - `README.md` (Faz 4 — kısa bölüm + link)
+- `.env.example` (Faz 7 hazırlık — staging mutation bloğu netleştirildi)
 - (Faz 5 — self-check DEĞİŞTİRİLMEDİ; uygulama sırasında gereksiz olduğu doğrulandı)
 - (Faz 9, ops.) `tests/*.mutation.authed.spec.js` → rename + `tests/contracts/mutation-lifecycle.js` anahtarları
 
@@ -485,6 +599,8 @@ Her komut çıktısı **gizlenmeden** raporlanır; başarısızsa "başarılı" 
 - `docs/MUTATION-TESTS-GUIDE.md` (Faz 3, Faz 6'da genişler)
 - `docs/examples/mutation.example.spec.js` (Faz 3 — şablon; tests/ dışı)
 - `.github/workflows/mutation.yml` (Faz 5)
+- `tools/mutation-preflight.mjs` (Faz 7 hazırlık — staging kapı doğrulayıcı)
+- `docs/MUTATION-STAGING-SETUP.md` (Faz 7 runbook)
 
 ## 26. Dokümantasyon güncellemeleri
 
