@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-02T19:46:28.218Z",
+  "generatedAt": "2026-08-06T11:16:12.542Z",
   "source": {
-    "sourceCommit": "88033f03ef638c926243e66ae525c66805bfd0a1",
+    "sourceCommit": "0707f82699d7cf6847719034d830e5c50d360f63",
     "environment": "production-read-only",
     "browser": "chromium",
-    "runtimeGeneratedAt": "2026-08-02T19:46:28.218Z"
+    "runtimeGeneratedAt": "2026-08-06T11:16:12.542Z"
   },
   "inventory": {
     "registeredRoutes": 87,
@@ -19,8 +19,8 @@
   },
   "totals": {
     "registeredRoutes": 87,
-    "l1Proven": 55,
-    "l1NotProven": 32,
+    "l1Proven": 83,
+    "l1NotProven": 4,
     "l2StyleContractMet": 65,
     "l2StyleGap": 22,
     "l2Complete": 27,
@@ -32,9 +32,9 @@
     "l4Blocked": 87,
     "l5Blocked": 87,
     "highestLevel": {
-      "L0": 32,
-      "L1": 0,
-      "L2_STYLE": 28,
+      "L0": 4,
+      "L1": 18,
+      "L2_STYLE": 38,
       "L2_DEEP": 27
     },
     "routesWithFindings": 33,
@@ -55,6 +55,8 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "dashboard-actions.authed.spec.js",
+            "dashboard.authed.spec.js",
             "quality-baseline.authed.spec.js"
           ]
         },
@@ -343,13 +345,12 @@
       "route": "/ai/prompts",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -486,13 +487,12 @@
       "route": "/ai/chatbot",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -623,13 +623,12 @@
       "route": "/ai/copilot",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -760,13 +759,12 @@
       "route": "/ai/knowledge-base",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -897,13 +895,12 @@
       "route": "/ai/providers",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -1034,13 +1031,12 @@
       "route": "/ai/sentiment",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -1171,13 +1167,12 @@
       "route": "/ai/usage",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -1308,13 +1303,12 @@
       "route": "/ai/voice",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -1758,10 +1752,10 @@
       "levels": {
         "L1": {
           "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "runtimeStatus": "NOT_RUN",
+          "statusReason": "inventory-only",
+          "specFiles": [],
+          "reasonCode": "NO_RUNTIME_RESULT"
         },
         "L2": {
           "status": "NOT_COVERED",
@@ -2038,13 +2032,12 @@
       "route": "/campaigns/outbound",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -2186,13 +2179,12 @@
       "route": "/campaigns/create",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -3073,6 +3065,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "channels-webchat-interactions.authed.spec.js",
             "channels-webchat-mutations.authed.spec.js",
             "channels-webchat.authed.spec.js"
           ]
@@ -3514,13 +3507,12 @@
       "route": "/contacts/import",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -3651,13 +3643,12 @@
       "route": "/contacts/segments",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -3792,10 +3783,10 @@
       "levels": {
         "L1": {
           "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "runtimeStatus": "NOT_RUN",
+          "statusReason": "inventory-only",
+          "specFiles": [],
+          "reasonCode": "NO_RUNTIME_RESULT"
         },
         "L2": {
           "status": "NOT_COVERED",
@@ -4239,6 +4230,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -4382,6 +4374,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -4525,6 +4518,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -4668,6 +4662,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -4817,6 +4812,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -4960,6 +4956,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -5103,6 +5100,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -5245,6 +5243,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "reports-dashboards-interactions.authed.spec.js",
             "reports-dashboards-mutations.authed.spec.js",
             "reports-dashboards.authed.spec.js"
           ]
@@ -5396,6 +5395,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -5539,6 +5539,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -5682,6 +5683,7 @@
           "statusReason": "passed",
           "specFiles": [
             "reports-schedule-mutations.authed.spec.js",
+            "reports-sections-interactions.authed.spec.js",
             "reports-sections.authed.spec.js"
           ]
         },
@@ -5826,6 +5828,7 @@
           "statusReason": "passed",
           "specFiles": [
             "quality-baseline.authed.spec.js",
+            "settings-interactions.authed.spec.js",
             "settings.authed.spec.js"
           ]
         },
@@ -5995,6 +5998,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-api-keys-interactions.authed.spec.js",
             "settings-api-keys-mutations.authed.spec.js",
             "settings-api-keys.authed.spec.js"
           ]
@@ -6139,6 +6143,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-audit-interactions.authed.spec.js",
             "settings-audit.authed.spec.js"
           ]
         },
@@ -6281,6 +6286,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-automations-interactions.authed.spec.js",
             "settings-automations-mutations.authed.spec.js",
             "settings-automations.authed.spec.js"
           ]
@@ -6420,10 +6426,10 @@
       "levels": {
         "L1": {
           "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "runtimeStatus": "NOT_RUN",
+          "statusReason": "inventory-only",
+          "specFiles": [],
+          "reasonCode": "NO_RUNTIME_RESULT"
         },
         "L2": {
           "status": "NOT_COVERED",
@@ -6563,10 +6569,10 @@
       "levels": {
         "L1": {
           "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "runtimeStatus": "NOT_RUN",
+          "statusReason": "inventory-only",
+          "specFiles": [],
+          "reasonCode": "NO_RUNTIME_RESULT"
         },
         "L2": {
           "status": "NOT_COVERED",
@@ -6705,6 +6711,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-canned-responses-interactions.authed.spec.js",
             "settings-canned-responses-mutations.authed.spec.js",
             "settings-canned-responses.authed.spec.js"
           ]
@@ -7129,6 +7136,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-disposition-codes-interactions.authed.spec.js",
             "settings-disposition-codes-mutations.authed.spec.js",
             "settings-disposition-codes.authed.spec.js"
           ]
@@ -7831,6 +7839,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-profile-interactions.authed.spec.js",
             "settings-profile-mutations.authed.spec.js",
             "settings-profile.authed.spec.js"
           ]
@@ -7975,6 +7984,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-roles-interactions.authed.spec.js",
             "settings-roles-mutations.authed.spec.js",
             "settings-roles.authed.spec.js"
           ]
@@ -8258,6 +8268,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-sla-interactions.authed.spec.js",
             "settings-sla-mutations.authed.spec.js",
             "settings-sla.authed.spec.js"
           ]
@@ -8540,6 +8551,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-templates-interactions.authed.spec.js",
             "settings-templates-mutations.authed.spec.js",
             "settings-templates.authed.spec.js"
           ]
@@ -8685,6 +8697,7 @@
           "statusReason": "passed",
           "specFiles": [
             "known-bugs-invite.mutation.authed.spec.js",
+            "settings-users-interactions.authed.spec.js",
             "settings-users.authed.spec.js"
           ]
         },
@@ -8834,6 +8847,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "settings-webhooks-interactions.authed.spec.js",
             "settings-webhooks-mutations.authed.spec.js",
             "settings-webhooks.authed.spec.js"
           ]
@@ -9110,13 +9124,12 @@
       "route": "/supervisor/agents",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -9253,13 +9266,12 @@
       "route": "/supervisor/calls",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -9390,13 +9402,12 @@
       "route": "/supervisor/coaching",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -9527,13 +9538,12 @@
       "route": "/supervisor/interactions",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -9664,13 +9674,12 @@
       "route": "/supervisor/wallboard",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -9978,7 +9987,9 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
-            "quality-baseline.authed.spec.js"
+            "quality-baseline.authed.spec.js",
+            "voice-subnav.authed.spec.js",
+            "voice.authed.spec.js"
           ]
         },
         "L2": {
@@ -10107,13 +10118,12 @@
       "route": "/voice/live",
       "heading": null,
       "contracts": [],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L1",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
           "specFiles": []
         },
         "L2": {
@@ -10246,14 +10256,16 @@
       "contracts": [
         "voice-dids"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-dids-mutations.authed.spec.js",
+            "voice-dids.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -10394,14 +10406,15 @@
       "contracts": [
         "voice-history"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-history.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -10541,14 +10554,16 @@
       "contracts": [
         "voice-ivr"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-ivr-mutations.authed.spec.js",
+            "voice-ivr.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -10683,14 +10698,16 @@
       "contracts": [
         "voice-queues"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-queues-mutations.authed.spec.js",
+            "voice-queues.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -10825,14 +10842,15 @@
       "contracts": [
         "voice-recordings"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-recordings.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -10972,14 +10990,15 @@
       "contracts": [
         "voice-regulatory"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-regulatory.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -11127,14 +11146,15 @@
       "contracts": [
         "voice-sip-settings"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-sip-settings.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -11266,14 +11286,15 @@
       "contracts": [
         "voice-sip-trunks"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-sip-trunks.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -11414,14 +11435,15 @@
       "contracts": [
         "voice-skills"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-skills.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -11557,14 +11579,15 @@
       "contracts": [
         "voice-voicemail"
       ],
-      "highestProvenLevel": "L0",
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
-          "status": "NOT_RUN",
-          "reasonCode": "NO_RUNTIME_RESULT",
-          "runtimeStatus": null,
-          "statusReason": null,
-          "specFiles": []
+          "status": "PROVEN",
+          "runtimeStatus": "PASS",
+          "statusReason": "passed",
+          "specFiles": [
+            "voice-voicemail.authed.spec.js"
+          ]
         },
         "L2": {
           "status": "PARTIAL",
@@ -11720,6 +11743,7 @@
           "statusReason": "passed",
           "specFiles": [
             "quality-baseline.authed.spec.js",
+            "workforce-interactions.authed.spec.js",
             "workforce-mutations.authed.spec.js",
             "workforce.authed.spec.js"
           ]
@@ -11879,6 +11903,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "workforce-badges-interactions.authed.spec.js",
             "workforce-badges-mutations.authed.spec.js",
             "workforce-badges.authed.spec.js"
           ]
@@ -12170,6 +12195,7 @@
           "runtimeStatus": "PASS",
           "statusReason": "passed",
           "specFiles": [
+            "workforce-schedules-interactions.authed.spec.js",
             "workforce-schedules.authed.spec.js"
           ]
         },
@@ -12591,6 +12617,21 @@
     }
   ],
   "unmappedTests": [
+    {
+      "file": "auth.setup.js",
+      "routeMarker": null,
+      "status": "passed"
+    },
+    {
+      "file": "auth.setup.js",
+      "routeMarker": null,
+      "status": "passed"
+    },
+    {
+      "file": "auth.setup.js",
+      "routeMarker": null,
+      "status": "passed"
+    },
     {
       "file": "auth.setup.js",
       "routeMarker": null,
