@@ -31,6 +31,7 @@ değiştiren (`@mutation`) senaryolar yalnızca ayrılmış bir staging tenant'�
 | [docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md) | Katman sorumlulukları ve yeni test tasarım standardı |
 | [docs/TEST_STYLES.md](docs/TEST_STYLES.md) | Zorunlu test stilleri el kitabı |
 | [docs/MUTATION-TESTS-GUIDE.md](docs/MUTATION-TESTS-GUIDE.md) | **Veri değiştiren (`@mutation`) testler** — yazım, çalıştırma, güvenlik, CI ve sorun giderme rehberi |
+| [docs/MUTATION-STAGING-SETUP.md](docs/MUTATION-STAGING-SETUP.md) | Mutation testlerini gerçekten koşturmak için **staging ortamı kurulum runbook'u** (tenant + GitHub secret) |
 | [docs/QUALITY_ROADMAP.md](docs/QUALITY_ROADMAP.md) | 90 günlük uygulama planı ve ölçülebilir kalite hedefleri |
 | [docs/adr/](docs/adr/README.md) | Mimari Karar Kayıtları (ADR) dizini |
 
@@ -109,10 +110,16 @@ npm run test:discovery:update-baseline
 > kod mutasyonu) DEĞİLDİR.** Nasıl yazılır/çalıştırılır/güvence altına alınır: tam rehber
 > [docs/MUTATION-TESTS-GUIDE.md](docs/MUTATION-TESTS-GUIDE.md); doğrulanmış envanter
 > [docs/raporlar/MUTATION-INVENTORY.md](docs/raporlar/MUTATION-INVENTORY.md).
+>
+> **Bu testlerin gerçekten koşabilmesi için önce ayrılmış bir staging ortamı kurulmalıdır**
+> (tenant + GitHub secret'ları) — adım-adım kurulum ve doğrulama:
+> [docs/MUTATION-STAGING-SETUP.md](docs/MUTATION-STAGING-SETUP.md). Staging kurulduktan sonra
+> `npm run mutation:preflight` ile bağlamın doğruluğu (secret sızdırmadan) denetlenir.
 
 ```bash
 # .env: TEST_ENV=staging, production dışı BASE_URL + MUTATION_API_ORIGIN,
-# MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur.
+# MUTATION_TENANT_ID ve MUTATION_TENANT_SLUG zorunludur (kurulum: MUTATION-STAGING-SETUP.md).
+npm run mutation:preflight      # staging bağlamı doğru mu? (secret sızdırmaz; koşturmaz)
 npm run test:mutation           # tümünü koştur (staging)
 npm run test:mutation:list      # yalnız listele (env gerektirmez, çalıştırmaz)
 npm run test:mutation:ui        # UI modunda seçerek koştur
