@@ -121,7 +121,7 @@ Her buton **3 katmanda** test edilir: **L1** butona basılıyor ve UI tepki veri
 
 > ⚠ Kuyruk eylemleri (Pause/Resume/Close/Redirect/Move) canlı veriyi değiştirir/yıkıcıdır ve socket.io üzerinden gidebilir → **prod'da tetiklenmez**. L2/L3 yalnızca staging'de `@mutation` ile doğrulanır (`test.fixme` placeholder'ları mevcut).
 
-Test karşılığı: `tests/supervisor-wallboard.authed.spec.js` — her buton kendi `describe`'ında `L1/L2/L3` başlıklı test'lerle. Bozuk L3'ler `test.fail` (bilinen hata); düzeltilince "beklenmedik geçiş" verir.
+Test karşılığı: `tests/supervisor/supervisor-wallboard.authed.spec.js` — her buton kendi `describe`'ında `L1/L2/L3` başlıklı test'lerle. Bozuk L3'ler `test.fail` (bilinen hata); düzeltilince "beklenmedik geçiş" verir.
 
 ---
 

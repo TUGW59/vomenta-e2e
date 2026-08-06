@@ -4,7 +4,7 @@
 >
 > Amaç: Panolar'dan sonra Raporlar'ın diğer alt sayfalarının **olması gereken** halini kaydetmek ve regresyon testi yazmak.
 
-İlgili testler: [`tests/reports-sections.authed.spec.js`](../../tests/reports-sections.authed.spec.js) · Page Object: [`tests/pages/ReportSectionPage.js`](../../tests/pages/ReportSectionPage.js) · Panolar keşfi: [`../reports-panolar-kesif/NOTLAR.md`](../reports-panolar-kesif/NOTLAR.md)
+İlgili testler: [`tests/reports/reports-sections.authed.spec.js`](../../tests/reports/reports-sections.authed.spec.js) · Page Object: [`tests/pages/ReportSectionPage.js`](../../tests/pages/ReportSectionPage.js) · Panolar keşfi: [`../reports-panolar-kesif/NOTLAR.md`](../reports-panolar-kesif/NOTLAR.md)
 
 ---
 
@@ -111,7 +111,7 @@ Bu bölümlerde seçili dönemde veri yok → **düzgün boş durum**: *"No data
 | **Export ▾** | ✅ dropdown açılır | (indirme) → ileride | (dosya) → ileride |
 | **Schedule** | ✅ diyalog açılır | POST (mutation) → gated | (zamanlama) → gated |
 
-**Test karşılığı:** `tests/reports-sections.authed.spec.js` — yapı (@smoke, 10 bölüm), 4 dil çeviri guard'ları (@regression), Charts/Table sekmesi ve Date preset için L1/L2/L3 (temsilci veri-dolu bölüm `agent`), boş-durum graceful testi. Bariz bug bulunmadı.
+**Test karşılığı:** `tests/reports/reports-sections.authed.spec.js` — yapı (@smoke, 10 bölüm), 4 dil çeviri guard'ları (@regression), Charts/Table sekmesi ve Date preset için L1/L2/L3 (temsilci veri-dolu bölüm `agent`), boş-durum graceful testi. Bariz bug bulunmadı.
 
 ---
 

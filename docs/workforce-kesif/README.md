@@ -10,7 +10,7 @@ Bu klasör, **İş Gücü (Workforce)** bölümünün test edilmeden önceki **k
 
 ## İlgili testler
 
-- `tests/workforce.authed.spec.js`
-- `tests/workforce-mutations.authed.spec.js`
+- `tests/workforce/workforce.authed.spec.js`
+- `tests/workforce/workforce-mutations.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

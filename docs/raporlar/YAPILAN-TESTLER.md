@@ -145,13 +145,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | L3 görev OK: sihirbaz uçtan uca kampanya OLUŞTURUYOR (create → detay → cleanup) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-email-mutations.authed.spec.js` — _channels_
+### `channels/channels-email-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: e-posta hesabı ekle → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-email.authed.spec.js` — _channels_
+### `channels/channels-email.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -169,7 +169,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/email doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `channels-hub.authed.spec.js` — _channels_
+### `channels/channels-hub.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -188,13 +188,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /channels doğrudan açılınca hub yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | kanal kartları ızgarası görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `channels-sms-mutations.authed.spec.js` — _channels_
+### `channels/channels-sms-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: gönderici kimliği ekle → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-sms.authed.spec.js` — _channels_
+### `channels/channels-sms.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -212,13 +212,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/sms doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `channels-social-mutations.authed.spec.js` — _channels_
+### `channels/channels-social-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: platform bağla → bağlı görün → bağlantıyı kaldır | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-social.authed.spec.js` — _channels_
+### `channels/channels-social.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -234,13 +234,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/social doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `channels-video-mutations.authed.spec.js` — _channels_
+### `channels/channels-video-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: video ayarını değiştir → kaydet → eski değere döndür | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-video.authed.spec.js` — _channels_
+### `channels/channels-video.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -257,19 +257,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /channels/video doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 | yapılandırma formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `channels-webchat-interactions.authed.spec.js` — _channels_
+### `channels/channels-webchat-interactions.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | Configuration ↔ Integration üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `channels-webchat-mutations.authed.spec.js` — _channels_
+### `channels/channels-webchat-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: widget ayarını değiştir → kaydet → eski değere döndür | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-webchat.authed.spec.js` — _channels_
+### `channels/channels-webchat.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -288,13 +288,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /channels/webchat doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 | yapılandırma sekmesi görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `channels-whatsapp-mutations.authed.spec.js` — _channels_
+### `channels/channels-whatsapp-mutations.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: şablon oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `channels-whatsapp.authed.spec.js` — _channels_
+### `channels/channels-whatsapp.authed.spec.js` — _channels_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -664,7 +664,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/settings/billing] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
 | [route:/settings/billing/marketplace] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
 
-### `reports-actions.authed.spec.js` — _reports_
+### `reports/reports-actions.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -672,13 +672,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor |  | — | listed-only | partial | medium | list-exec |
 | "Schedule a Report" formu açılıyor ve iptal edilebiliyor |  | — | listed-only | partial | medium | list-exec |
 
-### `reports-dashboards-interactions.authed.spec.js` — _reports_
+### `reports/reports-dashboards-interactions.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | All Dashboards / Default / Custom Dashboards sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `reports-dashboards-mutations.authed.spec.js` — _reports_
+### `reports/reports-dashboards-mutations.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -686,7 +686,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Duplicate: çoğaltma bir "(Copy)" ekliyor (L3) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | Delete: silme kartı listeden kaldırıyor (L2 DELETE 204 + L3) | @regression @mutation | L2 | listed-only | partial | medium | list-exec+title-inferred |
 
-### `reports-dashboards.authed.spec.js` — _reports_
+### `reports/reports-dashboards.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -719,20 +719,20 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | paylaşım bağlantısı doğrudan açılınca pano görünümü yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | paylaş diyaloğu görünümü değişmedi (URL maskeli) | @visual | — | listed-only | partial | medium | list-exec |
 
-### `reports-route-sweep.authed.spec.js` — _reports_
+### `reports/reports-route-sweep.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | kenar menüsündeki her /reports/* rotası baseline geçiyor | @regression @clean | — | listed-only | partial | medium | list-exec |
 
-### `reports-schedule-mutations.authed.spec.js` — _reports_
+### `reports/reports-schedule-mutations.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L2+L3: schedule oluşturuluyor, listeleniyor ve hemen siliniyor | @regression @mutation | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | güvenlik: tenantta geçici e2e schedule kalıntısı yok | @regression @mutation | — | listed-only | partial | medium | list-exec |
 
-### `reports-sections-interactions.authed.spec.js` — _reports_
+### `reports/reports-sections-interactions.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -747,7 +747,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [billing] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 | [sla] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `reports-sections.authed.spec.js` — _reports_
+### `reports/reports-sections.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -789,7 +789,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Tablo sekmesinde başlık + veri satırları + sayfa boyutu kontrolü var | @regression | — | listed-only | partial | medium | list-exec |
 | L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU] | @regression @known-bug | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
-### `reports.authed.spec.js` — _reports_
+### `reports/reports.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -800,19 +800,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli | @known-bug | — | listed-only | partial | medium | list-exec |
 | AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) | @known-bug | — | listed-only | partial | medium | list-exec |
 
-### `settings-api-keys-interactions.authed.spec.js` — _settings_
+### `settings/settings-api-keys-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | boş-durum mesajı render ediliyor ("No API keys") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
-### `settings-api-keys-mutations.authed.spec.js` — _settings_
+### `settings/settings-api-keys-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: API anahtarı oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-api-keys.authed.spec.js` — _settings_
+### `settings/settings-api-keys.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -831,13 +831,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create Key dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-audit-interactions.authed.spec.js` — _settings_
+### `settings/settings-audit-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | log tablosu kolonları + en az bir dolu satır görünüyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `settings-audit.authed.spec.js` — _settings_
+### `settings/settings-audit.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -858,19 +858,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | View dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/audit doğrudan açılınca log yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `settings-automations-interactions.authed.spec.js` — _settings_
+### `settings/settings-automations-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | Rules ↔ SLA Policies sekmeleri dışlayıcı seçilir + panel değişir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `settings-automations-mutations.authed.spec.js` — _settings_
+### `settings/settings-automations-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: kural oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-automations.authed.spec.js` — _settings_
+### `settings/settings-automations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -891,19 +891,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/automations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Rules boş-durumu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-canned-responses-interactions.authed.spec.js` — _settings_
+### `settings/settings-canned-responses-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | boş-durum mesajı render ediliyor ("No canned responses yet") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
-### `settings-canned-responses-mutations.authed.spec.js` — _settings_
+### `settings/settings-canned-responses-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: hazır yanıt oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-canned-responses.authed.spec.js` — _settings_
+### `settings/settings-canned-responses.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -923,13 +923,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/canned-responses doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-compliance-mutations.authed.spec.js` — _settings_
+### `settings/settings-compliance-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: onay kaydı oluştur → listede görün → temizle | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-compliance.authed.spec.js` — _settings_
+### `settings/settings-compliance.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -952,13 +952,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Log Consent dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/compliance doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `settings-data-retention-mutations.authed.spec.js` — _settings_
+### `settings/settings-data-retention-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: saklama süresi değiştir → Save → kalıcı → geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-data-retention.authed.spec.js` — _settings_
+### `settings/settings-data-retention.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -976,19 +976,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/data-retention doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | saklama-süresi formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-disposition-codes-interactions.authed.spec.js` — _settings_
+### `settings/settings-disposition-codes-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | kod tablosu kolonları + en az bir dolu satır | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `settings-disposition-codes-mutations.authed.spec.js` — _settings_
+### `settings/settings-disposition-codes-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: kod oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-disposition-codes.authed.spec.js` — _settings_
+### `settings/settings-disposition-codes.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1008,13 +1008,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/disposition-codes doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Add Code dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-hours-mutations.authed.spec.js` — _settings_
+### `settings/settings-hours-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Cumartesi Open switch toggle → Save → kalıcı → geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-hours.authed.spec.js` — _settings_
+### `settings/settings-hours.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1033,13 +1033,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/hours doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | haftalık program görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-integrations-mutations.authed.spec.js` — _settings_
+### `settings/settings-integrations-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: webhook oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-integrations.authed.spec.js` — _settings_
+### `settings/settings-integrations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1060,20 +1060,20 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/integrations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Request Access dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-interactions.authed.spec.js` — _settings_
+### `settings/settings-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | sekme seçimi dışlayıcı + panel içeriği değişiyor | @ix-tabs | — | listed-only | partial | medium | list-exec |
 | sekmeler-arası gidiş-dönüşte seçim + içerik tutarlı | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `settings-notifications-mutations.authed.spec.js` — _settings_
+### `settings/settings-notifications-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: kategori switch toggle → Save → kalıcı → geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-notifications.authed.spec.js` — _settings_
+### `settings/settings-notifications.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1090,13 +1090,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | tercihler ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 | /settings/notifications doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `settings-organization-mutations.authed.spec.js` — _settings_
+### `settings/settings-organization-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Website değiştir → Save → kalıcı → eski değere geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-organization.authed.spec.js` — _settings_
+### `settings/settings-organization.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1117,19 +1117,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/organization doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Company Information formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-profile-interactions.authed.spec.js` — _settings_
+### `settings/settings-profile-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | 4 sekme dışlayıcı seçilir + panel içerik imzası değişir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `settings-profile-mutations.authed.spec.js` — _settings_
+### `settings/settings-profile-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Telefon değiştir → Save → kalıcı → eski değere geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-profile.authed.spec.js` — _settings_
+### `settings/settings-profile.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1157,19 +1157,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/profile doğrudan açılınca profil yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Profile sekmesi kişisel-bilgi kartı görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-roles-interactions.authed.spec.js` — _settings_
+### `settings/settings-roles-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `settings-roles-mutations.authed.spec.js` — _settings_
+### `settings/settings-roles-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: custom rol oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-roles.authed.spec.js` — _settings_
+### `settings/settings-roles.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1190,13 +1190,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Create Role dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/roles doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `settings-security-mutations.authed.spec.js` — _settings_
+### `settings/settings-security-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: password policy switch toggle → Save → kalıcı → geri al | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-security.authed.spec.js` — _settings_
+### `settings/settings-security.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1217,19 +1217,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/security doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Add IP dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-sla-interactions.authed.spec.js` — _settings_
+### `settings/settings-sla-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | politika tablosu kolonları + en az bir dolu satır | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `settings-sla-mutations.authed.spec.js` — _settings_
+### `settings/settings-sla-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: SLA politikası oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-sla.authed.spec.js` — _settings_
+### `settings/settings-sla.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1251,13 +1251,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/sla doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | New Policy dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-teams-mutations.authed.spec.js` — _settings_
+### `settings/settings-teams-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: ekip oluştur → kartlarda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-teams.authed.spec.js` — _settings_
+### `settings/settings-teams.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1277,19 +1277,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/teams doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create Team dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-templates-interactions.authed.spec.js` — _settings_
+### `settings/settings-templates-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | Message templates ↔ Canned Responses üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `settings-templates-mutations.authed.spec.js` — _settings_
+### `settings/settings-templates-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: şablon oluştur → tabloda görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-templates.authed.spec.js` — _settings_
+### `settings/settings-templates.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1311,7 +1311,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/templates doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | New Template dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-users-interactions.authed.spec.js` — _settings_
+### `settings/settings-users-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1319,7 +1319,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | ada göre arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
 | eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
-### `settings-users.authed.spec.js` — _settings_
+### `settings/settings-users.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1341,19 +1341,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/users doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | davet dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings-webhooks-interactions.authed.spec.js` — _settings_
+### `settings/settings-webhooks-interactions.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | boş-durum mesajı render ediliyor ("No webhooks configured") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
-### `settings-webhooks-mutations.authed.spec.js` — _settings_
+### `settings/settings-webhooks-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: webhook oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `settings-webhooks.authed.spec.js` — _settings_
+### `settings/settings-webhooks.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1372,7 +1372,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/webhooks doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Add Webhook dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
-### `settings.authed.spec.js` — _settings_
+### `settings/settings.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1444,7 +1444,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | komut paleti klavye kısayolu (⌘K / Ctrl+K) ile açılıyor |  | — | listed-only | partial | medium | list-exec |
 | arama kutusuna yazılabiliyor ve Escape ile kapanıyor |  | — | listed-only | partial | medium | list-exec |
 
-### `supervisor-agent-live.authed.spec.js` — _supervisor_
+### `supervisor/supervisor-agent-live.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1456,7 +1456,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [ar] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
 | L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri) | @regression | L1 | fixme | blocked | low | list-exec+title-inferred |
 
-### `supervisor-agents.authed.spec.js` — _supervisor_
+### `supervisor/supervisor-agents.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1488,7 +1488,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil) | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 
-### `supervisor-coaching.authed.spec.js` — _supervisor_
+### `supervisor/supervisor-coaching.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1507,7 +1507,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor | @regression | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: değerlendirme gönderimi kalıcı kayıt oluşturur (staging mutasyon) | @regression | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `supervisor-interactions.authed.spec.js` — _supervisor_
+### `supervisor/supervisor-interactions.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1524,7 +1524,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: arama kutusuna yazılabiliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1/L2/L3: aktif etkileşim satırındaki izleme/araya-girme aksiyonları (staging/canlı veri) | @regression | L1 | fixme | blocked | low | list-exec+title-inferred |
 
-### `supervisor-wallboard.authed.spec.js` — _supervisor_
+### `supervisor/supervisor-wallboard.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1568,20 +1568,20 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor |  | — | listed-only | partial | medium | list-exec |
 | arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor |  | — | listed-only | partial | medium | list-exec |
 
-### `voice-call.mutation.authed.spec.js` — _voice_
+### `voice/voice-call.mutation.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3: softphone ile test numarası aranıyor ve çağrı kuruluyor | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: test numarasına SMS gönderiliyor (channels.sms.send) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
-### `voice-dids-mutations.authed.spec.js` — _voice_
+### `voice/voice-dids-mutations.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: DID ata → "Assigned" doğrula → atamayı geri al (Unassign) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `voice-dids.authed.spec.js` — _voice_
+### `voice/voice-dids.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1598,7 +1598,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /dids 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-history.authed.spec.js` — _voice_
+### `voice/voice-history.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1616,13 +1616,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /voice/calls 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/history doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-ivr-mutations.authed.spec.js` — _voice_
+### `voice/voice-ivr-mutations.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: IVR oluştur → listede doğrula → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `voice-ivr.authed.spec.js` — _voice_
+### `voice/voice-ivr.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1639,13 +1639,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /ivr 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/ivr doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-queues-mutations.authed.spec.js` — _voice_
+### `voice/voice-queues-mutations.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: kuyruk oluştur → listede doğrula → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `voice-queues.authed.spec.js` — _voice_
+### `voice/voice-queues.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1662,7 +1662,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/queues doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-recordings.authed.spec.js` — _voice_
+### `voice/voice-recordings.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1680,7 +1680,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /voice/recordings 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/recordings doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-regulatory.authed.spec.js` — _voice_
+### `voice/voice-regulatory.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1691,7 +1691,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | B10 · /voice/regulatory · Voice alt-navigasyonu (Live Calls) sayfada görünmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | /voice/regulatory doğrudan açılınca oturum korunuyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-sip-settings.authed.spec.js` — _voice_
+### `voice/voice-sip-settings.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1706,7 +1706,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1: "SIP extension" alanına değer girilebiliyor ve yansıyor (yalnız localStorage, sunucuya yazmaz) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | /voice/sip-settings doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-sip-trunks.authed.spec.js` — _voice_
+### `voice/voice-sip-trunks.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1724,7 +1724,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /voice/sip-trunks 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/sip-trunks doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-skills.authed.spec.js` — _voice_
+### `voice/voice-skills.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1741,7 +1741,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/skills doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice-subnav.authed.spec.js` — _voice_
+### `voice/voice-subnav.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1756,7 +1756,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 | "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 
-### `voice-voicemail.authed.spec.js` — _voice_
+### `voice/voice-voicemail.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1773,7 +1773,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /voicemails 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/voicemail doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `voice.authed.spec.js` — _voice_
+### `voice/voice.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1791,19 +1791,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez) | @regression | — | listed-only | partial | medium | list-exec |
 | /voice doğrudan açılınca /voice/live yüklüyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce-badges-interactions.authed.spec.js` — _workforce_
+### `workforce/workforce-badges-interactions.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
-### `workforce-badges-mutations.authed.spec.js` — _workforce_
+### `workforce/workforce-badges-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Rozet oluştur kalıcı kayıt yaratıyor (silme yolu gelince aktifleşir) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `workforce-badges.authed.spec.js` — _workforce_
+### `workforce/workforce-badges.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1823,13 +1823,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Rozet oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/badges doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce-evaluations-mutations.authed.spec.js` — _workforce_
+### `workforce/workforce-evaluations-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Değerlendirme oluştur kalıcı kayıt yaratıyor (staging kanıtı gelince aktifleşir) | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
 
-### `workforce-evaluations.authed.spec.js` — _workforce_
+### `workforce/workforce-evaluations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1847,27 +1847,27 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Değerlendirme Oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce-interactions.authed.spec.js` — _workforce_
+### `workforce/workforce-interactions.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | 7 üst sekme dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 | Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `workforce-mutations.authed.spec.js` — _workforce_
+### `workforce/workforce-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Add Shift kalıcı vardiya oluşturuyor (POST /wfm/schedules) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: Publish Schedule taslağı yayınlıyor ("Draft" kalkıyor) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
-### `workforce-schedules-interactions.authed.spec.js` — _workforce_
+### `workforce/workforce-schedules-interactions.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
 
-### `workforce-schedules.authed.spec.js` — _workforce_
+### `workforce/workforce-schedules.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1884,13 +1884,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | çizelge ucu 500 dönerse sayfa çökmüyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 | /workforce/schedules doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce-surveys-mutations.authed.spec.js` — _workforce_
+### `workforce/workforce-surveys-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Anket oluştur kalıcı kayıt yaratıyor ve silinebiliyor (0→1→0) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
-### `workforce-surveys.authed.spec.js` — _workforce_
+### `workforce/workforce-surveys.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1908,7 +1908,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Anket oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/surveys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce-time-off.authed.spec.js` — _workforce_
+### `workforce/workforce-time-off.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
@@ -1925,7 +1925,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | İzin talep et diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/time-off doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
-### `workforce.authed.spec.js` — _workforce_
+### `workforce/workforce.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|

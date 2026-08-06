@@ -9,7 +9,7 @@ Bu klasör, **Raporlar › Panolar** (`/reports/dashboards`) bölümünün test 
 
 ## İlgili testler
 
-- `tests/reports-dashboards.authed.spec.js`
-- `tests/reports-dashboards-mutations.authed.spec.js`
+- `tests/reports/reports-dashboards.authed.spec.js`
+- `tests/reports/reports-dashboards-mutations.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

@@ -258,7 +258,7 @@
 - **Olası çözümler:** Frontend: imza metnini intl formatlayıcıdan geçirme veya HTML etiketlerini ICU-güvenli işle (rich-text tag handler)
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-email.authed.spec.js` → B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı
+- **Guard testi:** `tests/channels/channels-email.authed.spec.js` → B17 · /channels/email · açılışta imza format hatası (FORMATTING_ERROR) olmamalı
 
 **[B21] /channels/email form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -270,7 +270,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-email.authed.spec.js` → B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-email.authed.spec.js` → B21 · /channels/email · form alanları erişilebilir etiket taşımalı (label)
 
 **[B9] Varsayılan e-posta imzasında ham i18n anahtarı** — `medium` · `open` · guard `knownBugGuard`
 
@@ -294,7 +294,7 @@
 - **Olası çözümler:** Frontend: sms/page çeviri mesajlarındaki ICU argümanlarını düzelt
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-sms.authed.spec.js` → B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
+- **Guard testi:** `tests/channels/channels-sms.authed.spec.js` → B18 · /channels/sms · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
 
 **[B22] /channels/sms form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -306,7 +306,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-sms.authed.spec.js` → B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-sms.authed.spec.js` → B22 · /channels/sms · form alanları erişilebilir etiket taşımalı (label)
 
 ### /channels/social
 
@@ -320,7 +320,7 @@
 - **Olası çözümler:** Frontend: eksik `channels.socialPage.platformNames` anahtarını (tüm dillerde) ekle veya çağrı yolunu düzelt
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-social.authed.spec.js` → B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı
+- **Guard testi:** `tests/channels/channels-social.authed.spec.js` → B16 · /channels/social · açılışta eksik çeviri (MISSING_MESSAGE) konsol hatası olmamalı
 
 **[B24] /channels/social form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -332,7 +332,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-social.authed.spec.js` → B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-social.authed.spec.js` → B24 · /channels/social · form alanları erişilebilir etiket taşımalı (label)
 
 ### /channels/video
 
@@ -346,7 +346,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-video.authed.spec.js` → B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-video.authed.spec.js` → B25 · /channels/video · form alanları erişilebilir etiket taşımalı (label)
 
 ### /channels/webchat
 
@@ -360,7 +360,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-webchat.authed.spec.js` → B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-webchat.authed.spec.js` → B20 · /channels/webchat · form alanları erişilebilir etiket taşımalı (label)
 
 ### /channels/whatsapp
 
@@ -374,7 +374,7 @@
 - **Olası çözümler:** Frontend: whatsapp/page çeviri mesajlarındaki ICU argümanlarını düzelt
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-whatsapp.authed.spec.js` → B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
+- **Guard testi:** `tests/channels/channels-whatsapp.authed.spec.js` → B19 · /channels/whatsapp · açılışta MALFORMED_ARGUMENT konsol hatası olmamalı
 
 **[B23] /channels/whatsapp form alanları erişilebilir etiket taşımıyor (a11y label)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -386,7 +386,7 @@
 - **Olası çözümler:** Frontend: her input/textarea için <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/channels-whatsapp.authed.spec.js` → B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/channels/channels-whatsapp.authed.spec.js` → B23 · /channels/whatsapp · form alanları erişilebilir etiket taşımalı (label)
 
 ## contacts
 
@@ -486,7 +486,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/reports.authed.spec.js` → AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) @known-bug
+- **Guard testi:** `tests/reports/reports.authed.spec.js` → AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) @known-bug
 
 **[REPORTS-INTL] AI Insights intl FORMATTING_ERROR (sessiz konsol hatası)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -497,7 +497,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/reports.authed.spec.js` → sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli @known-bug
+- **Guard testi:** `tests/reports/reports.authed.spec.js` → sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli @known-bug
 
 ### /reports/call
 
@@ -510,7 +510,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** docs/manuel-test-raporu/02-tarih-araligi-utc.md (manual-report)
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/reports-sections.authed.spec.js` → L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]
+- **Guard testi:** `tests/reports/reports-sections.authed.spec.js` → L3: "Today" preset tarih etiketi YEREL bugünü göstermeli (UTC değil) [BULGU]
 
 ### /reports/dashboards
 
@@ -524,7 +524,7 @@
 - **Olası çözümler:** flex kapsayıcıya min-w-0 ekle
 - **Kanıt:** docs/manuel-test-raporu/01-panolar-paylas-tasma.md (manual-report)
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/reports-dashboards.authed.spec.js` → L3 görev OK: [en] paylaş diyaloğu yatayda taşmamalı [BULGU 1] @layout @known-bug
+- **Guard testi:** `tests/reports/reports-dashboards.authed.spec.js` → L3 görev OK: [en] paylaş diyaloğu yatayda taşmamalı [BULGU 1] @layout @known-bug
 
 ## settings
 
@@ -610,7 +610,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-agents.authed.spec.js` → BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)
+- **Guard testi:** `tests/supervisor/supervisor-agents.authed.spec.js` → BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)
 
 ### /supervisor/wallboard
 
@@ -622,7 +622,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → L3 görev OK: içerik taşınca otomatik kaydırmalı [BULGU 3]
+- **Guard testi:** `tests/supervisor/supervisor-wallboard.authed.spec.js` → L3 görev OK: içerik taşınca otomatik kaydırmalı [BULGU 3]
 
 **[WALLBOARD-I18N] "Refresh All"/"Auto-scroll" hiçbir dilde çevrilmiyor** — `medium` · `open` · guard `knownBugGuard`
 
@@ -632,7 +632,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli
+- **Guard testi:** `tests/supervisor/supervisor-wallboard.authed.spec.js` → BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli
 
 **[WALLBOARD-LIVE-TZ] Live son-güncelleme saati UTC (yerel değil)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -643,7 +643,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]
+- **Guard testi:** `tests/supervisor/supervisor-wallboard.authed.spec.js` → L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]
 
 **[WALLBOARD-THEME] Tema seçici "Dark" seçilince koyu tema uygulanmıyor** — `medium` · `open` · guard `knownBugGuard`
 
@@ -653,7 +653,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]
+- **Guard testi:** `tests/supervisor/supervisor-wallboard.authed.spec.js` → L3 görev OK: "Dark" seçilince koyu tema uygulanmalı [BULGU 1]
 
 **[WALLBOARD-RESUME-I18N] "Resume queue" menü öğesi hiçbir dilde çevrilmiyor** — `low` · `open` · guard `knownBugGuard`
 
@@ -663,7 +663,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
-- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → BULGU 5: "Resume queue" Türkçe menüde çevrilmeli
+- **Guard testi:** `tests/supervisor/supervisor-wallboard.authed.spec.js` → BULGU 5: "Resume queue" Türkçe menüde çevrilmeli
 
 ## voice
 
@@ -691,7 +691,7 @@
 - **Olası çözümler:** Frontend: From/To Date ve filtre girdilerine <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
-- **Guard testi:** `tests/voice-history.authed.spec.js` → VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/voice/voice-history.authed.spec.js` → VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)
 
 ### /voice/recordings
 
@@ -705,7 +705,7 @@
 - **Olası çözümler:** Frontend: From/To Date girdilerine <label htmlFor> veya aria-label ekle
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
-- **Guard testi:** `tests/voice-recordings.authed.spec.js` → VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)
+- **Guard testi:** `tests/voice/voice-recordings.authed.spec.js` → VOICE-RECORDINGS-A11Y-LABEL · /voice/recordings · form alanları erişilebilir etiket taşımalı (label)
 
 ### /voice/regulatory
 
@@ -732,7 +732,7 @@
 - **Olası çözümler:** Frontend: voiceRegulatory namespace çevirilerini 4 dilde ekle; içerik/KYC bileşenini eksik-mesajda güvenli fallback ile render et
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
-- **Guard testi:** `tests/voice-regulatory.authed.spec.js` → VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean
+- **Guard testi:** `tests/voice/voice-regulatory.authed.spec.js` → VOICE-REGULATORY-BROKEN · /voice/regulatory · açılışta MISSING_MESSAGE / ham i18n olmamalı @clean
 
 **[B10] Voice üst sekme çubuğu yok (bölüm düzeni kayıp)** — `medium` · `open` · guard `knownBugGuard`
 
@@ -756,7 +756,7 @@
 - **Olası çözümler:** Frontend: sip-trunks alt-başlığını çeviri anahtarına bağla (4 dil)
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
-- **Guard testi:** `tests/voice-sip-trunks.authed.spec.js` → VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli
+- **Guard testi:** `tests/voice/voice-sip-trunks.authed.spec.js` → VOICE-SIP-TRUNKS-SUBTITLE-I18N · /voice/sip-trunks · alt-başlık seçili dile çevrilmeli
 
 ### /voice/voicemail
 
@@ -780,7 +780,7 @@
 - **Olası çözümler:** Frontend: common.previousPage/common.nextPage çeviri anahtarlarını ekle (4 dil)
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-03 · **lastVerified:** 2026-08-03 · **expiry:** —
-- **Guard testi:** `tests/voice-voicemail.authed.spec.js` → VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı
+- **Guard testi:** `tests/voice/voice-voicemail.authed.spec.js` → VOICEMAIL-PAGER-I18N · /voice/voicemail · açılışta ham i18n pager anahtarı / MISSING_MESSAGE olmamalı
 
 ## workforce
 
@@ -795,7 +795,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/workforce.authed.spec.js` → Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli
+- **Guard testi:** `tests/workforce/workforce.authed.spec.js` → Türkçe seçiliyken Uyum paneli İngilizce fallback göstermemeli
 
 **[WORKFORCE-ADHERENCE-RANGE-STATE] Uyum aralığı (7d/14d/30d) seçili-durum semantiği yok (yalnız görsel)** — `low` · `open` · guard `knownBugGuard`
 
@@ -806,7 +806,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/workforce.authed.spec.js` → aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı
+- **Guard testi:** `tests/workforce/workforce.authed.spec.js` → aktif 7d/14d/30d aralığı erişilebilir seçili-durum sinyali taşımalı
 
 ### /workforce/badges
 
@@ -819,7 +819,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
-- **Guard testi:** `tests/workforce-badges.authed.spec.js` → bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı
+- **Guard testi:** `tests/workforce/workforce-badges.authed.spec.js` → bir rozet satırı en az bir aksiyon (düzenle/sil) kontrolü sunmalı
 
 ### /workforce/schedules
 
@@ -832,7 +832,7 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-07-31 · **lastVerified:** 2026-07-31 · **expiry:** —
-- **Guard testi:** `tests/workforce-schedules.authed.spec.js` → boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı
+- **Guard testi:** `tests/workforce/workforce-schedules.authed.spec.js` → boş vardiya "+" hücresi buton rolü + klavye erişimi + erişilebilir ad taşımalı
 
 ### /workforce/surveys
 
@@ -845,4 +845,4 @@
 - **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** — · **lastVerified:** 2026-07-30 · **expiry:** —
-- **Guard testi:** `tests/workforce-surveys.authed.spec.js` → satır aksiyon ikonları erişilebilir ad taşımalı
+- **Guard testi:** `tests/workforce/workforce-surveys.authed.spec.js` → satır aksiyon ikonları erişilebilir ad taşımalı

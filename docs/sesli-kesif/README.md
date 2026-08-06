@@ -9,11 +9,11 @@ Bu klasör, **Sesli Arama (Voice)** (`/voice`) bölümünün test edilmeden önc
 
 ## İlgili testler
 
-- `tests/voice.authed.spec.js`
-- `tests/voice-subnav.authed.spec.js`
-- `tests/voice-queues.authed.spec.js`
-- `tests/voice-ivr.authed.spec.js`
-- `tests/voice-dids.authed.spec.js`
-- `tests/voice-recordings.authed.spec.js`
+- `tests/voice/voice.authed.spec.js`
+- `tests/voice/voice-subnav.authed.spec.js`
+- `tests/voice/voice-queues.authed.spec.js`
+- `tests/voice/voice-ivr.authed.spec.js`
+- `tests/voice/voice-dids.authed.spec.js`
+- `tests/voice/voice-recordings.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

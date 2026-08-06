@@ -44,7 +44,7 @@ yerel gün), UTC ISO'yu doğrudan gün olarak basma. Böylece etiket API'nin yer
 
 ## Otomatik regresyon
 
-`tests/reports-sections.authed.spec.js` → **"Date Range timezone @regression @known-bug"** describe'ı:
+`tests/reports/reports-sections.authed.spec.js` → **"Date Range timezone @regression @known-bug"** describe'ı:
 `test.use({ timezoneId: 'Europe/Istanbul' })` altında "Bugün" preset'ine tıklanır ve etiket
 başlangıcının **yerel bugün** olması beklenir. Bug açıkken `test.fail` (beklenen başarısızlık);
 düzelince "beklenmedik geçiş" → `test.fail` kaldırılıp kalıcı guard olur.

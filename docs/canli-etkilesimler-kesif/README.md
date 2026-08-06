@@ -9,6 +9,6 @@ Bu klasör, **Süpervizör → Canlı Etkileşimler / Live Interactions** (`/sup
 
 ## İlgili testler
 
-- `tests/supervisor-interactions.authed.spec.js`
+- `tests/supervisor/supervisor-interactions.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

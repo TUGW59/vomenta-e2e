@@ -44,5 +44,5 @@ Görünür metin (sekme/kolon/istatistik/New Evaluation) 4 dilde çevrili; **Ara
 - Bunların dışında **kırık davranış / çeviri sızıntısı / timezone sorunu yok.**
 
 ## Test karşılığı
-`tests/supervisor-coaching.authed.spec.js` (+ `tests/pages/CoachingPage.js`, `app.coaching`).
+`tests/supervisor/supervisor-coaching.authed.spec.js` (+ `tests/pages/CoachingPage.js`, `app.coaching`).
 Yapı @smoke/@critical + 4 dil guard'ları @regression + sekme/arama L1 + New Evaluation L1 + kriter-skorlama L3 + create-contract L2 (route ile, mutasyonsuz) + kalıcı-kayıt staging-fixme. **13/13 yeşil** (chromium-authed).

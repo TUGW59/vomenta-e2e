@@ -8,8 +8,8 @@ Bu klasör, **Kanallar (Channels)** bölümünün test edilmeden önceki **keşi
 
 ## İlgili testler
 
-- `tests/voice.authed.spec.js`
-- `tests/voice-subnav.authed.spec.js`
-- `tests/voice-call.mutation.authed.spec.js`
+- `tests/voice/voice.authed.spec.js`
+- `tests/voice/voice-subnav.authed.spec.js`
+- `tests/voice/voice-call.mutation.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

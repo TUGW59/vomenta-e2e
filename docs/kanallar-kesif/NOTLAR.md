@@ -68,7 +68,7 @@ Kanallar bölümü test kapsamı = **hub + 6 `/channels/*` alt sayfa = 7 yüzey*
 8. yüzeyi DEĞİLDİR:
 - `navigation.js`'de Voice, Channels'tan bağımsız kendi üst-nav öğesi (`{ name:'Voice', path:'/voice', heading:'Live Calls' }`).
 - `/voice` başlığı "Live Calls"; kanal-config sayfası değil, çağrı merkezi canlı arama alanı.
-- `/voice` zaten kendi paketiyle kapsanıyor: `tests/voice.authed.spec.js`, `tests/voice-subnav.authed.spec.js`, `tests/voice-call.mutation.authed.spec.js` → tekrar kapsanmaz.
+- `/voice` zaten kendi paketiyle kapsanıyor: `tests/voice/voice.authed.spec.js`, `tests/voice/voice-subnav.authed.spec.js`, `tests/voice/voice-call.mutation.authed.spec.js` → tekrar kapsanmaz.
 - Hub'daki Voice kartının başlığı `<a href="/voice">` (canlı doğrulandı, 31 Tem 2026). Bu yönlendirmenin **bilinçli ürün kararı mı yoksa bug mı** olduğu KANITLANMADI (ürün gereksinimi/issue/sözleşme bulunamadı) → "bug değil" diye nitelenemez; registry'ye bug olarak da eklenmez (kanıt yok).
 
 ### B5 (Voice kartı durum etiketi) — kanıt

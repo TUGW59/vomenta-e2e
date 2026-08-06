@@ -98,7 +98,7 @@ sonraki fazlar bu baseline'a göre ölçülür.
 
 **Eski-yapı referansları (Faz 3'te temizlenecek):**
 - `tests/pages/WorkforcePage.js` (sekme-tabanlı sınıf) — silinecek.
-- `tests/workforce.authed.spec.js` + `tests/workforce-mutations.authed.spec.js` — yeni rota specleriyle değiştirilecek.
+- `tests/workforce/workforce.authed.spec.js` + `tests/workforce/workforce-mutations.authed.spec.js` — yeni rota specleriyle değiştirilecek.
 - `tests/pages/App.js:32,77` — `WorkforcePage` import + `this.workforce` instance.
 - `AGENTS.md:164,195` — i18n/3-katman "referans uygulama" örneği olarak `workforce.authed.spec.js`'e işaret ediyor → yeni referans spec'e yönlendirilecek.
 - Üretilen raporlar (`docs/TEST_COVERAGE.md`, `docs/raporlar/YAPILAN-TESTLER.md`) — kaldırma sonrası yeniden üretilecek.

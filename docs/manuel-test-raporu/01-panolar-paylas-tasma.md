@@ -62,7 +62,7 @@ Kart ikon düğmeleri (**Paylaş/Çoğalt/Sil**) erişilebilir isimsiz — düze
 
 ## Otomatik regresyon
 
-- **Bilinen hata guard'ı:** `tests/reports-dashboards.authed.spec.js` → *Paylaş* `describe`'ında
+- **Bilinen hata guard'ı:** `tests/reports/reports-dashboards.authed.spec.js` → *Paylaş* `describe`'ında
   **L3 görev OK** testi `test.fail()` ile bırakıldı: diyalog taşmamalı
   (`dialog.scrollWidth <= clientWidth + tolerans`, **yöne duyarsız**). Bug açıkken
   "beklenen başarısızlık", düzelince "beklenmedik geçiş" → o zaman `test.fail` kaldırılıp

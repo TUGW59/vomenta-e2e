@@ -9,6 +9,6 @@ Bu klasör, **Süpervizör → Agent Live / Canlı Aracı** (`/supervisor/calls`
 
 ## İlgili testler
 
-- `tests/supervisor-agent-live.authed.spec.js`
+- `tests/supervisor/supervisor-agent-live.authed.spec.js`
 
 Keşif kapanış matrisi şablonu: [`../DISCOVERY_COMPLETION_TEMPLATE.md`](../DISCOVERY_COMPLETION_TEMPLATE.md). Tüm dokümanların haritası: [`../README.md`](../README.md).

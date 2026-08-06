@@ -1,0 +1,110 @@
+// @ts-check
+import { test, expect } from '../fixtures/test.js';
+import {
+  AUTOMATION_ENTITY_PREFIXES,
+  testEntityName,
+} from '../data/factories.js';
+
+/**
+ * RAPORLAR — "Schedule This Report" GERÇEK YAŞAM DÖNGÜSÜ (opt-in)
+ *
+ * UI create → backend POST 201 → /reports listesinde görünür sonuç →
+ * UI Actions/Delete → backend DELETE 204 → listeden kaybolma.
+ *
+ * GÜVENLİK:
+ * - Yalnızca `npm run test:mutation` ile, kimliği doğrulanan staging tenant'ında çalışır.
+ * - Production mutasyonu için kaçış bayrağı/komutu yoktur.
+ * - Benzersiz `VOMENTA_E2E_…` ada ve teslim edilemeyen rezerv example.com alıcısına yazar.
+ * - Çalışma saati 23:55 seçilir; schedule saniyeler içinde doğrulanıp silinir.
+ * - `testEntity.create` rollback'i create öncesi kaydeder, benzersiz adı UI'dan
+ *   siler ve `0→1→0` baseline'ını kanıtlar.
+ * - Retry kapalıdır: aynı mutation otomatik tekrarlanmaz.
+ *
+ * Resmi OpenAPI (29 Tem 2026):
+ * POST /api/v1/reports/scheduled → 201
+ * DELETE /api/v1/reports/scheduled/{id} → 204
+ */
+test.describe('Rapor Schedule yaşam döngüsü @regression @mutation', () => {
+  test.describe.configure({ mode: 'serial', retries: 0 });
+
+  test('L2+L3: schedule oluşturuluyor, listeleniyor ve hemen siliniyor', async ({
+    app,
+    mutationGuard,
+    testEntity,
+  }) => {
+    await mutationGuard('Rapor Schedule: oluştur + listele + sil');
+
+    const name = testEntityName('REPORT_SCHEDULE');
+    const recipient = 'e2e-schedule@example.com';
+
+    const report = app.reportSection('agent');
+    const created = await testEntity.create({
+      label: `scheduled report rollback: ${name}`,
+      key: name,
+      baseline: () =>
+        app.reports.automationScheduledReportCount(
+          AUTOMATION_ENTITY_PREFIXES
+        ),
+      cleanup: async () => {
+        await app.reports.open();
+        if (!(await app.reports.scheduledReportName(name).count())) return;
+        const removed = await app.reports.deleteScheduledReportByName(name);
+        expect(removed.status(), 'cleanup DELETE 204').toBe(204);
+      },
+      action: async () => {
+        await report.open();
+        return report.createScheduledReport({ name, recipient });
+      },
+    });
+
+    // L2 — doğru endpoint, method, durum ve DTO.
+    expect(created.status(), 'schedule POST 201').toBe(201);
+    const requestBody = created.request().postDataJSON();
+    expect(requestBody).toMatchObject({
+      name,
+      recipientEmails: [recipient],
+      schedule: '55 23 * * *',
+    });
+    const responseBody = await created.json();
+    expect(responseBody).toMatchObject({
+      success: true,
+      data: {
+        name,
+        recipientEmails: [recipient],
+        schedule: requestBody.schedule,
+        isActive: true,
+      },
+    });
+    expect(responseBody.data.id).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    );
+
+    // L3 create/list — kayıt yönetim yüzeyinde doğru cron + alıcı sayısıyla görünüyor.
+    await app.reports.open();
+    const card = app.reports.scheduledReportCard(name);
+    await expect(app.reports.scheduledReportName(name)).toBeVisible({ timeout: 20000 });
+    await expect(card).toContainText(requestBody.schedule);
+    await expect(card).toContainText('1 recipients');
+
+    // L2 + L3 delete — kullanıcı yönetim yolundan silinir ve kart kaybolur.
+    const deleted = await app.reports.deleteScheduledReportByName(name);
+    expect(deleted.status(), 'schedule DELETE 204').toBe(204);
+    await expect(app.reports.scheduledReportName(name)).toHaveCount(0);
+  });
+
+  test('güvenlik: tenantta geçici e2e schedule kalıntısı yok', async ({
+    app,
+    mutationGuard,
+  }) => {
+    await mutationGuard('Rapor Schedule: mutation koşumu sonrası orphan kontrolü');
+    await expect
+      .poll(
+        () =>
+          app.reports.automationScheduledReportCount(
+            AUTOMATION_ENTITY_PREFIXES
+          ),
+        { timeout: 20000 }
+      )
+      .toBe(0);
+  });
+});

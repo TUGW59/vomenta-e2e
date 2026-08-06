@@ -37,5 +37,5 @@ Tüm görünür metin (kolonlar + boş-durum + sayaç dahil) 4 dilde çevrili; *
 - Zengin satır-aksiyonları (canlı çağrı/sohbet izleme) **canlı etkileşim** gerektirir; bu tur boş-durum nedeniyle test edilemedi → staging planı (`test.fixme`).
 
 ## Test karşılığı
-`tests/supervisor-interactions.authed.spec.js` (+ `tests/pages/InteractionsPage.js`, `app.interactions`).
+`tests/supervisor/supervisor-interactions.authed.spec.js` (+ `tests/pages/InteractionsPage.js`, `app.interactions`).
 Yapı @smoke/@critical, 4 dil guard'ları @regression, kanal filtresi L1+L2, arama L1, satır-aksiyonları staging-fixme. **12/12 yeşil** (chromium-authed).
