@@ -40,7 +40,7 @@
 
 - **Kayıtlı rota (depth):** 87
 - **L1 (açılış) proven:** 55 · **L1 kanıtlanmamış:** 32
-- **L2 complete:** 27 · **L2 partial:** 38 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 41)_
+- **L2 complete:** 27 · **L2 partial:** 38 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 39)_
 - **L3:** proven 0 · blocked 46 · N/A 41
 - **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
 - **En yüksek kanıt seviyesi dağılımı:** L0 32 · L1 0 · L2-stil 28 · L2-deep 27

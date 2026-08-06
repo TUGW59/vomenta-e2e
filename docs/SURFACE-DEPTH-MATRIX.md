@@ -17,7 +17,7 @@
 - **L1:** PROVEN 55 · not-proven 32
 - **L2 stil sözleşmesi:** karşılandı 65 · gerçek boşluk 22
 - **L2 durum:** COMPLETE 27 · PARTIAL 38 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 41 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **Etkileşim derinliği tam doğrulanmayan rota:** 39 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 46 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
 - **En yüksek seviye dağılımı:** L0 32 · L1 0 · L2·style 28 · L2·deep 27
@@ -28,7 +28,7 @@
 
 | rota | sözleşme | en yüksek | L1 | L2 | stil (kapsanan/zorunlu) | etkileşim (doğrulanan/geçerli) | L3 | L4 | L5 | bulgular |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `/` | dashboard,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | N/A | ⛔ rol | ⛔ provider | DASH-AI-I18N(low/open) DASH-CLICKHOUSE(medium/open) |
+| `/` | dashboard,main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/0 | N/A | ⛔ rol | ⛔ provider | DASH-AI-I18N(low/open) DASH-CLICKHOUSE(medium/open) |
 | `/ai` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B13(low/open) B15(medium/open) |
 | `/ai/prompts` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | AI-PROMPTS-CONSOLE(medium/open) |
 | `/ai/chatbot` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -97,7 +97,7 @@
 | `/supervisor/interactions` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/wallboard` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
 | `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider |  |
+| `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/live` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/dids` | voice-dids | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B14(medium/open) |
 | `/voice/history` | voice-history | ⚪ L0 | ⚪ NOT_RUN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | VOICE-HISTORY-A11Y-LABEL(medium/open) |
@@ -216,7 +216,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 
 | rota | tabs | search-filter | table-list | pagination-sort | empty-state | loading-state |
 |---|---|---|---|---|---|---|
-| `/` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/` | — | N/A | N/A | N/A | N/A | N/A |
 | `/ai` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai/prompts` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai/chatbot` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -285,7 +285,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/supervisor/interactions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/tickets` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice` | — | N/A | N/A | N/A | N/A | N/A |
 | `/voice/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/dids` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/history` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |

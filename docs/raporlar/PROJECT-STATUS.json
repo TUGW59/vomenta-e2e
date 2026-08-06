@@ -33,7 +33,7 @@
     "l1StyleGap": 0,
     "l2Style": 19,
     "l2Deep": 27,
-    "interactionUnverified": 41,
+    "interactionUnverified": 39,
     "surfacesWithOpenFindings": 33,
     "openFindingsTotal": 58,
     "byArea": {
@@ -1071,7 +1071,7 @@
         "styleCoveredOrExempt": 8,
         "styleRequiredCount": 8,
         "interactionVerified": false,
-        "interactionApplicableCount": 5,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
@@ -2711,7 +2711,7 @@
         "styleCoveredOrExempt": 7,
         "styleRequiredCount": 7,
         "interactionVerified": false,
-        "interactionApplicableCount": 5,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {

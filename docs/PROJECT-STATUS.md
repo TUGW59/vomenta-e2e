@@ -20,7 +20,7 @@
 - **Kanonik yüzey:** 87
 - **L2·deep:** 27 · **L2·style (unverified):** 19 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 9 · **NOT_RUN:** 28 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 41
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 39
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -82,7 +82,7 @@
 | contacts-detail | /contacts/:id | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | contacts-import | /contacts/import | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
 | contacts-segments | /contacts/segments | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
-| dashboard | / | dashboard | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| dashboard | / | dashboard | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
 | inbox | /inbox | inbox | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
 | reports | /reports | reports | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
 | reports-agent | /reports/agent | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
@@ -125,7 +125,7 @@
 | supervisor-interactions | /supervisor/interactions | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⚪ NOT_RUN |
 | supervisor-wallboard | /supervisor/wallboard | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | 5 | ⚪ NOT_RUN |
 | tickets | /tickets | tickets | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
-| voice | /voice | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| voice | /voice | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | voice-dids | /voice/dids | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | 1 | ⚪ NOT_RUN |
 | voice-history | /voice/history | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | 1 | ⚪ NOT_RUN |
 | voice-ivr | /voice/ivr | voice | ✔ | ⚪ | PARTIAL | 0/5 | L0 | — | ⚪ NOT_RUN |

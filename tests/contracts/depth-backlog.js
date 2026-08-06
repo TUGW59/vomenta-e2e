@@ -23,9 +23,9 @@ export const DEPTH_BACKLOG = Object.freeze({
   //    çizelge), /workforce/schedules (@ix-table çizelge), /workforce/badges (@ix-tabs
   //    Badges↔Leaderboard). Resolved-exempt (test tenant'ında boş liste, etkileşim yüzeyi
   //    yok): /workforce/time-off, /workforce/surveys, /workforce/evaluations. ──
-  // ── FAZ 5: kalan (2) ──
-  '/': 'FAZ5-misc (dashboard)',
-  '/voice': 'FAZ5-misc (voice hub)',
+  // ── FAZ 5: kalan (2) — TAMAMLANDI (ikisi de resolved-exempt: / = KPI/grafik/kart
+  //    özeti; /voice = canlı-çağrı hub'ı, test tenant'ında boş. Kapsanabilir sekme/tablo/
+  //    filtre etkileşimi yok → tüm geçerli boyut naInteraction). ──
   // ── DEFER: L0 voice alt-rotaları (runtime yok → deep olamaz; kapsam-dışı) ──
   '/voice/dids': 'defer:L0',
   '/voice/history': 'defer:L0',

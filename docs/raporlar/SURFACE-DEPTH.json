@@ -26,7 +26,7 @@
     "l2Complete": 27,
     "l2Partial": 38,
     "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 41,
+    "interactionUnverifiedRoutes": 39,
     "l3Blocked": 46,
     "l3NotApplicable": 41,
     "l4Blocked": 87,
@@ -127,14 +127,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -145,24 +139,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -10060,14 +10054,8 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 5,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
             "surfaceArchetype": true,
             "presentSignals": [],
@@ -10078,24 +10066,24 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
