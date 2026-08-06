@@ -93,6 +93,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       //   kararlı snapshot bölgesi yok. hasStableUI=false → @visual zorunlu değil.
       // @export/@mutation: sayfa salt-okunur, export kontrolü yok → arketip false.
     },
+    // L2 etkileşim derinliği (FAZ 5 / ADR-0029): gösterge paneli KPI+grafik+kart özeti;
+    // kapsanabilir sekme/tablo/filtre/pager etkileşimi YOK → tüm geçerli boyut açık N/A
+    // (resolved-exempt). Tarih ön-ayar butonları ve "Live" toggle 6 boyuttan hiçbirine denk gelmez.
+    naInteraction: {
+      'search-filter': 'Metin arama/filtre kontrolü yok (yalnız Today/7/30 gün ön-ayar butonları).',
+      'table-list': 'Etkileşimli veri tablosu/listesi yok (KPI döşemeleri + grafikler + temsilci kartları + aktivite akışı).',
+      'pagination-sort': 'Liste/pager yok → sayfalama/sıralama kontrolü yok.',
+      'empty-state': 'Boş-durumlar statik ("No recent activity" / boş analiz alt-kartları); süzülerek ulaşılan etkileşimli boş-durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (KPI/grafikler canlı veriyle yerinde dolar).',
+    },
   },
   {
     id: 'reports-dashboards',
@@ -1261,6 +1271,17 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok (Recordings\'te var).',
       '@visual': 'İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation\'da (voice-call.mutation.authed.spec.js).',
+    },
+    // L2 etkileşim derinliği (FAZ 5 / ADR-0029): canlı-çağrı hub'ı KPI + mevcudiyet
+    // sayaçları + boş-durum; alt-nav düğmeleri ARIA-sekme değil bölüm gezinmesi (@ix-tabs
+    // uygulanmaz). Canlı çağrı görünümü test tenant'ında daima boş → kapsanabilir tablo yok.
+    // Tüm geçerli boyut açık N/A (resolved-exempt; FAZ 4 boş-tenant presedansı ile tutarlı).
+    naInteraction: {
+      'search-filter': 'Canlı çağrı hub\'ında arama/filtre kontrolü yok.',
+      'table-list': 'Canlı çağrı görünümü test tenant\'ında daima boş → yapısal tablo/satır doğrulanamaz (aktif çağrı yok).',
+      'pagination-sort': 'Liste/pager yok → sayfalama/sıralama yok.',
+      'empty-state': 'Boş-durum ("No active calls right now") statik/daima mevcut; süzülerek ulaşılan etkileşimli boş-durum değil.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (canlı veri yerinde dolar).',
     },
   },
   {
