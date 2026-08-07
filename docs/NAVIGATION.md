@@ -75,3 +75,18 @@ yoldur; bu yalnızca sidebar tıklama davranışını doğrulamak içindir.)
 
 Kısaca: **navigasyon değişimi = registry'de birkaç alan + tek nav listesi güncellemesi;**
 gerisi türetilir ve fail-closed kapılar tutarsızlığı anında yakalar.
+
+## Dev IA (bekleyen — redesign sürüyor)
+
+Dev'in yeniden düzenlenen sol paneli gözlemlendi ama redesign DEVAM ETTİĞİ için henüz
+kanonik registry'ye taşınmadı (churn önlemek üzere). Gözlem ve bekleyen model:
+
+- **Gözlem (kanıt):** [docs/dev-navigation-observed.md](dev-navigation-observed.md) —
+  5 bölüm (Overview/Channels/Engagement/Operations/Admin), rotalar, `/monitoring` yeni
+  alanı, Supervisor→`/supervisor/coaching`, Admin bölümü.
+- **Kod modeli:** `tests/contracts/dev-navigation-pending.js` (`DEV_NAV_SECTIONS`,
+  `DEV_MONITORING_AREA`) — additive, fail-closed kapılara BAĞLI DEĞİL; grup/bölüm-farkındalıklı
+  gezinme için hazır ve IA donunca tam migrasyona kaynak.
+
+IA netleşince yukarıdaki "IA değişince güncellenecek TAM liste" adımları uygulanır ve bu
+bekleyen model registry'ye taşınır.
