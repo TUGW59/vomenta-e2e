@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1234 / 119 dosya
-- **coverageStatus:** verified 0 · partial 1181 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1190 · skipped 0 · fixme 44
+- **Listelenen test:** 1264 / 135 dosya
+- **coverageStatus:** verified 0 · partial 1211 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1220 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -19,20 +19,20 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | analytics | 33 | 33 | 0 | 0 |
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
-| channels | 94 | 88 | 0 | 6 |
+| channels | 95 | 89 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
-| reports | 80 | 80 | 0 | 0 |
-| settings | 339 | 322 | 0 | 17 |
+| reports | 91 | 91 | 0 | 0 |
+| settings | 353 | 336 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 88 | 78 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 143 | 140 | 0 | 3 |
-| workforce | 105 | 103 | 0 | 2 |
+| workforce | 109 | 107 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
 
@@ -256,6 +256,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/video doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 | yapılandırma formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `channels-webchat-interactions.authed.spec.js` — _channels_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Configuration ↔ Integration üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
 ### `channels-webchat-mutations.authed.spec.js` — _channels_
 
@@ -666,6 +672,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Custom Report" pano/rapor sayfasına ("Dashboards") götürüyor |  | — | listed-only | partial | medium | list-exec |
 | "Schedule a Report" formu açılıyor ve iptal edilebiliyor |  | — | listed-only | partial | medium | list-exec |
 
+### `reports-dashboards-interactions.authed.spec.js` — _reports_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| All Dashboards / Default / Custom Dashboards sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `reports-dashboards-mutations.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -720,6 +732,21 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L2+L3: schedule oluşturuluyor, listeleniyor ve hemen siliniyor | @regression @mutation | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | güvenlik: tenantta geçici e2e schedule kalıntısı yok | @regression @mutation | — | listed-only | partial | medium | list-exec |
 
+### `reports-sections-interactions.authed.spec.js` — _reports_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| [call] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [agent] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [queue] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [campaign] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [channel] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [ai] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [quality] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [csat] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [billing] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| [sla] Charts ↔ Table üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `reports-sections.authed.spec.js` — _reports_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -773,6 +800,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | sayfa intl FORMATTING_ERROR sessiz hatası üretmemeli | @known-bug | — | listed-only | partial | medium | list-exec |
 | AI Insights panelinde ham i18n anahtarı sızmamalı (reports.aiInsightsDesc) | @known-bug | — | listed-only | partial | medium | list-exec |
 
+### `settings-api-keys-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| boş-durum mesajı render ediliyor ("No API keys") | @ix-empty | — | listed-only | partial | medium | list-exec |
+
 ### `settings-api-keys-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -798,6 +831,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/api-keys doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create Key dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
+### `settings-audit-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| log tablosu kolonları + en az bir dolu satır görünüyor | @ix-table | — | listed-only | partial | medium | list-exec |
+
 ### `settings-audit.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -818,6 +857,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | audit-logs ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 | View dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/audit doğrudan açılınca log yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `settings-automations-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Rules ↔ SLA Policies sekmeleri dışlayıcı seçilir + panel değişir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
 ### `settings-automations-mutations.authed.spec.js` — _settings_
 
@@ -845,6 +890,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | New Rule dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/automations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Rules boş-durumu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-canned-responses-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| boş-durum mesajı render ediliyor ("No canned responses yet") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
 ### `settings-canned-responses-mutations.authed.spec.js` — _settings_
 
@@ -924,6 +975,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | retention ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 | /settings/data-retention doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | saklama-süresi formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-disposition-codes-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| kod tablosu kolonları + en az bir dolu satır | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `settings-disposition-codes-mutations.authed.spec.js` — _settings_
 
@@ -1060,6 +1117,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | /settings/organization doğrudan açılınca form yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Company Information formu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
 
+### `settings-profile-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| 4 sekme dışlayıcı seçilir + panel içerik imzası değişir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `settings-profile-mutations.authed.spec.js` — _settings_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1105,6 +1168,16 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: custom rol oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `settings-roles-rbac.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| izin kataloğu 113 anahtar + 14 kategori; contract ile birebir (eksik/fazla yok) | @data @regression | — | listed-only | partial | medium | list-exec |
+| her rolün /roles izin kümesi contract ile birebir + sayım eşit | @data @regression | — | listed-only | partial | medium | list-exec |
+| Create Role dialogu 14 kategori + her kategori toplamı contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| AGENT Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| VIEWER Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
 
 ### `settings-roles.authed.spec.js` — _settings_
 
@@ -1153,6 +1226,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Add IP dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/security doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Add IP dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-sla-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| politika tablosu kolonları + en az bir dolu satır | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `settings-sla-mutations.authed.spec.js` — _settings_
 
@@ -1207,6 +1286,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Create Team dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/teams doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | Create Team dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-templates-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Message templates ↔ Canned Responses üst sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
 
 ### `settings-templates-mutations.authed.spec.js` — _settings_
 
@@ -1265,6 +1350,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | davet dialogu odak tuzağı ve Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /settings/users doğrudan açılınca liste yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 | davet dialogu görünümü değişmedi | @visual | — | listed-only | partial | medium | list-exec |
+
+### `settings-webhooks-interactions.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| boş-durum mesajı render ediliyor ("No webhooks configured") | @ix-empty | — | listed-only | partial | medium | list-exec |
 
 ### `settings-webhooks-mutations.authed.spec.js` — _settings_
 
@@ -1710,6 +1801,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "Open softphone" düğmesi görünür ve etkin (gerçek çağrı tetiklenmez) | @regression | — | listed-only | partial | medium | list-exec |
 | /voice doğrudan açılınca /voice/live yüklüyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `workforce-badges-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Badges ↔ Leaderboard sekmeleri dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `workforce-badges-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1760,12 +1857,25 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Değerlendirme Oluştur diyaloğu Escape ile kapanıyor | @keyboard | — | listed-only | partial | medium | list-exec |
 | /workforce/evaluations doğrudan açılınca sayfa yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `workforce-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| 7 üst sekme dışlayıcı seçilir | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
+
 ### `workforce-mutations.authed.spec.js` — _workforce_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: Add Shift kalıcı vardiya oluşturuyor (POST /wfm/schedules) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: Publish Schedule taslağı yayınlıyor ("Draft" kalkıyor) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `workforce-schedules-interactions.authed.spec.js` — _workforce_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Haftalık çizelge tablosu ajan satırlarıyla render olur | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `workforce-schedules.authed.spec.js` — _workforce_
 

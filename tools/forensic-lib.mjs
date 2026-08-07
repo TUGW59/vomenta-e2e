@@ -24,12 +24,21 @@ import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
 import { findSecrets } from '../tests/fixtures/sanitize.js';
 import { isValidScope } from '../tests/fixtures/scope-extract.js';
 
-/** CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi). */
+/**
+ * CI upload bundle'ına KOPYALANABİLECEK tek dosya kümesi (tam ad eşleşmesi).
+ *
+ * `location.png` (FAZ 2 / ADR-0026 §1): bulgunun hatalı locator'ının boundingBox'ı
+ * kutuyla işaretlenmiş, geri kalanı `safe-final-state.png` ile AYNI PII maskeleriyle
+ * alınmış maskeli görsel. Kontrollü eklenir; sanitize/PNG-imza kapısı (prepareUploadBundle)
+ * bu dosyaya da uygulanır. Hedef yoksa/maskeleme başarısızsa `location.png` üretilmez
+ * (`location.SKIPPED.txt` bırakılır → LOCAL_ONLY_PATTERNS, upload dışı).
+ */
 export const UPLOAD_ALLOWLIST = Object.freeze([
   'candidate-update.json',
   'network-summary.json',
   'metadata.json',
   'safe-final-state.png',
+  'location.png',
 ]);
 
 /**
@@ -49,6 +58,28 @@ export const LOCAL_ONLY_PATTERNS = Object.freeze([
   /^test-.*\.png$/i,
   /\.SKIPPED\.txt$/i,
 ]);
+
+/**
+ * (FAZ 3 / ADR-0026 §4) Kanıt indexi için bir bulgu bundle'ından TEK temsili güvenli
+ * artifact seçer. Tercih sırası: işaretli konum > tam-sayfa durum > ağ özeti. Yalnız
+ * GERÇEK yakalanmış maskeli kanıt sayılır; `metadata.json`/`candidate-update.json` tek
+ * başına kanıt DEĞİLDİR (dürüstlük: kanıtı olmayan bulgu index'e girmez → raporda
+ * "Kanıt: yok" kalır). Deterministik: aynı dosya kümesi → aynı seçim.
+ * @param {readonly string[]} fileNames  bundle içindeki (düz) dosya adları
+ * @returns {string|null}  seçilen dosya adı ya da (kanıt yoksa) null
+ */
+export const EVIDENCE_ARTIFACT_PREFERENCE = Object.freeze([
+  'location.png',
+  'safe-final-state.png',
+  'network-summary.json',
+]);
+export function pickEvidenceArtifact(fileNames) {
+  const set = new Set((Array.isArray(fileNames) ? fileNames : []).map(String));
+  for (const name of EVIDENCE_ARTIFACT_PREFERENCE) {
+    if (set.has(name)) return name;
+  }
+  return null;
+}
 
 /** Registry'den bulgu çözer; yoksa açık hata (CLI non-zero exit için). */
 export function resolveFinding(id) {

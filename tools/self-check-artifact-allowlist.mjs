@@ -538,10 +538,12 @@ for (const f of workflowFiles) {
     );
   });
 }
-check('gerçek workflow toplam upload adım sayısı = 10 (envanter sabiti)', () => {
+check('gerçek workflow toplam upload adım sayısı = 13 (envanter sabiti)', () => {
   // 9 (playwright.yml: public-smoke/auth-quality/auth-critical/full×?/visual/discovery/
-  // forensic/verify/reconcile) + 1 (readonly-audit.yml: readonly-audit-secure) = 10.
-  assert.equal(realUploadTotal, 10, `beklenen 10 upload adımı, bulunan ${realUploadTotal}`);
+  // forensic/verify/reconcile) + 2 (readonly-audit.yml SHARDED: readonly-audit-shard +
+  // readonly-audit-merged) + 2 (WP-EVIDENCE FAZ 3: known-bug-evidence matrix per-finding
+  // forensic bundle + known-bug-evidence-index secure index) = 13.
+  assert.equal(realUploadTotal, 13, `beklenen 13 upload adımı, bulunan ${realUploadTotal}`);
 });
 
 // ── B2. Sentetik kötü snippet'ler REDDEDİLMELİ ───────────────────────────────

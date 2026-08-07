@@ -14,9 +14,13 @@ export class AppShell {
     this.loginHeading = page.getByRole('heading', { name: 'Welcome back' });
     this.globalSearch = page.getByRole('button', { name: /Search/ }).first();
     this.userMenu = page.getByRole('button', { name: 'User menu' });
-    this.presenceMenu = page.getByRole('button', {
-      name: new RegExp(environment.defaultUserDisplayName, 'i'),
-    });
+    // Presence düğmesi giriş yapan kullanıcının adıyla bulunur (ortam-özel,
+    // VOMENTA_USER_DISPLAY_NAME). Ad tanımlı değilse boş regex TÜM düğmeleri
+    // eşleştirir → onun yerine stabil "User menu" düğmesine düşülür.
+    const displayName = environment.defaultUserDisplayName;
+    this.presenceMenu = displayName
+      ? page.getByRole('button', { name: new RegExp(displayName, 'i') })
+      : this.userMenu;
   }
 
   async expectReady() {

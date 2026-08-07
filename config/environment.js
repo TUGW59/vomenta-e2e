@@ -116,8 +116,10 @@ export const environment = Object.freeze({
     slowThresholdMs: positiveInteger(process.env.DISCOVERY_SLOW_THRESHOLD_MS, 2_000),
     updateBaseline: booleanValue(process.env.DISCOVERY_UPDATE_BASELINE),
   }),
-  defaultUserDisplayName:
-    process.env.VOMENTA_USER_DISPLAY_NAME || 'Tuğçe Topuz',
+  // Giriş yapan kullanıcının başlıkta görünen adı ORTAM-ÖZELDİR (prod ve dev'de
+  // farklıdır) ve VOMENTA_USER_DISPLAY_NAME ile her ortamın .env'inden gelir.
+  // Kaynakta kişi adı SABİTLENMEZ; tanımsızsa AppShell stabil bir düğmeye düşer.
+  defaultUserDisplayName: process.env.VOMENTA_USER_DISPLAY_NAME || '',
   // Yalnızca staging E2E (arama/SMS) için ayrılmış test numarası. Boşsa ilgili
   // mutation testleri atlanır. Gerçek numara .env'de tutulur, repoya GİRMEZ.
   testPhone: process.env.VOMENTA_TEST_PHONE || '',
@@ -126,7 +128,13 @@ export const environment = Object.freeze({
 });
 
 export function authStatePath(role = 'default') {
-  return `playwright/.auth/${role}.json`;
+  // WP-CI-SHARD: paralel shard + kontrollü retry (attempt) izolasyonu için auth
+  // dizini env ile geçersiz kılınabilir. Böylece aynı makinede eşzamanlı shard'lar
+  // ve bir shard'ın attempt-1/attempt-2 koşumları AYRI storageState kullanır →
+  // paylaşılan `playwright/.auth/default.json` üzerinde yarış (ENOENT) olmaz ve
+  // kontrollü retry TAZE bağımsız login üretir. Boşsa varsayılan davranış korunur.
+  const base = (process.env.PW_AUTH_DIR || 'playwright/.auth').replace(/\/+$/, '');
+  return `${base}/${role}.json`;
 }
 
 export function hasRoleCredentials(role) {

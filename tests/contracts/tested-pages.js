@@ -93,12 +93,23 @@ const COVERAGE_CONTRACTS = Object.freeze([
       //   kararlı snapshot bölgesi yok. hasStableUI=false → @visual zorunlu değil.
       // @export/@mutation: sayfa salt-okunur, export kontrolü yok → arketip false.
     },
+    // L2 etkileşim derinliği (FAZ 5 / ADR-0029): gösterge paneli KPI+grafik+kart özeti;
+    // kapsanabilir sekme/tablo/filtre/pager etkileşimi YOK → tüm geçerli boyut açık N/A
+    // (resolved-exempt). Tarih ön-ayar butonları ve "Live" toggle 6 boyuttan hiçbirine denk gelmez.
+    naInteraction: {
+      'search-filter': 'Metin arama/filtre kontrolü yok (yalnız Today/7/30 gün ön-ayar butonları).',
+      'table-list': 'Etkileşimli veri tablosu/listesi yok (KPI döşemeleri + grafikler + temsilci kartları + aktivite akışı).',
+      'pagination-sort': 'Liste/pager yok → sayfalama/sıralama kontrolü yok.',
+      'empty-state': 'Boş-durumlar statik ("No recent activity" / boş analiz alt-kartları); süzülerek ulaşılan etkileşimli boş-durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (KPI/grafikler canlı veriyle yerinde dolar).',
+    },
   },
   {
     id: 'reports-dashboards',
     surfaceIds: ['reports-dashboards'],
     specFiles: [
       'reports-dashboards.authed.spec.js',
+      'reports-dashboards-interactions.authed.spec.js',
       'reports-dashboards-mutations.authed.spec.js',
     ],
     archetype: {
@@ -116,6 +127,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI göstermiyor (pano kartları listeler).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: All/Default/Custom
+    // salt-istemci filtresi). Diğer 5 veri boyutu fiziksel olarak yok (kart ızgarası):
+    naInteraction: {
+      'search-filter': 'Pano kartları yüzeyinde arama/filtre kutusu yok (sekme istemci filtresidir → @ix-tabs).',
+      'table-list': 'Etkileşimli tablo yok; panolar kart ızgarası olarak listelenir (role=table değil).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok (kart listesi).',
+      'empty-state': 'Default bölümü boş (sayaç 0) olsa da arama/filtre ile üretilen read-only boş durum yok; boşluk sekme filtresiyle (@ix-tabs) kapsanır.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti için kararlı semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'reports-sections',
@@ -124,6 +144,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     ],
     specFiles: [
       'reports-sections.authed.spec.js',
+      'reports-sections-interactions.authed.spec.js',
       'reports-schedule-mutations.authed.spec.js',
     ],
     archetype: {
@@ -138,6 +159,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
     },
     naStyles: {
       '@export': 'Export indirme yan-etkisi; içerik doğrulaması gated/ileride (bkz. coverage-exclusions.js).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): 10 bölümün ortak kabuğunda tek veri-
+    // bağımsız etkileşim SEKMELER'dir (@ix-tabs: Charts ↔ Table). Diğer 5 veri boyutu N/A:
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok; yalnız Date Range presetleri + bölüme-özgü açılır seçiciler (Group By/All Directions…). Serbest-metin narrowing yüzeyi yok.',
+      'table-list': 'Table sekmesi içeriği seçili-dönem-veri-bağlı; 3 bölüm (campaign/channel/billing) yapısal boş ("No data available") → dolu read-only satır garanti değil (anti-loop #3).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi (grafik/tablo dönem verisiyle sınırlı).',
+      'empty-state': 'Boş-durum ("No data available for the selected period") dönem-veri-bağlı; arama/filtre ile deterministik üretilemez (anti-loop #3).',
+      'loading-state': 'Açılış skeleton\'ı var ancak kararlı semantik locator/testid yok (keşifte data-testid talep edildi) → deterministik iskelet assertion\'ı yazılamıyor.',
     },
   },
   {
@@ -177,6 +207,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     surfaceIds: ['settings-profile'],
     specFiles: [
       'settings-profile.authed.spec.js',
+      'settings-profile-interactions.authed.spec.js',
       'settings-profile-mutations.authed.spec.js',
     ],
     archetype: {
@@ -193,6 +224,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (statik profil formu + oturum tablosu).',
       '@data': 'Sayısal KPI göstermiyor (form alanları + oturum listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKME (@ix-tabs) kanıtlanır. Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (sekmeli profil/oturum yüzeyi).',
+      'table-list': 'Oturum tablosu Sessions sekmesinde read-only özet; ayrı interaktif liste sözleşmesi yok → sekme derinliği (@ix-tabs) kanıtlanır.',
+      'pagination-sort': 'Kısa oturum listesi → pager/sıralama yok.',
+      'empty-state': 'En az bir aktif oturum (mevcut) daima var → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -216,6 +255,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (statik şirket-bilgisi formu).',
       '@data': 'Sayısal KPI göstermiyor (form alanları).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): saf form → tüm boyut N/A (resolved-exempt).
+    naInteraction: {
+      'search-filter': 'Saf şirket-bilgisi formu; arama/filtre kontrolü yok.',
+      'table-list': 'Etkileşimli liste/tablo yok (tek form).',
+      'pagination-sort': 'Liste yok → pager/sıralama yok.',
+      'empty-state': 'Liste yok → boş-durum kavramı geçersiz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti yok (form doğrudan render).',
     },
   },
   {
@@ -257,6 +304,10 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'settings-roles.authed.spec.js',
       'settings-roles-interactions.authed.spec.js',
       'settings-roles-mutations.authed.spec.js',
+      // RBAC matris kontratı (FAZ 2): salt-okunur @data @regression; katalog=113,
+      // 6 rol izin kümeleri + UI kategori sayaçları contract ile birebir. i18n/a11y/
+      // layout vb. zaten settings-roles.authed.spec.js'te kapsanır (union kapsama).
+      'settings-roles-rbac.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -305,6 +356,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Sayfada dosya export/indirme kontrolü yok (GDPR "Export Data" kalıcı işlem → staging).',
       '@visual': '3 canlı tablo (audit/consent/GDPR: göreli zaman + tarih + UUID) → kararlı snapshot bölgesi yok, flaky.',
     },
+    // L2 etkileşim (ADR-0029): çok bölümlü özet pano → resolved-exempt (interaktif liste ayrı /settings/audit'te).
+    naInteraction: {
+      'search-filter': 'Çok bölümlü özet panoda arama/filtre kontrolü yok.',
+      'table-list': 'Audit/Consent/GDPR tabloları read-only özet ("View More" ayrı sayfaya götürür); interaktif liste derinliği ayrı /settings/audit rotasında sahiplenilir.',
+      'pagination-sort': 'Özet tablolarda rota-içi pager/sıralama yok.',
+      'empty-state': 'Canlı uyumluluk verisi (audit/consent) daima mevcut → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-teams',
@@ -327,6 +386,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (ekip kartları + create dialogu).',
       '@data': 'Sayısal KPI tile yok (kart "N members" veri metni).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): kart ızgarası (kolonlu tablo değil) → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Ekip kart ızgarasında arama/filtre kontrolü yok.',
+      'table-list': 'Ekipler kart ızgarası (ad + üye sayısı) — kolon başlıklı tablo değil → @ix-table yapısı yok.',
+      'pagination-sort': 'Kısa ekip kart listesi → pager/sıralama yok.',
+      'empty-state': 'En az bir ekip daima mevcut → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -351,12 +418,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (saat config değerleri).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim (ADR-0029): saf haftalık program formu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Saf haftalık program formu; arama/filtre kontrolü yok.',
+      'table-list': 'Etkileşimli liste/tablo yok (gün-switch + saat formu).',
+      'pagination-sort': 'Liste yok → pager/sıralama yok.',
+      'empty-state': 'Liste yok → boş-durum kavramı geçersiz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti yok (form doğrudan render).',
+    },
   },
   {
     id: 'settings-automations',
     surfaceIds: ['settings-automations'],
     specFiles: [
       'settings-automations.authed.spec.js',
+      'settings-automations-interactions.authed.spec.js',
       'settings-automations-mutations.authed.spec.js',
     ],
     archetype: {
@@ -374,12 +450,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (SLA süreleri tablo verisi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKME (@ix-tabs, Rules/SLA Policies). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (sekmeli kural/SLA yüzeyi).',
+      'table-list': 'SLA tablosu SLA Policies sekmesinde; tablo derinliği ayrı /settings/sla rotasında sahiplenilir → burada sekme derinliği (@ix-tabs) kanıtlanır.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi.',
+      'empty-state': 'Rules sekmesi boş-durumu ("No automation rules configured") @ix-tabs panel imzasında görülür; ayrı arama-tabanlı boş-durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-sla',
     surfaceIds: ['settings-sla'],
     specFiles: [
       'settings-sla.authed.spec.js',
+      'settings-sla-interactions.authed.spec.js',
       'settings-sla-mutations.authed.spec.js',
     ],
     archetype: {
@@ -396,12 +481,20 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (politika tablosu + dialog).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): LİSTE (@ix-table). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Politika tablosunda arama/filtre kontrolü yok.',
+      'pagination-sort': 'Küçük politika rosteri → pager/sıralama yok.',
+      'empty-state': 'Varsayılan SLA politikaları mevcut → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
+    },
   },
   {
     id: 'settings-templates',
     surfaceIds: ['settings-templates'],
     specFiles: [
       'settings-templates.authed.spec.js',
+      'settings-templates-interactions.authed.spec.js',
       'settings-templates-mutations.authed.spec.js',
     ],
     archetype: {
@@ -419,12 +512,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (şablon listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): ÜST SEKME (@ix-tabs). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (iç içe sekmeli şablon yüzeyi).',
+      'table-list': 'Şablon tablosu kategori başına boş-durumlu ("No templates in this category") → dolu read-only satır garanti değil; sekme derinliği (@ix-tabs) kanıtlanır.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi.',
+      'empty-state': 'Kategori tablosu boş-durumu tenant-veri-bağlı → deterministik değil (anti-loop #3).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-disposition-codes',
     surfaceIds: ['settings-disposition-codes'],
     specFiles: [
       'settings-disposition-codes.authed.spec.js',
+      'settings-disposition-codes-interactions.authed.spec.js',
       'settings-disposition-codes-mutations.authed.spec.js',
     ],
     archetype: {
@@ -442,12 +544,20 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (kod listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): LİSTE (@ix-table). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Kod tablosunda arama/filtre kontrolü yok.',
+      'pagination-sort': 'Sabit küçük kod rosteri → pager/sıralama yok.',
+      'empty-state': 'Varsayılan sistem kodları daima mevcut → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
+    },
   },
   {
     id: 'settings-canned-responses',
     surfaceIds: ['settings-canned-responses'],
     specFiles: [
       'settings-canned-responses.authed.spec.js',
+      'settings-canned-responses-interactions.authed.spec.js',
       'settings-canned-responses-mutations.authed.spec.js',
     ],
     archetype: {
@@ -464,6 +574,13 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (hazır yanıt tablosu + dialog).',
       '@data': 'Sayısal KPI yok (hazır yanıt listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0014/ADR-0029): BOŞ-DURUM kapsanır (@ix-empty, "No canned responses yet"). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': "Arama kutusu var ancak liste read-only tenant'ta boş → daraltacak satır yok (veri-bağlı, anti-loop #3).",
+      'table-list': 'Hazır yanıt listesi boş ("No canned responses yet"); dolu read-only satır yok → tablo yapısı kanıtlanamaz (boş-durum @ix-empty ile kanıtlı).',
+      'pagination-sort': 'Boş/kısa liste → pager/sıralama yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -488,6 +605,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (kart/tablo listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim (ADR-0029): sağlayıcı kartları + boş webhook alt-tablosu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Sağlayıcı kart ızgarasında arama/filtre kontrolü yok.',
+      'table-list': 'Entegrasyonlar kart ızgarası (kolon başlıklı tablo değil); Webhook alt-tablosu boş → @ix-table yapısı yok.',
+      'pagination-sort': 'Sabit sağlayıcı kataloğu → pager/sıralama yok.',
+      'empty-state': 'Webhook alt-listesi boş-durumu tenant-veri-bağlı → deterministik değil.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-security',
@@ -510,6 +635,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (config formu + oturum/login tabloları + dialog).',
       '@data': 'Sayısal KPI tile yok (policy config değerleri).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): config yüzeyi; oturum/geçmiş gömülü özet → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Config yüzeyinde arama/filtre kontrolü yok.',
+      'table-list': 'Active Sessions / Login History read-only gömülü özetler; ayrı interaktif liste sözleşmesi yok (config sayfası).',
+      'pagination-sort': 'Kısa oturum/geçmiş özetleri → pager/sıralama yok.',
+      'empty-state': 'En az bir aktif oturum/giriş geçmişi daima var → read-only boş duruma ulaşılamaz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -534,6 +667,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (saklama-süresi formu).',
       '@data': 'Sayısal KPI tile yok (gün config değerleri).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): saf config formu (spinbutton/switch) → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Saf config formu (spinbutton/switch); arama/filtre yok.',
+      'table-list': 'Etkileşimli liste/tablo yok (saklama-süresi formu).',
+      'pagination-sort': 'Liste yok → pager/sıralama yok.',
+      'empty-state': 'Liste yok → boş-durum kavramı geçersiz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti yok (form doğrudan render).',
     },
   },
   {
@@ -560,12 +701,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Çok uzun tercih formu (onlarca switch, kategoriler) → tek kararlı snapshot bölgesi pratik değil.',
     },
+    // L2 etkileşim (ADR-0029): uzun switch tercih formu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Uzun switch tercih formu; arama/filtre yok.',
+      'table-list': "Etkileşimli liste/tablo yok (tercih switch'leri).",
+      'pagination-sort': 'Liste yok → pager/sıralama yok.',
+      'empty-state': 'Liste yok → boş-durum kavramı geçersiz.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti yok (form doğrudan render).',
+    },
   },
   {
     id: 'settings-api-keys',
     surfaceIds: ['settings-api-keys'],
     specFiles: [
       'settings-api-keys.authed.spec.js',
+      'settings-api-keys-interactions.authed.spec.js',
       'settings-api-keys-mutations.authed.spec.js',
     ],
     archetype: {
@@ -583,12 +733,20 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (anahtar listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim (ADR-0014/ADR-0029): BOŞ-DURUM kapsanır (@ix-empty, "No API keys"). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Anahtar yüzeyinde arama/filtre kontrolü yok.',
+      'table-list': 'Anahtar listesi read-only tenant\'ta boş ("No API keys"); dolu satır yok → tablo yapısı kanıtlanamaz (boş-durum @ix-empty ile kanıtlı).',
+      'pagination-sort': 'Boş/kısa liste → pager/sıralama yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-webhooks',
     surfaceIds: ['settings-webhooks'],
     specFiles: [
       'settings-webhooks.authed.spec.js',
+      'settings-webhooks-interactions.authed.spec.js',
       'settings-webhooks-mutations.authed.spec.js',
     ],
     archetype: {
@@ -606,11 +764,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI yok (webhook listesi).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
     },
+    // L2 etkileşim (ADR-0014/ADR-0029): BOŞ-DURUM kapsanır (@ix-empty, "No webhooks configured"). Diğerleri N/A:
+    naInteraction: {
+      'search-filter': 'Webhook yüzeyinde arama/filtre kontrolü yok.',
+      'table-list': 'Webhook listesi read-only tenant\'ta boş ("No webhooks configured"); dolu satır yok → tablo yapısı kanıtlanamaz (boş-durum @ix-empty ile kanıtlı).',
+      'pagination-sort': 'Boş/kısa liste → pager/sıralama yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'settings-audit',
     surfaceIds: ['settings-audit'],
-    specFiles: ['settings-audit.authed.spec.js'],
+    specFiles: [
+      'settings-audit.authed.spec.js',
+      'settings-audit-interactions.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -626,6 +794,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (log listesi).',
       '@visual': 'Tablo canlı log verisi (timestamp/UUID/IP) içerir → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim derinliği (WP-L2-WAVE-1 / ADR-0014, FAZ 0 pilotu): deterministik boyut
+    // LİSTE (@ix-table — settings-audit-interactions.authed.spec.js). Diğerleri açık N/A:
+    naInteraction: {
+      'search-filter':
+        'Arama kutusu VAR ancak canlı log satırlarından (UUID/zaman damgası/IP) deterministik salt-okuma daraltma örneği türetmek güvenilir değil → anti-loop #3 gereği N/A (kapsam @ix-table ile kanıtlı).',
+      'pagination-sort': 'Read-only: pager/sıralama kontrolü POM/DOM gözleminde doğrulanmadı; sayfa boyutu veri-bağlı.',
+      'empty-state':
+        'Deterministik boş-duruma yalnız (veri-bağlı, güvenilmez) arama daraltmasıyla ulaşılır → anti-loop #3 gereği N/A.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (tablo doğrudan render).',
+    },
   },
 
   // ─────────────────────────── İŞ GÜCÜ (WORKFORCE) ───────────────────────────
@@ -639,6 +817,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     surfaceIds: ['workforce'],
     specFiles: [
       'workforce.authed.spec.js',
+      'workforce-interactions.authed.spec.js',
       'workforce-mutations.authed.spec.js',
     ],
     archetype: {
@@ -657,11 +836,22 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu yüzeyde export/indirme kontrolü yok.',
       '@visual': 'İçerik tarih/haftaya bağlı (çizelge grid) → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: 7 sekme) + TABLO
+    // (@ix-table: haftalık çizelge, ajan satırları). Diğer 4 veri boyutu N/A:
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok (yalnız hafta ok\'ları Previous/Next Week + Adherence aralık düğmeleri).',
+      'pagination-sort': 'Pager/sütun-sıralama yok; hafta navigasyonu tarih-aralığı ok\'udur, liste sayfalama değil.',
+      'empty-state': 'Boş-durum (geçmiş hafta/boş sekmeler) arama/filtre ile deterministik üretilmez.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'workforce-schedules',
     surfaceIds: ['workforce-schedules'],
-    specFiles: ['workforce-schedules.authed.spec.js'],
+    specFiles: [
+      'workforce-schedules.authed.spec.js',
+      'workforce-schedules-interactions.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -679,6 +869,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'İçerik tarih/haftaya bağlı → kararlı snapshot yok.',
       '@mutation': 'Vardiya create/publish yaşam döngüsü /workforce yüzeyinde (workforce-mutations) sahiplenilir; ayrı rotada tekrar edilmez (uzlaştırma).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): TABLO (@ix-table: haftalık çizelge,
+    // ajan satırları). Diğer 4 veri boyutu N/A (sekmesiz standalone çizelge):
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok (yalnız hafta ok\'ları Previous/Next Week).',
+      'pagination-sort': 'Pager/sütun-sıralama yok; hafta ok\'u tarih-aralığı navigasyonudur.',
+      'empty-state': 'Boş-durum (geçmiş hafta) arama/filtre ile deterministik üretilmez.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -701,6 +899,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'İzin tablosu canlı veri → kararlı snapshot yok.',
       '@mutation': 'İzin talebi UI\'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. İzin tablosu test
+    // tenant'ında BOŞ ("No time off requests") + arama/pager/sekme yok → hiçbir veri
+    // boyutu fiziksel olarak yok. Salt "Request Time Off" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'İzin tablosu test tenant\'ında boş ("No time off requests") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -726,12 +934,23 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Anket tablosu canlı veri → kararlı snapshot yok.',
     },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. Anket listesi test
+    // tenant'ında BOŞ ("No CSAT surveys") + arama/pager/sekme yok → hiçbir veri boyutu
+    // fiziksel olarak yok. Salt "Create survey" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'Anket tablosu test tenant\'ında boş ("No CSAT surveys") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
+    },
   },
   {
     id: 'workforce-badges',
     surfaceIds: ['workforce-badges'],
     specFiles: [
       'workforce-badges.authed.spec.js',
+      'workforce-badges-interactions.authed.spec.js',
       'workforce-badges-mutations.authed.spec.js',
     ],
     archetype: {
@@ -749,6 +968,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (rozet/lider listesi).',
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Rozet/lider tablosu canlı veri → kararlı snapshot yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): SEKMELER (@ix-tabs: Badges ↔ Leaderboard).
+    // Diğer 5 veri boyutu N/A (rozet listesi test tenant'ında boş):
+    naInteraction: {
+      'table-list': 'Rozet listesi test tenant\'ında boş ("No badges yet") → dolu read-only tablo satırı garanti değil (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
   {
@@ -773,6 +1001,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (puan sütunu tablo verisi).',
       '@export': 'Export/indirme kontrolü yok.',
       '@visual': 'Değerlendirme tablosu canlı veri → kararlı snapshot yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): resolved-exempt. Değerlendirme listesi
+    // test tenant'ında BOŞ ("No evaluations yet") + arama/pager/sekme yok → hiçbir veri
+    // boyutu fiziksel olarak yok. Salt "Create Evaluation" formu (mutation, kapsam-dışı).
+    naInteraction: {
+      'table-list': 'Değerlendirme tablosu test tenant\'ında boş ("No evaluations yet") → dolu read-only satır yok (anti-loop #3).',
+      'search-filter': 'Arama/filtre kutusu yok.',
+      'pagination-sort': 'Pager/sütun-sıralama yok (liste boş).',
+      'empty-state': 'Doğal boş-durum var ancak arama/filtre ile üretilen read-only boş durum yüzeyi yok.',
+      'loading-state': 'Kararlı liste-yükleme iskeleti için semantik locator gözlenmedi.',
     },
   },
 
@@ -803,12 +1041,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@mutation': 'Hub salt gezinme; create/edit/delete/save yok (yazma alt sayfalarda).',
     },
+    // L2 etkileşim (ADR-0029): 7 kanal kartlı statik hub → resolved-exempt (etkileşim yüzeyi yok).
+    naInteraction: {
+      'search-filter': 'Kart ızgarasında arama/filtre kontrolü yok (yalnız Configure bağlantıları).',
+      'table-list': 'Etkileşimli liste/tablo yok (7 kanal kartlı statik ızgara; her kart durum rozeti + Configure).',
+      'pagination-sort': 'Sabit 7 kart; pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Kartlar daima render edilir; read-only boş duruma ulaştıracak arama/filtre yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (kartlar config isteğinden bağımsız statik).',
+    },
   },
   {
     id: 'channels-webchat',
     surfaceIds: ['channels-webchat'],
     specFiles: [
       'channels-webchat.authed.spec.js',
+      'channels-webchat-interactions.authed.spec.js',
       'channels-webchat-mutations.authed.spec.js',
     ],
     archetype: {
@@ -825,6 +1072,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (yapılandırma formu + iki sekme).',
       '@data': 'Sayısal KPI tile yok (widget ayar alanları).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim derinliği (ADR-0014/ADR-0029): ÜST SEKME (@ix-tabs: Configuration ↔ Integration).
+    // Diğer 5 veri boyutu fiziksel olarak yok (form yüzeyi):
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (renk/metin girdileri + switch/textarea formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (iki sekmeli yapılandırma formu).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Boş-duruma ulaştıracak arama/filtre yok (read-only form).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -850,6 +1106,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B17 format hatası + imza içeriği canlı → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim (ADR-0029): imza/yönlendirme formu + hesap boş-durumu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (imza/yönlendirme formu + Add Account dialogu).',
+      'table-list': 'Etkileşimli liste/tablo yok; hesap alanı boş-durumda ("No email account connected").',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Hesap boş-durumu statik metindir; arama/filtre ile ulaşılan read-only boş durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-sms',
@@ -873,6 +1137,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@data': 'Sayısal KPI tile yok (liste + config alanları).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B18 konsol hatası + canlı listeler → kararlı snapshot bölgesi yok.',
+    },
+    // L2 etkileşim (ADR-0029): durum/yön açılır filtreleri boş mesaj günlüğü üzerinde,
+    // metin arama kutusu yok → veri-bağlı/güvenilmez (anti-loop #3) → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Metin arama kutusu yok; yalnız durum/yön açılır seçicileri (All Statuses/Directions) mesaj günlüğü üzerinde. Canlı durum "Not configured" → günlük boş, filtre narrowing veri-bağlı/güvenilmez (anti-loop #3).',
+      'table-list': 'Mesaj günlüğü ("Not configured" tenant) boş → dolu read-only satır garanti değil.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü gözlenmedi (boş günlük).',
+      'empty-state': 'Boş-durum tenant-veri-bağlı ("Not configured") → deterministik read-only kanıtlanamaz (anti-loop #3).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -899,6 +1172,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B19 konsol hatası + bağlantı durumu canlı → kararlı snapshot yok.',
     },
+    // L2 etkileşim (ADR-0029): "API Not Configured" + "No templates yet" boş-durumu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (bağlantı boş-durumu + şablon formu).',
+      'table-list': 'Şablon listesi boş-durumda ("No templates yet"; API Not Configured) → dolu read-only satır yok.',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok (boş şablon listesi).',
+      'empty-state': 'Boş-durum ("API Not Configured") statik/tenant-bağlı; arama/filtre ile üretilen read-only boş durum yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-social',
@@ -924,6 +1205,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Açılışta B16 eksik-çeviri konsol hatası → kararlı snapshot bölgesi yok.',
     },
+    // L2 etkileşim (ADR-0029): sabit platform kartları ızgarası + Connect → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (6 platform kartı + Connect + ayar formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (sabit platform kartları ızgarası).',
+      'pagination-sort': 'Sabit platform seti; pager/sütun-sıralama yok.',
+      'empty-state': 'Kartlar daima render edilir; read-only boş duruma ulaştıracak arama/filtre yok.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'channels-video',
@@ -947,6 +1236,14 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (ayar seçicileri formu).',
       '@data': 'Sayısal KPI tile yok (kalite/fps config değerleri).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
+    },
+    // L2 etkileşim (ADR-0029): kalite/fps seçicileri formu → resolved-exempt.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (kalite/fps seçicileri formu).',
+      'table-list': 'Etkileşimli liste/tablo yok (ayar seçicileri formu).',
+      'pagination-sort': 'Pager/sütun-sıralama kontrolü yok.',
+      'empty-state': 'Boş-duruma ulaştıracak arama/filtre yok (read-only form).',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi.',
     },
   },
 
@@ -978,6 +1275,17 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok (Recordings\'te var).',
       '@visual': 'İçerik canlı (aktif çağrı sayıları, temsilci mevcudiyeti, ort. bekleme) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Hub salt gerçek-zamanlı görünüm; create/edit/delete/save yok. Gerçek çağrı softphone üzerinden staging mutation\'da (voice-call.mutation.authed.spec.js).',
+    },
+    // L2 etkileşim derinliği (FAZ 5 / ADR-0029): canlı-çağrı hub'ı KPI + mevcudiyet
+    // sayaçları + boş-durum; alt-nav düğmeleri ARIA-sekme değil bölüm gezinmesi (@ix-tabs
+    // uygulanmaz). Canlı çağrı görünümü test tenant'ında daima boş → kapsanabilir tablo yok.
+    // Tüm geçerli boyut açık N/A (resolved-exempt; FAZ 4 boş-tenant presedansı ile tutarlı).
+    naInteraction: {
+      'search-filter': 'Canlı çağrı hub\'ında arama/filtre kontrolü yok.',
+      'table-list': 'Canlı çağrı görünümü test tenant\'ında daima boş → yapısal tablo/satır doğrulanamaz (aktif çağrı yok).',
+      'pagination-sort': 'Liste/pager yok → sayfalama/sıralama yok.',
+      'empty-state': 'Boş-durum ("No active calls right now") statik/daima mevcut; süzülerek ulaşılan etkileşimli boş-durum değil.',
+      'loading-state': 'Ayrı liste-yükleme iskeleti gözlenmedi (canlı veri yerinde dolar).',
     },
   },
   {

@@ -3,7 +3,7 @@ import { MAIN_NAVIGATION } from '../contracts/navigation.js';
 import { TESTED_PAGES } from '../contracts/tested-pages.js';
 import { probePage } from './probes.js';
 import { observeDiscovery } from './observer.js';
-import { installReadOnlyGuard, safeInternalPath } from './safety.js';
+import { installReadOnlyGuard, classifyLanding } from './safety.js';
 
 function registeredRoutes() {
   return new Set(TESTED_PAGES.flatMap((entry) => entry.routes));
@@ -48,10 +48,14 @@ export async function crawlApplication(
         navigationError = error instanceof Error ? error.name : 'NavigationError';
       }
 
-      const finalPath = safeInternalPath(page.url(), baseURL);
+      // Landing doğrulaması `safeInternalPath` DEĞİL `classifyLanding` kullanır:
+      // meşru bir `?query`/`#hash` ile açılan rota oturum kaybı sayılmamalı
+      // (aksi halde yanlış `session-or-origin-lost` hardFailure → yanlış-fail).
+      const landing = classifyLanding(page.url(), baseURL);
+      const finalPath = landing.path;
       const lostSession =
-        !finalPath ||
-        /^\/(?:login|sign-in|signin|auth)(?:\/|$)/i.test(finalPath);
+        landing.originLost ||
+        /^\/(?:login|sign-in|signin|auth)(?:\/|$)/i.test(finalPath || '');
       if (navigationError) {
         hardFailures.push({ route, type: 'navigation-failed', detail: navigationError });
       }

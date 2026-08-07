@@ -1,6 +1,5 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { AutomationsPage } from './pages/AutomationsPage.js';
 
 /**
  * AYARLAR › OTOMASYON — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)

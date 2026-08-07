@@ -181,7 +181,9 @@ export class DashboardsPage extends BasePage {
     await deleted;
   }
 
-  // languageTrigger()/switchLanguage() BasePage'den miras alınır.
+  // switchLanguage() BasePage'den miras alınır (o da AppShell'e delege eder).
+  // languageTrigger() BasePage'de YOKTUR; bu sayfada dil tetikleyicisi kullanan
+  // bir akış olmadığından burada da tanımlanmaz.
 }
 
 function escapeRegExp(value) {

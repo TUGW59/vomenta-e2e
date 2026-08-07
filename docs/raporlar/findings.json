@@ -33,6 +33,11 @@
       "workforce": 5
     }
   },
+  "classification": {
+    "product": 61,
+    "infra": 0,
+    "infraIds": []
+  },
   "governanceFlags": {
     "ownerless": [
       "B1",
@@ -103,10 +108,25 @@
       "opened": null,
       "lastVerified": "2026-07-28",
       "expiry": null,
+      "env": {
+        "role": "authed",
+        "envName": "production"
+      },
+      "precondition": "Kimliği doğrulanmış oturum açık; /voice/regulatory erişilebilir.",
+      "firstFailingStep": 3,
       "repro": [
-        "/voice/regulatory aç",
-        "KYC içeriği yüklensin",
-        "sayfa metnini oku"
+        {
+          "step": "/voice/regulatory aç",
+          "selector": null
+        },
+        {
+          "step": "KYC içeriği yüklensin",
+          "selector": null
+        },
+        {
+          "step": "sayfa metnini oku",
+          "selector": null
+        }
       ],
       "expected": "Çevrilmiş etiketler görünür (ör. \"Start KYC\")",
       "actual": "9 ham i18n anahtarı görünüyor (voiceRegulatory.title, .startKyc, …)",

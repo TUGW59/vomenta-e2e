@@ -21,6 +21,9 @@ export class ChannelWebchatPage extends BasePage {
 
   static API = { config: '/api/v1/channels/webchat/config' };
 
+  /** Üst sekme adları (İngilizce) — L2 etkileşim derinliği (@ix-tabs) için. */
+  static TABS = ['Configuration', 'Integration'];
+
   /** @param {import('@playwright/test').Page} page */
   constructor(page) {
     super(page, '/channels/webchat');
@@ -34,5 +37,10 @@ export class ChannelWebchatPage extends BasePage {
   async open() {
     await super.open();
     await expect(this.heading).toBeVisible({ timeout: 30000 });
+  }
+
+  /** Ada göre üst sekme (read-only) — @ix-tabs derinliği için. */
+  tab(name) {
+    return this.page.getByRole('tab', { name, exact: true });
   }
 }

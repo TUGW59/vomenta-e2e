@@ -528,6 +528,14 @@ sert kapı yalnızca **varlık/beyan**ı dayatır, koşumu değil → PR pipelin
   kalamaz. Yeni rota önce `tested-pages.js` sözleşmesine ve zorunlu stillere alınır.
 - Uygulanmayan koşullu stil `tested-pages.js`'te `naStyles` ile **açık gerekçeyle** beyan edilir
   (sessiz atlama yasak — 3-katman N/A kuralının aynısı).
+- **L2·deep etkileşim derinliği (ADR-0014/ADR-0029):** dedicated bir rotanın geçerli
+  etkileşim boyutları (tabs/search-filter/table-list/pagination-sort/empty-state/loading-state)
+  ya `@ix-*` işaretli gerçek read-only testle **kanıtlı**, ya `tested-pages.js`'te
+  `naInteraction` ile **gerekçeli N/A** olmalı. `test.skip` ile kapsam buharlaştırma ve
+  yüzeyde olmayan/`naInteraction` boyuta `@ix-*` işareti (misdeclared) yasak. Yardımcılar:
+  `tests/support/interactions.js`. Kapı: `quality:depth` (`tools/depth-ratchet.mjs`) —
+  her dedicated rota deep VEYA resolved-exempt VEYA `depth-backlog.js`'te gerekçeli olmalı,
+  aksi halde bloklar. (`quality:depth` güncel JSON ister → önce `npm run report:surface`.)
 - Bir stil bozuksa `test.fail` (`@known-bug`); düzelince kalıcı guard.
 - Stil etiketi, ilgili primitifi kullanmalı (`validate-architecture.mjs`: `@a11y`→axe, `@visual`→
   `toHaveScreenshot`, `@clean`→`diagnostics.assertClean`, `@data`→`captureJson/waitForResponse`,

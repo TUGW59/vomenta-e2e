@@ -322,6 +322,66 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
+// 11a) Kanıt hattı planı + numaralı evidence-pipeline ADR'si birlikte (SALT docs/) →
+//      izinli saf-doküman PR → NO_RUNTIME_REQUIRED, exit 0.
+{
+  const p = plan([
+    { path: 'docs/EVIDENCE-PIPELINE-PLAN.md', status: 'A' },
+    { path: 'docs/adr/0025-evidence-pipeline.md', status: 'A' },
+  ]);
+  check(
+    'evidence-pipeline-docs-only-green',
+    p.status === 'NO_RUNTIME_REQUIRED' &&
+      p.exitCode === 0 &&
+      p.selectedRunnableSpecCount === 0 &&
+      p.fallbackSuites.length === 0,
+    `status=${p.status} exit=${p.exitCode} runnable=${p.selectedRunnableSpecCount}`
+  );
+}
+
+// 11b) Yalnız numaralı ADR (SALT docs/adr) → izinli → NO_RUNTIME_REQUIRED, exit 0.
+{
+  const p = plan([{ path: 'docs/adr/0023-auth-transient-gateway-resilience.md', status: 'A' }]);
+  check(
+    'numbered-adr-only-green',
+    p.status === 'NO_RUNTIME_REQUIRED' && p.exitCode === 0 && p.selectedRunnableSpecCount === 0,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 11c) Yalnız kanıt hattı planı (SALT docs/) → izinli → NO_RUNTIME_REQUIRED, exit 0.
+{
+  const p = plan([{ path: 'docs/EVIDENCE-PIPELINE-PLAN.md', status: 'M' }]);
+  check(
+    'evidence-plan-only-green',
+    p.status === 'NO_RUNTIME_REQUIRED' && p.exitCode === 0 && p.selectedRunnableSpecCount === 0,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 11d) Kontrolsüz docs/adr (numarasız) → HÂLÂ fail-closed (genel docs/adr/** izni YOK).
+{
+  const p = plan([{ path: 'docs/adr/notes.md', status: 'A' }]);
+  check(
+    'unnumbered-adr-fail',
+    p.status === 'QUALITY_ONLY_POLICY_VIOLATION' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
+// 11e) Numaralı ADR + rastgele docs birlikte → izinli-dışı dosya var → fail-closed.
+{
+  const p = plan([
+    { path: 'docs/adr/0025-evidence-pipeline.md', status: 'A' },
+    { path: 'docs/random-note.md', status: 'A' },
+  ]);
+  check(
+    'allowed-adr-plus-random-docs-fail',
+    p.status === 'QUALITY_ONLY_POLICY_VIOLATION' && p.exitCode === 1,
+    `status=${p.status} exit=${p.exitCode}`
+  );
+}
+
 // 12) Generated docs + unknown runtime → fail closed (runtime var → quality-only DEĞİL;
 //     bilinmeyen-runtime dosyası UNMAPPED ile fail-closed kalır).
 {

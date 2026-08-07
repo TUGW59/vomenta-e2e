@@ -1,6 +1,5 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { DispositionCodesPage } from './pages/DispositionCodesPage.js';
 
 /**
  * AYARLAR › SONUÇ KODLARI — L3 GÖREV OK (VERİ-DEĞİŞTİREN / opt-in mutation)

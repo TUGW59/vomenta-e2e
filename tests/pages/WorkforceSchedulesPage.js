@@ -56,4 +56,14 @@ export class WorkforceSchedulesPage extends BasePage {
   firstAddShiftCell() {
     return this.page.locator('main table td .border-dashed').first();
   }
+
+  /** Haftalık çizelge tablosu (satır = ajan/takım, sütun = günler). Read-only. */
+  scheduleTable() {
+    return this.page.locator('main table').first();
+  }
+
+  /** Ajan/takım satırları (tenant baseline ajanları → güncel haftada dolu). Read-only. */
+  scheduleRows() {
+    return this.page.locator('main table tbody tr');
+  }
 }

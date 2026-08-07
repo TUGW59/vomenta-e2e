@@ -43,6 +43,12 @@
 
 ## 2. Sabitlenmiş sayımlar (komutla doğrulanır)
 
+> ⚠️ Bu sayımlar **taban commit `7b2c277`** anına aittir. Depo o günden bu yana
+> önemli ölçüde ilerledi; aynı komutlar bugünkü ağaçta daha yüksek değerler verir.
+> Tablo, dokümanın tabanıyla tutarlı kalması için bilinçli olarak sabittir — güncel
+> bir denetim gerektiğinde bu bölüm ve §3 birlikte, yeni bir tabana yeniden
+> sabitlenerek tazelenmelidir.
+
 | Metrik | Değer | Doğrulama komutu |
 |---|---|---|
 | `test.fixme(` (gerçek çağrı) | **15** | `grep -rn "test\.fixme(" tests --include="*.spec.js"` → 16 satır; 1'i (`known-bugs-invite…:21`) docstring |

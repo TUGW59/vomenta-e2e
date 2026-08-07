@@ -1,0 +1,76 @@
+# Veri değiştiren (@mutation) testler — YALNIZCA staging, YALNIZCA manuel.
+#
+# Bu workflow, read-only PR/nightly hattından (playwright.yml, readonly-audit.yml)
+# tamamen AYRIDIR ve onları etkilemez. Mutation testleri asla pull_request/push'ta
+# koşmaz; yalnız elle (workflow_dispatch) ve `staging` GitHub Environment onayı ile.
+#
+# Güvenlik (defense-in-depth — bkz. docs/MUTATION-TESTS-GUIDE.md §7, ADR-0004/0005):
+#   - ALLOW_MUTATING_TESTS=true YALNIZCA bu workflow'da; başka hiçbir workflow'da değil.
+#   - Buna rağmen mutationGuard prod'a yazmayı imkânsız kılar: TEST_ENV=staging +
+#     production-dışı BASE_URL/MUTATION_API_ORIGIN + /auth/me tenant eşleşmesi zorunlu.
+#   - Staging secret/vars yalnız `staging` Environment'ında tanımlıdır; yoksa guard
+#     fail-closed olur (koşum güvenle durur). Production'a kaçış yolu YOKTUR.
+#
+# NOT: Bu ilk sürüm artifact UPLOAD etmez (HTML rapor runner'da üretilir). Güvenli,
+# sanitize edilmiş artifact yüklemesi staging fiilen bağlanınca (Faz 8) kayıtlı bir
+# `mutation` lane'i + prepare-ci-artifact ready-guard ile eklenecektir.
+
+name: Mutation Tests (staging-only, manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: Bu manuel mutation koşumunun gerekçesi (denetim izi için).
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+# Aynı anda TEK mutation koşumu. Süren koşum İPTAL EDİLMEZ (yarıda kesmek tenant'ta
+# orphan bırakabilir); yeni tetik sıraya girer.
+concurrency:
+  group: mutation-lane
+  cancel-in-progress: false
+
+jobs:
+  mutation:
+    name: Staging mutation lane
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Onay kapısı: `staging` Environment'ında required reviewer + staging secret/vars.
+    environment: staging
+    env:
+      # Mutation kilidi YALNIZCA burada açıktır.
+      ALLOW_MUTATING_TESTS: 'true'
+      # Guard'ın zorunlu kıldığı staging bağlamı (production değerleri KABUL EDİLMEZ).
+      TEST_ENV: 'staging'
+      BASE_URL: ${{ vars.E2E_STAGING_BASE_URL }}
+      MUTATION_API_ORIGIN: ${{ vars.MUTATION_API_ORIGIN }}
+      MUTATION_TENANT_ID: ${{ secrets.MUTATION_TENANT_ID }}
+      MUTATION_TENANT_SLUG: ${{ secrets.MUTATION_TENANT_SLUG }}
+      # Staging test hesabı ve ayrılmış test numaraları (staging Environment secret'ları).
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_STAGING_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_STAGING_PASSWORD }}
+      VOMENTA_TEST_CONTACT_PHONE: ${{ secrets.VOMENTA_TEST_CONTACT_PHONE }}
+      VOMENTA_TEST_PHONE: ${{ secrets.VOMENTA_TEST_PHONE }}
+    steps:
+      - name: Koşum gerekçesi
+        run: echo "Manuel mutation koşumu — gerekçe: ${{ inputs.reason }}"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # `pretest:mutation` (quality:architecture) npm pre-hook ile otomatik koşar.
+      # Guard, staging bağlamı eksikse burada fail-closed durur.
+      - name: Mutation testlerini koştur (staging)
+        run: npm run test:mutation
+      # Koşum sonrası ayrılmış staging tenant'ında orphan/kalıntı = 0 doğrulaması.
+      # Test sonucundan BAĞIMSIZ çalışır: cleanup başarısızlığı burada da görünür.
+      - name: Orphan-sıfır denetimi (staging)
+        if: ${{ always() }}
+        run: npm run report:orphans

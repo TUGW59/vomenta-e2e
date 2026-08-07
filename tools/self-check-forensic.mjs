@@ -22,7 +22,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 import { KNOWN_BUGS } from '../tests/contracts/known-bugs.js';
-import { forensicModeActive } from '../tests/fixtures/forensic.js';
+import { forensicModeActive, computeLocationOverlay } from '../tests/fixtures/forensic.js';
 import { knownBugGuard } from '../tests/helpers.js';
 import {
   resolveFinding,
@@ -113,24 +113,29 @@ check('knownBugGuard: forensik eşleşmede test.fail ATLANIR, aksi halde UYGULAN
 });
 
 // ── 4-5-7-8. Upload allowlist / sanitizer kapısı ──────────────────────────────
-check('temiz bundle: 4 güvenli dosya kopyalanır; trace/video lokal-only', () => {
+check('temiz bundle: 5 güvenli dosya kopyalanır; trace/video + location SKIPPED lokal-only', () => {
   const dir = makeDir('clean', {
     'candidate-update.json': '{"findingId":"B4","result":"reproduced"}',
     'network-summary.json': '{"total":0,"requests":[]}',
     'metadata.json': '{"findingId":"B4"}',
     'safe-final-state.png': PNG,
+    'location.png': PNG, // FAZ 2 — maskeli konum görseli allowlist'te
     'trace.zip': 'PK-fake',
     'video.webm': 'fake-webm',
     'network-summary.SKIPPED.txt': 'skip notu',
+    'location.SKIPPED.txt': 'hedef işaretlenmedi', // FAZ 2 — hedefsiz konum notu lokal-only
   });
   const b = prepareUploadBundle(dir);
   assert.deepEqual(b.rejected, [], `beklenmeyen ret: ${JSON.stringify(b.rejected)}`);
   assert.deepEqual([...b.copied].sort(), [...UPLOAD_ALLOWLIST].sort());
+  assert.ok(b.copied.includes('location.png'), 'location.png güvenli bundle\'a alınmalı');
   assert.ok(b.skippedLocal.includes('trace.zip'), 'trace.zip upload dışı olmalı');
   assert.ok(b.skippedLocal.includes('video.webm'), 'video.webm upload dışı olmalı');
-  // upload/ altında ne zip ne webm bulunmalı
+  assert.ok(b.skippedLocal.includes('location.SKIPPED.txt'), 'location.SKIPPED.txt lokal-only olmalı');
+  // upload/ altında ne zip ne webm ne de SKIPPED notu bulunmalı
   const uploaded = readdirSync(b.uploadDir);
   assert.ok(!uploaded.some((f) => /\.(zip|webm|mp4)$/i.test(f)), 'upload/ trace/video içermemeli');
+  assert.ok(!uploaded.some((f) => /\.SKIPPED\.txt$/i.test(f)), 'upload/ SKIPPED notu içermemeli');
 });
 check('allowlist dışı beklenmeyen dosya REDDEDİLİR', () => {
   const dir = makeDir('unexpected', {
@@ -164,6 +169,24 @@ check('video production upload allowlist\'inde YOK', () => {
   assert.ok(!UPLOAD_ALLOWLIST.some((n) => /\.(webm|mp4)$/i.test(n)), 'allowlist video içermemeli');
   assert.ok(LOCAL_ONLY_PATTERNS.some((re) => re.test('video.webm')), 'webm lokal-only olmalı');
   assert.ok(LOCAL_ONLY_PATTERNS.some((re) => re.test('trace.zip')), 'zip lokal-only olmalı');
+});
+
+// ── FAZ 2. Konum overlay geometrisi (SAF, deterministik) ──────────────────────
+check('computeLocationOverlay: viewport-içi kutu değişmez döner', () => {
+  const o = computeLocationOverlay({ x: 100, y: 50, width: 200, height: 40 }, { width: 1280, height: 720 });
+  assert.deepEqual(o, { x: 100, y: 50, width: 200, height: 40 });
+});
+check('computeLocationOverlay: viewport dışına taşan kutu clamp\'lenir', () => {
+  const o = computeLocationOverlay({ x: -20, y: 700, width: 100, height: 100 }, { width: 1280, height: 720 });
+  // x1=0, y1=700, x2=min(1280,80)=80, y2=min(720,800)=720
+  assert.deepEqual(o, { x: 0, y: 700, width: 80, height: 20 });
+});
+check('computeLocationOverlay: görünür kesişim yoksa / geçersiz girdi → null', () => {
+  assert.equal(computeLocationOverlay(null, { width: 1280, height: 720 }), null);
+  assert.equal(computeLocationOverlay({ x: 10, y: 10, width: 10, height: 10 }, null), null);
+  assert.equal(computeLocationOverlay({ x: 2000, y: 10, width: 50, height: 50 }, { width: 1280, height: 720 }), null, 'viewport sağında → null');
+  assert.equal(computeLocationOverlay({ x: 10, y: 10, width: 0, height: 40 }, { width: 1280, height: 720 }), null, 'sıfır genişlik → null');
+  assert.equal(computeLocationOverlay({ x: 10, y: 10, width: NaN, height: 40 }, { width: 1280, height: 720 }), null, 'NaN → null');
 });
 
 // ── 6. Trace secret taraması (pure + gerçek zip) ──────────────────────────────
@@ -263,6 +286,7 @@ if (failures.length > 0) {
 }
 console.log(
   'Forensik self-check geçti: bilinmeyen-id, CLI/env uyuşmazlığı, forensik test.fail atlama, ' +
-    'upload allowlist + JSON/PNG sanitizer kapısı, trace secret taraması, trace/video lokal-only, ' +
+    'upload allowlist (safe-final-state + location.png) + JSON/PNG sanitizer kapısı, ' +
+    'konum overlay geometrisi (clamp/null), trace secret taraması, trace/video/SKIPPED lokal-only, ' +
     'unexpected-pass→fixed-candidate, normal/permanent→üretmez, registry değişmezliği.'
 );
