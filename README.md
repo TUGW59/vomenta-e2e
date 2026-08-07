@@ -67,6 +67,11 @@ npm run test:debug
 # Son HTML raporunu açma
 npm run test:report
 
+# Koşu raporları tarih-saatli arşivlenir (yerel; CI hariç): en son koşu
+# reports/güncel raporlar altında, öncekiler reports/arşiv altında toplanır.
+# reports/index.html tüm koşuları sonuç+zaman ile listeler. Elle arşivlemek için:
+npm run report:archive
+
 # Mimari kurallar + tüm testlerin yüklenmesi
 npm run quality:check
 
