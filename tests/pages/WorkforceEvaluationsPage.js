@@ -7,7 +7,9 @@ import { BasePage } from './BasePage.js';
  *
  * Yapı (30 Tem 2026 canlı gözlem, test hesabı):
  *  - Başlık "Kalite değerlendirmeleri"; boş-durum "Henüz değerlendirme yok."
- *  - Butonlar: "Değerlendirme Oluştur" (manuel) + "YZ Değerlendirmesi Başlat".
+ *  - Butonlar: "Değerlendirme Oluştur" (manuel) + "YZ Değerlendirmesi Başlat"
+ *    (EN etiketi 7 Ağu 2026'da "Start AI Evaluation" → "Trigger AI Evaluation"
+ *    olarak yeniden adlandırıldı; TR etiketi değişmedi).
  *  - Tablo kolonları: Puan · Temsilci · Değerlendirici · Tür · Tarih · YZ · İşlemler.
  *  - "Kalite Değerlendirmesi Oluştur" formu: Interaction ID (gerçek çağrı/konuşma
  *    ID'si) · Interaction Type (seçim) · Agent (seçim) · Puan % (0–100) ·
@@ -26,7 +28,7 @@ export class WorkforceEvaluationsPage extends BasePage {
 
   static L = {
     createButton: /^(Create Evaluation|Değerlendirme Oluştur)$/,
-    aiButton: /^(Start AI Evaluation|YZ Değerlendirmesi Başlat)$/,
+    aiButton: /^(Trigger AI Evaluation|YZ Değerlendirmesi Başlat)$/,
     submit: /^(Create Evaluation|Değerlendirme Oluştur)$/,
     cancel: /^(Cancel|İptal)$/,
     heading: /(Quality [Ee]valuations|Kalite değerlendirmeleri)/,
