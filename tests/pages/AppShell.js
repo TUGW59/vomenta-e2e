@@ -29,6 +29,34 @@ export class AppShell {
   }
 
   /**
+   * GRUP-FARKINDALIKLI sidebar gezinmesi. Düz menüde doğrudan linke tıklar; sayfa
+   * bir grubun (ör. yeniden düzenlenmiş sol panelde açılır alt-menü) altındaysa önce
+   * grubu açıp sonra çocuğa tıklar. Böylece sayfalar bir grubun altına taşınsa bile
+   * tıklama-gezinme testleri kırılmaz.
+   *
+   * NOT: Rota-tabanlı gezinme (BasePage.open → goto) her zaman en dayanıklı yoldur ve
+   * IA değişiminden etkilenmez; bu yardımcı YALNIZCA sidebar tıklama davranışını test
+   * etmek/gerektiğinde kullanılır. `parent` verilirse o grubu açar.
+   *
+   * @param {string} name Tıklanacak (çocuk) link adı.
+   * @param {{ parent?: string }} [opts] parent: önce açılacak grup adı.
+   */
+  async openViaSidebar(name, opts = {}) {
+    const target = this.link(name);
+    if (opts.parent) {
+      const group = this.navigation
+        .getByRole('button', { name: opts.parent, exact: true })
+        .or(this.navigation.getByRole('link', { name: opts.parent, exact: true }))
+        .first();
+      // Çocuk zaten görünür değilse grubu aç (accordion/disclosure).
+      if (!(await target.isVisible().catch(() => false))) {
+        await group.click();
+      }
+    }
+    await target.click();
+  }
+
+  /**
    * Kenar çubuğu altındaki dil düğmesi (🇬🇧 English / 🇹🇷 Türkçe / …).
    * Dil seçimi sunucuda kalıcı DEĞİL → her test taze bağlamda İngilizce başlar.
    */
