@@ -1,12 +1,31 @@
 // @ts-check
 import dotenv from 'dotenv';
 import path from 'path';
+import {
+  ENVIRONMENTS,
+  environmentByHostname,
+  PRODUCTION_API_HOSTNAME,
+  PRODUCTION_HOSTNAME,
+} from './environments.js';
 
+// Ortam seçimi TEST_ENV ile yapılır (script/shell'den gelir; ör. `npm run test:dev`).
+// Önce ortam-özel dosya (.env.<env>) yüklenir; sonra genel .env fallback olarak
+// gelir. dotenv zaten tanımlı değişkenleri EZMEZ, bu yüzden ortam-özel dosya kazanır.
+// Böylece dev'in test hesabı ile prod'un admin hesabı aynı .env'de karışmaz.
+const requestedEnv = process.env.TEST_ENV;
+// Shell/CI'den GELEN BASE_URL açık bir override'dır (dotenv'den önce yakalanır).
+const shellBaseURL = process.env.BASE_URL;
+let perEnvBaseURL;
+if (requestedEnv) {
+  const loaded = dotenv.config({
+    path: path.resolve(`.env.${requestedEnv}`),
+    quiet: true,
+  });
+  perEnvBaseURL = loaded.parsed?.BASE_URL;
+}
 dotenv.config({ path: path.resolve('.env'), quiet: true });
 
-const DEFAULT_BASE_URL = 'https://app.vomenta.com';
-const PRODUCTION_HOSTNAME = 'app.vomenta.com';
-const PRODUCTION_API_HOSTNAME = 'api.vomenta.com';
+const DEFAULT_BASE_URL = ENVIRONMENTS.production.baseURL;
 const SUPPORTED_ROLES = ['default', 'admin', 'supervisor', 'agent'];
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -25,13 +44,47 @@ function rolePrefix(role) {
   return role === 'default' ? 'VOMENTA' : `VOMENTA_${role.toUpperCase()}`;
 }
 
-function inferEnvironment(baseURL) {
-  return new URL(baseURL).hostname === 'app.vomenta.com' ? 'production' : 'staging';
+/**
+ * Ortam adını ve baseURL'i çözer. Öncelik (yukarıdan aşağıya):
+ *   1) AÇIK override — shell/CI veya .env.<env> içinde BASE_URL verilmişse onu
+ *      kullan; adı TEST_ENV > host'tan çıkarım > 'staging' ile belirle.
+ *   2) TEST_ENV bilinen bir kaydı (production/dev) adlandırıyorsa baseURL registry'den
+ *      gelir. Böylece `npm run test:dev` çalışır ve base .env'deki eski/kalıntı
+ *      BASE_URL ortamlar arası SIZMAZ.
+ *   3) Aksi halde base .env'deki BASE_URL (eski tek-dosya kullanımı için geriye dönük).
+ *   4) Hiçbiri yoksa production varsayılanı.
+ */
+function resolveTarget() {
+  const explicitBaseURL = shellBaseURL || perEnvBaseURL;
+  if (explicitBaseURL) {
+    const matched = environmentByHostname(new URL(explicitBaseURL).hostname);
+    // Açıkça override edilen URL'in adını, base .env'den sızabilecek TEST_ENV değil,
+    // shell'den gelen TEST_ENV (requestedEnv) veya host çıkarımı belirler.
+    return {
+      name: requestedEnv || matched?.name || 'staging',
+      baseURL: explicitBaseURL,
+    };
+  }
+
+  const envName = process.env.TEST_ENV || 'production';
+  const registryBaseURL = ENVIRONMENTS[envName]?.baseURL;
+  if (registryBaseURL) {
+    return { name: envName, baseURL: registryBaseURL };
+  }
+
+  const legacyBaseURL = process.env.BASE_URL;
+  if (legacyBaseURL) {
+    const matched = environmentByHostname(new URL(legacyBaseURL).hostname);
+    return { name: process.env.TEST_ENV || matched?.name || 'staging', baseURL: legacyBaseURL };
+  }
+
+  return { name: envName, baseURL: DEFAULT_BASE_URL };
 }
 
-const baseURL = process.env.BASE_URL || DEFAULT_BASE_URL;
+const target = resolveTarget();
+const baseURL = target.baseURL;
 const parsedBaseURL = new URL(baseURL);
-const name = process.env.TEST_ENV || inferEnvironment(baseURL);
+const name = target.name;
 
 if (!['http:', 'https:'].includes(parsedBaseURL.protocol)) {
   throw new Error(`BASE_URL http veya https olmalı: ${baseURL}`);
@@ -40,6 +93,12 @@ if (!['http:', 'https:'].includes(parsedBaseURL.protocol)) {
 export const environment = Object.freeze({
   name,
   baseURL: parsedBaseURL.origin,
+  // Registry'den türeyen bilgiler (bilinmeyen host için güvenli varsayılanlar).
+  // vpnOnly yalnızca dokümantasyon/erişim notu; mutable ise ortamın @mutation'a
+  // uygun olup olmadığını belgeler (asıl kilit yine assertMutationEnvironment'ta).
+  apiHostname: ENVIRONMENTS[name]?.apiHostname || '',
+  vpnOnly: ENVIRONMENTS[name]?.vpnOnly ?? false,
+  mutable: ENVIRONMENTS[name]?.mutable ?? false,
   isCI: booleanValue(process.env.CI),
   runVisualTests: booleanValue(process.env.RUN_VISUAL_TESTS, !process.env.CI),
   isProduction: name === 'production',

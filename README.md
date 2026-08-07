@@ -1,8 +1,9 @@
 # Vomenta Playwright testleri
 
 Bu depo, Vomenta web uygulamasının kritik kullanıcı akışlarını gerçek bir
-tarayıcıda otomatik olarak kontrol eder. Testler şu anda canlı ortamı hedefler;
-`BASE_URL` ile farklı bir test ortamına yönlendirilebilir.
+tarayıcıda otomatik olarak kontrol eder. **Aynı testler** birden çok ortama karşı
+koşar (production ve dev); ortam çalışma-zamanında `TEST_ENV` ile seçilir —
+`npm run test:prod`, `npm run test:dev`. Ayrıntı: [docs/ENVIRONMENTS.md](docs/ENVIRONMENTS.md).
 
 Detaylı tasarım, katman sorumlulukları ve yeni test standardı:
 [docs/TEST_ARCHITECTURE.md](docs/TEST_ARCHITECTURE.md).
@@ -39,6 +40,10 @@ npm run test:critical
 
 # Chromium'da giriş gerektiren uygulama testleri
 npm run test:auth
+
+# Ortam seçerek koşma (aynı testler, farklı hedef) — bkz. docs/ENVIRONMENTS.md
+npm run test:prod:smoke   # production'a karşı @smoke
+npm run test:dev:smoke    # dev'e karşı @smoke (şirket VPN'i gerekir)
 
 # Chromium, Firefox ve WebKit'te tüm test paketi
 npm run test:e2e

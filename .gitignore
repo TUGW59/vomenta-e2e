@@ -2,7 +2,12 @@
 # Playwright
 node_modules
 node_modules/
+# Gerçek kimlikler ASLA commit edilmez: .env ve ortam-özel .env.<env> dosyaları.
+# Yalnızca *.example şablonları izlenir.
 .env
+.env.*
+!.env.example
+!.env.*.example
 
 # macOS
 .DS_Store
