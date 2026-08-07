@@ -28,14 +28,21 @@ export async function crawlApplication(
     ...registered,
   ];
   const queued = new Set(queue);
+  // Seed edilen (bilinen) rota evreni: '/' + ana navigasyon + kayıtlı rotalar.
+  // Bu küme her koşumda TAM gezilir; maxPages yalnız BFS ile keşfedilen EK
+  // rotaları sınırlar → parmak-izlenen çekirdek deterministik kalır.
+  const seeded = new Set(queue);
   const visited = new Set();
   const pages = [];
   const hardFailures = [];
 
   try {
-    while (queue.length > 0 && pages.length < maxPages) {
+    while (queue.length > 0) {
       const route = queue.shift();
       if (!route || visited.has(route)) continue;
+      // Seed rotalar her zaman gezilir; yalnız keşfedilen EK rotalar maxPages ile
+      // sınırlanır (determinizm — bkz. `seeded`).
+      if (!seeded.has(route) && pages.length >= maxPages) continue;
       visited.add(route);
       const checkpoint = observer.checkpoint();
       let response = null;
@@ -44,6 +51,13 @@ export async function crawlApplication(
       try {
         response = await page.goto(route, { waitUntil: 'commit' });
         await page.waitForLoadState('domcontentloaded');
+        // Kabuk-yakalama düzeltmesi: SPA rotaları içeriği domcontentloaded'dan
+        // SONRA (API yanıtı gelince) boyar. Sadece iskeleti değil GERÇEK içeriği
+        // parmak-izlemek için ağ sakinliğini bekle — arbitrary sleep DEĞİL:
+        // koşul (network-idle) gerçekleşince erken döner, yalnız üst sınırda bekler.
+        // Kalıcı SSE/websocket'te sınıra kadar bekler; bu kabul edilir ve sınırlıdır.
+        // NOT: kesin süre Faz 2'de canlı uygulamaya karşı doğrulanır/ince ayarlanır.
+        await page.waitForLoadState('networkidle', { timeout: 6_000 }).catch(() => {});
       } catch (error) {
         navigationError = error instanceof Error ? error.name : 'NavigationError';
       }

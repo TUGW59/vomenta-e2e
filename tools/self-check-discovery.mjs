@@ -6,6 +6,7 @@ import {
 import { redactUrl, safeInternalPath, classifyLanding } from '../tests/discovery/safety.js';
 import {
   compareDiscoveryBaseline,
+  evaluateDriftPolicy,
   makeDiscoveryBaseline,
 } from '../tests/discovery/baseline.js';
 
@@ -96,4 +97,46 @@ assert.deepEqual(compareDiscoveryBaseline(report, baseline), {
   networkChanged: [],
 });
 
-console.log('Discovery safety self-check geçti: origin/path kilidi, maskeleme ve fingerprint diff.');
+// ── evaluateDriftPolicy: drift farkını PASS/FAIL kararına indirger ──
+// baseline yok → OK (bootstrap), hiçbir failure üretmez.
+{
+  const r = evaluateDriftPolicy({ baselinePresent: false, addedRoutes: ['/x'], removedRoutes: [], ariaChanged: [], networkChanged: [] });
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.failures, []);
+}
+// kaldırılan rota → FAIL.
+{
+  const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: ['/reports'], ariaChanged: [], networkChanged: [] });
+  assert.equal(r.ok, false);
+  assert.equal(r.failures.length, 1);
+  assert.match(r.failures[0], /removed-route: \/reports/);
+}
+// ARIA yapısı değişimi → FAIL.
+{
+  const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [{ route: '/voice', before: 'a', after: 'b' }], networkChanged: [] });
+  assert.equal(r.ok, false);
+  assert.match(r.failures[0], /aria-changed: \/voice/);
+}
+// kaldırılan endpoint → FAIL; eklenen endpoint → yalnız BİLGİ (kapı yeşil kalır).
+{
+  const removed = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [], networkChanged: [{ route: '/contacts', added: [], removed: ['GET /api/contacts'] }] });
+  assert.equal(removed.ok, false);
+  assert.match(removed.failures[0], /endpoint-removed: \/contacts/);
+  const added = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [], networkChanged: [{ route: '/contacts', added: ['GET /api/new'], removed: [] }] });
+  assert.equal(added.ok, true);
+  assert.deepEqual(added.failures, []);
+  assert.equal(added.info.some((m) => /endpoint-added/.test(m)), true);
+}
+// eklenen rota → yalnız BİLGİ (yeni sayfa tek başına bug değildir).
+{
+  const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: ['/new-page'], removedRoutes: [], ariaChanged: [], networkChanged: [] });
+  assert.equal(r.ok, true);
+  assert.equal(r.info.some((m) => /added-route: \/new-page/.test(m)), true);
+}
+// temiz diff → OK.
+{
+  const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [], networkChanged: [] });
+  assert.deepEqual(r, { ok: true, failures: [], info: [] });
+}
+
+console.log('Discovery safety self-check geçti: origin/path kilidi, maskeleme, fingerprint diff ve drift politikası (removed/aria/endpoint → FAIL; added → info).');
