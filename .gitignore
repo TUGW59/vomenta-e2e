@@ -2,7 +2,12 @@
 # Playwright
 node_modules
 node_modules/
+# Gerçek kimlikler ASLA commit edilmez: .env ve ortam-özel .env.<env> dosyaları.
+# Yalnızca *.example şablonları izlenir.
 .env
+.env.*
+!.env.example
+!.env.*.example
 
 # macOS
 .DS_Store
@@ -14,6 +19,8 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+# Yerel tarih-saatli koşu arşivi (tools/archive-run.mjs) — commit edilmez.
+/reports/
 
 # WP-R2 rapor artifact'leri — HTML/PDF Git'e commit EDİLMEZ (MD/JSON kaynak-of-truth commit'lenir)
 /docs/raporlar/*.html

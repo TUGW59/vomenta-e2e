@@ -14,9 +14,13 @@ export class AppShell {
     this.loginHeading = page.getByRole('heading', { name: 'Welcome back' });
     this.globalSearch = page.getByRole('button', { name: /Search/ }).first();
     this.userMenu = page.getByRole('button', { name: 'User menu' });
-    this.presenceMenu = page.getByRole('button', {
-      name: new RegExp(environment.defaultUserDisplayName, 'i'),
-    });
+    // Presence düğmesi giriş yapan kullanıcının adıyla bulunur (ortam-özel,
+    // VOMENTA_USER_DISPLAY_NAME). Ad tanımlı değilse boş regex TÜM düğmeleri
+    // eşleştirir → onun yerine stabil "User menu" düğmesine düşülür.
+    const displayName = environment.defaultUserDisplayName;
+    this.presenceMenu = displayName
+      ? page.getByRole('button', { name: new RegExp(displayName, 'i') })
+      : this.userMenu;
   }
 
   async expectReady() {
@@ -26,6 +30,34 @@ export class AppShell {
 
   link(name) {
     return this.navigation.getByRole('link', { name, exact: true });
+  }
+
+  /**
+   * GRUP-FARKINDALIKLI sidebar gezinmesi. Düz menüde doğrudan linke tıklar; sayfa
+   * bir grubun (ör. yeniden düzenlenmiş sol panelde açılır alt-menü) altındaysa önce
+   * grubu açıp sonra çocuğa tıklar. Böylece sayfalar bir grubun altına taşınsa bile
+   * tıklama-gezinme testleri kırılmaz.
+   *
+   * NOT: Rota-tabanlı gezinme (BasePage.open → goto) her zaman en dayanıklı yoldur ve
+   * IA değişiminden etkilenmez; bu yardımcı YALNIZCA sidebar tıklama davranışını test
+   * etmek/gerektiğinde kullanılır. `parent` verilirse o grubu açar.
+   *
+   * @param {string} name Tıklanacak (çocuk) link adı.
+   * @param {{ parent?: string }} [opts] parent: önce açılacak grup adı.
+   */
+  async openViaSidebar(name, opts = {}) {
+    const target = this.link(name);
+    if (opts.parent) {
+      const group = this.navigation
+        .getByRole('button', { name: opts.parent, exact: true })
+        .or(this.navigation.getByRole('link', { name: opts.parent, exact: true }))
+        .first();
+      // Çocuk zaten görünür değilse grubu aç (accordion/disclosure).
+      if (!(await target.isVisible().catch(() => false))) {
+        await group.click();
+      }
+    }
+    await target.click();
   }
 
   /**

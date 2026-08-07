@@ -155,11 +155,14 @@ export function isAllowedDocsOnlyPath(rel) {
  * @returns {string}
  */
 export function classifyFile(rel) {
-  // 1) Dokümantasyon — runtime gerektirmez.
+  // 1) Dokümantasyon / policy şablonu — runtime gerektirmez.
+  //    `.env.example`, `.env.<env>.example` yalnızca kurulum şablonudur (gerçek
+  //    değerler .env* dosyalarındadır ve gitignore'ludur); test davranışını etkilemez.
   if (
     /\.md$/.test(rel) ||
     rel.startsWith('docs/') ||
-    /^(LICENSE|\.gitignore|\.editorconfig)$/.test(rel)
+    /^(LICENSE|\.gitignore|\.editorconfig)$/.test(rel) ||
+    /^\.env(?:\.[^/]+)?\.example$/.test(rel)
   ) {
     return 'docs';
   }

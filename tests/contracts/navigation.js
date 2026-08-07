@@ -59,3 +59,55 @@ export const MAIN_NAVIGATION = Object.freeze([
     throw new Error(`MAIN_NAVIGATION kanonik registry alt kümesi değil:\n  - ${errs.join('\n  - ')}`);
   }
 })();
+
+/**
+ * SIDEBAR AĞACI — kenar menüsünün hiyerarşisini KANONİK REGISTRY'DEN TÜRETİR.
+ * Ayrı bir liste elle tutulmaz: tek kaynak `PRODUCT_SURFACES`'tir. Üst düzey =
+ * `navigation:'main'`; alt öğeler = o yüzeyi `parentId` ile işaret eden ve
+ * `navigation:'secondary'` olan yüzeyler.
+ *
+ * NEDEN ADAPTASYON İÇİN ÖNEMLİ: Dev'de bilgi mimarisi değişip sayfalar taşındığında
+ * (ör. sol paneldeki öğe sayısı azaltılıp bazı sayfalar bir grubun altına alındığında)
+ * YALNIZCA registry'deki `navigation`/`parentId` alanları güncellenir; bu ağaç, türev
+ * MAIN_NAVIGATION ve grup-farkındalıklı gezinme (AppShell.openViaSidebar) otomatik takip
+ * eder. "Tıklayınca gezinir mi yoksa alt-menü mü açar" davranışı UI gözlemine bağlıdır ve
+ * navigation.authed.spec.js tarafından doğrulanır; burada rota/hiyerarşi gerçeği tutulur.
+ *
+ * @param {readonly any[]} [surfaces]
+ * @returns {ReadonlyArray<{ id:string, route:string, area:string, heading:(string|null),
+ *   children: ReadonlyArray<{ id:string, route:string }> }>}
+ */
+export function buildSidebarTree(surfaces = PRODUCT_SURFACES) {
+  const headingByRoute = new Map(MAIN_NAVIGATION.map((n) => [n.path, n.heading]));
+  return Object.freeze(
+    surfaces
+      .filter((s) => s.navigation === 'main')
+      .map((s) =>
+        Object.freeze({
+          id: s.id,
+          route: s.route,
+          area: s.area,
+          heading: headingByRoute.get(s.route) ?? null,
+          children: Object.freeze(
+            surfaces
+              .filter((c) => c.parentId === s.id && c.navigation === 'secondary')
+              .map((c) => Object.freeze({ id: c.id, route: c.route }))
+          ),
+        })
+      )
+  );
+}
+
+/** Registry'den türetilmiş kenar menüsü ağacı (üst öğeler + alt-menü çocukları). */
+export const SIDEBAR_TREE = buildSidebarTree();
+
+/**
+ * Üst düzey bir nav öğesinin registry'de alt-rotaları (secondary çocukları) var mı?
+ * DİKKAT: Bu YAPISAL bir gerçektir; UI'da "tıklayınca alt-menü açar mı yoksa gezinir mi"
+ * DEĞİLDİR (ör. Settings'in çok çocuğu vardır ama tıklanınca /settings'e gider = yaprak).
+ * UI davranışı navigation.authed.spec.js'te gözlemle doğrulanır.
+ */
+export function hasSubRoutes(route) {
+  const node = SIDEBAR_TREE.find((n) => n.route === route);
+  return Boolean(node && node.children.length > 0);
+}

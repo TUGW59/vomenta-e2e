@@ -2,15 +2,17 @@
 
 [![Playwright CI](https://github.com/TUGW59/vomenta-e2e/actions/workflows/playwright.yml/badge.svg)](https://github.com/TUGW59/vomenta-e2e/actions/workflows/playwright.yml)
 
-Bu depo, Vomenta web uygulamasının kritik kullanıcı akışlarını gerçek bir
 tarayıcıda uçtan uca (E2E) doğrular. Amaç yalnızca çok test yazmak değil; bir
 değişikliğin oluşturduğu hatayı **en ucuz katmanda yakalayan ve sonucunu
 güvenilir biçimde açıklayan** bir kalite sistemi kurmaktır.
 
+**Aynı testler** birden çok ortama karşı koşar (production ve dev); ortam
+çalışma-zamanında `TEST_ENV` ile seçilir — `npm run test:prod` / `npm run test:dev`.
 Testler varsayılan olarak canlı ortamı (`app.vomenta.com`) hedefler ve
-**salt-okunur** kalır; `BASE_URL` ile farklı bir ortama yönlendirilebilir. Veri
-değiştiren (`@mutation`) senaryolar yalnızca ayrılmış bir staging tenant'ında
-çalışır — production'da kaçış yolu yoktur.
+**salt-okunur** kalır. Ortam modeli ve dev (VPN) kurulumu:
+[docs/ENVIRONMENTS.md](docs/ENVIRONMENTS.md). Veri değiştiren (`@mutation`)
+senaryolar yalnızca ayrılmış bir staging tenant'ında çalışır — production'da
+kaçış yolu yoktur.
 
 ## İçindekiler
 
@@ -66,6 +68,10 @@ npm run test:critical
 # Chromium'da giriş gerektiren uygulama testleri
 npm run test:auth
 
+# Ortam seçerek koşma (aynı testler, farklı hedef) — bkz. docs/ENVIRONMENTS.md
+npm run test:prod:smoke   # production'a karşı @smoke
+npm run test:dev:smoke    # dev'e karşı @smoke (şirket VPN'i gerekir)
+
 # Chromium, Firefox ve WebKit'te tüm test paketi
 npm run test:e2e
 ```
@@ -88,6 +94,10 @@ npm run test:debug
 
 # Son HTML raporunu açma
 npm run test:report
+
+# Koşu raporlarını tarih-saatli arşivle (yerel; CI hariç): en son koşu
+# "reports/güncel raporlar", öncekiler "reports/arşiv"; reports/index.html listeler.
+npm run report:archive
 ```
 
 **Kalite kapıları ve keşif:**
