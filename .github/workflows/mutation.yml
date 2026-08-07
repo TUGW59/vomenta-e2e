@@ -23,6 +23,9 @@ on:
       reason:
         description: Bu manuel mutation koşumunun gerekçesi (denetim izi için).
         required: true
+        # NOT: required workflow_dispatch input'unda default ZORUNLU. Yoksa GitHub
+        # workflow'u kuramaz ve her push'ta startup_failure üretir (bkz. CI-01).
+        default: 'manuel mutation koşumu'
         type: string
 
 permissions:
@@ -57,7 +60,11 @@ jobs:
       VOMENTA_TEST_PHONE: ${{ secrets.VOMENTA_TEST_PHONE }}
     steps:
       - name: Koşum gerekçesi
-        run: echo "Manuel mutation koşumu — gerekçe: ${{ inputs.reason }}"
+        # NOT: block scalar (|) ŞART. Tek satır `run: echo "...: ..."` biçiminde
+        # tırnaksız skalerdeki iki-nokta+boşluk, GitHub YAML parser'ını bozar
+        # (mapping values / startup_failure — bkz. CI-01).
+        run: |
+          echo "Manuel mutation koşumu — gerekçe: ${{ inputs.reason }}"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
