@@ -33,8 +33,8 @@ export const STYLE_BACKLOG = Object.freeze({
   // contacts/* (2)
   '/contacts/import': 'PENDING:contacts',
   '/contacts/segments': 'PENDING:contacts',
-  // supervisor/* (5) — hepsinde spec+POM VAR, findings-öncelikli ilk dalga adayı
-  '/supervisor/agents': 'PENDING:supervisor (AgentMonitorPage POM+spec VAR; ⚠AGENTS-TZ)',
+  // supervisor/* — hepsinde spec+POM VAR, findings-öncelikli dalga
+  // /supervisor/agents: WAVE-STYLE-1'de L2·style'a çıkarıldı (tested-pages'e kaydedildi).
   '/supervisor/calls': 'PENDING:supervisor',
   '/supervisor/coaching': 'PENDING:supervisor (CoachingPage POM+spec VAR)',
   '/supervisor/interactions': 'PENDING:supervisor (spec VAR)',

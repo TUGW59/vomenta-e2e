@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 87
-- **Kapsam sözleşmesi olan:** 56 · **NO_COVERAGE_CONTRACT:** 27
+- **Kapsam sözleşmesi olan:** 57 · **NO_COVERAGE_CONTRACT:** 26
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (430 gözlem)
+- **Uzlaştırılan kaynak:** 8 (432 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -111,7 +111,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | settings-users | /settings/users | settings | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | settings-webhooks | /settings/webhooks | settings | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor | /supervisor | supervisor | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
-| supervisor-agents | /supervisor/agents | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| supervisor-agents | /supervisor/agents | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor-calls | /supervisor/calls | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
@@ -167,7 +167,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | inbox | /inbox | inbox |
 | reports | /reports | reports |
 | supervisor | /supervisor | supervisor |
-| supervisor-agents | /supervisor/agents | supervisor |
 | supervisor-calls | /supervisor/calls | supervisor |
 | supervisor-coaching | /supervisor/coaching | supervisor |
 | supervisor-interactions | /supervisor/interactions | supervisor |

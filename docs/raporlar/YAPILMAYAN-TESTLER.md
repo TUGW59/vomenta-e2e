@@ -111,9 +111,9 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/settings-webhooks-mutations.authed.spec.js:19 | fixme | da boş). |
 | tests/settings-webhooks.authed.spec.js:146 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/supervisor-agent-live.authed.spec.js:55 | fixme |  |
-| tests/supervisor-agents.authed.spec.js:188 | fixme |  |
-| tests/supervisor-agents.authed.spec.js:189 | fixme |  |
-| tests/supervisor-agents.authed.spec.js:273 | skip | VOMENTA_TEST_AGENT_EMAIL eksik |
+| tests/supervisor-agents.authed.spec.js:197 | fixme |  |
+| tests/supervisor-agents.authed.spec.js:198 | fixme |  |
+| tests/supervisor-agents.authed.spec.js:282 | skip | VOMENTA_TEST_AGENT_EMAIL eksik |
 | tests/supervisor-coaching.authed.spec.js:160 | fixme |  |
 | tests/supervisor-interactions.authed.spec.js:108 | fixme |  |
 | tests/supervisor-wallboard.authed.spec.js:163 | skip | da güvenilir. |
@@ -145,4 +145,4 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/contacts` · `/tickets` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   _yok — tüm keşif rotaları kayıtlı._
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 65 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 66 adet — çoğunlukla `reports` alt rotaları.

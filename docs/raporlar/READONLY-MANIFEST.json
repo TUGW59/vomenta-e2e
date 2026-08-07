@@ -3278,7 +3278,9 @@
         "webkit-authed"
       ],
       "surface": "supervisor",
-      "routes": [],
+      "routes": [
+        "/supervisor/agents"
+      ],
       "capabilities": [
         "auth:default"
       ],

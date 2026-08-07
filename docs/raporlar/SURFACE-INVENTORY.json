@@ -13,12 +13,12 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 430
+    "reconcileObservations": 432
   },
   "totals": {
     "surfaces": 87,
-    "coveredContract": 56,
-    "noCoverageContract": 27,
+    "coveredContract": 57,
+    "noCoverageContract": 26,
     "blocked": 4,
     "redirect": 0,
     "deprecated": 0,
@@ -28,8 +28,8 @@
     "heldCandidates": 3,
     "byStatus": {
       "BLOCKED": 4,
-      "COVERED_CONTRACT": 56,
-      "NO_COVERAGE_CONTRACT": 27
+      "COVERED_CONTRACT": 57,
+      "NO_COVERAGE_CONTRACT": 26
     },
     "byArea": {
       "ai": 9,
@@ -1484,13 +1484,15 @@
         "blockedReason": null,
         "redirectTarget": null,
         "condition": null,
-        "hasCoverageContract": false,
-        "coverageContractIds": [],
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "supervisor-agents"
+        ],
         "evidenceTypes": [
           "known-bug",
           "page-object"
         ],
-        "status": "NO_COVERAGE_CONTRACT"
+        "status": "COVERED_CONTRACT"
       },
       {
         "id": "supervisor-calls",
@@ -2104,11 +2106,6 @@
       {
         "id": "supervisor",
         "route": "/supervisor",
-        "area": "supervisor"
-      },
-      {
-        "id": "supervisor-agents",
-        "route": "/supervisor/agents",
         "area": "supervisor"
       },
       {

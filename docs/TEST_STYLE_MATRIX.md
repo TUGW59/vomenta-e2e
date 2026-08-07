@@ -39,6 +39,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-templates` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
+| `supervisor-agents` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
@@ -109,6 +110,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-templates**: `/settings/templates`
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
+- **supervisor-agents**: `/supervisor/agents`
 - **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
@@ -228,6 +230,8 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@perf**: Grafik/ağır içerik yok (webhook listesi + dialog).
 - `settings-webhooks` **@data**: Sayısal KPI yok (webhook listesi).
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
+- `supervisor-agents` **@visual**: İçerik canlı (durum/AHT/CSAT/"Last refreshed" damgası) → kararlı snapshot bölgesi yok.
+- `supervisor-agents` **@mutation**: Force durum değişikliği staging mutation; prod read-only'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme'de.
 - `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
 - `voice-dids` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-dids` **@visual**: Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.
@@ -376,7 +380,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `settings-users` | `/settings/users` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
 | `settings-webhooks` | `/settings/webhooks` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
 | `supervisor` | `/supervisor` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
-| `supervisor-agents` | `/supervisor/agents` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-agents` | `/supervisor/agents` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
 | `supervisor-calls` | `/supervisor/calls` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-interactions` | `/supervisor/interactions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |

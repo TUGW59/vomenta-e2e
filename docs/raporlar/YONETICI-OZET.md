@@ -37,10 +37,10 @@
 
 - **Kayıtlı rota (depth):** 87
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 4
-- **L2 complete:** 27 · **L2 partial:** 38 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 65; etkileşim doğrulanmamış rota: 39)_
-- **L3:** proven 0 · blocked 46 · N/A 41
+- **L2 complete:** 27 · **L2 partial:** 39 · **L2 not-covered:** 21 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 39)_
+- **L3:** proven 0 · blocked 47 · N/A 40
 - **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
-- **En yüksek kanıt seviyesi dağılımı:** L0 4 · L1 18 · L2-stil 38 · L2-deep 27
+- **En yüksek kanıt seviyesi dağılımı:** L0 4 · L1 17 · L2-stil 39 · L2-deep 27
 
 > ⛔ **YANLIŞ ÖZET YASAK:** "83/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **27**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
@@ -123,7 +123,7 @@ _(+16 boşluk daha — tam liste JSON'da.)_
 | /settings/billing/marketplace | NOT_RUN | inventory-only |
 
 **Derinlik blok sebepleri (L3–L5):**
-- L3: STAGING_REQUIRED×46
+- L3: STAGING_REQUIRED×47
 - L4: ROLE_ACCOUNTS_REQUIRED×87
 - L5: PROVIDER_HARNESS_REQUIRED×87
 

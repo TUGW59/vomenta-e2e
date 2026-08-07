@@ -1516,6 +1516,28 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@mutation': 'Beceri/öncelik ATAMA kuyruk üyelerini kalıcı değiştirir; kuyruk seçimine bağlı + güvenli 0→1→0 teardown ayrılmış staging tenant gerektirir → L3 staging, prod salt-okunur (kuyruk SEÇME salt-okuma @regression\'da kapsanır).',
     },
   },
+  {
+    // WAVE-STYLE-1 (ADR-0031 style-backlog): supervisor/agents L1 → L2·style.
+    // Mevcut spec (yapı + 4-dil i18n + filtre/arama/force/analyze L1/L2/L3) tam stil
+    // sözleşmesine çıkarıldı: +@a11y/@layout/@clean/@errorpath/@data/@keyboard (+@i18n tag).
+    id: 'supervisor-agents',
+    surfaceIds: ['supervisor-agents'],
+    specFiles: ['supervisor-agents.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: true,
+      hasDialogs: true,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'İçerik canlı (durum/AHT/CSAT/"Last refreshed" damgası) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Force durum değişikliği staging mutation; prod read-only\'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme\'de.',
+    },
+  },
 ]);
 
 /**

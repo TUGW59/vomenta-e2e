@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1264 / 135 dosya
-- **coverageStatus:** verified 0 · partial 1211 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1220 · skipped 0 · fixme 44
+- **Listelenen test:** 1271 / 135 dosya
+- **coverageStatus:** verified 0 · partial 1218 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1227 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,7 +29,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 353 | 336 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 88 | 78 | 0 | 10 |
+| supervisor | 95 | 85 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
 | voice | 143 | 140 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
@@ -1474,10 +1474,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | istatistik döşemeleri görünüyor (Total/Available/Offline/Calls Today/Avg AHT) |  | — | listed-only | partial | medium | list-exec |
 | temsilci tablosu beklenen kolonları gösteriyor | @critical | — | listed-only | partial | medium | list-exec |
 | kontroller mevcut (durum filtresi / arama / Analyze) |  | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: menü açılıyor ve durum seçenekleri görünüyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: durum seçince agents API'sini status parametresiyle çağırıyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: seçilen duruma göre tablo filreleniyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
@@ -1497,6 +1497,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1: aksiyon ikonları mevcut ve çevrimdışı ajanda devre dışı | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 doğruluk: sunucu yanıtındaki her ajan seçilen durumla eşleşiyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil) | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| agents ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| istatistik döşemesi (Total) yalnız etiket değil bir DEĞER de gösteriyor | @data | — | listed-only | partial | medium | list-exec |
+| ajan detay çekmecesi odak tuzağı + Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
+| /supervisor/agents doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `supervisor-coaching.authed.spec.js` — _supervisor_
 
