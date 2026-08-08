@@ -1,0 +1,10 @@
+{
+  "note": "REP-01 — AÇIK BULGU SAYISI RATCHET (DONMUŞ TAVAN). tools/self-check-findings-ratchet.mjs bunu zorlar: known-bugs.js'teki açık (status=open) bulgu TOPLAMI ve severity kırılımı bu tavanı AŞAMAZ → açık bug sayısı SESSİZCE BÜYÜYEMEZ (REP-01). Gerçek yeni bir bulgu eklerken bu baseline AYNI PR'da bilinçle yükseltilir; böylece artış görünür ve reviewed olur (sessiz değil). Sayı düşerse (bir bug kapandı) self-check ADVISORY ile baseline'ı düşürmeyi hatırlatır — kazanımı kilitle, regresyonu engelle (only-shrinks). Additive & dürüst ratchet; kaynak: tests/contracts/known-bugs.js tek gerçeklik kaynağı.",
+  "maxOpen": 60,
+  "maxBySeverity": {
+    "critical": 1,
+    "high": 8,
+    "medium": 44,
+    "low": 7
+  }
+}

@@ -75,6 +75,12 @@ jobs:
       # quality:check = generatör MANTIĞININ self-check'leri (git-diff YOK). Her
       # tetikleyicide (PR + push + schedule) koşar; evrensel kapı budur.
       - run: npm run quality:check
+      # REP-01: Açık bulgu envanteri HER tetikleyicide birinci-sınıf, görünür bir adım
+      # olarak basılır ("N açık: X kritik / Y yüksek …") + ratchet (açık sayı baseline
+      # tavanını aşarsa fail → sessiz büyüme yasak). quality:check içinde de zorlanır;
+      # bu ayrı adım GitHub Actions UI'da görünürlüğü garantiler.
+      - name: Açık bulgu envanteri + ratchet (REP-01)
+        run: npm run quality:findings-ratchet
       # ── Committed-doc drift kapıları — YALNIZ pull_request ──────────────────
       # Bu 4 kapı üretilen dokümanı yeniden üretip committed sürümle `git diff
       # --exit-code` karşılaştırır. Doküman içeriği BİRLEŞİK AĞACIN fonksiyonudur;
