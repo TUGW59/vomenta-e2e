@@ -53,6 +53,52 @@ export async function writeDiscoveryBaseline(report) {
   return baseline;
 }
 
+/**
+ * Baseline farkını (compareDiscoveryBaseline çıktısı) sürüm-drift politikasına
+ * göre PASS/FAIL kararına indirger. Saf fonksiyon (tarayıcı gerektirmez) → offline
+ * birim-test edilebilir ve discovery.spec içinde tek assertion olarak kullanılır.
+ *
+ * Politika (keşif kuralı hizası):
+ *  - removedRoutes  → FAIL: baseline'da parmak-izi olan bir rota artık ulaşılamıyor
+ *    (regresyon ya da rota drift'i; sessizce yeşil kalmamalı).
+ *  - ariaStructure değişimi → FAIL: sayfanın yapısı değişti.
+ *  - kaldırılan endpoint → FAIL: bir API yüzeyi kayboldu.
+ *  - addedRoutes / eklenen endpoint → BİLGİ (yeni sayfa/endpoint tek başına bug
+ *    değildir; envantere girer, kapıyı kırmızıya çevirmez).
+ *  - baseline yok → OK (bootstrap; ilk üretim update-baseline ile yapılır).
+ * @param {ReturnType<typeof compareDiscoveryBaseline>} changes
+ * @returns {{ ok:boolean, failures:string[], info:string[] }}
+ */
+export function evaluateDriftPolicy(changes) {
+  const failures = [];
+  const info = [];
+
+  if (!changes || changes.baselinePresent === false) {
+    info.push('baseline yok — bootstrap; drift kapısı update-baseline sonrası etkin.');
+    return { ok: true, failures, info };
+  }
+
+  for (const route of changes.removedRoutes || []) {
+    failures.push(`removed-route: ${route} (baseline'da vardı, bu koşumda ulaşılamadı)`);
+  }
+  for (const change of changes.ariaChanged || []) {
+    failures.push(`aria-changed: ${change.route}`);
+  }
+  for (const change of changes.networkChanged || []) {
+    if (change.removed?.length) {
+      failures.push(`endpoint-removed: ${change.route} → ${change.removed.join(', ')}`);
+    }
+    if (change.added?.length) {
+      info.push(`endpoint-added: ${change.route} → ${change.added.join(', ')}`);
+    }
+  }
+  for (const route of changes.addedRoutes || []) {
+    info.push(`added-route: ${route}`);
+  }
+
+  return { ok: failures.length === 0, failures, info };
+}
+
 export function compareDiscoveryBaseline(report, baseline) {
   if (!baseline) {
     return {
