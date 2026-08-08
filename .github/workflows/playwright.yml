@@ -85,24 +85,16 @@ jobs:
       # (taban stabil + yazar aksiyon alabilir) anlamlı ve uygulanabilir; bu yüzden
       # kapılar pull_request'e sınırlandı. Push/merge sonrası tazelik, drift'i
       # yakalayan bir sonraki PR'ın regen'iyle kendiliğinden iyileşir.
-      - name: Kapsama raporu güncel mi (drift kontrolü)
+      # WP-CI-DRIFT (CI-04): 6 ayrı drift kapısı TEK deterministik kapıya indirildi.
+      # `report:sync` gated üretilmiş dokümanların HEPSİNİ tek komutta yeniden üretir;
+      # ardından committed sürümle `git diff --exit-code` karşılaştırılır. Tek düzeltme:
+      # `npm run report:sync` + commit. Eski `report:all` coverage+findings'i ATLADIĞI
+      # için "report:all → commit → yine kırmızı" whack-a-mole'u oluşuyordu (CI-04);
+      # report:sync 6 dokümanın (12 dosya) tümünü kapsar. Generator'lar deterministik
+      # (generatedAt=null, BIT-IDENTICAL) → tek regen kalıcı yeşil, ikincil döngü yok.
+      - name: Üretilmiş raporlar güncel mi (tek drift kapısı)
         if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:coverage:check
-      - name: Stil kapsama matrisi güncel mi (drift kontrolü)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:style-matrix:check
-      - name: Bulgu + test raporları güncel mi (drift kontrolü)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:findings:check
-      - name: Rota kapsam derinliği matrisi güncel mi (drift kontrolü)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:surface:check
-      - name: Yüzey envanteri güncel mi (drift kontrolü)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:surface-inventory:check
-      - name: Proje durumu (birleşik rapor) güncel mi (drift kontrolü)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: npm run report:project-status:check
+        run: npm run report:drift:check
 
   pr-impact:
     name: PR change-impact tests / Chromium
