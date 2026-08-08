@@ -23,6 +23,10 @@ on:
       reason:
         description: Bu manuel mutation koşumunun gerekçesi (denetim izi için).
         required: true
+        # GitHub platform bug'ı (actions/runner#4001): workflow_dispatch-only workflow'lar
+        # push'ta yanlışlıkla değerlendirilir; `default`'suz `required` input parse edilemeyince
+        # run 0 job'la "startup_failure" verir (kronik false-red). `default` bunu engeller.
+        default: 'manuel mutation koşumu'
         type: string
 
 permissions:
@@ -37,6 +41,9 @@ concurrency:
 jobs:
   mutation:
     name: Staging mutation lane
+    # Belt-and-suspenders: platform bug (actions/runner#4001) push'ta yine tetiklerse
+    # bu guard job'un hiç oluşmamasını sağlar → startup_failure dışında da false-red olmaz.
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     # Onay kapısı: `staging` Environment'ında required reviewer + staging secret/vars.
@@ -57,7 +64,10 @@ jobs:
       VOMENTA_TEST_PHONE: ${{ secrets.VOMENTA_TEST_PHONE }}
     steps:
       - name: Koşum gerekçesi
-        run: echo "Manuel mutation koşumu — gerekçe: ${{ inputs.reason }}"
+        # NOT: block-scalar (|) zorunlu — düz YAML skaları içindeki ": " (iki nokta+boşluk)
+        # parse hatası (startup_failure) verirdi. Tırnaklama tek başına yetmez.
+        run: |
+          echo "Manuel mutation koşumu — gerekçe: ${{ inputs.reason }}"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
