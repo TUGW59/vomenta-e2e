@@ -111,6 +111,8 @@
     "report:project-status": "node tools/generate-project-status.mjs",
     "report:project-status:check": "node tools/generate-project-status.mjs && git diff --exit-code -- docs/PROJECT-STATUS.md docs/raporlar/PROJECT-STATUS.json",
     "report:all": "npm run report:surface-inventory && npm run report:surface && npm run report:style-matrix && npm run report:project-status && npm run quality:unified-report",
+    "report:sync": "npm run report:coverage && npm run report:build && npm run report:style-matrix && npm run report:surface-inventory && npm run report:surface && npm run report:project-status",
+    "report:drift:check": "npm run report:sync && git diff --exit-code -- docs/TEST_COVERAGE.md docs/TEST_STYLE_MATRIX.md docs/raporlar/findings.json docs/raporlar/BULGULAR.md docs/raporlar/YAPILAN-TESTLER.md docs/raporlar/YAPILMAYAN-TESTLER.md docs/SURFACE-DEPTH-MATRIX.md docs/raporlar/SURFACE-DEPTH.json docs/SURFACE-INVENTORY.md docs/raporlar/SURFACE-INVENTORY.json docs/PROJECT-STATUS.md docs/raporlar/PROJECT-STATUS.json",
     "report:executive": "node tools/generate-executive-report.mjs",
     "report:executive:check": "node tools/generate-executive-report.mjs && git diff --exit-code -- docs/raporlar/YONETICI-OZET.json docs/raporlar/YONETICI-OZET.md",
     "report:readonly-manifest": "node tools/generate-readonly-manifest.mjs",
