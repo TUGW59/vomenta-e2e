@@ -1,0 +1,68 @@
+{
+  "route": "/settings/audit",
+  "canonicalPattern": "/settings/audit",
+  "section": "Settings",
+  "navigationPath": ["Ayarlar", "Denetim"],
+  "title": "Denetim Günlüğü (Audit Log)",
+  "docTitle": "Vomenta - İletişim Merkezi Platformu",
+  "role": "Test User (member; permission scope unconfirmed)",
+  "workspace": "dev tenant",
+  "locale": "tr-TR",
+  "health": "healthy",
+  "redirects": [],
+  "states": ["default-list (1–8 / 8+ records)"],
+  "headings": [
+    { "level": "h1", "text": "Denetim Günlüğü" },
+    { "text": "Çalışma alanınızdaki tüm eylemleri ve değişiklikleri izleyin" }
+  ],
+  "banners": [
+    { "text": "You skipped some setup steps. Complete your configuration to get the most out of your account.", "action": "Complete Setup -> /setup", "dismiss": "Dismiss setup banner (ref_25)" }
+  ],
+  "cards": [],
+  "charts": [],
+  "tables": [
+    {
+      "name": "Audit log table",
+      "columns": ["Zaman damgası (Timestamp)", "Kullanıcı (User)", "Eylem (Action)", "Varlık (Entity)", "Varlık ID (Entity ID)", "Değişiklikler (Changes)", "IP adresi (IP address)"],
+      "rowCountVisible": 8,
+      "pagination": "1–8 / 8+ kayıt gösteriliyor; prev(ref_41 disabled) / next(ref_42)",
+      "rowAction": "Görüntüle (View) per row -> opens change detail (ref_33..ref_40); not yet exercised",
+      "observedActions": ["Güncelle (Update)", "Oluştur (Create)", "Faturalama değişikliği (Billing change)"],
+      "observedEntities": ["DialerSession", "Did"],
+      "observedActors": ["Test User", "Sistem (System)"],
+      "notes": "Entity IDs are UUIDs -> mask in shared evidence. IP address column empty in current rows."
+    }
+  ],
+  "filters": [
+    { "name": "Search", "type": "textbox", "ref": "ref_28", "placeholder": "Denetim günlüğünde ara...", "safe": true, "exercised": false },
+    { "name": "Tüm eylemler (All actions)", "type": "combobox", "ref": "ref_29", "safe": true, "exercised": false },
+    { "name": "Tüm Kullanıcılar (All users)", "type": "combobox", "ref": "ref_30", "safe": true, "exercised": false },
+    { "name": "Başlangıç (Start date)", "type": "date", "ref": "ref_31", "safe": true, "exercised": false },
+    { "name": "Bitiş (End date)", "type": "date", "ref": "ref_32", "safe": true, "exercised": false }
+  ],
+  "forms": [],
+  "dialogs": [],
+  "controls": [
+    { "type": "button", "visibleText": "Dışa aktar", "accessibleName": "Dışa aktar (Export)", "location": "page header right", "ref": "ref_26", "enabled": true, "classification": "not_exercised_mutation", "result": "Triggers a download/export; download requires explicit permission and may be a side-effect. Not exercised.", "selectorCandidate": "getByRole('button',{name:'Dışa aktar'})", "testGap": "export behavior unverified", "evidence": ["01-default-full (inline screenshot ss_0444tdp5u)"] },
+    { "type": "button", "visibleText": "Full Export", "accessibleName": "Full Export", "location": "page header right", "ref": "ref_27", "enabled": true, "classification": "not_exercised_mutation", "result": "Full export/download. Not exercised (download + potential heavy op).", "selectorCandidate": "getByRole('button',{name:'Full Export'})", "testGap": "export behavior unverified", "evidence": ["01-default-full"] },
+    { "type": "row-action", "visibleText": "Görüntüle", "accessibleName": "Görüntüle (View change detail)", "location": "each audit row / Değişiklikler column", "ref": "ref_33..ref_40", "enabled": true, "classification": "observed_only", "result": "Likely opens read-only change diff modal; not opened yet this packet.", "selectorCandidate": "getByRole('button',{name:'Görüntüle'})", "testGap": "detail modal content/focus/close unverified", "evidence": ["01-default-full"] },
+    { "type": "pagination", "visibleText": "prev/next", "accessibleName": "page prev (disabled) / next", "location": "table footer", "ref": "ref_41/ref_42", "enabled": true, "classification": "observed_only", "result": "prev disabled on page 1; next available.", "selectorCandidate": "pagination next button", "testGap": "pagination navigation unverified", "evidence": ["01-default-full"] }
+  ],
+  "topbarControls": [
+    "Dil/Language (ref_17,ref_20)", "Kenar çubuğunu daralt (ref_18)", "Ara ⌘K global search (ref_19)", "Temayı değiştir/theme (ref_21)", "Bildirimler/notifications badge 73 (ref_22)", "Kullanıcı menüsü (ref_23)"
+  ],
+  "consoleFindings": ["not yet captured for this route"],
+  "networkFindings": ["not yet captured for this route"],
+  "accessibilityRisks": [
+    "Row-action buttons all share identical accessible name 'Görüntüle' -> selector must scope by row (getByRole('row') then within). Fragile if tested by text alone (.first()/nth).",
+    "Two separate controls both labeled 'Dil' (ref_17 and ref_20) -> duplicate accessible name risk."
+  ],
+  "existingCoverage": ["To be matched against tests/ (settings-audit spec?) in coverage-gap phase"],
+  "coverageState": "partial",
+  "gaps": [
+    "Export / Full Export behavior (mutation/download) not covered read-only",
+    "Row 'Görüntüle' change-detail modal not verified",
+    "Filters (action/user/date/search) apply + no-result not verified"
+  ],
+  "evidence": ["inline screenshot ss_0444tdp5u (start-route default view, logged-in Test User, tr-TR)"]
+}

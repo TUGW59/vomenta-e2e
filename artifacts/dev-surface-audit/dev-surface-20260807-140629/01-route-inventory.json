@@ -1,0 +1,38 @@
+{
+  "runId": "dev-surface-20260807-140629",
+  "capturedAt": "2026-08-07",
+  "source": "DOM accessibility tree of /settings/audit sidebar + topbar (logged-in Test User, tr-TR)",
+  "sidebarPrimary": [
+    { "ref": "ref_1", "href": "/", "label": "Gösterge Paneli", "labelEn": "Dashboard", "section": "GENEL BAKIŞ / Overview", "group": false },
+    { "ref": "ref_2", "href": "/inbox", "label": "Gelen Kutusu", "labelEn": "Inbox", "section": "Overview", "group": false },
+    { "ref": "ref_3", "href": "/voice", "label": "Sesli Arama", "labelEn": "Voice", "section": "KANALLAR / Channels", "group": true },
+    { "ref": "ref_4", "href": "/channels", "label": "Kanallar", "labelEn": "Channels", "section": "Channels", "group": true },
+    { "ref": "ref_5", "href": "/ai", "label": "Yapay Zeka", "labelEn": "AI", "section": "Channels", "group": true },
+    { "ref": "ref_6", "href": "/campaigns", "label": "Kampanyalar", "labelEn": "Campaigns", "section": "ETKİLEŞİM / Engagement", "group": true },
+    { "ref": "ref_7", "href": "/bot-builder", "label": "Bot Oluşturucu", "labelEn": "Bot Builder", "section": "Engagement", "group": false },
+    { "ref": "ref_8", "href": "/contacts", "label": "Kişiler", "labelEn": "Contacts", "section": "Engagement", "group": true },
+    { "ref": "ref_9", "href": "/tickets", "label": "Destek Talepleri", "labelEn": "Tickets", "section": "Engagement", "group": false },
+    { "ref": "ref_10", "href": "/analytics", "label": "Analitik", "labelEn": "Analytics", "section": "OPERASYONLAR / Operations", "group": false },
+    { "ref": "ref_11", "href": "/reports", "label": "Raporlar", "labelEn": "Reports", "section": "Operations", "group": true },
+    { "ref": "ref_12", "href": "/supervisor/coaching", "label": "Süpervizör", "labelEn": "Supervisor", "section": "Operations", "group": true },
+    { "ref": "ref_13", "href": "/monitoring", "label": "İzleme", "labelEn": "Monitoring", "section": "Operations", "group": true },
+    { "ref": "ref_14", "href": "/workforce", "label": "İş Gücü", "labelEn": "Workforce", "section": "Operations", "group": true },
+    { "ref": "ref_15", "href": "/settings/users", "label": "Users & Teams", "labelEn": "Users & Teams", "section": "ADMIN", "group": false },
+    { "ref": "ref_16", "href": "/settings", "label": "Ayarlar", "labelEn": "Settings", "section": "Admin", "group": true }
+  ],
+  "topbarControls": [
+    { "ref": "ref_17/ref_20", "type": "button", "label": "Dil (Language)" },
+    { "ref": "ref_18", "type": "button", "label": "Kenar çubuğunu daralt (Collapse sidebar)" },
+    { "ref": "ref_19", "type": "button", "label": "Ara (⌘K) — global search" },
+    { "ref": "ref_21", "type": "button", "label": "Temayı değiştir (Toggle theme)" },
+    { "ref": "ref_22", "type": "button", "label": "Bildirimler (Notifications, badge 73)" },
+    { "ref": "ref_23", "type": "button", "label": "Kullanıcı menüsü (User menu)" }
+  ],
+  "externalLinks": [
+    { "ref": "ref_44", "href": "https://workspace.dev.vomenta.com", "label": "Vomenta Workspace (new tab)", "classification": "external — not crawled" }
+  ],
+  "discoveryQueue": {
+    "note": "Group=true entries have secondary/child routes to expand. Settings has ~22 registered sub-surfaces per SURFACE-INVENTORY.md. Queue not yet drained.",
+    "pending": ["/", "/inbox", "/voice", "/channels", "/ai", "/campaigns", "/bot-builder", "/contacts", "/tickets", "/analytics", "/reports", "/supervisor/coaching", "/monitoring", "/workforce", "/settings/users", "/settings"]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "route": "/settings",
+  "canonicalPattern": "/settings",
+  "section": "Settings",
+  "title": "Ayarlar (Settings)",
+  "role": "Test User",
+  "locale": "tr-TR",
+  "health": "healthy",
+  "layout": "tabbed page",
+  "tabs": [
+    { "name": "Organizasyon", "ref": "ref_26", "default": true, "content": "'Organizasyon ayarlarını özel sayfadan yönetin.' + link 'Organizasyon Ayarlarına Git' -> /settings/organization" },
+    { "name": "Kullanıcılar", "ref": "ref_27", "route": "/settings/users (also sidebar ref_15)" },
+    { "name": "Faturalandırma ve Kullanım", "ref": "ref_28" },
+    { "name": "Güvenlik", "ref": "ref_29" },
+    { "name": "API Anahtarları", "ref": "ref_30" },
+    { "name": "Modüller", "ref": "ref_31" }
+  ],
+  "childRoutes": ["/settings/organization", "/settings/users", "/settings/audit (NOT in tab bar — direct route only)"],
+  "coverageState": "partial",
+  "gaps": [
+    "IA CHANGE: settings consolidated into a 6-tab page (was ~22 flat sub-routes in SURFACE-INVENTORY.md) -> route_drift / possible stale_test for old /settings/* specs",
+    "/settings/audit reachable directly but absent from the settings tab bar -> nav discoverability gap",
+    "Tab panels (Users/Billing/Security/API/Modules) not yet opened this packet"
+  ],
+  "evidence": ["inline screenshot ss_8307qtggs"]
+}

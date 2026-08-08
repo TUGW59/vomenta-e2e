@@ -1,0 +1,20 @@
+
+> vomenta-e2e@1.0.0 pretest:discovery
+> npm run quality:architecture
+
+
+> vomenta-e2e@1.0.0 quality:architecture
+> node tools/validate-architecture.mjs
+
+226 JavaScript dosyası: mimari kalite kapısı geçti.
+
+> vomenta-e2e@1.0.0 test:discovery
+> playwright test --project=chromium-discovery --retries=0 --workers=1
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [setup] › tests/auth.setup.js:27:1 › kimlik doğrula (6.1s)
+  ✓  2 [chromium-discovery] › tests/discovery/discovery.spec.js:15:1 › salt-okunur uygulama keşfi rapor ve kapsam radarı üretir (2.3m)
+
+  2 passed (2.4m)
