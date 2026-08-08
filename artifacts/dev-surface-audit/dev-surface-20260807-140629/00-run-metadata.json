@@ -1,0 +1,46 @@
+{
+  "runId": "dev-surface-20260807-140629",
+  "date": "2026-08-07",
+  "task": "VOMENTA DEV — read-only surface discovery + evidence inventory + test coverage gap analysis",
+  "repo": {
+    "contractPath": "/Users/tugce.topuz/vomenta-e2e-main-2",
+    "contractPathExists": false,
+    "actualRepo": "/Users/tugce.topuz/vomenta-e2e-fix-auth",
+    "worktree": ".claude/worktrees/vomenta-dev-surface-discovery-8d0103",
+    "branch": "claude/vomenta-dev-surface-discovery-8d0103",
+    "head": "c125416533c9bbdf83de9f799a84734058a6e389",
+    "originMain": "c125416533c9bbdf83de9f799a84734058a6e389",
+    "workingTree": "clean"
+  },
+  "tooling": {
+    "node": "v24.18.0",
+    "npm": "11.16.0",
+    "playwright": "1.62.0"
+  },
+  "target": {
+    "app": "dev",
+    "baseURL": "https://app.dev.vomenta.com",
+    "apiHostname": "api.dev.vomenta.com",
+    "startRoute": "https://app.dev.vomenta.com/settings/audit"
+  },
+  "session": {
+    "authMethod": "existing logged-in Chrome session (Claude in Chrome / Browser 1, deviceId 7d7ab0c2-…) — no credentials entered by assistant",
+    "role": "Test User (workspace member; exact role/permissions not yet confirmed in UI)",
+    "workspace": "dev tenant (Test User)",
+    "locale": "tr-TR (Türkçe)",
+    "viewport": "1440x812",
+    "browser": "Chrome (user real browser via extension), macOS",
+    "readOnly": true,
+    "ALLOW_MUTATING_TESTS": false
+  },
+  "auth": {
+    "inAppBrowserLoggedIn": false,
+    "inAppBrowserNote": "mcp__Claude_Browser__ pane hit login wall at /settings/audit (redirected to https://app.dev.vomenta.com 'Welcome back'). Assistant did not enter credentials (prohibited).",
+    "chromeExtensionLoggedIn": true,
+    "startRouteReached": true,
+    "startRouteFinalURL": "https://app.dev.vomenta.com/settings/audit",
+    "redirectChain": []
+  },
+  "retries": 0,
+  "notes": "Contract target repo path did not exist; used actual repo vomenta-e2e-fix-auth. Existing mature discovery/audit platform present — no parallel system built."
+}
