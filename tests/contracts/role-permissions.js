@@ -1,15 +1,24 @@
 // @ts-check
 /**
- * RBAC doğruluk kaynağı (donmuş veri modeli) — RBAC test planı FAZ 1.
+ * RBAC BEKLENEN POLİTİKA (insan-sahipli doğruluk kaynağı) — RBAC test planı FAZ 1.
  *
- * OTOMATİK ÜRETİLDİ — EL İLE DÜZENLEME. Tek kaynak:
- *   docs/ayarlar-kesif/tools/gen-roles-matrix.js  (canlıdan çıkarım, 2026-08-05)
- *   docs/ayarlar-kesif/ROLLER-IZIN-MATRISI.md §2  (insan-okur matris)
- * Yeniden üret: node docs/ayarlar-kesif/tools/gen-role-permissions-contract.mjs
+ * ⚠️ DOKTRİN (COV-01): Bu dosya artık canlıdan OTOMATİK ÜRETİLMEZ. Bu, *istenen*
+ * (intended) yetki politikasıdır ve EL İLE sahiplenilir/gözden geçirilir. Testler
+ * canlıyı bu politikaya karşı doğrular — canlının kendi snapshot'ına karşı DEĞİL.
+ * Böylece "canlı = canlının kopyası" totolojisi kırılır: canlı politikadan saparsa
+ * (yeni izin, bir role sızan yetki) test KIRILIR ve insan kararı ister.
+ *
+ * Drift denetimi (canlı-türevi matris ↔ bu politika farkını raporlar; sessizce
+ * absorbe ETMEZ):
+ *   node docs/ayarlar-kesif/tools/gen-role-permissions-contract.mjs           # --check (varsayılan): farkı raporla, farklıysa fail
+ *   node docs/ayarlar-kesif/tools/gen-role-permissions-contract.mjs --write   # yalnız BİLİNÇLİ yeniden-baseline (insan onayı)
+ *
+ * Politikanın kökeni (insan-okur gerekçe): docs/ayarlar-kesif/ROLLER-IZIN-MATRISI.md §2.
+ * İlk taban 2026-08-05 canlı gözleminden ALINDI, ama artık canlıya değil bu dosyaya
+ * bağlıdır; değişiklik açık bir commit + gözden geçirme gerektirir.
  *
  * Doğrulanan sayımlar: katalog=113, 14 kategori,
  * OWNER 109 / ADMIN 106 / MANAGER 74 / SUPERVISOR 60 / AGENT 29 / VIEWER 12.
- * ADMIN/OWNER, katalogdan ADMIN_MISSING/OWNER_MISSING çıkarılarak türetilir.
  */
 
 /** 14 izin kategorisi (katalog sırası). */

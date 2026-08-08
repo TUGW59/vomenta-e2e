@@ -435,6 +435,9 @@ Etiketler **yalnızca** bu kayıttan seçilir. Kayıt dışı etiket `tools/styl
 - `@critical`: Release'i durduracak müşteri/operasyon davranışı.
 - `@regression`: Genel regresyon; interaktif kontrol 3-katman testleri burada.
 - `@mutation`: Veri değiştirir; production'da yasaktır (guard + yaşam döngüsü zorunlu).
+- `@security`: RBAC/yetki **enforcement**'ının davranışını doğrular (izin tanımını değil):
+  korunan uçların kimlik doğrulaması/rol olmadan 401/403 döndürmesi, düşük-yetkili rolün
+  politika dışı yetkiye sahip olmaması. Salt-okunur/prod-safe kalır (COV-01).
 - `@known-bug`: Açık bulgunun `test.fail` guard'ı.
 - `@public`: Giriş gerektirmeyen (login) testi.
 - `@route-baseline`: Kayıtlı HER rota için tek read-only açılış tabanı (WP-MORNING Faz 1,

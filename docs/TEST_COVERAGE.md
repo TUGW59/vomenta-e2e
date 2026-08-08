@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1215
-- **Test dosyası:** 99
-- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 393 · `@route-baseline` 83 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1216
+- **Test dosyası:** 98
+- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 393 · `@route-baseline` 83 · `@security` 4 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -930,12 +930,6 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor  `@ix-table`
 
-### `settings-roles-rbac-enforcement.authed.spec.js`
-
-- admin (izin yok) "/settings/billing" rotasında bloklanır (kendi içeriği açılmaz)  `@regression`
-- admin (izin yok) "/settings/billing/marketplace" rotasında bloklanır (kendi içeriği açılmaz)  `@regression`
-- AGENT negatif enforcement — kimlik yoksa NOT MATERIALIZED (ADR-0030 md.4)  `@regression`
-
 ### `settings-roles-rbac.authed.spec.js`
 
 - izin kataloğu 113 anahtar + 14 kategori; contract ile birebir (eksik/fazla yok)  `@data` `@regression`
@@ -943,6 +937,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - Create Role dialogu 14 kategori + her kategori toplamı contract ile eşleşiyor  `@data` `@regression`
 - AGENT Edit dialogu kategori sayaçları contract ile eşleşiyor  `@data` `@regression`
 - VIEWER Edit dialogu kategori sayaçları contract ile eşleşiyor  `@data` `@regression`
+- GET /api/v1/roles kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz)  `@security` `@regression`
+- GET /api/v1/roles/permissions/catalog kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz)  `@security` `@regression`
+- GET /api/v1/roles/me/permissions kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz)  `@security` `@regression`
+- AGENT enforcement kapsamı aktif (credential yoksa görünür skip)  `@security`
 
 ### `settings-roles.authed.spec.js`
 
