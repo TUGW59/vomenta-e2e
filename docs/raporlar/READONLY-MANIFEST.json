@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 135,
-    "productionSafeReadOnly": 99,
+    "totalSpecs": 136,
+    "productionSafeReadOnly": 100,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 99,
+      "read-only": 100,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 134,
+      "authenticated": 135,
       "public": 1
     },
     "byEnvironment": {
-      "both": 99,
+      "both": 100,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -112,6 +112,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -164,7 +165,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -223,6 +224,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -275,7 +277,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -334,6 +336,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -387,7 +390,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -446,6 +449,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -498,7 +502,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -557,6 +561,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -609,7 +614,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 97,
+      "selectedSpecFileCount": 98,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -668,6 +673,7 @@
         "tests/settings-profile-interactions.authed.spec.js",
         "tests/settings-profile.authed.spec.js",
         "tests/settings-roles-interactions.authed.spec.js",
+        "tests/settings-roles-rbac-enforcement.authed.spec.js",
         "tests/settings-roles-rbac.authed.spec.js",
         "tests/settings-roles.authed.spec.js",
         "tests/settings-security.authed.spec.js",
@@ -2781,6 +2787,32 @@
       "lifecycleMode": "fixme",
       "owningPackage": "vomenta-e2e",
       "exclusionReason": "N/A: custom rol create+delete ve orphan sayacı staging'de kanıtlanmadı; spec fixme."
+    },
+    {
+      "id": "tests/settings-roles-rbac-enforcement.authed.spec.js",
+      "pathPattern": "tests/settings-roles-rbac-enforcement.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "settings",
+      "routes": [
+        "/settings/roles"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
     },
     {
       "id": "tests/settings-roles-rbac.authed.spec.js",
