@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1274 / 136 dosya
-- **coverageStatus:** verified 0 · partial 1221 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1230 · skipped 0 · fixme 44
+- **Listelenen test:** 1278 / 136 dosya
+- **coverageStatus:** verified 0 · partial 1225 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1234 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -27,7 +27,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
 | reports | 91 | 91 | 0 | 0 |
-| settings | 356 | 339 | 0 | 17 |
+| settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 95 | 85 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -1186,6 +1186,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | Create Role dialogu 14 kategori + her kategori toplamı contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
 | AGENT Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
 | VIEWER Edit dialogu kategori sayaçları contract ile eşleşiyor | @data @regression | — | listed-only | partial | medium | list-exec |
+| GET /api/v1/roles kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz) | @security @regression | — | listed-only | partial | medium | list-exec |
+| GET /api/v1/roles/permissions/catalog kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz) | @security @regression | — | listed-only | partial | medium | list-exec |
+| GET /api/v1/roles/me/permissions kimlik doğrulaması olmadan reddedilir (401/403, veri sızmaz) | @security @regression | — | listed-only | partial | medium | list-exec |
+| AGENT enforcement kapsamı aktif (credential yoksa görünür skip) | @security | — | listed-only | partial | medium | list-exec |
 
 ### `settings-roles.authed.spec.js` — _settings_
 

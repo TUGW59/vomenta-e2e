@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1216
-- **Test dosyası:** 98
-- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 393 · `@route-baseline` 83 · `@security` 4 · `@smoke` 190 · `@visual` 21
+- **Test edilen senaryo:** 1219
+- **Test dosyası:** 99
+- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 190 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -929,6 +929,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `settings-roles-interactions.authed.spec.js`
 
 - rol tablosu kolonları + satır sayısı /roles yanıtıyla eşleşiyor  `@ix-table`
+
+### `settings-roles-rbac-enforcement.authed.spec.js`
+
+- admin (izin yok) "/settings/billing" rotasında bloklanır (kendi içeriği açılmaz)  `@regression`
+- admin (izin yok) "/settings/billing/marketplace" rotasında bloklanır (kendi içeriği açılmaz)  `@regression`
+- AGENT negatif enforcement — kimlik yoksa NOT MATERIALIZED (ADR-0030 md.4)  `@regression`
 
 ### `settings-roles-rbac.authed.spec.js`
 

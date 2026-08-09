@@ -6,8 +6,8 @@
 
 | Ölçüt | Değer |
 |---|---:|
-| Toplam spec | 136 |
-| Production-safe (read-only) | 100 |
+| Toplam spec | 137 |
+| Production-safe (read-only) | 101 |
 | Mutation (staging-only, dışlandı) | 36 |
 | External-cost (dışlandı) | 0 |
 
@@ -31,7 +31,7 @@
 | effect | spec |
 |---|---:|
 | mutation | 36 |
-| read-only | 100 |
+| read-only | 101 |
 
 ## Staging-only dışlanan spec'ler
 

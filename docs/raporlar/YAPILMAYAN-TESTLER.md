@@ -23,6 +23,8 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 
 | dosya:satır | tür | gerekçe |
 |---|---|---|
+| tests/agent-enforcement.agent.spec.js:37 | skip | API origin bilinmiyor (environment.apiHostname boş) — enforcement bu ortamda koşulamaz. |
+| tests/agent-enforcement.agent.spec.js:99 | skip | VOMENTA_AGENT_FORBIDDEN_ENDPOINT tanımlı değil — doğrudan-uç enforcement probu atlandı. |
 | tests/campaigns-outbound.mutation.authed.spec.js:29 | fixme | dan silinemiyor; staging API DELETE/teardown teyidi gerekli. |
 | tests/channels-email-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: hesap ekleme sahte SMTP + silme ucu. |
 | tests/channels-sms-mutations.authed.spec.js:19 | fixme | Staging teyidi bekliyor: POST /sender-ids + silme ucu. |
@@ -54,6 +56,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 
 | dosya:satır | tür | gerekçe |
 |---|---|---|
+| tests/agent-enforcement.agent.spec.js:33 | skip |  |
 | tests/bot-builder-editor.authed.spec.js:55 | skip | Hesapta bot yok — editör veri-bağlı. |
 | tests/bot-builder-editor.authed.spec.js:71 | skip | Hesapta bot yok — editör veri-bağlı. |
 | tests/bot-builder-editor.authed.spec.js:84 | skip | Hesapta bot yok — editör veri-bağlı. |
@@ -102,6 +105,8 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/settings-roles-interactions.authed.spec.js:36 | skip | Roller yanıtı liste değil/boş (veri-bağlı). |
 | tests/settings-roles-mutations.authed.spec.js:24 | fixme | ında doğrulanmadı. |
 | tests/settings-roles-rbac-enforcement.authed.spec.js:72 | skip |  |
+| tests/settings-roles-rbac.authed.spec.js:174 | skip |  |
+| tests/settings-roles-rbac.authed.spec.js:224 | skip |  |
 | tests/settings-security.authed.spec.js:164 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-sla.authed.spec.js:183 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-teams.authed.spec.js:155 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
