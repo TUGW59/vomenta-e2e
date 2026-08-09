@@ -93,9 +93,74 @@ assert.deepEqual(compareDiscoveryBaseline(report, baseline), {
   baselineGeneratedAt: report.generatedAt,
   addedRoutes: [],
   removedRoutes: [],
+  unvisitedBaselineRoutes: [],
   ariaChanged: [],
   networkChanged: [],
 });
+
+// ── F-023: removed vs unvisited-due-to-limit ayrımı (compareDiscoveryBaseline) ──
+// Baseline iki rota içeriyor; bu koşum yalnız birini fingerprint'liyor. Denenmeyen
+// (attemptedRoutes'ta OLMAYAN) baseline rotası "removed" DEĞİL "unvisited"tır →
+// maxPages truncation false-positive'i engellenir (ör. keşfedilen /campaigns/outbound).
+{
+  const twoRouteReport = {
+    generatedAt: '2026-07-29T00:00:00.000Z',
+    pages: [
+      {
+        route: '/contacts',
+        ariaStructure: '- heading "<name>"',
+        network: { endpoints: ['GET https://app.vomenta.com/api/contacts?<redacted>'] },
+      },
+      {
+        route: '/campaigns/outbound',
+        ariaStructure: '- heading "<name>"',
+        network: { endpoints: [] },
+      },
+    ],
+  };
+  const twoRouteBaseline = makeDiscoveryBaseline(twoRouteReport);
+
+  // Koşum: sadece /contacts fingerprint'lendi; /campaigns/outbound LİMİT yüzünden
+  // ziyaret edilmedi (attemptedRoutes'ta yok) → unvisited, removed DEĞİL.
+  const truncatedRun = {
+    generatedAt: '2026-08-08T00:00:00.000Z',
+    attemptedRoutes: ['/contacts'],
+    pages: [twoRouteReport.pages[0]],
+  };
+  const truncatedDiff = compareDiscoveryBaseline(truncatedRun, twoRouteBaseline);
+  assert.deepEqual(truncatedDiff.removedRoutes, []);
+  assert.deepEqual(truncatedDiff.unvisitedBaselineRoutes, ['/campaigns/outbound']);
+  const truncatedPolicy = evaluateDriftPolicy(truncatedDiff);
+  assert.equal(truncatedPolicy.ok, true);
+  assert.deepEqual(truncatedPolicy.failures, []);
+  assert.equal(
+    truncatedPolicy.info.some((m) => /unvisited-baseline-route: \/campaigns\/outbound/.test(m)),
+    true
+  );
+
+  // Koşum: /campaigns/outbound DENENDİ (attemptedRoutes'ta var) ama fingerprint
+  // üretmedi (ör. redirect/404-away) → GERÇEK removed → FAIL (regresyon sinyali).
+  const goneRun = {
+    generatedAt: '2026-08-08T00:00:00.000Z',
+    attemptedRoutes: ['/contacts', '/campaigns/outbound'],
+    pages: [twoRouteReport.pages[0]],
+  };
+  const goneDiff = compareDiscoveryBaseline(goneRun, twoRouteBaseline);
+  assert.deepEqual(goneDiff.removedRoutes, ['/campaigns/outbound']);
+  assert.deepEqual(goneDiff.unvisitedBaselineRoutes, []);
+  const gonePolicy = evaluateDriftPolicy(goneDiff);
+  assert.equal(gonePolicy.ok, false);
+  assert.match(gonePolicy.failures[0], /removed-route: \/campaigns\/outbound/);
+
+  // Geriye dönük uyum: attemptedRoutes yoksa sayfası olan rotalar denenmiş sayılır.
+  const legacyRun = {
+    generatedAt: '2026-08-08T00:00:00.000Z',
+    pages: [twoRouteReport.pages[0]],
+  };
+  const legacyDiff = compareDiscoveryBaseline(legacyRun, twoRouteBaseline);
+  assert.deepEqual(legacyDiff.removedRoutes, ['/campaigns/outbound']);
+  assert.deepEqual(legacyDiff.unvisitedBaselineRoutes, []);
+}
 
 // ── evaluateDriftPolicy: drift farkını PASS/FAIL kararına indirger ──
 // baseline yok → OK (bootstrap), hiçbir failure üretmez.
@@ -104,24 +169,26 @@ assert.deepEqual(compareDiscoveryBaseline(report, baseline), {
   assert.equal(r.ok, true);
   assert.deepEqual(r.failures, []);
 }
-// kaldırılan rota → FAIL.
+// kaldırılan rota (gerçekten denenip bulunamayan) → FAIL (kararlı regresyon sinyali).
 {
   const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: ['/reports'], ariaChanged: [], networkChanged: [] });
   assert.equal(r.ok, false);
   assert.equal(r.failures.length, 1);
   assert.match(r.failures[0], /removed-route: \/reports/);
 }
-// ARIA yapısı değişimi → FAIL.
+// ADR-0033: ARIA yapısı değişimi → yalnız BİLGİ (canlı-prod-beklenen drift; kapı yeşil).
 {
   const r = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [{ route: '/voice', before: 'a', after: 'b' }], networkChanged: [] });
-  assert.equal(r.ok, false);
-  assert.match(r.failures[0], /aria-changed: \/voice/);
+  assert.equal(r.ok, true);
+  assert.deepEqual(r.failures, []);
+  assert.equal(r.info.some((m) => /aria-changed: \/voice/.test(m)), true);
 }
-// kaldırılan endpoint → FAIL; eklenen endpoint → yalnız BİLGİ (kapı yeşil kalır).
+// ADR-0033: endpoint eklendi/kaldırıldı → yalnız BİLGİ (canlı-prod-beklenen API drift'i).
 {
   const removed = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [], networkChanged: [{ route: '/contacts', added: [], removed: ['GET /api/contacts'] }] });
-  assert.equal(removed.ok, false);
-  assert.match(removed.failures[0], /endpoint-removed: \/contacts/);
+  assert.equal(removed.ok, true);
+  assert.deepEqual(removed.failures, []);
+  assert.equal(removed.info.some((m) => /endpoint-removed: \/contacts/.test(m)), true);
   const added = evaluateDriftPolicy({ baselinePresent: true, addedRoutes: [], removedRoutes: [], ariaChanged: [], networkChanged: [{ route: '/contacts', added: ['GET /api/new'], removed: [] }] });
   assert.equal(added.ok, true);
   assert.deepEqual(added.failures, []);
@@ -139,4 +206,4 @@ assert.deepEqual(compareDiscoveryBaseline(report, baseline), {
   assert.deepEqual(r, { ok: true, failures: [], info: [] });
 }
 
-console.log('Discovery safety self-check geçti: origin/path kilidi, maskeleme, fingerprint diff ve drift politikası (removed/aria/endpoint → FAIL; added → info).');
+console.log('Discovery safety self-check geçti: origin/path kilidi, maskeleme, fingerprint diff ve ADR-0033 drift politikası (gerçek-removed → FAIL; aria/endpoint/added/unvisited → info; F-023 truncation ayrımı).');

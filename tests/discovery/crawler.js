@@ -139,7 +139,17 @@ export async function crawlApplication(
       queuedRemaining: queue.length,
       untestedRouteCount: untestedRoutes.length,
       hardFailureCount: hardFailures.length,
+      // maxPages nedeniyle EK (keşfedilen, seed-dışı) rotalar kesildi mi?
+      // F-023: baseline drift karşılaştırması "ulaşılamadı" ile "limit yüzünden
+      // ziyaret edilmedi"yi ayırt etmek için bu sinyali kullanır.
+      truncated: queue.length > 0,
     },
+    // F-023: GERÇEKTEN denenen (navigate edilen) rotalar. Bir baseline rotası bu
+    // kümede DEĞİLSE, "kaldırıldı" değil "limit yüzünden ziyaret edilmedi"dir →
+    // maxPages truncation false-positive'i (ör. keşfedilen /campaigns/outbound)
+    // "removed-route" olarak SAYILMAZ. `visited` her denemede (lostSession dahil)
+    // doldurulur; yani navigate girişimi yapılan tüm rotaları kapsar.
+    attemptedRoutes: [...visited].sort(),
     coverage: { untestedRoutes, registeredNotReached },
     hardFailures,
     pages,

@@ -431,6 +431,14 @@ export function planImpact(input = {}) {
   const publicSpecs = new Set();
   const authenticatedSpecs = new Set();
   const discoverySpecs = new Set();
+  // ADR-0033: keşif spec'i (canlı-prod crawl-vs-baseline) bir MONITORING kontrolüdür,
+  // per-PR birim doğrulaması DEĞİL. PR change-impact lane'inde canlı prod'a karşı
+  // koşturmak, aktif geliştirilen prod'un beklenen ARIA/endpoint drift'i yüzünden
+  // ilgisiz PR'ları kronik kırmızıya boyar (P1-7 flakiness). Bu yüzden seçilen tüm
+  // discovery spec'leri PR lane yerine NIGHTLY read-only-discovery job'ına ERTELENİR
+  // (sessiz kırpma YOK: `discoveryDeferredToNightly` + reason). Discovery MANTIĞI
+  // yine PR'da offline `self-check-discovery.mjs` ile korunur (canlı prod gerekmez).
+  const discoveryDeferred = new Set();
   const roleSpecs = new Set();
   const stagingBlocked = new Set();
   const fallback = new Set();
@@ -462,7 +470,9 @@ export function planImpact(input = {}) {
   const bucketSpec = (spec) => {
     switch (specBucket(spec)) {
       case 'discovery':
-        discoverySpecs.add(spec);
+        // ADR-0033: PR lane'de koşturma; nightly'ye ertele (fail-visible reason).
+        discoveryDeferred.add(spec);
+        reasons.add(`DISCOVERY_DEFERRED_TO_NIGHTLY:${spec}`);
         break;
       case 'mutation':
         stagingBlocked.add(spec);
@@ -725,7 +735,10 @@ export function planImpact(input = {}) {
         addFallback(BROAD_FALLBACK, `AUTH_SETUP_BROADEN:${rel}`);
         break;
       case 'discovery-spec':
-        discoverySpecs.add(rel);
+        // ADR-0033: doğrudan düzenlenen discovery spec'i de PR lane'de canlı prod'a
+        // koşulmaz; nightly'ye ertelenir (mantığı offline self-check korur).
+        discoveryDeferred.add(rel);
+        reasons.add(`DISCOVERY_DEFERRED_TO_NIGHTLY:${rel}`);
         break;
       case 'mutation-spec':
         stagingBlocked.add(rel);
@@ -832,6 +845,7 @@ export function planImpact(input = {}) {
       roleSpecs: selRole,
     },
     authedDeferredToNightly: uniqSort([...authedDeferredToNightly]),
+    discoveryDeferredToNightly: uniqSort([...discoveryDeferred]),
     fallbackSuites,
     stagingBlockedMutationSpecs: uniqSort([...stagingBlocked]),
     visualPolicyFiles: uniqSort([...visualPolicyFiles]),

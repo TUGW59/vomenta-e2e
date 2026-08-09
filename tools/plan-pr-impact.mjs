@@ -182,7 +182,8 @@ function main() {
     `[pr-impact] status=${plan.status} mode=${plan.mode} ` +
       `changed=${plan.changedFiles.length} ` +
       `public=${s.publicSpecs.length} authed=${s.authenticatedSpecs.length} ` +
-      `discovery=${s.discoverySpecs.length} fallback=${plan.fallbackSuites.length} ` +
+      `discovery=${s.discoverySpecs.length} discoveryDeferred=${(plan.discoveryDeferredToNightly || []).length} ` +
+      `fallback=${plan.fallbackSuites.length} ` +
       `mutationBlocked=${plan.stagingBlockedMutationSpecs.length} ` +
       `unmapped=${plan.unmappedRuntimeFiles.length} runnable=${plan.selectedRunnableSpecCount}`
   );

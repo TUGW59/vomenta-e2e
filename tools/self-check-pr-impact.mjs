@@ -635,6 +635,33 @@ const plan = (changedFiles, extra = {}) =>
   check('deterministic', a === b, 'iki koşum farklı JSON üretti');
 }
 
+// ADR-0033: keşif spec'i PR change-impact lane'de SEÇİLMEZ; nightly'ye ERTELENİR.
+// (a) Doğrudan discovery spec düzenlemesi → selected.discoverySpecs BOŞ +
+//     discoveryDeferredToNightly içerir + DISCOVERY_DEFERRED_TO_NIGHTLY reason.
+{
+  const p = plan([{ path: 'tests/discovery/discovery.spec.js', status: 'M' }]);
+  check(
+    'discovery-direct-deferred',
+    p.selected.discoverySpecs.length === 0 &&
+      (p.discoveryDeferredToNightly || []).includes('tests/discovery/discovery.spec.js') &&
+      p.reasons.some((r) => /^DISCOVERY_DEFERRED_TO_NIGHTLY:tests\/discovery\/discovery\.spec\.js$/.test(r)),
+    `discovery=${JSON.stringify(p.selected.discoverySpecs)} deferred=${JSON.stringify(p.discoveryDeferredToNightly)}`
+  );
+}
+// (b) config değişikliği (ters-grafik discovery.spec'i çeker) → yine PR lane'de
+//     discovery KOŞMAZ; ertelenir. config zaten BROAD_FALLBACK ile PR kapsamı alır.
+{
+  const p = plan([{ path: 'config/environment.js', status: 'M' }]);
+  check(
+    'config-defers-discovery',
+    p.selected.discoverySpecs.length === 0 &&
+      (p.discoveryDeferredToNightly || []).includes('tests/discovery/discovery.spec.js') &&
+      p.fallbackSuites.length > 0 &&
+      p.exitCode === 0,
+    `status=${p.status} discovery=${JSON.stringify(p.selected.discoverySpecs)} deferred=${JSON.stringify(p.discoveryDeferredToNightly)} fallback=${JSON.stringify(p.fallbackSuites)}`
+  );
+}
+
 // Ek güvenlik: sınıflandırma tablosu beklenen sınıfları döndürür.
 {
   const expect = {
