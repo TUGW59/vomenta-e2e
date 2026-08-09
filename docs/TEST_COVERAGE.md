@@ -1254,7 +1254,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor  `@layout`
 - sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
 - L1: "Details" tıklanınca dialog açılıyor; klavye ile kapanıyor  `@regression` `@keyboard`
-- L1: yön filtresi combobox'u açılıp seçim yapılabiliyor; tablo sağlam  `@regression`
+- L1: yön filtresi combobox'u açılıyor; etkileşim sonrası tablo/başlık sağlam  `@regression`
 - GET /voice/calls 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/history doğrudan açılınca yükleniyor  `@deeplink`
 
