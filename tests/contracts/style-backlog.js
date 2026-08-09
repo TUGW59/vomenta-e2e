@@ -47,4 +47,13 @@ export const STYLE_BACKLOG = Object.freeze({
   '/contacts/:id': 'defer:blocked-dynamic (id parametresi; canonical kişi gerektirir)',
   '/settings/billing': 'defer:blocked-redirect (⚠SETTINGS-BILLING-REDIRECT; yönlenme-gated)',
   '/settings/billing/marketplace': 'defer:blocked (billing alt-yüzeyi)',
+
+  // ── defer:blocked (5) — F-029/ADR-0034 DEV-only IA; PROD'da 404 (2026-08-09 authed probe) ──
+  // readonly-blocked (FEATURE_FLAG_OFF): prod'da erişilemediği için stil sözleşmesi
+  // koşulamaz. Prod'a çıkınca (lifecycle→active) buradan SİL + L2·style'a çıkar.
+  '/monitoring': 'defer:blocked (F-029 dev-only IA; prod 404 — ADR-0034)',
+  '/monitoring/live': 'defer:blocked (F-029 dev-only IA; prod 404 — ADR-0034)',
+  '/monitoring/agents': 'defer:blocked (F-029 dev-only IA; prod 404 — ADR-0034)',
+  '/monitoring/ai-summary': 'defer:blocked (F-029 dev-only IA; prod 404 — ADR-0034)',
+  '/supervisor/ai-rate-suggestions': 'defer:blocked (F-029 dev-only IA; prod 404 — ADR-0034)',
 });
