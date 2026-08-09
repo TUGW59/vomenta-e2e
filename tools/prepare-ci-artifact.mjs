@@ -298,6 +298,57 @@ function prepareEvidenceLane(lane, opts) {
   });
 }
 
+/**
+ * Discovery baseline adapter'ı: CI'da `DISCOVERY_UPDATE_BASELINE=true` ile yeniden
+ * üretilen committed `tests/contracts/discovery-baseline.json`'u şema doğrular ve
+ * kanonik yeniden-emit eder (ham kopya değil). Şema (baseline.js makeDiscoveryBaseline
+ * ile hizalı): { schemaVersion:number, generatedAt:string, routes: { <route>:
+ * { ariaStructureHash:string(hex), endpoints:string[] } } }. Rotalar + endpoint'ler
+ * deterministik sıralanır; secret/PII finalize'da uygulanır.
+ */
+function prepareDiscoveryBaselineLane(lane) {
+  const src = resolve(root, 'tests/contracts/discovery-baseline.json');
+  if (!existsSync(src)) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, 'discovery-baseline.json', 'kaynak baseline yok (önce test:discovery:update-baseline)');
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(src, 'utf8'));
+  } catch {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'discovery-baseline.json', 'geçersiz JSON');
+  }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'discovery-baseline.json', 'üst düzey nesne olmalı');
+  }
+  const routes = parsed.routes;
+  if (!routes || typeof routes !== 'object' || Array.isArray(routes)) {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'discovery-baseline.json', 'routes haritası olmalı');
+  }
+  const safeRoutes = {};
+  for (const route of Object.keys(routes).sort()) {
+    const r = routes[route];
+    if (!r || typeof r !== 'object') {
+      throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'discovery-baseline.json', `${route}: kayıt nesnesi değil`);
+    }
+    const hash = String(r.ariaStructureHash || '');
+    if (!/^[0-9a-f]{64}$/.test(hash)) {
+      throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'discovery-baseline.json', `${route}: ariaStructureHash sha256-hex değil`);
+    }
+    const endpoints = Array.isArray(r.endpoints) ? r.endpoints.map((e) => String(e)) : [];
+    safeRoutes[route] = { ariaStructureHash: hash, endpoints: [...new Set(endpoints)].sort() };
+  }
+  const safe = {
+    schemaVersion: Number.isInteger(parsed.schemaVersion) ? parsed.schemaVersion : 1,
+    generatedAt: String(parsed.generatedAt || '').slice(0, 40),
+    routes: safeRoutes,
+  };
+  return finalizeBundle({
+    lane,
+    files: { 'discovery-baseline.json': JSON.stringify(safe, null, 2) + '\n' },
+    excludedLocalOnly: ['raw-playwright-report', 'raw-test-results', 'trace-zip', 'video', 'screenshots'],
+  });
+}
+
 function main() {
   const opts = parseArgs(process.argv.slice(2));
   const { lane } = opts;
@@ -315,6 +366,7 @@ function main() {
   let result;
   try {
     if (lane === 'nightly-known-bug-reconcile') result = prepareReconcileLane(lane);
+    else if (lane === 'discovery-baseline') result = prepareDiscoveryBaselineLane(lane);
     else if (lane === 'known-bug-evidence') result = prepareEvidenceLane(lane, opts);
     else if (lane === 'readonly-audit-shard') result = prepareShardLane(lane, opts);
     else if (lane === 'readonly-audit-merged') result = prepareMergedLane(lane, opts);
