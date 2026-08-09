@@ -13,14 +13,14 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 87 · sözleşme sayfası: 49
-- **L1:** PROVEN 83 · not-proven 4
-- **L2 stil sözleşmesi:** karşılandı 66 · gerçek boşluk 21
-- **L2 durum:** COMPLETE 27 · PARTIAL 39 · NOT_COVERED 21
-- **Etkileşim derinliği tam doğrulanmayan rota:** 39 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
-- **L3:** BLOCKED(staging) 47 · N/A(no-write) 40
-- **L4:** BLOCKED(rol/tenant) 87 · **L5:** BLOCKED(provider) 87
-- **En yüksek seviye dağılımı:** L0 4 · L1 17 · L2·style 39 · L2·deep 27
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 49
+- **L1:** PROVEN 83 · not-proven 9
+- **L2 stil sözleşmesi:** karşılandı 66 · gerçek boşluk 26
+- **L2 durum:** COMPLETE 27 · PARTIAL 39 · NOT_COVERED 26
+- **Etkileşim derinliği tam doğrulanmayan rota:** 44 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L3:** BLOCKED(staging) 47 · N/A(no-write) 45
+- **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
+- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 39 · L2·deep 27
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -56,6 +56,10 @@
 | `/contacts/segments` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/contacts/:id` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/inbox` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | B3(high/open) B8(high/closed) |
+| `/monitoring` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/monitoring/live` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/monitoring/agents` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/monitoring/ai-summary` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/reports` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | REPORTS-AIKEY(medium/open) REPORTS-INTL(medium/open) |
 | `/reports/agent` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/reports/ai` | reports-sections | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 11/11 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -96,6 +100,7 @@
 | `/supervisor/coaching` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/interactions` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/wallboard` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
+| `/supervisor/ai-rate-suggestions` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/live` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -150,6 +155,10 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/contacts/segments` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/contacts/:id` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/inbox` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
+| `/monitoring` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/monitoring/live` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/monitoring/agents` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/monitoring/ai-summary` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/reports` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/reports/agent` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A |
 | `/reports/ai` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A |
@@ -190,6 +199,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/supervisor/coaching` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/supervisor/interactions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/supervisor/wallboard` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/ai-rate-suggestions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/voice` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
 | `/voice/live` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
@@ -244,6 +254,10 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/contacts/segments` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts/:id` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/inbox` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/monitoring` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/monitoring/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/monitoring/agents` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/monitoring/ai-summary` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/reports/agent` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/reports/ai` | ✅ | N/A | N/A | N/A | N/A | N/A |
@@ -284,6 +298,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/supervisor/coaching` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/interactions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/ai-rate-suggestions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/tickets` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice` | — | N/A | N/A | N/A | N/A | N/A |
 | `/voice/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -306,6 +321,6 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 
-- **L3 (mutation/CRUD):** 47 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 40 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
-- **L4 (rol/permission/tenant):** 87 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
-- **L5 (uçtan-uca provider):** 87 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).
+- **L3 (mutation/CRUD):** 47 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 45 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
+- **L4 (rol/permission/tenant):** 92 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
+- **L5 (uçtan-uca provider):** 92 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).

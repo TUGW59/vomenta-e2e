@@ -13,13 +13,13 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 452
+    "reconcileObservations": 457
   },
   "totals": {
-    "surfaces": 87,
+    "surfaces": 92,
     "coveredContract": 57,
     "noCoverageContract": 26,
-    "blocked": 4,
+    "blocked": 9,
     "redirect": 0,
     "deprecated": 0,
     "dynamic": 2,
@@ -27,7 +27,7 @@
     "ambiguous": 0,
     "heldCandidates": 3,
     "byStatus": {
-      "BLOCKED": 4,
+      "BLOCKED": 9,
       "COVERED_CONTRACT": 57,
       "NO_COVERAGE_CONTRACT": 26
     },
@@ -40,9 +40,10 @@
       "contacts": 4,
       "dashboard": 1,
       "inbox": 1,
+      "monitoring": 4,
       "reports": 12,
       "settings": 22,
-      "supervisor": 6,
+      "supervisor": 7,
       "tickets": 1,
       "voice": 12,
       "workforce": 6
@@ -50,10 +51,10 @@
     "byRuntimePolicy": {
       "fixture-required": 2,
       "readonly-baseline": 83,
-      "readonly-blocked": 2
+      "readonly-blocked": 7
     },
     "byBaseline": {
-      "blocked": 4,
+      "blocked": 9,
       "runnable": 83
     }
   },
@@ -667,6 +668,86 @@
           "route-inventory"
         ],
         "status": "NO_COVERAGE_CONTRACT"
+      },
+      {
+        "id": "monitoring",
+        "route": "/monitoring",
+        "area": "monitoring",
+        "parentId": null,
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "hidden",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF",
+        "redirectTarget": null,
+        "condition": "DEV-only İzleme IA (F-029); prod'da 404 — 2026-08-09 authed probe.",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "live-observation"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "monitoring-agents",
+        "route": "/monitoring/agents",
+        "area": "monitoring",
+        "parentId": "monitoring",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "hidden",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF",
+        "redirectTarget": null,
+        "condition": "DEV-only İzleme › Ajanlar (F-029); prod'da 404 — 2026-08-09 authed probe.",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "live-observation"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "monitoring-ai-summary",
+        "route": "/monitoring/ai-summary",
+        "area": "monitoring",
+        "parentId": "monitoring",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "hidden",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF",
+        "redirectTarget": null,
+        "condition": "DEV-only İzleme › AI Özet (F-029); prod'da 404 — 2026-08-09 authed probe.",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "live-observation"
+        ],
+        "status": "BLOCKED"
+      },
+      {
+        "id": "monitoring-live",
+        "route": "/monitoring/live",
+        "area": "monitoring",
+        "parentId": "monitoring",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "hidden",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF",
+        "redirectTarget": null,
+        "condition": "DEV-only İzleme › Canlı (F-029); prod'da 404 — 2026-08-09 authed probe.",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "live-observation"
+        ],
+        "status": "BLOCKED"
       },
       {
         "id": "reports",
@@ -1495,6 +1576,26 @@
         "status": "COVERED_CONTRACT"
       },
       {
+        "id": "supervisor-ai-rate-suggestions",
+        "route": "/supervisor/ai-rate-suggestions",
+        "area": "supervisor",
+        "parentId": "supervisor",
+        "routeKind": "static",
+        "lifecycle": "conditional",
+        "navigation": "secondary",
+        "runtimePolicy": "readonly-blocked",
+        "baseline": "blocked",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF",
+        "redirectTarget": null,
+        "condition": "DEV-only Süpervizör › AI oran önerileri (F-029); prod'da 404 — 2026-08-09 authed probe.",
+        "hasCoverageContract": false,
+        "coverageContractIds": [],
+        "evidenceTypes": [
+          "live-observation"
+        ],
+        "status": "BLOCKED"
+      },
+      {
         "id": "supervisor-calls",
         "route": "/supervisor/calls",
         "area": "supervisor",
@@ -2155,6 +2256,34 @@
         "blockedReason": "READONLY_FIXTURE_ID_REQUIRED"
       },
       {
+        "id": "monitoring",
+        "route": "/monitoring",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF"
+      },
+      {
+        "id": "monitoring-agents",
+        "route": "/monitoring/agents",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF"
+      },
+      {
+        "id": "monitoring-ai-summary",
+        "route": "/monitoring/ai-summary",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF"
+      },
+      {
+        "id": "monitoring-live",
+        "route": "/monitoring/live",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF"
+      },
+      {
         "id": "settings-billing",
         "route": "/settings/billing",
         "baseline": "blocked",
@@ -2167,12 +2296,20 @@
         "baseline": "blocked",
         "routeKind": "static",
         "blockedReason": "READONLY_403_FORBIDDEN"
+      },
+      {
+        "id": "supervisor-ai-rate-suggestions",
+        "route": "/supervisor/ai-rate-suggestions",
+        "baseline": "blocked",
+        "routeKind": "static",
+        "blockedReason": "READONLY_FEATURE_FLAG_OFF"
       }
     ],
     "deprecatedOrRedirect": [],
     "evidenceRollup": {
       "discovery-observation": 46,
       "known-bug": 35,
+      "live-observation": 5,
       "navigation-contract": 14,
       "page-object": 18,
       "route-inventory": 65

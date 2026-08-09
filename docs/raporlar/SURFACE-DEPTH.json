@@ -8,7 +8,7 @@
     "runtimeGeneratedAt": "2026-08-06T11:16:12.542Z"
   },
   "inventory": {
-    "registeredRoutes": 87,
+    "registeredRoutes": 92,
     "testedPagesContracts": 49,
     "knownBugs": {
       "total": 61,
@@ -18,21 +18,21 @@
     }
   },
   "totals": {
-    "registeredRoutes": 87,
+    "registeredRoutes": 92,
     "l1Proven": 83,
-    "l1NotProven": 4,
+    "l1NotProven": 9,
     "l2StyleContractMet": 66,
-    "l2StyleGap": 21,
+    "l2StyleGap": 26,
     "l2Complete": 27,
     "l2Partial": 39,
-    "l2NotCovered": 21,
-    "interactionUnverifiedRoutes": 39,
+    "l2NotCovered": 26,
+    "interactionUnverifiedRoutes": 44,
     "l3Blocked": 47,
-    "l3NotApplicable": 40,
-    "l4Blocked": 87,
-    "l5Blocked": 87,
+    "l3NotApplicable": 45,
+    "l4Blocked": 92,
+    "l5Blocked": 92,
     "highestLevel": {
-      "L0": 4,
+      "L0": 9,
       "L1": 17,
       "L2_STYLE": 39,
       "L2_DEEP": 27
@@ -4063,6 +4063,554 @@
           "status": "closed"
         }
       ]
+    },
+    {
+      "route": "/monitoring",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/monitoring/live",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/monitoring/agents",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
+    },
+    {
+      "route": "/monitoring/ai-summary",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     },
     {
       "route": "/reports",
@@ -9835,6 +10383,143 @@
           "status": "open"
         }
       ]
+    },
+    {
+      "route": "/supervisor/ai-rate-suggestions",
+      "heading": null,
+      "contracts": [],
+      "highestProvenLevel": "L0",
+      "levels": {
+        "L1": {
+          "status": "NOT_RUN",
+          "reasonCode": "NO_RUNTIME_RESULT",
+          "runtimeStatus": null,
+          "statusReason": null,
+          "specFiles": []
+        },
+        "L2": {
+          "status": "NOT_COVERED",
+          "style": {
+            "contractMet": false,
+            "requiredDimensions": [
+              "i18n",
+              "a11y",
+              "layout",
+              "clean",
+              "deeplink"
+            ],
+            "coveredOrExempt": 0,
+            "requiredCount": 5,
+            "gaps": 5,
+            "dimensions": {
+              "i18n": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "a11y": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "layout": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "clean": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "deeplink": {
+                "status": "NOT_COVERED",
+                "required": true
+              },
+              "keyboard": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "errorpath": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "visual": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "perf": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "data": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              },
+              "export": {
+                "status": "NOT_APPLICABLE",
+                "required": false,
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+              }
+            }
+          },
+          "interaction": {
+            "verified": false,
+            "applicableDimensions": [
+              "tabs",
+              "search-filter",
+              "table-list",
+              "pagination-sort",
+              "empty-state",
+              "loading-state"
+            ],
+            "applicableCount": 6,
+            "coveredCount": 0,
+            "presentSignals": [],
+            "misdeclaredSignals": [],
+            "dimensions": {
+              "tabs": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "search-filter": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "table-list": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "pagination-sort": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "empty-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              },
+              "loading-state": {
+                "status": "UNVERIFIED",
+                "reasonCode": "NO_MACHINE_SIGNAL"
+              }
+            }
+          }
+        },
+        "L3": {
+          "status": "NOT_APPLICABLE",
+          "reasonCode": "NO_WRITE_SURFACE"
+        },
+        "L4": {
+          "status": "BLOCKED",
+          "reasonCode": "ROLE_ACCOUNTS_REQUIRED"
+        },
+        "L5": {
+          "status": "BLOCKED",
+          "reasonCode": "PROVIDER_HARNESS_REQUIRED"
+        }
+      },
+      "findings": []
     },
     {
       "route": "/tickets",

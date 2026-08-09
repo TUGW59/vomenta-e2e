@@ -425,6 +425,44 @@ export const PRODUCT_SURFACES = Object.freeze([
     evidence: [ { type: 'known-bug' }, { type: 'discovery-observation', observedAt: '2026-07-30' }, { type: 'navigation-contract' }, { type: 'route-inventory' } ],
   },
   {
+    // MONITORING / İZLEME IA (F-029, ADR-0034). DEV-ONLY: app.dev.vomenta.com'da
+    // "İzleme" kenar-çubuğu grubu (/monitoring/{live,agents,ai-summary}); PROD'da
+    // (app.vomenta.com) tüm /monitoring/* rotaları 404 (2026-08-09 authed probe).
+    // Bu nedenle readonly-blocked (FEATURE_FLAG_OFF) → registered-routes baseline
+    // BLOCKED (test.fixme; asla PASS, asla prod CI'yı kırmaz). Prod'a çıkınca
+    // lifecycle 'active' + runtimePolicy 'readonly-baseline'e terfi ettirilir.
+    id: 'monitoring', area: 'monitoring',
+    route: '/monitoring', routeKind: 'static', lifecycle: 'conditional',
+    condition: 'DEV-only İzleme IA (F-029); prod\'da 404 — 2026-08-09 authed probe.',
+    parentId: null, navigation: 'hidden', runtimePolicy: 'readonly-blocked',
+    blockedReason: 'READONLY_FEATURE_FLAG_OFF',
+    evidence: [ { type: 'live-observation', observedAt: '2026-08-09' } ],
+  },
+  {
+    id: 'monitoring-live', area: 'monitoring',
+    route: '/monitoring/live', routeKind: 'static', lifecycle: 'conditional',
+    condition: 'DEV-only İzleme › Canlı (F-029); prod\'da 404 — 2026-08-09 authed probe.',
+    parentId: 'monitoring', navigation: 'hidden', runtimePolicy: 'readonly-blocked',
+    blockedReason: 'READONLY_FEATURE_FLAG_OFF',
+    evidence: [ { type: 'live-observation', observedAt: '2026-08-09' } ],
+  },
+  {
+    id: 'monitoring-agents', area: 'monitoring',
+    route: '/monitoring/agents', routeKind: 'static', lifecycle: 'conditional',
+    condition: 'DEV-only İzleme › Ajanlar (F-029); prod\'da 404 — 2026-08-09 authed probe.',
+    parentId: 'monitoring', navigation: 'hidden', runtimePolicy: 'readonly-blocked',
+    blockedReason: 'READONLY_FEATURE_FLAG_OFF',
+    evidence: [ { type: 'live-observation', observedAt: '2026-08-09' } ],
+  },
+  {
+    id: 'monitoring-ai-summary', area: 'monitoring',
+    route: '/monitoring/ai-summary', routeKind: 'static', lifecycle: 'conditional',
+    condition: 'DEV-only İzleme › AI Özet (F-029); prod\'da 404 — 2026-08-09 authed probe.',
+    parentId: 'monitoring', navigation: 'hidden', runtimePolicy: 'readonly-blocked',
+    blockedReason: 'READONLY_FEATURE_FLAG_OFF',
+    evidence: [ { type: 'live-observation', observedAt: '2026-08-09' } ],
+  },
+  {
     id: 'reports', area: 'reports',
     route: '/reports', routeKind: 'static', lifecycle: 'active',
     parentId: null, navigation: 'main', runtimePolicy: 'readonly-baseline',
@@ -673,6 +711,18 @@ export const PRODUCT_SURFACES = Object.freeze([
     route: '/supervisor/wallboard', routeKind: 'static', lifecycle: 'active',
     parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-baseline',
     evidence: [ { type: 'known-bug' } ],
+  },
+  {
+    // AI Rate Suggestions / AI Oran Önerileri (F-029, ADR-0034). DEV'de "Süpervizör"
+    // alt-menüsünde görünür; PROD'da (app.vomenta.com) 404 — 2026-08-09 authed probe.
+    // readonly-blocked (FEATURE_FLAG_OFF) → BLOCKED baseline (test.fixme; asla PASS).
+    // Prod'a çıkınca active + readonly-baseline'e terfi ettirilir.
+    id: 'supervisor-ai-rate-suggestions', area: 'supervisor',
+    route: '/supervisor/ai-rate-suggestions', routeKind: 'static', lifecycle: 'conditional',
+    condition: 'DEV-only Süpervizör › AI oran önerileri (F-029); prod\'da 404 — 2026-08-09 authed probe.',
+    parentId: 'supervisor', navigation: 'secondary', runtimePolicy: 'readonly-blocked',
+    blockedReason: 'READONLY_FEATURE_FLAG_OFF',
+    evidence: [ { type: 'live-observation', observedAt: '2026-08-09' } ],
   },
   {
     id: 'tickets', area: 'tickets',

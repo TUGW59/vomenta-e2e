@@ -309,7 +309,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `workforce-time-off` **@visual**: İzin tablosu canlı veri → kararlı snapshot yok.
 - `workforce-time-off` **@mutation**: İzin talebi UI'dan SİLİNEMİYOR (terminal durumda yalnız durum değişir) → güvenli 0→1→0 teardown yok; L3 N/A (kanıt: dedicated + eski yüzey notları).
 
-## Kanonik yüzey kapsaması (tüm 87 yüzey — her yüzey tam bir kez)
+## Kanonik yüzey kapsaması (tüm 92 yüzey — her yüzey tam bir kez)
 
 Kanonik `product-surfaces.js`'teki HER yüzey burada listelenir. `NO_COVERAGE_CONTRACT` =
 dedicated stil kapsam sözleşmesi yok (baseline smoke alır; matris üstünde görünmez). Bu ek,
@@ -345,6 +345,10 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `contacts-segments` | `/contacts/segments` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `dashboard` | `/` | dashboard | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✅ | — | — | ✔ |
 | `inbox` | `/inbox` | inbox | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `monitoring` | `/monitoring` | monitoring | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `monitoring-agents` | `/monitoring/agents` | monitoring | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `monitoring-ai-summary` | `/monitoring/ai-summary` | monitoring | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `monitoring-live` | `/monitoring/live` | monitoring | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `reports` | `/reports` | reports | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `reports-agent` | `/reports/agent` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
 | `reports-ai` | `/reports/ai` | reports | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✔ |
@@ -381,6 +385,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `settings-webhooks` | `/settings/webhooks` | settings | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ | ✔ |
 | `supervisor` | `/supervisor` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-agents` | `/supervisor/agents` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
+| `supervisor-ai-rate-suggestions` | `/supervisor/ai-rate-suggestions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-calls` | `/supervisor/calls` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-interactions` | `/supervisor/interactions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
