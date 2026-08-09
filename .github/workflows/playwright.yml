@@ -47,6 +47,17 @@ on:
           (bounded; tek prod hesabı yükü). Boş → varsayılan (12).
         required: false
         type: string
+      update_discovery_baseline:
+        description: >-
+          (CI-03/discovery) Discovery baseline'ını mevcut içerik-yakalayan crawler
+          ile CANLI prod'a karşı YENİDEN ÜRET. drift kapısı bu modda UYGULANMAZ;
+          yenilenen tests/contracts/discovery-baseline.json COMMIT ÖNERİSİ artifact
+          olarak yüklenir (main'e otomatik push YOK — read-only ethos). Baseline
+          gerçek prod creds gerektirir; local .env placeholder olduğundan yerelde
+          üretilemez. Boş/false → job atlanır.
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -533,6 +544,68 @@ jobs:
         with:
           name: read-only-discovery-secure
           path: test-results/secure-upload/read-only-discovery/
+          if-no-files-found: error
+          retention-days: 30
+
+  # CI-03/discovery — Baseline'ı CANLI prod'a karşı yeniden üretip COMMIT ÖNERİSİ
+  # olarak sunan ELLE tetiklenen job (workflow_dispatch + update_discovery_baseline).
+  # NEDEN: baseline gerçek prod creds gerektirir (secrets.VOMENTA_*); local .env
+  # placeholder olduğundan yerelde `test:discovery:update-baseline` çalıştırılamaz.
+  # Bu job baseline'ı yeniler, diff'i job özetine yazar ve yenilenen dosyayı güvenli
+  # bundle (discovery-baseline lane) olarak yükler. main'e OTOMATİK PUSH YOK:
+  # maintainer artifact'i indirip gözden geçirerek commit eder (read-only ethos).
+  discovery-baseline-refresh:
+    name: Discovery baseline refresh (COMMIT önerisi; otomatik push YOK)
+    needs: architecture
+    if: >-
+      github.event_name == 'workflow_dispatch' && inputs.update_discovery_baseline
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      # maxPages EN SIKI gating koşumuyla (PR change-impact `test:discovery` = 40)
+      # HİZALI olmalı. Seed evreni (~66 rota) her maxPages'te TAM gezilir; maxPages
+      # yalnız seed-DIŞI keşfedilen ek rotaları sınırlar. 80 ile üretilen bir baseline'a
+      # seed-dışı bir rota girerse, 40-run ona ulaşamaz → removed-route → yanlış FAIL.
+      # Bu yüzden 40: nightly (80) fazladan rota görürse addedRoutes=info (pass).
+      DISCOVERY_MAX_PAGES: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Baseline'ı mevcut içerik-yakalayan crawler ile YENİDEN ÜRET. update-baseline
+      # modunda drift kapısı UYGULANMAZ; yalnız hardFailures boşsa baseline yazılır
+      # (bozuk keşif referans olarak yazılmaz — bkz. discovery.spec.js).
+      - run: npm run test:discovery:update-baseline
+      # Yenilenen baseline ile önceki (committed) hali arasındaki farkı job özetine yaz.
+      - name: Baseline diff'ini job özetine yaz
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo '## Discovery baseline diff (öneri)';
+            echo '';
+            echo '```diff';
+            git --no-pager diff -- tests/contracts/discovery-baseline.json;
+            echo '```';
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Güvenli baseline bundle hazırla (discovery-baseline lane)
+        id: prep_baseline
+        # Ham test-results yüklenmez; yalnız şema-doğrulanmış + kanonik baseline kopyası.
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane discovery-baseline
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Yenilenen baseline'ı yükle (COMMIT önerisi; YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_baseline.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: discovery-baseline-refresh-${{ github.run_id }}
+          path: test-results/secure-upload/discovery-baseline/
           if-no-files-found: error
           retention-days: 30
 

@@ -51,6 +51,7 @@ export const LANES = Object.freeze([
   'full-regression',
   'visual-regression',
   'read-only-discovery',
+  'discovery-baseline',
   'readonly-audit',
   'readonly-audit-shard',
   'readonly-audit-merged',
@@ -226,6 +227,28 @@ export const LANE_POLICY = Object.freeze({
     validatorId: 'safe-summary@1',
     mode: 'prepared',
     secureRoot: join(SECURE_UPLOAD_ROOT, 'known-bug-evidence'),
+  }),
+  'discovery-baseline': Object.freeze({
+    lane: 'discovery-baseline',
+    // NEDEN: `DISCOVERY_UPDATE_BASELINE=true` ile CI'da yeniden üretilen
+    // `tests/contracts/discovery-baseline.json`'u maintainer'a COMMIT ÖNERİSİ olarak
+    // taşır. Baseline gerçek prod creds gerektirir; local .env placeholder olduğundan
+    // yerelde üretilemez. Bu lane, main'e otomatik push YAPMADAN (read-only ethos)
+    // güncel baseline'ın CI kopyasını review + commit için indirilebilir kılar.
+    // PRODUCER: tools/prepare-ci-artifact.mjs (baseline'ı şema doğrular + kanonik
+    //   yeniden-emit eder; ham kopya değil). VALIDATOR: safe-summary@1 (finalizeBundle:
+    //   JSON parse + secret/PII + FS). ariaStructureHash'ler maskeli sha256; endpoint
+    //   anahtarları method+url — secret-scan finalize'da uygulanır.
+    sourceKinds: Object.freeze(['discovery-baseline-json']),
+    allowedOutputs: Object.freeze(['discovery-baseline.json', 'manifest.json']),
+    screenshotPolicy: 'deny',
+    localOnlyPatterns: LOCAL_ONLY_PATTERNS,
+    maxFiles: 4,
+    maxBytesPerFile: 4 * MB,
+    maxBundleBytes: 8 * MB,
+    validatorId: 'safe-summary@1',
+    mode: 'prepared',
+    secureRoot: join(SECURE_UPLOAD_ROOT, 'discovery-baseline'),
   }),
   'known-bug-verification': Object.freeze({
     lane: 'known-bug-verification',
