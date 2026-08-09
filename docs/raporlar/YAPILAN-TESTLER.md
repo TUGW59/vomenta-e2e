@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1278 / 136 dosya
-- **coverageStatus:** verified 0 · partial 1225 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1234 · skipped 0 · fixme 44
+- **Listelenen test:** 1283 / 136 dosya
+- **coverageStatus:** verified 0 · partial 1225 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1234 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,7 +25,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 156 | 143 | 9 | 4 |
+| other | 161 | 143 | 9 | 9 |
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -661,8 +661,13 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [route:/workforce/time-off] kayıtlı rota read-only baseline | @smoke @route-baseline | — | listed-only | partial | medium | list-exec |
 | [route:/bot-builder/:id] kayıtlı rota blocked (READONLY_FIXTURE_ID_REQUIRED) | @route-blocked | — | fixme | blocked | low | list-exec |
 | [route:/contacts/:id] kayıtlı rota blocked (READONLY_FIXTURE_ID_REQUIRED) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/monitoring] kayıtlı rota blocked (READONLY_FEATURE_FLAG_OFF) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/monitoring/live] kayıtlı rota blocked (READONLY_FEATURE_FLAG_OFF) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/monitoring/agents] kayıtlı rota blocked (READONLY_FEATURE_FLAG_OFF) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/monitoring/ai-summary] kayıtlı rota blocked (READONLY_FEATURE_FLAG_OFF) | @route-blocked | — | fixme | blocked | low | list-exec |
 | [route:/settings/billing] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
 | [route:/settings/billing/marketplace] kayıtlı rota blocked (READONLY_403_FORBIDDEN) | @route-blocked | — | fixme | blocked | low | list-exec |
+| [route:/supervisor/ai-rate-suggestions] kayıtlı rota blocked (READONLY_FEATURE_FLAG_OFF) | @route-blocked | — | fixme | blocked | low | list-exec |
 
 ### `reports-actions.authed.spec.js` — _reports_
 

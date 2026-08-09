@@ -17,17 +17,17 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kanonik yüzey:** 87
+- **Kanonik yüzey:** 92
 - **L2·deep:** 27 · **L2·style (unverified):** 30 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 26 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 39
+- **NO_CONTRACT:** 26 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 44
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
 
 | durum | yüzey |
 |---|--:|
-| ⛔ BLOCKED | 4 |
+| ⛔ BLOCKED | 9 |
 | ✅ L2·deep | 27 |
 | 🟡 L2·style (unverified) | 30 |
 | 🟠 NO_CONTRACT | 26 |
@@ -44,9 +44,10 @@
 | contacts | 4 |
 | dashboard | 1 |
 | inbox | 1 |
+| monitoring | 4 |
 | reports | 12 |
 | settings | 22 |
-| supervisor | 6 |
+| supervisor | 7 |
 | tickets | 1 |
 | voice | 12 |
 | workforce | 6 |
@@ -83,6 +84,10 @@
 | contacts-segments | /contacts/segments | contacts | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | dashboard | / | dashboard | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
 | inbox | /inbox | inbox | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
+| monitoring | /monitoring | monitoring | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
+| monitoring-agents | /monitoring/agents | monitoring | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
+| monitoring-ai-summary | /monitoring/ai-summary | monitoring | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
+| monitoring-live | /monitoring/live | monitoring | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | reports | /reports | reports | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
 | reports-agent | /reports/agent | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | reports-ai | /reports/ai | reports | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
@@ -119,6 +124,7 @@
 | settings-webhooks | /settings/webhooks | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | supervisor | /supervisor | supervisor | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
 | supervisor-agents | /supervisor/agents | supervisor | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | supervisor-calls | /supervisor/calls | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |

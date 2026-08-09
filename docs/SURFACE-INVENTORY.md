@@ -11,11 +11,11 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 
 ## Özet
 
-- **Kayıtlı yüzey:** 87
+- **Kayıtlı yüzey:** 92
 - **Kapsam sözleşmesi olan:** 57 · **NO_COVERAGE_CONTRACT:** 26
-- **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (452 gözlem)
+- **Uzlaştırılan kaynak:** 8 (457 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -29,9 +29,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | contacts | 4 |
 | dashboard | 1 |
 | inbox | 1 |
+| monitoring | 4 |
 | reports | 12 |
 | settings | 22 |
-| supervisor | 6 |
+| supervisor | 7 |
 | tickets | 1 |
 | voice | 12 |
 | workforce | 6 |
@@ -42,7 +43,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 |---|--:|
 | fixture-required | 2 |
 | readonly-baseline | 83 |
-| readonly-blocked | 2 |
+| readonly-blocked | 7 |
 
 ## 1. Kayıtlı yüzeyler (registered surfaces)
 
@@ -76,6 +77,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | contacts-segments | /contacts/segments | contacts | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | dashboard | / | dashboard | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | inbox | /inbox | inbox | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| monitoring | /monitoring | monitoring | static | conditional | hidden | readonly-blocked | blocked | — | BLOCKED |
+| monitoring-agents | /monitoring/agents | monitoring | static | conditional | hidden | readonly-blocked | blocked | — | BLOCKED |
+| monitoring-ai-summary | /monitoring/ai-summary | monitoring | static | conditional | hidden | readonly-blocked | blocked | — | BLOCKED |
+| monitoring-live | /monitoring/live | monitoring | static | conditional | hidden | readonly-blocked | blocked | — | BLOCKED |
 | reports | /reports | reports | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | reports-agent | /reports/agent | reports | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | reports-ai | /reports/ai | reports | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
@@ -112,6 +117,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | settings-webhooks | /settings/webhooks | settings | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor | /supervisor | supervisor | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-agents | /supervisor/agents | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
+| supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | supervisor | static | conditional | secondary | readonly-blocked | blocked | — | BLOCKED |
 | supervisor-calls | /supervisor/calls | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
@@ -180,8 +186,13 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 |---|---|---|---|---|
 | bot-builder-detail | /bot-builder/:id | dynamic | blocked | READONLY_FIXTURE_ID_REQUIRED |
 | contacts-detail | /contacts/:id | dynamic | blocked | READONLY_FIXTURE_ID_REQUIRED |
+| monitoring | /monitoring | static | blocked | READONLY_FEATURE_FLAG_OFF |
+| monitoring-agents | /monitoring/agents | static | blocked | READONLY_FEATURE_FLAG_OFF |
+| monitoring-ai-summary | /monitoring/ai-summary | static | blocked | READONLY_FEATURE_FLAG_OFF |
+| monitoring-live | /monitoring/live | static | blocked | READONLY_FEATURE_FLAG_OFF |
 | settings-billing | /settings/billing | static | blocked | READONLY_403_FORBIDDEN |
 | settings-billing-marketplace | /settings/billing/marketplace | static | blocked | READONLY_403_FORBIDDEN |
+| supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | static | blocked | READONLY_FEATURE_FLAG_OFF |
 
 ## 5. Deprecated / Redirect (alias)
 
@@ -205,6 +216,7 @@ yazıyor diye active ekleme" (HANDOFF FAZ 4). Görünür kalır; gelecek fazda c
 |---|--:|
 | discovery-observation | 46 |
 | known-bug | 35 |
+| live-observation | 5 |
 | navigation-contract | 14 |
 | page-object | 18 |
 | route-inventory | 65 |

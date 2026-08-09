@@ -10,29 +10,29 @@
     "depthSchemaVersion": 1
   },
   "reconciliation": {
-    "inventorySurfaces": 87,
-    "depthPages": 87,
+    "inventorySurfaces": 92,
+    "depthPages": 92,
     "onlyInInventory": [],
     "onlyInDepth": []
   },
   "totals": {
-    "surfaces": 87,
+    "surfaces": 92,
     "byRollup": {
-      "BLOCKED": 4,
+      "BLOCKED": 9,
       "L2_DEEP": 27,
       "L2_STYLE": 30,
       "NO_CONTRACT": 26
     },
     "deprecated": 0,
     "redirect": 0,
-    "blocked": 4,
+    "blocked": 9,
     "fail": 0,
     "notRun": 0,
     "noContract": 26,
     "l1StyleGap": 0,
     "l2Style": 30,
     "l2Deep": 27,
-    "interactionUnverified": 39,
+    "interactionUnverified": 44,
     "surfacesWithOpenFindings": 33,
     "openFindingsTotal": 58,
     "byArea": {
@@ -44,9 +44,10 @@
       "contacts": 4,
       "dashboard": 1,
       "inbox": 1,
+      "monitoring": 4,
       "reports": 12,
       "settings": 22,
-      "supervisor": 6,
+      "supervisor": 7,
       "tickets": 1,
       "voice": 12,
       "workforce": 6
@@ -1120,6 +1121,150 @@
         ]
       },
       "rollup": "NO_CONTRACT"
+    },
+    {
+      "id": "monitoring",
+      "route": "/monitoring",
+      "area": "monitoring",
+      "parentId": null,
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "hidden",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "monitoring-agents",
+      "route": "/monitoring/agents",
+      "area": "monitoring",
+      "parentId": "monitoring",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "hidden",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "monitoring-ai-summary",
+      "route": "/monitoring/ai-summary",
+      "area": "monitoring",
+      "parentId": "monitoring",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "hidden",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
+    },
+    {
+      "id": "monitoring-live",
+      "route": "/monitoring/live",
+      "area": "monitoring",
+      "parentId": "monitoring",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "hidden",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
     },
     {
       "id": "reports",
@@ -2497,6 +2642,42 @@
         ]
       },
       "rollup": "L2_STYLE"
+    },
+    {
+      "id": "supervisor-ai-rate-suggestions",
+      "route": "/supervisor/ai-rate-suggestions",
+      "area": "supervisor",
+      "parentId": "supervisor",
+      "routeKind": "static",
+      "lifecycle": "conditional",
+      "navigation": "secondary",
+      "runtimePolicy": "readonly-blocked",
+      "baseline": "blocked",
+      "inventoryStatus": "BLOCKED",
+      "hasCoverageContract": false,
+      "coverageContractIds": [],
+      "depthMatched": true,
+      "runtime": {
+        "l1": "NOT_RUN",
+        "runtimeStatus": null,
+        "reasonCode": "NO_RUNTIME_RESULT"
+      },
+      "depth": {
+        "l2": "NOT_COVERED",
+        "highest": "L0",
+        "styleContractMet": false,
+        "styleCoveredOrExempt": 0,
+        "styleRequiredCount": 5,
+        "interactionVerified": false,
+        "interactionApplicableCount": 6,
+        "interactionCoveredCount": 0
+      },
+      "findings": {
+        "total": 0,
+        "open": 0,
+        "ids": []
+      },
+      "rollup": "BLOCKED"
     },
     {
       "id": "supervisor-calls",
