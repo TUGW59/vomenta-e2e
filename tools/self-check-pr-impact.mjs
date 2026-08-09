@@ -52,6 +52,37 @@ const plan = (changedFiles, extra = {}) =>
   );
 }
 
+// 1b) Rol-scoped enforcement spec'i (agent) → roleSpecs kovası; public'e KONMAZ.
+//     (Aksi halde runner `--project chromium` [testMatch: login] altında 0 test
+//      bulur → yanlış ZERO_TEST_SELECTION; bkz. shard fail-closed regresyonu.)
+{
+  const p = plan([{ path: 'tests/agent-enforcement.agent.spec.js', status: 'M' }]);
+  check(
+    'role-spec-not-public',
+    p.selected.roleSpecs.includes('tests/agent-enforcement.agent.spec.js') &&
+      !p.selected.publicSpecs.includes('tests/agent-enforcement.agent.spec.js') &&
+      !p.selected.authenticatedSpecs.includes('tests/agent-enforcement.agent.spec.js') &&
+      p.exitCode === 0 &&
+      p.status === 'RUNTIME_SELECTED',
+    `status=${p.status} role=${JSON.stringify(p.selected.roleSpecs)} public=${JSON.stringify(p.selected.publicSpecs)}`
+  );
+}
+
+// 1c) REGRESYON: config/environment.js gibi geniş-etkili değişiklik rol spec'ini
+//     public kovaya sızdırmamalı (sharded runner'da ZERO_TEST_SELECTION kök nedeni).
+//     Rol spec'i roleSpecs'te; public YALNIZ gerçek public (login.spec.js).
+{
+  const p = plan([{ path: 'config/environment.js', status: 'M' }]);
+  check(
+    'config-change-role-spec-isolated',
+    p.selected.roleSpecs.includes('tests/agent-enforcement.agent.spec.js') &&
+      !p.selected.publicSpecs.includes('tests/agent-enforcement.agent.spec.js') &&
+      p.selected.publicSpecs.every((s) => s === 'tests/login.spec.js') &&
+      p.exitCode === 0,
+    `role=${JSON.stringify(p.selected.roleSpecs)} public=${JSON.stringify(p.selected.publicSpecs)}`
+  );
+}
+
 // 2) Authenticated spec doğru projeyi seçer.
 {
   const p = plan([{ path: 'tests/contacts.authed.spec.js', status: 'M' }]);
@@ -609,6 +640,7 @@ const plan = (changedFiles, extra = {}) =>
   const expect = {
     'tests/login.spec.js': 'public-spec',
     'tests/contacts.authed.spec.js': 'authed-spec',
+    'tests/agent-enforcement.agent.spec.js': 'role-spec',
     'tests/contacts-mutations.authed.spec.js': 'mutation-spec',
     'tests/voice-call.mutation.authed.spec.js': 'mutation-spec',
     'tests/mutation-orphans.authed.spec.js': 'mutation-spec',

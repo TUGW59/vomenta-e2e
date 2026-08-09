@@ -115,6 +115,48 @@ const validAuthedPlan = plan([{ path: 'tests/contacts.authed.spec.js', status: '
   );
 }
 
+// P5) Rol-scoped enforcement spec'i (agent) → RUN, `role:agent` grubu DOĞRU projede
+//     (`chromium-agent` + `setup-agent`) koşar; public `chromium` grubuna KONMAZ.
+//     (Regresyon: eskiden roleSpec public kovaya düşüp `--project chromium`'da 0 test
+//      bulup ZERO_TEST_SELECTION ile shard'ı kırmızı yapıyordu.)
+{
+  const rolePlan = plan([{ path: 'tests/agent-enforcement.agent.spec.js', status: 'M' }]);
+  const d = planRun(rolePlan);
+  const roleGrp = d.groups.find((g) => g.key === 'role:agent');
+  const publicGrp = d.groups.find((g) => g.key === 'public');
+  check(
+    'role-spec-runs-in-role-project',
+    d.decision === 'RUN' &&
+      !!roleGrp &&
+      roleGrp.kind === 'role' &&
+      roleGrp.project === 'chromium-agent' &&
+      roleGrp.setup === 'setup-agent' &&
+      roleGrp.files.includes('tests/agent-enforcement.agent.spec.js') &&
+      !publicGrp, // public grubu yok (roleSpec public'e sızmadı)
+    `decision=${d.decision} groups=${d.groups.map((g) => g.key).join(',')}`
+  );
+}
+
+// P6) Rol grubu credential yoksa 0 test bulabilir → bu MEŞRUDUR (chromium-<role>
+//     projesi koşullu oluşur). ZERO_TEST_SELECTION saymaz; grup yeşil kalır.
+{
+  const r = interpretGroup(
+    { key: 'role:agent', kind: 'role', expected: 1, files: ['tests/agent-enforcement.agent.spec.js'], grep: null },
+    { listedCount: 0, exitCode: 0, stats: {} }
+  );
+  check('role-zero-test-legal', r.passed && r.reason === 'OK', `passed=${r.passed} reason=${r.reason}`);
+}
+
+// P7) Rol grubunda GERÇEK başarısızlık (unexpected) yine kırmızı yapar (güvenlik ağı
+//     0-test'i affeder ama davranış hatasını AFFETMEZ).
+{
+  const r = interpretGroup(
+    { key: 'role:agent', kind: 'role', expected: 1, files: ['tests/agent-enforcement.agent.spec.js'], grep: null },
+    { listedCount: 2, exitCode: 1, stats: { expected: 1, unexpected: 1 } }
+  );
+  check('role-unexpected-still-red', !r.passed && /UNEXPECTED/.test(r.reason), `reason=${r.reason}`);
+}
+
 // ─────────────────────────── NEGATİF kanıtlar (§2.6) ───────────────────────────
 
 // N1) Seçili spec içinde sentetik assertion fail → grup kırmızı → exit 1.
