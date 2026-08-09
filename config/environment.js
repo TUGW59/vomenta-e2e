@@ -81,6 +81,36 @@ function resolveTarget() {
   return { name: envName, baseURL: DEFAULT_BASE_URL };
 }
 
+/**
+ * FAIL-CLOSED ortam-tutarlılık guard'ı (F-007 / ADR-0032).
+ *
+ * Çözülen `name` SABİT hostname'li bilinen bir registry ortamıysa (production/dev),
+ * çözülen `baseURL` host'u o ortamın kayıtlı hostname'iyle EŞLEŞMELİDİR. Aksi halde
+ * açıkça durur — böylece base `.env`'den SIZAN bir `BASE_URL` (ör. `TEST_ENV=dev`
+ * koşumunu app.vomenta.com'a düşürmesi) SESSİZ yanlış-ortam / yanlış-yeşil üretemez.
+ *
+ * Kök neden: `shellBaseURL`, environment.js import edilmeden ÖNCE başka bir modül
+ * base `.env`'i dotenv'lerse kirlenebilir; o zaman prod URL "açık override" gibi
+ * davranıp `name=dev` iken `baseURL=prod` verir. Sabit host'u olmayan ortamlar
+ * (staging) — özel URL alabildiği için — muaftır.
+ *
+ * @param {string} name çözülen ortam adı
+ * @param {string} baseURL çözülen baseURL
+ */
+export function assertEnvironmentConsistency(name, baseURL) {
+  const registeredHostname = ENVIRONMENTS[name]?.hostname;
+  if (!registeredHostname) return; // staging/bilinmeyen: sabit host yok → muaf
+  const host = new URL(baseURL).hostname;
+  if (host !== registeredHostname) {
+    throw new Error(
+      `Ortam tutarsızlığı (F-007): name='${name}' ${registeredHostname} bekler ama ` +
+        `baseURL host='${host}' (${baseURL}). Muhtemelen base .env'den sızan BASE_URL, ` +
+        `TEST_ENV='${process.env.TEST_ENV || ''}' koşumunu YANLIŞ ortama düşürüyor. ` +
+        'Açık BASE_URL yalnız gerçek shell/CI değişkeninden gelmeli ve TEST_ENV ile tutarlı olmalı.'
+    );
+  }
+}
+
 const target = resolveTarget();
 const baseURL = target.baseURL;
 const parsedBaseURL = new URL(baseURL);
@@ -89,6 +119,9 @@ const name = target.name;
 if (!['http:', 'https:'].includes(parsedBaseURL.protocol)) {
   throw new Error(`BASE_URL http veya https olmalı: ${baseURL}`);
 }
+
+// FAIL-CLOSED: dev/prod koşumu yanlışlıkla diğer ortamın host'una düşerse ERKEN dur.
+assertEnvironmentConsistency(name, parsedBaseURL.origin);
 
 export const environment = Object.freeze({
   name,
