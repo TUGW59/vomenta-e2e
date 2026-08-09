@@ -47,10 +47,13 @@ test('salt-okunur uygulama keşfi rapor ve kapsam radarı üretir', async ({
     'Keşif sırasında oturum/origin kaybı, document 5xx veya engellenen non-GET istek olmamalı'
   ).toEqual([]);
 
-  // SÜRÜM-DRIFT KAPISI: baseline farkı artık yalnız rapora yazılmıyor, ASSERT
-  // ediliyor. Kaldırılan rota / değişen ARIA yapısı / kaybolan endpoint kapıyı
-  // kırmızıya çevirir (regresyon). Eklenen rota/endpoint yalnız bilgidir (yeni
-  // sayfa tek başına bug değildir). Baseline'ı GÜNCELLERKEN kapı uygulanmaz.
+  // SÜRÜM-DRIFT KAPISI (ADR-0033): Bu kontrol canlı, aktif geliştirilen prod'a
+  // karşı koşan bir MONITORING sinyalidir (per-PR birim doğrulaması değil — bu
+  // yüzden pr-impact seçicisi discovery'yi PR lane'de koşmaz, nightly'ye erteler).
+  // Kapı YALNIZ kararlı regresyon sinyalinde kırmızı olur: GERÇEKTEN denenip
+  // ulaşılamayan (removed) rota. Beklenen canlı-prod drift'i (ARIA yapısı, endpoint
+  // envanteri, eklenen/limit-dışı rotalar) advisory annotation'dır — kapıyı
+  // kırmızıya çevirmez. Baseline'ı GÜNCELLERKEN kapı uygulanmaz.
   const drift = evaluateDriftPolicy(report.changes);
   if (!environment.discovery.updateBaseline) {
     if (drift.info.length) {

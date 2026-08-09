@@ -58,14 +58,24 @@ export async function writeDiscoveryBaseline(report) {
  * göre PASS/FAIL kararına indirger. Saf fonksiyon (tarayıcı gerektirmez) → offline
  * birim-test edilebilir ve discovery.spec içinde tek assertion olarak kullanılır.
  *
- * Politika (keşif kuralı hizası):
- *  - removedRoutes  → FAIL: baseline'da parmak-izi olan bir rota artık ulaşılamıyor
- *    (regresyon ya da rota drift'i; sessizce yeşil kalmamalı).
- *  - ariaStructure değişimi → FAIL: sayfanın yapısı değişti.
- *  - kaldırılan endpoint → FAIL: bir API yüzeyi kayboldu.
- *  - addedRoutes / eklenen endpoint → BİLGİ (yeni sayfa/endpoint tek başına bug
- *    değildir; envantere girer, kapıyı kırmızıya çevirmez).
+ * Politika (ADR-0033 — canlı-prod monitoring drift'ine karşı stabilizasyon):
+ * Bu kontrol CANLI, aktif geliştirilen prod'a karşı koşar. ARIA yapısı ve API
+ * endpoint envanteri prod'da SÜREKLİ ve BEKLENEN biçimde değişir (feature flag,
+ * lazy-load, A/B, günlük deploy). Bunları BLOK saymak, gerçek bir regresyon
+ * olmadan kapıyı kronik kırmızıya boyar (P1-7 flakiness). Bu yüzden:
+ *  - removedRoutes  → FAIL: baseline'da parmak-izi olan bir rota GERÇEKTEN denenip
+ *    (navigate edilip) bulunamadı → anlamlı, kararlı regresyon sinyali. (F-023:
+ *    yalnız `attemptedRoutes` kümesindeki rotalar; limit yüzünden ziyaret
+ *    edilmeyenler `unvisitedBaselineRoutes` olarak BİLGİdir — bkz. compare.)
+ *  - ariaStructure değişimi → BİLGİ (advisory): canlı-prod-beklenen yapı drift'i.
+ *  - endpoint eklendi/kaldırıldı → BİLGİ (advisory): canlı-prod-beklenen API drift'i.
+ *  - addedRoutes → BİLGİ: yeni sayfa tek başına bug değildir.
+ *  - unvisitedBaselineRoutes → BİLGİ: limit/kapsam boşluğu (F-023), regresyon değil.
  *  - baseline yok → OK (bootstrap; ilk üretim update-baseline ile yapılır).
+ *
+ * NOT: Gerçek güvenlik regresyonu (oturum/origin kaybı, document 5xx, engellenen
+ * non-GET) drift değil `report.hardFailures`'tır ve discovery.spec içinde HER
+ * HÂLDE ayrı ve KOŞULSUZ BLOK olarak assert edilir — advisory yapılmaz.
  * @param {ReturnType<typeof compareDiscoveryBaseline>} changes
  * @returns {{ ok:boolean, failures:string[], info:string[] }}
  */
@@ -79,14 +89,17 @@ export function evaluateDriftPolicy(changes) {
   }
 
   for (const route of changes.removedRoutes || []) {
-    failures.push(`removed-route: ${route} (baseline'da vardı, bu koşumda ulaşılamadı)`);
+    failures.push(`removed-route: ${route} (baseline'da vardı, denendi ve ulaşılamadı)`);
+  }
+  for (const route of changes.unvisitedBaselineRoutes || []) {
+    info.push(`unvisited-baseline-route: ${route} (limit/kapsam — ziyaret edilmedi, F-023)`);
   }
   for (const change of changes.ariaChanged || []) {
-    failures.push(`aria-changed: ${change.route}`);
+    info.push(`aria-changed: ${change.route}`);
   }
   for (const change of changes.networkChanged || []) {
     if (change.removed?.length) {
-      failures.push(`endpoint-removed: ${change.route} → ${change.removed.join(', ')}`);
+      info.push(`endpoint-removed: ${change.route} → ${change.removed.join(', ')}`);
     }
     if (change.added?.length) {
       info.push(`endpoint-added: ${change.route} → ${change.added.join(', ')}`);
@@ -105,6 +118,7 @@ export function compareDiscoveryBaseline(report, baseline) {
       baselinePresent: false,
       addedRoutes: report.pages.map((page) => page.route).sort(),
       removedRoutes: [],
+      unvisitedBaselineRoutes: [],
       ariaChanged: [],
       networkChanged: [],
     };
@@ -115,11 +129,30 @@ export function compareDiscoveryBaseline(report, baseline) {
   const newRoutes = new Set(Object.keys(current.routes));
   const shared = [...newRoutes].filter((route) => oldRoutes.has(route)).sort();
 
+  // F-023: baseline'da olup bu koşumun fingerprint'inde OLMAYAN rotaları ikiye ayır.
+  // `attemptedRoutes` GERÇEKTEN navigate edilen rotalardır (crawler her zaman üretir).
+  // Bu bilgi YOKSA (eski rapor şeması) FAIL-CLOSED davran: eksik rotaların hepsini
+  // "removed" say (regresyonu sessizce yeşile alma) — F-023 ayrımı yalnız attempted
+  // bilgisi mevcutken uygulanır.
+  const attempted = Array.isArray(report.attemptedRoutes)
+    ? new Set(report.attemptedRoutes)
+    : null;
+  const missing = [...oldRoutes].filter((route) => !newRoutes.has(route)).sort();
+  // Denenip bulunamayan → GERÇEK removed (regresyon sinyali).
+  const removedRoutes = attempted
+    ? missing.filter((route) => attempted.has(route))
+    : missing;
+  // Hiç denenmeyen (maxPages truncation / kapsam boşluğu) → BİLGİ, removed DEĞİL.
+  const unvisitedBaselineRoutes = attempted
+    ? missing.filter((route) => !attempted.has(route))
+    : [];
+
   return {
     baselinePresent: true,
     baselineGeneratedAt: baseline.generatedAt,
     addedRoutes: [...newRoutes].filter((route) => !oldRoutes.has(route)).sort(),
-    removedRoutes: [...oldRoutes].filter((route) => !newRoutes.has(route)).sort(),
+    removedRoutes,
+    unvisitedBaselineRoutes,
     ariaChanged: shared
       .filter(
         (route) =>
