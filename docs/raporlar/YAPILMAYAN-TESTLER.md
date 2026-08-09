@@ -70,7 +70,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/bot-builder.authed.spec.js:54 | skip | Hesapta bot yok — liste↔API sadakati veri-bağlı. |
 | tests/bot-builder.authed.spec.js:162 | skip | Hesapta bot yok — kart→editör navigasyonu veri-bağlı. |
 | tests/campaigns-outbound.authed.spec.js:419 | skip | Bu tenantta 10+ kampanya yok; sayfalama gerekmiyor. |
-| tests/channels-hub.authed.spec.js:138 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
+| tests/channels-hub.authed.spec.js:154 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-video.authed.spec.js:105 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-webchat.authed.spec.js:130 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/contacts-mutations.authed.spec.js:39 | skip | VOMENTA_TEST_CONTACT_PHONE eksik |

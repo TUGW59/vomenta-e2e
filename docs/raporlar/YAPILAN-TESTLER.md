@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1283 / 136 dosya
-- **coverageStatus:** verified 0 · partial 1225 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1234 · skipped 0 · fixme 49
+- **Listelenen test:** 1284 / 136 dosya
+- **coverageStatus:** verified 0 · partial 1226 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1235 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -19,7 +19,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | analytics | 33 | 33 | 0 | 0 |
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
-| channels | 95 | 89 | 0 | 6 |
+| channels | 96 | 90 | 0 | 6 |
 | contacts | 48 | 48 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 29 | 29 | 0 | 0 |
@@ -174,6 +174,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | sayfa "Channels" başlığı + 7 kanal kartı + Configure bağlantıları ile açılıyor | @smoke | — | listed-only | partial | medium | list-exec |
+| yükleme tamamlanır: skeleton KAYBOLUR + gerçek kanal kartları render olur | @smoke @data | — | listed-only | partial | medium | list-exec |
 | her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor | @critical | — | listed-only | partial | medium | list-exec |
 | kanal config uçları çağrılıyor (GET /channels/<kanal>/config 2xx) | @data | — | listed-only | partial | medium | list-exec |
 | L1+L3: Email kartı Configure → /channels/email gerçekten yükleniyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
