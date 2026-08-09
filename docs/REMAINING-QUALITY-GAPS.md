@@ -56,15 +56,16 @@
   - **DoD:** self-check yeşil; credential yokken script exit 0 + görünür skip; credential varken
     otomatik koşar. **NOT: gerçek GH-Actions koşumuyla doğrulanmalı → ayrı PR.**
 
-- **Hygiene — ham `test.fail(true, …)` registry ile çapraz-kontrol edilmiyor (~17 site / ~8 dosya).**
-  `settings-disposition-codes/users/automations/audit/sla/webhooks*.authed.spec.js` içinde ham
-  `test.fail(true, 'Bulgu: …')` var. Her birinin ARKASINDA gerçek terminal assertion var →
-  bug düzelince unexpected-pass → RED (yani **false-green DEĞİL**, davranış doğru). Ama bunlar
-  `tools/self-check-findings.mjs`'in machine-check'li `known-bugs.js` registry'siyle
-  bağlı DEĞİL → stale/duplicate bir bulgu sessizce drift edebilir.
-  - **Önerilen çözüm:** ya bunları `knownBugGuard(test, id)`'ye taşı, ya da ham `test.fail(true,…)`
-    açıklamalarını registry ile uzlaştıran bir self-check ekle. Düşük öncelik (doğruluk değil,
-    yönetişim tutarlılığı).
+- **[ÇÖZÜLDÜ — bu oturum] Hygiene — ham `test.fail(true, …)` registry ile çapraz-kontrol edilmiyor (17 site / 12 dosya).**
+  `settings-*.authed.spec.js` içinde ham `test.fail(true, 'Bulgu: …')` var (çoğu aynı i18n
+  "Close" bug'ı ~12 diyalogda). Her birinin ARKASINDA gerçek terminal assertion var → bug
+  düzelince unexpected-pass → RED (**false-green DEĞİL**). Ama `known-bugs.js` registry'siyle
+  bağlı değillerdi → stale/duplicate drift riski. (Registry'de yalnız `BOT-BUILDER-CLOSE-I18N`
+  var; settings yüzeyleri izlenmiyordu.)
+  - **Çözüm:** `tests/contracts/raw-expected-fails.js` envanteri (17 girdi; file+includes+reason+
+    `registryFinding`) + `tools/self-check-raw-expected-fails.mjs` uzlaştırma kapısı (kayıtsız
+    ham test.fail → fail; stale girdi → fail; non-null registryFinding registry'de yoksa → fail;
+    5 meta-test). `quality:raw-test-fail` olarak `quality:check`'e bağlandı. 17 ↔ 17.
 
 - **Minor — koşullu seçim başlığı fazla iddia ediyor — `tests/voice-history.authed.spec.js:113`.**
   "yön filtresi seçim yapılabiliyor" başlıklı test, combobox boş dönerse seçimi hiç denemez
@@ -134,8 +135,8 @@ mutation safety fail-closed.
 ## Execution order
 
 1. ✅ **P0 yutulan-assertion false-green + kalıcı guard** (bu oturum — TAMAMLANDI)
-2. **P1 CI orphan** — rol-enforcement runner + nightly lane + self-check (ayrı PR; GH-Actions ile doğrula)
-3. **P1 hygiene** — ham `test.fail(true,…)` ↔ registry uzlaştırması
+2. ✅ **P1 hygiene** — ham `test.fail(true,…)` ↔ registry uzlaştırması (bu oturum — TAMAMLANDI)
+3. **P1 CI orphan** — rol-enforcement runner + nightly lane + self-check (kod+self-check burada; GH-Actions ile doğrula)
 4. **Minor** — `voice-history:113` başlık/iddia hizalaması
 5. **Dış-bloklu** — credential/staging/provider geldikçe: RBAC çapraz-rol → authed L2 backlog →
    mutation/L3 → provider/L5; her biri gerçek koşum döngüsüyle bitirilir.
