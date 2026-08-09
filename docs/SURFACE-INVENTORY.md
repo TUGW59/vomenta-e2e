@@ -15,7 +15,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 - **Kapsam sözleşmesi olan:** 57 · **NO_COVERAGE_CONTRACT:** 26
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 4 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (432 gözlem)
+- **Uzlaştırılan kaynak:** 8 (452 gözlem)
 
 ### Alan (area) dağılımı
 
