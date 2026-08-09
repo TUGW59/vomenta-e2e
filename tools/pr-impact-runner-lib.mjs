@@ -20,6 +20,7 @@
 import {
   FALLBACK_SUITES,
   PROJECTS,
+  roleOfSpec,
 } from './pr-impact-lib.mjs';
 import {
   isGatewayStatus,
@@ -74,6 +75,10 @@ export function validateSelection(plan) {
       if (!isStrArr(sel[g.field])) errors.push(`selected.${g.field} string[] değil`);
     }
   }
+  // roleSpecs opsiyoneldir (rol-scoped enforcement spec'leri); varsa string[] olmalı.
+  if (sel && typeof sel === 'object' && !isArr(sel) && sel.roleSpecs !== undefined && !isStrArr(sel.roleSpecs)) {
+    errors.push('selected.roleSpecs string[] değil');
+  }
   if (!isStrArr(plan.fallbackSuites)) errors.push('fallbackSuites string[] değil');
   if (!isStrArr(plan.stagingBlockedMutationSpecs)) errors.push('stagingBlockedMutationSpecs string[] değil');
   if (!isStrArr(plan.unmappedRuntimeFiles)) errors.push('unmappedRuntimeFiles string[] değil');
@@ -94,7 +99,7 @@ export function validateSelection(plan) {
  * Plandan yürütülecek grupları üretir. Her grup güvenli argument array'iyle
  * (shell interpolation YOK) Playwright'a verilecek biçimdedir.
  * @param {any} plan doğrulanmış selection planı
- * @returns {Array<{ key: string, kind: 'exact'|'fallback', project: string,
+ * @returns {Array<{ key: string, kind: 'exact'|'fallback'|'role', project: string,
  *   setup: string|null, files: string[], grep: string|null, expected: number }>}
  */
 export function buildRunGroups(plan) {
@@ -110,6 +115,31 @@ export function buildRunGroups(plan) {
       files: [...files],
       grep: null,
       expected: files.length, // her exact spec ≥1 test bekler (0-test → kırmızı)
+    });
+  }
+  // Rol-scoped enforcement spec'leri (*.admin/.supervisor/.agent.spec.js) — YALNIZ
+  // ilgili `chromium-<role>` projesinde koşar (playwright.config.js optionalRoleProjects).
+  // Bu proje ANCAK ilgili rol credential'ı tanımlıysa OLUŞUR; yoksa 0 test bulunması
+  // MEŞRUDUR (kapsam boşluğu ayrıca settings-roles-rbac.authed.spec.js içindeki görünür
+  // skip ile işaretli). Bu yüzden 'role' kind'ı ZERO_TEST_SELECTION saymaz (güvenlik ağı):
+  // credential geldiğinde grup gerçekten koşar + unexpected/flaky/exit yine kırmızı yapar.
+  const roleGroups = new Map(); // role -> files[]
+  for (const spec of plan.selected.roleSpecs || []) {
+    const role = roleOfSpec(spec);
+    if (!role) continue; // savunma: rol türetilemezse atla (bucket zaten filtreler)
+    if (!roleGroups.has(role)) roleGroups.set(role, []);
+    roleGroups.get(role).push(spec);
+  }
+  for (const role of [...roleGroups.keys()].sort()) {
+    const files = [...roleGroups.get(role)].sort();
+    groups.push({
+      key: `role:${role}`,
+      kind: 'role',
+      project: `chromium-${role}`,
+      setup: `setup-${role}`,
+      files,
+      grep: null,
+      expected: files.length,
     });
   }
   for (const id of plan.fallbackSuites || []) {
@@ -258,7 +288,10 @@ export function interpretGroup(group, observed) {
   const fail = (reason) => ({ key: group.key, passed: false, reason, listedCount, ran, unexpected, flaky });
 
   // 0-test kapısı: exact grup (ya da dosyalı fallback) test bulamazsa kırmızı.
-  const expectsTests = group.kind === 'exact' || group.files.length > 0;
+  // 'role' grubu HARİÇ: chromium-<role> projesi credential'a bağlı koşullu oluşur;
+  // 0 test = MEŞRU (kapsam boşluğu görünür skip'le işaretli), sahte-kırmızı üretme.
+  const expectsTests =
+    group.kind === 'exact' || (group.kind === 'fallback' && group.files.length > 0);
   if (expectsTests && listedCount === 0) return fail('ZERO_TEST_SELECTION');
   if (unexpected > 0) return fail(`UNEXPECTED_FAILURES:${unexpected}`);
   if (flaky > 0) return fail(`FLAKY_NOT_PASS:${flaky}`);

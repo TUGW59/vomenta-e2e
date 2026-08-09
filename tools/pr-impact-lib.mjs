@@ -115,6 +115,22 @@ const isMutationSpec = (rel) =>
   isSpecPath(rel) &&
   /(?:\.mutation\.|-mutations?\.|(?:^|\/)mutation-orphans\.)/.test(rel);
 const isAuthedSpec = (rel) => /\.authed\.spec\.js$/.test(rel);
+
+/**
+ * Rol-scoped enforcement spec'inin (`*.admin/.supervisor/.agent.spec.js`) rol adını
+ * döndürür; değilse null. Bu spec'ler YALNIZ ilgili `chromium-<role>` projesinde
+ * koşar (playwright.config.js optionalRoleProjects) — public `chromium` projesinde
+ * DEĞİL (o proje `testMatch: /login\.spec\.js/`). Bu yüzden public kovaya konurlarsa
+ * runner `--project chromium`'da 0 test bulur → yanlış ZERO_TEST_SELECTION.
+ * (readonly-manifest-lib.roleFromName ile birebir aynı desen — tek sözleşme.)
+ * @param {string} rel
+ * @returns {'admin'|'supervisor'|'agent'|null}
+ */
+export function roleOfSpec(rel) {
+  const m = /\.(admin|supervisor|agent)\.spec\.js$/.exec(normalizePath(rel));
+  return m ? /** @type {'admin'|'supervisor'|'agent'} */ (m[1]) : null;
+}
+const isRoleSpec = (rel) => isSpecPath(rel) && roleOfSpec(rel) !== null;
 const QUALITY_ONLY_ALLOWED_DOCS = Object.freeze([
   'docs/TEST_COVERAGE.md',
   'docs/raporlar/YAPILAN-TESTLER.md',
@@ -190,6 +206,10 @@ export function classifyFile(rel) {
   if (/^tests\/discovery\/.*\.js$/.test(rel)) return 'graph-module';
   // 8) Mutation spec (dosya-adı konvansiyonu) — STAGING_BLOCKED.
   if (isMutationSpec(rel)) return 'mutation-spec';
+  // 8b) Rol-scoped enforcement spec'i — YALNIZ chromium-<role> projesinde koşar
+  //     (public `chromium` DEĞİL). Mutation kontrolünden SONRA gelir: mutasyon rol
+  //     spec'i olsa bile önce STAGING_BLOCKED kazanır.
+  if (isRoleSpec(rel)) return 'role-spec';
   // 9) Authed / public spec.
   if (isAuthedSpec(rel)) return 'authed-spec';
   if (isSpecPath(rel) && rel.startsWith('tests/')) return 'public-spec';
@@ -205,12 +225,14 @@ export function classifyFile(rel) {
  * Değişen bir spec'i doğru kovaya yönlendirmek için ikincil sınıflandırma
  * (ters-grafik bir spec bulduğunda da kullanılır).
  * @param {string} rel
- * @returns {'discovery'|'mutation'|'authed'|'public'}
+ * @returns {'discovery'|'mutation'|'authed'|'role'|'public'}
  */
 export function specBucket(rel) {
   if (isDiscoverySpec(rel)) return 'discovery';
   if (isMutationSpec(rel)) return 'mutation';
   if (isAuthedSpec(rel)) return 'authed';
+  // Rol-scoped enforcement spec'i → 'role' (chromium-<role> projesi); public DEĞİL.
+  if (isRoleSpec(rel)) return 'role';
   return 'public';
 }
 
@@ -409,6 +431,7 @@ export function planImpact(input = {}) {
   const publicSpecs = new Set();
   const authenticatedSpecs = new Set();
   const discoverySpecs = new Set();
+  const roleSpecs = new Set();
   const stagingBlocked = new Set();
   const fallback = new Set();
   const visualPolicyFiles = new Set();
@@ -447,6 +470,9 @@ export function planImpact(input = {}) {
         break;
       case 'authed':
         authenticatedSpecs.add(spec);
+        break;
+      case 'role':
+        roleSpecs.add(spec);
         break;
       default:
         publicSpecs.add(spec);
@@ -708,6 +734,9 @@ export function planImpact(input = {}) {
       case 'authed-spec':
         authenticatedSpecs.add(rel);
         break;
+      case 'role-spec':
+        roleSpecs.add(rel);
+        break;
       case 'public-spec':
         publicSpecs.add(rel);
         break;
@@ -740,6 +769,7 @@ export function planImpact(input = {}) {
   const selPublic = uniqSort([...publicSpecs]);
   let selAuthed = uniqSort([...authenticatedSpecs]);
   const selDiscovery = uniqSort([...discoverySpecs]);
+  const selRole = uniqSort([...roleSpecs]);
 
   // ── Broad-impact cap (ADR-0024): seçilen authed spec sayısı PR-lane bütçesini
   //    aşarsa (paylaşılan altyapı → ~tüm authed suite'e fan-out), TAM expansion
@@ -759,7 +789,7 @@ export function planImpact(input = {}) {
 
   const fallbackSuites = uniqSort([...fallback]);
   const selectedRunnableSpecCount =
-    selPublic.length + selAuthed.length + selDiscovery.length;
+    selPublic.length + selAuthed.length + selDiscovery.length + selRole.length;
   const runtimeSelectionCount = selectedRunnableSpecCount + fallbackSuites.length;
   const unmappedRuntimeFiles = uniqSort([...unmapped]);
 
@@ -799,6 +829,7 @@ export function planImpact(input = {}) {
       publicSpecs: selPublic,
       authenticatedSpecs: selAuthed,
       discoverySpecs: selDiscovery,
+      roleSpecs: selRole,
     },
     authedDeferredToNightly: uniqSort([...authedDeferredToNightly]),
     fallbackSuites,
