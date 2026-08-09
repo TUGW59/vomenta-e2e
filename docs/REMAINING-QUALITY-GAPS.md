@@ -35,7 +35,15 @@
 
 ### P1
 
-- **CI orphan — rol-scoped enforcement spec'i HİÇBİR lane'de koşmuyor (CI false-green sınıfı).**
+- **[ÇÖZÜLDÜ — bu oturum; RUNTIME NOT VERIFIED] CI orphan — rol-scoped enforcement spec'i HİÇBİR lane'de koşmuyor (CI false-green sınıfı).**
+  - **Çözüm (uygulandı):** `tools/run-role-enforcement.mjs` (fail-closed: credential yoksa görünür
+    skip + exit 0, varsa `configuredRoles()` ile dinamik koşar) + `playwright.yml` `role-enforcement`
+    job'ı (schedule/dispatch, **NON-REQUIRED**) + `tools/self-check-role-enforcement-lane.mjs`
+    (lane var mı + fail-closed + dinamik-kapsam; 5 meta-test) → `quality:role-lane` `quality:check`'e bağlı.
+  - **Doğrulama:** self-check + runner (creds yok → exit 0) + `--list` (4052) + `quality:check` yeşil (burada).
+    **Gerçek koşum:** role secret'ları CI'a eklenip nightly/dispatch(full) tetiklenince → o zaman
+    `IMPLEMENTED, RUNTIME VERIFIED` olur. Secret yokken lane hazır + görünür skip.
+  - _(Orijinal bulgu, referans için:)_
   `tests/agent-enforcement.agent.spec.js` yalnız `chromium-agent` projesinde koşar
   (`playwright.config.js` `optionalRoleProjects`). Ama **hiçbir workflow `chromium-agent`'ı
   hedeflemiyor**: nightly `full-regression` matrisi yalnız `[chromium-authed, firefox-authed,
@@ -136,8 +144,8 @@ mutation safety fail-closed.
 
 1. ✅ **P0 yutulan-assertion false-green + kalıcı guard** (bu oturum — TAMAMLANDI)
 2. ✅ **P1 hygiene** — ham `test.fail(true,…)` ↔ registry uzlaştırması (bu oturum — TAMAMLANDI)
-3. **P1 CI orphan** — rol-enforcement runner + nightly lane + self-check (kod+self-check burada; GH-Actions ile doğrula)
-4. **Minor** — `voice-history:113` başlık/iddia hizalaması
+3. ✅ **P1 CI orphan** — rol-enforcement runner + nightly lane + self-check (bu oturum — TAMAMLANDI; role secret'ıyla RUNTIME doğrulanacak)
+4. **Minor** — `voice-history:113` başlık/iddia hizalaması (SIRADA)
 5. **Dış-bloklu** — credential/staging/provider geldikçe: RBAC çapraz-rol → authed L2 backlog →
    mutation/L3 → provider/L5; her biri gerçek koşum döngüsüyle bitirilir.
 
