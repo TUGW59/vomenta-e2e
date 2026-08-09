@@ -1,190 +1,1288 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-30T09:01:36.463Z",
+  "generatedAt": "2026-08-09T09:58:47.097Z",
   "routes": {
     "/": {
-      "ariaStructureHash": "70c2160d33075622c1af5c1009164f5affc4aca9acfcd927cb5e8722ef095a15",
-      "endpoints": []
+      "ariaStructureHash": "2f24988ce74cbf0c7a3b3900b219f2b50519862925e90d56972f139e112a792e",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/analytics/agents/utilization?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/calls?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/overview?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/queues/sla?<redacted>",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/reports/dashboard?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/campaigns/outbound?<redacted>",
+        "GET https://app.vomenta.com/channels/sms?<redacted>",
+        "GET https://app.vomenta.com/reports?<redacted>"
+      ]
     },
     "/ai": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "2aee2026aa56e03dd8fd1c8de5e35bbdcbe3ac4b685b9c93a49ffffa910e21cd",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/providers",
+        "GET https://api.vomenta.com/api/v1/ai/usage",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/bots?<redacted>",
+        "GET https://api.vomenta.com/api/v1/channels/ai/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/copilot",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/analytics": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "3aa232ee3c25012cf1cff59a714507806553e293dc7b59836b2df976f42ba792",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/analytics/agents/utilization?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/ai/resolution?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/ai?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/billing?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/calls/abandonment?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/calls?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/chat/response?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/overview?<redacted>",
+        "GET https://api.vomenta.com/api/v1/analytics/queues?<redacted>",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/supervisor/dashboard",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/stats",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/bot-builder": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "1955aab17b88564fbee32b7a6c44bf999246960ea6e757be3a43780746aa77f5",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/bots/templates",
+        "GET https://api.vomenta.com/api/v1/bots?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/campaigns": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
-    },
-    "/campaigns/outbound": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "7af993084eea122deb084a0a1b90bd8b24a82999f525e3b6b8e54b811a76a297",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns/stats",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/channels": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "6effb72c5fbcb1b5654f8d04b46817229e11af868c78eb42a7f9d2f74a69f3df",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/channels/email/config",
+        "GET https://api.vomenta.com/api/v1/channels/sms/config",
+        "GET https://api.vomenta.com/api/v1/channels/social/config",
+        "GET https://api.vomenta.com/api/v1/channels/video/config",
+        "GET https://api.vomenta.com/api/v1/channels/voice/config",
+        "GET https://api.vomenta.com/api/v1/channels/webchat/config",
+        "GET https://api.vomenta.com/api/v1/channels/whatsapp/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/channels/email": {
+      "ariaStructureHash": "1e6414dedfa56897f12708fafdf87df7c850c51cd041ed728f17fc77700804e0",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/models",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns/email-config",
+        "GET https://api.vomenta.com/api/v1/channels/email/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/channels/sms": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "413d6bb663ac2c15d975fc9db09fa0d104f0a40b3d207110a18ab2bf1c8d76d0",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/models",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/channels/sms/config",
+        "GET https://api.vomenta.com/api/v1/channels/sms/messages?<redacted>",
+        "GET https://api.vomenta.com/api/v1/channels/templates/sms",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/sender-ids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
+    },
+    "/channels/social": {
+      "ariaStructureHash": "aa43ad49539bedc9af804053bb17cd4ae0ad2d1ef552d2aa27514d62937acafe",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/models",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/bots?<redacted>",
+        "GET https://api.vomenta.com/api/v1/channels/config/channels/social/connections",
+        "GET https://api.vomenta.com/api/v1/channels/social/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/channels/whatsapp?<redacted>"
+      ]
+    },
+    "/channels/video": {
+      "ariaStructureHash": "b27adad5ee42eddf308adc6905c10b3d89ebd3f1585f8d1edb12e27dbce86120",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/channels/video/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/video/livekit-status",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
+    },
+    "/channels/webchat": {
+      "ariaStructureHash": "6db2a8e8982609782c6e0a012379a77616aa84164ae2dcf8b49c0241e9b937a4",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/providers",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/bots?<redacted>",
+        "GET https://api.vomenta.com/api/v1/channels/webchat/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/channels/whatsapp": {
+      "ariaStructureHash": "c41a8735c95f1ca8518987d8ff5adb84564c6413cb6d01bbe014b7aafd770b71",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/ai/models",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/bots?<redacted>",
+        "GET https://api.vomenta.com/api/v1/channels/config/channels/whatsapp/connection",
+        "GET https://api.vomenta.com/api/v1/channels/templates/whatsapp",
+        "GET https://api.vomenta.com/api/v1/channels/whatsapp/config",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/channels/email?<redacted>"
+      ]
     },
     "/contacts": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "758d0672338e0574af582c77864df10e453f124447c1a63b02b8058076232bd4",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/companies?<redacted>",
+        "GET https://api.vomenta.com/api/v1/contacts?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/inbox": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
+      "ariaStructureHash": "ffd0709fa526f4e587507a4e20aa3ea3bd86a4fdd426949b11bc900b651e4c27",
       "endpoints": []
     },
     "/reports": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "82fd4e93094ea1afad5ac622add1288dc1595f788bbbf63e7ff8784d9b6e1b40",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/reports/dashboard?<redacted>",
+        "GET https://api.vomenta.com/api/v1/reports/dashboards",
+        "GET https://api.vomenta.com/api/v1/reports/scheduled",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
     },
     "/reports/agent": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "65c4ac1672a9a907c0a55767645bc0b7839d760d8246264c42ccca95175d3ea5",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/agent?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/ai": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "a0fd3c6cced76b9ddff4c01b6f72e6babf3230b51fcf4b7fe1a90e438be32837",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/ai?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/ai?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/campaigns?<redacted>",
+        "GET https://app.vomenta.com/channels?<redacted>",
+        "GET https://app.vomenta.com/settings?<redacted>",
+        "GET https://app.vomenta.com/voice?<redacted>"
+      ]
     },
     "/reports/billing": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "bb9e908e85a7ceec24fe401643c1415fbca90b5b0fe59b4eec962459d01878e4",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/billing?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/call": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "a0fd3c6cced76b9ddff4c01b6f72e6babf3230b51fcf4b7fe1a90e438be32837",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/call?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/campaign": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "0a209032dbd757f4baf12fcfea382092f0bdec26e0d4f38c9cd97772a04ade78",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/campaign?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/channel": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "0a209032dbd757f4baf12fcfea382092f0bdec26e0d4f38c9cd97772a04ade78",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/channel?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/contacts?<redacted>"
+      ]
     },
     "/reports/csat": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "cb759eba6f26692b507d5ac52d9cca2a6440da891aad973a4070e5d435f4367c",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
     },
     "/reports/dashboards": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "14c5eb28d56460ce4c6d792db127af71d2ec90a8e479412fede46232f2bb461b",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/reports/dashboards",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/quality": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "a0fd3c6cced76b9ddff4c01b6f72e6babf3230b51fcf4b7fe1a90e438be32837",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/quality?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/queue": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "65c4ac1672a9a907c0a55767645bc0b7839d760d8246264c42ccca95175d3ea5",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/queue?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/reports/sla": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "65c4ac1672a9a907c0a55767645bc0b7839d760d8246264c42ccca95175d3ea5",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/campaigns?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/reports/sla?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/ai?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/campaigns?<redacted>",
+        "GET https://app.vomenta.com/channels?<redacted>",
+        "GET https://app.vomenta.com/reports?<redacted>",
+        "GET https://app.vomenta.com/voice?<redacted>"
+      ]
     },
     "/settings": {
-      "ariaStructureHash": "f5f1b5cca54f706e6cf49566296c4fc49ef509cce476dc50ce38735b8238f365",
-      "endpoints": []
+      "ariaStructureHash": "fd3d110f7ff10777ecceb52ce01d3c6cd1fdd6feec8a45a50647a7dfe788efd1",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/billing/subscription",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/api-keys",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/settings/security",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings/organization?<redacted>"
+      ]
     },
     "/settings/api-keys": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "c814b4be4ac9fe90be8765de998e04f4c0b9d79c0970adcbb8b65830538dcb20",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/api-keys",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/audit": {
-      "ariaStructureHash": "340946ab2a4b3735282ea706f00a21604edd44c956c80c9b77bbfad089453ad5",
-      "endpoints": []
+      "ariaStructureHash": "0d18c3d7f54c456b6fbe91ea96122d3c11cabb423c9025f48867ce21fec3f36a",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/compliance/audit-logs?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/analytics?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/inbox?<redacted>",
+        "GET https://app.vomenta.com/settings?<redacted>",
+        "GET https://app.vomenta.com/voice?<redacted>"
+      ]
     },
     "/settings/automations": {
-      "ariaStructureHash": "de2a3e55becda33c96f93aa5d93799e7bf511c097bf2d712fbdd50079cc8e824",
-      "endpoints": []
+      "ariaStructureHash": "2c374f1bf76eaabff447152f1d9dd1f6aa06f412f202426c4df1eceea3c1865e",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/automations/sla-policies",
+        "GET https://api.vomenta.com/api/v1/automations?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/canned-responses": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "5d07b6bdc628a711b54f7f46da3c79a0d77728cae9f24816030692202bce78db",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/chat/canned-responses",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/compliance": {
-      "ariaStructureHash": "587767b943c005da24f109ff1aac376aaf70a742754239b90450f807578c4545",
-      "endpoints": []
+      "ariaStructureHash": "f88ffe522498e076a4136fb8734ffd73c9d292cfcaf7d13aeabcdcef89ccc52b",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/compliance/audit-logs?<redacted>",
+        "GET https://api.vomenta.com/api/v1/compliance/consent?<redacted>",
+        "GET https://api.vomenta.com/api/v1/compliance/data-retention",
+        "GET https://api.vomenta.com/api/v1/compliance/gdpr/requests?<redacted>",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/data-retention": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "1c9999d314e9d789e7707d4f6ee6cee5cb104181a491ef5ce31aab6b69d55682",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/compliance/data-retention",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/channels?<redacted>",
+        "GET https://app.vomenta.com/settings/profile?<redacted>"
+      ]
     },
     "/settings/disposition-codes": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "5be4e8a9ea264137bb01d90b7007378f08ef348ca764932af86103f0368c154a",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/disposition-codes?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/hours": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "0665ec9b48ead95340b59409b39024b4eed9506861c13265672d7254de2c70a4",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/business-hours",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/integrations": {
-      "ariaStructureHash": "775b62451d10173495d1edd7d0be5806489b10b70584657ffc004878a31df797",
-      "endpoints": []
+      "ariaStructureHash": "dc4ec0b1e957089a5e585dbd2cd38699fa6b673add1dcaae4b156585c362a868",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/api-keys",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/webhooks",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/notifications": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "df3e9d7fc8e1139e9731ff3044b344ae932b33fc5ac464fd26c3b3403b06bfc0",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/email-preferences",
+        "GET https://api.vomenta.com/api/v1/notifications/preferences",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/organization": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "0b0f7ebe8ba73905c5c3bcfbfa1f31ef46a2ae8aa3f6e24ced41a5992646b952",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/profile": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "d6554bdcc6834b22249758201cd6fa0a4037632e554e85b3e6d88410ce3890ec",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/auth/sessions",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/analytics?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/campaigns?<redacted>"
+      ]
     },
     "/settings/roles": {
-      "ariaStructureHash": "3d837eef1a99c3f811601bccb6c474ef5aa47846b370eb9228f55765e32db43c",
-      "endpoints": []
+      "ariaStructureHash": "98e31e337af41c333601181e8bd116dde765a1d5d5e07a75f5fe7ab632579fcc",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/roles/permissions/catalog",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/security": {
-      "ariaStructureHash": "cfbd17af0fdb274ce1b0363fbc9cd40ffbaa3be9f445a860dd1b690428f347a6",
-      "endpoints": []
+      "ariaStructureHash": "9e463ed269e7c3c35d565a29160ca08068ba61e30a523269a8aaebc7f2a6062a",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/login-history?<redacted>",
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/auth/sessions",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/api-keys",
+        "GET https://api.vomenta.com/api/v1/settings/ip-whitelist",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/settings/security",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/supervisor?<redacted>"
+      ]
     },
     "/settings/sla": {
-      "ariaStructureHash": "f1cc96a767178bb29a2a11de5dbe01e861b98e067714e318bd6ed11eaec60371",
-      "endpoints": []
+      "ariaStructureHash": "e0273e153cf2b7617bd2cedbf5589f7737b7daf20264686f0bd964c2b8fd06b3",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/automations/sla-policies",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/teams": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "d6091d0d3abe8998ca880b80a92129af9bbbd62b069bbd2dc5ad9af49e3fa6b5",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/templates": {
-      "ariaStructureHash": "1b9b697836c8a5614a877aabdc37f70261015661f85e530d0880a230ab5d54cc",
-      "endpoints": []
+      "ariaStructureHash": "41d0320240f51ff775f5f912ea566f322cff68088f2497f915e6500cf4e2ce44",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/automations/templates",
+        "GET https://api.vomenta.com/api/v1/channels/templates/sms",
+        "GET https://api.vomenta.com/api/v1/chat/canned-responses",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
     },
     "/settings/users": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "72efec76ff55adcf30affbbc3a543777e8f0b7d20aebc9c8c5665278cf9d068d",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/teams",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/settings/webhooks": {
-      "ariaStructureHash": "225adc62e91c29e364985bf1475bec103a0d72d33f665107374440c99aefb8ec",
-      "endpoints": []
+      "ariaStructureHash": "c814b4be4ac9fe90be8765de998e04f4c0b9d79c0970adcbb8b65830538dcb20",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/webhooks",
+        "GET https://api.vomenta.com/api/v1/webhooks/events",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     },
     "/supervisor": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "0688d2e806d1f93207ad772fac44ff9e8f50d5f05fd1a1191dd30a28060d1ed3",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/supervisor/agents",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/supervisor/agents": {
+      "ariaStructureHash": "f68f9e4f2f00b4f14a37556a269a369a0ecf76afbd7eb4a9e44cbc6d47fc348a",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/supervisor/agents?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>"
+      ]
     },
     "/tickets": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "f2eeeaad7f0d7e366f7648b98a0c8838f353c118861ef2be83816e38473e4776",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/contacts",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/tickets/stats",
+        "GET https://api.vomenta.com/api/v1/tickets?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/channels?<redacted>",
+        "GET https://app.vomenta.com/voice?<redacted>"
+      ]
     },
     "/voice": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "ffd0709fa526f4e587507a4e20aa3ea3bd86a4fdd426949b11bc900b651e4c27",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/dids": {
+      "ariaStructureHash": "ba6650c9c7da9489d32da229da4cb9c04be1c99647612ffce43903f67e331f95",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids/requests",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/ivr",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice-ai/config",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/sip-trunks?<redacted>",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/settings?<redacted>",
+        "GET https://app.vomenta.com/voice/queues?<redacted>",
+        "GET https://app.vomenta.com/voice/regulatory?<redacted>",
+        "GET https://app.vomenta.com/voice/sip-settings?<redacted>"
+      ]
+    },
+    "/voice/history": {
+      "ariaStructureHash": "3e21080d695de6808a5b6a34c5602ad040ad6a5301605a608143b3b8255d401f",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/calls?<redacted>",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/ivr": {
+      "ariaStructureHash": "ded2d689c4eee38d0aacf7f1d9eb215c32e69d7d1a4b242f0b52533c1dac2236",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/ivr/templates",
+        "GET https://api.vomenta.com/api/v1/ivr?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/queues": {
+      "ariaStructureHash": "323ed55e64b1b5e44449f9d3dcd8261acb069f35177826baff9f5b82629720bd",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/queues/callbacks/scheduled",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/voice/live?<redacted>"
+      ]
+    },
+    "/voice/recordings": {
+      "ariaStructureHash": "c28d7849b7dda9930820caeb1ff2126977fc5142b69c118e3c493b6510a533b7",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/compliance/data-retention",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/recordings?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/regulatory": {
+      "ariaStructureHash": "c3febc781673e350c82ef37c2d0cd43805d2eb6a33e027d9879cc7c4d626546f",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/regulatory/refs",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/ai?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/voice/history?<redacted>",
+        "GET https://app.vomenta.com/voice/voicemail?<redacted>"
+      ]
+    },
+    "/voice/sip-settings": {
+      "ariaStructureHash": "e038b29e8c0ec30ff06e83ecd80f19e665002e7f17be8c8c6d1e9e22b4fb8d8f",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/sip-trunks": {
+      "ariaStructureHash": "f4b26d51ed5b1d6c38fa7968df568d635dc422952e81885ffbb454952d5f973c",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voice/sip-trunks?<redacted>",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/skills": {
+      "ariaStructureHash": "3885f6bc70cdd7cb8ce14a1572eb0cb6011b9dcf7010f328ce1217eddd50af93",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/queues",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/voice/voicemail": {
+      "ariaStructureHash": "21d08ffa8bdeef3895b516d5eb69c21243af74798f666b09b61c2c4246eb4e4e",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/voicemails?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/voice/queues?<redacted>"
+      ]
     },
     "/workforce": {
-      "ariaStructureHash": "9006dc7d71257baf4b4204d65821dc750006211b3593b2f1d01f75b9e893c68b",
-      "endpoints": []
+      "ariaStructureHash": "d35f8f404f85f648accd8300abd15ad419b6f9a0d60fbe5f9d6f0ac4013280ea",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/workforce/badges": {
+      "ariaStructureHash": "c5bd3eb6464a2f4704edd6fb4e8e2cf44f9cda36fc05e1051fec335f0ac0300c",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/wfm/gamification/badges",
+        "GET https://api.vomenta.com/api/v1/wfm/gamification/badges/leaderboard",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/workforce/evaluations": {
+      "ariaStructureHash": "1b5eb3924adf965bf9dd9e11badea768cf685d42273c0e748bcf2324e29e9946",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/wfm/evaluations?<redacted>",
+        "GET https://app.vomenta.com/?<redacted>",
+        "GET https://app.vomenta.com/analytics?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/workforce/schedules": {
+      "ariaStructureHash": "9e01b7f6902f024f45f02b2f4ad0bfe9a2f465773796b46180e4247b2c3d96df",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/users?<redacted>",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/wfm/schedules?<redacted>",
+        "GET https://app.vomenta.com/api/auth/session",
+        "GET https://app.vomenta.com/channels?<redacted>"
+      ]
+    },
+    "/workforce/surveys": {
+      "ariaStructureHash": "6fc44d1065e94d583402c225b6b24b57293d3462b21b1ab8e5c8129e537ad639",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/wfm/gamification/surveys",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
+    },
+    "/workforce/time-off": {
+      "ariaStructureHash": "eff56123468de8c91e3c0992df4c9a3f8b475d1a78432eadc1510c2af46cee7c",
+      "endpoints": [
+        "GET https://api.vomenta.com/api/v1/auth/me",
+        "GET https://api.vomenta.com/api/v1/dids?<redacted>",
+        "GET https://api.vomenta.com/api/v1/modules/active",
+        "GET https://api.vomenta.com/api/v1/modules/catalog",
+        "GET https://api.vomenta.com/api/v1/notifications/unread-count",
+        "GET https://api.vomenta.com/api/v1/notifications?<redacted>",
+        "GET https://api.vomenta.com/api/v1/onboarding/progress",
+        "GET https://api.vomenta.com/api/v1/roles/me/permissions",
+        "GET https://api.vomenta.com/api/v1/settings/organization",
+        "GET https://api.vomenta.com/api/v1/voice/calls/live",
+        "GET https://api.vomenta.com/api/v1/wfm/time-off",
+        "GET https://app.vomenta.com/api/auth/session"
+      ]
     }
   }
 }
