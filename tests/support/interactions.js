@@ -102,7 +102,12 @@ export async function assertListLoading(page, apiGlob, gotoFn, rows, skeletonLoc
     return route.continue();
   });
   await gotoFn();
-  await expect(skeletonLocator.first()).toBeVisible({ timeout: 2000 }).catch(() => {});
+  // @ix-loading sözleşmesinin AYIRT EDİCİ sinyali: API 1200ms geciktirildiği için
+  // satırlar gelmeden ÖNCE iskelet/spinner GÖRÜNMELİDİR. Bu assertion yutulmaz
+  // (eski `.catch(() => {})` yutması bu boyutu sessizce PASS ederdi = false-green;
+  // bkz. tools/self-check-no-swallowed-assertions.mjs). İskeleti olmayan bir sayfa
+  // bu yardımcıyı KULLANMAMALI (uygun skeletonLocator geçilmeli).
+  await expect(skeletonLocator.first()).toBeVisible({ timeout: 3000 });
   await expect(rows.first()).toBeVisible({ timeout: 15000 });
   await page.unroute(apiGlob);
 }
