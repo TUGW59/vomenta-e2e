@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1219
+- **Test edilen senaryo:** 1220
 - **Test dosyası:** 99
-- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 28 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 190 · `@visual` 21
+- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 29 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -199,6 +199,7 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `channels-hub.authed.spec.js`
 
 - sayfa "Channels" başlığı + 7 kanal kartı + Configure bağlantıları ile açılıyor  `@smoke`
+- yükleme tamamlanır: skeleton KAYBOLUR + gerçek kanal kartları render olur  `@smoke` `@data`
 - her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor  `@critical`
 - kanal config uçları çağrılıyor (GET /channels/<kanal>/config 2xx)  `@data`
 - L1+L3: Email kartı Configure → /channels/email gerçekten yükleniyor  `@regression`

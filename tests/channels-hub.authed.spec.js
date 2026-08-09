@@ -34,6 +34,22 @@ test.describe('Kanallar hub — yapı', () => {
     await expect(c.configureLinks).toHaveCount(7);
   });
 
+  // F-015 FALSE-GREEN GUARD (asıl değer): "heading göründü" YETMEZ. Yükleme skeleton'ı
+  // (Tailwind `animate-pulse`) KAYBOLMALI ve gerçek kanal kartları render OLMALI. Dev'de
+  // hub 6+ sn sonra bile kalıcı skeleton'da takılabiliyor (kartlar HİÇ gelmiyor) → eski
+  // heading/shell assertion'ları geçer (sessiz false-green). Prod sağlıklı: skeleton
+  // ~3 sn içinde çözülüp 7 kart render oluyor (9 Ağu 2026 canlı gözlem) → prod'da yeşil
+  // kalır; dev regresyonu ileride prod'a gelirse GÜRÜLTÜLÜ patlar.
+  test('yükleme tamamlanır: skeleton KAYBOLUR + gerçek kanal kartları render olur @smoke @data', async ({ app }) => {
+    const c = app.channelsHub;
+    await c.open(); // open() içinde assertLoaded() (skeleton çözülmesi) zaten koşar; burada AÇIKÇA yeniden doğrula.
+    await expect(c.loadingSkeleton).toHaveCount(0);
+    // 7 gerçek kanal kartının hepsi render oldu (her kart bir Configure bağlantısı taşır).
+    await expect(c.configureLinks).toHaveCount(7);
+    // ve en az 1 kartın gövde içeriği (href tabanlı, satır-kapsamlı) görünür.
+    await expect(c.emailCardLink).toBeVisible();
+  });
+
   test('her kanal kartının Configure bağlantısı doğru rotaya işaret ediyor @critical', async ({ app }) => {
     const c = app.channelsHub;
     await c.open();
