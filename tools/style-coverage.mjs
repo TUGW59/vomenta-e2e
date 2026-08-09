@@ -29,7 +29,7 @@ const norm = (t) => String(t).replace(/^@/, '').replace(/[^\w-]+$/, '');
 // Kanonik etiket kaydı (AGENTS.md → "Test sınıfları" ile senkron). @'siz saklanır.
 const ALLOWED_TAGS = new Set([
   // risk / yapı
-  'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public', 'route-baseline',
+  'smoke', 'critical', 'regression', 'mutation', 'known-bug', 'public', 'route-baseline', 'security',
   // rota baseline runtime-policy türleri (WP-SURFACE-MIGRATION / FAZ 3): koşulamayan
   // yüzeyler (fixture/blocked/staging) `@route-blocked` ile fixme, redirect yüzeyler
   // `@route-redirect` ile üretilir. Stil kapısını etkilemez; yalnız bilinen etiket kaydı.

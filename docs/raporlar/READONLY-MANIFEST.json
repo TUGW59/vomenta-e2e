@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 136,
-    "productionSafeReadOnly": 100,
+    "totalSpecs": 137,
+    "productionSafeReadOnly": 101,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 100,
+      "read-only": 101,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 135,
+      "authenticated": 136,
       "public": 1
     },
     "byEnvironment": {
-      "both": 100,
+      "both": 101,
       "staging": 36
     }
   },
@@ -735,6 +735,28 @@
       "routes": [],
       "capabilities": [
         "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/agent-enforcement.agent.spec.js",
+      "pathPattern": "tests/agent-enforcement.agent.spec.js",
+      "kind": "role",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "agent",
+      "environment": "both",
+      "projects": [
+        "chromium-agent"
+      ],
+      "surface": "other",
+      "routes": [],
+      "capabilities": [
+        "auth:agent"
       ],
       "timeoutClass": "default",
       "artifactClass": "sanitized-bundle",

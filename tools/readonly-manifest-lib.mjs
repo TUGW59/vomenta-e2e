@@ -156,7 +156,7 @@ const roleFromName = (rel) => {
 
 /**
  * Bir spec'i dosya-adı konvansiyonuna göre kaba sınıfa eşler.
- * @returns {'public'|'authed'|'discovery'|'mutation'|'unknown'}
+ * @returns {'public'|'authed'|'discovery'|'mutation'|'role'|'unknown'}
  */
 export function specKind(rel) {
   const p = normalizeSpecPath(rel);
@@ -165,6 +165,10 @@ export function specKind(rel) {
   if (PUBLIC_SPEC_ALLOWLIST.includes(p)) return 'public';
   if (isMutationSpecName(p)) return 'mutation';
   if (isAuthedSpec(p)) return 'authed';
+  // Rol-scoped enforcement spec'i (*.admin/.supervisor/.agent.spec.js): yalnız
+  // ilgili chromium-<role> projesinde koşar (playwright.config.js optionalRoleProjects).
+  // Read-only, prod-safe negatif RBAC (bkz. COV-01/ADR-0030); credential gelince aktifleşir.
+  if (roleFromName(p)) return 'role';
   return 'unknown';
 }
 
@@ -248,7 +252,7 @@ export function classifySpec(relRaw, ctx = {}) {
   if (kind === 'unknown') {
     throw new Error(
       `UNCLASSIFIED_SPEC: "${rel}" bilinen konvansiyona uymuyor ` +
-        '(public allowlist / *.authed.spec.js / discovery / mutation). Fail-closed.'
+        '(public allowlist / *.authed.spec.js / *.{admin,supervisor,agent}.spec.js / discovery / mutation). Fail-closed.'
     );
   }
 
@@ -271,6 +275,7 @@ export function classifySpec(relRaw, ctx = {}) {
   // ── projects (playwright.config.js ile birebir) ──
   let projects;
   if (kind === 'discovery') projects = ['chromium-discovery'];
+  else if (kind === 'role') projects = [`chromium-${roleFromName(rel)}`];
   else if (auth === AUTH.PUBLIC) projects = ['chromium', 'firefox', 'webkit'];
   else if (effect === EFFECT.READ_ONLY)
     projects = ['chromium-authed', 'firefox-authed', 'webkit-authed'];

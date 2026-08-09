@@ -125,6 +125,9 @@ export const environment = Object.freeze({
   testPhone: process.env.VOMENTA_TEST_PHONE || '',
   testContactPhone: process.env.VOMENTA_TEST_CONTACT_PHONE || '',
   testAgentEmail: process.env.VOMENTA_TEST_AGENT_EMAIL || '',
+  // COV-01 çapraz-rol enforcement: agent'ın erişememesi gereken korunan API ucu
+  // (opt-in doğrudan-uç probu; boşsa ilgili test görünür biçimde atlanır).
+  agentForbiddenEndpoint: process.env.VOMENTA_AGENT_FORBIDDEN_ENDPOINT || '',
 });
 
 export function authStatePath(role = 'default') {
