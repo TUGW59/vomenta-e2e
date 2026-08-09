@@ -308,6 +308,11 @@ const COVERAGE_CONTRACTS = Object.freeze([
       // 6 rol izin kümeleri + UI kategori sayaçları contract ile birebir. i18n/a11y/
       // layout vb. zaten settings-roles.authed.spec.js'te kapsanır (union kapsama).
       'settings-roles-rbac.authed.spec.js',
+      // RBAC ENFORCEMENT (COV-01 / ADR-0030 md.3): davranışsal negatif — admin efektif
+      // izinleri (/roles/me/permissions) + izinsiz korunan rota bloklanması. Salt-ayna'yı
+      // gerçek enforcement'la tamamlar. Çapraz-rol (agent) boşluğu bu spec'te görünür
+      // test.skip ile beyan edilir (materyalizasyon: takip işi). Salt-okunur @data @regression.
+      'settings-roles-rbac-enforcement.authed.spec.js',
     ],
     archetype: {
       hasData: true,

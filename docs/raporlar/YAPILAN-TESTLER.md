@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1271 / 135 dosya
-- **coverageStatus:** verified 0 · partial 1218 · generic 9 · blocked 44
-- **executionStatus:** executed 0 · listed-only 1227 · skipped 0 · fixme 44
+- **Listelenen test:** 1274 / 136 dosya
+- **coverageStatus:** verified 0 · partial 1221 · generic 9 · blocked 44
+- **executionStatus:** executed 0 · listed-only 1230 · skipped 0 · fixme 44
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -27,7 +27,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | inbox | 5 | 5 | 0 | 0 |
 | other | 156 | 143 | 9 | 4 |
 | reports | 91 | 91 | 0 | 0 |
-| settings | 353 | 336 | 0 | 17 |
+| settings | 356 | 339 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 95 | 85 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
@@ -1168,6 +1168,14 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | L3 görev OK: custom rol oluştur → listede görün → sil | @regression @mutation | L3 | fixme | blocked | low | list-exec+title-inferred |
+
+### `settings-roles-rbac-enforcement.authed.spec.js` — _settings_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| admin (izin yok) "/settings/billing" rotasında bloklanır (kendi içeriği açılmaz) | @regression | — | listed-only | partial | medium | list-exec |
+| admin (izin yok) "/settings/billing/marketplace" rotasında bloklanır (kendi içeriği açılmaz) | @regression | — | listed-only | partial | medium | list-exec |
+| AGENT negatif enforcement — kimlik yoksa NOT MATERIALIZED (ADR-0030 md.4) | @regression | — | listed-only | partial | medium | list-exec |
 
 ### `settings-roles-rbac.authed.spec.js` — _settings_
 
