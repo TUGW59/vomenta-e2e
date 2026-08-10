@@ -25,23 +25,25 @@
         "name": "Bilinen bulgu toplamı",
         "values": {
           "runtimeSnapshot": 61,
-          "findingsRegistry": 61
+          "findingsRegistry": 62
         },
-        "agree": true,
-        "note": ""
+        "agree": false,
+        "note": "Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır."
       },
       {
         "name": "Açık bulgu",
         "values": {
           "runtimeSnapshot": 60,
-          "findingsRegistry": 60
+          "findingsRegistry": 61
         },
-        "agree": true,
-        "note": ""
+        "agree": false,
+        "note": "Açık bulgu sayısı kaynaklar arası farklı."
       }
     ],
     "warnings": [
       "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+      "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+      "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.",
       "Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
     ]
   },
@@ -92,12 +94,12 @@
     "l1Proven": 83,
     "l1NotProven": 9,
     "l2StyleContractMet": 66,
-    "l2Complete": 34,
-    "l2Partial": 32,
+    "l2Complete": 35,
+    "l2Partial": 31,
     "l2NotCovered": 26,
-    "interactionUnverifiedRoutes": 34,
-    "l3Blocked": 48,
-    "l3NotApplicable": 44,
+    "interactionUnverifiedRoutes": 33,
+    "l3Blocked": 49,
+    "l3NotApplicable": 43,
     "l3Proven": 0,
     "l4Blocked": 92,
     "l4Proven": 0,
@@ -106,14 +108,14 @@
     "highestLevel": {
       "L0": 9,
       "L1": 17,
-      "L2_STYLE": 32,
-      "L2_DEEP": 34
+      "L2_STYLE": 31,
+      "L2_DEEP": 35
     },
-    "routesWithFindings": 33,
-    "openFindingsOnRoutes": 58,
+    "routesWithFindings": 34,
+    "openFindingsOnRoutes": 59,
     "blockReasons": {
       "L3": {
-        "STAGING_REQUIRED": 48
+        "STAGING_REQUIRED": 49
       },
       "L4": {
         "ROLE_ACCOUNTS_REQUIRED": 92
@@ -124,9 +126,9 @@
     }
   },
   "findingsSummary": {
-    "total": 61,
+    "total": 62,
     "byStatus": {
-      "open": 60,
+      "open": 61,
       "closed": 1,
       "fixedCandidate": 0,
       "other": 0
@@ -134,14 +136,14 @@
     "bySeverity": {
       "critical": 1,
       "high": 9,
-      "medium": 44,
+      "medium": 45,
       "low": 7,
       "other": 0
     },
     "openBySeverity": {
       "critical": 1,
       "high": 8,
-      "medium": 44,
+      "medium": 45,
       "low": 7,
       "other": 0
     }
@@ -618,6 +620,14 @@
       "worst": "medium"
     },
     {
+      "route": "/tickets",
+      "openCount": 1,
+      "severities": {
+        "medium": 1
+      },
+      "worst": "medium"
+    },
+    {
       "route": "/voice/dids",
       "openCount": 1,
       "severities": {
@@ -747,6 +757,8 @@
   },
   "warnings": [
     "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
+    "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+    "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.",
     "Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
   ]
 }

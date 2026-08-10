@@ -13,12 +13,12 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 458
+    "reconcileObservations": 460
   },
   "totals": {
     "surfaces": 92,
-    "coveredContract": 58,
-    "noCoverageContract": 25,
+    "coveredContract": 59,
+    "noCoverageContract": 24,
     "blocked": 9,
     "redirect": 0,
     "deprecated": 0,
@@ -28,8 +28,8 @@
     "heldCandidates": 3,
     "byStatus": {
       "BLOCKED": 9,
-      "COVERED_CONTRACT": 58,
-      "NO_COVERAGE_CONTRACT": 25
+      "COVERED_CONTRACT": 59,
+      "NO_COVERAGE_CONTRACT": 24
     },
     "byArea": {
       "ai": 9,
@@ -1690,14 +1690,16 @@
         "blockedReason": null,
         "redirectTarget": null,
         "condition": null,
-        "hasCoverageContract": false,
-        "coverageContractIds": [],
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "tickets"
+        ],
         "evidenceTypes": [
           "discovery-observation",
           "navigation-contract",
           "route-inventory"
         ],
-        "status": "NO_COVERAGE_CONTRACT"
+        "status": "COVERED_CONTRACT"
       },
       {
         "id": "voice",
@@ -2225,11 +2227,6 @@
         "id": "supervisor-wallboard",
         "route": "/supervisor/wallboard",
         "area": "supervisor"
-      },
-      {
-        "id": "tickets",
-        "route": "/tickets",
-        "area": "tickets"
       },
       {
         "id": "voice-live",

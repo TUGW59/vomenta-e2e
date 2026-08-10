@@ -13,15 +13,15 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 92 · sözleşme sayfası: 50
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 51
 - **L1:** PROVEN 83 · not-proven 9
 - **L2 stil sözleşmesi:** karşılandı 66 · gerçek boşluk 26
-- **L2 durum:** COMPLETE 34 · PARTIAL 32 · NOT_COVERED 26
-- **Etkileşim derinliği tam doğrulanmayan rota:** 34 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
-- **L3:** BLOCKED(staging) 48 · N/A(no-write) 44
+- **L2 durum:** COMPLETE 35 · PARTIAL 31 · NOT_COVERED 26
+- **Etkileşim derinliği tam doğrulanmayan rota:** 33 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L3:** BLOCKED(staging) 49 · N/A(no-write) 43
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 32 · L2·deep 34
-- **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
+- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 31 · L2·deep 35
+- **Bilinen bulgu:** 62 (open 61 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 59 (34 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
 ## Kapsam derinliği — tüm kayıtlı rotalar
@@ -101,7 +101,7 @@
 | `/supervisor/interactions` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/wallboard` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
 | `/supervisor/ai-rate-suggestions` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/tickets` | main-navigation,tickets | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 4/4 | ⛔ staging | ⛔ rol | ⛔ provider | TICKETS-TABS-ARIA(medium/open) |
 | `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/live` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/dids` | voice-dids | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | B14(medium/open) |
@@ -200,7 +200,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/supervisor/interactions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/supervisor/wallboard` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/supervisor/ai-rate-suggestions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
-| `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
+| `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — | — | — |
 | `/voice` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
 | `/voice/live` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/voice/dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | ✅ | N/A |
@@ -299,7 +299,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/supervisor/interactions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/ai-rate-suggestions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/tickets` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/tickets` | ✅ | ✅ | ✅ | N/A | ✅ | N/A |
 | `/voice` | — | N/A | N/A | N/A | N/A | N/A |
 | `/voice/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice/dids` | — | N/A | ✅ | N/A | N/A | N/A |
@@ -321,6 +321,6 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 
-- **L3 (mutation/CRUD):** 48 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 44 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
+- **L3 (mutation/CRUD):** 49 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 43 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
 - **L4 (rol/permission/tenant):** 92 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
 - **L5 (uçtan-uca provider):** 92 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).

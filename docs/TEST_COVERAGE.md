@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1236
-- **Test dosyası:** 106
-- **Etiketler:** `@a11y` 67 · `@clean)` 7 · `@clean` 54 · `@critical` 72 · `@data` 29 · `@deeplink` 52 · `@errorpath` 51 · `@export` 6 · `@i18n` 226 · `@ix-empty` 6 · `@ix-filter` 3 · `@ix-table` 14 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 76 · `@layout` 60 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
+- **Test edilen senaryo:** 1250
+- **Test dosyası:** 107
+- **Etiketler:** `@a11y` 68 · `@clean)` 7 · `@clean` 55 · `@critical` 72 · `@data` 29 · `@deeplink` 53 · `@errorpath` 52 · `@export` 6 · `@i18n` 230 · `@ix-empty` 7 · `@ix-filter` 4 · `@ix-table` 15 · `@ix-tabs` 20 · `@keyboard` 39 · `@known-bug` 77 · `@layout` 61 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1236,14 +1236,31 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - BULGU 5: "Resume queue" Türkçe menüde çevrilmeli  `@regression`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
 
+### `tickets-interactions.authed.spec.js`
+
+- sekmeler tek-seçim dışlayıcı (aria-selected)  `@ix-tabs`
+- ticket tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
+- arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
+- eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı")  `@ix-empty`
+
 ### `tickets.authed.spec.js`
 
 - tablo beklenen kolonları gösteriyor  `@critical`
-- sekmeler (All / My Tickets / Unassigned / Urgent) görünüyor
+- sekmeler (All / My Tickets / Unassigned / Urgent) görünüyor  `@smoke`
 - en az bir ticket listeleniyor  `@smoke`
 - arama: ticket numarasına göre tek sonuca filtreliyor  `@critical`
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
+- [en] yön + başlık + sekmeler + kolonlar çevrili  `@i18n` `@regression`
+- [tr] yön + başlık + sekmeler + kolonlar çevrili  `@i18n` `@regression`
+- [fr] yön + başlık + sekmeler + kolonlar çevrili  `@i18n` `@regression`
+- [ar] yön + başlık + sekmeler + kolonlar çevrili  `@i18n` `@regression`
+- TICKETS-TABS-ARIA · /tickets · sekmeler geçerli ARIA attribute değeri taşımalı (aria-valid-attr-value)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /tickets doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- Create Ticket dialogu odak tuzağı + Escape ile kapanma (GÖNDERİLMEZ)  `@keyboard`
+- tickets listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 
 ### `voice-dids-interactions.authed.spec.js`
 

@@ -41,6 +41,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `supervisor-agents` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
+| `tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A |
 | `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
 | `voice-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
@@ -113,6 +114,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
 - **supervisor-agents**: `/supervisor/agents`
+- **tickets**: `/tickets`
 - **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
 - **voice-hub**: `/voice`
@@ -236,6 +238,8 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `supervisor-agents` **@visual**: İçerik canlı (durum/AHT/CSAT/"Last refreshed" damgası) → kararlı snapshot bölgesi yok.
 - `supervisor-agents` **@mutation**: Force durum değişikliği staging mutation; prod read-only'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme'de.
+- `tickets` **@visual**: Ticket tablosu canlı veri (numara/konu/durum/tarih) → kararlı snapshot bölgesi yok.
+- `tickets` **@mutation**: Create Ticket kalıcı yazar → L3 staging; prod read-only'de L1 (dialog aç + Escape, gönderilmez).
 - `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
 - `voice-dids` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `voice-dids` **@visual**: Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.
@@ -394,7 +398,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-interactions` | `/supervisor/interactions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
-| `tickets` | `/tickets` | tickets | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `tickets` | `/tickets` | tickets | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A | ✔ |
 | `voice` | `/voice` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — | ✔ |
 | `voice-dids` | `/voice/dids` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
 | `voice-history` | `/voice/history` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — | ✔ |

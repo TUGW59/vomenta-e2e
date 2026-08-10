@@ -18,19 +18,19 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 34 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 25 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 34
-- **Açık bulgu:** 58 (33 yüzeyde)
+- **L2·deep:** 35 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 24 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 33
+- **Açık bulgu:** 59 (34 yüzeyde)
 
 ### Rollup dağılımı
 
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 34 |
+| ✅ L2·deep | 35 |
 | 🟡 L2·style (unverified) | 24 |
-| 🟠 NO_CONTRACT | 25 |
+| 🟠 NO_CONTRACT | 24 |
 
 ### Alan (area) dağılımı
 
@@ -129,7 +129,7 @@
 | supervisor-coaching | /supervisor/coaching | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-wallboard | /supervisor/wallboard | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | 5 | 🟠 NO_CONTRACT |
-| tickets | /tickets | tickets | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
+| tickets | /tickets | tickets | ✔ | ✅ | COMPLETE | 4/4 | L2_DEEP | 1 | ✅ L2·deep |
 | voice | /voice | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
 | voice-dids | /voice/dids | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
 | voice-history | /voice/history | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |

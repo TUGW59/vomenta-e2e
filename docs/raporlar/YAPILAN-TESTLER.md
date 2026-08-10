@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1300 / 143 dosya
-- **coverageStatus:** verified 0 · partial 1242 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1251 · skipped 0 · fixme 49
+- **Listelenen test:** 1314 / 144 dosya
+- **coverageStatus:** verified 0 · partial 1256 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1265 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -30,7 +30,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
 | supervisor | 98 | 88 | 0 | 10 |
-| tickets | 6 | 6 | 0 | 0 |
+| tickets | 20 | 20 | 0 | 0 |
 | voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
 
@@ -1613,16 +1613,35 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L2/L3: "Move call" hedef seçme diyaloğu açar ve taşıma isteği atar (staging mutation) | @regression | L2 | fixme | blocked | low | list-exec+title-inferred |
 | BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 
+### `tickets-interactions.authed.spec.js` — _tickets_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sekmeler tek-seçim dışlayıcı (aria-selected) | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| ticket tablosu kolonları + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+| arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
+| eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı") | @ix-empty | — | listed-only | partial | medium | list-exec |
+
 ### `tickets.authed.spec.js` — _tickets_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
 |---|---|---|---|---|---|---|
 | tablo beklenen kolonları gösteriyor | @critical | — | listed-only | partial | medium | list-exec |
-| sekmeler (All / My Tickets / Unassigned / Urgent) görünüyor |  | — | listed-only | partial | medium | list-exec |
+| sekmeler (All / My Tickets / Unassigned / Urgent) görünüyor | @smoke | — | listed-only | partial | medium | list-exec |
 | en az bir ticket listeleniyor | @smoke | — | listed-only | partial | medium | list-exec |
 | arama: ticket numarasına göre tek sonuca filtreliyor | @critical | — | listed-only | partial | medium | list-exec |
 | sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor |  | — | listed-only | partial | medium | list-exec |
 | arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor |  | — | listed-only | partial | medium | list-exec |
+| [en] yön + başlık + sekmeler + kolonlar çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] yön + başlık + sekmeler + kolonlar çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] yön + başlık + sekmeler + kolonlar çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] yön + başlık + sekmeler + kolonlar çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| TICKETS-TABS-ARIA · /tickets · sekmeler geçerli ARIA attribute değeri taşımalı (aria-valid-attr-value) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /tickets doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| Create Ticket dialogu odak tuzağı + Escape ile kapanma (GÖNDERİLMEZ) | @keyboard | — | listed-only | partial | medium | list-exec |
+| tickets listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `voice-call.mutation.authed.spec.js` — _voice_
 

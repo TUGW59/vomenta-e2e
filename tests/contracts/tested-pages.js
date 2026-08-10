@@ -1647,6 +1647,33 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
+  {
+    // TIER-1: /tickets nav-blanket → dedicated L2·deep. 4-dil i18n canlı gözlenip POM.I18N'e
+    // kodlandı (fr başlığı çevrilmiyor — gözlenen gerçek). Stil: @i18n/@a11y/@layout/@clean/
+    // @deeplink/@keyboard/@errorpath. Etkileşim: @ix-tabs + @ix-table + @ix-filter + @ix-empty
+    // (tickets-interactions), prod'da yeşil. Create Ticket MODAL (hasDialogs → @keyboard geçerli).
+    id: 'tickets',
+    surfaceIds: ['tickets'],
+    specFiles: ['tickets.authed.spec.js', 'tickets-interactions.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Ticket tablosu canlı veri (numara/konu/durum/tarih) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Create Ticket kalıcı yazar → L3 staging; prod read-only\'de L1 (dialog aç + Escape, gönderilmez).',
+    },
+    naInteraction: {
+      'pagination-sort': 'Read-only tek-sayfa görünüm; ayrı pager/sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**
