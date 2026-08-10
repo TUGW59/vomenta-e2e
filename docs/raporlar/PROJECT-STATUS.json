@@ -20,19 +20,19 @@
     "byRollup": {
       "BLOCKED": 9,
       "L2_DEEP": 37,
-      "L2_STYLE": 25,
-      "NO_CONTRACT": 21
+      "L2_STYLE": 26,
+      "NO_CONTRACT": 20
     },
     "deprecated": 0,
     "redirect": 0,
     "blocked": 9,
     "fail": 0,
     "notRun": 0,
-    "noContract": 21,
+    "noContract": 20,
     "l1StyleGap": 0,
-    "l2Style": 25,
+    "l2Style": 26,
     "l2Deep": 37,
-    "interactionUnverified": 30,
+    "interactionUnverified": 29,
     "surfacesWithOpenFindings": 34,
     "openFindingsTotal": 59,
     "byArea": {
@@ -2693,9 +2693,11 @@
       "navigation": "secondary",
       "runtimePolicy": "readonly-baseline",
       "baseline": "runnable",
-      "inventoryStatus": "NO_COVERAGE_CONTRACT",
-      "hasCoverageContract": false,
-      "coverageContractIds": [],
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "supervisor-calls"
+      ],
       "depthMatched": true,
       "runtime": {
         "l1": "PROVEN",
@@ -2703,13 +2705,13 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "NOT_COVERED",
-        "highest": "L1",
-        "styleContractMet": false,
-        "styleCoveredOrExempt": 0,
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 5,
         "styleRequiredCount": 5,
         "interactionVerified": false,
-        "interactionApplicableCount": 6,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
@@ -2717,7 +2719,7 @@
         "open": 0,
         "ids": []
       },
-      "rollup": "NO_CONTRACT"
+      "rollup": "L2_STYLE"
     },
     {
       "id": "supervisor-coaching",

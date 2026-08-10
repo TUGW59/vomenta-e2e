@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1337 / 146 dosya
-- **coverageStatus:** verified 0 · partial 1279 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1288 · skipped 0 · fixme 49
+- **Listelenen test:** 1341 / 146 dosya
+- **coverageStatus:** verified 0 · partial 1283 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1292 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,7 +29,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 111 | 101 | 0 | 10 |
+| supervisor | 115 | 105 | 0 | 10 |
 | tickets | 20 | 20 | 0 | 0 |
 | voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
@@ -1506,11 +1506,15 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | başlık ve alt başlık görünüyor | @smoke @critical | — | listed-only | partial | medium | list-exec |
 | canlı AI çağrısı yokken boş-durum gösteriliyor |  | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + alt başlık + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + alt başlık + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + alt başlık + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + alt başlık + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri) | @regression | L1 | fixme | blocked | low | list-exec+title-inferred |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /supervisor/calls doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
 ### `supervisor-agents-interactions.authed.spec.js` — _supervisor_
 

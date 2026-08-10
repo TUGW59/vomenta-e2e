@@ -3424,7 +3424,9 @@
         "webkit-authed"
       ],
       "surface": "supervisor",
-      "routes": [],
+      "routes": [
+        "/supervisor/calls"
+      ],
       "capabilities": [
         "auth:default"
       ],

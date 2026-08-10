@@ -1767,6 +1767,28 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
+  {
+    // Option A (STYLE): /supervisor/calls (Agent Live) L1 → dedicated L2·style.
+    // Minimal cockpit: veri/liste/kontrol yüzeyi YOK (yalnız boş-durum "No live AI calls")
+    // → hasData=false; etkileşim boyutları geçerli değil (interaction resolved-exempt).
+    // Dedicated STİL: @i18n/@a11y/@layout/@clean/@deeplink (baseline). SALT-OKUNUR.
+    id: 'supervisor-calls',
+    surfaceIds: ['supervisor-calls'],
+    specFiles: ['supervisor-agent-live.authed.spec.js'],
+    archetype: {
+      hasData: false,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Minimal boş-durum sayfası → kararlı snapshot bölgesi/lane bu pakette açılmadı.',
+    },
+  },
 ]);
 
 /**

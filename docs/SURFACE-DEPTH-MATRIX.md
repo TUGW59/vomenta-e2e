@@ -13,14 +13,14 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 92 · sözleşme sayfası: 54
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 55
 - **L1:** PROVEN 83 · not-proven 9
-- **L2 stil sözleşmesi:** karşılandı 69 · gerçek boşluk 23
-- **L2 durum:** COMPLETE 37 · PARTIAL 32 · NOT_COVERED 23
-- **Etkileşim derinliği tam doğrulanmayan rota:** 30 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 stil sözleşmesi:** karşılandı 70 · gerçek boşluk 22
+- **L2 durum:** COMPLETE 37 · PARTIAL 33 · NOT_COVERED 22
+- **Etkileşim derinliği tam doğrulanmayan rota:** 29 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 51 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 14 · L2·style 32 · L2·deep 37
+- **En yüksek seviye dağılımı:** L0 9 · L1 13 · L2·style 33 · L2·deep 37
 - **Bilinen bulgu:** 62 (open 61 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 59 (34 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -96,7 +96,7 @@
 | `/settings/webhooks` | settings-webhooks | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/agents` | supervisor-agents | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider | AGENTS-TZ(medium/open) |
-| `/supervisor/calls` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/supervisor/calls` | supervisor-calls | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/coaching` | supervisor-coaching | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor/interactions` | supervisor-interactions | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/wallboard` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
@@ -195,7 +195,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/settings/webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | N/A | N/A |
 | `/supervisor` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/supervisor/agents` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — | ✅ | — |
-| `/supervisor/calls` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/calls` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | N/A | — | — | — |
 | `/supervisor/coaching` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — | ✅ | — |
 | `/supervisor/interactions` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | N/A | — | — | — |
 | `/supervisor/wallboard` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
@@ -294,7 +294,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/settings/webhooks` | — | N/A | N/A | N/A | ✅ | N/A |
 | `/supervisor` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/agents` | — | ✅ | ✅ | N/A | ✅ | N/A |
-| `/supervisor/calls` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/calls` | — | — | — | — | — | — |
 | `/supervisor/coaching` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/supervisor/interactions` | — | N/A | N/A | N/A | N/A | N/A |
 | `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
