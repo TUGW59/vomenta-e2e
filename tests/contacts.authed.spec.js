@@ -2,7 +2,13 @@
 import fs from 'node:fs';
 import { test, expect } from './fixtures/test.js';
 import { ContactsPage } from './pages/ContactsPage.js';
-import { knownBugGuard } from './helpers.js';
+import {
+  knownBugGuard,
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+} from './helpers.js';
 
 /**
  * KİŞİLER (`/contacts` = "People") — salt-okunur.
@@ -59,7 +65,7 @@ test.describe('Kişiler — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL ÇEVİRİ GUARD'LARI ────────────────────────
-test.describe("Kişiler — 4 dil çeviri guard'ları @regression", () => {
+test.describe("Kişiler — 4 dil çeviri guard'ları @i18n @regression", () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili`, async ({ app }) => {
       const c = app.contacts;
@@ -286,7 +292,7 @@ test.describe('Kontrol: Import @regression', () => {
 
 // ═══════════════ KONTROL: EXPORT (L1 + L2 + L3) ═══════════════
 // Export POST /contacts/export atar + CSV indirir; veri DEĞİŞTİRMEZ → canlıda güvenli.
-test.describe('Kontrol: Export @regression', () => {
+test.describe('Kontrol: Export @export @regression', () => {
   test('L1 tıklama OK: Export tıklanınca indirme başlıyor', async ({ app, page }) => {
     const c = app.contacts;
     await c.open();
@@ -522,5 +528,65 @@ test.describe('Kişiler — bilinen çeviri sızıntıları (BULGU) @regression'
     // Quick Actions render olsun (kardeş "Merge Contacts" butonu doğru etiketli) — sonra sızıntıyı kontrol et
     await expect(c.page.getByRole('button', { name: 'Merge Contacts' })).toBeVisible({ timeout: 15000 });
     await expect(c.page.getByText('contacts.delete', { exact: true })).toHaveCount(0);
+  });
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (dedicated dim'ler) ═══════════════════════
+// TIER-1: /contacts nav-blanket → dedicated L2. Aşağıdaki boyutlar dedicated arketip
+// gereği zorunlu (style-coverage): @a11y @layout @clean @deeplink @keyboard @errorpath.
+// @i18n (4-dil describe) + @export (Export describe) yukarıda etiketli. @mutation → naStyles.
+// Hepsi SALT-OKUNUR (mutasyon yok).
+
+test.describe('Kişiler — erişilebilirlik @a11y', () => {
+  test('sayfada ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const c = app.contacts;
+    await c.open();
+    await expectNoSevereA11y(c.page);
+  });
+});
+
+test.describe('Kişiler — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/contacts');
+  });
+});
+
+// @clean — CONTACTS-F1 bilinen hatası: /contacts açılışında satır "callContact" i18n
+// anahtarı eksik (MISSING_MESSAGE) → konsola error basılıyor (aria-label sızıntısıyla
+// aynı kök). Sayfa temiz DEĞİL; known-bug guard ile expected-fail olarak sabitlenir
+// (voice-voicemail VOICEMAIL-PAGER-I18N deseni).
+test.describe('Kişiler — console/ağ temizliği @clean @known-bug', () => {
+  test('CONTACTS-F1 · /contacts · açılışta ham i18n anahtarı (callContact) / MISSING_MESSAGE olmamalı', async ({ app, diagnostics }) => {
+    knownBugGuard(test, 'CONTACTS-F1');
+    const c = app.contacts;
+    await c.open();
+    await waitForUiToSettle(c.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Kişiler — deep-link @deeplink', () => {
+  test('/contacts doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const c = app.contacts;
+    await page.goto('/contacts', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(c.shell.loginHeading).toBeHidden();
+    await expect(c.heading).toHaveText(ContactsPage.I18N.en.heading);
+  });
+});
+
+// NOT: /contacts liste görünümünde MODAL dialog yok — "New Contact" ayrı bir SAYFADIR
+// (/contacts/new), filtreler dropdown/listbox'tır. Dolayısıyla @keyboard (dialog odak
+// tuzağı) bu yüzeyde geçerli değil → archetype.hasDialogs=false (style-coverage @keyboard
+// istemiyor). Form-sayfası klavye akışı ayrı /contacts/new sözleşmesine aittir.
+
+test.describe('Kişiler — hata-yolu @errorpath', () => {
+  test('contacts listesi 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${ContactsPage.API.contacts}**`, { status: 500 });
+    const c = app.contacts;
+    await page.goto('/contacts', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(c.shell.loginHeading).toBeHidden();
+    await expect(c.heading).toHaveText(ContactsPage.I18N.en.heading);
   });
 });

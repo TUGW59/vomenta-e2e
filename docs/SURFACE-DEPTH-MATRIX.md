@@ -13,14 +13,14 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 92 · sözleşme sayfası: 49
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 50
 - **L1:** PROVEN 83 · not-proven 9
 - **L2 stil sözleşmesi:** karşılandı 66 · gerçek boşluk 26
-- **L2 durum:** COMPLETE 33 · PARTIAL 33 · NOT_COVERED 26
-- **Etkileşim derinliği tam doğrulanmayan rota:** 35 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
-- **L3:** BLOCKED(staging) 47 · N/A(no-write) 45
+- **L2 durum:** COMPLETE 34 · PARTIAL 32 · NOT_COVERED 26
+- **Etkileşim derinliği tam doğrulanmayan rota:** 34 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L3:** BLOCKED(staging) 48 · N/A(no-write) 44
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 33 · L2·deep 33
+- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 32 · L2·deep 34
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -51,7 +51,7 @@
 | `/channels/video` | channels-video | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B25(medium/open) |
 | `/channels/webchat` | channels-webchat | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | B20(medium/open) |
 | `/channels/whatsapp` | channels-whatsapp | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | B19(medium/open) B23(medium/open) |
-| `/contacts` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | CONTACTS-F1(medium/open) CONTACTS-F2(medium/open) |
+| `/contacts` | contacts,main-navigation | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider | CONTACTS-F1(medium/open) CONTACTS-F2(medium/open) |
 | `/contacts/import` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/contacts/segments` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/contacts/:id` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -150,7 +150,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/channels/video` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | ✅ | N/A | ✅ | N/A |
 | `/channels/webchat` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A |
 | `/channels/whatsapp` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
-| `/contacts` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
+| `/contacts` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | N/A | — | — | ✅ |
 | `/contacts/import` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/contacts/segments` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/contacts/:id` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
@@ -249,7 +249,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/channels/video` | — | N/A | N/A | N/A | N/A | N/A |
 | `/channels/webchat` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/channels/whatsapp` | — | N/A | N/A | N/A | N/A | N/A |
-| `/contacts` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/contacts` | — | ✅ | ✅ | N/A | ✅ | N/A |
 | `/contacts/import` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts/segments` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/contacts/:id` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -321,6 +321,6 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 
 ## Staging/rol/provider nedeniyle bloklu seviyeler
 
-- **L3 (mutation/CRUD):** 47 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 45 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
+- **L3 (mutation/CRUD):** 48 rota yazma yüzeyine sahip → `STAGING_REQUIRED` (production read-only'de kanıtlanamaz). 44 rota yazma yüzeyi yok → `NO_WRITE_SURFACE`.
 - **L4 (rol/permission/tenant):** 92 rota → `ROLE_ACCOUNTS_REQUIRED` (rol/tenant hesap altyapısı yok).
 - **L5 (uçtan-uca provider):** 92 rota → `PROVIDER_HARNESS_REQUIRED` (SMS/çağrı/e-posta/WhatsApp test koşum-takımı yok).
