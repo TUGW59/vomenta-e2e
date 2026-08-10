@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 144,
-    "productionSafeReadOnly": 108,
+    "totalSpecs": 145,
+    "productionSafeReadOnly": 109,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 108,
+      "read-only": 109,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 143,
+      "authenticated": 144,
       "public": 1
     },
     "byEnvironment": {
-      "both": 108,
+      "both": 109,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -133,6 +133,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -172,7 +173,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -252,6 +253,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -291,7 +293,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -371,6 +373,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -411,7 +414,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -491,6 +494,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -530,7 +534,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -610,6 +614,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -649,7 +654,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 105,
+      "selectedSpecFileCount": 106,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -729,6 +734,7 @@
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
+        "tests/tickets-interactions.authed.spec.js",
         "tests/tickets.authed.spec.js",
         "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
@@ -3513,6 +3519,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/tickets-interactions.authed.spec.js",
+      "pathPattern": "tests/tickets-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "tickets",
+      "routes": [
+        "/tickets"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/tickets.authed.spec.js",
       "pathPattern": "tests/tickets.authed.spec.js",
       "kind": "authed",
@@ -3526,7 +3558,9 @@
         "webkit-authed"
       ],
       "surface": "tickets",
-      "routes": [],
+      "routes": [
+        "/tickets"
+      ],
       "capabilities": [
         "auth:default"
       ],
