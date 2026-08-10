@@ -1737,6 +1737,36 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
+  {
+    // Option A (STYLE): /supervisor/interactions L1 → dedicated L2·style (resolved-exempt).
+    // Canlı-izleme sayfası test tenant'ında BOŞ ("No active interactions") → etkileşim
+    // derinliği yüzeyi fiziksel olarak yok → TÜM @ix-* boyutları naInteraction (applicable=0).
+    // Dedicated STİL sözleşmesi: @i18n/@a11y/@layout/@clean/@deeplink/@errorpath. Derin DEĞİL,
+    // dürüst exempt (canlı etkileşim/staging'de deep yeniden değerlendirilir).
+    id: 'supervisor-interactions',
+    surfaceIds: ['supervisor-interactions'],
+    specFiles: ['supervisor-interactions.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Canlı-izleme/boş-durum içeriği → kararlı snapshot bölgesi yok.',
+    },
+    naInteraction: {
+      'search-filter': 'Boş canlı-izleme (aktif etkileşim yok); aranacak satır yok → daraltma gözlemlenemiyor.',
+      'table-list': 'Aktif etkileşim yokken tablo boş-durumda ("No active interactions") → dolu-satır yok.',
+      'empty-state': 'Boş-durum doğal (native); aramayla-tetiklenen boş-durum yüzeyi yok.',
+      'pagination-sort': 'Boş liste → pager/sıralama yüzeyi yok.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

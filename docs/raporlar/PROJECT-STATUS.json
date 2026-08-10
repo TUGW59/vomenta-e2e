@@ -20,19 +20,19 @@
     "byRollup": {
       "BLOCKED": 9,
       "L2_DEEP": 37,
-      "L2_STYLE": 24,
-      "NO_CONTRACT": 22
+      "L2_STYLE": 25,
+      "NO_CONTRACT": 21
     },
     "deprecated": 0,
     "redirect": 0,
     "blocked": 9,
     "fail": 0,
     "notRun": 0,
-    "noContract": 22,
+    "noContract": 21,
     "l1StyleGap": 0,
-    "l2Style": 24,
+    "l2Style": 25,
     "l2Deep": 37,
-    "interactionUnverified": 31,
+    "interactionUnverified": 30,
     "surfacesWithOpenFindings": 34,
     "openFindingsTotal": 59,
     "byArea": {
@@ -2767,9 +2767,11 @@
       "navigation": "secondary",
       "runtimePolicy": "readonly-baseline",
       "baseline": "runnable",
-      "inventoryStatus": "NO_COVERAGE_CONTRACT",
-      "hasCoverageContract": false,
-      "coverageContractIds": [],
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "supervisor-interactions"
+      ],
       "depthMatched": true,
       "runtime": {
         "l1": "PROVEN",
@@ -2777,13 +2779,13 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "NOT_COVERED",
-        "highest": "L1",
-        "styleContractMet": false,
-        "styleCoveredOrExempt": 0,
-        "styleRequiredCount": 5,
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
         "interactionVerified": false,
-        "interactionApplicableCount": 6,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
@@ -2791,7 +2793,7 @@
         "open": 0,
         "ids": []
       },
-      "rollup": "NO_CONTRACT"
+      "rollup": "L2_STYLE"
     },
     {
       "id": "supervisor-wallboard",

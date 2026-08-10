@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1268
+- **Test edilen senaryo:** 1273
 - **Test dosyası:** 109
-- **Etiketler:** `@a11y` 70 · `@clean)` 7 · `@clean` 57 · `@critical` 72 · `@data` 30 · `@deeplink` 55 · `@errorpath` 54 · `@export` 6 · `@i18n` 238 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 63 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
+- **Etiketler:** `@a11y` 71 · `@clean)` 7 · `@clean` 58 · `@critical` 72 · `@data` 30 · `@deeplink` 56 · `@errorpath` 55 · `@export` 6 · `@i18n` 242 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 64 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1226,13 +1226,18 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - tablo beklenen kolonları gösteriyor  `@critical`
 - kontroller mevcut (kanal filtresi / arama)
 - aktif etkileşim yokken boş-durum gösteriliyor
-- [en] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
-- [tr] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
-- [fr] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
-- [ar] başlık + yön + kanal filtresi + boş-durum çevrili  `@regression`
+- [en] başlık + yön + kanal filtresi + boş-durum çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + kanal filtresi + boş-durum çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + kanal filtresi + boş-durum çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + kanal filtresi + boş-durum çevrili  `@i18n` `@regression`
 - L1 tıklama OK: menü açılıyor ve kanal seçenekleri görünüyor  `@regression`
 - L2 arka plan OK: kanal seçince interactions API'sini channel parametresiyle çağırıyor  `@regression` `@critical`
 - L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /supervisor/interactions doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- interactions ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 
 ### `supervisor-wallboard.authed.spec.js`
 

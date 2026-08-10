@@ -43,6 +43,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `supervisor-agents` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `supervisor-coaching` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
+| `supervisor-interactions` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — |
 | `tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A |
 | `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
@@ -118,6 +119,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-webhooks**: `/settings/webhooks`
 - **supervisor-agents**: `/supervisor/agents`
 - **supervisor-coaching**: `/supervisor/coaching`
+- **supervisor-interactions**: `/supervisor/interactions`
 - **tickets**: `/tickets`
 - **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
@@ -246,6 +248,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `supervisor-agents` **@mutation**: Force durum değişikliği staging mutation; prod read-only'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme'de.
 - `supervisor-coaching` **@visual**: İstatistik döşemeleri + tablo canlı/tenant-bağlı → kararlı snapshot bölgesi yok.
 - `supervisor-coaching` **@mutation**: New Evaluation kalıcı kayıt oluşturur → L3 staging; prod read-only'de L1 (dialog aç + Cancel/route-yakala, gönderilmez).
+- `supervisor-interactions` **@visual**: Canlı-izleme/boş-durum içeriği → kararlı snapshot bölgesi yok.
 - `tickets` **@visual**: Ticket tablosu canlı veri (numara/konu/durum/tarih) → kararlı snapshot bölgesi yok.
 - `tickets` **@mutation**: Create Ticket kalıcı yazar → L3 staging; prod read-only'de L1 (dialog aç + Escape, gönderilmez).
 - `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
@@ -404,7 +407,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `supervisor-ai-rate-suggestions` | `/supervisor/ai-rate-suggestions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-calls` | `/supervisor/calls` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
-| `supervisor-interactions` | `/supervisor/interactions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-interactions` | `/supervisor/interactions` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — | ✔ |
 | `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `tickets` | `/tickets` | tickets | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A | ✔ |
 | `voice` | `/voice` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — | ✔ |
