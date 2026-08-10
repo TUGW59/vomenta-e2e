@@ -145,6 +145,54 @@ function prepareReconcileLane(lane) {
   });
 }
 
+/**
+ * nightly draft-findings adapter'ı: report:draft'ın ürettiği draft-summary.json'u şema +
+ * secret doğrular. YALNIZ AGGREGATE ÖZET yüklenir (counts + note + provenance); tekil
+ * `drafts/*.json` gövdeleri (sayfa metni içerebilir) local/forensik kalır, upload EDİLMEZ.
+ * Registry değişmez; kök-neden alanı taşımaz.
+ */
+function prepareDraftLane(lane) {
+  const src = resolve(root, 'test-results', 'findings', '_drafts', 'draft-summary.json');
+  if (!existsSync(src)) {
+    throw new ArtifactPolicyError(RULES.ART_EMPTY, 'draft-summary.json', 'kaynak özet yok (önce npm run report:draft)');
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(readFileSync(src, 'utf8'));
+  } catch {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'draft-summary.json', 'geçersiz JSON');
+  }
+  if (!parsed || typeof parsed !== 'object' || !parsed.counts || typeof parsed.counts !== 'object') {
+    throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'draft-summary.json', 'counts nesnesi yok');
+  }
+  // Kök-neden alanı taşınmaz (doktrin: otomasyon kök-neden UYDURMAZ).
+  for (const forbidden of ['rootCause', 'rootCauseCandidate', 'possibleCauses']) {
+    if (forbidden in parsed) {
+      throw new ArtifactPolicyError(RULES.ART_SCHEMA, 'draft-summary.json', `yasak alan ${forbidden}`);
+    }
+  }
+  const counts = {};
+  for (const k of ['REAL-RED', 'FIXED-CANDIDATE', 'FLAKY', 'KNOWN-BUG-GREEN', 'GREEN']) {
+    counts[k] = Number.isInteger(parsed.counts[k]) ? parsed.counts[k] : 0;
+  }
+  const prov = parsed.provenance && typeof parsed.provenance === 'object' ? parsed.provenance : {};
+  const safe = {
+    counts,
+    total: Number.isInteger(parsed.total) ? parsed.total : 0,
+    provenance: {
+      runUrl: typeof prov.runUrl === 'string' ? prov.runUrl.slice(0, 300) : null,
+      commit: typeof prov.commit === 'string' ? prov.commit.slice(0, 40) : null,
+      capturedAt: typeof prov.capturedAt === 'string' ? prov.capturedAt.slice(0, 40) : null,
+    },
+    note: typeof parsed.note === 'string' ? parsed.note.slice(0, 500) : '',
+  };
+  return finalizeBundle({
+    lane,
+    files: { 'draft-summary.json': JSON.stringify(safe, null, 2) + '\n' },
+    excludedLocalOnly: ['raw-test-results', 'draft-bodies'],
+  });
+}
+
 /** flattenRuntimeTests kaydını buildCanonicalModel'in beklediği düz şekle indirger. */
 function flatToCanonicalInput(rec) {
   return {
@@ -366,6 +414,7 @@ function main() {
   let result;
   try {
     if (lane === 'nightly-known-bug-reconcile') result = prepareReconcileLane(lane);
+    else if (lane === 'known-bug-draft') result = prepareDraftLane(lane);
     else if (lane === 'discovery-baseline') result = prepareDiscoveryBaselineLane(lane);
     else if (lane === 'known-bug-evidence') result = prepareEvidenceLane(lane, opts);
     else if (lane === 'readonly-audit-shard') result = prepareShardLane(lane, opts);

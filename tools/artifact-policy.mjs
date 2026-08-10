@@ -59,6 +59,7 @@ export const LANES = Object.freeze([
   'known-bug-forensic',
   'known-bug-verification',
   'known-bug-evidence',
+  'known-bug-draft',
 ]);
 
 /** Stabil rule ID kaydı — ihlaller bu id'lerle raporlanır (hassas değer ASLA loglanmaz). */
@@ -249,6 +250,24 @@ export const LANE_POLICY = Object.freeze({
     validatorId: 'safe-summary@1',
     mode: 'prepared',
     secureRoot: join(SECURE_UPLOAD_ROOT, 'discovery-baseline'),
+  }),
+  'known-bug-draft': Object.freeze({
+    lane: 'known-bug-draft',
+    // NEDEN: nightly draft-findings YALNIZ REAL-RED taslak ÖNERİSİ üretir (registry değişmez).
+    // PRODUCER: npm run report:draft → test-results/findings/_drafts/draft-summary.json;
+    //   prepare-ci-artifact.mjs (prepareDraftLane) şema + secret-scan ile kanonik yeniden-emit eder.
+    //   Taslak `drafts/*.json` gövdeleri sayfa metni içerebileceğinden YALNIZ özet yüklenir;
+    //   detay local/forensik kalır. VALIDATOR: safe-summary@1 (finalizeBundle: JSON + secret/PII + FS).
+    sourceKinds: Object.freeze(['draft-summary-json']),
+    allowedOutputs: Object.freeze(['draft-summary.json', 'manifest.json']),
+    screenshotPolicy: 'deny',
+    localOnlyPatterns: LOCAL_ONLY_PATTERNS,
+    maxFiles: 4,
+    maxBytesPerFile: 2 * MB,
+    maxBundleBytes: 4 * MB,
+    validatorId: 'safe-summary@1',
+    mode: 'prepared',
+    secureRoot: join(SECURE_UPLOAD_ROOT, 'known-bug-draft'),
   }),
   'known-bug-verification': Object.freeze({
     lane: 'known-bug-verification',
