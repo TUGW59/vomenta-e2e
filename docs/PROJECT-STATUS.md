@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 37 · **L2·style (unverified):** 26 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 20 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 29
+- **L2·deep:** 38 · **L2·style (unverified):** 26 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 19 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 28
 - **Açık bulgu:** 59 (34 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,9 +28,9 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 37 |
+| ✅ L2·deep | 38 |
 | 🟡 L2·style (unverified) | 26 |
-| 🟠 NO_CONTRACT | 20 |
+| 🟠 NO_CONTRACT | 19 |
 
 ### Alan (area) dağılımı
 
@@ -63,7 +63,7 @@
 | ai-prompts | /ai/prompts | ai | — | ✅ | NOT_COVERED | 0/6 | L1 | 1 | 🟠 NO_CONTRACT |
 | ai-providers | /ai/providers | ai | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | ai-sentiment | /ai/sentiment | ai | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
-| ai-usage | /ai/usage | ai | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
+| ai-usage | /ai/usage | ai | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | ai-voice | /ai/voice | ai | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | analytics | /analytics | analytics | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 3 | 🟠 NO_CONTRACT |
 | bot-builder | /bot-builder | bot-builder | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
