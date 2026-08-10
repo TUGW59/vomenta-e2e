@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 145,
-    "productionSafeReadOnly": 109,
+    "totalSpecs": 146,
+    "productionSafeReadOnly": 110,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 109,
+      "read-only": 110,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 144,
+      "authenticated": 145,
       "public": 1
     },
     "byEnvironment": {
-      "both": 109,
+      "both": 110,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -61,6 +61,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -173,7 +174,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -181,6 +182,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -293,7 +295,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -301,6 +303,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -414,7 +417,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -422,6 +425,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -534,7 +538,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -542,6 +546,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -654,7 +659,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 106,
+      "selectedSpecFileCount": 107,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -662,6 +667,7 @@
         "tests/analytics.authed.spec.js",
         "tests/bot-builder-editor.authed.spec.js",
         "tests/bot-builder.authed.spec.js",
+        "tests/campaigns-outbound-interactions.authed.spec.js",
         "tests/campaigns-outbound.authed.spec.js",
         "tests/channels-email.authed.spec.js",
         "tests/channels-hub.authed.spec.js",
@@ -933,6 +939,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/campaigns-outbound-interactions.authed.spec.js",
+      "pathPattern": "tests/campaigns-outbound-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "campaigns",
+      "routes": [
+        "/campaigns/outbound"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/campaigns-outbound.authed.spec.js",
       "pathPattern": "tests/campaigns-outbound.authed.spec.js",
       "kind": "authed",
@@ -946,7 +978,9 @@
         "webkit-authed"
       ],
       "surface": "campaigns",
-      "routes": [],
+      "routes": [
+        "/campaigns/outbound"
+      ],
       "capabilities": [
         "auth:default"
       ],
