@@ -18,12 +18,12 @@
 | Kontrol | Değerler | Uyumlu | Not |
 |---|---|---|---|
 | Kayıtlı rota sayısı | runtime=87, depth=92 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
-| Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=62 | ❌ | Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır. |
-| Açık bulgu | runtimeSnapshot=60, findingsRegistry=61 | ❌ | Açık bulgu sayısı kaynaklar arası farklı. |
+| Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=63 | ❌ | Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır. |
+| Açık bulgu | runtimeSnapshot=60, findingsRegistry=62 | ❌ | Açık bulgu sayısı kaynaklar arası farklı. |
 
 - ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
-- ⚠️ Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.
-- ⚠️ Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.
+- ⚠️ Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=63). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.
+- ⚠️ Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=62). Açık bulgu sayısı kaynaklar arası farklı.
 - ⚠️ Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
 
 ## 1) Son koşumda ne çalıştı ve ne geçti? (runtime)
@@ -40,24 +40,24 @@
 
 - **Kayıtlı rota (depth):** 92
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
-- **L2 complete:** 37 · **L2 partial:** 33 · **L2 not-covered:** 22 · _(stil sözleşmesi karşılanan: 70; etkileşim doğrulanmamış rota: 29)_
+- **L2 complete:** 37 · **L2 partial:** 34 · **L2 not-covered:** 21 · _(stil sözleşmesi karşılanan: 71; etkileşim doğrulanmamış rota: 28)_
 - **L3:** proven 0 · blocked 51 · N/A 41
 - **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
-- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 13 · L2-stil 33 · L2-deep 37
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 12 · L2-stil 34 · L2-deep 37
 
 > ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **37**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
-- **Toplam bulgu:** 62 · **açık:** 61 · **kapalı:** 1 · **fixed-candidate:** 0
-- **Açık (severity):** 🔴 critical 1 · 🟠 high 8 · 🟡 medium 45 · ⚪ low 7
+- **Toplam bulgu:** 63 · **açık:** 62 · **kapalı:** 1 · **fixed-candidate:** 0
+- **Açık (severity):** 🔴 critical 1 · 🟠 high 8 · 🟡 medium 46 · ⚪ low 7
 
 ### En fazla açık bulguya sahip sayfalar
 
 | rota | açık bulgu | en ağır | dağılım |
 |---|---|---|---|
+| /supervisor/wallboard | 6 | medium | medium:5, low:1 |
 | /settings | 5 | high | high:3, medium:2 |
-| /supervisor/wallboard | 5 | medium | medium:4, low:1 |
 | /voice/regulatory | 3 | critical | critical:1, high:1, medium:1 |
 | /analytics | 3 | medium | medium:3 |
 | /channels/email | 3 | medium | medium:3 |

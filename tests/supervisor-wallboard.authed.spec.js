@@ -1,6 +1,13 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
-import { assertLocalClock, knownBugGuard } from './helpers.js';
+import {
+  assertLocalClock,
+  knownBugGuard,
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+} from './helpers.js';
 import { WallboardPage } from './pages/WallboardPage.js';
 
 /**
@@ -69,7 +76,7 @@ test.describe('Duvar Panosu — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL ÇEVİRİ GUARD'LARI ────────────────────────
-test.describe('Duvar Panosu — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Duvar Panosu — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + tema/kontrol etiketleri çevrili`, async ({ app }) => {
       const wallboard = app.wallboard;
@@ -294,5 +301,58 @@ test.describe('Duvar Panosu — bilinen hatalar (i18n) @regression @known-bug', 
     await expect(wallboard.saveLayout(I18N.tr.saveLayout)).toBeVisible();
     await expect(wallboard.page.getByRole('button', { name: 'Refresh All' })).toHaveCount(0);
     await expect(wallboard.page.getByRole('button', { name: 'Auto-scroll' })).toHaveCount(0);
+  });
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (Option A: L1 → dedicated L2·style) ═══════════════════════
+// Canlı duvar panosu (kuyruk kartları + gerçek-zaman). Etkileşimli tablo/sekme/arama YOK
+// (kartlar + toggle'lar) → etkileşim derinliği resolved-exempt. Dedicated STİL: @i18n (yukarıda) +
+// @a11y/@layout/@clean/@deeplink/@errorpath. Bilinen bulgular (I18N/THEME/AUTOSCROLL/TZ/RESUME)
+// kendi known-bug testlerinde. SALT-OKUNUR.
+
+// @a11y — WALLBOARD-A11Y-LABEL bilinen hatası: kontrol çubuğunda etiketsiz form kontrolü
+// (axe label critical) → known-bug guard ile expected-fail (voice-history deseni).
+test.describe('Duvar Panosu — erişilebilirlik @a11y @known-bug', () => {
+  test('WALLBOARD-A11Y-LABEL · /supervisor/wallboard · kontroller erişilebilir etiket taşımalı (label)', async ({ app }) => {
+    knownBugGuard(test, 'WALLBOARD-A11Y-LABEL');
+    const w = app.wallboard;
+    await w.open();
+    await expectNoSevereA11y(w.page);
+  });
+});
+
+test.describe('Duvar Panosu — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/supervisor/wallboard');
+  });
+});
+
+test.describe('Duvar Panosu — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const w = app.wallboard;
+    await w.open();
+    await waitForUiToSettle(w.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Duvar Panosu — deep-link @deeplink', () => {
+  test('/supervisor/wallboard doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const w = app.wallboard;
+    await page.goto('/supervisor/wallboard', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(w.shell.loginHeading).toBeHidden();
+    await expect(w.heading).toHaveText(WallboardPage.I18N.en.heading);
+  });
+});
+
+test.describe('Duvar Panosu — hata-yolu @errorpath', () => {
+  test('dashboard ucu 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${WallboardPage.API.dashboard}**`, { status: 500 });
+    const w = app.wallboard;
+    await page.goto('/supervisor/wallboard', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(w.shell.loginHeading).toBeHidden();
+    await expect(w.heading).toHaveText(WallboardPage.I18N.en.heading);
   });
 });

@@ -5,11 +5,11 @@
 
 ## Özet
 
-- **Toplam bulgu:** 62
-- **Durum:** open 61 · closed 1
-- **Guard:** knownBugGuard 60 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 9 · medium 45 · low 7
-- **Sınıf:** ürün 62 · altyapı 0
+- **Toplam bulgu:** 63
+- **Durum:** open 62 · closed 1
+- **Guard:** knownBugGuard 61 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 9 · medium 46 · low 7
+- **Sınıf:** ürün 63 · altyapı 0
 > Not: `infra` bulgular 5xx/ağ geçidi/auth-cascade arızalarıdır (gerçek ürün buggı ile karışmaz).
 
 ### Governance işaretleri
@@ -63,6 +63,7 @@
 | B7 | settings | /settings | medium | open | knownBugGuard | — |
 | SETTINGS-BILLING-REDIRECT | settings | /settings/billing | high | open | knownBugGuard | — |
 | AGENTS-TZ | supervisor | /supervisor/agents | medium | open | knownBugGuard | — |
+| WALLBOARD-A11Y-LABEL | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | quality-guild |
 | WALLBOARD-AUTOSCROLL | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-I18N | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-LIVE-TZ | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
@@ -616,6 +617,18 @@
 - **Guard testi:** `tests/supervisor-agents.authed.spec.js` → BULGU: "Last refreshed" saati yerel saat olmalı (UTC değil)
 
 ### /supervisor/wallboard
+
+**[WALLBOARD-A11Y-LABEL] /supervisor/wallboard kontrol(ler)i erişilebilir etiket taşımıyor (axe label critical)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Tüm form kontrolleri (tema seçici vb.) erişilebilir etikete sahip (axe label ihlali yok)
+- **Gerçekleşen:** axe "label" (critical) ihlali: bir kontrol (tema/filtre seçici) <label>/aria-label taşımıyor (voice-history VOICE-HISTORY-A11Y-LABEL ile aynı sistemik sınıf).
+- **Repro:** /supervisor/wallboard aç → axe (wcag2a/2aa) ile tara → label (critical) ihlalini oku
+- **Olası nedenler:** Kontrol (Select/combobox) görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: kontrol çubuğu form kontrollerine <label htmlFor> veya aria-label ekle
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-10 · **lastVerified:** 2026-08-10 · **expiry:** —
+- **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → WALLBOARD-A11Y-LABEL · /supervisor/wallboard · kontroller erişilebilir etiket taşımalı (label)
 
 **[WALLBOARD-AUTOSCROLL] Auto-scroll toggle açılıyor ama içerik kaydırmıyor** — `medium` · `open` · guard `knownBugGuard`
 

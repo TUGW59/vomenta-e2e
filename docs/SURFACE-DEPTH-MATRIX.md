@@ -13,15 +13,15 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 92 · sözleşme sayfası: 55
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 56
 - **L1:** PROVEN 83 · not-proven 9
-- **L2 stil sözleşmesi:** karşılandı 70 · gerçek boşluk 22
-- **L2 durum:** COMPLETE 37 · PARTIAL 33 · NOT_COVERED 22
-- **Etkileşim derinliği tam doğrulanmayan rota:** 29 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 stil sözleşmesi:** karşılandı 71 · gerçek boşluk 21
+- **L2 durum:** COMPLETE 37 · PARTIAL 34 · NOT_COVERED 21
+- **Etkileşim derinliği tam doğrulanmayan rota:** 28 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 51 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 13 · L2·style 33 · L2·deep 37
-- **Bilinen bulgu:** 62 (open 61 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 59 (34 rota)
+- **En yüksek seviye dağılımı:** L0 9 · L1 12 · L2·style 34 · L2·deep 37
+- **Bilinen bulgu:** 63 (open 62 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 60 (34 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
 ## Kapsam derinliği — tüm kayıtlı rotalar
@@ -99,7 +99,7 @@
 | `/supervisor/calls` | supervisor-calls | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/coaching` | supervisor-coaching | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor/interactions` | supervisor-interactions | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
-| `/supervisor/wallboard` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
+| `/supervisor/wallboard` | supervisor-wallboard | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | N/A | ⛔ rol | ⛔ provider | WALLBOARD-A11Y-LABEL(medium/open) WALLBOARD-AUTOSCROLL(medium/open) WALLBOARD-I18N(medium/open) WALLBOARD-LIVE-TZ(medium/open) WALLBOARD-RESUME-I18N(low/open) WALLBOARD-THEME(medium/open) |
 | `/supervisor/ai-rate-suggestions` |  | ⚪ L0 | ⚪ NOT_RUN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/tickets` | main-navigation,tickets | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 4/4 | ⛔ staging | ⛔ rol | ⛔ provider | TICKETS-TABS-ARIA(medium/open) |
 | `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
@@ -198,7 +198,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/supervisor/calls` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | N/A | — | — | — |
 | `/supervisor/coaching` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — | ✅ | — |
 | `/supervisor/interactions` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | N/A | — | — | — |
-| `/supervisor/wallboard` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/supervisor/wallboard` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | N/A | — | — | — |
 | `/supervisor/ai-rate-suggestions` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | — | — | — |
 | `/voice` | ✅ | ✅ | ✅ | ✅ | ✅ | N/A | ✅ | N/A | N/A | ✅ | N/A |
@@ -297,7 +297,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/supervisor/calls` | — | — | — | — | — | — |
 | `/supervisor/coaching` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/supervisor/interactions` | — | N/A | N/A | N/A | N/A | N/A |
-| `/supervisor/wallboard` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/wallboard` | — | N/A | N/A | N/A | N/A | N/A |
 | `/supervisor/ai-rate-suggestions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/tickets` | ✅ | ✅ | ✅ | N/A | ✅ | N/A |
 | `/voice` | — | N/A | N/A | N/A | N/A | N/A |

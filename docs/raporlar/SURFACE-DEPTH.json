@@ -9,10 +9,10 @@
   },
   "inventory": {
     "registeredRoutes": 92,
-    "testedPagesContracts": 55,
+    "testedPagesContracts": 56,
     "knownBugs": {
-      "total": 62,
-      "open": 61,
+      "total": 63,
+      "open": 62,
       "fixedCandidate": 0,
       "closed": 1
     }
@@ -21,24 +21,24 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 70,
-    "l2StyleGap": 22,
+    "l2StyleContractMet": 71,
+    "l2StyleGap": 21,
     "l2Complete": 37,
-    "l2Partial": 33,
-    "l2NotCovered": 22,
-    "interactionUnverifiedRoutes": 29,
+    "l2Partial": 34,
+    "l2NotCovered": 21,
+    "interactionUnverifiedRoutes": 28,
     "l3Blocked": 51,
     "l3NotApplicable": 41,
     "l4Blocked": 92,
     "l5Blocked": 92,
     "highestLevel": {
       "L0": 9,
-      "L1": 13,
-      "L2_STYLE": 33,
+      "L1": 12,
+      "L2_STYLE": 34,
       "L2_DEEP": 37
     },
     "routesWithFindings": 34,
-    "openFindingsOnRoutes": 59
+    "openFindingsOnRoutes": 60
   },
   "pages": [
     {
@@ -10246,8 +10246,10 @@
     {
       "route": "/supervisor/wallboard",
       "heading": null,
-      "contracts": [],
-      "highestProvenLevel": "L1",
+      "contracts": [
+        "supervisor-wallboard"
+      ],
+      "highestProvenLevel": "L2_STYLE",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -10256,38 +10258,39 @@
           "specFiles": []
         },
         "L2": {
-          "status": "NOT_COVERED",
+          "status": "PARTIAL",
           "style": {
-            "contractMet": false,
+            "contractMet": true,
             "requiredDimensions": [
               "i18n",
               "a11y",
               "layout",
               "clean",
-              "deeplink"
+              "deeplink",
+              "errorpath"
             ],
-            "coveredOrExempt": 0,
-            "requiredCount": 5,
-            "gaps": 5,
+            "coveredOrExempt": 6,
+            "requiredCount": 6,
+            "gaps": 0,
             "dimensions": {
               "i18n": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "a11y": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "layout": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "clean": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "deeplink": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "keyboard": {
@@ -10296,14 +10299,14 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "errorpath": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "visual": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "Canlı kuyruk/metrik kartları gerçek-zaman → kararlı snapshot bölgesi yok."
               },
               "perf": {
                 "status": "NOT_APPLICABLE",
@@ -10324,42 +10327,36 @@
           },
           "interaction": {
             "verified": false,
-            "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
-            ],
-            "applicableCount": 6,
+            "applicableDimensions": [],
+            "applicableCount": 0,
             "coveredCount": 0,
+            "surfaceArchetype": true,
             "presentSignals": [],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
@@ -10378,6 +10375,11 @@
         }
       },
       "findings": [
+        {
+          "id": "WALLBOARD-A11Y-LABEL",
+          "severity": "medium",
+          "status": "open"
+        },
         {
           "id": "WALLBOARD-AUTOSCROLL",
           "severity": "medium",

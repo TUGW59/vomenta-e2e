@@ -122,12 +122,12 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/supervisor-agents.authed.spec.js:282 | skip | VOMENTA_TEST_AGENT_EMAIL eksik |
 | tests/supervisor-coaching.authed.spec.js:167 | fixme |  |
 | tests/supervisor-interactions.authed.spec.js:114 | fixme |  |
-| tests/supervisor-wallboard.authed.spec.js:163 | skip | da güvenilir. |
-| tests/supervisor-wallboard.authed.spec.js:278 | fixme |  |
-| tests/supervisor-wallboard.authed.spec.js:279 | fixme |  |
-| tests/supervisor-wallboard.authed.spec.js:280 | fixme |  |
-| tests/supervisor-wallboard.authed.spec.js:281 | fixme |  |
-| tests/supervisor-wallboard.authed.spec.js:282 | fixme |  |
+| tests/supervisor-wallboard.authed.spec.js:170 | skip | da güvenilir. |
+| tests/supervisor-wallboard.authed.spec.js:285 | fixme |  |
+| tests/supervisor-wallboard.authed.spec.js:286 | fixme |  |
+| tests/supervisor-wallboard.authed.spec.js:287 | fixme |  |
+| tests/supervisor-wallboard.authed.spec.js:288 | fixme |  |
+| tests/supervisor-wallboard.authed.spec.js:289 | fixme |  |
 | tests/voice-call.mutation.authed.spec.js:33 | fixme | de doğrulanacak. |
 | tests/voice-call.mutation.authed.spec.js:35 | skip | VOMENTA_TEST_PHONE tanımlı değil. |
 | tests/voice-call.mutation.authed.spec.js:68 | fixme | de doğrulanacak. |
@@ -151,4 +151,4 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   _yok — tüm keşif rotaları kayıtlı._
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 70 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 71 adet — çoğunlukla `reports` alt rotaları.

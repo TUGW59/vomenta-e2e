@@ -1789,6 +1789,36 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Minimal boş-durum sayfası → kararlı snapshot bölgesi/lane bu pakette açılmadı.',
     },
   },
+  {
+    // Option A (STYLE): /supervisor/wallboard L1 → dedicated L2·style.
+    // Canlı duvar panosu (kuyruk + metrik kartları, gerçek-zaman). Etkileşimli tablo/sekme/
+    // arama YOK (kartlar + toggle'lar) → etkileşim derinliği resolved-exempt. Dedicated STİL:
+    // @i18n/@a11y/@layout/@clean/@deeplink/@errorpath. 5 bilinen bulgu (I18N/THEME/AUTOSCROLL/
+    // LIVE-TZ/RESUME-I18N) kendi known-bug testlerinde. SALT-OKUNUR.
+    id: 'supervisor-wallboard',
+    surfaceIds: ['supervisor-wallboard'],
+    specFiles: ['supervisor-wallboard.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Canlı kuyruk/metrik kartları gerçek-zaman → kararlı snapshot bölgesi yok.',
+    },
+    naInteraction: {
+      'search-filter': 'Arama/filtre yok (kart tabanlı canlı pano).',
+      'table-list': 'role=table yok; kuyruk/metrik kartları (kolon-başlıklı tablo değil).',
+      'empty-state': 'Boş-duruma ulaştıracak arama/filtre yok (read-only canlı pano).',
+      'pagination-sort': 'Kart panosu tek görünüm; pager/sıralama yok.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

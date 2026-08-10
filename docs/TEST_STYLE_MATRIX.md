@@ -45,6 +45,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `supervisor-calls` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `supervisor-coaching` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `supervisor-interactions` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — |
+| `supervisor-wallboard` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — |
 | `tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A |
 | `voice-dids` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `voice-history` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | — |
@@ -122,6 +123,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **supervisor-calls**: `/supervisor/calls`
 - **supervisor-coaching**: `/supervisor/coaching`
 - **supervisor-interactions**: `/supervisor/interactions`
+- **supervisor-wallboard**: `/supervisor/wallboard`
 - **tickets**: `/tickets`
 - **voice-dids**: `/voice/dids`
 - **voice-history**: `/voice/history`
@@ -252,6 +254,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `supervisor-coaching` **@visual**: İstatistik döşemeleri + tablo canlı/tenant-bağlı → kararlı snapshot bölgesi yok.
 - `supervisor-coaching` **@mutation**: New Evaluation kalıcı kayıt oluşturur → L3 staging; prod read-only'de L1 (dialog aç + Cancel/route-yakala, gönderilmez).
 - `supervisor-interactions` **@visual**: Canlı-izleme/boş-durum içeriği → kararlı snapshot bölgesi yok.
+- `supervisor-wallboard` **@visual**: Canlı kuyruk/metrik kartları gerçek-zaman → kararlı snapshot bölgesi yok.
 - `tickets` **@visual**: Ticket tablosu canlı veri (numara/konu/durum/tarih) → kararlı snapshot bölgesi yok.
 - `tickets` **@mutation**: Create Ticket kalıcı yazar → L3 staging; prod read-only'de L1 (dialog aç + Escape, gönderilmez).
 - `voice-dids` **@perf**: Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).
@@ -411,7 +414,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `supervisor-calls` | `/supervisor/calls` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — | ✔ |
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
 | `supervisor-interactions` | `/supervisor/interactions` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — | ✔ |
-| `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — | ✔ |
 | `tickets` | `/tickets` | tickets | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A | ✔ |
 | `voice` | `/voice` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — | ✔ |
 | `voice-dids` | `/voice/dids` | voice | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ | ✔ |
