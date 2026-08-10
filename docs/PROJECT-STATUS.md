@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 33 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 26 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 35
+- **L2·deep:** 34 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 25 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 34
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,9 +28,9 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 33 |
+| ✅ L2·deep | 34 |
 | 🟡 L2·style (unverified) | 24 |
-| 🟠 NO_CONTRACT | 26 |
+| 🟠 NO_CONTRACT | 25 |
 
 ### Alan (area) dağılımı
 
@@ -78,7 +78,7 @@
 | channels-video | /channels/video | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
 | channels-webchat | /channels/webchat | channels | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
 | channels-whatsapp | /channels/whatsapp | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
-| contacts | /contacts | contacts | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 2 | 🟠 NO_CONTRACT |
+| contacts | /contacts | contacts | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | 2 | ✅ L2·deep |
 | contacts-detail | /contacts/:id | contacts | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | contacts-import | /contacts/import | contacts | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | contacts-segments | /contacts/segments | contacts | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |

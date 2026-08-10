@@ -1618,6 +1618,35 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Liste "Live updates" ile sürekli auto-refresh eder; ayrı deterministik yükleme-iskeleti gözlenmedi (route-gecikmesi polling\'e takılır → anti-loop #3).',
     },
   },
+  {
+    // TIER-1: /contacts nav-blanket → dedicated L2·deep. Zengin mevcut spec (yapı + 4-dil
+    // i18n + arama/tag/şirket/sort/görünüm/add/import/export/segments/detay L1/L2/L3) dedicated
+    // stil sözleşmesine çıkarıldı (+@a11y/@layout/@clean/@deeplink/@keyboard/@errorpath; @i18n/@export tag).
+    // Etkileşim: @ix-table + @ix-filter + @ix-empty (contacts-interactions), prod'da yeşil.
+    id: 'contacts',
+    surfaceIds: ['contacts'],
+    specFiles: ['contacts.authed.spec.js', 'contacts-interactions.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      // Liste görünümünde MODAL dialog yok: "New Contact" ayrı SAYFA (/contacts/new),
+      // filtreler dropdown/listbox → hasDialogs=false (@keyboard bu yüzeyde geçerli değil).
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: true,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Kişi tablosu canlı veri (ad/e-posta/şirket/etiket) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'New Contact/Delete/Import kalıcı yazar → L3 staging (contacts-mutations.authed.spec.js); prod read-only\'de L1 (form aç + POST yakala, gönderilmez).',
+    },
+    naInteraction: {
+      'pagination-sort': 'Sıralama chip-tabanlı (@regression\'da L1/L2/L3 kanıtlı); read-only tek-sayfa pager gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

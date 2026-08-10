@@ -15,6 +15,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `channels-video` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | ✅ |
 | `channels-webchat` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ |
 | `channels-whatsapp` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ |
+| `contacts` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | ✅ | N/A |
 | `dashboard` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✅ | — | — |
 | `main-navigation` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `reports-dashboards` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
@@ -86,6 +87,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **channels-video**: `/channels/video`
 - **channels-webchat**: `/channels/webchat`
 - **channels-whatsapp**: `/channels/whatsapp`
+- **contacts**: `/contacts`
 - **dashboard**: `/`
 - **main-navigation**: `/`, `/inbox`, `/voice`, `/channels`, `/ai`, `/campaigns`, `/bot-builder`, `/contacts`, `/tickets`, `/analytics`, `/reports`, `/supervisor`, `/workforce`, `/settings`
 - **reports-dashboards**: `/reports/dashboards`
@@ -161,6 +163,8 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `channels-whatsapp` **@data**: Sayısal KPI tile yok (config + şablon listesi).
 - `channels-whatsapp` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `channels-whatsapp` **@visual**: Açılışta B19 konsol hatası + bağlantı durumu canlı → kararlı snapshot yok.
+- `contacts` **@visual**: Kişi tablosu canlı veri (ad/e-posta/şirket/etiket) → kararlı snapshot bölgesi yok.
+- `contacts` **@mutation**: New Contact/Delete/Import kalıcı yazar → L3 staging (contacts-mutations.authed.spec.js); prod read-only'de L1 (form aç + POST yakala, gönderilmez).
 - `reports-dashboards` **@perf**: Grafik/ağır içerik yüklemiyor (özel pano kartlarını listeler).
 - `reports-dashboards` **@data**: Sayısal KPI göstermiyor (pano kartları listeler).
 - `reports-dashboards` **@export**: Bu sayfada export/indirme kontrolü yok.
@@ -339,7 +343,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `channels-video` | `/channels/video` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | ✅ | ✔ |
 | `channels-webchat` | `/channels/webchat` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | ✅ | ✔ |
 | `channels-whatsapp` | `/channels/whatsapp` | channels | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | ✅ | ✔ |
-| `contacts` | `/contacts` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `contacts` | `/contacts` | contacts | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | ✅ | N/A | ✔ |
 | `contacts-detail` | `/contacts/:id` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `contacts-import` | `/contacts/import` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `contacts-segments` | `/contacts/segments` | contacts | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |

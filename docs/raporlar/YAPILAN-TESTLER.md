@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1292 / 142 dosya
-- **coverageStatus:** verified 0 · partial 1234 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1243 · skipped 0 · fixme 49
+- **Listelenen test:** 1300 / 143 dosya
+- **coverageStatus:** verified 0 · partial 1242 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1251 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -20,7 +20,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | auth | 11 | 11 | 0 | 0 |
 | campaigns | 40 | 39 | 0 | 1 |
 | channels | 96 | 90 | 0 | 6 |
-| contacts | 48 | 48 | 0 | 0 |
+| contacts | 56 | 56 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
@@ -311,6 +311,14 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | config 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /channels/whatsapp doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `contacts-interactions.authed.spec.js` — _contacts_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| kişi tablosu kolonları + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+| ada göre arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
+| eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı") | @ix-empty | — | listed-only | partial | medium | list-exec |
+
 ### `contacts-mutations.authed.spec.js` — _contacts_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -324,10 +332,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | başlık, alt başlık ve 7 kolon görünüyor | @smoke | — | listed-only | partial | medium | list-exec |
 | araç çubuğu butonları ve arama mevcut | @critical | — | listed-only | partial | medium | list-exec |
 | en az bir kişi listeleniyor | @smoke | — | listed-only | partial | medium | list-exec |
-| [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: terim girince liste süzülür ve "Clear" çıkar | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: arama filters={"search":…} ile API sorgusu atıyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: eşleşen kişi görünür, eşleşmeyen sorgu boş-durum gösterir | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
@@ -345,10 +353,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: New Contact formunu açıyor (9 alan + Kaydet/İptal) | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ) | @regression | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: /contacts/import sayfasını (dosya girişli) açıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L1 tıklama OK: Export tıklanınca indirme başlıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
-| L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
-| L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık) | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| L1 tıklama OK: Export tıklanınca indirme başlıyor | @export @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor | @export @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok | @export @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
+| L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık) | @export @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: /contacts/segments sayfasını açıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: satıra tıklayınca /contacts/{id} detayına gidiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
@@ -368,6 +376,11 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: Sil onay alertdialog'u açıyor; İptal listeyi değiştirmiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı | @regression | — | listed-only | partial | medium | list-exec |
 | BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli | @regression | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| CONTACTS-F1 · /contacts · açılışta ham i18n anahtarı (callContact) / MISSING_MESSAGE olmamalı | @clean @known-bug | — | listed-only | partial | medium | list-exec |
+| /contacts doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| contacts listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `a11y.authed.spec.js` — _cross-cutting_
 
