@@ -317,11 +317,14 @@ export function classifyRunResult(t) {
  */
 export function reconcile(report, registry, meta = {}) {
   const flat = flattenPlaywrightReport(report);
-  const byKey = new Map(flat.map((t) => [`${t.file}::${t.title}`, t]));
+  // Playwright JSON `spec.file` bazen `tests/` öneksiz gelir; registry hep önekli.
+  // Anahtarı normalize et (yoksa lookup hep ıskalar → 0 aday yanlış-negatifi).
+  const normFile = (f) => String(f || '').replace(/^tests\//, '');
+  const byKey = new Map(flat.map((t) => [`${normFile(t.file)}::${t.title}`, t]));
   const candidates = [];
   for (const b of registry) {
     if (b.guard !== 'knownBugGuard') continue; // yalnız beklenen-başarısızlık kontratı
-    const t = byKey.get(`${b.test.file}::${b.test.title}`);
+    const t = byKey.get(`${normFile(b.test.file)}::${b.test.title}`);
     if (!t) continue;
     const unexpectedPass = t.expectedStatus === 'failed' && t.status === 'passed';
     if (unexpectedPass) {
