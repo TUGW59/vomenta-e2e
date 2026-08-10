@@ -16,11 +16,11 @@
 - **Kayıtlı rota:** 92 · sözleşme sayfası: 49
 - **L1:** PROVEN 83 · not-proven 9
 - **L2 stil sözleşmesi:** karşılandı 66 · gerçek boşluk 26
-- **L2 durum:** COMPLETE 27 · PARTIAL 39 · NOT_COVERED 26
-- **Etkileşim derinliği tam doğrulanmayan rota:** 44 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 durum:** COMPLETE 33 · PARTIAL 33 · NOT_COVERED 26
+- **Etkileşim derinliği tam doğrulanmayan rota:** 35 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 47 · N/A(no-write) 45
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 39 · L2·deep 27
+- **En yüksek seviye dağılımı:** L0 9 · L1 17 · L2·style 33 · L2·deep 33
 - **Bilinen bulgu:** 61 (open 60 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 58 (33 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -95,7 +95,7 @@
 | `/settings/users` | settings-users | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/settings/webhooks` | settings-webhooks | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
 | `/supervisor` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/supervisor/agents` | supervisor-agents | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | AGENTS-TZ(medium/open) |
+| `/supervisor/agents` | supervisor-agents | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 3/3 | ⛔ staging | ⛔ rol | ⛔ provider | AGENTS-TZ(medium/open) |
 | `/supervisor/calls` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/coaching` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/supervisor/interactions` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
@@ -104,16 +104,16 @@
 | `/tickets` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice` | main-navigation,voice-hub | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
 | `/voice/live` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/voice/dids` | voice-dids | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B14(medium/open) |
-| `/voice/history` | voice-history | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | N/A | ⛔ rol | ⛔ provider | VOICE-HISTORY-A11Y-LABEL(medium/open) |
-| `/voice/ivr` | voice-ivr | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/voice/queues` | voice-queues | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/voice/recordings` | voice-recordings | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 8/8 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-RECORDINGS-A11Y-LABEL(medium/open) |
+| `/voice/dids` | voice-dids | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | B14(medium/open) |
+| `/voice/history` | voice-history | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider | VOICE-HISTORY-A11Y-LABEL(medium/open) |
+| `/voice/ivr` | voice-ivr | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/voice/queues` | voice-queues | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/voice/recordings` | voice-recordings | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 8/8 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-RECORDINGS-A11Y-LABEL(medium/open) |
 | `/voice/regulatory` | voice-regulatory | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/0 | N/A | ⛔ rol | ⛔ provider | B1(critical/open) B10(medium/open) VOICE-REGULATORY-BROKEN(high/open) |
 | `/voice/sip-settings` | voice-sip-settings | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/0 | N/A | ⛔ rol | ⛔ provider |  |
-| `/voice/sip-trunks` | voice-sip-trunks | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-SIP-TRUNKS-SUBTITLE-I18N(low/open) |
-| `/voice/skills` | voice-skills | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider |  |
-| `/voice/voicemail` | voice-voicemail | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/5 | ⛔ staging | ⛔ rol | ⛔ provider | B11(medium/open) VOICEMAIL-PAGER-I18N(medium/open) |
+| `/voice/sip-trunks` | voice-sip-trunks | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider | VOICE-SIP-TRUNKS-SUBTITLE-I18N(low/open) |
+| `/voice/skills` | voice-skills | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 6/6 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
+| `/voice/voicemail` | voice-voicemail | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 6/6 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | B11(medium/open) VOICEMAIL-PAGER-I18N(medium/open) |
 | `/workforce` | main-navigation,workforce | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 2/2 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-ADHERENCE-I18N(low/open) WORKFORCE-ADHERENCE-RANGE-STATE(low/open) |
 | `/workforce/badges` | workforce-badges | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | ⛔ staging | ⛔ rol | ⛔ provider | WORKFORCE-BADGES-NO-EDIT-DELETE(medium/open) |
 | `/workforce/evaluations` | workforce-evaluations | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 7/7 | 0/0 | ⛔ staging | ⛔ rol | ⛔ provider |  |
@@ -293,7 +293,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/settings/users` | — | ✅ | ✅ | N/A | ✅ | N/A |
 | `/settings/webhooks` | — | N/A | N/A | N/A | ✅ | N/A |
 | `/supervisor` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/supervisor/agents` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/supervisor/agents` | — | ✅ | ✅ | N/A | ✅ | N/A |
 | `/supervisor/calls` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/coaching` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/supervisor/interactions` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
@@ -302,16 +302,16 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/tickets` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/voice` | — | N/A | N/A | N/A | N/A | N/A |
 | `/voice/live` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/dids` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/history` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/ivr` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/queues` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/recordings` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/dids` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/voice/history` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/voice/ivr` | — | N/A | ✅ | N/A | N/A | N/A |
+| `/voice/queues` | — | N/A | N/A | N/A | N/A | N/A |
+| `/voice/recordings` | — | N/A | ✅ | N/A | N/A | N/A |
 | `/voice/regulatory` | — | — | — | — | — | — |
 | `/voice/sip-settings` | — | — | — | — | — | — |
-| `/voice/sip-trunks` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/skills` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/voice/voicemail` | — | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/voice/sip-trunks` | — | N/A | N/A | N/A | N/A | N/A |
+| `/voice/skills` | — | N/A | N/A | N/A | N/A | N/A |
+| `/voice/voicemail` | — | N/A | ✅ | N/A | N/A | N/A |
 | `/workforce` | ✅ | N/A | ✅ | N/A | N/A | N/A |
 | `/workforce/badges` | ✅ | N/A | N/A | N/A | N/A | N/A |
 | `/workforce/evaluations` | — | N/A | N/A | N/A | N/A | N/A |
