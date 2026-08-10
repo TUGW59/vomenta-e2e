@@ -88,12 +88,18 @@ determinizm (bayt-aynı çıktı + stabil slug), **registry'ye YAZMAZ** (statik 
 `Date.now()`/`Math.random()`/argümansız `new Date()` YOK, `prepareDraftBundle` allowlist/secret/
 local-only kapısı. `quality:check` zincirine bağlıdır.
 
-## 4. CI nightly (uygulanmaya-hazır reçete — review ile land edilecek)
+## 4. CI nightly (UYGULANDI — PR #162)
 
-On-demand akış canlıdır. Nightly CI otomasyonu, güvenli artifact hattına (`prepare-ci-artifact.mjs`
-+ `artifact-policy.mjs`) bir lane eklemeyi gerektirdiğinden — ve bu required-check gate'lerine
-(`quality:ci-workflow`, `quality:artifact-allowlist`, `quality:audit-*`) dokunduğundan — ayrı,
-gözden-geçirilmiş bir PR'da land edilmelidir. Reçete:
+On-demand akış (`npm run report:draft`) canlıdır. Nightly CI otomasyonu da **artık uygulandı**
+(PR #162, 2026-08-10): `known-bug-draft` lane'i + `prepareDraftLane` ingester + `nightly-draft-findings`
+job'ı land edildi ve `quality:check` yeşil. Nightly/manuel(`suite=full`) authed suite JSON'unu triyaj
+edip REAL-RED taslaklarını üretir ve YALNIZ aggregate `draft-summary`'yi güvenli artifact olarak yükler.
+
+> **İlgili — MEVCUT known-bug kanıtı (ayrı hat):** `report:draft` YENİ kırmızıları taslaklar. Kayıtlı
+> bulguların `BULGULAR.md` "Kanıt: yok" satırlarını dolduran forensik-kanıt döngüsü ayrıdır
+> (`evidence-index.json` + `bot/evidence-refresh` auto-PR; PR #165 / bkz. `EVIDENCE-PIPELINE-PLAN.md`).
+
+Aşağıdaki reçete, as-built tasarımın referansıdır:
 
 1. **Lane kaydı** (`tools/artifact-policy.mjs`): `LANES`'e `known-bug-draft` ekle; `LANE_POLICY`'ye
    `mode:'prepared'`, `secureRoot: secure-upload/known-bug-draft`, `validatorId:'safe-summary@1'`,
