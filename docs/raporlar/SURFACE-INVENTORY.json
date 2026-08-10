@@ -13,12 +13,12 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 466
+    "reconcileObservations": 468
   },
   "totals": {
     "surfaces": 92,
-    "coveredContract": 62,
-    "noCoverageContract": 21,
+    "coveredContract": 63,
+    "noCoverageContract": 20,
     "blocked": 9,
     "redirect": 0,
     "deprecated": 0,
@@ -28,8 +28,8 @@
     "heldCandidates": 3,
     "byStatus": {
       "BLOCKED": 9,
-      "COVERED_CONTRACT": 62,
-      "NO_COVERAGE_CONTRACT": 21
+      "COVERED_CONTRACT": 63,
+      "NO_COVERAGE_CONTRACT": 20
     },
     "byArea": {
       "ai": 9,
@@ -1612,12 +1612,14 @@
         "blockedReason": null,
         "redirectTarget": null,
         "condition": null,
-        "hasCoverageContract": false,
-        "coverageContractIds": [],
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "supervisor-calls"
+        ],
         "evidenceTypes": [
           "page-object"
         ],
-        "status": "NO_COVERAGE_CONTRACT"
+        "status": "COVERED_CONTRACT"
       },
       {
         "id": "supervisor-coaching",
@@ -2207,11 +2209,6 @@
       {
         "id": "supervisor",
         "route": "/supervisor",
-        "area": "supervisor"
-      },
-      {
-        "id": "supervisor-calls",
-        "route": "/supervisor/calls",
         "area": "supervisor"
       },
       {

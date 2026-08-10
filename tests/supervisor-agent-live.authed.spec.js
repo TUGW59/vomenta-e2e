@@ -1,6 +1,11 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { AgentLivePage } from './pages/AgentLivePage.js';
+import {
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+} from './helpers.js';
 
 /**
  * SÜPERVİZÖR → AGENT LIVE / CANLI ARACI (`/supervisor/calls`)
@@ -34,7 +39,7 @@ test.describe('Agent Live — yapı', () => {
   });
 });
 
-test.describe('Agent Live — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Agent Live — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + alt başlık + boş-durum çevrili`, async ({ app }) => {
       const al = app.agentLive;
@@ -53,4 +58,42 @@ test.describe('Agent Live — 4 dil çeviri guard\'ları @regression', () => {
 // Şu an boş-durum → test edilemez. Canlı AI çağrısı üretilebilen staging'de L1/L2/L3 eklenecek.
 test.describe('Agent Live — cockpit (staging planı) @regression', () => {
   test.fixme('L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri)', async () => {});
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (Option A: L1 → dedicated L2·style) ═══════════════════════
+// Minimal cockpit sayfası: veri/liste/kontrol yüzeyi YOK (yalnız boş-durum) → etkileşim
+// derinliği geçerli değil (resolved-exempt). Dedicated STİL sözleşmesi: i18n (yukarıda) +
+// a11y/layout/clean/deeplink. hasData=false → hata-yolu/veri-döşeme boyutları geçerli değil. SALT-OKUNUR.
+
+test.describe('Agent Live — erişilebilirlik @a11y', () => {
+  test('sayfada ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const al = app.agentLive;
+    await al.open();
+    await expectNoSevereA11y(al.page);
+  });
+});
+
+test.describe('Agent Live — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/supervisor/calls');
+  });
+});
+
+test.describe('Agent Live — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const al = app.agentLive;
+    await al.open();
+    await waitForUiToSettle(al.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Agent Live — deep-link @deeplink', () => {
+  test('/supervisor/calls doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const al = app.agentLive;
+    await page.goto('/supervisor/calls', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(al.shell.loginHeading).toBeHidden();
+    await expect(al.heading).toHaveText(AgentLivePage.I18N.en.heading);
+  });
 });

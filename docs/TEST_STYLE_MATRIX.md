@@ -42,6 +42,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 | `settings-users` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `settings-webhooks` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | ✅ |
 | `supervisor-agents` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
+| `supervisor-calls` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — |
 | `supervisor-coaching` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A |
 | `supervisor-interactions` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — |
 | `tickets` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A |
@@ -118,6 +119,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - **settings-users**: `/settings/users`
 - **settings-webhooks**: `/settings/webhooks`
 - **supervisor-agents**: `/supervisor/agents`
+- **supervisor-calls**: `/supervisor/calls`
 - **supervisor-coaching**: `/supervisor/coaching`
 - **supervisor-interactions**: `/supervisor/interactions`
 - **tickets**: `/tickets`
@@ -246,6 +248,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 - `settings-webhooks` **@export**: Bu sayfada export/indirme kontrolü yok.
 - `supervisor-agents` **@visual**: İçerik canlı (durum/AHT/CSAT/"Last refreshed" damgası) → kararlı snapshot bölgesi yok.
 - `supervisor-agents` **@mutation**: Force durum değişikliği staging mutation; prod read-only'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme'de.
+- `supervisor-calls` **@visual**: Minimal boş-durum sayfası → kararlı snapshot bölgesi/lane bu pakette açılmadı.
 - `supervisor-coaching` **@visual**: İstatistik döşemeleri + tablo canlı/tenant-bağlı → kararlı snapshot bölgesi yok.
 - `supervisor-coaching` **@mutation**: New Evaluation kalıcı kayıt oluşturur → L3 staging; prod read-only'de L1 (dialog aç + Cancel/route-yakala, gönderilmez).
 - `supervisor-interactions` **@visual**: Canlı-izleme/boş-durum içeriği → kararlı snapshot bölgesi yok.
@@ -405,7 +408,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `supervisor` | `/supervisor` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `supervisor-agents` | `/supervisor/agents` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
 | `supervisor-ai-rate-suggestions` | `/supervisor/ai-rate-suggestions` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
-| `supervisor-calls` | `/supervisor/calls` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `supervisor-calls` | `/supervisor/calls` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — | — | ✔ |
 | `supervisor-coaching` | `/supervisor/coaching` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | N/A | ✔ |
 | `supervisor-interactions` | `/supervisor/interactions` | supervisor | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | — | — | — | ✔ |
 | `supervisor-wallboard` | `/supervisor/wallboard` | supervisor | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |

@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1273
+- **Test edilen senaryo:** 1277
 - **Test dosyası:** 109
-- **Etiketler:** `@a11y` 71 · `@clean)` 7 · `@clean` 58 · `@critical` 72 · `@data` 30 · `@deeplink` 56 · `@errorpath` 55 · `@export` 6 · `@i18n` 242 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 64 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
+- **Etiketler:** `@a11y` 72 · `@clean)` 7 · `@clean` 59 · `@critical` 72 · `@data` 30 · `@deeplink` 57 · `@errorpath` 55 · `@export` 6 · `@i18n` 246 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 65 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1147,10 +1147,14 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - canlı AI çağrısı yokken boş-durum gösteriliyor
-- [en] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
-- [tr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
-- [fr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
-- [ar] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
+- [en] başlık + yön + alt başlık + boş-durum çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + alt başlık + boş-durum çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + alt başlık + boş-durum çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + alt başlık + boş-durum çevrili  `@i18n` `@regression`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /supervisor/calls doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
 
 ### `supervisor-agents-interactions.authed.spec.js`
 
