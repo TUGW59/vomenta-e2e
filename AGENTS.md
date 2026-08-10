@@ -277,6 +277,10 @@ key veya müşteri verisi açık kalamaz.
 
 ## Bilinen-bulgu forensik modu (WP-R3)
 
+> **Bug raporlama standardının tamamı** (bir kırmızının nasıl iyi-yapılandırılmış bulguya
+> döndüğü, "NEREDE/NASIL ulaşılır/NE bozuk" anatomisi, otomatik triyaj `npm run report:draft`
+> ve yaşam döngüsü): [docs/BUG-REPORTING.md](docs/BUG-REPORTING.md).
+
 Açık bir bulgunun kök-neden incelemesi için, beklenen-başarısızlık kontratını GEÇİCİ
 olarak kaldırıp gerçek başarısızlığı (trace/screenshot/ağ özeti) yakalayan salt-okunur akış.
 
