@@ -69,7 +69,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/bot-builder-editor.authed.spec.js:187 | skip | Hesapta bot yok — editör veri-bağlı. |
 | tests/bot-builder.authed.spec.js:54 | skip | Hesapta bot yok — liste↔API sadakati veri-bağlı. |
 | tests/bot-builder.authed.spec.js:162 | skip | Hesapta bot yok — kart→editör navigasyonu veri-bağlı. |
-| tests/campaigns-outbound.authed.spec.js:419 | skip | Bu tenantta 10+ kampanya yok; sayfalama gerekmiyor. |
+| tests/campaigns-outbound.authed.spec.js:426 | skip | Bu tenantta 10+ kampanya yok; sayfalama gerekmiyor. |
 | tests/channels-hub.authed.spec.js:154 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-video.authed.spec.js:105 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/channels-webchat.authed.spec.js:130 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
@@ -151,4 +151,4 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   _yok — tüm keşif rotaları kayıtlı._
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 66 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 67 adet — çoğunlukla `reports` alt rotaları.

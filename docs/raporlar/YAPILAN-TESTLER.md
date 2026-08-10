@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1314 / 144 dosya
-- **coverageStatus:** verified 0 · partial 1256 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1265 · skipped 0 · fixme 49
+- **Listelenen test:** 1324 / 145 dosya
+- **coverageStatus:** verified 0 · partial 1266 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1275 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -18,7 +18,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|
 | analytics | 33 | 33 | 0 | 0 |
 | auth | 11 | 11 | 0 | 0 |
-| campaigns | 40 | 39 | 0 | 1 |
+| campaigns | 50 | 49 | 0 | 1 |
 | channels | 96 | 90 | 0 | 6 |
 | contacts | 56 | 56 | 0 | 0 |
 | cross-cutting | 35 | 34 | 0 | 1 |
@@ -95,6 +95,15 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 |---|---|---|---|---|---|---|
 | kullanıcı menüsünden çıkış yapılabiliyor |  | — | listed-only | partial | medium | list-exec |
 
+### `campaigns-outbound-interactions.authed.spec.js` — _campaigns_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| durum sekmeleri tek-seçim dışlayıcı (aria-selected) | @ix-tabs | — | listed-only | partial | medium | list-exec |
+| kampanya tablosu kolonları + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+| arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
+| eşleşmeyen aramada boş-durum ("No campaigns match your filters") | @ix-empty | — | listed-only | partial | medium | list-exec |
+
 ### `campaigns-outbound.authed.spec.js` — _campaigns_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -104,10 +113,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | arama, tür filtresi ve durum sekmeleri mevcut | @smoke | — | listed-only | partial | medium | list-exec |
 | tablo başlıkları doğru sırada | @smoke @critical | — | listed-only | partial | medium | list-exec |
 | New Campaign düğmesi görünür ve etkin | @smoke | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: metin yazılabiliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: arama filtresiyle liste ucunu çağırıyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: eşleşmeyen arama boş-durumu gösteriyor (liste gerçekten filtreleniyor) | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
@@ -138,6 +147,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | göz ile açılan detayda sekmeler ve metrik kartları var | @regression | — | listed-only | partial | medium | list-exec |
 | BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
 | BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| CAMPAIGNS-ICON-A11Y · /campaigns/outbound · satır ikon düğmeleri erişilebilir isim taşımalı | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /campaigns/outbound doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| silme onay dialogu odak tuzağı + Escape ile kapanma (SİLİNMEZ) | @keyboard | — | listed-only | partial | medium | list-exec |
+| campaigns listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `campaigns-outbound.mutation.authed.spec.js` — _campaigns_
 
