@@ -105,8 +105,8 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/settings-roles-interactions.authed.spec.js:36 | skip | Roller yanıtı liste değil/boş (veri-bağlı). |
 | tests/settings-roles-mutations.authed.spec.js:24 | fixme | ında doğrulanmadı. |
 | tests/settings-roles-rbac-enforcement.authed.spec.js:72 | skip |  |
-| tests/settings-roles-rbac.authed.spec.js:174 | skip |  |
-| tests/settings-roles-rbac.authed.spec.js:224 | skip |  |
+| tests/settings-roles-rbac.authed.spec.js:189 | skip |  |
+| tests/settings-roles-rbac.authed.spec.js:239 | skip |  |
 | tests/settings-security.authed.spec.js:164 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-sla.authed.spec.js:183 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
 | tests/settings-teams.authed.spec.js:155 | skip | Görsel lane RUN_VISUAL_TESTS=true ile açık olmalı. |
