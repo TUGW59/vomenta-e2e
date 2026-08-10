@@ -38,12 +38,12 @@
 
 - **Kayıtlı rota (depth):** 92
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
-- **L2 complete:** 33 · **L2 partial:** 33 · **L2 not-covered:** 26 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 35)_
-- **L3:** proven 0 · blocked 47 · N/A 45
+- **L2 complete:** 34 · **L2 partial:** 32 · **L2 not-covered:** 26 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 34)_
+- **L3:** proven 0 · blocked 48 · N/A 44
 - **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
-- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 17 · L2-stil 33 · L2-deep 33
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 17 · L2-stil 32 · L2-deep 34
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **33**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **34**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
@@ -93,7 +93,7 @@
 | 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /analytics | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 | 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /bot-builder | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 
-_(+16 boşluk daha — tam liste JSON'da.)_
+_(+15 boşluk daha — tam liste JSON'da.)_
 
 ## Flaky testler
 
@@ -124,7 +124,7 @@ _(+16 boşluk daha — tam liste JSON'da.)_
 | /settings/billing/marketplace | NOT_RUN | inventory-only |
 
 **Derinlik blok sebepleri (L3–L5):**
-- L3: STAGING_REQUIRED×47
+- L3: STAGING_REQUIRED×48
 - L4: ROLE_ACCOUNTS_REQUIRED×92
 - L5: PROVIDER_HARNESS_REQUIRED×92
 
