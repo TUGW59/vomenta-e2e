@@ -1789,6 +1789,33 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Minimal boş-durum sayfası → kararlı snapshot bölgesi/lane bu pakette açılmadı.',
     },
   },
+  {
+    // C1: /ai/usage L1 → dedicated L2·deep. 4 KPI döşemesi + 2 kullanım TABLOSU (Usage by
+    // Feature/Model) + dönem seçici. Sekme/arama YOK. Etkileşim çapası @ix-table (ai-usage-
+    // interactions). 4-dil i18n canlı gözlenip AiUsagePage.I18N'e kodlandı.
+    id: 'ai-usage',
+    surfaceIds: ['ai-usage'],
+    specFiles: ['ai-usage.authed.spec.js', 'ai-usage-interactions.authed.spec.js'],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: true,
+      hasDialogs: false,
+      hasTabs: false,
+      hasExport: false,
+      hasWrites: false,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'KPI + kullanım tabloları canlı veri (token/maliyet) → kararlı snapshot bölgesi yok.',
+    },
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama yok (yalnız dönem seçici combobox).',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only analitik).',
+      'pagination-sort': 'Read-only tek-sayfa kullanım tabloları; ayrı pager/sıralama gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

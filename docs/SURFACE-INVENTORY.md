@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 92
-- **Kapsam sözleşmesi olan:** 63 · **NO_COVERAGE_CONTRACT:** 20
+- **Kapsam sözleşmesi olan:** 64 · **NO_COVERAGE_CONTRACT:** 19
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (468 gözlem)
+- **Uzlaştırılan kaynak:** 8 (470 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -56,7 +56,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | ai-prompts | /ai/prompts | ai | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | ai-providers | /ai/providers | ai | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | ai-sentiment | /ai/sentiment | ai | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
-| ai-usage | /ai/usage | ai | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| ai-usage | /ai/usage | ai | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | ai-voice | /ai/voice | ai | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | analytics | /analytics | analytics | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | bot-builder | /bot-builder | bot-builder | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
@@ -160,7 +160,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | ai-prompts | /ai/prompts | ai |
 | ai-providers | /ai/providers | ai |
 | ai-sentiment | /ai/sentiment | ai |
-| ai-usage | /ai/usage | ai |
 | ai-voice | /ai/voice | ai |
 | analytics | /analytics | analytics |
 | bot-builder | /bot-builder | bot-builder |

@@ -50,6 +50,7 @@ import { AgentLivePage } from './AgentLivePage.js';
 import { CoachingPage } from './CoachingPage.js';
 import { AiManagementPage } from './AiManagementPage.js';
 import { AiSubPage } from './AiSubPage.js';
+import { AiUsagePage } from './AiUsagePage.js';
 import { VoicePage } from './VoicePage.js';
 import { VoiceSubPage } from './VoiceSubPage.js';
 import { BotBuilderPage } from './BotBuilderPage.js';
@@ -102,6 +103,7 @@ export class App {
     this.agentLive = new AgentLivePage(page);
     this.coaching = new CoachingPage(page);
     this.aiManagement = new AiManagementPage(page);
+    this.aiUsage = new AiUsagePage(page);
     this.campaignsOutbound = new CampaignsOutboundPage(page);
     this.campaignCreate = new CampaignCreatePage(page);
     this.channelsHub = new ChannelsHubPage(page);

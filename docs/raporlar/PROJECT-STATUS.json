@@ -19,20 +19,20 @@
     "surfaces": 92,
     "byRollup": {
       "BLOCKED": 9,
-      "L2_DEEP": 37,
+      "L2_DEEP": 38,
       "L2_STYLE": 26,
-      "NO_CONTRACT": 20
+      "NO_CONTRACT": 19
     },
     "deprecated": 0,
     "redirect": 0,
     "blocked": 9,
     "fail": 0,
     "notRun": 0,
-    "noContract": 20,
+    "noContract": 19,
     "l1StyleGap": 0,
     "l2Style": 26,
-    "l2Deep": 37,
-    "interactionUnverified": 29,
+    "l2Deep": 38,
+    "interactionUnverified": 28,
     "surfacesWithOpenFindings": 34,
     "openFindingsTotal": 59,
     "byArea": {
@@ -321,9 +321,11 @@
       "navigation": "secondary",
       "runtimePolicy": "readonly-baseline",
       "baseline": "runnable",
-      "inventoryStatus": "NO_COVERAGE_CONTRACT",
-      "hasCoverageContract": false,
-      "coverageContractIds": [],
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "ai-usage"
+      ],
       "depthMatched": true,
       "runtime": {
         "l1": "PROVEN",
@@ -331,21 +333,21 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "NOT_COVERED",
-        "highest": "L1",
-        "styleContractMet": false,
-        "styleCoveredOrExempt": 0,
-        "styleRequiredCount": 5,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": true,
+        "interactionApplicableCount": 1,
+        "interactionCoveredCount": 1
       },
       "findings": {
         "total": 0,
         "open": 0,
         "ids": []
       },
-      "rollup": "NO_CONTRACT"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "ai-voice",

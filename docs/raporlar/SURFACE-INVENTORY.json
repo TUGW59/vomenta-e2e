@@ -13,12 +13,12 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 468
+    "reconcileObservations": 470
   },
   "totals": {
     "surfaces": 92,
-    "coveredContract": 63,
-    "noCoverageContract": 20,
+    "coveredContract": 64,
+    "noCoverageContract": 19,
     "blocked": 9,
     "redirect": 0,
     "deprecated": 0,
@@ -28,8 +28,8 @@
     "heldCandidates": 3,
     "byStatus": {
       "BLOCKED": 9,
-      "COVERED_CONTRACT": 63,
-      "NO_COVERAGE_CONTRACT": 20
+      "COVERED_CONTRACT": 64,
+      "NO_COVERAGE_CONTRACT": 19
     },
     "byArea": {
       "ai": 9,
@@ -217,12 +217,14 @@
         "blockedReason": null,
         "redirectTarget": null,
         "condition": null,
-        "hasCoverageContract": false,
-        "coverageContractIds": [],
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "ai-usage"
+        ],
         "evidenceTypes": [
           "page-object"
         ],
-        "status": "NO_COVERAGE_CONTRACT"
+        "status": "COVERED_CONTRACT"
       },
       {
         "id": "ai-voice",
@@ -2154,11 +2156,6 @@
       {
         "id": "ai-sentiment",
         "route": "/ai/sentiment",
-        "area": "ai"
-      },
-      {
-        "id": "ai-usage",
-        "route": "/ai/usage",
         "area": "ai"
       },
       {
