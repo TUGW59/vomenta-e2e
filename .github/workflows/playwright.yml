@@ -657,6 +657,62 @@ jobs:
           retention-days: 14
 
   # ════════════════════════════════════════════════════════════════════════════
+  # WP-DRAFT — Otomatik TASLAK bulgu önerisi (report:draft).
+  # Authed suite JSON'unu triyaj eder; YALNIZ REAL-RED için taslak iskeleti üretir.
+  # Registry'ye YAZMAZ (diff-guard), kök-neden UYDURMAZ. Yüklenen tek şey aggregate
+  # draft-summary (safe-summary@1); tekil taslak gövdeleri local/forensik kalır.
+  # Tetik: nightly (schedule) + manuel (suite=full). PR başına DEĞİL.
+  # ════════════════════════════════════════════════════════════════════════════
+  nightly-draft-findings:
+    name: Nightly draft findings (REAL-RED önerisi)
+    needs: architecture
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VOMENTA_EMAIL: ${{ secrets.VOMENTA_EMAIL }}
+      VOMENTA_PASSWORD: ${{ secrets.VOMENTA_PASSWORD }}
+      ALLOW_MUTATING_TESTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Authed suite (JSON rapor) — tüm sonuçları topla
+        # `|| true`: beklenen-başarısızlıklar geçer; gerçek kırmızıları report:draft
+        # yakalaması gerektiği için exit koduna bakılmaksızın devam edilir.
+        run: |
+          mkdir -p test-results
+          npx playwright test --project=chromium-authed --reporter=json > test-results/report.json || true
+      - name: Taslak üret — YALNIZ REAL-RED önerisi (registry değişmez)
+        env:
+          DRAFT_RUN_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: npm run report:draft -- test-results/report.json
+      - name: Registry değişmedi mi (taslak üreteci registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Güvenli artifact bundle hazırla (known-bug-draft)
+        id: prep_draft
+        # draft-summary.json ortak politikadan geçer: şema (counts + kök-neden yasağı)
+        # + secret/PII taraması + manifest. Ham test-results / tekil taslaklar yüklenmez.
+        if: ${{ !cancelled() }}
+        run: |
+          npm run report:artifact:prepare -- --lane known-bug-draft
+          echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Öneri özetini yükle (YALNIZ prepared bundle)
+        if: ${{ !cancelled() && steps.prep_draft.outputs.ready == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: draft-findings-${{ github.run_id }}
+          path: test-results/secure-upload/known-bug-draft/
+          if-no-files-found: error
+          retention-days: 14
+
+  # ════════════════════════════════════════════════════════════════════════════
   # WP-EVIDENCE FAZ 3 (ADR-0026) — Otomatik kanıt lane'i.
   # Açık knownBugGuard bulguları için forensik modda BOUNDED (bulgu başına tek test,
   # retry storm yok, max-parallel:1 = serileştir → tek prod hesabı yükü) koşar; maskeli
