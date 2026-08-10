@@ -151,4 +151,4 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   _yok — tüm keşif rotaları kayıtlı._
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 71 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 72 adet — çoğunlukla `reports` alt rotaları.

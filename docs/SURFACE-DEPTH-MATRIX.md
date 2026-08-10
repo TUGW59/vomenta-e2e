@@ -13,14 +13,14 @@
 
 ## Özet (türetilmiş — sabit sayı yok)
 
-- **Kayıtlı rota:** 92 · sözleşme sayfası: 56
+- **Kayıtlı rota:** 92 · sözleşme sayfası: 57
 - **L1:** PROVEN 83 · not-proven 9
-- **L2 stil sözleşmesi:** karşılandı 71 · gerçek boşluk 21
-- **L2 durum:** COMPLETE 37 · PARTIAL 34 · NOT_COVERED 21
-- **Etkileşim derinliği tam doğrulanmayan rota:** 28 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
+- **L2 stil sözleşmesi:** karşılandı 72 · gerçek boşluk 20
+- **L2 durum:** COMPLETE 38 · PARTIAL 34 · NOT_COVERED 20
+- **Etkileşim derinliği tam doğrulanmayan rota:** 27 — en az bir geçerli boyut hâlâ `@ix-*` işaretsiz (WP-L2-WAVE-1 dalgalarının hedefi). İşaretli boyutlar "etkileşim (doğrulanan/geçerli)" sütununda sayılır.
 - **L3:** BLOCKED(staging) 51 · N/A(no-write) 41
 - **L4:** BLOCKED(rol/tenant) 92 · **L5:** BLOCKED(provider) 92
-- **En yüksek seviye dağılımı:** L0 9 · L1 12 · L2·style 34 · L2·deep 37
+- **En yüksek seviye dağılımı:** L0 9 · L1 11 · L2·style 34 · L2·deep 38
 - **Bilinen bulgu:** 63 (open 62 · fixed-candidate 0 · closed 1) · rotaya bağlı open bulgu: 60 (34 rota)
 - **Rotaya eşlenmeyen test sonucu (unmappedTests):** 4 — hiçbir rotayı yeşile boyamaz. **Rotaya bağlanamayan bulgu:** 2
 
@@ -36,7 +36,7 @@
 | `/ai/knowledge-base` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/ai/providers` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/ai/sentiment` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
-| `/ai/usage` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
+| `/ai/usage` | ai-usage | ✅ L2·deep | ✅ PROVEN | ✅ COMPLETE | 7/7 | 1/1 | N/A | ⛔ rol | ⛔ provider |  |
 | `/ai/voice` |  | ① L1 | ✅ PROVEN | ❌ NOT_COVERED | 0/5 | 0/6 | N/A | ⛔ rol | ⛔ provider |  |
 | `/analytics` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | ANALYTICS-A(medium/open) ANALYTICS-B(medium/open) B12(medium/open) |
 | `/bot-builder` | main-navigation | 🟡 L2·style | ✅ PROVEN | 🟡 PARTIAL | 5/5 | 0/6 | N/A | ⛔ rol | ⛔ provider | BOT-BUILDER-CLOSE-I18N(low/open) BOT-BUILDER-TEMPLATE-I18N(high/open) |
@@ -135,7 +135,7 @@ Hücreler: ✅ COVERED (test var) · ❌ NOT_COVERED (zorunlu, eksik) · N/A ger
 | `/ai/knowledge-base` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/ai/providers` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/ai/sentiment` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
-| `/ai/usage` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
+| `/ai/usage` | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | N/A | — | ✅ | — |
 | `/ai/voice` | ❌ | ❌ | ❌ | ❌ | ❌ | — | — | — | — | — | — |
 | `/analytics` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
 | `/bot-builder` | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | — | — |
@@ -234,7 +234,7 @@ Hücreler: ✅ COVERED (ilgili `@ix-*` işaretli dedicated etkileşim testi var)
 | `/ai/knowledge-base` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai/providers` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/ai/sentiment` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
-| `/ai/usage` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
+| `/ai/usage` | — | N/A | ✅ | N/A | N/A | N/A |
 | `/ai/voice` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/analytics` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |
 | `/bot-builder` | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 | 🔎 |

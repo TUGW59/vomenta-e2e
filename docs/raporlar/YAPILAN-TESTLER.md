@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1346 / 146 dosya
-- **coverageStatus:** verified 0 · partial 1288 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1297 · skipped 0 · fixme 49
+- **Listelenen test:** 1358 / 148 dosya
+- **coverageStatus:** verified 0 · partial 1300 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1309 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -25,7 +25,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | dashboard | 29 | 29 | 0 | 0 |
 | discovery | 1 | 1 | 0 | 0 |
 | inbox | 5 | 5 | 0 | 0 |
-| other | 161 | 143 | 9 | 9 |
+| other | 173 | 155 | 9 | 9 |
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
@@ -530,6 +530,28 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1 tıklama OK: "Documents" sekmesi seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: "30D" aralığı seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: "Voice" filtresi Chat senaryosunu gizliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+
+### `ai-usage-interactions.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| kullanım tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+
+### `ai-usage.authed.spec.js` — _other_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| başlık + KPI döşemeleri + kullanım tabloları görünüyor | @smoke @critical | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /ai/usage doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| usage ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| KPI döşemesi (Total Tokens) API-bağlı bir DEĞER gösteriyor | @data | — | listed-only | partial | medium | list-exec |
 
 ### `ai.authed.spec.js` — _other_
 

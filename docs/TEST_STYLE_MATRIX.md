@@ -8,6 +8,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 | Sayfa | @smoke | @i18n | @a11y | @layout | @clean | @deeplink | @regression | @keyboard | @errorpath | @visual | @perf | @data | @export | @mutation |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ai-usage` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — |
 | `campaigns-outbound` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — | N/A |
 | `channels-email` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | ✅ | — | ✅ |
 | `channels-hub` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | ✅ | — | — |
@@ -86,6 +87,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 ## Rotalar
 
+- **ai-usage**: `/ai/usage`
 - **campaigns-outbound**: `/campaigns/outbound`
 - **channels-email**: `/channels/email`
 - **channels-hub**: `/channels`
@@ -145,6 +147,7 @@ Bu belge, **tescilli her sayfada hangi zorunlu test stilinin kapsandığını** 
 
 ## N/A beyanları (gerekçeli)
 
+- `ai-usage` **@visual**: KPI + kullanım tabloları canlı veri (token/maliyet) → kararlı snapshot bölgesi yok.
 - `campaigns-outbound` **@visual**: Kampanya tablosu + özet kartları canlı veri (durum/tarih/sayı) → kararlı snapshot bölgesi yok.
 - `campaigns-outbound` **@mutation**: Create/Start/Delete kalıcı yazar → L3 staging (campaigns-outbound.mutation.authed.spec.js); prod read-only'de L1 (dialog aç + Escape/route-yakala, gönderilmez).
 - `channels-email` **@perf**: Grafik/ağır içerik yok (hesap boş-durumu + imza/yönlendirme formu).
@@ -349,7 +352,7 @@ stil matrisini envanter / surface-depth / project-status ile aynı kanonik küme
 | `ai-prompts` | `/ai/prompts` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `ai-providers` | `/ai/providers` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `ai-sentiment` | `/ai/sentiment` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
-| `ai-usage` | `/ai/usage` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
+| `ai-usage` | `/ai/usage` | ai | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | ✅ | — | — | ✅ | — | — | ✔ |
 | `ai-voice` | `/ai/voice` | ai | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `analytics` | `/analytics` | analytics | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |
 | `bot-builder` | `/bot-builder` | bot-builder | — | — | — | — | — | — | — | — | — | — | — | — | — | — | NO_COVERAGE_CONTRACT |

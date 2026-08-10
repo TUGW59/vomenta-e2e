@@ -93,11 +93,11 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 71,
-    "l2Complete": 37,
+    "l2StyleContractMet": 72,
+    "l2Complete": 38,
     "l2Partial": 34,
-    "l2NotCovered": 21,
-    "interactionUnverifiedRoutes": 28,
+    "l2NotCovered": 20,
+    "interactionUnverifiedRoutes": 27,
     "l3Blocked": 51,
     "l3NotApplicable": 41,
     "l3Proven": 0,
@@ -107,9 +107,9 @@
     "l5Proven": 0,
     "highestLevel": {
       "L0": 9,
-      "L1": 12,
+      "L1": 11,
       "L2_STYLE": 34,
-      "L2_DEEP": 37
+      "L2_DEEP": 38
     },
     "routesWithFindings": 34,
     "openFindingsOnRoutes": 60,
