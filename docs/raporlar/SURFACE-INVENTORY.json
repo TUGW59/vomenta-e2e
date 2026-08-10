@@ -13,12 +13,12 @@
       "discovery",
       "pr-impact"
     ],
-    "reconcileObservations": 470
+    "reconcileObservations": 473
   },
   "totals": {
     "surfaces": 92,
-    "coveredContract": 64,
-    "noCoverageContract": 19,
+    "coveredContract": 65,
+    "noCoverageContract": 18,
     "blocked": 9,
     "redirect": 0,
     "deprecated": 0,
@@ -28,8 +28,8 @@
     "heldCandidates": 3,
     "byStatus": {
       "BLOCKED": 9,
-      "COVERED_CONTRACT": 64,
-      "NO_COVERAGE_CONTRACT": 19
+      "COVERED_CONTRACT": 65,
+      "NO_COVERAGE_CONTRACT": 18
     },
     "byArea": {
       "ai": 9,
@@ -1680,12 +1680,14 @@
         "blockedReason": null,
         "redirectTarget": null,
         "condition": null,
-        "hasCoverageContract": false,
-        "coverageContractIds": [],
+        "hasCoverageContract": true,
+        "coverageContractIds": [
+          "supervisor-wallboard"
+        ],
         "evidenceTypes": [
           "known-bug"
         ],
-        "status": "NO_COVERAGE_CONTRACT"
+        "status": "COVERED_CONTRACT"
       },
       {
         "id": "tickets",
@@ -2206,11 +2208,6 @@
       {
         "id": "supervisor",
         "route": "/supervisor",
-        "area": "supervisor"
-      },
-      {
-        "id": "supervisor-wallboard",
-        "route": "/supervisor/wallboard",
         "area": "supervisor"
       },
       {

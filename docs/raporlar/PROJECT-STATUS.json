@@ -20,21 +20,21 @@
     "byRollup": {
       "BLOCKED": 9,
       "L2_DEEP": 38,
-      "L2_STYLE": 26,
-      "NO_CONTRACT": 19
+      "L2_STYLE": 27,
+      "NO_CONTRACT": 18
     },
     "deprecated": 0,
     "redirect": 0,
     "blocked": 9,
     "fail": 0,
     "notRun": 0,
-    "noContract": 19,
+    "noContract": 18,
     "l1StyleGap": 0,
-    "l2Style": 26,
+    "l2Style": 27,
     "l2Deep": 38,
-    "interactionUnverified": 28,
+    "interactionUnverified": 27,
     "surfacesWithOpenFindings": 34,
-    "openFindingsTotal": 59,
+    "openFindingsTotal": 60,
     "byArea": {
       "ai": 9,
       "analytics": 1,
@@ -2809,9 +2809,11 @@
       "navigation": "secondary",
       "runtimePolicy": "readonly-baseline",
       "baseline": "runnable",
-      "inventoryStatus": "NO_COVERAGE_CONTRACT",
-      "hasCoverageContract": false,
-      "coverageContractIds": [],
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "supervisor-wallboard"
+      ],
       "depthMatched": true,
       "runtime": {
         "l1": "PROVEN",
@@ -2819,19 +2821,20 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "NOT_COVERED",
-        "highest": "L1",
-        "styleContractMet": false,
-        "styleCoveredOrExempt": 0,
-        "styleRequiredCount": 5,
+        "l2": "PARTIAL",
+        "highest": "L2_STYLE",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 6,
+        "styleRequiredCount": 6,
         "interactionVerified": false,
-        "interactionApplicableCount": 6,
+        "interactionApplicableCount": 0,
         "interactionCoveredCount": 0
       },
       "findings": {
-        "total": 5,
-        "open": 5,
+        "total": 6,
+        "open": 6,
         "ids": [
+          "WALLBOARD-A11Y-LABEL",
           "WALLBOARD-AUTOSCROLL",
           "WALLBOARD-I18N",
           "WALLBOARD-LIVE-TZ",
@@ -2839,7 +2842,7 @@
           "WALLBOARD-THEME"
         ]
       },
-      "rollup": "NO_CONTRACT"
+      "rollup": "L2_STYLE"
     },
     {
       "id": "tickets",

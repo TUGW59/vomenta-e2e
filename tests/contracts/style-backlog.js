@@ -34,7 +34,6 @@ export const STYLE_BACKLOG = Object.freeze({
   // supervisor/* — hepsinde spec+POM VAR, findings-öncelikli dalga
   // /supervisor/agents: WAVE-STYLE-1'de L2·style'a çıkarıldı (tested-pages'e kaydedildi).
   // /supervisor/coaching: C1'de dedicated L2·deep oldu (@ix-tabs + stil) → style-backlog'dan silindi.
-  '/supervisor/wallboard': 'PENDING:supervisor (WallboardPage POM+spec VAR; ⚠5 bug — en yüksek risk)',
   // voice hub alt (1)
   '/voice/live': 'PENDING:voice (canlı çağrı görünümü; VoicePage /voice/live)',
 

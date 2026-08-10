@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1353 / 148 dosya
-- **coverageStatus:** verified 0 · partial 1295 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1304 · skipped 0 · fixme 49
+- **Listelenen test:** 1358 / 148 dosya
+- **coverageStatus:** verified 0 · partial 1300 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1309 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,7 +29,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 115 | 105 | 0 | 10 |
+| supervisor | 120 | 110 | 0 | 10 |
 | tickets | 20 | 20 | 0 | 0 |
 | voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
@@ -1647,10 +1647,10 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | kontrol çubuğu düğmeleri mevcut (Refresh All / Auto-scroll / Save layout / TV mode / tema) |  | — | listed-only | partial | medium | list-exec |
 | dört kuyruk kartı listeleniyor | @critical | — | listed-only | partial | medium | list-exec |
 | alt metrik kartları mevcut (ASA / Queued / Volume / SLA) |  | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + tema/kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + tema/kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + tema/kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + tema/kontrol etiketleri çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + tema/kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + tema/kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + tema/kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + tema/kontrol etiketleri çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: tıklayınca "refreshed" bildirimi çıkıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: dashboard verisini API'den çekiyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4] | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
@@ -1671,6 +1671,11 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L2/L3: "Redirect all calls" onay sonrası yönlendirme isteği atar (staging mutation) | @regression | L2 | fixme | blocked | low | list-exec+title-inferred |
 | L2/L3: "Move call" hedef seçme diyaloğu açar ve taşıma isteği atar (staging mutation) | @regression | L2 | fixme | blocked | low | list-exec+title-inferred |
 | BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli | @regression @known-bug | — | listed-only | partial | medium | list-exec |
+| WALLBOARD-A11Y-LABEL · /supervisor/wallboard · kontroller erişilebilir etiket taşımalı (label) | @a11y @known-bug | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /supervisor/wallboard doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| dashboard ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `tickets-interactions.authed.spec.js` — _tickets_
 
