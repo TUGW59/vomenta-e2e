@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1228
-- **Test dosyası:** 105
-- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 29 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 5 · `@ix-filter` 2 · `@ix-table` 13 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
+- **Test edilen senaryo:** 1236
+- **Test dosyası:** 106
+- **Etiketler:** `@a11y` 67 · `@clean)` 7 · `@clean` 54 · `@critical` 72 · `@data` 29 · `@deeplink` 52 · `@errorpath` 51 · `@export` 6 · `@i18n` 226 · `@ix-empty` 6 · `@ix-filter` 3 · `@ix-table` 14 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 76 · `@layout` 60 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -294,15 +294,21 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - config 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /channels/whatsapp doğrudan açılınca yükleniyor  `@deeplink`
 
+### `contacts-interactions.authed.spec.js`
+
+- kişi tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
+- ada göre arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
+- eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı")  `@ix-empty`
+
 ### `contacts.authed.spec.js`
 
 - başlık, alt başlık ve 7 kolon görünüyor  `@smoke`
 - araç çubuğu butonları ve arama mevcut  `@critical`
 - en az bir kişi listeleniyor  `@smoke`
-- [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
-- [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
-- [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
-- [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@regression`
+- [en] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@i18n` `@regression`
+- [tr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@i18n` `@regression`
+- [fr] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@i18n` `@regression`
+- [ar] yön + başlık + alt başlık + kolonlar + araç çubuğu + New Contact formu çevrili  `@i18n` `@regression`
 - L1 tıklama OK: terim girince liste süzülür ve "Clear" çıkar  `@regression`
 - L2 arka plan OK: arama filters={"search":…} ile API sorgusu atıyor  `@regression` `@critical`
 - L3 görev OK: eşleşen kişi görünür, eşleşmeyen sorgu boş-durum gösterir  `@regression`
@@ -320,10 +326,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: New Contact formunu açıyor (9 alan + Kaydet/İptal)  `@regression`
 - L2 arka plan OK: Save doğru uca POST gönderiyor (prod'a YAZILMAZ)  `@regression`
 - L1 tıklama OK: /contacts/import sayfasını (dosya girişli) açıyor  `@regression`
-- L1 tıklama OK: Export tıklanınca indirme başlıyor  `@regression`
-- L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor  `@regression` `@critical`
-- L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok  `@regression`
-- L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)  `@regression`
+- L1 tıklama OK: Export tıklanınca indirme başlıyor  `@export` `@regression`
+- L2 arka plan OK: Export POST /contacts/export ucunu tetikliyor  `@export` `@regression` `@critical`
+- L3 görev OK: indirilen CSV içeriği doğru (başlık + kodlama), bozulma yok  `@export` `@regression`
+- L3 görev OK: farklı dilde indirme dili değiştirmez / bozulmaz (en == ar başlık)  `@export` `@regression`
 - L1 tıklama OK: /contacts/segments sayfasını açıyor  `@regression`
 - L1 tıklama OK: satıra tıklayınca /contacts/{id} detayına gidiyor  `@regression`
 - L2 arka plan OK: detay kişi + timeline uçlarından veri çekiyor  `@regression` `@critical`
@@ -343,6 +349,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1 tıklama OK: Sil onay alertdialog'u açıyor; İptal listeyi değiştirmiyor  `@regression`
 - BULGU F1: satır ara butonu erişilebilir ismi ham anahtar "callContact" olmamalı  `@regression`
 - BULGU F2: kişi detayı sil butonu ham anahtar "contacts.delete" göstermemeli  `@regression`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- CONTACTS-F1 · /contacts · açılışta ham i18n anahtarı (callContact) / MISSING_MESSAGE olmamalı  `@clean` `@known-bug`
+- /contacts doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- contacts listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 
 ### `dashboard-actions.authed.spec.js`
 

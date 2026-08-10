@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 92
-- **Kapsam sözleşmesi olan:** 57 · **NO_COVERAGE_CONTRACT:** 26
+- **Kapsam sözleşmesi olan:** 58 · **NO_COVERAGE_CONTRACT:** 25
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (457 gözlem)
+- **Uzlaştırılan kaynak:** 8 (458 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -71,7 +71,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | channels-video | /channels/video | channels | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | channels-webchat | /channels/webchat | channels | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | channels-whatsapp | /channels/whatsapp | channels | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
-| contacts | /contacts | contacts | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| contacts | /contacts | contacts | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | contacts-detail | /contacts/:id | contacts | dynamic | active | contextual | fixture-required | blocked | — | BLOCKED |
 | contacts-import | /contacts/import | contacts | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | contacts-segments | /contacts/segments | contacts | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
@@ -167,7 +167,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | campaigns | /campaigns | campaigns |
 | campaigns-create | /campaigns/create | campaigns |
 | campaigns-outbound | /campaigns/outbound | campaigns |
-| contacts | /contacts | contacts |
 | contacts-import | /contacts/import | contacts |
 | contacts-segments | /contacts/segments | contacts |
 | inbox | /inbox | inbox |

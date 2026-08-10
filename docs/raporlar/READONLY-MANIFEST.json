@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 143,
-    "productionSafeReadOnly": 107,
+    "totalSpecs": 144,
+    "productionSafeReadOnly": 108,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 107,
+      "read-only": 108,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 142,
+      "authenticated": 143,
       "public": 1
     },
     "byEnvironment": {
-      "both": 107,
+      "both": 108,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -70,6 +70,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -171,7 +172,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -188,6 +189,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -289,7 +291,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -306,6 +308,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -408,7 +411,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -425,6 +428,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -526,7 +530,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -543,6 +547,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -644,7 +649,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 104,
+      "selectedSpecFileCount": 105,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -661,6 +666,7 @@
         "tests/channels-webchat-interactions.authed.spec.js",
         "tests/channels-webchat.authed.spec.js",
         "tests/channels-whatsapp.authed.spec.js",
+        "tests/contacts-interactions.authed.spec.js",
         "tests/contacts.authed.spec.js",
         "tests/dashboard-actions.authed.spec.js",
         "tests/dashboard.authed.spec.js",
@@ -1319,6 +1325,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/contacts-interactions.authed.spec.js",
+      "pathPattern": "tests/contacts-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "contacts",
+      "routes": [
+        "/contacts"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/contacts-mutations.authed.spec.js",
       "pathPattern": "tests/contacts-mutations.authed.spec.js",
       "kind": "mutation",
@@ -1354,7 +1386,9 @@
         "webkit-authed"
       ],
       "surface": "contacts",
-      "routes": [],
+      "routes": [
+        "/contacts"
+      ],
       "capabilities": [
         "auth:default"
       ],
