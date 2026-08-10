@@ -8,7 +8,7 @@ import { VoiceSubPage } from './pages/VoiceSubPage.js';
  *
  * Çağrı geçmişi tablosu üzerinde read-only etkileşim boyutunu makine-okur işaretle
  * doğrular: tablo/liste yapısı + en az bir veri satırı (@ix-table). Tablo render'ı
- * `GET /api/v1/voice/calls` ile veri-bağlı (voice-history.authed.spec.js @data'da kanıtlı).
+ * `GET /api/v1/voice/calls` ile veri-bağlı (voice-history.authed.spec.js veri-sadakati testinde kanıtlı).
  *
  * Kapsam-dışı (sözleşmede naInteraction, dürüst):
  *  - search-filter/empty-state: serbest-metin satır-arama kutusu yok (yalnız yön +
