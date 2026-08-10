@@ -268,6 +268,10 @@ export function flattenPlaywrightReport(report) {
           status: r.status || 'unknown',
           firstStatus: results[0]?.status || 'unknown', // WP-R4: retry-pass tespiti
           attempts: results.length, // WP-R4: retry sayısı = attempts-1
+          // (WP-DRAFT additive) Playwright TEST-seviyesi sonucu: expected|unexpected|flaky|skipped.
+          // triage sınıflandırması bunu kullanır; eski raporlarda yoksa status/retry'a düşülür.
+          outcome: t.status || 'unknown',
+          annotations: (t.annotations || []).map((a) => a && a.type).filter(Boolean),
           error: r.error?.message || (r.errors && r.errors[0]?.message) || undefined,
           durationMs: r.duration,
           project: t.projectName || t.projectId,
@@ -576,3 +580,305 @@ export function prepareVerificationBundle(dir) {
 
   return { uploadDir, copied, skippedLocal, rejected };
 }
+
+// ════════════════════════════════════════════════════════════════════════════
+// WP-DRAFT — Kırmızı testten TASLAK bulgu önerisi (proposal-only).
+//
+// Doktrin (known-bugs.js §): otomasyon registry'yi YAZMAZ, kök-neden UYDURMAZ.
+// Buradaki fonksiyonlar SAF ve DETERMİNİSTİK: wall-clock ve rastgelelik KULLANMAZ;
+// provenance (runUrl/commit/capturedAt) yalnız dışarıdan (env) enjekte edilir.
+// Yalnız GÖZLEMLENEBİLİR alanları doldurur.
+// ════════════════════════════════════════════════════════════════════════════
+
+/** Triage sınıfları. */
+export const TRIAGE = Object.freeze({
+  REAL_RED: 'REAL-RED', // guard'sız gerçek kırmızı → taslak üretilir
+  FIXED_CANDIDATE: 'FIXED-CANDIDATE', // knownBugGuard beklenmedik geçti → reconcile
+  FLAKY: 'FLAKY', // retry-pass / attempt-1 timeout
+  KNOWN_BUG_GREEN: 'KNOWN-BUG-GREEN', // beklenen-başarısızlık = yeşil, aksiyon yok
+  GREEN: 'GREEN', // normal geçen / skip
+});
+
+/**
+ * Bir flattenPlaywrightReport() kaydını triage sınıfına indirger. TEST-seviyesi
+ * `outcome` (expected|unexpected|flaky|skipped) birincil; yoksa result-status +
+ * retry sezgisine düşülür. `expectedStatus==='failed'` ⇔ test.fail/knownBugGuard guard.
+ * @param {any} flat
+ * @returns {string} TRIAGE değeri
+ */
+export function classifyTriage(flat) {
+  if (!flat) return TRIAGE.GREEN;
+  const guarded = flat.expectedStatus === 'failed';
+  switch (flat.outcome) {
+    case 'skipped':
+      return TRIAGE.GREEN;
+    case 'flaky':
+      return TRIAGE.FLAKY;
+    case 'unexpected':
+      return guarded ? TRIAGE.FIXED_CANDIDATE : TRIAGE.REAL_RED;
+    case 'expected':
+      return guarded ? TRIAGE.KNOWN_BUG_GREEN : TRIAGE.GREEN;
+    default: {
+      // Eski/eksik rapor: result-status + retry'dan türet.
+      const retryPass =
+        (flat.attempts || 0) > 1 &&
+        ['failed', 'timedOut'].includes(flat.firstStatus) &&
+        flat.status === 'passed';
+      if (retryPass) return TRIAGE.FLAKY;
+      if (flat.status === 'skipped') return TRIAGE.GREEN;
+      if (['failed', 'timedOut'].includes(flat.status)) return guarded ? TRIAGE.KNOWN_BUG_GREEN : TRIAGE.REAL_RED;
+      if (flat.status === 'passed') return guarded ? TRIAGE.FIXED_CANDIDATE : TRIAGE.GREEN;
+      return TRIAGE.GREEN;
+    }
+  }
+}
+
+const ANSI_RE = /\x1b\[[0-9;]*m/g;
+function truncEvidence(s, n = 300) {
+  const t = String(s).replace(ANSI_RE, '').trim();
+  return t.length > n ? t.slice(0, n) + '…' : t;
+}
+
+/**
+ * Playwright assertion mesajından {expected, actual, firstLine, matcher} çıkarır.
+ * EŞLEŞMEZSE expected/actual = null (ASLA uydurmaz — doktrin). firstLine her zaman güvenli.
+ * @param {string|undefined|null} msg
+ */
+export function parseAssertion(msg) {
+  const out = { expected: null, actual: null, firstLine: null, matcher: null };
+  if (!msg || typeof msg !== 'string') return out;
+  const clean = msg.replace(ANSI_RE, '');
+  const lines = clean.split('\n').map((l) => l.trimEnd());
+  out.firstLine = truncEvidence(lines.find((l) => l.trim().length) || '');
+  const mMatcher = clean.match(
+    /\.(toHaveCount|toContainText|toHaveText|toBeVisible|toBeHidden|toHaveURL|toHaveAccessibleName|toHaveClass|toBeGreaterThan|toBe|toEqual)\b/
+  );
+  if (mMatcher) out.matcher = mMatcher[1];
+  const mTimeout =
+    clean.match(/Test timeout of (\d+)ms exceeded/) ||
+    clean.match(/Timed out (\d+)ms/) ||
+    clean.match(/Timeout (\d+)ms exceeded/);
+  if (mTimeout) {
+    out.matcher = out.matcher || 'timeout';
+    out.expected = `koşul ${mTimeout[1]}ms içinde sağlanmalı`;
+    out.actual = 'zaman aşımı';
+    return out;
+  }
+  const exp = clean.match(/Expected(?: string| pattern)?:\s*(.+)/);
+  const rec = clean.match(/Received(?: string)?:\s*(.+)/);
+  if (exp) out.expected = truncEvidence(exp[1]);
+  if (rec) out.actual = truncEvidence(rec[1]);
+  return out;
+}
+
+/** area enum tahmini (spec dosya adı önekinden); bilinmezse null. */
+const AREA_PREFIXES = Object.freeze([
+  ['analytics', 'analytics'],
+  ['bot-builder', 'ai'],
+  ['ai', 'ai'],
+  ['campaigns', 'campaigns'],
+  ['channels', 'channels'],
+  ['contacts', 'contacts'],
+  ['dashboard', 'dashboard'],
+  ['inbox', 'inbox'],
+  ['reports', 'reports'],
+  ['settings', 'settings'],
+  ['supervisor', 'supervisor'],
+  ['voice', 'voice'],
+  ['workforce', 'workforce'],
+]);
+export function areaFromSpecFile(file) {
+  const base = String(file || '').split('/').pop() || '';
+  for (const [prefix, area] of AREA_PREFIXES) if (base.startsWith(prefix)) return area;
+  return null;
+}
+
+/** Deterministik, dosya-sistemi güvenli slug: kebab(base) + sha1(8). Rastgelelik YOK. */
+export function draftSlug(file, title) {
+  const raw = `${file}::${title}`;
+  const base = raw
+    .replace(/[^a-z0-9]+/gi, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase()
+    .slice(0, 80);
+  const h = createHash('sha1').update(raw).digest('hex').slice(0, 8);
+  return `${base}-${h}`;
+}
+
+/** '/rota' benzeri bir yol tahmini (title → error); yoksa null. Spec adından TÜRETİLMEZ. */
+function routeGuess(t) {
+  const rx = /(\/[a-zA-Z0-9][a-zA-Z0-9/_-]{1,60})/;
+  for (const src of [t.title, t.error]) {
+    const m = src && String(src).replace(ANSI_RE, '').match(rx);
+    if (m) return m[1];
+  }
+  return null;
+}
+
+/** Gözlemlenen attachment'ları evidence[] linklerine çevirir (piiReviewed HER ZAMAN false). */
+function evidenceFromAttachments(attachments) {
+  const out = [];
+  for (const a of attachments || []) {
+    if (!a || !a.path) continue;
+    let kind = 'other';
+    let source = a.name || 'attachment';
+    if (a.name === 'trace' || /\.zip$/i.test(a.path)) { kind = 'trace'; source = 'playwright-trace'; }
+    else if (a.name === 'video' || /\.(webm|mp4)$/i.test(a.path)) { kind = 'video'; source = 'playwright-video'; }
+    else if (a.name === 'screenshot' || (a.contentType || '').startsWith('image/')) { kind = 'screenshot'; source = 'playwright-screenshot'; }
+    else if (/runtime-diagnostics/.test(a.name || '') || /runtime-diagnostics/.test(a.path)) { kind = 'network'; source = 'runtime-diagnostics'; }
+    out.push({ path: a.path, source, piiReviewed: false, kind });
+  }
+  return out.sort((x, y) => (x.kind + x.path).localeCompare(y.kind + y.path));
+}
+
+/** Tek REAL-RED kaydından known-bugs.js şemasını yansıtan TASLAK üretir (AUTO alanlar + TODO). */
+function buildDraftRecord(t, slug) {
+  const a = parseAssertion(t.error);
+  const env = {};
+  const proj = String(t.project || '');
+  if (proj) {
+    const browser = proj.split('-')[0];
+    if (browser) env.browser = browser;
+    if (/authed/.test(proj)) env.role = 'authed';
+  }
+  const evidence = evidenceFromAttachments(t.attachments);
+  const technicalEvidence = [];
+  if (a.firstLine) technicalEvidence.push(a.firstLine);
+  if ((t.attachments || []).some((x) => /runtime-diagnostics/.test((x && x.name) || ''))) {
+    technicalEvidence.push('runtime-diagnostics.json ekli (console-error/failed-request/5xx — evidence linkine bak)');
+  }
+  return {
+    id: `DRAFT-${slug}`, // TODO: insan gerçek id atar (ör. B26)
+    title: null, // TODO
+    area: areaFromSpecFile(t.file), // AUTO (best-effort)
+    route: routeGuess(t), // AUTO (best-effort); yoksa null
+    severity: null, // TODO (enum) — insan
+    status: 'open', // AUTO (asla 'closed')
+    guard: 'knownBugGuard', // AUTO (açık bug kontratı)
+    opened: null, // TODO
+    lastVerified: null, // TODO
+    expiry: null, // TODO
+    env, // AUTO (yalnız gözlenen anahtarlar)
+    precondition: null, // TODO
+    firstFailingStep: null, // TODO
+    repro: [], // TODO: [{step, selector}] — insan
+    expected: a.expected, // AUTO (parse); yoksa null
+    actual: a.actual, // AUTO (parse); yoksa null
+    technicalEvidence, // AUTO (assertion ilk satırı + diagnostics notu)
+    possibleCauses: [], // SABİT [] — doktrin
+    rootCauseCandidate: null, // SABİT null
+    rootCause: null, // SABİT null
+    suggestedFixes: [], // SABİT []
+    evidence, // AUTO (yerel yollar; piiReviewed:false)
+    test: { file: t.file, title: t.title }, // AUTO (gözlenen)
+    owner: null, // TODO
+    issueRef: null, // TODO
+    _todo: [
+      'title',
+      'severity',
+      'route (AUTO tahmin — DOĞRULA)',
+      'repro[{step,selector}]',
+      'markForensicTarget kancası (görsel/layout/a11y bulguları için)',
+      'owner',
+      'opened/lastVerified',
+      'issueRef',
+    ],
+  };
+}
+
+/**
+ * Playwright raporunu + registry'yi + (env-injected) provenance'ı alıp triage özeti +
+ * REAL-RED taslakları + reconcile'a yönlendirilecek fixed-candidate listesi üretir.
+ * SAF & DETERMİNİSTİK. Registry'yi DEĞİŞTİRMEZ. Provenance opts yalnız summary'ye yansır.
+ * @param {any} report  Playwright JSON raporu
+ * @param {readonly any[]} registry  KNOWN_BUGS
+ * @param {{ runUrl?:string|null, commit?:string|null, capturedAt?:string|null }} [opts]
+ */
+export function buildDrafts(report, registry, opts = {}) {
+  const { runUrl = null, commit = null, capturedAt = null } = opts;
+  // Playwright JSON `spec.file` bazen `tests/` öneksiz gelir; registry hep önekli.
+  // Dedup öneki normalize ederek yapılır (yanlış-negatif olmasın).
+  const normFile = (f) => String(f || '').replace(/^tests\//, '');
+  const knownKeys = new Set((registry || []).map((b) => `${normFile(b.test && b.test.file)}::${b.test && b.test.title}`));
+  const flat = flattenPlaywrightReport(report);
+  const counts = { 'REAL-RED': 0, 'FIXED-CANDIDATE': 0, FLAKY: 0, 'KNOWN-BUG-GREEN': 0, GREEN: 0 };
+  const drafts = [];
+  const fixedCandidates = [];
+  const skippedAlreadyKnown = [];
+  for (const t of flat) {
+    const cls = classifyTriage(t);
+    counts[cls] = (counts[cls] || 0) + 1;
+    if (cls === TRIAGE.FIXED_CANDIDATE) fixedCandidates.push({ file: t.file, title: t.title });
+    if (cls !== TRIAGE.REAL_RED) continue;
+    const key = `${normFile(t.file)}::${t.title}`;
+    if (knownKeys.has(key)) { skippedAlreadyKnown.push({ file: t.file, title: t.title }); continue; }
+    const slug = draftSlug(t.file, t.title);
+    drafts.push({ slug, record: buildDraftRecord(t, slug) });
+  }
+  const byKey = (x) => `${x.file}::${x.title}`;
+  drafts.sort((a, b) => a.slug.localeCompare(b.slug));
+  fixedCandidates.sort((a, b) => byKey(a).localeCompare(byKey(b)));
+  skippedAlreadyKnown.sort((a, b) => byKey(a).localeCompare(byKey(b)));
+  return {
+    summary: {
+      counts,
+      total: flat.length,
+      provenance: { runUrl, commit, capturedAt },
+      note: 'ÖNERİDİR. Registry DEĞİŞMEDİ. Taslaklar insan-incelemesi içindir; _todo tamamlanmadan known-bugs.js\'e EKLENMEZ. Kök-neden UYDURULMAZ.',
+    },
+    drafts,
+    fixedCandidates,
+    skippedAlreadyKnown,
+  };
+}
+
+/** Taslak bundle upload allowlist'i (yalnız güvenli JSON; görsel/trace local-only). */
+export const DRAFT_UPLOAD_ALLOWLIST = Object.freeze(['draft-summary.json']);
+
+/**
+ * Taslak dizininden güvenli upload bundle'ı hazırlar. `prepareUploadBundle` aynası:
+ * yalnız `draft-summary.json` + `drafts/*.json` kopyalanır, her JSON `findSecrets`
+ * taramasından geçer; beklenmeyen dosya REDDEDİLİR; `.png/.zip` local-only kalır.
+ * @param {string} dir  test-results/findings/_drafts
+ */
+export function prepareDraftBundle(dir) {
+  if (!existsSync(dir)) throw new Error(`taslak dizini yok: ${dir}`);
+  const uploadDir = join(dir, 'upload');
+  rmSync(uploadDir, { recursive: true, force: true });
+  const copied = [];
+  const skippedLocal = [];
+  const rejected = [];
+  const scanJsonCopy = (full, rel) => {
+    const leaks = findSecrets(readFileSync(full, 'utf8'));
+    if (leaks.length) {
+      rejected.push({ name: rel, reason: `sanitizer sızıntı yakaladı: ${leaks.join(', ')}` });
+      return;
+    }
+    mkdirSync(dirname(join(uploadDir, rel)), { recursive: true });
+    copyFileSync(full, join(uploadDir, rel));
+    copied.push(rel);
+  };
+  for (const name of readdirSync(dir)) {
+    if (name === 'upload') continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) {
+      if (name === 'drafts') {
+        for (const f of readdirSync(full)) {
+          const af = join(full, f);
+          if (statSync(af).isDirectory()) { rejected.push({ name: `drafts/${f}`, reason: 'beklenmeyen alt-dizin' }); continue; }
+          if (f.endsWith('.json')) scanJsonCopy(af, `drafts/${f}`);
+          else if (LOCAL_ONLY_PATTERNS.some((re) => re.test(f))) skippedLocal.push(`drafts/${f}`);
+          else rejected.push({ name: `drafts/${f}`, reason: 'allowlist dışı beklenmeyen dosya' });
+        }
+      } else {
+        rejected.push({ name, reason: 'beklenmeyen alt-dizin (allowlist dışı)' });
+      }
+      continue;
+    }
+    if (DRAFT_UPLOAD_ALLOWLIST.includes(name)) scanJsonCopy(full, name);
+    else if (LOCAL_ONLY_PATTERNS.some((re) => re.test(name))) skippedLocal.push(name);
+    else rejected.push({ name, reason: 'allowlist dışı beklenmeyen dosya' });
+  }
+  return { uploadDir, copied, skippedLocal, rejected };
+}
+
