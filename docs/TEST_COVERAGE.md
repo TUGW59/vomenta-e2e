@@ -8,8 +8,8 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1289
-- **Test dosyası:** 111
+- **Test edilen senaryo:** 1304
+- **Test dosyası:** 112
 - **Etiketler:** `@a11y` 73 · `@clean)` 7 · `@clean` 60 · `@critical` 73 · `@data` 31 · `@deeplink` 58 · `@errorpath` 56 · `@export` 6 · `@i18n` 250 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 17 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 66 · `@perf` 2 · `@public` 2 · `@regression` 404 · `@route-baseline` 83 · `@security` 4 · `@smoke` 193 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
@@ -482,6 +482,24 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 ### `logout.authed.spec.js`
 
 - kullanıcı menüsünden çıkış yapılabiliyor
+
+### `nav-reachability.authed.spec.js`
+
+- "Dashboard" (/): doğrudan URL ile açılıyor
+- "Inbox" (/inbox): doğrudan URL ile açılıyor
+- "Voice" (/voice): doğrudan URL ile açılıyor
+- "Channels" (/channels): doğrudan URL ile açılıyor
+- "AI" (/ai): doğrudan URL ile açılıyor
+- "Campaigns" (/campaigns): doğrudan URL ile açılıyor
+- "Bot Builder" (/bot-builder): doğrudan URL ile açılıyor
+- "Contacts" (/contacts): doğrudan URL ile açılıyor
+- "Tickets" (/tickets): doğrudan URL ile açılıyor
+- "Analytics" (/analytics): doğrudan URL ile açılıyor
+- "Reports" (/reports): doğrudan URL ile açılıyor
+- "Supervisor" (/supervisor): doğrudan URL ile açılıyor
+- "Workforce" (/workforce): doğrudan URL ile açılıyor
+- "Settings" (/settings): doğrudan URL ile açılıyor
+- kenar menüsü 10000ms içinde tüm MAIN_NAVIGATION öğelerini tıklanabilir sunmalı
 
 ### `navigation.authed.spec.js`
 
