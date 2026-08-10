@@ -408,12 +408,45 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-  full-regression:
-    name: Full cross-browser regression
+  # ── PROD-HEALTH PREFLIGHT (WP-NIGHT-INFRA / dead-nightly dayanıklılık) ──────────
+  # Authed nightly lane'leri auth.setup üzerinden prod'a login olur. Prod gateway'i
+  # bir pencere boyunca SÜREKLİ 503 döndüğünde setup tükenir → tüm authed testler
+  # cascade ile kırmızı → gerçek regresyondan ayırt edilemeyen kalıcı-kırmızı.
+  # Bu job PUBLIC (credential'sız) bir probe ile prod'un ayakta olup olmadığını
+  # sınıflandırır (up=true|false). Aşağıdaki 5 authed lane bu çıktıya koşullanır:
+  # up=false → lane'ler SKIP (NEUTRAL; kırmızı DEĞİL). Bir test DEĞİL, bir kapıdır;
+  # her hâlde exit 0 verir, kararı `up` çıktısı taşır (bkz. tools/prod-health-probe.mjs).
+  # if: aşağıdaki 5 lane'in tetikleyici BİRLEŞİMİ (üst küme) → prod-health hep koşar,
+  # "skipped-need" yüzünden hiçbir lane yanlışlıkla atlanmaz (manuel dispatch korunur).
+  prod-health:
+    name: Prod health preflight (nightly infra gate)
     needs: architecture
     if: >-
       github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      (github.event_name == 'workflow_dispatch' && (inputs.suite == 'full' || inputs.collect_evidence))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      up: ${{ steps.probe.outputs.up }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      # Yalnız node builtin + global fetch kullanır; bağımlılık YOK → npm ci gereksiz.
+      - name: Prod public health probe (credential'sız; up=true|false çıktısı)
+        id: probe
+        run: node tools/prod-health-probe.mjs
+
+  full-regression:
+    name: Full cross-browser regression
+    needs: [architecture, prod-health]
+    # Prod down (up != true) → NEUTRAL skip (kırmızı değil). Prod up → normal koşar.
+    if: >-
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) &&
+      needs.prod-health.outputs.up == 'true'
     runs-on: ubuntu-latest
     # WP-NIGHT-STABILITY (ADR-0017): 3854 test (authed 1275 × 3 tarayıcı) tek
     # runner + 45dk kutuya sığmıyordu → her gece timeout'ta cancelled. Çözüm:
@@ -465,10 +498,12 @@ jobs:
 
   visual-regression:
     name: Visual regression / macOS
-    needs: architecture
+    needs: [architecture, prod-health]
+    # Prod down → NEUTRAL skip (bkz. prod-health preflight).
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) &&
+      needs.prod-health.outputs.up == 'true'
     runs-on: macos-14
     # WP-NIGHT-STABILITY (ADR-0017): 64 @visual test tek koşumda 30dk kutuya
     # sığmayıp cancelled oluyordu. Tarayıcı bazlı ayrılınca her hücre küçülür ve
@@ -512,10 +547,12 @@ jobs:
 
   read-only-discovery:
     name: Read-only route discovery
-    needs: architecture
+    needs: [architecture, prod-health]
+    # Prod down → NEUTRAL skip (bkz. prod-health preflight).
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) &&
+      needs.prod-health.outputs.up == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -611,10 +648,12 @@ jobs:
 
   nightly-known-bug-reconcile:
     name: Nightly known-bug reconcile (fixed-candidate önerisi)
-    needs: architecture
+    needs: [architecture, prod-health]
+    # Prod down → NEUTRAL skip (bkz. prod-health preflight).
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) &&
+      needs.prod-health.outputs.up == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -665,10 +704,13 @@ jobs:
   # ════════════════════════════════════════════════════════════════════════════
   nightly-draft-findings:
     name: Nightly draft findings (REAL-RED önerisi)
-    needs: architecture
+    needs: [architecture, prod-health]
+    # Prod down → NEUTRAL skip (bkz. prod-health preflight). Authed suite'i prod'a
+    # koşar; infra-503 penceresinde koşmanın anlamı yok (draft üretilemez).
     if: >-
-      github.event_name == 'schedule' ||
-      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+      (github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')) &&
+      needs.prod-health.outputs.up == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
@@ -752,8 +794,10 @@ jobs:
 
   known-bug-evidence:
     name: Known-bug evidence (bounded/serileştirilmiş forensik)
-    needs: evidence-plan
-    if: ${{ needs.evidence-plan.outputs.count != '0' }}
+    needs: [evidence-plan, prod-health]
+    # Prod down → NEUTRAL skip (bkz. prod-health preflight). prod-health'in if'i
+    # collect_evidence dispatch'i de kapsar → bu lane'in tetiklendiği her yolda koşar.
+    if: ${{ needs.evidence-plan.outputs.count != '0' && needs.prod-health.outputs.up == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
