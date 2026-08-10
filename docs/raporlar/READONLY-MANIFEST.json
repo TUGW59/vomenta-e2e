@@ -3552,7 +3552,9 @@
         "webkit-authed"
       ],
       "surface": "supervisor",
-      "routes": [],
+      "routes": [
+        "/supervisor/interactions"
+      ],
       "capabilities": [
         "auth:default"
       ],

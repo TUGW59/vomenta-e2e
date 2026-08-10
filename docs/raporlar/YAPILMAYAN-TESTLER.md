@@ -121,7 +121,7 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
 | tests/supervisor-agents.authed.spec.js:198 | fixme |  |
 | tests/supervisor-agents.authed.spec.js:282 | skip | VOMENTA_TEST_AGENT_EMAIL eksik |
 | tests/supervisor-coaching.authed.spec.js:167 | fixme |  |
-| tests/supervisor-interactions.authed.spec.js:108 | fixme |  |
+| tests/supervisor-interactions.authed.spec.js:114 | fixme |  |
 | tests/supervisor-wallboard.authed.spec.js:163 | skip | da güvenilir. |
 | tests/supervisor-wallboard.authed.spec.js:278 | fixme |  |
 | tests/supervisor-wallboard.authed.spec.js:279 | fixme |  |
@@ -151,4 +151,4 @@ Güvenlik gereği prod'da çalıştırılmaz (veri değiştirir / dış yan etki
   `/inbox` · `/ai` · `/campaigns` · `/bot-builder` · `/analytics` · `/reports` · `/supervisor`
 - **Keşfedilen kayıtsız rotalar** (discovery-baseline − kayıtlı envanter; dinamik türetilir, tested-pages'te tam sözleşme yok):
   _yok — tüm keşif rotaları kayıtlı._
-- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 68 adet — çoğunlukla `reports` alt rotaları.
+- Kayıtlı arketip rotaları (tested-pages, main-navigation dışı): 69 adet — çoğunlukla `reports` alt rotaları.

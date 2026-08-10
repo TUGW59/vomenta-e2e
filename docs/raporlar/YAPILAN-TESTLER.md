@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1332 / 146 dosya
-- **coverageStatus:** verified 0 · partial 1274 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1283 · skipped 0 · fixme 49
+- **Listelenen test:** 1337 / 146 dosya
+- **coverageStatus:** verified 0 · partial 1279 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1288 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,7 +29,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 106 | 96 | 0 | 10 |
+| supervisor | 111 | 101 | 0 | 10 |
 | tickets | 20 | 20 | 0 | 0 |
 | voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
@@ -1599,14 +1599,19 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | tablo beklenen kolonları gösteriyor | @critical | — | listed-only | partial | medium | list-exec |
 | kontroller mevcut (kanal filtresi / arama) |  | — | listed-only | partial | medium | list-exec |
 | aktif etkileşim yokken boş-durum gösteriliyor |  | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + kanal filtresi + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + kanal filtresi + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + kanal filtresi + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + kanal filtresi + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + kanal filtresi + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + kanal filtresi + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + kanal filtresi + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + kanal filtresi + boş-durum çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: menü açılıyor ve kanal seçenekleri görünüyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: kanal seçince interactions API'sini channel parametresiyle çağırıyor | @regression @critical | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: arama kutusuna yazılabiliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1/L2/L3: aktif etkileşim satırındaki izleme/araya-girme aksiyonları (staging/canlı veri) | @regression | L1 | fixme | blocked | low | list-exec+title-inferred |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /supervisor/interactions doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| interactions ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
 
 ### `supervisor-wallboard.authed.spec.js` — _supervisor_
 

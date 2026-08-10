@@ -1,6 +1,12 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { InteractionsPage } from './pages/InteractionsPage.js';
+import {
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+} from './helpers.js';
 
 /**
  * SÜPERVİZÖR → CANLI ETKİLEŞİMLER / LIVE INTERACTIONS (`/supervisor/interactions`)
@@ -47,7 +53,7 @@ test.describe('Canlı Etkileşimler — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL i18n GUARD'LARI ────────────────────────
-test.describe('Canlı Etkileşimler — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Canlı Etkileşimler — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + kanal filtresi + boş-durum çevrili`, async ({ app }) => {
       const ix = app.interactions;
@@ -106,4 +112,53 @@ test.describe('Kontrol: Etkileşim arama @regression', () => {
 // L1/L2/L3 eklenecek (bkz. AGENTS.md — canlı arama denetim aksiyonları).
 test.describe('Canlı Etkileşimler — satır aksiyonları (staging planı) @regression', () => {
   test.fixme('L1/L2/L3: aktif etkileşim satırındaki izleme/araya-girme aksiyonları (staging/canlı veri)', async () => {});
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (Option A: L1 → dedicated L2·style) ═══════════════════════
+// Sayfa canlı-izleme + test tenant'ında BOŞ (aktif etkileşim yok) → etkileşim derinliği
+// yüzeyi yok (tüm @ix-* boyutları naInteraction, resolved-exempt). Yine de dedicated STİL
+// sözleşmesi kurulur: @i18n (yukarıda) + @a11y/@layout/@clean/@deeplink/@errorpath. SALT-OKUNUR.
+
+test.describe('Canlı Etkileşimler — erişilebilirlik @a11y', () => {
+  test('sayfada ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const ix = app.interactions;
+    await ix.open();
+    await expectNoSevereA11y(ix.page);
+  });
+});
+
+test.describe('Canlı Etkileşimler — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/supervisor/interactions');
+  });
+});
+
+test.describe('Canlı Etkileşimler — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const ix = app.interactions;
+    await ix.open();
+    await waitForUiToSettle(ix.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Canlı Etkileşimler — deep-link @deeplink', () => {
+  test('/supervisor/interactions doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const ix = app.interactions;
+    await page.goto('/supervisor/interactions', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(ix.shell.loginHeading).toBeHidden();
+    await expect(ix.heading).toHaveText(InteractionsPage.I18N.en.heading);
+  });
+});
+
+test.describe('Canlı Etkileşimler — hata-yolu @errorpath', () => {
+  test('interactions ucu 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${InteractionsPage.API.interactions}**`, { status: 500 });
+    const ix = app.interactions;
+    await page.goto('/supervisor/interactions', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(ix.shell.loginHeading).toBeHidden();
+    await expect(ix.heading).toHaveText(InteractionsPage.I18N.en.heading);
+  });
 });

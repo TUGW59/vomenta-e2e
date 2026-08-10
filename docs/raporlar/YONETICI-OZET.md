@@ -40,10 +40,10 @@
 
 - **Kayıtlı rota (depth):** 92
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
-- **L2 complete:** 37 · **L2 partial:** 31 · **L2 not-covered:** 24 · _(stil sözleşmesi karşılanan: 68; etkileşim doğrulanmamış rota: 31)_
+- **L2 complete:** 37 · **L2 partial:** 32 · **L2 not-covered:** 23 · _(stil sözleşmesi karşılanan: 69; etkileşim doğrulanmamış rota: 30)_
 - **L3:** proven 0 · blocked 51 · N/A 41
 - **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
-- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 15 · L2-stil 31 · L2-deep 37
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 14 · L2-stil 32 · L2-deep 37
 
 > ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **37**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
