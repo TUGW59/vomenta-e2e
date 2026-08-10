@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 137,
-    "productionSafeReadOnly": 101,
+    "totalSpecs": 143,
+    "productionSafeReadOnly": 107,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 101,
+      "read-only": 107,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 136,
+      "authenticated": 142,
       "public": 1
     },
     "byEnvironment": {
-      "both": 101,
+      "both": 107,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -127,21 +127,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -165,7 +171,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -239,21 +245,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -277,7 +289,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -351,21 +363,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -390,7 +408,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -464,21 +482,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -502,7 +526,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -576,21 +600,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -614,7 +644,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 98,
+      "selectedSpecFileCount": 104,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -688,21 +718,27 @@
         "tests/settings-webhooks.authed.spec.js",
         "tests/settings.authed.spec.js",
         "tests/supervisor-agent-live.authed.spec.js",
+        "tests/supervisor-agents-interactions.authed.spec.js",
         "tests/supervisor-agents.authed.spec.js",
         "tests/supervisor-coaching.authed.spec.js",
         "tests/supervisor-interactions.authed.spec.js",
         "tests/supervisor-wallboard.authed.spec.js",
         "tests/tickets.authed.spec.js",
+        "tests/voice-dids-interactions.authed.spec.js",
         "tests/voice-dids.authed.spec.js",
+        "tests/voice-history-interactions.authed.spec.js",
         "tests/voice-history.authed.spec.js",
+        "tests/voice-ivr-interactions.authed.spec.js",
         "tests/voice-ivr.authed.spec.js",
         "tests/voice-queues.authed.spec.js",
+        "tests/voice-recordings-interactions.authed.spec.js",
         "tests/voice-recordings.authed.spec.js",
         "tests/voice-regulatory.authed.spec.js",
         "tests/voice-sip-settings.authed.spec.js",
         "tests/voice-sip-trunks.authed.spec.js",
         "tests/voice-skills.authed.spec.js",
         "tests/voice-subnav.authed.spec.js",
+        "tests/voice-voicemail-interactions.authed.spec.js",
         "tests/voice-voicemail.authed.spec.js",
         "tests/voice.authed.spec.js",
         "tests/workforce-badges-interactions.authed.spec.js",
@@ -3319,6 +3355,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/supervisor-agents-interactions.authed.spec.js",
+      "pathPattern": "tests/supervisor-agents-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "supervisor",
+      "routes": [
+        "/supervisor/agents"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/supervisor-agents.authed.spec.js",
       "pathPattern": "tests/supervisor-agents.authed.spec.js",
       "kind": "authed",
@@ -3463,6 +3525,32 @@
       "exclusionReason": "N/A: çağrı/SMS dışa dönük ve kalıcı kullanıcı-adlı entity değil; güvenli sonuç/teardown yolu kanıtlanana kadar testler fixme."
     },
     {
+      "id": "tests/voice-dids-interactions.authed.spec.js",
+      "pathPattern": "tests/voice-dids-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/dids"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/voice-dids-mutations.authed.spec.js",
       "pathPattern": "tests/voice-dids-mutations.authed.spec.js",
       "kind": "mutation",
@@ -3513,6 +3601,32 @@
       "exclusionReason": null
     },
     {
+      "id": "tests/voice-history-interactions.authed.spec.js",
+      "pathPattern": "tests/voice-history-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/history"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
       "id": "tests/voice-history.authed.spec.js",
       "pathPattern": "tests/voice-history.authed.spec.js",
       "kind": "authed",
@@ -3528,6 +3642,32 @@
       "surface": "voice",
       "routes": [
         "/voice/history"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-ivr-interactions.authed.spec.js",
+      "pathPattern": "tests/voice-ivr-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/ivr"
       ],
       "capabilities": [
         "auth:default"
@@ -3628,6 +3768,32 @@
       "surface": "voice",
       "routes": [
         "/voice/queues"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-recordings-interactions.authed.spec.js",
+      "pathPattern": "tests/voice-recordings-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/recordings"
       ],
       "capabilities": [
         "auth:default"
@@ -3784,6 +3950,32 @@
       "surface": "voice",
       "routes": [
         "/voice"
+      ],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/voice-voicemail-interactions.authed.spec.js",
+      "pathPattern": "tests/voice-voicemail-interactions.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "voice",
+      "routes": [
+        "/voice/voicemail"
       ],
       "capabilities": [
         "auth:default"

@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1220
-- **Test dosyası:** 99
-- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 29 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 4 · `@ix-filter` 1 · `@ix-table` 7 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
+- **Test edilen senaryo:** 1228
+- **Test dosyası:** 105
+- **Etiketler:** `@a11y` 66 · `@clean)` 7 · `@clean` 53 · `@critical` 72 · `@data` 29 · `@deeplink` 51 · `@errorpath` 50 · `@export` 2 · `@i18n` 222 · `@ix-empty` 5 · `@ix-filter` 2 · `@ix-table` 13 · `@ix-tabs` 19 · `@keyboard` 38 · `@known-bug` 75 · `@layout` 59 · `@perf` 2 · `@public` 2 · `@regression` 396 · `@route-baseline` 83 · `@security` 4 · `@smoke` 191 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1128,6 +1128,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - [fr] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 - [ar] başlık + yön + alt başlık + boş-durum çevrili  `@regression`
 
+### `supervisor-agents-interactions.authed.spec.js`
+
+- ajan tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
+- ada göre arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
+- eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı")  `@ix-empty`
+
 ### `supervisor-agents.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
@@ -1228,6 +1234,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - sekme filtresi: Unassigned sekmesi atanmamış ticketları gösteriyor
 - arama: eşleşmeyen sorgu "No tickets found" boş-durumu gösteriyor
 
+### `voice-dids-interactions.authed.spec.js`
+
+- DID/numara tablosu + en az bir veri satırı gösteriyor  `@ix-table`
+
 ### `voice-dids.authed.spec.js`
 
 - sayfa "Phone Numbers" + "Pending Requests" ile açılıyor  `@smoke`
@@ -1242,6 +1252,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: "Request Number" tıklanınca "Request Phone Number" dialogu açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
 - GET /dids 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı)  `@deeplink`
+
+### `voice-history-interactions.authed.spec.js`
+
+- çağrı geçmişi tablosu + en az bir veri satırı gösteriyor  `@ix-table`
 
 ### `voice-history.authed.spec.js`
 
@@ -1258,6 +1272,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: yön filtresi combobox'u açılıyor; etkileşim sonrası tablo/başlık sağlam  `@regression`
 - GET /voice/calls 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/history doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-ivr-interactions.authed.spec.js`
+
+- IVR akış tablosu + en az bir veri satırı gösteriyor  `@ix-table`
 
 ### `voice-ivr.authed.spec.js`
 
@@ -1288,6 +1306,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L1: "Create Queue" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez)  `@regression` `@keyboard`
 - GET /queues 500 dönse de kabuk + başlık sağlam  `@errorpath`
 - /voice/queues doğrudan açılınca yükleniyor  `@deeplink`
+
+### `voice-recordings-interactions.authed.spec.js`
+
+- Arama kayıtları tablosu + en az bir veri satırı gösteriyor  `@ix-table`
 
 ### `voice-recordings.authed.spec.js`
 
@@ -1370,6 +1392,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor  `@regression`
 - "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor  `@regression`
 - "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor  `@regression`
+
+### `voice-voicemail-interactions.authed.spec.js`
+
+- Sesli mesaj tablosu + en az bir veri satırı gösteriyor  `@ix-table`
 
 ### `voice-voicemail.authed.spec.js`
 
