@@ -1674,6 +1674,36 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
+  {
+    // C1: /campaigns/outbound L1 → dedicated L2·deep (tek hamlede stil + etkileşim).
+    // POM zaten zengin (I18N 4-dil + table/rows/search + hardened selectTab). Etkileşim:
+    // @ix-tabs + @ix-table + @ix-filter + @ix-empty (campaigns-outbound-interactions), prod'da yeşil.
+    // Stil: @i18n/@layout/@clean/@deeplink/@keyboard/@errorpath; @a11y → CAMPAIGNS-ICON-A11Y known-bug.
+    id: 'campaigns-outbound',
+    surfaceIds: ['campaigns-outbound'],
+    specFiles: [
+      'campaigns-outbound.authed.spec.js',
+      'campaigns-outbound-interactions.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: false,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'Kampanya tablosu + özet kartları canlı veri (durum/tarih/sayı) → kararlı snapshot bölgesi yok.',
+      '@mutation': 'Create/Start/Delete kalıcı yazar → L3 staging (campaigns-outbound.mutation.authed.spec.js); prod read-only\'de L1 (dialog aç + Escape/route-yakala, gönderilmez).',
+    },
+    naInteraction: {
+      'pagination-sort': 'CAMPAIGNS-PAGER: liste 10\'da kapanıyor, hasNextPage:true AMA pager/sonsuz-kaydırma UI\'si YOK → read-only\'de sayfa döndürülemez.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

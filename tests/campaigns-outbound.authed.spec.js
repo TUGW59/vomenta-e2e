@@ -1,7 +1,14 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { CampaignsOutboundPage } from './pages/CampaignsOutboundPage.js';
-import { knownBugGuard } from './helpers.js';
+import {
+  knownBugGuard,
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+  expectDialogKeyboard,
+} from './helpers.js';
 
 /**
  * KAMPANYALAR → GİDEN (`/campaigns/outbound`)
@@ -70,7 +77,7 @@ test.describe('Giden Kampanyalar — yapı', () => {
 // ──────────────────────── 4 DİL ÇEVİRİ GUARD'LARI ────────────────────────
 // i18n bu sayfada sağlam (sızıntı yok) → yeşil guard'lar. Bir çeviri bozulursa
 // hangi etiketin regrese olduğu net görünür.
-test.describe('Giden Kampanyalar — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Giden Kampanyalar — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili`, async ({ app }) => {
       const oc = app.campaignsOutbound;
@@ -439,4 +446,67 @@ test.describe('Giden Kampanyalar — bilinen hatalar @regression @known-bug', ()
   // NOT: "BULGU 4" (start başarısız → sessiz) HATALI çıktı; uygulama 400'de
   // "Failed to start campaign" toast'ı GÖSTERİYOR (ilk keşifte geçici toast tek-sefer
   // sorguda kaçırılmıştı). Artık pozitif guard: "Buton: Kampanya başlat › L3 hata yolu".
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (C1: L1 → dedicated L2) ═══════════════════════
+// Dedicated arketip gereği: @i18n (yukarıda) + @a11y/@layout/@clean/@deeplink/@keyboard/@errorpath.
+// Hepsi SALT-OKUNUR (Create/Start/Delete tetiklenmez).
+const ERRPATH_API = '/api/v1/campaigns';
+
+// @a11y — CAMPAIGNS-ICON-A11Y bilinen hatası: satır işlem ikon düğmeleri (view/start/delete)
+// erişilebilir isim taşımıyor → axe critical (button-name). known-bug guard ile expected-fail.
+test.describe('Giden Kampanyalar — erişilebilirlik @a11y @known-bug', () => {
+  test('CAMPAIGNS-ICON-A11Y · /campaigns/outbound · satır ikon düğmeleri erişilebilir isim taşımalı', async ({ app }) => {
+    knownBugGuard(test, 'CAMPAIGNS-ICON-A11Y');
+    const oc = app.campaignsOutbound;
+    await oc.open();
+    await expectNoSevereA11y(oc.page);
+  });
+});
+
+test.describe('Giden Kampanyalar — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/campaigns/outbound');
+  });
+});
+
+test.describe('Giden Kampanyalar — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const oc = app.campaignsOutbound;
+    await oc.open();
+    await waitForUiToSettle(oc.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Giden Kampanyalar — deep-link @deeplink', () => {
+  test('/campaigns/outbound doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const oc = app.campaignsOutbound;
+    await page.goto('/campaigns/outbound', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(oc.shell.loginHeading).toBeHidden();
+    await expect(oc.heading).toHaveText(CampaignsOutboundPage.I18N.en.heading);
+  });
+});
+
+test.describe('Giden Kampanyalar — klavye/odak @keyboard', () => {
+  test('silme onay dialogu odak tuzağı + Escape ile kapanma (SİLİNMEZ)', async ({ app }) => {
+    const oc = app.campaignsOutbound;
+    await oc.open();
+    // Silme ONAY dialogunu aç (yalnız açılır; Escape ile iptal → mutasyon yok).
+    await oc.rowAction(oc.rowWithAction('delete'), 'delete').click();
+    await expect(oc.confirmDialog).toBeVisible({ timeout: 10000 });
+    await expectDialogKeyboard(oc.page, oc.confirmDialog);
+  });
+});
+
+test.describe('Giden Kampanyalar — hata-yolu @errorpath', () => {
+  test('campaigns listesi 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${ERRPATH_API}**`, { status: 500 });
+    const oc = app.campaignsOutbound;
+    await page.goto('/campaigns/outbound', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(oc.shell.loginHeading).toBeHidden();
+    await expect(oc.heading).toHaveText(CampaignsOutboundPage.I18N.en.heading);
+  });
 });
