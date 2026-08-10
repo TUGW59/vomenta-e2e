@@ -1,20 +1,20 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 61,
+  "total": 62,
   "summary": {
     "byStatus": {
-      "open": 60,
+      "open": 61,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 59,
+      "knownBugGuard": 60,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 9,
-      "medium": 44,
+      "medium": 45,
       "low": 7
     },
     "byArea": {
@@ -30,11 +30,12 @@
       "reports": 4,
       "supervisor": 6,
       "contacts": 2,
-      "workforce": 5
+      "workforce": 5,
+      "tickets": 1
     }
   },
   "classification": {
-    "product": 61,
+    "product": 62,
     "infra": 0,
     "infraIds": []
   },
@@ -2021,6 +2022,43 @@
       "test": {
         "file": "tests/voice-history.authed.spec.js",
         "title": "VOICE-HISTORY-A11Y-LABEL · /voice/history · form alanları erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
+      "issueRef": null
+    },
+    {
+      "id": "TICKETS-TABS-ARIA",
+      "title": "/tickets sekmeleri geçersiz ARIA attribute değeri taşıyor (aria-valid-attr-value critical)",
+      "area": "tickets",
+      "route": "/tickets",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-10",
+      "lastVerified": "2026-08-10",
+      "expiry": null,
+      "repro": [
+        "/tickets aç",
+        "axe (wcag2a/2aa) ile tara",
+        "aria-valid-attr-value (critical) ihlalini oku"
+      ],
+      "expected": "Sekmelerin (All/My Tickets/Unassigned/Urgent) tüm ARIA attribute değerleri geçerli (axe aria-valid-attr-value ihlali yok)",
+      "actual": "axe \"aria-valid-attr-value\" (critical) ihlali: ticket sekmeleri geçersiz bir ARIA attribute değeri taşıyor (ör. aria-controls render edilmemiş bir panel id'sine işaret ediyor).",
+      "technicalEvidence": [
+        "10 Ağu 2026 canlı (app.vomenta.com): /tickets axe critical \"aria-valid-attr-value\"; erişilebilirlik ağacında tab \"All\" [selected] görünüyor, sekme ARIA attribute değeri geçersiz."
+      ],
+      "possibleCauses": [
+        "Sekme bileşeni aria-controls/aria-* değerini render edilmemiş veya yanlış id ile üretiyor"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: sekme aria-controls değerlerini gerçek tabpanel id'lerine bağla; geçersiz ARIA değerlerini kaldır"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/tickets.authed.spec.js",
+        "title": "TICKETS-TABS-ARIA · /tickets · sekmeler geçerli ARIA attribute değeri taşımalı (aria-valid-attr-value)"
       },
       "owner": "quality-guild",
       "issueRef": null

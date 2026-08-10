@@ -18,10 +18,12 @@
 | Kontrol | Değerler | Uyumlu | Not |
 |---|---|---|---|
 | Kayıtlı rota sayısı | runtime=87, depth=92 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
-| Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=61 | ✅ |  |
-| Açık bulgu | runtimeSnapshot=60, findingsRegistry=60 | ✅ |  |
+| Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=62 | ❌ | Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır. |
+| Açık bulgu | runtimeSnapshot=60, findingsRegistry=61 | ❌ | Açık bulgu sayısı kaynaklar arası farklı. |
 
 - ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
+- ⚠️ Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.
+- ⚠️ Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.
 - ⚠️ Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
 
 ## 1) Son koşumda ne çalıştı ve ne geçti? (runtime)
@@ -38,17 +40,17 @@
 
 - **Kayıtlı rota (depth):** 92
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
-- **L2 complete:** 34 · **L2 partial:** 32 · **L2 not-covered:** 26 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 34)_
-- **L3:** proven 0 · blocked 48 · N/A 44
+- **L2 complete:** 35 · **L2 partial:** 31 · **L2 not-covered:** 26 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 33)_
+- **L3:** proven 0 · blocked 49 · N/A 43
 - **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
-- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 17 · L2-stil 32 · L2-deep 34
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 17 · L2-stil 31 · L2-deep 35
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **34**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **35**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
-- **Toplam bulgu:** 61 · **açık:** 60 · **kapalı:** 1 · **fixed-candidate:** 0
-- **Açık (severity):** 🔴 critical 1 · 🟠 high 8 · 🟡 medium 44 · ⚪ low 7
+- **Toplam bulgu:** 62 · **açık:** 61 · **kapalı:** 1 · **fixed-candidate:** 0
+- **Açık (severity):** 🔴 critical 1 · 🟠 high 8 · 🟡 medium 45 · ⚪ low 7
 
 ### En fazla açık bulguya sahip sayfalar
 
@@ -124,7 +126,7 @@ _(+15 boşluk daha — tam liste JSON'da.)_
 | /settings/billing/marketplace | NOT_RUN | inventory-only |
 
 **Derinlik blok sebepleri (L3–L5):**
-- L3: STAGING_REQUIRED×48
+- L3: STAGING_REQUIRED×49
 - L4: ROLE_ACCOUNTS_REQUIRED×92
 - L5: PROVIDER_HARNESS_REQUIRED×92
 

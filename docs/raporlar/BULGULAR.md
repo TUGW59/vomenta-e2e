@@ -5,11 +5,11 @@
 
 ## Özet
 
-- **Toplam bulgu:** 61
-- **Durum:** open 60 · closed 1
-- **Guard:** knownBugGuard 59 · fixme 1 · permanent 1
-- **Ciddiyet:** critical 1 · high 9 · medium 44 · low 7
-- **Sınıf:** ürün 61 · altyapı 0
+- **Toplam bulgu:** 62
+- **Durum:** open 61 · closed 1
+- **Guard:** knownBugGuard 60 · fixme 1 · permanent 1
+- **Ciddiyet:** critical 1 · high 9 · medium 45 · low 7
+- **Sınıf:** ürün 62 · altyapı 0
 > Not: `infra` bulgular 5xx/ağ geçidi/auth-cascade arızalarıdır (gerçek ürün buggı ile karışmaz).
 
 ### Governance işaretleri
@@ -68,6 +68,7 @@
 | WALLBOARD-LIVE-TZ | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-THEME | supervisor | /supervisor/wallboard | medium | open | knownBugGuard | — |
 | WALLBOARD-RESUME-I18N | supervisor | /supervisor/wallboard | low | open | knownBugGuard | — |
+| TICKETS-TABS-ARIA | tickets | /tickets | medium | open | knownBugGuard | quality-guild |
 | B14 | voice | /voice/dids | medium | open | knownBugGuard | — |
 | VOICE-HISTORY-A11Y-LABEL | voice | /voice/history | medium | open | knownBugGuard | quality-guild |
 | VOICE-RECORDINGS-A11Y-LABEL | voice | /voice/recordings | medium | open | knownBugGuard | quality-guild |
@@ -666,6 +667,22 @@
 - **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
 - **Owner:** _atanmadı_ · **issueRef:** _yok_ · **opened:** — · **lastVerified:** — · **expiry:** —
 - **Guard testi:** `tests/supervisor-wallboard.authed.spec.js` → BULGU 5: "Resume queue" Türkçe menüde çevrilmeli
+
+## tickets
+
+### /tickets
+
+**[TICKETS-TABS-ARIA] /tickets sekmeleri geçersiz ARIA attribute değeri taşıyor (aria-valid-attr-value critical)** — `medium` · `open` · guard `knownBugGuard`
+
+- **Beklenen:** Sekmelerin (All/My Tickets/Unassigned/Urgent) tüm ARIA attribute değerleri geçerli (axe aria-valid-attr-value ihlali yok)
+- **Gerçekleşen:** axe "aria-valid-attr-value" (critical) ihlali: ticket sekmeleri geçersiz bir ARIA attribute değeri taşıyor (ör. aria-controls render edilmemiş bir panel id'sine işaret ediyor).
+- **Repro:** /tickets aç → axe (wcag2a/2aa) ile tara → aria-valid-attr-value (critical) ihlalini oku
+- **Olası nedenler:** Sekme bileşeni aria-controls/aria-* değerini render edilmemiş veya yanlış id ile üretiyor
+- **Kök neden (kanıtlanmış):** _araştırılmadı / kanıtlanmadı_
+- **Olası çözümler:** Frontend: sekme aria-controls değerlerini gerçek tabpanel id'lerine bağla; geçersiz ARIA değerlerini kaldır
+- **Kanıt:** _yok (WP-R3 forensik yakalama dolduracak)_
+- **Owner:** quality-guild · **issueRef:** _yok_ · **opened:** 2026-08-10 · **lastVerified:** 2026-08-10 · **expiry:** —
+- **Guard testi:** `tests/tickets.authed.spec.js` → TICKETS-TABS-ARIA · /tickets · sekmeler geçerli ARIA attribute değeri taşımalı (aria-valid-attr-value)
 
 ## voice
 
