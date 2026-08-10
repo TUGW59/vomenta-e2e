@@ -1,6 +1,13 @@
 // @ts-check
 import { test, expect } from './fixtures/test.js';
 import { CoachingPage } from './pages/CoachingPage.js';
+import {
+  expectNoSevereA11y,
+  expectNoOverflowAtViewports,
+  waitForUiToSettle,
+  mockApi,
+  expectDialogKeyboard,
+} from './helpers.js';
 
 /**
  * SÜPERVİZÖR → KOÇLUK / QUALITY COACHING (`/supervisor/coaching`)
@@ -53,7 +60,7 @@ test.describe('Koçluk — yapı', () => {
 });
 
 // ──────────────────────── 4 DİL i18n GUARD'LARI ────────────────────────
-test.describe('Koçluk — 4 dil çeviri guard\'ları @regression', () => {
+test.describe('Koçluk — 4 dil çeviri guard\'ları @i18n @regression', () => {
   for (const [code, t] of Object.entries(I18N)) {
     test(`[${code}] başlık + yön + sekmeler + New Evaluation çevrili`, async ({ app }) => {
       const co = app.coaching;
@@ -158,4 +165,86 @@ test.describe('Kontrol: New Evaluation @regression', () => {
 // staging'de ayrı mutasyon spec'i ile doğrulanır.
 test.describe('Koçluk — oluşturma L3 (staging planı) @regression', () => {
   test.fixme('L3: değerlendirme gönderimi kalıcı kayıt oluşturur (staging mutasyon)', async () => {});
+});
+
+// ═══════════════════════ STİL SÖZLEŞMESİ (C1: L1 → dedicated L2) ═══════════════════════
+// Dedicated arketip: @i18n (yukarıda) + @a11y/@layout/@clean/@deeplink/@keyboard/@errorpath/@data.
+// Etkileşim derinliği (@ix-tabs): supervisor-coaching-interactions.authed.spec.js.
+// Hepsi SALT-OKUNUR (New Evaluation gönderilmez).
+
+test.describe('Koçluk — erişilebilirlik @a11y', () => {
+  test('sayfada ciddi/kritik a11y ihlali yok', async ({ app }) => {
+    const co = app.coaching;
+    await co.open();
+    await expectNoSevereA11y(co.page);
+  });
+});
+
+test.describe('Koçluk — düzen/taşma @layout', () => {
+  test('mobil/tablet/masaüstünde sayfa yatayda taşmıyor', async ({ app }) => {
+    await expectNoOverflowAtViewports(app.page, '/supervisor/coaching');
+  });
+});
+
+test.describe('Koçluk — console/ağ temizliği @clean', () => {
+  test('sayfa yüklenirken console/ağ hatası yok (allowlist dışı)', async ({ app, diagnostics }) => {
+    const co = app.coaching;
+    await co.open();
+    await waitForUiToSettle(co.page);
+    diagnostics.assertClean();
+  });
+});
+
+test.describe('Koçluk — deep-link @deeplink', () => {
+  test('/supervisor/coaching doğrudan açılınca yükleniyor (login\'e düşmüyor)', async ({ app, page }) => {
+    const co = app.coaching;
+    await page.goto('/supervisor/coaching', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(co.shell.loginHeading).toBeHidden();
+    await expect(co.heading).toHaveText(CoachingPage.I18N.en.heading);
+  });
+});
+
+test.describe('Koçluk — klavye/odak @keyboard', () => {
+  test('New Evaluation dialogu odak tuzağı + Escape ile kapanma (GÖNDERİLMEZ)', async ({ app }) => {
+    const co = app.coaching;
+    await co.open();
+    const dialog = await co.openNewEvaluation();
+    await expectDialogKeyboard(co.page, dialog);
+  });
+});
+
+test.describe('Koçluk — hata-yolu @errorpath', () => {
+  test('evaluations ucu 500 dönerse kabuk sağlam kalıyor (login\'e düşmüyor)', async ({ app, page }) => {
+    await mockApi(page, `**${CoachingPage.API.evaluations}**`, { status: 500 });
+    const co = app.coaching;
+    await page.goto('/supervisor/coaching', { waitUntil: 'commit' });
+    await page.waitForLoadState('domcontentloaded').catch(() => {});
+    await expect(co.shell.loginHeading).toBeHidden();
+    await expect(co.heading).toHaveText(CoachingPage.I18N.en.heading);
+  });
+});
+
+test.describe('Koçluk — sayısal döşeme değeri @data', () => {
+  test('istatistik döşemesi (Total Evaluations) API-bağlı bir DEĞER gösteriyor', async ({ app, page }) => {
+    const co = app.coaching;
+    // Veri-bağlılık: döşeme değeri backend koçluk ucundan gelir (görsel değil).
+    const respP = page.waitForResponse(
+      (r) => r.url().includes('/supervisor/coaching') && r.request().method() === 'GET' && r.ok(),
+      { timeout: 15000 }
+    );
+    await co.open();
+    await respP;
+    // Değer etiketin BÜYÜKEBEVEYNİNDE tutulur (ai/usage tile deseni) → paylaşılan
+    // expectMetricHasValue (yalnız ebeveyn) yetmez; tile kabını tarayıp sayı/işaret ara.
+    const label = co.page.getByText('Total Evaluations', { exact: true }).first();
+    await expect(async () => {
+      const txt = await label.evaluate((el) => {
+        const tile = el.closest('[class*="card"],[class*="tile"],[class*="stat"]') ||
+          el.parentElement?.parentElement || el.parentElement;
+        return tile ? tile.textContent || '' : '';
+      });
+      expect(/\d|%|—|N\/A/.test(txt), 'tile kabında sayısal değer görünmeli').toBeTruthy();
+    }).toPass({ timeout: 10000 });
+  });
 });

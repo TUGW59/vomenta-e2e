@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1260
-- **Test dosyası:** 108
-- **Etiketler:** `@a11y` 69 · `@clean)` 7 · `@clean` 56 · `@critical` 72 · `@data` 29 · `@deeplink` 54 · `@errorpath` 53 · `@export` 6 · `@i18n` 234 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 21 · `@keyboard` 40 · `@known-bug` 78 · `@layout` 62 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
+- **Test edilen senaryo:** 1268
+- **Test dosyası:** 109
+- **Etiketler:** `@a11y` 70 · `@clean)` 7 · `@clean` 57 · `@critical` 72 · `@data` 30 · `@deeplink` 55 · `@errorpath` 54 · `@export` 6 · `@i18n` 238 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 63 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1193,21 +1193,32 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - ajan detay çekmecesi odak tuzağı + Escape ile kapanma  `@keyboard`
 - /supervisor/agents doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
 
+### `supervisor-coaching-interactions.authed.spec.js`
+
+- sekmeler tek-seçim dışlayıcı (aria-selected)  `@ix-tabs`
+
 ### `supervisor-coaching.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
 - istatistik döşemeleri görünüyor
 - tablo kolonları + sekmeler görünüyor  `@critical`
 - kontroller mevcut (arama / New Evaluation) + boş-durum
-- [en] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
-- [tr] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
-- [fr] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
-- [ar] başlık + yön + sekmeler + New Evaluation çevrili  `@regression`
+- [en] başlık + yön + sekmeler + New Evaluation çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + sekmeler + New Evaluation çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + sekmeler + New Evaluation çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + sekmeler + New Evaluation çevrili  `@i18n` `@regression`
 - L1 tıklama OK: "Pending Review" sekmesi seçili duruma geçiyor  `@regression`
 - L1 tıklama OK: arama kutusuna yazılabiliyor  `@regression`
 - L1 tıklama OK: diyalog form alanlarıyla açılıyor  `@regression`
 - L3 görev OK: kriter puanları Overall Score'u yükseltiyor  `@regression`
 - L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor  `@regression`
+- sayfada ciddi/kritik a11y ihlali yok  `@a11y`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /supervisor/coaching doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- New Evaluation dialogu odak tuzağı + Escape ile kapanma (GÖNDERİLMEZ)  `@keyboard`
+- evaluations ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
+- istatistik döşemesi (Total Evaluations) API-bağlı bir DEĞER gösteriyor  `@data`
 
 ### `supervisor-interactions.authed.spec.js`
 

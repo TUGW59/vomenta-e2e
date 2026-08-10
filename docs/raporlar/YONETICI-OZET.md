@@ -40,12 +40,12 @@
 
 - **Kayıtlı rota (depth):** 92
 - **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
-- **L2 complete:** 36 · **L2 partial:** 31 · **L2 not-covered:** 25 · _(stil sözleşmesi karşılanan: 67; etkileşim doğrulanmamış rota: 32)_
-- **L3:** proven 0 · blocked 50 · N/A 42
+- **L2 complete:** 37 · **L2 partial:** 31 · **L2 not-covered:** 24 · _(stil sözleşmesi karşılanan: 68; etkileşim doğrulanmamış rota: 31)_
+- **L3:** proven 0 · blocked 51 · N/A 41
 - **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
-- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 16 · L2-stil 31 · L2-deep 36
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 15 · L2-stil 31 · L2-deep 37
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **36**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **37**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
@@ -126,7 +126,7 @@ _(+14 boşluk daha — tam liste JSON'da.)_
 | /settings/billing/marketplace | NOT_RUN | inventory-only |
 
 **Derinlik blok sebepleri (L3–L5):**
-- L3: STAGING_REQUIRED×50
+- L3: STAGING_REQUIRED×51
 - L4: ROLE_ACCOUNTS_REQUIRED×92
 - L5: PROVIDER_HARNESS_REQUIRED×92
 

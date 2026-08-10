@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 36 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 23 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 32
+- **L2·deep:** 37 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 22 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 31
 - **Açık bulgu:** 59 (34 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,9 +28,9 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 36 |
+| ✅ L2·deep | 37 |
 | 🟡 L2·style (unverified) | 24 |
-| 🟠 NO_CONTRACT | 23 |
+| 🟠 NO_CONTRACT | 22 |
 
 ### Alan (area) dağılımı
 
@@ -126,7 +126,7 @@
 | supervisor-agents | /supervisor/agents | supervisor | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | 1 | ✅ L2·deep |
 | supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | supervisor-calls | /supervisor/calls | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
-| supervisor-coaching | /supervisor/coaching | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
+| supervisor-coaching | /supervisor/coaching | supervisor | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | supervisor-interactions | /supervisor/interactions | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-wallboard | /supervisor/wallboard | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | 5 | 🟠 NO_CONTRACT |
 | tickets | /tickets | tickets | ✔ | ✅ | COMPLETE | 4/4 | L2_DEEP | 1 | ✅ L2·deep |
