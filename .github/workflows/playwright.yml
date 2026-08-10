@@ -6,7 +6,16 @@ on:
   push:
     branches: [main, master]
   schedule:
-    - cron: '0 1 * * *'
+    # WP-NIGHT-INFRA (dead-nightly çözümü): eski cron '0 1 * * *' idi. GitHub
+    # schedule kuyruğu 00:00–04:00 UTC (tam-saat) yoğun olduğundan koşum ~2 saat
+    # kayıp ~03:00–04:00 UTC'ye düşüyordu — tam da prod gateway'inin SÜREKLİ 503
+    # döndüğü pencereye. Sonuç: auth.setup tükeniyor, tüm authed lane'ler cascade
+    # ile kırmızı → nightly haftalardır kalıcı kırmızı (ölü sinyal). Pencere DIŞI
+    # koşumlar (push run'ları) tutarlı yeşil. Çözüm: tetiklemeyi off-peak + tek
+    # dakikaya (05:19 UTC) çek → kuyruk kaymasını ve 503 penceresini birlikte aş.
+    # (Kalıcı ürün-tarafı 503 penceresi bir GÜN prod ekibince kapatılmalı; bu
+    # yalnız CI zamanlamasını o pencereden çıkarır.)
+    - cron: '19 5 * * *'
   workflow_dispatch:
     inputs:
       suite:
