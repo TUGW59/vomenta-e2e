@@ -27,8 +27,7 @@ export const STYLE_BACKLOG = Object.freeze({
   '/ai/sentiment': 'PENDING:ai',
   '/ai/usage': 'PENDING:ai',
   '/ai/voice': 'PENDING:ai',
-  // campaigns/* (2)
-  '/campaigns/outbound': 'PENDING:campaigns (spec+POM VAR; ⚠CAMPAIGNS-ICON-A11Y,CAMPAIGNS-PAGER)',
+  // campaigns/* (1) — /campaigns/outbound C1'de dedicated L2·deep oldu → style-backlog'dan silindi.
   '/campaigns/create': 'PENDING:campaigns (CampaignCreatePage POM VAR)',
   // contacts/* (2)
   '/contacts/import': 'PENDING:contacts',

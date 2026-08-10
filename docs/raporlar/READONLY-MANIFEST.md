@@ -6,8 +6,8 @@
 
 | Ölçüt | Değer |
 |---|---:|
-| Toplam spec | 145 |
-| Production-safe (read-only) | 109 |
+| Toplam spec | 146 |
+| Production-safe (read-only) | 110 |
 | Mutation (staging-only, dışlandı) | 36 |
 | External-cost (dışlandı) | 0 |
 
@@ -19,19 +19,19 @@
 | Profil | Projeler | grep | Seçilen spec | Policy-gated |
 |---|---|---|---:|:---:|
 | `route-baseline-chromium` | chromium-authed | `@route-baseline` | 1 | hayır |
-| `readonly-critical-chromium` | chromium-authed | `@critical` | 106 | hayır |
-| `readonly-full-chromium` | chromium-authed | — | 106 | hayır |
-| `known-bug-readonly-chromium` | chromium-authed | `@known-bug` | 106 | hayır |
-| `readonly-cross-browser` | firefox-authed, webkit-authed | — | 106 | hayır |
-| `a11y-readonly` | chromium-authed | `@a11y` | 106 | hayır |
-| `visual-readonly` | chromium-authed | `@visual` | 106 | evet |
+| `readonly-critical-chromium` | chromium-authed | `@critical` | 107 | hayır |
+| `readonly-full-chromium` | chromium-authed | — | 107 | hayır |
+| `known-bug-readonly-chromium` | chromium-authed | `@known-bug` | 107 | hayır |
+| `readonly-cross-browser` | firefox-authed, webkit-authed | — | 107 | hayır |
+| `a11y-readonly` | chromium-authed | `@a11y` | 107 | hayır |
+| `visual-readonly` | chromium-authed | `@visual` | 107 | evet |
 
 ## Effect dağılımı
 
 | effect | spec |
 |---|---:|
 | mutation | 36 |
-| read-only | 109 |
+| read-only | 110 |
 
 ## Staging-only dışlanan spec'ler
 

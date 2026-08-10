@@ -93,13 +93,13 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 66,
-    "l2Complete": 35,
+    "l2StyleContractMet": 67,
+    "l2Complete": 36,
     "l2Partial": 31,
-    "l2NotCovered": 26,
-    "interactionUnverifiedRoutes": 33,
-    "l3Blocked": 49,
-    "l3NotApplicable": 43,
+    "l2NotCovered": 25,
+    "interactionUnverifiedRoutes": 32,
+    "l3Blocked": 50,
+    "l3NotApplicable": 42,
     "l3Proven": 0,
     "l4Blocked": 92,
     "l4Proven": 0,
@@ -107,15 +107,15 @@
     "l5Proven": 0,
     "highestLevel": {
       "L0": 9,
-      "L1": 17,
+      "L1": 16,
       "L2_STYLE": 31,
-      "L2_DEEP": 35
+      "L2_DEEP": 36
     },
     "routesWithFindings": 34,
     "openFindingsOnRoutes": 59,
     "blockReasons": {
       "L3": {
-        "STAGING_REQUIRED": 49
+        "STAGING_REQUIRED": 50
       },
       "L4": {
         "ROLE_ACCOUNTS_REQUIRED": 92
@@ -295,13 +295,6 @@
       "rank": 2,
       "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
       "highestProvenLevel": "L2_STYLE"
-    },
-    {
-      "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
-      "route": "/campaigns/outbound",
-      "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L1"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",

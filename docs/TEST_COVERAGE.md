@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1250
-- **Test dosyası:** 107
-- **Etiketler:** `@a11y` 68 · `@clean)` 7 · `@clean` 55 · `@critical` 72 · `@data` 29 · `@deeplink` 53 · `@errorpath` 52 · `@export` 6 · `@i18n` 230 · `@ix-empty` 7 · `@ix-filter` 4 · `@ix-table` 15 · `@ix-tabs` 20 · `@keyboard` 39 · `@known-bug` 77 · `@layout` 61 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
+- **Test edilen senaryo:** 1260
+- **Test dosyası:** 108
+- **Etiketler:** `@a11y` 69 · `@clean)` 7 · `@clean` 56 · `@critical` 72 · `@data` 29 · `@deeplink` 54 · `@errorpath` 53 · `@export` 6 · `@i18n` 234 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 16 · `@ix-tabs` 21 · `@keyboard` 40 · `@known-bug` 78 · `@layout` 62 · `@perf` 2 · `@public` 2 · `@regression` 400 · `@route-baseline` 83 · `@security` 4 · `@smoke` 192 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -138,6 +138,13 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - L3 navigasyon OK: bir bot kartı /bot-builder/{id} editörünü yüklüyor  `@regression`
 - /api/v1/bots 500 dönerse sayfa çökmeden başlığı/oluşturma eylemini korur  `@errorpath`
 
+### `campaigns-outbound-interactions.authed.spec.js`
+
+- durum sekmeleri tek-seçim dışlayıcı (aria-selected)  `@ix-tabs`
+- kampanya tablosu kolonları + en az bir veri satırı gösteriyor  `@ix-table`
+- arama satırları süzüyor ve temizleyince geri getiriyor  `@ix-filter`
+- eşleşmeyen aramada boş-durum ("No campaigns match your filters")  `@ix-empty`
+
 ### `campaigns-outbound.authed.spec.js`
 
 - başlık ve alt başlık görünüyor  `@smoke` `@critical`
@@ -145,10 +152,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - arama, tür filtresi ve durum sekmeleri mevcut  `@smoke`
 - tablo başlıkları doğru sırada  `@smoke` `@critical`
 - New Campaign düğmesi görünür ve etkin  `@smoke`
-- [en] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
-- [tr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
-- [fr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
-- [ar] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@regression`
+- [en] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + kart/filtre/sekme/başlık etiketleri çevrili  `@i18n` `@regression`
 - L1 tıklama OK: metin yazılabiliyor  `@regression`
 - L2 arka plan OK: arama filtresiyle liste ucunu çağırıyor  `@regression` `@critical`
 - L3 görev OK: eşleşmeyen arama boş-durumu gösteriyor (liste gerçekten filtreleniyor)  `@regression`
@@ -179,6 +186,12 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - göz ile açılan detayda sekmeler ve metrik kartları var  `@regression`
 - BULGU 1: 10+ kampanya varsa sayfalama/daha-fazla kontrolü olmalı  `@regression` `@known-bug`
 - BULGU 2: satır işlem ikonlarının (göz/sil) erişilebilir ismi olmalı  `@regression` `@known-bug`
+- CAMPAIGNS-ICON-A11Y · /campaigns/outbound · satır ikon düğmeleri erişilebilir isim taşımalı  `@a11y` `@known-bug`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /campaigns/outbound doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- silme onay dialogu odak tuzağı + Escape ile kapanma (SİLİNMEZ)  `@keyboard`
+- campaigns listesi 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 
 ### `channels-email.authed.spec.js`
 

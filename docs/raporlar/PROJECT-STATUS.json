@@ -19,20 +19,20 @@
     "surfaces": 92,
     "byRollup": {
       "BLOCKED": 9,
-      "L2_DEEP": 35,
+      "L2_DEEP": 36,
       "L2_STYLE": 24,
-      "NO_CONTRACT": 24
+      "NO_CONTRACT": 23
     },
     "deprecated": 0,
     "redirect": 0,
     "blocked": 9,
     "fail": 0,
     "notRun": 0,
-    "noContract": 24,
+    "noContract": 23,
     "l1StyleGap": 0,
     "l2Style": 24,
-    "l2Deep": 35,
-    "interactionUnverified": 33,
+    "l2Deep": 36,
+    "interactionUnverified": 32,
     "surfacesWithOpenFindings": 34,
     "openFindingsTotal": 59,
     "byArea": {
@@ -582,9 +582,11 @@
       "navigation": "secondary",
       "runtimePolicy": "readonly-baseline",
       "baseline": "runnable",
-      "inventoryStatus": "NO_COVERAGE_CONTRACT",
-      "hasCoverageContract": false,
-      "coverageContractIds": [],
+      "inventoryStatus": "COVERED_CONTRACT",
+      "hasCoverageContract": true,
+      "coverageContractIds": [
+        "campaigns-outbound"
+      ],
       "depthMatched": true,
       "runtime": {
         "l1": "PROVEN",
@@ -592,14 +594,14 @@
         "reasonCode": null
       },
       "depth": {
-        "l2": "NOT_COVERED",
-        "highest": "L1",
-        "styleContractMet": false,
-        "styleCoveredOrExempt": 0,
-        "styleRequiredCount": 5,
-        "interactionVerified": false,
-        "interactionApplicableCount": 6,
-        "interactionCoveredCount": 0
+        "l2": "COMPLETE",
+        "highest": "L2_DEEP",
+        "styleContractMet": true,
+        "styleCoveredOrExempt": 7,
+        "styleRequiredCount": 7,
+        "interactionVerified": true,
+        "interactionApplicableCount": 4,
+        "interactionCoveredCount": 4
       },
       "findings": {
         "total": 2,
@@ -609,7 +611,7 @@
           "CAMPAIGNS-PAGER"
         ]
       },
-      "rollup": "NO_CONTRACT"
+      "rollup": "L2_DEEP"
     },
     {
       "id": "channels",

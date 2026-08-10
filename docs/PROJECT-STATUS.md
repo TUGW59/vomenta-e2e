@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 35 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
-- **NO_CONTRACT:** 24 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 33
+- **L2·deep:** 36 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
+- **NO_CONTRACT:** 23 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 32
 - **Açık bulgu:** 59 (34 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,9 +28,9 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 35 |
+| ✅ L2·deep | 36 |
 | 🟡 L2·style (unverified) | 24 |
-| 🟠 NO_CONTRACT | 24 |
+| 🟠 NO_CONTRACT | 23 |
 
 ### Alan (area) dağılımı
 
@@ -70,7 +70,7 @@
 | bot-builder-detail | /bot-builder/:id | bot-builder | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | campaigns | /campaigns | campaigns | — | ✅ | PARTIAL | 0/6 | L2_STYLE | 1 | 🟠 NO_CONTRACT |
 | campaigns-create | /campaigns/create | campaigns | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
-| campaigns-outbound | /campaigns/outbound | campaigns | — | ✅ | NOT_COVERED | 0/6 | L1 | 2 | 🟠 NO_CONTRACT |
+| campaigns-outbound | /campaigns/outbound | campaigns | ✔ | ✅ | COMPLETE | 4/4 | L2_DEEP | 2 | ✅ L2·deep |
 | channels | /channels | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
 | channels-email | /channels/email | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
 | channels-sms | /channels/sms | channels | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 2 | 🟡 L2·style (unverified) |

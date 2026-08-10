@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 92
-- **Kapsam sözleşmesi olan:** 59 · **NO_COVERAGE_CONTRACT:** 24
+- **Kapsam sözleşmesi olan:** 60 · **NO_COVERAGE_CONTRACT:** 23
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (460 gözlem)
+- **Uzlaştırılan kaynak:** 8 (462 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -63,7 +63,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | bot-builder-detail | /bot-builder/:id | bot-builder | dynamic | active | secondary | fixture-required | blocked | — | BLOCKED |
 | campaigns | /campaigns | campaigns | static | active | main | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | campaigns-create | /campaigns/create | campaigns | static | active | contextual | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
-| campaigns-outbound | /campaigns/outbound | campaigns | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| campaigns-outbound | /campaigns/outbound | campaigns | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | channels | /channels | channels | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | channels-email | /channels/email | channels | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | channels-sms | /channels/sms | channels | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
@@ -166,7 +166,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | bot-builder | /bot-builder | bot-builder |
 | campaigns | /campaigns | campaigns |
 | campaigns-create | /campaigns/create | campaigns |
-| campaigns-outbound | /campaigns/outbound | campaigns |
 | contacts-import | /contacts/import | contacts |
 | contacts-segments | /contacts/segments | contacts |
 | inbox | /inbox | inbox |
