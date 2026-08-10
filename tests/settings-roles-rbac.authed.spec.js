@@ -47,14 +47,29 @@ function permKey(x) {
 function keySet(arr) {
   return new Set((Array.isArray(arr) ? arr : []).map(permKey).filter(Boolean));
 }
-/** Katalog yanıtını düz anahtar kümesine indirger (dizi / {data|permissions|items} / kategoriye-gruplu). */
+/**
+ * Katalog yanıtını düz anahtar kümesine indirger. Şema-toleranslı: düz dizi /
+ * üst-seviye {data|permissions|items|catalog} dizisi / TEK KAT DERİN zarf
+ * ({success, data:{permissions:[…]}} — canlı prod şekli, 10 Ağu 2026) / kategoriye-gruplu.
+ */
 function catalogKeys(json) {
   if (Array.isArray(json)) return keySet(json);
   if (json && typeof json === 'object') {
+    // Üst-seviye doğrudan dizi taşıyıcıları.
     const arr = json.data ?? json.permissions ?? json.items ?? json.catalog;
     if (Array.isArray(arr)) return keySet(arr);
+    // Zarf: taşıyıcı bir NESNE ise (ör. { success, data:{ permissions:[…] } }) bir kat in.
+    const nested = [json.data, json].filter((o) => o && typeof o === 'object' && !Array.isArray(o));
+    for (const obj of nested) {
+      const inner = obj.permissions ?? obj.items ?? obj.catalog ?? obj.data;
+      if (Array.isArray(inner)) return keySet(inner);
+    }
+    // Son çare: en fazla iki seviye düz gez (üst-seviye + nesne değerlerinin içi).
     const flat = [];
-    for (const v of Object.values(json)) if (Array.isArray(v)) flat.push(...v);
+    for (const v of Object.values(json)) {
+      if (Array.isArray(v)) flat.push(...v);
+      else if (v && typeof v === 'object') for (const w of Object.values(v)) if (Array.isArray(w)) flat.push(...w);
+    }
     if (flat.length) return keySet(flat);
   }
   return new Set();
