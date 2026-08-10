@@ -151,4 +151,15 @@ export class VoiceSubPage extends BasePage {
     const t = this.i18n[code] || this.i18n.en;
     return this.page.getByText(t.subtitle, { exact: false }).first();
   }
+
+  /** @ix-table — liste/tablo yüzeyi (varsa). SALT-OKUNUR. */
+  get table() {
+    return this.page.locator('table, [role="table"]').first();
+  }
+
+  /** Tablo GÖVDE satırları = hücre (`role=cell`) içeren satırlar (kolon-başlığı
+   *  satırı hariç). SALT-OKUNUR. */
+  get rows() {
+    return this.page.getByRole('row').filter({ has: this.page.getByRole('cell') });
+  }
 }

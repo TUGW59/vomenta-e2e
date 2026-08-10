@@ -1315,11 +1315,21 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Kuyruk kartları canlı veri (Waiting/Agents/Max Wait) → kararlı snapshot bölgesi yok.',
     },
+    // WAVE-L2-DEEP-2: resolved-exempt. Probe'da role=table YOK (kuyruklar KART ızgarası
+    // olarak render; kart-başı Settings/Delete + Create Queue dialogu). Satır-içi arama/
+    // filtre/pager yüzeyi yok → geçerli etkileşim boyutu yok.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (kart ızgarası; yalnız Create Queue + kart-başı aksiyonlar).',
+      'table-list': 'role=table yok; kuyruklar kolon-başlıklı tablo değil kart ızgarası → @ix-table yapısı yok.',
+      'pagination-sort': 'Kart ızgarası tek görünüm; pager/sıralama kontrolü gözlenmedi.',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'voice-history',
     surfaceIds: ['voice-history'],
-    specFiles: ['voice-history.authed.spec.js'],
+    specFiles: ['voice-history.authed.spec.js', 'voice-history-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1336,11 +1346,18 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Tablo canlı veri (tarih/numara/süre) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Sayfa veri yazmıyor (salt geçmiş görünümü + Details); satır "Call back" gerçek giden çağrı → softphone/staging alanı (voice-call.mutation.authed.spec.js), bu sayfada tetiklenmez.',
     },
+    // WAVE-L2-DEEP-2: çağrı geçmişi tablosu @ix-table ile kanıtlı (voice-history-interactions).
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama kutusu yok (yalnız yön + tarih ön-filtreleri; yön filtresi veri-bağlı, tek-yön veride daralma garanti değil → anti-loop #3).',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'pagination-sort': 'Read-only tek-sayfa görünüm; ayrı pager/sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'voice-voicemail',
     surfaceIds: ['voice-voicemail'],
-    specFiles: ['voice-voicemail.authed.spec.js'],
+    specFiles: ['voice-voicemail.authed.spec.js', 'voice-voicemail-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1358,11 +1375,18 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Tablo canlı veri (arayan/tarih/durum) + açılış konsol hatası (VOICEMAIL-PAGER-I18N) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Satır aksiyonları (Delete Voicemail / Mark as Read) destructive ve UI\'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur (workforce-time-off deseni).',
     },
+    // WAVE-L2-DEEP-2: sesli mesaj tablosu @ix-table ile kanıtlı (voice-voicemail-interactions).
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama kutusu yok (yalnız durum ön-filtresi; veri-bağlı daralma garanti değil → anti-loop #3).',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'pagination-sort': 'Pager i18n bozuk (VOICEMAIL-PAGER-I18N); read-only tek-sayfa, güvenilir sayfa-döndürme gözlenmedi → anti-loop #3.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'voice-recordings',
     surfaceIds: ['voice-recordings'],
-    specFiles: ['voice-recordings.authed.spec.js'],
+    specFiles: ['voice-recordings.authed.spec.js', 'voice-recordings-interactions.authed.spec.js'],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1378,6 +1402,13 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Tablo canlı veri (Call ID/tarih/süre/boyut/retention) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Delete Recording destructive ve UI\'dan geri-alınamıyor (güvenli 0→1→0 recreate yok) → L3 staging; prod salt-okunur. Onay alertdialog\'u @keyboard/@regression\'da açılıp Escape ile kapatılır (ONAYLANMAZ).',
     },
+    // WAVE-L2-DEEP-2: kayıt tablosu @ix-table ile kanıtlı (voice-recordings-interactions).
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama kutusu yok (yalnız tarih ön-filtreleri; veri-bağlı daralma garanti değil → anti-loop #3).',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'pagination-sort': 'Read-only tek-sayfa görünüm; ayrı pager/sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     id: 'voice-dids',
@@ -1385,6 +1416,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     specFiles: [
       'voice-dids.authed.spec.js',
       'voice-dids-mutations.authed.spec.js',
+      'voice-dids-interactions.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1400,6 +1432,13 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (numara tablosu + Pending Requests + Request Number dialogu).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Numara tablosu + Pending Requests canlı veri (numara/ülke/atama/statü) → kararlı snapshot bölgesi yok.',
+    },
+    // WAVE-L2-DEEP-2: numara tablosu @ix-table ile kanıtlı (voice-dids-interactions).
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama kutusu yok (numara/ülke ön-filtreleri; veri-bağlı daralma garanti değil → anti-loop #3).',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'pagination-sort': 'Read-only tek-sayfa görünüm; ayrı pager/sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -1437,6 +1476,7 @@ const COVERAGE_CONTRACTS = Object.freeze([
     specFiles: [
       'voice-ivr.authed.spec.js',
       'voice-ivr-mutations.authed.spec.js',
+      'voice-ivr-interactions.authed.spec.js',
     ],
     archetype: {
       hasData: true,
@@ -1452,6 +1492,13 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@perf': 'Grafik/ağır içerik yok (IVR tablosu + Create IVR dialogu).',
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'IVR tablosu canlı veri (ad/tip/durum/tarih) → kararlı snapshot bölgesi yok.',
+    },
+    // WAVE-L2-DEEP-2: IVR akış tablosu @ix-table ile kanıtlı (voice-ivr-interactions).
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama kutusu gözlenmedi.',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'pagination-sort': 'Read-only tek-sayfa görünüm; ayrı pager/sıralama kontrolü gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -1473,6 +1520,15 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@export': 'Bu sayfada export/indirme kontrolü yok.',
       '@visual': 'Boş-durum/liste canlı içerik + Add dialogu → kararlı snapshot bölgesi yok.',
       '@mutation': 'Add SIP Trunk dışa-dönük SIP/BYOC bağlantı yapılandırması (provider tarafı); güvenli 0→1→0 teardown staging + ayrılmış tenant gerektirir → L3 staging, prod salt-okunur.',
+    },
+    // WAVE-L2-DEEP-2: resolved-exempt. Probe'da role=table YOK + liste test tenant'ında
+    // BOŞ ("No SIP Trunks") → etkileşimli tablo/arama/pager yüzeyi fiziksel olarak yok.
+    naInteraction: {
+      'search-filter': 'Arama/filtre kontrolü yok (liste boş: "No SIP Trunks" + Add dialogu).',
+      'table-list': 'role=table yok; liste boş-durumda (test tenant\'ında trunk yok) → etkileşimli satır yüzeyi yok.',
+      'pagination-sort': 'Boş liste → sayfalama/sıralama yüzeyi yok.',
+      'empty-state': 'Boş-durum doğal (native "No SIP Trunks"); aramayla-tetiklenen boş-durum yüzeyi yok.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
   {
@@ -1520,6 +1576,16 @@ const COVERAGE_CONTRACTS = Object.freeze([
       '@visual': 'Seçilen kuyruğa bağlı üye/beceri listesi canlı → kararlı snapshot bölgesi yok.',
       '@mutation': 'Beceri/öncelik ATAMA kuyruk üyelerini kalıcı değiştirir; kuyruk seçimine bağlı + güvenli 0→1→0 teardown ayrılmış staging tenant gerektirir → L3 staging, prod salt-okunur (kuyruk SEÇME salt-okuma @regression\'da kapsanır).',
     },
+    // WAVE-L2-DEEP-2: resolved-exempt. Tek etkileşim kontrolü "Select Queue" combobox'ı =
+    // kuyruk-KAPSAM seçici (satır-içi arama/filtre değil); üyeler probe'da role=table YOK.
+    // ARIA-tab da değil (hasTabs=false) → geçerli @ix-* boyutu yok.
+    naInteraction: {
+      'search-filter': 'Serbest-metin satır-arama/filtre yok; tek kontrol kuyruk-kapsam seçici combobox (liste daraltma değil, veri-kaynağı seçimi).',
+      'table-list': 'role=table yok; seçilen kuyruğun üye/beceri paneli kolon-başlıklı tablo değil → @ix-table yapısı yok.',
+      'pagination-sort': 'Üye paneli tek görünüm; pager/sıralama kontrolü gözlenmedi.',
+      'empty-state': 'Boş-duruma ulaştıracak serbest-metin arama yok (read-only).',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
   },
   {
     // WAVE-STYLE-1 (ADR-0031 style-backlog): supervisor/agents L1 → L2·style.
@@ -1527,7 +1593,10 @@ const COVERAGE_CONTRACTS = Object.freeze([
     // sözleşmesine çıkarıldı: +@a11y/@layout/@clean/@errorpath/@data/@keyboard (+@i18n tag).
     id: 'supervisor-agents',
     surfaceIds: ['supervisor-agents'],
-    specFiles: ['supervisor-agents.authed.spec.js'],
+    specFiles: [
+      'supervisor-agents.authed.spec.js',
+      'supervisor-agents-interactions.authed.spec.js',
+    ],
     archetype: {
       hasData: true,
       hasCharts: false,
@@ -1541,6 +1610,12 @@ const COVERAGE_CONTRACTS = Object.freeze([
     naStyles: {
       '@visual': 'İçerik canlı (durum/AHT/CSAT/"Last refreshed" damgası) → kararlı snapshot bölgesi yok.',
       '@mutation': 'Force durum değişikliği staging mutation; prod read-only\'de L1 (menü + onay-dialog iptali) test edilir (@regression), gerçek mutasyon staging fixme\'de.',
+    },
+    // WAVE-L2-DEEP-2: tablo/arama/boş-durum @ix-* ile kanıtlandı
+    // (supervisor-agents-interactions.authed.spec.js). Kalan 2 boyut dürüst N/A:
+    naInteraction: {
+      'pagination-sort': 'Veri tek sayfa (≤20 ajan) → "Next" devre dışı; read-only\'de sayfa döndürülemez (çok-sayfa verisi yok).',
+      'loading-state': 'Liste "Live updates" ile sürekli auto-refresh eder; ayrı deterministik yükleme-iskeleti gözlenmedi (route-gecikmesi polling\'e takılır → anti-loop #3).',
     },
   },
 ]);

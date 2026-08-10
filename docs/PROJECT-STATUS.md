@@ -18,9 +18,9 @@
 ## Özet (türetilmiş — sabit sayı yok)
 
 - **Kanonik yüzey:** 92
-- **L2·deep:** 27 · **L2·style (unverified):** 30 · **L1·style-gap:** 0
+- **L2·deep:** 33 · **L2·style (unverified):** 24 · **L1·style-gap:** 0
 - **NO_CONTRACT:** 26 · **NOT_RUN:** 0 · **FAIL:** 0 · **BLOCKED:** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
-- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 44
+- **Etkileşim derinliği doğrulanmayan (unverified) yüzey:** 35
 - **Açık bulgu:** 58 (33 yüzeyde)
 
 ### Rollup dağılımı
@@ -28,8 +28,8 @@
 | durum | yüzey |
 |---|--:|
 | ⛔ BLOCKED | 9 |
-| ✅ L2·deep | 27 |
-| 🟡 L2·style (unverified) | 30 |
+| ✅ L2·deep | 33 |
+| 🟡 L2·style (unverified) | 24 |
 | 🟠 NO_CONTRACT | 26 |
 
 ### Alan (area) dağılımı
@@ -123,7 +123,7 @@
 | settings-users | /settings/users | settings | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | — | ✅ L2·deep |
 | settings-webhooks | /settings/webhooks | settings | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | supervisor | /supervisor | supervisor | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
-| supervisor-agents | /supervisor/agents | supervisor | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| supervisor-agents | /supervisor/agents | supervisor | ✔ | ✅ | COMPLETE | 3/3 | L2_DEEP | 1 | ✅ L2·deep |
 | supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | supervisor | — | ⚪ | NOT_COVERED | 0/6 | L0 | — | ⛔ BLOCKED |
 | supervisor-calls | /supervisor/calls | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
@@ -131,17 +131,17 @@
 | supervisor-wallboard | /supervisor/wallboard | supervisor | — | ✅ | NOT_COVERED | 0/6 | L1 | 5 | 🟠 NO_CONTRACT |
 | tickets | /tickets | tickets | — | ✅ | PARTIAL | 0/6 | L2_STYLE | — | 🟠 NO_CONTRACT |
 | voice | /voice | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| voice-dids | /voice/dids | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| voice-history | /voice/history | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| voice-ivr | /voice/ivr | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| voice-dids | /voice/dids | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| voice-history | /voice/history | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
+| voice-ivr | /voice/ivr | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | — | ✅ L2·deep |
 | voice-live | /voice/live | voice | — | ✅ | NOT_COVERED | 0/6 | L1 | — | 🟠 NO_CONTRACT |
-| voice-queues | /voice/queues | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| voice-recordings | /voice/recordings | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| voice-queues | /voice/queues | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| voice-recordings | /voice/recordings | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
 | voice-regulatory | /voice/regulatory | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 3 | 🟡 L2·style (unverified) |
 | voice-sip-settings | /voice/sip-settings | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| voice-sip-trunks | /voice/sip-trunks | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
-| voice-skills | /voice/skills | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | — | 🟡 L2·style (unverified) |
-| voice-voicemail | /voice/voicemail | voice | ✔ | ✅ | PARTIAL | 0/5 | L2_STYLE | 2 | 🟡 L2·style (unverified) |
+| voice-sip-trunks | /voice/sip-trunks | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | 1 | 🟡 L2·style (unverified) |
+| voice-skills | /voice/skills | voice | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |
+| voice-voicemail | /voice/voicemail | voice | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 2 | ✅ L2·deep |
 | workforce | /workforce | workforce | ✔ | ✅ | COMPLETE | 2/2 | L2_DEEP | 2 | ✅ L2·deep |
 | workforce-badges | /workforce/badges | workforce | ✔ | ✅ | COMPLETE | 1/1 | L2_DEEP | 1 | ✅ L2·deep |
 | workforce-evaluations | /workforce/evaluations | workforce | ✔ | ✅ | PARTIAL | 0/0 | L2_STYLE | — | 🟡 L2·style (unverified) |

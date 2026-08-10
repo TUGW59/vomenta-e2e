@@ -17,10 +17,11 @@
 
 | Kontrol | Değerler | Uyumlu | Not |
 |---|---|---|---|
-| Kayıtlı rota sayısı | runtime=87, depth=87 | ✅ |  |
+| Kayıtlı rota sayısı | runtime=87, depth=92 | ❌ | İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır. |
 | Bilinen bulgu toplamı | runtimeSnapshot=61, findingsRegistry=61 | ✅ |  |
 | Açık bulgu | runtimeSnapshot=60, findingsRegistry=60 | ✅ |  |
 
+- ⚠️ Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.
 - ⚠️ Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ.
 
 ## 1) Son koşumda ne çalıştı ve ne geçti? (runtime)
@@ -35,14 +36,14 @@
 
 ## 2) Her sayfanın otomasyon derinliği nedir? (kapsam)
 
-- **Kayıtlı rota (depth):** 87
-- **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 4
-- **L2 complete:** 27 · **L2 partial:** 39 · **L2 not-covered:** 21 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 39)_
-- **L3:** proven 0 · blocked 47 · N/A 40
-- **L4:** proven 0 · blocked 87  ·  **L5:** proven 0 · blocked 87
-- **En yüksek kanıt seviyesi dağılımı:** L0 4 · L1 17 · L2-stil 39 · L2-deep 27
+- **Kayıtlı rota (depth):** 92
+- **L1 (açılış) proven:** 83 · **L1 kanıtlanmamış:** 9
+- **L2 complete:** 33 · **L2 partial:** 33 · **L2 not-covered:** 26 · _(stil sözleşmesi karşılanan: 66; etkileşim doğrulanmamış rota: 35)_
+- **L3:** proven 0 · blocked 47 · N/A 45
+- **L4:** proven 0 · blocked 92  ·  **L5:** proven 0 · blocked 92
+- **En yüksek kanıt seviyesi dağılımı:** L0 9 · L1 17 · L2-stil 33 · L2-deep 33
 
-> ⛔ **YANLIŞ ÖZET YASAK:** "83/87 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **27**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
+> ⛔ **YANLIŞ ÖZET YASAK:** "83/92 L1 PASS" **≠** "L2 tamamlandı". L2 gerçekten tamamlanan rota: **33**. L3–L5 çoğunlukla staging/rol/provider bekliyor.
 
 ## 3) Hangi açık buglar hangi sayfaları etkiliyor? (bulgular)
 
@@ -73,8 +74,13 @@
 |---|---|---|---|---|
 | 0 | L1_NOT_PROVEN | /bot-builder/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /contacts/:id | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /monitoring | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /monitoring/agents | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /monitoring/ai-summary | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /monitoring/live | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /settings/billing | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 0 | L1_NOT_PROVEN | /settings/billing/marketplace | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
+| 0 | L1_NOT_PROVEN | /supervisor/ai-rate-suggestions | L0 | Sayfa açılışı (L1) kanıtlanmadı — read-only baseline bu rota için PASS değil. |
 | 1 | OPEN_CRITICAL_HIGH_FINDING | /bot-builder | L2_STYLE | Açık yüksek-önem bulgu: BOT-BUILDER-TEMPLATE-I18N(high). |
 | 1 | OPEN_CRITICAL_HIGH_FINDING | /campaigns | L2_STYLE | Açık yüksek-önem bulgu: B2(high). |
 | 1 | OPEN_CRITICAL_HIGH_FINDING | /inbox | L2_STYLE | Açık yüksek-önem bulgu: B3(high). |
@@ -86,11 +92,6 @@
 | 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /ai/prompts | L1 | Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 | 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /analytics | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 | 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /bot-builder | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /campaigns | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /campaigns/outbound | L1 | Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels/email | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
-| 2 | FINDINGS_BEHAVIOR_UNVERIFIED | /channels/sms | L2_STYLE | Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı. |
 
 _(+16 boşluk daha — tam liste JSON'da.)_
 
@@ -124,8 +125,8 @@ _(+16 boşluk daha — tam liste JSON'da.)_
 
 **Derinlik blok sebepleri (L3–L5):**
 - L3: STAGING_REQUIRED×47
-- L4: ROLE_ACCOUNTS_REQUIRED×87
-- L5: PROVIDER_HARNESS_REQUIRED×87
+- L4: ROLE_ACCOUNTS_REQUIRED×92
+- L5: PROVIDER_HARNESS_REQUIRED×92
 
 ## Trend / geçmiş karşılaştırma
 

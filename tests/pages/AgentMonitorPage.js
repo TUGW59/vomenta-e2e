@@ -61,6 +61,17 @@ export class AgentMonitorPage extends BasePage {
     return this.page.getByRole('row');
   }
 
+  /** @ix-table — ajan tablosu (kolon başlıklı liste). SALT-OKUNUR. */
+  get table() {
+    return this.page.getByRole('table').first();
+  }
+
+  /** Tablo GÖVDE satırları = hücre (`role=cell`) içeren satırlar → kolon-başlığı
+   *  satırı (yalnız `columnheader` taşır) hariç. SALT-OKUNUR. */
+  get rows() {
+    return this.page.getByRole('row').filter({ has: this.page.getByRole('cell') });
+  }
+
   /** Durum filtresinden bir seçenek seçer. */
   async selectStatus(name) {
     await expect(async () => {

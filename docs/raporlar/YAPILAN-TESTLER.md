@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1284 / 136 dosya
-- **coverageStatus:** verified 0 · partial 1226 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1235 · skipped 0 · fixme 49
+- **Listelenen test:** 1292 / 142 dosya
+- **coverageStatus:** verified 0 · partial 1234 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1243 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,9 +29,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 95 | 85 | 0 | 10 |
+| supervisor | 98 | 88 | 0 | 10 |
 | tickets | 6 | 6 | 0 | 0 |
-| voice | 143 | 140 | 0 | 3 |
+| voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
 
 ## Ayrıntı (dosya bazlı)
@@ -1484,6 +1484,14 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | [ar] başlık + yön + alt başlık + boş-durum çevrili | @regression | — | listed-only | partial | medium | list-exec |
 | L1/L2/L3: canlı AI çağrısı seçilince cockpit açılır (staging/canlı veri) | @regression | L1 | fixme | blocked | low | list-exec+title-inferred |
 
+### `supervisor-agents-interactions.authed.spec.js` — _supervisor_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| ajan tablosu kolonları + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+| ada göre arama satırları süzüyor ve temizleyince geri getiriyor | @ix-filter | — | listed-only | partial | medium | list-exec |
+| eşleşmeyen aramada boş-durum (0 satır veya "bulunamadı") | @ix-empty | — | listed-only | partial | medium | list-exec |
+
 ### `supervisor-agents.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1610,6 +1618,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L3: softphone ile test numarası aranıyor ve çağrı kuruluyor | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: test numarasına SMS gönderiliyor (channels.sms.send) | @regression @mutation | L3 | listed-only | partial | medium | list-exec+title-inferred |
 
+### `voice-dids-interactions.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| DID/numara tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+
 ### `voice-dids-mutations.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1633,6 +1647,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | GET /dids 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/dids doğrudan açılınca yükleniyor (RSC yarışı toleranslı) | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `voice-history-interactions.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| çağrı geçmişi tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
+
 ### `voice-history.authed.spec.js` — _voice_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1650,6 +1670,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1: yön filtresi combobox'u açılıyor; etkileşim sonrası tablo/başlık sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | GET /voice/calls 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/history doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-ivr-interactions.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| IVR akış tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `voice-ivr-mutations.authed.spec.js` — _voice_
 
@@ -1696,6 +1722,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | L1: "Create Queue" tıklanınca dialog açılıyor; klavye ile kapanıyor (gönderilmez) | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | GET /queues 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/queues doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
+
+### `voice-recordings-interactions.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Arama kayıtları tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `voice-recordings.authed.spec.js` — _voice_
 
@@ -1790,6 +1822,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | "SIP Trunks" → /voice/sip-trunks ("SIP Trunks") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 | "SIP settings" → /voice/sip-settings ("SIP & phone settings") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
 | "Skills" → /voice/skills ("Skills-Based Routing") panelini açıyor | @regression | — | listed-only | partial | medium | list-exec |
+
+### `voice-voicemail-interactions.authed.spec.js` — _voice_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| Sesli mesaj tablosu + en az bir veri satırı gösteriyor | @ix-table | — | listed-only | partial | medium | list-exec |
 
 ### `voice-voicemail.authed.spec.js` — _voice_
 

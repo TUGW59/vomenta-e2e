@@ -26,20 +26,16 @@ export const DEPTH_BACKLOG = Object.freeze({
   // ── FAZ 5: kalan (2) — TAMAMLANDI (ikisi de resolved-exempt: / = KPI/grafik/kart
   //    özeti; /voice = canlı-çağrı hub'ı, test tenant'ında boş. Kapsanabilir sekme/tablo/
   //    filtre etkileşimi yok → tüm geçerli boyut naInteraction). ──
-  // ── supervisor/agents: WAVE-STYLE-1'de L1→L2·style oldu (dedicated kayıt) → artık
-  //    L2·deep adayı (tablo/filtre/arama etkileşimi @ix-* ile kanıtlanabilir; koşum-döngüsü bekliyor).
-  '/supervisor/agents': 'PENDING:supervisor (L2·style; L2·deep adayı — tablo/@ix-filter, koşum-döngüsü bekliyor)',
+  // ── supervisor/agents: WAVE-L2-DEEP-2'de ÇÖZÜLDÜ → L2·deep (tablo/@ix-table,
+  //    arama/@ix-filter, boş-durum/@ix-empty kanıtlı; pagination+loading dürüst N/A).
+  //    supervisor-agents-interactions.authed.spec.js — prod'da retries=0 kararlı.
   // ── voice/* alt-rotaları: PR #122 (L0 runtime-yakalama) bunları L2·style'a çıkardı
   //    (artık L1 proven + stil sözleşmeli) → ARTIK L2·deep ADAYI (defer:L0 değil).
-  //    Her biri koşum-döngüsü gelince deep-veya-exempt olarak çözülecek (bkz. [[l0-runtime-capture]]).
-  '/voice/dids': 'PENDING:voice (post-#122 L2·style; koşum-döngüsü bekliyor)',
-  '/voice/history': 'PENDING:voice',
-  '/voice/ivr': 'PENDING:voice',
-  '/voice/queues': 'PENDING:voice',
-  '/voice/recordings': 'PENDING:voice',
-  // /voice/regulatory + /voice/sip-settings: post-#122 L2·style AMA applicable=0
-  //   (etkileşim yüzeyi yok: salt-config/özet) → resolved-exempt → backlog'da YOK.
-  '/voice/sip-trunks': 'PENDING:voice',
-  '/voice/skills': 'PENDING:voice',
-  '/voice/voicemail': 'PENDING:voice',
+  //    WAVE-L2-DEEP-2'de ÇÖZÜLENLER:
+  //    • L2·deep (tablo/@ix-table, prod'da yeşil): history, recordings, voicemail, dids, ivr.
+  //    • resolved-exempt (probe'da role=table YOK + satır-içi arama/filtre yüzeyi yok →
+  //      tüm boyut naInteraction, applicable=0): queues (kuyruk kartları), skills (kuyruk-kapsam
+  //      combobox + kart üye paneli), sip-trunks (liste test tenant'ında boş "No SIP Trunks").
+  //    • /voice/regulatory + /voice/sip-settings: zaten resolved-exempt (salt-config/özet).
+  //    → voice/* için bekleyen backlog KALMADI.
 });
