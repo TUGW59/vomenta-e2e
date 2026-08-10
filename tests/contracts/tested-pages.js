@@ -1704,6 +1704,39 @@ const COVERAGE_CONTRACTS = Object.freeze([
       'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
     },
   },
+  {
+    // C1: /supervisor/coaching L1 → dedicated L2·deep. Etkileşim çapası @ix-tabs (Evaluated/
+    // Pending Review sekme dışlayıcılığı; supervisor-coaching-interactions). Değerlendirme
+    // tablosu test tenant'ında BOŞ ("No evaluations found") → diğer veri boyutları dürüst N/A.
+    // Stil: @i18n/@a11y/@layout/@clean/@deeplink/@keyboard (New Evaluation dialog)/@errorpath/@data.
+    id: 'supervisor-coaching',
+    surfaceIds: ['supervisor-coaching'],
+    specFiles: [
+      'supervisor-coaching.authed.spec.js',
+      'supervisor-coaching-interactions.authed.spec.js',
+    ],
+    archetype: {
+      hasData: true,
+      hasCharts: false,
+      hasNumericKpis: true,
+      hasDialogs: true,
+      hasTabs: true,
+      hasExport: false,
+      hasWrites: true,
+      hasStableUI: false,
+    },
+    naStyles: {
+      '@visual': 'İstatistik döşemeleri + tablo canlı/tenant-bağlı → kararlı snapshot bölgesi yok.',
+      '@mutation': 'New Evaluation kalıcı kayıt oluşturur → L3 staging; prod read-only\'de L1 (dialog aç + Cancel/route-yakala, gönderilmez).',
+    },
+    naInteraction: {
+      'table-list': 'Değerlendirme tablosu test tenant\'ında boş ("No evaluations found") → dolu-satır garanti değil (anti-loop #3).',
+      'search-filter': 'Boş listede aranacak satır yok; "Search by agent" daraltması gözlemlenemiyor (read-only, veri yok).',
+      'empty-state': 'Boş-durum doğal (native "No evaluations found"); aramayla-tetiklenen boş-durum yüzeyi yok.',
+      'pagination-sort': 'Boş liste → pager/sıralama yüzeyi gözlenmedi.',
+      'loading-state': 'Ayrı deterministik liste-yükleme iskeleti gözlenmedi.',
+    },
+  },
 ]);
 
 /**

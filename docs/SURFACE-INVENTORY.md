@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 92
-- **Kapsam sözleşmesi olan:** 60 · **NO_COVERAGE_CONTRACT:** 23
+- **Kapsam sözleşmesi olan:** 61 · **NO_COVERAGE_CONTRACT:** 22
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (462 gözlem)
+- **Uzlaştırılan kaynak:** 8 (464 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -119,7 +119,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | supervisor-agents | /supervisor/agents | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor-ai-rate-suggestions | /supervisor/ai-rate-suggestions | supervisor | static | conditional | secondary | readonly-blocked | blocked | — | BLOCKED |
 | supervisor-calls | /supervisor/calls | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
-| supervisor-coaching | /supervisor/coaching | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| supervisor-coaching | /supervisor/coaching | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | supervisor-wallboard | /supervisor/wallboard | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
 | tickets | /tickets | tickets | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
@@ -172,7 +172,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | reports | /reports | reports |
 | supervisor | /supervisor | supervisor |
 | supervisor-calls | /supervisor/calls | supervisor |
-| supervisor-coaching | /supervisor/coaching | supervisor |
 | supervisor-interactions | /supervisor/interactions | supervisor |
 | supervisor-wallboard | /supervisor/wallboard | supervisor |
 | voice-live | /voice/live | voice |

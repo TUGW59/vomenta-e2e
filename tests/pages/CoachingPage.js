@@ -39,6 +39,25 @@ export class CoachingPage extends BasePage {
     return this.page.getByRole('tab', { name, exact: true });
   }
 
+  /** @ix-tabs — hidrasyon yarışına karşı retry'lı sekme seçimi (aria-selected'e kadar). */
+  async selectTab(name) {
+    const t = this.tab(name);
+    await expect(async () => {
+      await t.click();
+      await expect(t).toHaveAttribute('aria-selected', 'true', { timeout: 2000 });
+    }).toPass({ timeout: 15000 });
+  }
+
+  /** @ix-table — değerlendirme tablosu (test tenant'ında satır boş olabilir). SALT-OKUNUR. */
+  get table() {
+    return this.page.getByRole('table').first();
+  }
+
+  /** Tablo GÖVDE satırları = hücre içeren satırlar. SALT-OKUNUR. */
+  get rows() {
+    return this.page.getByRole('row').filter({ has: this.page.getByRole('cell') });
+  }
+
   /** "New Evaluation" diyaloğunu açar. */
   async openNewEvaluation() {
     await this.newEvalButton.click();

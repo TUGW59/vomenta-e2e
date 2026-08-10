@@ -93,13 +93,13 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 67,
-    "l2Complete": 36,
+    "l2StyleContractMet": 68,
+    "l2Complete": 37,
     "l2Partial": 31,
-    "l2NotCovered": 25,
-    "interactionUnverifiedRoutes": 32,
-    "l3Blocked": 50,
-    "l3NotApplicable": 42,
+    "l2NotCovered": 24,
+    "interactionUnverifiedRoutes": 31,
+    "l3Blocked": 51,
+    "l3NotApplicable": 41,
     "l3Proven": 0,
     "l4Blocked": 92,
     "l4Proven": 0,
@@ -107,15 +107,15 @@
     "l5Proven": 0,
     "highestLevel": {
       "L0": 9,
-      "L1": 16,
+      "L1": 15,
       "L2_STYLE": 31,
-      "L2_DEEP": 36
+      "L2_DEEP": 37
     },
     "routesWithFindings": 34,
     "openFindingsOnRoutes": 59,
     "blockReasons": {
       "L3": {
-        "STAGING_REQUIRED": 50
+        "STAGING_REQUIRED": 51
       },
       "L4": {
         "ROLE_ACCOUNTS_REQUIRED": 92

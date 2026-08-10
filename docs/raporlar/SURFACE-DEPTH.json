@@ -9,7 +9,7 @@
   },
   "inventory": {
     "registeredRoutes": 92,
-    "testedPagesContracts": 52,
+    "testedPagesContracts": 53,
     "knownBugs": {
       "total": 62,
       "open": 61,
@@ -21,21 +21,21 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 67,
-    "l2StyleGap": 25,
-    "l2Complete": 36,
+    "l2StyleContractMet": 68,
+    "l2StyleGap": 24,
+    "l2Complete": 37,
     "l2Partial": 31,
-    "l2NotCovered": 25,
-    "interactionUnverifiedRoutes": 32,
-    "l3Blocked": 50,
-    "l3NotApplicable": 42,
+    "l2NotCovered": 24,
+    "interactionUnverifiedRoutes": 31,
+    "l3Blocked": 51,
+    "l3NotApplicable": 41,
     "l4Blocked": 92,
     "l5Blocked": 92,
     "highestLevel": {
       "L0": 9,
-      "L1": 16,
+      "L1": 15,
       "L2_STYLE": 31,
-      "L2_DEEP": 36
+      "L2_DEEP": 37
     },
     "routesWithFindings": 34,
     "openFindingsOnRoutes": 59
@@ -9977,8 +9977,10 @@
     {
       "route": "/supervisor/coaching",
       "heading": null,
-      "contracts": [],
-      "highestProvenLevel": "L1",
+      "contracts": [
+        "supervisor-coaching"
+      ],
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -9987,54 +9989,56 @@
           "specFiles": []
         },
         "L2": {
-          "status": "NOT_COVERED",
+          "status": "COMPLETE",
           "style": {
-            "contractMet": false,
+            "contractMet": true,
             "requiredDimensions": [
               "i18n",
               "a11y",
               "layout",
               "clean",
-              "deeplink"
+              "deeplink",
+              "keyboard",
+              "errorpath",
+              "data"
             ],
-            "coveredOrExempt": 0,
-            "requiredCount": 5,
-            "gaps": 5,
+            "coveredOrExempt": 8,
+            "requiredCount": 8,
+            "gaps": 0,
             "dimensions": {
               "i18n": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "a11y": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "layout": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "clean": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "deeplink": {
-                "status": "NOT_COVERED",
+                "status": "COVERED",
                 "required": true
               },
               "keyboard": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "errorpath": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "visual": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "İstatistik döşemeleri + tablo canlı/tenant-bağlı → kararlı snapshot bölgesi yok."
               },
               "perf": {
                 "status": "NOT_APPLICABLE",
@@ -10042,9 +10046,8 @@
                 "reasonCode": "ARCHETYPE_NOT_DECLARED"
               },
               "data": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "export": {
                 "status": "NOT_APPLICABLE",
@@ -10054,50 +10057,50 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
-              "tabs",
-              "search-filter",
-              "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "tabs"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
-            "presentSignals": [],
+            "applicableCount": 1,
+            "coveredCount": 1,
+            "surfaceArchetype": true,
+            "presentSignals": [
+              "ix-tabs"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
         },
         "L3": {
-          "status": "NOT_APPLICABLE",
-          "reasonCode": "NO_WRITE_SURFACE"
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
         },
         "L4": {
           "status": "BLOCKED",

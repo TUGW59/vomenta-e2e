@@ -7,9 +7,9 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 
 ## Özet
 
-- **Listelenen test:** 1324 / 145 dosya
-- **coverageStatus:** verified 0 · partial 1266 · generic 9 · blocked 49
-- **executionStatus:** executed 0 · listed-only 1275 · skipped 0 · fixme 49
+- **Listelenen test:** 1332 / 146 dosya
+- **coverageStatus:** verified 0 · partial 1274 · generic 9 · blocked 49
+- **executionStatus:** executed 0 · listed-only 1283 · skipped 0 · fixme 49
 > `executed`/`verified` = 0: bu üreteç testleri çalıştırmaz; gerçek koşum WP-R2 dışıdır.
 
 ## Alan × kapsam özeti
@@ -29,7 +29,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | reports | 91 | 91 | 0 | 0 |
 | settings | 360 | 343 | 0 | 17 |
 | shell | 21 | 21 | 0 | 0 |
-| supervisor | 98 | 88 | 0 | 10 |
+| supervisor | 106 | 96 | 0 | 10 |
 | tickets | 20 | 20 | 0 | 0 |
 | voice | 148 | 145 | 0 | 3 |
 | workforce | 109 | 107 | 0 | 2 |
@@ -1559,6 +1559,12 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | ajan detay çekmecesi odak tuzağı + Escape ile kapanma | @keyboard | — | listed-only | partial | medium | list-exec |
 | /supervisor/agents doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
 
+### `supervisor-coaching-interactions.authed.spec.js` — _supervisor_
+
+| test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
+|---|---|---|---|---|---|---|
+| sekmeler tek-seçim dışlayıcı (aria-selected) | @ix-tabs | — | listed-only | partial | medium | list-exec |
+
 ### `supervisor-coaching.authed.spec.js` — _supervisor_
 
 | test | etiket | evidenceLevel | executionStatus | coverageStatus | confidence | provenance |
@@ -1567,16 +1573,23 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | istatistik döşemeleri görünüyor |  | — | listed-only | partial | medium | list-exec |
 | tablo kolonları + sekmeler görünüyor | @critical | — | listed-only | partial | medium | list-exec |
 | kontroller mevcut (arama / New Evaluation) + boş-durum |  | — | listed-only | partial | medium | list-exec |
-| [en] başlık + yön + sekmeler + New Evaluation çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [tr] başlık + yön + sekmeler + New Evaluation çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [fr] başlık + yön + sekmeler + New Evaluation çevrili | @regression | — | listed-only | partial | medium | list-exec |
-| [ar] başlık + yön + sekmeler + New Evaluation çevrili | @regression | — | listed-only | partial | medium | list-exec |
+| [en] başlık + yön + sekmeler + New Evaluation çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [tr] başlık + yön + sekmeler + New Evaluation çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [fr] başlık + yön + sekmeler + New Evaluation çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
+| [ar] başlık + yön + sekmeler + New Evaluation çevrili | @i18n @regression | — | listed-only | partial | medium | list-exec |
 | L1 tıklama OK: "Pending Review" sekmesi seçili duruma geçiyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: arama kutusuna yazılabiliyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L1 tıklama OK: diyalog form alanlarıyla açılıyor | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | L3 görev OK: kriter puanları Overall Score'u yükseltiyor | @regression | L3 | listed-only | partial | medium | list-exec+title-inferred |
 | L2 arka plan OK: dolu form doğru DTO ile evaluations ucuna POST ediyor | @regression | L2 | listed-only | partial | medium | list-exec+title-inferred |
 | L3: değerlendirme gönderimi kalıcı kayıt oluşturur (staging mutasyon) | @regression | L3 | fixme | blocked | low | list-exec+title-inferred |
+| sayfada ciddi/kritik a11y ihlali yok | @a11y | — | listed-only | partial | medium | list-exec |
+| mobil/tablet/masaüstünde sayfa yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
+| sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
+| /supervisor/coaching doğrudan açılınca yükleniyor (login'e düşmüyor) | @deeplink | — | listed-only | partial | medium | list-exec |
+| New Evaluation dialogu odak tuzağı + Escape ile kapanma (GÖNDERİLMEZ) | @keyboard | — | listed-only | partial | medium | list-exec |
+| evaluations ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor) | @errorpath | — | listed-only | partial | medium | list-exec |
+| istatistik döşemesi (Total Evaluations) API-bağlı bir DEĞER gösteriyor | @data | — | listed-only | partial | medium | list-exec |
 
 ### `supervisor-interactions.authed.spec.js` — _supervisor_
 
