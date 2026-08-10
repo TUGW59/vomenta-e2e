@@ -21,7 +21,7 @@
   wallboard → dedicated **L2·style (resolved-exempt)** (boş-tenant canlı sayfalar).
 - **Yeni bulgular** (dürüstçe kaydedildi, gizlenmedi): `TICKETS-TABS-ARIA`, `WALLBOARD-A11Y-LABEL`
   (ikisi de axe critical a11y); `findings-ratchet-baseline` görünür yükseltildi (60 → 62).
-- Kalan `style-backlog.js` 12 girdisi (aşağıdaki madde) — hepsi canlı i18n keşfi / yeni POM ister.
+- Kalan `style-backlog.js` **11** girdisi (aşağıdaki madde) — hepsi canlı i18n keşfi / yeni POM ister.
 - **Doğrulama ile teyit edilenler (varsayım değil):**
   - `report:drift:check` → exit 0 (committed raporlar kontratlarla senkron; **drift yok**)
   - `npm run quality:check` → exit 0 (~40 self-check + yeni yutulan-assertion kapısı)
@@ -99,12 +99,12 @@
 Aşağıdakiler E2E reposunda ALTYAPI olarak hazır; yalnız dış bağımlılık (credential / staging /
 provider) gelince tamamlanabilir. Hepsi ratchet/self-check ile GÖRÜNÜR tutuluyor — kör-CI grind yok.
 
-- **Authed etkileşim kapsamı — L2·deep dedicated backlog TAMAMLANDI (pending=0), L2·style backlog 12 PENDING.**
+- **Authed etkileşim kapsamı — L2·deep dedicated backlog TAMAMLANDI (pending=0), L2·style backlog 11 PENDING.**
   L2·deep sayısı 27 → **38** yükseldi (dedicated derinleştirme dalgaları: supervisor/agents + voice/* +
   contacts + tickets + campaigns/outbound + supervisor/coaching + ai/usage; ayrıca interactions/calls/
   wallboard resolved-exempt L2·style'a çıkarıldı). `depth-backlog.js` (defer hariç) **boş**.
-  Kalan `style-backlog.js` 12 girdisi (ai/* 7 + campaigns/create + contacts/import·segments + voice/live +
-  wallboard) çoğunlukla **canlı i18n keşfi veya yeni POM** ister; boş-tenant/grafik oldukları için
+  Kalan `style-backlog.js` 11 girdisi (ai/* 7 + campaigns/create + contacts/import·segments + voice/live)
+  çoğunlukla **canlı i18n keşfi veya yeni POM** ister; boş-tenant/grafik oldukları için
   yalnız STİL sözleşmesine (resolved-exempt) uygun, derin değil. `quality:depth`/`quality:style-ratchet`
   ile GÖRÜNÜR. Greenfield authoring **koşabilir authed ortam** ister (yerel `.env` test hesabı VEYA staging).
   (Kör authoring = kanıtsız kontrat = tam da bu denetimin yasakladığı false-green.)
