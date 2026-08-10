@@ -9,21 +9,21 @@
     "playwright.config.js (grepInvert:/@mutation/)"
   ],
   "counts": {
-    "totalSpecs": 149,
-    "productionSafeReadOnly": 113,
+    "totalSpecs": 150,
+    "productionSafeReadOnly": 114,
     "mutationExcluded": 36,
     "externalCostExcluded": 0,
     "stagingRequired": 36,
     "byEffect": {
-      "read-only": 113,
+      "read-only": 114,
       "mutation": 36
     },
     "byAuth": {
-      "authenticated": 148,
+      "authenticated": 149,
       "public": 1
     },
     "byEnvironment": {
-      "both": 113,
+      "both": 114,
       "staging": 36
     }
   },
@@ -53,7 +53,7 @@
       "grep": "@critical",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -83,6 +83,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -177,7 +178,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -207,6 +208,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -301,7 +303,7 @@
       "grep": "@known-bug",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -331,6 +333,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -426,7 +429,7 @@
       "grep": null,
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -456,6 +459,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -550,7 +554,7 @@
       "grep": "@a11y",
       "environment": "production",
       "policyGated": false,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -580,6 +584,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -674,7 +679,7 @@
       "grep": "@visual",
       "environment": "production",
       "policyGated": true,
-      "selectedSpecFileCount": 110,
+      "selectedSpecFileCount": 111,
       "selectedSpecFiles": [
         "tests/a11y.authed.spec.js",
         "tests/ai-subroutes.authed.spec.js",
@@ -704,6 +709,7 @@
         "tests/known-bugs.authed.spec.js",
         "tests/logout.authed.spec.js",
         "tests/mutation-orphans.authed.spec.js",
+        "tests/nav-reachability.authed.spec.js",
         "tests/navigation.authed.spec.js",
         "tests/pages.authed.spec.js",
         "tests/quality-baseline.authed.spec.js",
@@ -1769,6 +1775,30 @@
       "timeoutClass": "default",
       "artifactClass": "sanitized-bundle",
       "lifecycleMode": "read-only",
+      "owningPackage": "vomenta-e2e",
+      "exclusionReason": null
+    },
+    {
+      "id": "tests/nav-reachability.authed.spec.js",
+      "pathPattern": "tests/nav-reachability.authed.spec.js",
+      "kind": "authed",
+      "effect": "read-only",
+      "auth": "authenticated",
+      "authRole": "default",
+      "environment": "both",
+      "projects": [
+        "chromium-authed",
+        "firefox-authed",
+        "webkit-authed"
+      ],
+      "surface": "other",
+      "routes": [],
+      "capabilities": [
+        "auth:default"
+      ],
+      "timeoutClass": "default",
+      "artifactClass": "sanitized-bundle",
+      "lifecycleMode": null,
       "owningPackage": "vomenta-e2e",
       "exclusionReason": null
     },
