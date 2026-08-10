@@ -3644,7 +3644,9 @@
         "webkit-authed"
       ],
       "surface": "supervisor",
-      "routes": [],
+      "routes": [
+        "/supervisor/wallboard"
+      ],
       "capabilities": [
         "auth:default"
       ],

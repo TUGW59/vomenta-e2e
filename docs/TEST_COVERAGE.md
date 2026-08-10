@@ -8,9 +8,9 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 
 ## Özet
 
-- **Test edilen senaryo:** 1289
+- **Test edilen senaryo:** 1294
 - **Test dosyası:** 111
-- **Etiketler:** `@a11y` 73 · `@clean)` 7 · `@clean` 60 · `@critical` 73 · `@data` 31 · `@deeplink` 58 · `@errorpath` 56 · `@export` 6 · `@i18n` 250 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 17 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 78 · `@layout` 66 · `@perf` 2 · `@public` 2 · `@regression` 404 · `@route-baseline` 83 · `@security` 4 · `@smoke` 193 · `@visual` 21
+- **Etiketler:** `@a11y` 74 · `@clean)` 7 · `@clean` 61 · `@critical` 73 · `@data` 31 · `@deeplink` 59 · `@errorpath` 57 · `@export` 6 · `@i18n` 254 · `@ix-empty` 8 · `@ix-filter` 5 · `@ix-table` 17 · `@ix-tabs` 22 · `@keyboard` 41 · `@known-bug` 79 · `@layout` 67 · `@perf` 2 · `@public` 2 · `@regression` 404 · `@route-baseline` 83 · `@security` 4 · `@smoke` 193 · `@visual` 21
 - **Bilerek test edilmeyen (güvenlik):** 7
 - **Yapılacak (güvenli, henüz kapsanmadı):** 2
 
@@ -1267,10 +1267,10 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - kontrol çubuğu düğmeleri mevcut (Refresh All / Auto-scroll / Save layout / TV mode / tema)
 - dört kuyruk kartı listeleniyor  `@critical`
 - alt metrik kartları mevcut (ASA / Queued / Volume / SLA)
-- [en] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
-- [tr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
-- [fr] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
-- [ar] başlık + yön + tema/kontrol etiketleri çevrili  `@regression`
+- [en] başlık + yön + tema/kontrol etiketleri çevrili  `@i18n` `@regression`
+- [tr] başlık + yön + tema/kontrol etiketleri çevrili  `@i18n` `@regression`
+- [fr] başlık + yön + tema/kontrol etiketleri çevrili  `@i18n` `@regression`
+- [ar] başlık + yön + tema/kontrol etiketleri çevrili  `@i18n` `@regression`
 - L1 tıklama OK: tıklayınca "refreshed" bildirimi çıkıyor  `@regression`
 - L2 arka plan OK: dashboard verisini API'den çekiyor  `@regression` `@critical`
 - L3 görev OK: gösterilen son-güncelleme saati yerel saat olmalı (UTC değil) [BULGU 4]  `@regression`
@@ -1286,6 +1286,11 @@ Bu belge, Vomenta arayüzünde **hangi tuşların/özelliklerin otomatik testler
 - i18n: Türkçe'de menü eylemleri çevrili (Resume queue hariç)  `@regression`
 - BULGU 5: "Resume queue" Türkçe menüde çevrilmeli  `@regression`
 - BULGU 2: "Refresh All"/"Auto-scroll" Türkçe arayüzde çevrilmeli  `@regression` `@known-bug`
+- WALLBOARD-A11Y-LABEL · /supervisor/wallboard · kontroller erişilebilir etiket taşımalı (label)  `@a11y` `@known-bug`
+- mobil/tablet/masaüstünde sayfa yatayda taşmıyor  `@layout`
+- sayfa yüklenirken console/ağ hatası yok (allowlist dışı)  `@clean`
+- /supervisor/wallboard doğrudan açılınca yükleniyor (login'e düşmüyor)  `@deeplink`
+- dashboard ucu 500 dönerse kabuk sağlam kalıyor (login'e düşmüyor)  `@errorpath`
 
 ### `tickets-interactions.authed.spec.js`
 

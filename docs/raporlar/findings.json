@@ -1,20 +1,20 @@
 {
   "note": "OTOMATİK ÜRETİLİR (npm run report:findings). Kaynak: tests/contracts/known-bugs.js. Elle düzenlemeyin.",
-  "total": 62,
+  "total": 63,
   "summary": {
     "byStatus": {
-      "open": 61,
+      "open": 62,
       "closed": 1
     },
     "byGuard": {
-      "knownBugGuard": 60,
+      "knownBugGuard": 61,
       "fixme": 1,
       "permanent": 1
     },
     "bySeverity": {
       "critical": 1,
       "high": 9,
-      "medium": 45,
+      "medium": 46,
       "low": 7
     },
     "byArea": {
@@ -28,14 +28,14 @@
       "navigation": 1,
       "dashboard": 2,
       "reports": 4,
-      "supervisor": 6,
+      "supervisor": 7,
       "contacts": 2,
       "workforce": 5,
       "tickets": 1
     }
   },
   "classification": {
-    "product": 62,
+    "product": 63,
     "infra": 0,
     "infraIds": []
   },
@@ -1191,6 +1191,43 @@
         "title": "BULGU 5: \"Resume queue\" Türkçe menüde çevrilmeli"
       },
       "owner": null,
+      "issueRef": null
+    },
+    {
+      "id": "WALLBOARD-A11Y-LABEL",
+      "title": "/supervisor/wallboard kontrol(ler)i erişilebilir etiket taşımıyor (axe label critical)",
+      "area": "supervisor",
+      "route": "/supervisor/wallboard",
+      "severity": "medium",
+      "status": "open",
+      "guard": "knownBugGuard",
+      "opened": "2026-08-10",
+      "lastVerified": "2026-08-10",
+      "expiry": null,
+      "repro": [
+        "/supervisor/wallboard aç",
+        "axe (wcag2a/2aa) ile tara",
+        "label (critical) ihlalini oku"
+      ],
+      "expected": "Tüm form kontrolleri (tema seçici vb.) erişilebilir etikete sahip (axe label ihlali yok)",
+      "actual": "axe \"label\" (critical) ihlali: bir kontrol (tema/filtre seçici) <label>/aria-label taşımıyor (voice-history VOICE-HISTORY-A11Y-LABEL ile aynı sistemik sınıf).",
+      "technicalEvidence": [
+        "10 Ağu 2026 canlı (app.vomenta.com): /supervisor/wallboard axe critical \"label\" ihlali; kontrol çubuğunda etiketsiz form kontrolü."
+      ],
+      "possibleCauses": [
+        "Kontrol (Select/combobox) görsel etiketle ilişkilendirilmemiş (htmlFor/id veya aria-label eksik)"
+      ],
+      "rootCauseCandidate": null,
+      "rootCause": null,
+      "suggestedFixes": [
+        "Frontend: kontrol çubuğu form kontrollerine <label htmlFor> veya aria-label ekle"
+      ],
+      "evidence": [],
+      "test": {
+        "file": "tests/supervisor-wallboard.authed.spec.js",
+        "title": "WALLBOARD-A11Y-LABEL · /supervisor/wallboard · kontroller erişilebilir etiket taşımalı (label)"
+      },
+      "owner": "quality-guild",
       "issueRef": null
     },
     {

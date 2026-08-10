@@ -25,7 +25,7 @@
         "name": "Bilinen bulgu toplamı",
         "values": {
           "runtimeSnapshot": 61,
-          "findingsRegistry": 62
+          "findingsRegistry": 63
         },
         "agree": false,
         "note": "Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır."
@@ -34,7 +34,7 @@
         "name": "Açık bulgu",
         "values": {
           "runtimeSnapshot": 60,
-          "findingsRegistry": 61
+          "findingsRegistry": 62
         },
         "agree": false,
         "note": "Açık bulgu sayısı kaynaklar arası farklı."
@@ -42,8 +42,8 @@
     ],
     "warnings": [
       "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
-      "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
-      "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.",
+      "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=63). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+      "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=62). Açık bulgu sayısı kaynaklar arası farklı.",
       "Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
     ]
   },
@@ -93,11 +93,11 @@
     "registeredRoutes": 92,
     "l1Proven": 83,
     "l1NotProven": 9,
-    "l2StyleContractMet": 71,
+    "l2StyleContractMet": 72,
     "l2Complete": 38,
-    "l2Partial": 33,
-    "l2NotCovered": 21,
-    "interactionUnverifiedRoutes": 28,
+    "l2Partial": 34,
+    "l2NotCovered": 20,
+    "interactionUnverifiedRoutes": 27,
     "l3Blocked": 51,
     "l3NotApplicable": 41,
     "l3Proven": 0,
@@ -107,12 +107,12 @@
     "l5Proven": 0,
     "highestLevel": {
       "L0": 9,
-      "L1": 12,
-      "L2_STYLE": 33,
+      "L1": 11,
+      "L2_STYLE": 34,
       "L2_DEEP": 38
     },
     "routesWithFindings": 34,
-    "openFindingsOnRoutes": 59,
+    "openFindingsOnRoutes": 60,
     "blockReasons": {
       "L3": {
         "STAGING_REQUIRED": 51
@@ -126,9 +126,9 @@
     }
   },
   "findingsSummary": {
-    "total": 62,
+    "total": 63,
     "byStatus": {
-      "open": 61,
+      "open": 62,
       "closed": 1,
       "fixedCandidate": 0,
       "other": 0
@@ -136,14 +136,14 @@
     "bySeverity": {
       "critical": 1,
       "high": 9,
-      "medium": 45,
+      "medium": 46,
       "low": 7,
       "other": 0
     },
     "openBySeverity": {
       "critical": 1,
       "high": 8,
-      "medium": 45,
+      "medium": 46,
       "low": 7,
       "other": 0
     }
@@ -363,8 +363,8 @@
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
       "route": "/supervisor/wallboard",
       "rank": 2,
-      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L1 — davranış/etkileşim (L2-deep+) doğrulanmadı.",
-      "highestProvenLevel": "L1"
+      "detail": "Açık bulgu var ve en yüksek kanıt seviyesi L2_STYLE — davranış/etkileşim (L2-deep+) doğrulanmadı.",
+      "highestProvenLevel": "L2_STYLE"
     },
     {
       "kind": "FINDINGS_BEHAVIOR_UNVERIFIED",
@@ -390,6 +390,15 @@
   ],
   "topFindingPages": [
     {
+      "route": "/supervisor/wallboard",
+      "openCount": 6,
+      "severities": {
+        "medium": 5,
+        "low": 1
+      },
+      "worst": "medium"
+    },
+    {
       "route": "/settings",
       "openCount": 5,
       "severities": {
@@ -397,15 +406,6 @@
         "medium": 2
       },
       "worst": "high"
-    },
-    {
-      "route": "/supervisor/wallboard",
-      "openCount": 5,
-      "severities": {
-        "medium": 4,
-        "low": 1
-      },
-      "worst": "medium"
     },
     {
       "route": "/voice/regulatory",
@@ -750,8 +750,8 @@
   },
   "warnings": [
     "Kayıtlı rota sayısı: kaynaklar uyuşmuyor (runtime=87, depth=92). İki snapshot farklı registry durumundan üretilmiş olabilir; runtime bölümü kendi sayısını, depth bölümü kendi sayısını kullanır.",
-    "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=62). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
-    "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=61). Açık bulgu sayısı kaynaklar arası farklı.",
+    "Bilinen bulgu toplamı: kaynaklar uyuşmuyor (runtimeSnapshot=61, findingsRegistry=63). Runtime snapshot bulgu sayısı ile canlı findings registry farklı → runtime snapshot bayat olabilir. Bulgu bölümü registry'yi kaynak alır.",
+    "Açık bulgu: kaynaklar uyuşmuyor (runtimeSnapshot=60, findingsRegistry=62). Açık bulgu sayısı kaynaklar arası farklı.",
     "Runtime snapshot provenance = STALE (sha-mismatch). Bu sonuçlar TAZE, doğrulanmış bir Playwright koşumunu KANITLAMAZ."
   ]
 }

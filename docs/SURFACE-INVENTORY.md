@@ -12,10 +12,10 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 ## Özet
 
 - **Kayıtlı yüzey:** 92
-- **Kapsam sözleşmesi olan:** 64 · **NO_COVERAGE_CONTRACT:** 19
+- **Kapsam sözleşmesi olan:** 65 · **NO_COVERAGE_CONTRACT:** 18
 - **Dynamic:** 2 · **BLOCKED (fixture/rol/staging):** 9 · **REDIRECT:** 0 · **DEPRECATED:** 0
 - **Observed-but-unregistered:** 0 · **Ambiguous:** 0 · **Held (PR-only/unverified):** 3
-- **Uzlaştırılan kaynak:** 8 (470 gözlem)
+- **Uzlaştırılan kaynak:** 8 (473 gözlem)
 
 ### Alan (area) dağılımı
 
@@ -121,7 +121,7 @@ kapsamı KARIŞTIRILMAZ (o ayrım TEST_STYLE_MATRIX / SURFACE-DEPTH / SAYFA-TEST
 | supervisor-calls | /supervisor/calls | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor-coaching | /supervisor/coaching | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | supervisor-interactions | /supervisor/interactions | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
-| supervisor-wallboard | /supervisor/wallboard | supervisor | static | active | secondary | readonly-baseline | runnable | — | NO_COVERAGE_CONTRACT |
+| supervisor-wallboard | /supervisor/wallboard | supervisor | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | tickets | /tickets | tickets | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | voice | /voice | voice | static | active | main | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
 | voice-dids | /voice/dids | voice | static | active | secondary | readonly-baseline | runnable | ✔ | COVERED_CONTRACT |
@@ -170,7 +170,6 @@ görünür (baseline smoke'u alır, matriste `NO_COVERAGE_CONTRACT`). Dedicated 
 | inbox | /inbox | inbox |
 | reports | /reports | reports |
 | supervisor | /supervisor | supervisor |
-| supervisor-wallboard | /supervisor/wallboard | supervisor |
 | voice-live | /voice/live | voice |
 
 ## 4. Dynamic / BLOCKED (reason-code'lu; sahte PASS üretmez)
