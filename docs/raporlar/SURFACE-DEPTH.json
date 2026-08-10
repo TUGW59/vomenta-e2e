@@ -9,10 +9,10 @@
   },
   "inventory": {
     "registeredRoutes": 92,
-    "testedPagesContracts": 50,
+    "testedPagesContracts": 51,
     "knownBugs": {
-      "total": 61,
-      "open": 60,
+      "total": 62,
+      "open": 61,
       "fixedCandidate": 0,
       "closed": 1
     }
@@ -23,22 +23,22 @@
     "l1NotProven": 9,
     "l2StyleContractMet": 66,
     "l2StyleGap": 26,
-    "l2Complete": 34,
-    "l2Partial": 32,
+    "l2Complete": 35,
+    "l2Partial": 31,
     "l2NotCovered": 26,
-    "interactionUnverifiedRoutes": 34,
-    "l3Blocked": 48,
-    "l3NotApplicable": 44,
+    "interactionUnverifiedRoutes": 33,
+    "l3Blocked": 49,
+    "l3NotApplicable": 43,
     "l4Blocked": 92,
     "l5Blocked": 92,
     "highestLevel": {
       "L0": 9,
       "L1": 17,
-      "L2_STYLE": 32,
-      "L2_DEEP": 34
+      "L2_STYLE": 31,
+      "L2_DEEP": 35
     },
-    "routesWithFindings": 33,
-    "openFindingsOnRoutes": 58
+    "routesWithFindings": 34,
+    "openFindingsOnRoutes": 59
   },
   "pages": [
     {
@@ -10537,9 +10537,10 @@
       "route": "/tickets",
       "heading": "Tickets",
       "contracts": [
-        "main-navigation"
+        "main-navigation",
+        "tickets"
       ],
-      "highestProvenLevel": "L2_STYLE",
+      "highestProvenLevel": "L2_DEEP",
       "levels": {
         "L1": {
           "status": "PROVEN",
@@ -10550,7 +10551,7 @@
           ]
         },
         "L2": {
-          "status": "PARTIAL",
+          "status": "COMPLETE",
           "style": {
             "contractMet": true,
             "requiredDimensions": [
@@ -10558,10 +10559,12 @@
               "a11y",
               "layout",
               "clean",
-              "deeplink"
+              "deeplink",
+              "keyboard",
+              "errorpath"
             ],
-            "coveredOrExempt": 5,
-            "requiredCount": 5,
+            "coveredOrExempt": 7,
+            "requiredCount": 7,
             "gaps": 0,
             "dimensions": {
               "i18n": {
@@ -10585,19 +10588,18 @@
                 "required": true
               },
               "keyboard": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "errorpath": {
-                "status": "NOT_APPLICABLE",
-                "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "status": "COVERED",
+                "required": true
               },
               "visual": {
                 "status": "NOT_APPLICABLE",
                 "required": false,
-                "reasonCode": "ARCHETYPE_NOT_DECLARED"
+                "reasonCode": "DECLARED_NA",
+                "reason": "Ticket tablosu canlı veri (numara/konu/durum/tarih) → kararlı snapshot bölgesi yok."
               },
               "perf": {
                 "status": "NOT_APPLICABLE",
@@ -10617,51 +10619,59 @@
             }
           },
           "interaction": {
-            "verified": false,
+            "verified": true,
             "applicableDimensions": [
               "tabs",
               "search-filter",
               "table-list",
-              "pagination-sort",
-              "empty-state",
-              "loading-state"
+              "empty-state"
             ],
-            "applicableCount": 6,
-            "coveredCount": 0,
-            "surfaceArchetype": false,
-            "presentSignals": [],
+            "applicableCount": 4,
+            "coveredCount": 4,
+            "surfaceArchetype": true,
+            "presentSignals": [
+              "ix-empty",
+              "ix-filter",
+              "ix-table",
+              "ix-tabs"
+            ],
             "misdeclaredSignals": [],
             "dimensions": {
               "tabs": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-tabs"
               },
               "search-filter": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-filter"
               },
               "table-list": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-table"
               },
               "pagination-sort": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               },
               "empty-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "COVERED",
+                "reasonCode": "IX_SIGNAL_PRESENT",
+                "signal": "ix-empty"
               },
               "loading-state": {
-                "status": "UNVERIFIED",
-                "reasonCode": "NO_MACHINE_SIGNAL"
+                "status": "NOT_APPLICABLE",
+                "reasonCode": "DECLARED_NA"
               }
             }
           }
         },
         "L3": {
-          "status": "NOT_APPLICABLE",
-          "reasonCode": "NO_WRITE_SURFACE"
+          "status": "BLOCKED",
+          "reasonCode": "STAGING_REQUIRED",
+          "mutationSpecStatic": false
         },
         "L4": {
           "status": "BLOCKED",
@@ -10672,7 +10682,13 @@
           "reasonCode": "PROVIDER_HARNESS_REQUIRED"
         }
       },
-      "findings": []
+      "findings": [
+        {
+          "id": "TICKETS-TABS-ARIA",
+          "severity": "medium",
+          "status": "open"
+        }
+      ]
     },
     {
       "route": "/voice",
