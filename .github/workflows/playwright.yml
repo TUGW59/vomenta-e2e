@@ -790,3 +790,37 @@ jobs:
           path: test-results/secure-upload/known-bug-evidence/
           if-no-files-found: error
           retention-days: 30
+
+  # ── Rol-scoped RBAC enforcement (CI orphan çözümü / COV-01, ADR-0030) ──────────
+  # `*.{admin,supervisor,agent}.spec.js` yalnız `chromium-<role>` projesinde koşar;
+  # bu proje ancak VOMENTA_<ROLE>_EMAIL/PASSWORD tanımlıysa oluşur. Hiçbir lane bu
+  # projeleri hedeflemediğinden spec'ler CI'da HİÇ koşmuyordu. Bu job o boşluğu kapatır:
+  # tools/run-role-enforcement.mjs credential'lı rolleri DİNAMİK koşar; credential yoksa
+  # GÖRÜNÜR skip + exit 0 (fail-closed). NON-REQUIRED (schedule/dispatch) → PR'ları
+  # kilitlemez; credential secret'ları gelince otomatik gerçek koşuma döner.
+  role-enforcement:
+    name: Role-scoped RBAC enforcement
+    needs: architecture
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.suite == 'full')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      VOMENTA_ADMIN_EMAIL: ${{ secrets.VOMENTA_ADMIN_EMAIL }}
+      VOMENTA_ADMIN_PASSWORD: ${{ secrets.VOMENTA_ADMIN_PASSWORD }}
+      VOMENTA_SUPERVISOR_EMAIL: ${{ secrets.VOMENTA_SUPERVISOR_EMAIL }}
+      VOMENTA_SUPERVISOR_PASSWORD: ${{ secrets.VOMENTA_SUPERVISOR_PASSWORD }}
+      VOMENTA_AGENT_EMAIL: ${{ secrets.VOMENTA_AGENT_EMAIL }}
+      VOMENTA_AGENT_PASSWORD: ${{ secrets.VOMENTA_AGENT_PASSWORD }}
+      VOMENTA_AGENT_FORBIDDEN_ENDPOINT: ${{ vars.VOMENTA_AGENT_FORBIDDEN_ENDPOINT }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Rol-scoped enforcement (credential yoksa görünür skip; fail-closed)
+        run: node tools/run-role-enforcement.mjs

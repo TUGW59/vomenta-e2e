@@ -1647,7 +1647,7 @@ Kolonlar: `coverageStatus` (verified|partial|generic|blocked) · `evidenceLevel`
 | mobil/tablet/masaüstü + Arapça RTL yatayda taşmıyor | @layout | — | listed-only | partial | medium | list-exec |
 | sayfa yüklenirken console/ağ hatası yok (allowlist dışı) | @clean | — | listed-only | partial | medium | list-exec |
 | L1: "Details" tıklanınca dialog açılıyor; klavye ile kapanıyor | @regression @keyboard | L1 | listed-only | partial | medium | list-exec+title-inferred |
-| L1: yön filtresi combobox'u açılıp seçim yapılabiliyor; tablo sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
+| L1: yön filtresi combobox'u açılıyor; etkileşim sonrası tablo/başlık sağlam | @regression | L1 | listed-only | partial | medium | list-exec+title-inferred |
 | GET /voice/calls 500 dönse de kabuk + başlık sağlam | @errorpath | — | listed-only | partial | medium | list-exec |
 | /voice/history doğrudan açılınca yükleniyor | @deeplink | — | listed-only | partial | medium | list-exec |
 

@@ -102,13 +102,16 @@ test.describe('Arama Geçmişi — satır "Details" dialogu (salt-okunur L1 + kl
 });
 
 test.describe('Arama Geçmişi — yön filtresi (client L1) @regression', () => {
-  test('L1: yön filtresi combobox\'u açılıp seçim yapılabiliyor; tablo sağlam', async ({ app }) => {
+  test('L1: yön filtresi combobox\'u açılıyor; etkileşim sonrası tablo/başlık sağlam', async ({ app }) => {
     const h = app.voiceSub(KEY);
     await h.open();
     const filter = h.page.getByRole('combobox').first();
     await expect(filter).toBeVisible();
     await filter.click();
-    // Açılan seçenekler görünür (L1 gözlemlenebilir tepki); seçim sonrası sayfa/tablo sağlam kalır.
+    // NOT (dürüstlük): bu test yalnız "combobox açılıyor + etkileşim sonrası sayfa sağlam
+    // kalıyor" (L1) doğrular. Seçim boyutunu (seçenek görünür → seç → tablo filtreleniyor)
+    // KANITLAMAZ; başlık buna göre daraltıldı (eski "seçim yapılabiliyor" fazla iddiaydı).
+    // Güçlendirme (seçenek assert + filtre etkisi) koşabilir authed ortam/koşum-döngüsü bekler.
     const option = h.page.getByRole('option').first();
     if (await option.count()) await option.click();
     await expect(h.heading).toBeVisible();
