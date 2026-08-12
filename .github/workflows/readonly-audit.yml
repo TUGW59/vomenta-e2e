@@ -33,9 +33,12 @@ on:
           - known-bug-readonly-chromium
           - a11y-readonly
   schedule:
-    # Haftalık kontrollü audit (Pazartesi 02:30 UTC) — mevcut nightly (01:00) ile çakışmaz.
-    # Deterministik/hafif taban (route-baseline) tekrarlanabilirlik kanıtı içindir (FAZ 8).
-    - cron: '30 2 * * 1'
+    # WP-NIGHT-INFRA: eski cron '30 2 * * 1' idi (Pazartesi 02:30 UTC). Nightly
+    # ile aynı sebeple (kuyruk kayması + ~03:00–04:00 UTC prod 503 penceresi)
+    # authed route-baseline shard'ı kırmızıya düşüyordu (bkz. playwright.yml notu).
+    # Off-peak + tek dakikaya (Pazartesi 05:41 UTC) çekildi; nightly (05:19) ile
+    # çakışmaz. Deterministik/hafif taban tekrarlanabilirlik kanıtı içindir (FAZ 8).
+    - cron: '41 5 * * 1'
 
 permissions:
   contents: read
