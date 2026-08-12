@@ -1,11 +1,20 @@
 # Kanıt Hattı (Evidence Pipeline) — Fazlı Uygulama Planı
 
-> **DURUM (2026-08-06): TAMAMLANDI (FAZ 0→5).** Tüm fazlar merge edildi —
+> **DURUM (2026-08-06): FAZ 0→5 TAMAMLANDI.** Tüm fazlar merge edildi —
 > FAZ 0/1/2 + FAZ 3 (#116), FAZ 4 (#123), FAZ 5 (#125, provenance + governance +
 > infra). Hat kapalı döngü olarak çalışıyor: koşum → maskeli kanıt → `evidence-index.json`
 > → raporda tıklanabilir link → provenance + governance + infra sınıflandırma.
-> Görünür CI kanıtı, evidence lane index'i (şu an `{}`) doldurdukça gelir (dürüst
-> "Kanıt: yok" o zamana dek). Geri-kenar yok; bundan sonrası ayrı iş.
+>
+> **GÜNCELLEME (2026-08-10): "LAND" boşluğu + FAZ 1-autofill (PR #165).** Faz 0→5 index'i
+> ÜRETİYORDU ama `known-bug-evidence-index` job'ı onu YALNIZ artifact olarak yüklüyor, repoya
+> commit ETMİYORDU (`permissions: contents:read`, commit/PR adımı yok) → committed
+> `evidence-index.json` `{}` kalıyor, 59 açık bulguda "Kanıt: yok" görünüyordu. PR #165 bu son
+> boşluğu kapatır: job'a `contents/pull-requests:write` + `report:build` regen + honesty gate +
+> `bot/evidence-refresh` **auto-PR** (main'e otomatik push YOK — read-only ethos korunur) eklendi;
+> ayrıca nightly kapsam 12→tüm açık bulgular. Kanıt "Option A" (runUrl link + artifactPath etiketi;
+> maskeli PNG repoya girmez). SONRAKİ: FAZ 2 = `markForensicTarget` sweep (boxed `location.png`;
+> şu an 1/59 spec işaretli). Not: GITHUB_TOKEN ile açılan refresh PR'ının check'leri koşmayabilir
+> (maintainer re-run / PAT).
 
 > Amaç: Bug/test raporlama hattındaki **kopukluğu** kalıcı, çalışan bir sisteme
 > dönüştürmek. Bugün runtime kanıt (trace/screenshot/video + Playwright HTML raporu)
