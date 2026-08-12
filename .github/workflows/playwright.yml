@@ -741,8 +741,13 @@ jobs:
       - name: Açık bulgu listesini üret (bounded matrix kaynağı)
         id: list
         env:
-          # Boş (schedule) → varsayılan sınır (12). Manuel dispatch override edebilir.
-          EVIDENCE_MAX_FINDINGS: ${{ inputs.evidence_max_findings }}
+          # WP-EVIDENCE FAZ 1 (evidence-autofill): "all-every-night" kapsamı.
+          #  - schedule (nightly): '0' → list-open-findings TÜM açık knownBugGuard
+          #    bulgularını döndürür (max=0 ⇒ cap=ids.length; "boş sınır" DEĞİL). Böylece
+          #    gecelik kanıt döngüsü tüm bulguları kapsar (BULGULAR.md "Kanıt: yok"u kapatır).
+          #  - workflow_dispatch: kullanıcının verdiği sınır override eder; boş bırakılırsa
+          #    varsayılan (12) uygulanır (input açıklaması: "Boş → varsayılan (12)").
+          EVIDENCE_MAX_FINDINGS: ${{ inputs.evidence_max_findings || (github.event_name == 'schedule' && '0') || '' }}
         run: |
           FINDINGS="$(node tools/list-open-findings.mjs --json)"
           COUNT="$(node -e 'process.stdout.write(String(JSON.parse(process.argv[1]).length))' "${FINDINGS}")"
@@ -807,6 +812,13 @@ jobs:
     if: ${{ always() && needs.evidence-plan.outputs.count != '0' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # WP-EVIDENCE FAZ 1 (evidence-autofill): kanıt döngüsünü kapatan tek job.
+    # İş akışı düzeyi permissions `contents: read` (least-privilege); yalnız BU job
+    # bot dalına yazmak (commit/push) ve tek uzun-ömürlü PR açmak için write ister.
+    # main'e OTOMATİK PUSH YOK — mekanizma auto-PR (insan merge eder; repo auto-merge kapalı).
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -838,7 +850,7 @@ jobs:
           echo "ready=true" >> "$GITHUB_OUTPUT"
       - name: Kanıt index'i yükle (COMMIT önerisi; YALNIZ prepared bundle)
         # evidence-index.json COMMIT'lenir (ADR §4); bu artifact maintainer'ın commit'i
-        # için güvenli kopyayı taşır (schedule → main'e otomatik push YOK; read-only ethos).
+        # için güvenli kopyayı taşır (yedek/denetim izi; asıl teslim aşağıdaki auto-PR).
         if: ${{ !cancelled() && steps.prep_evidence.outputs.ready == 'true' }}
         uses: actions/upload-artifact@v4
         with:
@@ -846,6 +858,76 @@ jobs:
           path: test-results/secure-upload/known-bug-evidence/
           if-no-files-found: error
           retention-days: 30
+      # ── WP-EVIDENCE FAZ 1 (evidence-autofill) — kanıt döngüsünü KAPAT ──────────
+      # generate-evidence-index.mjs yukarıda docs/raporlar/evidence-index.json'u YAZDI.
+      # Şimdi rapor artefaktlarını AYNI index'ten yeniden üret, dürüstlük kapısından
+      # geçir, sonra tek uzun-ömürlü bot PR'ına (bot/evidence-refresh) it. main'e
+      # OTOMATİK PUSH YOK — auto-PR; insan merge eder.
+      - name: Rapor artefaktlarını index'ten yeniden üret (BULGULAR.md + findings.json)
+        # report:build = report:findings + report:test-report. Taze evidence-index.json'dan
+        # BULGULAR.md/findings.json/YAPILAN/YAPILMAYAN yeniden üretilir → rapor↔index hizalı.
+        run: npm run report:build
+      - name: Dürüstlük kapısı (rapor↔index) — PR'dan ÖNCE fail-closed
+        # set(BULGULAR.md "maskeli kanıt" işaretli) == set(index'te artifactPath'li).
+        # Kapı kırılırsa job burada kırmızı olur; bozuk kanıt PR'ı AÇILMAZ.
+        run: npm run quality:findings-evidence
+      - name: Registry değişmedi mi (otomasyon registrye YAZMAZ)
+        run: git diff --exit-code -- tests/contracts/known-bugs.js
+      - name: Kanıt dokümanlarını bot dalına it + tek uzun-ömürlü PR (idempotent)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          # Nothing-to-refresh: yalnız docs/raporlar değiştiyse devam et.
+          if git diff --quiet -- docs/raporlar; then
+            echo "Kanıt dokümanlarında değişiklik yok → commit/PR atlanıyor."
+            exit 0
+          fi
+          # Bot kimliği parçalardan kurulur (tracked dosyada düz e-posta literali yok →
+          # quality:security SEC-EMAIL kapısını gereksiz tetiklemez). noreply GitHub kimliği.
+          BOT_NAME="vomenta-evidence-bot"
+          BOT_HOST="users.noreply.github.com"
+          git config user.name "$BOT_NAME"
+          git config user.email "${BOT_NAME}@${BOT_HOST}"
+          BRANCH=bot/evidence-refresh
+          # Tek uzun-ömürlü dal: her koşumda HEAD'ten yeniden oluştur (yalnız docs commit'lenir).
+          git checkout -B "$BRANCH"
+          git add -- docs/raporlar
+          git commit -m "chore(evidence): nightly kanıt index + rapor yenilemesi" \
+            -m "Otomatik: known-bug-evidence-index (schedule). Registry DEĞİŞMEZ. Koşum: ${RUN_URL}"
+          # Force-update → tek güncel PR (her gece en son kanıtı taşır).
+          git push -f origin "$BRANCH"
+          # NOT: GITHUB_TOKEN ile açılan/güncellenen PR, PR workflow'unu TETİKLEMEZ
+          # (GitHub kısıtı: bot-token push'ları recursive workflow'u engeller). Required
+          # check'ler bu yüzden koşmayabilir; maintainer "Re-run"/boş commit ile tetikler.
+          # İleride bir EVIDENCE_PR_TOKEN PAT secret'ı bu boşluğu kapatabilir (şimdi UYDURULMAZ).
+          if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
+            echo "PR zaten açık ($BRANCH); force-push ile güncellendi."
+          else
+            PR_BODY="$(cat <<EOF
+          ## Otomatik kanıt yenilemesi (nightly)
+
+          Bu PR gecelik \`known-bug-evidence-index\` job'ı tarafından otomatik üretildi.
+          Forensik CI koşumundan derlenen \`docs/raporlar/evidence-index.json\` + ondan
+          yeniden üretilen \`BULGULAR.md\` / \`findings.json\` / YAPILAN / YAPILMAYAN
+          dokümanlarını taşır. Böylece BULGULAR.md'deki "Kanıt: yok" satırları gerçek
+          (maskeli) CI kanıt linkleriyle dolar.
+
+          - Registry (\`tests/contracts/known-bugs.js\`) **DEĞİŞMEZ** — yalnız dokümanlar.
+          - Maskeli kanıt PNG'leri commit'lenmez; bundle CI artifact olarak kalır (Option A).
+          - Rapor↔index dürüstlük kapısı (\`quality:findings-evidence\`) PR'dan önce geçti.
+
+          > Not: GITHUB_TOKEN ile açılan bu PR required check'leri tetiklemeyebilir;
+          > gerekiyorsa maintainer "Re-run" veya boş commit ile koşumu başlatır.
+
+          Kaynak koşum: ${RUN_URL}
+          EOF
+          )"
+            gh pr create --base main --head "$BRANCH" \
+              --title "chore(evidence): nightly kanıt index + rapor yenilemesi" \
+              --body "$PR_BODY"
+          fi
 
   # ── Rol-scoped RBAC enforcement (CI orphan çözümü / COV-01, ADR-0030) ──────────
   # `*.{admin,supervisor,agent}.spec.js` yalnız `chromium-<role>` projesinde koşar;
